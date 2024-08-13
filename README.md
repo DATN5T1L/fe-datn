@@ -1,7 +1,7 @@
 <h1 align="center">Hi 👋, We are Poly Page</h1>
 <h3 align="center">This is a graduation project about an online course selling website. The project is called Poly Page.</h3>
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=datn5t1l&label=Profile%20views&color=0e75b6&style=flat" alt="datn5t1l" /> </p>
+
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=datn5t1l" alt="datn5t1l" /></a> </p>
 
