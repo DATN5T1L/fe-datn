@@ -9,11 +9,7 @@
 
 - 🌱 We are currently learning **FPT Polytechnic College Ho Chi Minh City**
 
-- 👯 We are looking to collaborate on **Cloud native Projects**
-
-- 🤝 We are looking for help with **DevOps**
-
-- 💬 Ask me about **DevOps**
+- 💬 Ask me about **Poly page**
 
 - 📫 How to reach me **polypage.project@gmail.com**
 
@@ -50,7 +46,6 @@
     <img src="https://cdn.worldvectorlogo.com/logos/nextjs-2.svg" alt="nextjs" width="40" height="40"/>
   </a>
 </p>
-
 
 <p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=datn5t1l&show_icons=true&locale=en&layout=compact" alt="datn5t1l" /></p>
 
