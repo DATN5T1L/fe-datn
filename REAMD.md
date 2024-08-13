@@ -1,4 +1,4 @@
-<h1 align="center">Hi 👋, We are TTOsss </h1>
+<h1 align="center">Hi 👋, We are TTO </h1>
 <h3 align="center">This is a graduation project about an online course selling website. The project is called TTO.</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=datn5t1l&label=Profile%20views&color=0e75b6&style=flat" alt="datn5t1l" /> </p>
