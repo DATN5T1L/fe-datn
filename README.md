@@ -1,5 +1,5 @@
-<h1 align="center">Hi 👋, We are Poly Page</h1>
-<h3 align="center">This is a graduation project about an online course selling website. The project is called Poly Page.</h3>
+<h1 align="center">Hi 👋, We are TTO </h1>
+<h3 align="center">This is a graduation project about an online course selling website. The project is called TTO.</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=datn5t1l&label=Profile%20views&color=0e75b6&style=flat" alt="datn5t1l" /> </p>
 
@@ -9,7 +9,7 @@
 
 - 🌱 We are currently learning **FPT Polytechnic College Ho Chi Minh City**
 
-- 💬 Ask me about **Poly page**
+- 💬 Ask me about **TTO**
 
 - 📫 How to reach me **polypage.project@gmail.com**
 
