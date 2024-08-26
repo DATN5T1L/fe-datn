@@ -1,0 +1,269 @@
+.container {
+    width: 100%;
+    min-height: 212px;
+    border-radius: 8px;
+    padding: 16px;
+    gap: 16px;
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    width: 137px;
+    height: 32px;
+    gap: 4px;
+    display: flex;
+}
+
+.left img {
+    width: 24px;
+    height: 24px;
+}
+
+.left h3 {
+    width: 109px !important;
+    margin-bottom: 0 !important;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 32px;
+    color: rgba(35, 125, 247, 1);
+}
+
+.function {
+    width: 252px;
+    height: 24px;
+    margin-bottom: auto !important;
+    display: flex;
+}
+
+.function .element {
+    width: 84px;
+    font-size: 10px;
+    line-height: 16px;
+    font-weight: 400;
+    text-align: center;
+    position: relative;
+}
+
+.function .borderBottom {
+    color: rgba(35, 125, 247, 1);
+    border: 0;
+}
+
+.function .borderBottom::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 57px;
+    height: 2px;
+    background-color: rgba(35, 125, 247, 1);
+    transform: translateX(-50%);
+}
+
+.main {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    height: 132px;
+    padding: 0 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.content {
+    min-width: 790px;
+    display: flex;
+    gap: 50px; 
+    overflow-x: auto; 
+    scroll-behavior: smooth; 
+    scrollbar-width: none; 
+}
+
+.main > * {
+    flex-grow: 0;
+}
+
+
+.main .btnLeft {
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.main .btnRight {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.main .btnLeft,
+.btnRight {
+    width: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.btnMainLeft {
+    padding: 0;
+    margin: 0;
+    width: 24.5px;
+    height: 23.5px;
+    background-color: white;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnMainRight {
+    padding: 0;
+    margin: 0;
+    width: 24.5px;
+    height: 23.5px;
+    background-color: white;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnMainLeft:hover {
+    padding: 0;
+    margin: 0;
+    width: 24.5px;
+    height: 23.5px;
+    background-color: white;
+    border: 0;
+}
+
+.btnMainRight:hover {
+    padding: 0;
+    margin: 0;
+    width: 24.5px;
+    height: 23.5px;
+    background-color: white;
+    border: 0;
+}
+
+
+.btnMainLeft img {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.btnMainRight img {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.main .btnLeft .btnMainLeft {
+    margin-right: auto;
+}
+
+.main .btnRight .btnMainRight {
+    margin-left: auto;
+}
+
+.content{
+    width: calc(100% - 60px);
+}
+
+.box {
+    width: 100px;
+    height: 132px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wrap {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 !important;
+}
+
+.imgWrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden;  */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imgWrap::after {
+    content: '';
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: conic-gradient(from 90deg, #ffffff, #237DF7 100%, transparent 30%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #fff calc(100% - 3px + 1px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #fff calc(100% - 3px + 1px));
+    z-index: 1;
+}
+
+.imgBg {
+    border-radius: 999px;
+    display: block;
+    width: calc(100% - 3px);
+    height: calc(100% - 3px);
+    object-fit: cover;
+    position: relative;
+    z-index: 0;
+}
+
+.name {
+    position: relative;
+    width: 80px;
+    height: 24px;
+}
+
+.name p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    margin: 0 !important;
+}
+
+.name .tick {
+    width: 6px;
+    height: 6px;
+    background-color: rgba(35, 125, 247, 1);
+    position: absolute;
+    top: 0px !important;
+    right: 0px !important;
+    border-radius: 50%;
+}

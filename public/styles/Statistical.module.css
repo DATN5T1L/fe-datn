@@ -1,0 +1,71 @@
+.container {
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    width: 800px;
+    height: 100px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.contentContainer {
+    width: 768px;
+    height: 68px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.navLink {
+    width: 184.5px;
+    height: 68px;
+    padding: 10px 8px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    box-shadow: 0px 2px 4px 0px rgba(96, 97, 112, 0.16);
+    text-decoration: none;
+    color: black;
+}
+
+.blueLight {
+    background: linear-gradient(276.48deg, #FFFFFF 2.99%, #E0F7FA 99.18%);
+}
+
+.greenLight {
+    background: linear-gradient(276.48deg, #FFFFFF 2.99%, #E0F7DF 99.18%);
+}
+
+.redLight {
+    background: linear-gradient(276.48deg, #FFFFFF 2.99%, rgba(250, 218, 221, 0.67451) 99.18%);
+}
+
+.darkGreenLight {
+    background: linear-gradient(276.48deg, #FFFFFF 2.99%, #C8F6C6 99.18%);
+
+}
+
+.number {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.darkGreenNumber {
+    color: rgba(36, 161, 72, 1);
+}
+
+.blueNumber {
+    color: rgba(35, 125, 247, 1);
+}
+
+.blueLightNumber {
+    color: rgba(21, 200, 224, 1);
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
