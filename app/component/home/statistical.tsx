@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import styles from '../../public/styles/Statistical.module.css'
+import styles from '../../../public/styles/home/Statistical.module.css'
 import { Button, Nav } from 'react-bootstrap';
 import Link from 'next/link';
 

@@ -142,38 +142,55 @@
     align-items: center;
 }
 
-.btnMainLeft:hover {
+.btnMainLeft:hover,
+.btnMainLeft:active,
+.btnMainLeft:focus {
     padding: 0;
     margin: 0;
     width: 24.5px;
     height: 23.5px;
-    background-color: white;
+    background-color: rgba(67, 143, 247, 1);
     border: 0;
 }
 
-.btnMainRight:hover {
+.btnMainRight:active,
+.btnMainRight:hover,
+.btnMainRight:focus {
     padding: 0;
     margin: 0;
     width: 24.5px;
     height: 23.5px;
-    background-color: white;
+    background-color: rgba(67, 143, 247, 1);
     border: 0;
 }
 
 
-.btnMainLeft img {
+.btnMainLeft svg path {
     padding: 0;
     margin: 0;
     width: 100%;
     height: 100%;
 }
 
-.btnMainRight img {
+.btnMainLeft:active svg path,
+.btnMainLeft:hover svg path,
+.btnMainLeft:focus svg path {
+    fill: #ffffff; 
+}
+
+.btnMainRight svg path {
     padding: 0;
     margin: 0;
     width: 100%;
     height: 100%;
 }
+
+.btnMainRight:active svg path,
+.btnMainRight:hover svg path,
+.btnMainRight:focus svg path {
+    fill: #ffffff; 
+}
+
 
 .main .btnLeft .btnMainLeft {
     margin-right: auto;

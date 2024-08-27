@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import styles from '../../public/styles/Banner.module.css'
+import styles from '../../../public/styles/home/Banner.module.css'
 import {  Button } from 'react-bootstrap';
 
 const Banner: React.FC = () => {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { Container, Row, Col, Button, Spinner, Nav, Navbar, Form, NavDropdown } from 'react-bootstrap';
 import { Bell, Box, BoxArrowLeft, BoxFill, Calendar, CalendarFill, ChatFill, Coin, GearFill, HouseDoorFill, PeopleFill, Search } from 'react-bootstrap-icons';
-import Banner from './banner';
+import Banner from './home/banner';
 
 const Header: React.FC = () => {
     return (

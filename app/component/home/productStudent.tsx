@@ -1,11 +1,11 @@
 'use client'
 import Link from 'next/link';
 import React from 'react';
-import styles from '../../public/styles/News.module.css'
+import styles from '../../../public/styles/home/ProductStudent.module.css'
 import { Container, Row, Col, Button, Spinner, Nav, Navbar, Form, NavDropdown } from 'react-bootstrap';
 import { Bell, Box, BoxArrowLeft, BoxFill, Calendar, CalendarFill, ChatFill, Coin, GearFill, HouseDoorFill, PeopleFill, Search } from 'react-bootstrap-icons';
 
-const News: React.FC = () => {
+const ProductStudent: React.FC = () => {
     return (
         <>
             <section className={styles.container}>
@@ -98,4 +98,4 @@ const News: React.FC = () => {
     )
 }
 
-export default News;
+export default ProductStudent;
