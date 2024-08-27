@@ -191,20 +191,17 @@
   }
 
   .btn-slide-bar:hover .block,
-  .btn-slide-bar:active .block,
-  .btn-slide-bar:focus  .block{
+  .btn-slide-bar:active .block{
     display: none;
   }
 
   .btn-slide-bar:hover .none,
-  .btn-slide-bar:active .none,
-  .btn-slide-bar:focus .none {
+  .btn-slide-bar:active .none {
     display: block;
   }
 
   .btn-slide-bar:hover div,
-  .btn-slide-bar:active div,
-  .btn-slide-bar:focus div {
+  .btn-slide-bar:active div {
     color: white;
   }
 
