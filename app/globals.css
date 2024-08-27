@@ -181,8 +181,7 @@
     display: none;
   }
 
-  .btn-slide-bar:hover,
-  .btn-slide-bar:focus {
+  .btn-slide-bar:hover{
     background-color: rgba(35, 125, 247, 1);
   }
 
