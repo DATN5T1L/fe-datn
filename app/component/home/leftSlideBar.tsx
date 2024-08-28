@@ -54,6 +54,11 @@ const LeftSlideBar: React.FC = () => {
                         <img src='/img/careful.svg'  className='none'/>
                         <div >Hỗ trợ</div>
                     </Link>
+                    <Link href="#" className="btn-slide-bar" >
+                        <img src='/img/settingfill.svg'  className='block'/>
+                        <img src='/img/setting.svg'  className='none'/>
+                        <div >Cài đặt</div>
+                    </Link>
                 </section>
 
                 <section >

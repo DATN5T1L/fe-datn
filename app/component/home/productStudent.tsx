@@ -11,8 +11,10 @@ const ProductStudent: React.FC = () => {
             <section className={styles.container}>
                 <div className={styles.header}>
                     <div className={styles.headerLeft}>
-                        <img src="/img/Document.svg" alt="" />
-                        <h1>Tin tức</h1>
+                        <div>
+                            <img src="/img/Sidebar Code.svg" alt="" />
+                        </div>
+                        <h1>Sản phẩm học viên</h1>
                     </div>
                     <Link href={'/'} className={styles.headerRight}>
                         <h2>Xem thêm</h2>

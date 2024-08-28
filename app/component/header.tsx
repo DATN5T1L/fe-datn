@@ -15,13 +15,13 @@ const Header: React.FC = () => {
                     <Navbar.Collapse id="navbarScroll" className="navbar-custom">
                         <Form className="d-flex ms-auto me-3 search-bar">
                             <Form.Control
-                                type="search"
+                                type="text"
                                 placeholder="Tìm kiếm"
                                 className="me-2 rounded-pill"
                                 aria-label="Search"
                             />
-                            <Button variant="outline-secondary" className="rounded-pill">
-                                <Search />
+                            <Button variant="outline-secondary">
+                                <Search className='btn-search-icon'/>
                             </Button>
                         </Form>
                         <Nav

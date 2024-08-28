@@ -11,7 +11,9 @@ const News: React.FC = () => {
             <section className={styles.container}>
                 <div className={styles.header}>
                     <div className={styles.headerLeft}>
-                        <img src="/img/Document.svg" alt="" />
+                        <div>
+                            <img src="/img/Document.svg" alt="" />
+                        </div>
                         <h1>Tin tức</h1>
                     </div>
                     <Link href={'/'} className={styles.headerRight}>
