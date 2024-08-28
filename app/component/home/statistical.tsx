@@ -10,9 +10,7 @@ const Statistical: React.FC = () => {
             <section className={styles.container}>
                 <div className={styles.contentContainer}>
                     <Link href='#' className={`${styles.navLink} ${styles.blueLight}`}>
-                        <div className={styles.icon}>
-                            <img src="/img/greenBox.svg" alt="" />
-                        </div>
+                        <img src="/img/greenBox.svg" alt="" />
                         <div className={styles.content}>
                             <div className={`${styles.number} ${styles.darkGreenNumber}`}>
                                 39
@@ -23,9 +21,7 @@ const Statistical: React.FC = () => {
                         </div>
                     </Link>
                     <Link href='#' className={`${styles.navLink} ${styles.greenLight}`}>
-                        <div className={styles.icon}>
-                            <img src="/img/mess.svg" alt="" />
-                        </div>
+                        <img src="/img/mess.svg" alt="" />
                         <div className={styles.content}>
                             <div className={`${styles.number} ${styles.blueNumber}`}>
                                 12
@@ -36,9 +32,7 @@ const Statistical: React.FC = () => {
                         </div>
                     </Link>
                     <Link href='#' className={`${styles.navLink} ${styles.redLight}`}>
-                        <div className={styles.icon}>
-                            <img src="/img/electrical.svg" alt="" />
-                        </div>
+                        <img src="/img/electrical.svg" alt="" />
                         <div className={styles.content}>
                             <div className={`${styles.number} ${styles.blueLightNumber}`}>
                                 24
@@ -49,9 +43,7 @@ const Statistical: React.FC = () => {
                         </div>
                     </Link>
                     <Link href='#' className={`${styles.navLink} ${styles.darkGreenLight}`}>
-                        <div className={styles.icon}>
-                            <img src="/img/peoplegreen.svg" alt="" />
-                        </div>
+                        <img src="/img/peoplegreen.svg" alt="" />
                         <div className={styles.content}>
                             <div className={`${styles.number} ${styles.darkGreenNumber}`}>
                                 24

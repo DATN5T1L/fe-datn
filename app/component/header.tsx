@@ -1,16 +1,20 @@
 'use client'
-import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
-import { Container, Row, Col, Button, Spinner, Nav, Navbar, Form, NavDropdown } from 'react-bootstrap';
-import { Bell, Box, BoxArrowLeft, BoxFill, Calendar, CalendarFill, ChatFill, Coin, GearFill, HouseDoorFill, PeopleFill, Search } from 'react-bootstrap-icons';
-import Banner from './home/banner';
+import { Container, Button, Nav, Navbar, Form} from 'react-bootstrap';
+import { Search } from 'react-bootstrap-icons';
 
 const Header: React.FC = () => {
+    const pathname = usePathname();
+
+    const isLogin = pathname === '/login';
+    const isRegister = pathname === '/register';
+
     return (
         <>
             <Navbar expand="lg" className="bg-body-tertiary header-nav">
                 <Container fluid>
-                    <Navbar.Brand href="#"><img src="/img/logo.png" style={{width:'162px',height:'58px'}} alt="" /></Navbar.Brand>
+                    <Navbar.Brand href="#"><img src="/img/logo.png" style={{ width: '162px', height: '58px' }} alt="" /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll" className="navbar-custom">
                         <Form className="d-flex ms-auto me-3 search-bar">
@@ -21,19 +25,15 @@ const Header: React.FC = () => {
                                 aria-label="Search"
                             />
                             <Button variant="outline-secondary">
-                                <Search className='btn-search-icon'/>
+                                <Search className='btn-search-icon' />
                             </Button>
                         </Form>
                         <Nav
                             className="ms-auto my-2 my-lg-0 btn-header"
                             navbarScroll
                         >
-                            <Nav.Link href="#action1" className='navbar-link'>
-                                <Button className='btn-navbar'>Đăng Ký</Button>
-                            </Nav.Link>
-                            <Nav.Link href="#action2" className='navbar-link'>
-                                <Button className='btn-navbar'>Đăng nhập</Button>
-                            </Nav.Link>
+                            <Button className={`btn-navbar ${isRegister ? 'light-check' : ''}`}>Đăng Ký</Button>
+                            <Button className={`btn-navbar ${isLogin ? 'light-check' : ''}`}>Đăng nhập</Button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

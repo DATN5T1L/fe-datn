@@ -1,3 +1,6 @@
+  @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
   :root {
     --header-height: 58px;
     --left-body: 32px;
@@ -7,6 +10,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: "Be Vietnam Pro";
   }
 
   body {
@@ -67,6 +71,16 @@
     align-items: center;
   }
 
+  .light-check {
+    background-color: #237DF7;
+    color: white;
+  }
+
+  .light-check:hover {
+    background-color: #237DF7 !important;
+    color: white;
+  }
+
   .btn-navbar:hover {
     padding: 6px 14px;
     background-color: white;
@@ -100,8 +114,8 @@
     color: rgba(153, 153, 153, 1);
     font-size: 10px;
     line-height: 16px;
-  }  
-  
+  }
+
   .search-bar .btn {
     background: none;
     border: none;
@@ -121,7 +135,7 @@
     box-shadow: none !important;
   }
 
-  .btn-search-icon{
+  .btn-search-icon {
     width: 12px;
     height: 12px;
   }
@@ -211,17 +225,17 @@
     display: none;
   }
 
-  .btn-slide-bar:hover{
+  .btn-slide-bar:hover {
     background-color: rgba(35, 125, 247, 1);
   }
 
-  .btn-slide-bar:active{
+  .btn-slide-bar:active {
     background-color: rgb(3, 76, 179);
 
   }
 
   .btn-slide-bar:hover .block,
-  .btn-slide-bar:active .block{
+  .btn-slide-bar:active .block {
     display: none;
   }
 
@@ -356,7 +370,7 @@
   }
 
   .group-title2 {
-    width: 158px;
+    width: 162px;
     height: 32px;
     margin: 0;
     padding: 0;
@@ -369,7 +383,7 @@
   .group-title2 h4 {
     padding: 0;
     margin: 0;
-    width: 122px;
+    width: 126px;
     height: 32px;
     font-size: 24px;
     line-height: 32px;
@@ -383,7 +397,7 @@
   }
 
   .see-all-link {
-    width: 90px;
+    width: 92px;
     height: 24px;
     text-decoration: none;
     display: flex;
@@ -392,7 +406,6 @@
   }
 
   .see-all-link div {
-    width: 74px;
     height: 24px;
     font-weight: 500;
     font-size: 14px;
@@ -810,6 +823,8 @@
   }
 
   .footer-content p span {
+    font-size: 14px;
+    line-height: 24px;
     margin: 0;
     font-weight: 500;
   }
@@ -848,7 +863,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 30px;
-    font-family: 'DM Sans';
+    font-family: "DM Sans";
     color:
       rgba(111, 108, 144, 1);
   }

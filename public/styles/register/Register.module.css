@@ -1,0 +1,397 @@
+.main {
+    width: 100%;
+    height: 966px;
+    display: flex;
+    padding: 40px 32px;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    width: 50.1457%;
+    height: 886px;
+    border-radius: 16px;
+    padding: 32px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32) inset;
+}
+
+.headerRegister {
+    width: 100%;
+    height: 78px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2px;
+}
+
+.headerRegister h1 {
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    font-size: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerRegister .link {
+    width: 100%;
+    display: flex;
+    color: rgba(51, 51, 51, 1);
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    padding: 2px;
+    font-size: 16px;
+}
+
+.headerRegister .link span {
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    color: rgba(102, 102, 102, 1);
+}
+
+.RegisterMedia {
+    width: 100%;
+    height: 56px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.RegisterMedia button {
+    border-radius: 999px;
+    width: 166px;
+    height: 56px;
+    padding: 16px 0px;
+    border: 1px solid rgba(102, 102, 102, 1);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.RegisterMedia button:active {
+    background-color: rgb(224, 224, 224);
+}
+
+.fieldsetRegister {
+    width: 100%;
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 23px;
+}
+
+.fieldsetRegister div {
+    width: 141.5px;
+    margin: 0;
+    padding: 0;
+    height: 2px;
+    background-color: rgba(153, 153, 153, 1);
+}
+
+.fieldsetRegister legend {
+    width: 201px;
+    height: 24px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: black;
+    margin: 0;
+}
+
+.mainRegister {
+    width: 100%;
+    height: 616px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+.validateRegister {
+    width: 100%;
+    height: 415px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.userNameRegister {
+    width: 100%;
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.userNameRegister label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: Poppins;
+    color: rgba(102, 102, 102, 1);
+    font-size: 16px;
+    font-weight: 400;
+    height: 24px;
+}
+
+.userNameRegister input {
+    width: 100%;
+    min-height: 56px;
+    max-height: 56px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 102, 102, 0.35);
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 24px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.userNameRegister input:focus {
+    box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
+}
+
+.emailRegister {
+    width: 100%;
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.emailRegister label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: Poppins;
+    color: rgba(102, 102, 102, 1);
+    font-size: 16px;
+    font-weight: 400;
+    height: 24px;
+}
+
+.emailRegister input {
+    width: 100%;
+    min-height: 56px;
+    max-height: 56px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 102, 102, 0.35);
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 24px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.emailRegister input:focus {
+    box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
+}
+
+.passRegister {
+    width: 100%;
+    height: 115px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.checkPass {
+    width: 100%;
+    height: 27px;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(102, 102, 102, 1);
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.checkPass button {
+    width: auto;
+    height: 27px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: white;
+}
+
+.checkPass button div {
+    height: 27px;
+    color: rgba(102, 102, 102, 0.8);
+    font-size: 18px;
+    font-weight: 400;
+    text-align: right;
+    line-height: 27px;
+}
+
+.passRegister input {
+    width: 100%;
+    min-height: 56px;
+    max-height: 56px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 102, 102, 0.35);
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 24px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.passRegister input:focus {
+    box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
+}
+
+.passRegister .noteRegister {
+    height: 24px;
+    width: 100%;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: 102, 102, 102, 1;
+}
+
+.requirePassRegister {
+    width: 100%;
+    height: 84px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.requirePassRegister label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: Poppins;
+    color: rgba(102, 102, 102, 1);
+    font-size: 16px;
+    font-weight: 400;
+    height: 24px;
+}
+
+.requirePassRegister input {
+    width: 100%;
+    min-height: 56px;
+    max-height: 56px;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 102, 102, 0.35);
+    padding: 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 24px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.requirePassRegister input:focus {
+    box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
+}
+
+.rememberRegister {
+    width: 100%;
+    height: 64px;
+    padding: 8px 8px 8px 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 24px;
+    border: 0;
+    background-color: white;
+}
+
+.rememberRegister div {
+    height: 48px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    font-family: "Be Vietnam Pro";
+}
+
+
+.btnSubmit {
+    width: 100%;
+    height: 65px;
+    border-radius: 32px;
+    padding: 16px 0px;
+    border: 0;
+    background-color: rgba(153, 153, 153, 1);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 33px;
+    font: Poppins;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: "Be Vietnam Pro";
+}
+
+.btnSubmit:hover {
+    background-color: rgba(35, 125, 247, 1);
+    box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
+    outline: none;
+}
+
+.btnSubmit:active {
+    background-color: rgb(10, 98, 222);
+    box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
+    outline: none;
+}
+
+.withRegister{
+    width: 100%;
+    height: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+.headWithRegister{
+    height: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(102, 102, 102, 1);
+    align-items: center;
+    justify-content: center;
+}

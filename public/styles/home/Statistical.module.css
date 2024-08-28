@@ -30,6 +30,11 @@
     color: black;
 }
 
+.navLink img {
+    width: 44px;
+    height: 44px;
+}
+
 .blueLight {
     background: linear-gradient(276.48deg, #FFFFFF 2.99%, #E0F7FA 99.18%);
 }

@@ -52,7 +52,7 @@
 
 
 .headerRight {
-    width: 111px;
+    width: 113px;
     height: 24px;
     display: flex;
     flex-direction: row;
@@ -62,7 +62,6 @@
 }
 
 .headerRight h2 {
-    width: 77px;
     height: 24px;
     font-weight: 400;
     font-size: 16px;
