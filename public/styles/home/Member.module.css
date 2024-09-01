@@ -1,3 +1,5 @@
+@import url('../root.css');
+
 .container {
     width: 100%;
     min-height: 212px;
@@ -17,35 +19,37 @@
     justify-content: space-between;
 }
 
-.left {
+.header__left {
     width: 137px;
     height: 32px;
     gap: 4px;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.left img {
+.header__left__img {
     width: 24px;
     height: 24px;
 }
 
-.left h3 {
+.header__left__title {
     width: 109px !important;
     margin-bottom: 0 !important;
     font-weight: 600;
     font-size: 20px;
     line-height: 32px;
-    color: rgba(35, 125, 247, 1);
+    color: var(--blue-50);
 }
 
-.function {
+.header__function {
     width: 252px;
     height: 24px;
     margin-bottom: auto !important;
     display: flex;
 }
 
-.function .element {
+.header__function__element {
     width: 84px;
     font-size: 10px;
     line-height: 16px;
@@ -54,19 +58,19 @@
     position: relative;
 }
 
-.function .borderBottom {
-    color: rgba(35, 125, 247, 1);
+.header__function__borderBottom {
+    color: var(--blue-50);
     border: 0;
 }
 
-.function .borderBottom::after {
+.header__function__borderBottom::after {
     content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
     width: 57px;
     height: 2px;
-    background-color: rgba(35, 125, 247, 1);
+    background-color: var(--blue-50);
     transform: translateX(-50%);
 }
 
@@ -83,13 +87,13 @@
     background-color: white;
 }
 
-.content {
+.main__content {
     min-width: 790px;
     display: flex;
-    gap: 50px; 
-    overflow-x: auto; 
-    scroll-behavior: smooth; 
-    scrollbar-width: none; 
+    gap: 50px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 
 .main > * {
@@ -97,28 +101,29 @@
 }
 
 
-.main .btnLeft {
+.main__btnLeft {
     position: absolute;
     left: 0;
-    top:50%;
+    top: 50%;
     transform: translateY(-50%);
+    padding: 0;
+    margin: 0;
+    width: 24.5px;
+    height: 23.5px;
+    background-color: white;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+
 }
 
-.main .btnRight {
+.main__btnRight {
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.main .btnLeft,
-.btnRight {
-    width: 30px;
-    display: flex;
-    align-items: center;
-}
-
-.btnMainLeft {
     padding: 0;
     margin: 0;
     width: 24.5px;
@@ -128,94 +133,68 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.btnMainRight {
-    padding: 0;
-    margin: 0;
-    width: 24.5px;
-    height: 23.5px;
-    background-color: white;
-    border: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.btnMainLeft:hover,
-.btnMainLeft:active,
-.btnMainLeft:focus {
-    padding: 0;
-    margin: 0;
-    width: 24.5px;
-    height: 23.5px;
-    background-color: rgba(67, 143, 247, 1);
-    border: 0;
-}
-
-.btnMainRight:active,
-.btnMainRight:hover,
-.btnMainRight:focus {
-    padding: 0;
-    margin: 0;
-    width: 24.5px;
-    height: 23.5px;
-    background-color: rgba(67, 143, 247, 1);
-    border: 0;
-}
-
-
-.btnMainLeft svg path {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.btnMainLeft:active svg path,
-.btnMainLeft:hover svg path,
-.btnMainLeft:focus svg path {
-    fill: #ffffff; 
-}
-
-.btnMainRight svg path {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.btnMainRight:active svg path,
-.btnMainRight:hover svg path,
-.btnMainRight:focus svg path {
-    fill: #ffffff; 
-}
-
-
-.main .btnLeft .btnMainLeft {
-    margin-right: auto;
-}
-
-.main .btnRight .btnMainRight {
     margin-left: auto;
 }
 
-.content{
+.main__btnLeft:hover,
+.main__btnLeft:active,
+.main__btnLeft:focus,
+.main__btnRight:active,
+.main__btnRight:hover,
+.main__btnRight:focus {
+    padding: 0;
+    margin: 0;
+    width: 24.5px;
+    height: 23.5px;
+    background-color: var(--blue-60);
+    border: 0;
+}
+
+
+.main__btnLeft__path {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.main__btnLeft:active .main__btnLeft__path,
+.main__btnLeft:hover .main__btnLeft__path,
+.main__btnLeft:focus .main__btnLeft__path {
+    fill: #ffffff;
+}
+
+.main__btnRight__path {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.main__btnRight:active .main__btnRight__path,
+.main__btnRight:hover .main__btnRight__path,
+.main__btnRight:focus .main__btnRight__path {
+    fill: #ffffff;
+}
+
+.main__content {
     width: calc(100% - 60px);
 }
 
-.box {
-    width: 100px;
-    height: 132px;
-    padding: 10px;
+.main__content__box {
+    border: 0;
+    border-radius: 0;
+    min-width: 100px ;
+    height: 132px !important;
+    padding: 10px !important;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.wrap {
+.main__content__wrap {
     width: 80px;
-    height: 80px;
+    min-height: 80px;
     overflow: hidden;
     border-radius: 50%;
     background-color: #ffffff;
@@ -225,7 +204,7 @@
     padding: 0 !important;
 }
 
-.imgWrap {
+.main__content__imgWrap {
     position: relative;
     width: 100%;
     height: 100%;
@@ -236,7 +215,7 @@
     align-items: center;
 }
 
-.imgWrap::after {
+.main__content__imgWrap::after {
     content: '';
     border-radius: 50%;
     display: block;
@@ -251,7 +230,7 @@
     z-index: 1;
 }
 
-.imgBg {
+.main__content__imgBg {
     border-radius: 999px;
     display: block;
     width: calc(100% - 3px);
@@ -261,13 +240,15 @@
     z-index: 0;
 }
 
-.name {
+.main__content__name {
     position: relative;
     width: 80px;
     height: 24px;
+    padding: 0;
+    margin: 0;
 }
 
-.name p {
+.main__content__title {
     font-size: 14px;
     font-weight: 400;
     line-height: 24px;
@@ -275,12 +256,12 @@
     margin: 0 !important;
 }
 
-.name .tick {
+.main__content__tick {
     width: 6px;
     height: 6px;
     background-color: rgba(35, 125, 247, 1);
     position: absolute;
-    top: 0px !important;
-    right: 0px !important;
+    top: 2px !important;
+    right: -5px !important;
     border-radius: 50%;
 }

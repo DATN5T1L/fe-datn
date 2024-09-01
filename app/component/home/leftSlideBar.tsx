@@ -10,65 +10,64 @@ const LeftSlideBar: React.FC = () => {
             <Nav className="slider-bar" >
                 <section className='slide-bar-categories'>
                     <Link href="#" className="btn-slide-bar home" >
-                        <img src='/img/home-fill.svg' className='block'/>
-                        <img src='/img/home.svg'  className='none'/>
-                        <div >Trang chủ</div>
+                        <img src='/img/home-fill.svg' className='img block' />
+                        <img src='/img/home.svg' className='img none' />
+                        <div className='btn'>Trang chủ</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/box-fill.svg'  className='block'/>
-                        <img src='/img/box.svg'  className='none'/>
-                        <div >Khóa học</div>
+                        <img src='/img/box-fill.svg' className='img block' />
+                        <img src='/img/box.svg' className='img none' />
+                        <div className='btn'>Khóa học</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/roadfill.svg'  className='block'/>
-                        <img src='/img/road.svg'  className='none'/>
-                        <div >Lộ trình</div>
+                        <img src='/img/roadfill.svg' className='img block' />
+                        <img src='/img/road.svg' className='img none' />
+                        <div className='btn'>Lộ trình</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/calendarfill.svg'  className='block'/>
-                        <img src='/img/calendar.svg'  className='none'/>
-                        <div >Lịch học</div>
+                        <img src='/img/calendarfill.svg' className='img block' />
+                        <img src='/img/calendar.svg' className='img none' />
+                        <div className='btn'>Lịch học</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/textnotefill.svg'  className='block'/>
-                        <img src='/img/textnote.svg'  className='none'/>
-                        <div >Tin tức</div>
+                        <img src='/img/textnotefill.svg' className='img block' />
+                        <img src='/img/textnote.svg' className='img none' />
+                        <div className='btn'>Tin tức</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/thinkfill.svg'  className='block'/>
-                        <img src='/img/think.svg'  className='none'/>
-                        <div >Trò chuyện</div>
+                        <img src='/img/thinkfill.svg' className='img block' />
+                        <img src='/img/think.svg' className='img none' />
+                        <div className='btn'>Trò chuyện</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/peoplefill.svg'  className='block'/>
-                        <img src='/img/people.svg'  className='none'/>
-                        <div >Nhóm của bạn</div>
+                        <img src='/img/peoplefill.svg' className='img block' />
+                        <img src='/img/people.svg' className='img none' />
+                        <div className='btn'>Nhóm của bạn</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/coinfill.svg'  className='block'/>
-                        <img src='/img/coin.svg'  className='none'/>
-                        <div >Ví</div>
+                        <img src='/img/coinfill.svg' className='img block' />
+                        <img src='/img/coin.svg' className='img none' />
+                        <div className='btn'>Ví</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/carefulfill.svg'  className='block'/>
-                        <img src='/img/careful.svg'  className='none'/>
-                        <div >Hỗ trợ</div>
+                        <img src='/img/carefulfill.svg' className='img block' />
+                        <img src='/img/careful.svg' className='img none' />
+                        <div className='btn'>Hỗ trợ</div>
                     </Link>
                     <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/settingfill.svg'  className='block'/>
-                        <img src='/img/setting.svg'  className='none'/>
-                        <div >Cài đặt</div>
+                        <img src='/img/settingfill.svg' className='img block' />
+                        <img src='/img/setting.svg' className='img none' />
+                        <div className='btn'>Cài đặt</div>
                     </Link>
                 </section>
 
                 <section >
-                <Link href="#" className="btn-slide-bar" >
-                        <img src='/img/logoutfill.svg'  className='block'/>
-                        <img src='/img/logout.svg'  className='none'/>
-                        <div >Đăng xuất</div>
+                    <Link href="#" className="btn-slide-bar" >
+                        <img src='/img/logoutfill.svg' className='img block' />
+                        <img src='/img/logout.svg' className='img none' />
+                        <div className='btn'>Đăng xuất</div>
                     </Link>
                 </section>
-
             </Nav>
         </>
     )

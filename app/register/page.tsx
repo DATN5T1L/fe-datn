@@ -1,122 +1,177 @@
 'use client'
 import React, { useState } from 'react';
-import styles from '../../public/styles/Register/Register.module.css'
+import styles from '@public/styles/Register/Register.module.css'
 import Link from 'next/link';
+import { Button, Card, Container, Form, Image } from 'react-bootstrap';
 
 const Register: React.FC = () => {
     const [isCheckPass, setIsCheckPass] = useState(true);
-    const [isRememberRegister, setIsRememberRegister] = useState(false)
+    const [isRememberRegister, setIsRememberRegister] = useState(false);
+    const [validated, setValidated] = useState(false);
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleCheckPass = () => {
         setIsCheckPass(!isCheckPass);
     }
 
     const handleRememberRegister = () => {
-        setIsRememberRegister(!isRememberRegister)
+        setIsRememberRegister(!isRememberRegister);
+    }
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false || password !== confirmPassword) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setValidated(true);
     }
 
     return (
         <>
-            <main className={styles.main}>
-                <form className={styles.form}>
-                    <section className={styles.headerRegister}>
-                        <h1>Đăng ký tài khoản</h1>
-                        <Link href={'/Register'} className={styles.link}>Bạn đã có tài khoản? <span > Đăng nhập</span></Link>
-                    </section>
-                    <section className={styles.mainRegister}>
-                        <section className={styles.validateRegister}>
-                            <div className={styles.userNameRegister}>
-                                <label htmlFor="userName">
-                                    Tên của bạn là gì?
-                                </label>
-                                <input type="text" required />
-                            </div>
-                            <div className={styles.emailRegister}>
-                                <label htmlFor="userName">
-                                    Email của bạn?
-                                </label>
-                                <input type="text" required />
-                            </div>
-                            <div className={styles.passRegister}>
-                                <div className={styles.checkPass}>
-                                    <label htmlFor="password">Mật khẩu</label>
-                                    <button
-                                        type='button'
-                                        onClick={handleCheckPass}
-                                    >
-                                        {isCheckPass ?
-                                            (
-                                                <>
-                                                    <img src="/img/eyeHidden.svg" alt="" />
-                                                    <div>ẩn</div>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <img src="/img/eye.svg" alt="" />
-                                                    <div>hiện</div>
-                                                </>
-                                            )
-                                        }
-                                    </button>
-                                </div>
-                                <input type={`${isCheckPass ? 'password' : 'text'}`} required />
-                                <div className={styles.noteRegister}>
-                                    Sử dụng 8 ký tự trở lên kết hợp chữ cái, số và ký hiệu
-                                </div>
-                            </div>
-                            <div className={styles.requirePassRegister}>
-                                <label htmlFor="requirePassword">Nhập lại mật khẩu</label>
-                                <input type={`${isCheckPass ? 'password' : 'text'}`} required />
-                            </div>
-                        </section>
-                        <button
-                            type='button'
-                            className={styles.rememberRegister}
-                            onClick={handleRememberRegister}
-                        >
-                            {isRememberRegister ? (
-                                <>
-                                    <img src="/img/checkBoxFalse.svg" alt="" />
-                                </>
-                            ) :
-                                (
+            <Container className={styles.main}>
+                <Card className={styles.form}>
+                    <Card.Header className={styles.headerRegister}>
+                        <Card.Title className={styles.headerRegister__title}>Đăng ký tài khoản</Card.Title>
+                        <Link href={'/Register'} className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi}> Đăng nhập</bdi></Link>
+                    </Card.Header>
+                    <Card.Body className={styles.bodyRegister}>
+                        <Form className={styles.formRegister} noValidate validated={validated} onSubmit={handleSubmit}>
+                            <section className={styles.validateRegister}>
+                                <Form.Group className={styles.formControlRegister} controlId="validationUserName">
+                                    <Form.Label htmlFor="userName" className={styles.formControlRegister__label}>
+                                        Tên của bạn là gì?
+                                    </Form.Label>
+                                    <Form.Control 
+                                        type="text" 
+                                        required 
+                                        className={styles.formControlRegister__input} 
+                                        value={userName}
+                                        onChange={(e) => setUserName(e.target.value)}
+                                    />
+                                    <Form.Control.Feedback type="invalid" className={styles.feedBack}>
+                                        Hãy nhập tên đăng nhập
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group className={styles.formControlRegister} controlId="validationEmail">
+                                    <Form.Label htmlFor="email" className={styles.formControlRegister__label}>
+                                        Email của bạn?
+                                    </Form.Label>
+                                    <Form.Control 
+                                        type="email" 
+                                        required 
+                                        className={styles.formControlRegister__input} 
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    <Form.Control.Feedback type="invalid" className={styles.feedBack}>
+                                        Hãy nhập email hợp lệ
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group className={styles.formControlRegister} controlId="validationPassword">
+                                    <section className={styles.checkPass}>
+                                        <Form.Label htmlFor="password" className={styles.formControlRegister__label}>Mật khẩu</Form.Label>
+                                        <Button
+                                            type='button'
+                                            onClick={handleCheckPass}
+                                            className={styles.checkPass__btn}
+                                        >
+                                            {isCheckPass ?
+                                                (
+                                                    <>
+                                                        <Image src="/img/eyeHidden.svg" alt="" className={styles.checkPass__img} />
+                                                        <div className={styles.checkPass__text}>ẩn</div>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Image src="/img/eye.svg" alt="" className={styles.checkPass__img} />
+                                                        <div className={styles.checkPass__text}>hiện</div>
+                                                    </>
+                                                )
+                                            }
+                                        </Button>
+                                    </section>
+                                    <Form.Control 
+                                        type={isCheckPass ? 'password' : 'text'} 
+                                        required 
+                                        className={styles.formControlRegister__input} 
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <div className={styles.noteRegister}>
+                                        Sử dụng 8 ký tự trở lên kết hợp chữ cái, số và ký hiệu
+                                    </div>
+                                    <Form.Control.Feedback type="invalid" className={styles.feedBack}>
+                                        Hãy nhập mật khẩu
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <Form.Group className={styles.formControlRegister} controlId="validationConfirmPassword">
+                                    <Form.Label htmlFor="confirmPassword" className={styles.formControlRegister__label}>Nhập lại mật khẩu</Form.Label>
+                                    <Form.Control 
+                                        type={isCheckPass ? 'password' : 'text'} 
+                                        required 
+                                        className={styles.formControlRegister__input} 
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        isInvalid={password !== confirmPassword}
+                                    />
+                                    <Form.Control.Feedback type="invalid" className={styles.feedBack}>
+                                        {password !== confirmPassword ? 'Mật khẩu không khớp' : 'Hãy nhập mật khẩu lần nữa'}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                            </section>
+                            <Button
+                                type='button'
+                                className={styles.rememberRegister}
+                                onClick={handleRememberRegister}
+                            >
+                                {isRememberRegister ? (
                                     <>
-                                        <img src="/img/checkBoxTrue.svg" alt="" />
+                                        <Image src="/img/checkBoxFalse.svg" alt="" className={styles.rememberRegister__img} />
                                     </>
-                                )}
-                            <div>Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư.</div>
-                        </button>
-                        <button type='button' className={styles.btnSubmit}>Đăng ký</button>
-                    </section>
-                    <section className={styles.withRegister}>
-                        <div className={styles.headWithRegister}>
+                                ) :
+                                    (
+                                        <>
+                                            <Image src="/img/checkBoxTrue.svg" alt="" className={styles.rememberRegister__img} />
+                                        </>
+                                    )}
+                                <div className={styles.rememberRegister__div}>Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư.</div>
+                            </Button>
+                            <Button type='submit' className={styles.btnSubmit}>Đăng ký</Button>
+                        </Form>
+                    </Card.Body>
+                    <Card.Footer className={styles.withRegister}>
+                        <Card.Subtitle className={styles.headWithRegister}>
                             Tiếp tục với
-                        </div>
-                        <div className={styles.RegisterMedia}>
-                            <button>
-                                <img src="/img/fb.svg" alt="" />
-                                <div>
+                        </Card.Subtitle>
+                        <section className={styles.RegisterMedia}>
+                            <Button className={styles.RegisterMedia__btn}>
+                                <Image src="/img/fb.svg" alt="" className={styles.RegisterMedia__img} />
+                                <div className={styles.RegisterMedia__title}>
                                     Facebook
                                 </div>
-                            </button>
-                            <button>
-                                <img src="/img/google.svg" alt="" />
-                                <div>
+                            </Button>
+                            <Button className={styles.RegisterMedia__btn}>
+                                <Image src="/img/google.svg" alt="" className={styles.RegisterMedia__img} />
+                                <div className={styles.RegisterMedia__title}>
                                     Google
                                 </div>
-                            </button>
-                            <button>
-                                <img src="/img/apple.svg" alt="" />
-                                <div>
+                            </Button>
+                            <Button className={styles.RegisterMedia__btn}>
+                                <Image src="/img/apple.svg" alt="" className={styles.RegisterMedia__img} />
+                                <div className={styles.RegisterMedia__title}>
                                     Apple
                                 </div>
-                            </button>
-                        </div>
-                    </section>
-                </form>
-            </main>
+                            </Button>
+                        </section>
+                    </Card.Footer>
+                </Card>
+            </Container>
         </>
     )
 }
 
-export default Register;   
+export default Register;

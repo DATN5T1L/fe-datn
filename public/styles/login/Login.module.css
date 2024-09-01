@@ -1,3 +1,5 @@
+@import url('../root.css');
+
 .main {
     width: 100%;
     height: 698px;
@@ -7,39 +9,59 @@
     align-items: center;
 }
 
-.form {
-    width: 50.1457%;
+.cardContainer {
+    background-color: #FFF;
+    width: 690px;
     height: 618px;
     border-radius: 16px;
     padding: 32px 80px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32) inset;
+    box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32);
 }
 
 .headerLogin {
     width: 100%;
-    height: 70px;
+    height: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
+    background: white;
+    border: 0;
+    padding: 0px;
+    margin: 0;
+    gap: 16px;
 }
 
-.headerLogin h1 {
+.titleGroup {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+}
+
+.titleGroup__h1 {
     height: 42px;
     margin: 0;
     padding: 0;
     font-size: 34px;
+    font-weight: 500;
+    line-height: 42px;
+    letter-spacing: -0.68px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.headerLogin .link {
+.titleGroup__link {
     width: 100%;
     display: flex;
-    color: rgba(51, 51, 51, 1);
+    color: #333;
     text-decoration: none;
     display: flex;
     flex-direction: row;
@@ -48,13 +70,18 @@
     height: 28px;
     padding: 2px;
     font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
 }
 
-.headerLogin .link span {
+.titleGroup__link__bdi {
     padding: 0;
     margin: 0;
     padding-left: 10px;
-    color: rgba(102, 102, 102, 1);
+    font-size: 16px;
+    color: #666;
+    font-weight: 400;
+    line-height: 24px;
 }
 
 .loginMedia {
@@ -62,10 +89,11 @@
     height: 56px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 16px;
+    text-align: center;
 }
 
-.loginMedia button {
+.loginMedia__btn {
     border-radius: 999px;
     width: 166px;
     height: 56px;
@@ -79,8 +107,48 @@
     background-color: rgba(255, 255, 255, 1);
 }
 
-.loginMedia button:active {
-    background-color: rgb(224, 224, 224);
+.loginMedia__img {
+    width: 24px;
+    height: 24px;
+}
+
+.loginMedia__title {
+    color: var(--text-100);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.loginMedia__btn:hover {
+    background-color: var(--blue-60);
+    border: 1px solid var(--blue-100);
+}
+
+.loginMedia__btn:hover .loginMedia__title {
+    color: var(--text-0);
+}
+
+.loginMedia__btn:active {
+    background-color: rgb(224, 224, 224) !important;
+}
+
+.bodyLogin {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    width: 100%;
+    height: auto;
+    gap: 16px;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
 .fieldsetLogin {
@@ -93,22 +161,32 @@
     gap: 23px;
 }
 
-.fieldsetLogin div {
-    width: 141.5px;
-    margin: 0;
-    padding: 0;
+.fieldsetLogin__line {
+    width: 142px;
     height: 2px;
-    background-color: rgba(153, 153, 153, 1);
+    position: relative;
+    background-color: var(--gray-60);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.fieldsetLogin legend {
-    width: 201px;
-    height: 24px;
+.fieldsetLogin__title {
+    min-width: 201px;
+    max-width: 201px;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
+    color: var(--text-100);
     font-weight: 400;
     line-height: 24px;
-    color: black;
-    margin: 0;
 }
 
 .mainLogin {
@@ -127,17 +205,19 @@
     gap: 4px;
 }
 
-.userNameLogin label {
+.userNameLogin__label {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    font: Poppins;
-    color: rgba(102, 102, 102, 1);
+    color: var(--text-50);
     font-size: 16px;
     font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
 }
 
-.userNameLogin input {
+.userNameLogin__input {
     width: 100%;
     min-height: 56px;
     max-height: 56px;
@@ -154,7 +234,7 @@
     box-sizing: border-box;
 }
 
-.userNameLogin input:focus {
+.userNameLogin__input:focus {
     box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
 }
 
@@ -166,18 +246,29 @@
     gap: 4px;
 }
 
+.passLogin__label {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-50);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+}
+
 .checkPass {
     width: 100%;
     height: 27px;
     display: flex;
     justify-content: space-between;
-    font: Poppins;
     color: rgba(102, 102, 102, 1);
     font-size: 16px;
     font-weight: 400;
 }
 
-.checkPass button {
+.checkPass__btn {
     width: auto;
     height: 27px;
     display: flex;
@@ -190,17 +281,22 @@
     background-color: white;
 }
 
-.checkPass button div {
+.checkPass__btn:hover,
+.checkPass__btn:active,
+.checkPass__btn:focus {
+    background-color: white !important;
+}
+
+.checkPass__text {
     height: 27px;
-    font: Poppins;
-    color: rgba(102, 102, 102, 0.8);
+    color: var(--gray-60);
     font-size: 18px;
     font-weight: 400;
     text-align: right;
     line-height: 27px;
 }
 
-.passLogin input {
+.passLogin__input {
     width: 100%;
     min-height: 56px;
     max-height: 56px;
@@ -217,7 +313,7 @@
     box-sizing: border-box;
 }
 
-.passLogin input:focus {
+.passLogin__input:focus {
     box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
 }
 
@@ -242,6 +338,21 @@
     line-height: 24px;
     border: 0;
     background-color: white;
+}
+
+.rememberLogin:hover,
+.rememberLogin:active,
+.rememberLogin:focus{
+    background-color: white !important;
+}
+
+.rememberLogin__img{
+    width: 24px;
+    height: 24px;
+}
+
+.rememberLogin__div{
+    color: black;
 }
 
 .forgetPass {
@@ -284,4 +395,8 @@
     background-color: rgb(10, 98, 222);
     box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
     outline: none;
+}
+
+.feedBack{
+    margin: 0;
 }

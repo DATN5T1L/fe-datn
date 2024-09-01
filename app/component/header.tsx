@@ -33,7 +33,7 @@ const Header: React.FC = () => {
                             navbarScroll
                         >
                             <Button className={`btn-navbar ${isRegister ? 'light-check' : ''}`}>Đăng Ký</Button>
-                            <Button className={`btn-navbar ${isLogin ? 'light-check' : ''}`}>Đăng nhập</Button>
+                            <Button className={`btn-navbar border-blue-1 ${isLogin ? 'light-check' : ''}`}>Đăng nhập</Button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

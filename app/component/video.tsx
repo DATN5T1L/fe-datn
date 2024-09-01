@@ -1,6 +1,6 @@
 'use client';
 
-import styles from '../../public/styles/VideoPlayer.module.css';
+import styles from '@public/styles/VideoPlayer.module.css';
 import React, { useRef, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { Play, Pause, VolumeUp, VolumeDown, VolumeMute, Fullscreen, FullscreenExit, FastForward, Rewind, Gear, ChevronRight, ChevronLeft, BadgeCc, PauseCircle, PlayCircle, PauseFill, PlayFill, SkipBackward, SkipForward } from 'react-bootstrap-icons';

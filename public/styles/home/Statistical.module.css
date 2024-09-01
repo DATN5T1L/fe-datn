@@ -1,3 +1,5 @@
+@import url('../root.css');
+
 .container {
     padding: 16px;
     display: flex;
@@ -9,7 +11,7 @@
     box-sizing: border-box;
 }
 
-.contentContainer {
+.container__content {
     width: 768px;
     height: 68px;
     display: flex;
@@ -30,7 +32,12 @@
     color: black;
 }
 
-.navLink img {
+.navLink__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.navLink__img {
     width: 44px;
     height: 44px;
 }
@@ -52,24 +59,31 @@
 
 }
 
-.number {
+.navLink__content__number {
+    max-width: 100px;
+    display: flex;
+    flex-direction: row;
+    line-height: 24px;
     font-weight: 600;
     font-size: 16px;
 }
 
 .darkGreenNumber {
-    color: rgba(36, 161, 72, 1);
+    color: var(--success) !important;
 }
 
 .blueNumber {
-    color: rgba(35, 125, 247, 1);
+    color: var(--blue-50) !important; 
 }
 
 .blueLightNumber {
-    color: rgba(21, 200, 224, 1);
+    color: var(--cyan-30) !important;
 }
 
-.name {
+.navLink__content__name  {
+    max-width: 100px;
+    display: flex;
+    flex-direction: row;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
