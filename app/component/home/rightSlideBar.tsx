@@ -1,13 +1,13 @@
 'use client'
-import Link from 'next/link';
 import React from 'react';
 import { Card, Col, Container, Image, Nav, Row } from 'react-bootstrap';
-import { PeopleFill } from 'react-bootstrap-icons';
+import RightContainer from '../rightContainer';
+
 
 const RightSlideBar: React.FC = () => {
     return (
         <>
-            <Nav className='right-slide-bar'>
+            <RightContainer>
                 <Container className="right-slider-bar-container">
                     <Row md={12} className="group-section">
                         <Col md={12} className="header-slide-bar-right">
@@ -288,7 +288,7 @@ const RightSlideBar: React.FC = () => {
                         </Col>
                     </Row>
                 </Container>
-            </Nav>
+            </RightContainer>
         </>
     )
 }

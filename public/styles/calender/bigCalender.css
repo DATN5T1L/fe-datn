@@ -1,0 +1,428 @@
+@import url('../root.css');
+
+.fc {
+    height: 1000px !important;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 18px;
+    text-align: center;
+}
+
+.fc-event {}
+
+.fc-event-title {
+    font-size: 14px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+}
+
+.html {
+    border: 1px solid #FF7F00 !important;
+    background-color: #FFF5EB !important;
+}
+
+.html .fc-event-title {
+    color: #FF7F00 !important;
+}
+
+.css {
+    border: 1px solid var(--blue-50) !important;
+    background-color: var(--blue-95) !important;
+}
+
+.css .fc-event-title {
+    color: var(--blue-50) !important;
+}
+
+.javascript {
+    border: 1px solid var(--yellow-50) !important;
+    background-color: var(--yellow-95) !important;
+}
+
+.javascript .fc-event-title {
+    color: var(--yellow-50) !important;
+}
+
+.php {
+    border: 1px solid var(--cyan-50) !important;
+    background-color: var(--cyan-95) !important;
+}
+
+.php .fc-event-title {
+    color: var(--cyan-50) !important;
+}
+
+.c {
+    border: 1px solid var(--green-50) !important;
+    background-color: var(--green-95) !important;
+}
+
+.c .fc-event-title {
+    color: var(--green-50) !important;
+}
+
+.fc-event-time {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    color: var(--text-25);
+}
+
+.fc .fc-daygrid-day-number {
+    font-size: 12px;
+    color: gray;
+    text-align: center;
+}
+
+.fc .fc-col-header-cell-cushion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+}
+
+.fc-header-toolbar {
+    margin: 0 !important;
+}
+
+.fc-scrollgrid-section-header {
+    height: 90px !important;
+    border-bottom: 2px solid var(--gray-80) !important;
+}
+
+.fc-scroller {
+    width: 100% !important;
+}
+
+.fc-col-header {
+    width: 100% !important;
+    height: 90px !important;
+}
+
+.fc-scrollgrid-sync-inner {
+    height: 100% !important;
+}
+
+.fc-col-header-cell-cushion {
+    height: 100% !important;
+}
+
+table,
+tbody {
+
+    width: 100% !important;
+    border: 0 !important;
+}
+
+thead {
+    width: 100% !important;
+
+}
+
+.fc-theme-standard th {
+    border: 0 !important;
+}
+
+/*dòng thời gian*/
+.fc-timegrid-now-indicator-arrow {
+    /* height: 30px; */
+}
+
+.fc-col-header-cell-cushion {
+    text-decoration: none !important;
+}
+
+.fc-timegrid-now-indicator-line {
+    background-color: white !important;
+    border-color: white !important;
+    width: 0 !important;
+}
+
+.fc-scrollgrid,
+.fc-scrollgrid-liquid {
+    border: 0 !important;
+}
+
+.fc-scroller {
+    width: auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.fc-scroller-liquid-absolute {
+    width: 770px !important;
+    padding: 0 !important;
+    overflow: hidden scroll !important;
+}
+
+/* .fc-day{
+    width: 75px !important;
+} */
+
+.fc-scroller-liquid-absolute::-webkit-scrollbar {
+    width: 0.1px;
+}
+
+.fc-timegrid-body .fc-timegrid-slots table {
+    min-width: 750px !important;
+    padding: 0 !important;
+}
+
+.fc-scrollgrid .fc-scrollgrid-liquid {
+    width: auto;
+    padding: 0 !important;
+    margin: 0;
+}
+
+tbody,
+td {
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.fc-timegrid-slot::before {
+    width: 100% !important;
+}
+
+.fc-timegrid-slot-lane {
+    position: relative;
+    z-index: 10000;
+    width: 100% !important;
+    background-color: white !important;
+    border-bottom: 0 !important;
+    border-top: 0 !important;
+}
+
+.fc-timegrid-slot {
+    border-top: 0 !important;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
+    border-width: 0 !important;
+}
+
+.fc-timegrid-slot-label {
+    border-right: 2px solid var(--gray-80) !important;
+}
+
+
+th .fc-timegrid-axis {
+    border-bottom: 2px solid var(--gray-80) !important;
+    border-right: 2px solid var(--gray-80) !important;
+    min-width: 75px !important;
+    max-width: 75px !important;
+}
+
+
+th .fc-col-header-cell {
+    border-bottom: 2px solid var(--gray-80) !important;
+}
+
+div .fc-timegrid-axis-frame {
+    min-width: 75px !important;
+}
+
+.fc-timegrid-axis-frame::before {
+    content: "GMT +7";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 40px;
+    left: 0px;
+}
+
+.fc-direction-ltr {
+    direction: none !important;
+    text-align: none !important;
+}
+
+.fc .fc-toolbar {
+    display: flex !important;
+    justify-content: space-between !important;
+    /* flex: 1; */
+}
+
+
+/* Style cho nút "Tuần" */
+.week-container {
+    display: flex !important;
+    gap: 4px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding-bottom: 16px !important;
+    padding-top: 16px !important;
+}
+
+.week-t {
+    color: #000;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.week-n {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--text-25) !important;
+    padding: 5px !important;
+    width: auto !important;
+    height: auto !important;
+    display: flex !important;
+}
+
+.bg-blue {
+    background-color: #007bff !important;
+    color: white !important;
+    padding: 5px !important;
+    border-radius: 5px !important;
+}
+
+/* Canh giữa các sự kiện và tiêu đề ngày */
+/* .fc-col-header-cell, .fc-timegrid-col {
+    text-align: center;
+    width: auto !important;
+} */
+
+/* Điều chỉnh sự kiện để căn chỉnh và hiển thị gọn */
+.fc-event {
+    padding: 5px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fc-event.orange {
+    background-color: #ffcc99;
+    border: 1px solid #ff9900;
+    color: #ff6600;
+}
+
+.fc-event.blue {
+    background-color: #99ccff;
+    border: 1px solid #3399ff;
+    color: #0066ff;
+}
+
+.fc-event.lightblue {
+    background-color: #ccf2ff;
+    border: 1px solid #00ccff;
+    color: #0099cc;
+}
+
+/* Thời gian trong lịch */
+
+/* Canh chỉnh ô thời gian */
+.fc-timegrid-body {
+    width: 100% !important;
+}
+
+.colgroup {
+    width: 75px !important;
+}
+
+
+colgroup col {
+    width: 90px !important;
+}
+
+.fc-timegrid-slot {
+    /* width: 78px !important; */
+}
+
+.fc-scrollgrid-shrink-cushion {
+    margin-right: auto;
+}
+
+.fc-timegrid-slot-label-frame {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.ct-fc-scrollgrid-shrink-cushion {
+    background-color: var(--error) !important;
+    border-radius: 4px;
+    color: var(--text-0);
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Nội dung menu Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Các phần tử trong Dropdown */
+.dropdown-content div {
+    color: white;
+    background: blue;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: grab;
+}
+
+/* Hiệu ứng khi di chuột qua phần tử trong Dropdown */
+.dropdown-content div:hover {
+    background-color: darkblue;
+}
+
+/* Hiển thị menu khi người dùng hover vào nút Dropdown */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Nút hiển thị Dropdown */
+.dropdown-toggle {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-toggle img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.notiflix-report-button {
+    text-decoration: none !important;
+}
+
+.btn-primary::after {
+    content: none !important;
+}

@@ -5,7 +5,7 @@ interface MainHomeProps {
     children?: ReactNode;
 }
 
-const MainHome: React.FC<MainHomeProps> = ({ children }) => {
+const MainContainer: React.FC<MainHomeProps> = ({ children }) => {
     return (
         <>
             <main className='main-content'>
@@ -15,4 +15,4 @@ const MainHome: React.FC<MainHomeProps> = ({ children }) => {
     );
 }
 
-export default MainHome;
+export default MainContainer;

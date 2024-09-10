@@ -1,8 +1,7 @@
 'use client'
 import React from 'react';
 import styles from '@public/styles/home/Statistical.module.css';
-import { Button, Container, Nav, Image } from 'react-bootstrap';
-import Link from 'next/link';
+import { Container, Nav, Image } from 'react-bootstrap';
 
 const Statistical: React.FC = () => {
     return (

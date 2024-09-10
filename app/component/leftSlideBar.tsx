@@ -2,14 +2,14 @@
 import Link from 'next/link';
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { Bell, BoxArrowLeft, BoxFill, Calendar, CalendarFill, ChatFill, Coin, GearFill, HouseDoorFill, PeopleFill } from 'react-bootstrap-icons';
+
 
 const LeftSlideBar: React.FC = () => {
     return (
         <>
             <Nav className="slider-bar" >
                 <section className='slide-bar-categories'>
-                    <Link href="#" className="btn-slide-bar home" >
+                    <Link href="/" className="btn-slide-bar home" >
                         <img src='/img/home-fill.svg' className='img block' />
                         <img src='/img/home.svg' className='img none' />
                         <div className='btn'>Trang chủ</div>
@@ -24,7 +24,7 @@ const LeftSlideBar: React.FC = () => {
                         <img src='/img/road.svg' className='img none' />
                         <div className='btn'>Lộ trình</div>
                     </Link>
-                    <Link href="#" className="btn-slide-bar" >
+                    <Link href="/calender" className="btn-slide-bar" >
                         <img src='/img/calendarfill.svg' className='img block' />
                         <img src='/img/calendar.svg' className='img none' />
                         <div className='btn'>Lịch học</div>
@@ -60,7 +60,6 @@ const LeftSlideBar: React.FC = () => {
                         <div className='btn'>Cài đặt</div>
                     </Link>
                 </section>
-
                 <section >
                     <Link href="#" className="btn-slide-bar" >
                         <img src='/img/logoutfill.svg' className='img block' />

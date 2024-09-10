@@ -1,0 +1,233 @@
+@import url('../root.css');
+
+.container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.container__col {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.header {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__main__title {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    color: black;
+}
+
+.header__button__group {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 8px;
+    background-color: var(--blue-50);
+    color: var(--text-0);
+}
+
+.container__col {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.body__left {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    gap: 40px;
+}
+
+.body__left__title {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+}
+
+.body__left__btnGroup {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 13px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.btnPrev {
+    padding: 4px 8px;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--blue-60);
+    border-radius: 4px !important;
+    margin: 0;
+}
+
+.btnPrev__img {
+    width: 8.5px;
+    height: 15.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.today {
+    background-color: var(--blue-60);
+    padding: 0 4px;
+    border-radius: 4px !important;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnNext {
+    padding: 4px 8px;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--blue-60);
+    border-radius: 4px !important;
+    margin: 0;
+}
+
+.btnRight__img {
+    width: 8.5px;
+    height: 15.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.body__right {
+    min-width: 120px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px !important;
+    background-color: var(--blue-50);
+}
+
+.bodyRight__btn {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    margin: 0;
+    gap: 4px;
+}
+
+.bodyRight__btn__title {
+    width: auto;
+    height: auto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--gray-100);
+    padding: 0;
+    margin: 0;
+}
+
+.bodyRight__btn__img {
+    margin: 0 !important;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container__col {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+}
+
+.fullCalendar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+}
