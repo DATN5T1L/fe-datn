@@ -97,6 +97,7 @@
     align-items: center;
     width: 246.667px;
     border: 0;
+    cursor: pointer;
 }
 
 .mainContainer__box {

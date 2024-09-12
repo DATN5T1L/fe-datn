@@ -49,7 +49,7 @@ const Header: React.FC = () => {
                             <Button 
                             onClick={handleRegister}
                             className={`btn-navbar ${isRegister ? 'light-check' : ''}`}
-                            >Đăng Ký</Button>
+                            >Đăng ký</Button>
                             <Button 
                             onClick={handleLogin}
                             className={`btn-navbar border-blue-1 ${isLogin ? 'light-check' : ''}`}

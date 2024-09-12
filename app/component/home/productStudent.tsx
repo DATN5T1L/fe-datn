@@ -13,7 +13,7 @@ const ProductStudent: React.FC = () => {
                         <div className={styles.headerLeft__borderImg}>
                             <Image src="/img/Document.svg" alt="" className={styles.headerLeft__img} />
                         </div>
-                        <h1 className={styles.headerLeft__title}>Tin tức</h1>
+                        <h1 className={styles.headerLeft__title}>Sản phẩm học viên</h1>
                     </div>
                     <Link href={'/'} className={styles.headerRight}>
                         <h2 className={styles.headerRight__title}>Xem thêm</h2>

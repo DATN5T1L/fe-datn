@@ -56,10 +56,28 @@
     font-weight: 400;
     text-align: center;
     position: relative;
+    cursor: pointer;
+    color: var(--text-25);
+}
+
+.header__function__element::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--text-25);
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+}
+
+.header__function__element:hover::after {
+    width: 57px;
 }
 
 .header__function__borderBottom {
-    color: var(--blue-50);
+    color: var(--blue-50) !important;
     border: 0;
 }
 
@@ -88,7 +106,8 @@
 }
 
 .main__content {
-    min-width: 790px;
+    min-width: 100%;
+    padding: 0 !important;
     display: flex;
     gap: 50px;
     overflow-x: auto;
@@ -177,10 +196,6 @@
     fill: #ffffff;
 }
 
-.main__content {
-    width: calc(100% - 60px);
-}
-
 .main__content__box {
     border: 0;
     border-radius: 0;
@@ -190,6 +205,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    cursor: pointer;
 }
 
 .main__content__wrap {
@@ -254,6 +270,10 @@
     line-height: 24px;
     text-align: left;
     margin: 0 !important;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;  
 }
 
 .main__content__tick {

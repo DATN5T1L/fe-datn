@@ -177,7 +177,7 @@
   .btn-navbar {
     min-width: 120px;
     height: 40px;
-    padding: 8px 16px;
+    padding: 12px 16px;
     background-color: white;
     color: #237DF7;
     border: 0px;
@@ -288,7 +288,7 @@
   .btn-slide-bar {
     width: 170px;
     height: 44px;
-    padding: 10px;
+    padding: 8px 10px;
     border-radius: 8px;
     display: flex;
     flex-direction: row;
@@ -653,8 +653,9 @@
   }
 
   .head-event-name {
-    max-width: 150px;
+    width: auto !important;
     display: flex;
+    text-align: center;
     font-size: 16px;
     font-weight: 500;
     line-height: 24px;
@@ -1001,6 +1002,7 @@
     font-size: 18px;
     line-height: 30px;
     font-family: "DM Sans";
+    font-feature-settings: 'liga' off, 'clig' off;
     color:
       rgba(111, 108, 144, 1);
   }

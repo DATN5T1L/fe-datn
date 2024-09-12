@@ -17,7 +17,7 @@ const News: React.FC = () => {
                         <h1 className={styles.headerLeft__title}>Tin tức</h1>
                     </div>
                     <Link href={'/'} className={styles.headerRight}>
-                        <h2 className={styles.headerRight__title}>Xem thêm</h2>
+                        <h2 className={styles.headerRight__title}>xem thêm</h2>
                         <Image src="/img/arrowRightBlue.svg" alt="" className={styles.headerRight__img} />
                     </Link>
                 </section>
