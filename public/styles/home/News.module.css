@@ -61,6 +61,7 @@
     gap: 13px;
     text-decoration: none;
     align-items: center;
+    justify-content: center;
 }
 
 .headerRight__title {
@@ -84,9 +85,11 @@
     height: 214px;
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     gap: 14px;
     margin: 0;
     padding: 0;
+    align-self: stretch;
 }
 
 .mainContainer{
@@ -95,13 +98,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 246.667px;
+    max-width: 247px;
+    min-width: 247px;
     border: 0;
     cursor: pointer;
 }
 
 .mainContainer__box {
-    width: 100%;
+    width: 247px;
     height: 214px;
     border-radius: 16px;
     background: rgba(255, 255, 255, 1);
@@ -111,7 +115,7 @@
 }
 
 .head__img {
-    width: 100%;
+    width: 247px;
     min-height: 132px;
     border-radius: 0;
     border-top-left-radius: 16px;
@@ -119,7 +123,7 @@
 }
 
 .containerBody {
-    width: 100%;
+    width: 247px;
     height: 82px;
     padding: 4px 10px 10px 10px;
     display: flex;
@@ -130,7 +134,7 @@
 .containerBody__title {
     padding: 0;
     margin: 0;
-    width: 100%;
+    width: 226px;
     height: 48px;
     font-size: 14px;
     line-height: 24px;

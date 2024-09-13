@@ -21,7 +21,7 @@ const ProductStudent: React.FC = () => {
                     </Link>
                 </section>
                 <Row md={12} className={styles.main}>
-                    <Col md={4} className={styles.mainContainer}>
+                    <Col className={styles.mainContainer}>
                         <Card className={styles.mainContainer__box}>
                             <Card.Img src="/img/post1.png" alt="" className={styles.head__img} />
                             <Card.Body className={styles.containerBody}>
@@ -45,7 +45,7 @@ const ProductStudent: React.FC = () => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4} className={styles.mainContainer}>
+                    <Col  className={styles.mainContainer}>
                         <Card className={styles.mainContainer__box}>
                             <Card.Img src="/img/post2.png" alt="" className={styles.head__img} />
                             <Card.Body className={styles.containerBody}>
@@ -69,7 +69,7 @@ const ProductStudent: React.FC = () => {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={4} className={styles.mainContainer}>
+                    <Col  className={styles.mainContainer}>
                         <Card className={styles.mainContainer__box}>
                             <Card.Img src="/img/post3.png" alt="" className={styles.head__img} />
                             <Card.Body className={styles.containerBody}>

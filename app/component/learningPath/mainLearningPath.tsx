@@ -12,9 +12,12 @@ const MainLearningPath: React.FC = () => {
         <>
             <Container className={styles.MainLearningPath}>
                 <CategoriesLearningPath />
-                <LearningPathSection />
+                <LearningPathSection title='Front-end' img='/img/learningPathFE.png'/>
                 <ForWhom></ForWhom>
-                <TimeLine></TimeLine>
+                <TimeLine title="FONT-END"></TimeLine>
+                <LearningPathSection title='Back-end' img='/img/learningPathBE.png'/>
+                <ForWhom></ForWhom>
+                <TimeLine title="BACK-END"></TimeLine>
             </Container>
         </>
     )

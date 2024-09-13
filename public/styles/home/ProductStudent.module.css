@@ -18,7 +18,7 @@
 }
 
 .headerLeft {
-    width: 98px;
+    width: auto;
     height: 32px;
     display: flex;
     flex-direction: row;
@@ -30,7 +30,7 @@
     min-width: 24px;
     min-height: 24px;
     padding: 2px 3px;
-    display: flex ;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -41,7 +41,7 @@
 }
 
 .headerLeft__title {
-    width: 70px;
+    width: auto;
     height: 32px;
     font-weight: 600;
     font-size: 20px;
@@ -61,6 +61,7 @@
     gap: 13px;
     text-decoration: none;
     align-items: center;
+    justify-content: center;
 }
 
 .headerRight__title {
@@ -84,24 +85,27 @@
     height: 214px;
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     gap: 14px;
     margin: 0;
     padding: 0;
+    align-self: stretch;
 }
 
-.mainContainer{
+.mainContainer {
     padding: 0;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 246.667px;
+    max-width: 247px;
+    min-width: 247px;
     border: 0;
     cursor: pointer;
 }
 
 .mainContainer__box {
-    width: 100%;
+    width: 247px;
     height: 214px;
     border-radius: 16px;
     background: rgba(255, 255, 255, 1);
@@ -111,7 +115,7 @@
 }
 
 .head__img {
-    width: 100%;
+    width: 247px;
     min-height: 132px;
     border-radius: 0;
     border-top-left-radius: 16px;
@@ -119,7 +123,7 @@
 }
 
 .containerBody {
-    width: 100%;
+    width: 247px;
     height: 82px;
     padding: 4px 10px 10px 10px;
     display: flex;
@@ -130,7 +134,7 @@
 .containerBody__title {
     padding: 0;
     margin: 0;
-    width: 100%;
+    width: 226px;
     height: 48px;
     font-size: 14px;
     line-height: 24px;
@@ -138,14 +142,14 @@
     color: black;
 }
 
-.content{
+.content {
     width: 100%;
     height: 16px;
     display: flex;
     justify-content: space-between;
 }
 
-.leftContent{
+.leftContent {
     width: auto;
     height: 16px;
     display: flex;
@@ -154,12 +158,12 @@
     gap: 4px;
 }
 
-.leftContent__img{
+.leftContent__img {
     width: 12px;
     height: 12px;
 }
 
-.leftContent__text{
+.leftContent__text {
     color: var(--text-25);
     width: auto;
     height: 16px;
@@ -169,7 +173,7 @@
     text-align: center;
 }
 
-.rightContent{
+.rightContent {
     width: auto;
     height: 16px;
     display: flex;
@@ -178,7 +182,7 @@
     align-items: center;
 }
 
-.rightContent__text{
+.rightContent__text {
     padding: 0;
     margin: 0;
     width: 21px;
@@ -190,7 +194,7 @@
     color: var(--text-25);
 }
 
-.rightContent__img{
+.rightContent__img {
     width: 12px;
     height: 12px;
 }

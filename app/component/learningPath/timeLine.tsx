@@ -3,13 +3,17 @@
 import { Col, Row } from "react-bootstrap"
 import styles from '@public/styles/learningPath/TimeLine.module.css'
 
-const TimeLine: React.FC = () => {
+interface TimeLineProps {
+    title: string;
+}
+
+const TimeLine: React.FC<TimeLineProps> = ({title=''}) => {
     return (
         <>
             <Row className={styles.conatiner}>
                 <Col className={styles.main}>
                     <h2 className={styles.title}>
-                        THỜI GIAN DỰ KIẾN CHO LỘ TRÌNH FONT-END
+                        THỜI GIAN DỰ KIẾN CHO LỘ TRÌNH {title}
                     </h2>
                     <div className={styles.body}>
                         <article className={styles.body__start}>

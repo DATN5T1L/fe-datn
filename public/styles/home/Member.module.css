@@ -274,6 +274,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;  
+    min-width: 84px;
 }
 
 .main__content__tick {

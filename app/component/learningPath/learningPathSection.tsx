@@ -3,7 +3,12 @@
 import styles from '@public/styles/learningPath/LearningPathSection.module.css'
 import { Card, Col, Image, Row } from "react-bootstrap"
 
-const LearningPathSection: React.FC = () => {
+interface LearningPathSectionProps{
+    title: string;
+    img: string;
+}
+
+const LearningPathSection: React.FC<LearningPathSectionProps> = ({title='', img=''}) => {
     return (
         <>
             <Row className={styles.skillContainer}>
@@ -11,13 +16,13 @@ const LearningPathSection: React.FC = () => {
                     <section className={styles.skill__header}>
                         <section className={styles.skill__header__title}>
                             <h2 className={styles.header__title}>
-                                Lộ Trình Học Frontend Development
+                                Lộ Trình Học {title} Development
                             </h2>
                             <h4 className={styles.header__subTitle}>
                                 Thiết kế web luôn là một nghề hấp dẫn bất kì thời điểm nào, bạn thử Google từ khoá "Tuyển dụng Lập trình Front End" sẽ thấy ngay các nhà tuyển dụng đang săn đón với mức lương cực hấp dẫn. Nếu bạn đam mê thiết kế web, bạn có những ý tưởng giao diện bá đạo, việc còn lại là kỹ năng lập trình Front-End hãy để khoá học này dẫn đường bạn nhé.
                             </h4>
                         </section>
-                        <Image src='/img/learningPathFE.png' alt='ảnh lộ trình' className={styles.imgHeader} />
+                        <Image src={`${img}`} alt='ảnh lộ trình' className={styles.imgHeader} />
                     </section>
                     <section className={styles.skill__body}>
                         <section className={styles.skill__body__header}>
