@@ -28,7 +28,7 @@ const Header: React.FC = () => {
         <>
             <Navbar expand="lg" className="bg-body-tertiary header-nav">
                 <Container fluid>
-                    <Navbar.Brand href="#"><img src="/img/logo.png" style={{ width: '162px', height: '58px' }} alt="" /></Navbar.Brand>
+                    <Navbar.Brand href="/"><img src="/img/logo.png" style={{ width: '162px', height: '58px' }} alt="" /></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll" className="navbar-custom">
                         <Form className="d-flex ms-auto me-3 search-bar">

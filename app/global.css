@@ -107,6 +107,7 @@
     --error: rgba(218, 30, 40, 1);
     --wait: rgba(255, 151, 79, 1);
     --f: rgba(255, 151, 79, 1);
+    --primary: rgba(34, 51, 119, 1);
 
     /* end alert */
 
@@ -367,6 +368,10 @@
   .btn-slide-bar:hover .btn,
   .btn-slide-bar:active .btn {
     color: var(--text-0);
+  }
+
+  .no-border{
+    border: 0 !important; 
   }
 
   /* left slide bar end  */

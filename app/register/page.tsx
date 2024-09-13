@@ -32,6 +32,8 @@ const Register: React.FC = () => {
 
     return (
         <>
+            <title>TTO - Đăng ký</title>
+            <meta name="description" content="Được tạo bởi Taem TTO" />
             <Container className={styles.main}>
                 <Card className={styles.form}>
                     <Card.Header className={styles.headerRegister}>
@@ -45,10 +47,10 @@ const Register: React.FC = () => {
                                     <Form.Label htmlFor="userName" className={styles.formControlRegister__label}>
                                         Tên của bạn là gì?
                                     </Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        required 
-                                        className={styles.formControlRegister__input} 
+                                    <Form.Control
+                                        type="text"
+                                        required
+                                        className={styles.formControlRegister__input}
                                         value={userName}
                                         onChange={(e) => setUserName(e.target.value)}
                                     />
@@ -60,10 +62,10 @@ const Register: React.FC = () => {
                                     <Form.Label htmlFor="email" className={styles.formControlRegister__label}>
                                         Email của bạn?
                                     </Form.Label>
-                                    <Form.Control 
-                                        type="email" 
-                                        required 
-                                        className={styles.formControlRegister__input} 
+                                    <Form.Control
+                                        type="email"
+                                        required
+                                        className={styles.formControlRegister__input}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                     />
@@ -94,10 +96,10 @@ const Register: React.FC = () => {
                                             }
                                         </Button>
                                     </section>
-                                    <Form.Control 
-                                        type={isCheckPass ? 'password' : 'text'} 
-                                        required 
-                                        className={styles.formControlRegister__input} 
+                                    <Form.Control
+                                        type={isCheckPass ? 'password' : 'text'}
+                                        required
+                                        className={styles.formControlRegister__input}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
@@ -110,10 +112,10 @@ const Register: React.FC = () => {
                                 </Form.Group>
                                 <Form.Group className={styles.formControlRegister} controlId="validationConfirmPassword">
                                     <Form.Label htmlFor="confirmPassword" className={styles.formControlRegister__label}>Nhập lại mật khẩu</Form.Label>
-                                    <Form.Control 
-                                        type={isCheckPass ? 'password' : 'text'} 
-                                        required 
-                                        className={styles.formControlRegister__input} 
+                                    <Form.Control
+                                        type={isCheckPass ? 'password' : 'text'}
+                                        required
+                                        className={styles.formControlRegister__input}
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         isInvalid={password !== confirmPassword}

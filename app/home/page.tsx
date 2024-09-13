@@ -12,6 +12,12 @@ import CoursesToTake from "../component/home/coursesToTake";
 import News from "../component/home/news";
 import ProductStudent from "../component/home/productStudent";
 import BodyContainer from "../component/bodyContainer";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "TTO - Khám phá, học hỏi, vươn xa",
+  description: "Được tạo bởi Taem TTO",
+};
 
 export default function Home() {
   return (

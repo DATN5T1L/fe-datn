@@ -8,11 +8,6 @@ import Footer from "./component/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "TTO - Khám phá, học hỏi, vươn xa",
-  description: "Được tạo bởi Taem TTO",
-};
-
 export default function RootLayout({
   children,
 }: {

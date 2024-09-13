@@ -30,6 +30,8 @@ const Login: React.FC = () => {
 
     return (
         <>
+            <title>TTO - Đăng nhập</title>
+            <meta name="description" content="Được tạo bởi Taem TTO" />
             <Container className={styles.main}>
                 <Card className={styles.cardContainer}>
                     <Card.Header className={styles.headerLogin}>
@@ -70,11 +72,11 @@ const Login: React.FC = () => {
                                     <Form.Label htmlFor="userName" className={styles.userNameLogin__label}>
                                         Email hoặc tên người dùng
                                     </Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        required 
-                                        placeholder="Tên đăng nhập hoặc email" 
-                                        className={styles.userNameLogin__input} 
+                                    <Form.Control
+                                        type="text"
+                                        required
+                                        placeholder="Tên đăng nhập hoặc email"
+                                        className={styles.userNameLogin__input}
                                         value={userName}
                                         onChange={(e) => setUserName(e.target.value)}
                                     />
@@ -105,11 +107,11 @@ const Login: React.FC = () => {
                                             }
                                         </Button>
                                     </section>
-                                    <Form.Control 
-                                        type={isCheckPass ? 'password' : 'text'} 
-                                        required 
+                                    <Form.Control
+                                        type={isCheckPass ? 'password' : 'text'}
+                                        required
                                         placeholder="Mật khẩu"
-                                        className={styles.passLogin__input} 
+                                        className={styles.passLogin__input}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
@@ -125,12 +127,12 @@ const Login: React.FC = () => {
                                     >
                                         {isRememberLogin ? (
                                             <>
-                                                <Image src="/img/checkBoxFalse.svg" alt="" className={styles.rememberLogin__img}/>
+                                                <Image src="/img/checkBoxFalse.svg" alt="" className={styles.rememberLogin__img} />
                                             </>
                                         ) :
                                             (
                                                 <>
-                                                    <Image src="/img/checkBoxTrue.svg" alt="" className={styles.rememberLogin__img}/>
+                                                    <Image src="/img/checkBoxTrue.svg" alt="" className={styles.rememberLogin__img} />
                                                 </>
                                             )}
                                         <div className={styles.rememberLogin__div}>Ghi nhớ đăng nhập</div>
