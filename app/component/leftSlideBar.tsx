@@ -17,7 +17,7 @@ const LeftSlideBar: React.FC = () => {
                         <img src='/img/home.svg' className='img none' />
                         <div className='btn no-border'>Trang chủ</div>
                     </Link>
-                    <Link href="/#" className={`btn-slide-bar ${isActive('/courses') ? 'home' : ''}`}>
+                    <Link href="/course" className={`btn-slide-bar ${isActive('/course') ? 'home' : ''}`}>
                         <img src='/img/box-fill.svg' className='img block' />
                         <img src='/img/box.svg' className='img none' />
                         <div className='btn no-border'>Khóa học</div>

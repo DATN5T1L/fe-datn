@@ -1,11 +1,11 @@
 'use client'
 import React from 'react';
-import styles from '@public/styles/home/Mycourse.module.css'
-import { Container, Row, Col, Button, Image, Form, NavDropdown, Card } from 'react-bootstrap';
+import styles from '@public/styles/home/MyCourse.module.css'
+import { Container, Row, Col, Button, Image, Form, Card } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 
 
-const MyCourse: React.FC = () => {
+const MyCourseForm: React.FC = () => {
     return (
         <>
             <Container className={styles.container}>
@@ -234,4 +234,4 @@ const MyCourse: React.FC = () => {
     )
 }
 
-export default MyCourse
+export default MyCourseForm

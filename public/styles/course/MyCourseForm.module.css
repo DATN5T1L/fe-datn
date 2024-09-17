@@ -2,7 +2,7 @@
 
 .container {
     width: 100%;
-    height: 362px;
+    height: auto;
     border-radius: 8px;
     padding: 16px;
     display: flex;
@@ -155,7 +155,7 @@
     box-shadow: 0;
 }
 
-.mainBox__content{
+.mainBox__content {
     width: 100%;
     max-width: 275px;
     height: auto;
@@ -174,7 +174,7 @@
 .headerContent {
     background: linear-gradient(107.66deg, #063B42 2.8%, #0F96A8 98%),
         linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%);
-    width: 245px;
+    width: 100%;
     height: 132px;
     box-sizing: border-box;
     padding: 16px;
@@ -227,25 +227,30 @@
 
 .mainContent {
     position: relative;
-    width: 245px;
-    height: 112px;
-    padding: 4px 10px 10px 10px;
+    width: 100%;
+    height: auto;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 10px;
     box-sizing: border-box;
     z-index: 1px;
 }
 
 .mainContent__headContent {
-    width: 225px;
-    height: 40px;
+    min-width: 225px;
+    width: 100%;
+    height: auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .headContent__evaluete {
-    height: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
     width: auto;
 }
 
@@ -277,6 +282,8 @@
     line-height: 16px;
     text-align: center;
     color: rgba(153, 153, 153, 1);
+    display: flex;
+    flex-direction: row;
 }
 
 .evaluete__note {
@@ -371,6 +378,7 @@
 
 .bodyContent {
     width: 225px;
+    min-width: 100%;
     height: 54px;
     display: flex;
     flex-direction: row;
@@ -380,7 +388,8 @@
 }
 
 .bodyContent__element {
-    width: 69.7px;
+    width: 32%;
+    max-width: 79.666px;
     height: 54px;
     padding: 4px 0px;
     border-radius: 16px;

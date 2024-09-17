@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin: 0;
 }
 
 .header {
@@ -28,7 +29,7 @@
 }
 
 .header__title {
-    width: 179px;
+    width: auto;    
     height: 32px;
     font-weight: 600;
     font-size: 20px;
@@ -134,9 +135,9 @@
 }
 
 .main {
-    width: 768px;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: 0;
     gap: 16px;
     height: auto;
@@ -144,20 +145,25 @@
 
 .mainBox {
     width: 245px;
-    height: 244px;
+    max-width: 245px; 
+    height: auto;
     border-radius: 16px;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     padding: 0;
     border: 0;
     box-shadow: 0;
+    flex-grow: 0;
 }
 
 .mainBox__content{
-    width: 245px;
-    height: 244px;
+    width: 100%;
+    max-width: 275px;
+    height: auto;
     border-radius: 16px;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
     box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32) !important;
     z-index: 10px;
@@ -169,7 +175,7 @@
 .headerContent {
     background: linear-gradient(107.66deg, #063B42 2.8%, #0F96A8 98%),
         linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%);
-    width: 245px;
+    width: 100%;
     height: 132px;
     box-sizing: border-box;
     padding: 16px;
@@ -222,25 +228,28 @@
 
 .mainContent {
     position: relative;
-    width: 245px;
-    height: 112px;
-    padding: 4px 10px 10px 10px;
+    width: 100%;
+    height: auto;
+    max-height: 100px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 10px;
     box-sizing: border-box;
     z-index: 1px;
 }
 
 .mainContent__headContent {
-    width: 225px;
-    height: 40px;
+    min-width: 225px;
+    width: 100%;
+    height: auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .headContent__evaluete {
-    height: 32px;   
+    height: auto;   
     width: auto;
 }
 
@@ -285,9 +294,9 @@
 }
 
 .headContent__percent {
-    min-width: 47px;
-    max-width: 50px;
-    height: 40px;
+    min-width: 74px;
+    max-width: auto;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -366,6 +375,7 @@
 
 .bodyContent {
     width: 225px;
+    min-width: 100%;
     height: 54px;
     display: flex;
     flex-direction: row;
@@ -375,7 +385,8 @@
 }
 
 .bodyContent__element {
-    width: 69.7px;
+    width: 32%;
+    max-width: 79.666px;
     height: 54px;
     padding: 4px 0px;
     border-radius: 16px;
@@ -402,3 +413,4 @@
     font-weight: 400;
     text-align: center;
 }
+

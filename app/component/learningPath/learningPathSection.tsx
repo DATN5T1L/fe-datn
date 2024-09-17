@@ -16,7 +16,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({title='', img=
                     <section className={styles.skill__header}>
                         <section className={styles.skill__header__title}>
                             <h2 className={styles.header__title}>
-                                Lộ Trình Học {title} Development
+                                Lộ Trình Học {title} Development 
                             </h2>
                             <h4 className={styles.header__subTitle}>
                                 Thiết kế web luôn là một nghề hấp dẫn bất kì thời điểm nào, bạn thử Google từ khoá "Tuyển dụng Lập trình Front End" sẽ thấy ngay các nhà tuyển dụng đang săn đón với mức lương cực hấp dẫn. Nếu bạn đam mê thiết kế web, bạn có những ý tưởng giao diện bá đạo, việc còn lại là kỹ năng lập trình Front-End hãy để khoá học này dẫn đường bạn nhé.
