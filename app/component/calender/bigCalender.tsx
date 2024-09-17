@@ -527,8 +527,6 @@ const BigCalendar: React.FC<FullCalendarProps> = ({ selectedDate, onDateChange }
     //đồng bộ ngược
     const handleDatesSet = (info: any) => {
         const startDate = new Date(info.start);
-
-        // Kiểm tra điều kiện để tránh gọi không cần thiết
         if (view === 'timeGridWeek') {
             const monthOfStartDate = startDate.getMonth();
             const selectedMonth = selectedDate.getMonth();
@@ -541,8 +539,6 @@ const BigCalendar: React.FC<FullCalendarProps> = ({ selectedDate, onDateChange }
             }
         }
     };
-
-
 
     return (
         <Container className={styles.container} >
