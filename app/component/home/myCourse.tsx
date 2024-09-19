@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import styles from '../../../public/styles/home/CourseMe.module.css'
+import styles from '@public/styles/home/CourseMe.module.css'
 import { Container, Row, Col, Button, Image, Form, Card } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 
