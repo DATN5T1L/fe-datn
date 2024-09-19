@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
                 <Row md={12} className='footer-header'>
                     <Col md={3} className="footer-profile-left">
                         <section className='box-logo'>
-                            <Image src="/img/logo.png" alt="Logo" className="logo-footer" />
+                            <Image src="/img/LogoPage.jpg" alt="Logo" className="logo-footer" />
                             <p className='text-1'>"Khám phá, học hỏi, vươn xa"</p>
                         </section>
                         <section className='box-logo-content'>
