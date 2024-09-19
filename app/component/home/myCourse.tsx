@@ -1,14 +1,14 @@
 'use client'
 import React from 'react';
-// import styles from '@public/styles/home/CourseMe.module.css'
-// import { Container, Row, Col, Button, Image, Form, Card } from 'react-bootstrap';
-// import { Search } from 'react-bootstrap-icons';
+import styles from '../../../public/styles/home/CourseMe.module.css'
+import { Container, Row, Col, Button, Image, Form, Card } from 'react-bootstrap';
+import { Search } from 'react-bootstrap-icons';
 
 
 const MyCourse: React.FC = () => {
     return (
         <>
-            {/* <Container className={styles.container}>
+            <Container className={styles.container}>
                 <div className={styles.header}>
                     <Image src="/img/blueBox.svg" alt="" className={styles.header__img}/>
                     <h1 className={styles.header__title}>Khóa học của bạn</h1>
@@ -229,7 +229,7 @@ const MyCourse: React.FC = () => {
                         </Card>
                     </Col>
                 </Row>
-            </Container> */}
+            </Container>
         </>
     )
 }
