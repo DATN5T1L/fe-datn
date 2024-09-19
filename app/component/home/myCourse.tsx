@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Image, Form, Card } from 'react-bootstrap'
 import { Search } from 'react-bootstrap-icons';
 
 
-const MyCourseForm: React.FC = () => {
+const MyCourse: React.FC = () => {
     return (
         <>
             <Container className={styles.container}>
@@ -234,4 +234,4 @@ const MyCourseForm: React.FC = () => {
     )
 }
 
-export default MyCourseForm
+export default MyCourse

@@ -1,7 +1,7 @@
 import BodyContainer from "../component/bodyContainer";
-import CourseForm from "../component/couser/courseToTakeForm";
-import MainCourse from "../component/couser/mainCourse";
-import MyCourseForm from "../component/couser/myCourseForm";
+import CourseForm from "../component/course/courseToTakeForm";
+import MainCourse from "../component/course/mainCourse";
+import MyCourseForm from "../component/course/myCourseForm";
 import LeftSlideBar from "../component/leftSlideBar";
 
 const Course: React.FC = () => {
