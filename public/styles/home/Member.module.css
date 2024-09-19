@@ -95,7 +95,8 @@
 .main {
     position: relative;
     width: 100%;
-    max-width: 850px;
+    max-width: 887.867px;
+    box-sizing: border-box;
     height: 132px;
     padding: 0 30px;
     display: flex;
@@ -116,7 +117,7 @@
 }
 
 .main > * {
-    flex-grow: 0;
+    flex-grow: 0;   
 }
 
 

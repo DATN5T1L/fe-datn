@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <BodyContainer>
+      <BodyContainer gap="32px">
         <LeftSlideBar></LeftSlideBar>
         <MainContainer>
           <Banner />
