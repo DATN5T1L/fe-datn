@@ -24,7 +24,6 @@ interface Sprites {
 interface PokemonDetails {
   name: string;
   sprites: Sprites;
-  // Thêm các thuộc tính khác nếu cần
 }
 
 const FetchPokemon: React.FC = () => {
