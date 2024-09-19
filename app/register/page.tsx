@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import styles from '@public/styles/Register/Register.module.css'
+import styles from '@public/styles/register/Register.module.css'
 import Link from 'next/link';
 import { Button, Card, Container, Form, Image } from 'react-bootstrap';
 
