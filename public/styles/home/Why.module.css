@@ -303,7 +303,7 @@
 }
 
 .rightChat__container__content {
-    background-image: url('/img/bgBoxChatRight.svg');
+    background-image: url('/img/bgChatRight.svg');
     background-size: cover;
     position: relative;
     width: 100%;

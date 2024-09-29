@@ -68,7 +68,7 @@ const Why: React.FC = () => {
                                             đảm bảo bạn luôn cập nhật kiến thức mới nhất.
                                         </h5>
                                     </div>
-                                    <img src="/img/BoxChatRight.svg" alt="" className={styles.rightChat__container__content__img} />
+                                    <img src="/img/chatRight.svg" alt="" className={styles.rightChat__container__content__img} />
                                 </div>
                             </div>
                             <div className={styles.main__content__wrap}>
@@ -112,7 +112,7 @@ const Why: React.FC = () => {
                                             đảm bảo bạn luôn cập nhật kiến thức mới nhất.
                                         </h5>
                                     </div>
-                                    <img src="/img/BoxChatRight.svg" alt="" className={styles.rightChat__container__content__img} />
+                                    <img src="/img/chatRight.svg" alt="" className={styles.rightChat__container__content__img} />
                                 </div>
                             </div>
                             <div className={styles.main__content__wrap}>
