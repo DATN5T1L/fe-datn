@@ -1,41 +1,34 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import VideoPlayer from "../component/video";
-import RightSlideBar from "../component/home/rightSlideBar";
-import MainContainer from "../component/mainContainer";
-import LeftSlideBar from "../component/leftSlideBar";
-import Banner from "../component/home/banner";
-import Statistical from "../component/home/statistical";
-import Member from "../component/home/member";
-import MyCourse from "../component/home/myCourse";
-import CoursesToTake from "../component/home/coursesToTake";
-import News from "../component/home/news";
-import ProductStudent from "../component/home/productStudent";
-import BodyContainer from "../component/bodyContainer";
-import { Metadata } from "next";
+'use client'
 
-export const metadata: Metadata = {
-  title: "TTO - Khám phá, học hỏi, vươn xa",
-  description: "Được tạo bởi Taem TTO",
-};
+import Body from "../component/body"
+import About from "../component/home/about"
+import CourseFree from "../component/home/courseFree"
+import CoursePro from "../component/home/coursePro"
+import FeedBack from "../component/home/feedBack"
+import LearningPath from "../component/home/learningPath"
+import LeftSlider from "../component/home/leftSlider"
+import Post from "../component/home/post"
+import ProductStudent from "../component/home/productStudent"
+import SliderShow from "../component/home/sliderShow"
+import Why from "../component/home/why"
 
-export default function Home() {
-  return (
-    <>
-      <BodyContainer gap="32px">
-        <LeftSlideBar></LeftSlideBar>
-        <MainContainer>
-          <Banner />
-          <Statistical />
-          <Member />
-          <MyCourse />
-          <CoursesToTake />
-          <News />
-          <ProductStudent />
-        </MainContainer>
-        <RightSlideBar></RightSlideBar>
-      </BodyContainer>
-
-    </>
-  );
+const Home: React.FC = () => {
+    return (
+        <>
+            <Body>
+                <LeftSlider></LeftSlider>
+                <SliderShow/>
+                <LearningPath></LearningPath>
+                <CoursePro></CoursePro>     
+                <CourseFree></CourseFree>
+                <Why></Why>
+                <Post></Post>
+                <About></About>
+                <ProductStudent></ProductStudent>
+                <FeedBack></FeedBack>
+            </Body>
+        </> 
+    )
 }
+
+export default Home

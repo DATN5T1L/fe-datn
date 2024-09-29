@@ -12,6 +12,9 @@ interface ButtonProps {
     hover?: boolean;
     hoverType?: 'default' | 'other';
     typeButton?: 'btn' | 'sm' | 'rs';
+    width?: number;
+    height?: number;
+    widthText?: string;
     children: React.ReactNode;
 }
 
@@ -25,6 +28,9 @@ const Button: React.FC<ButtonProps> = ({
     hover = true,
     hoverType = 'default',
     typeButton = 'btn',
+    width = 198,
+    height = 48,
+    widthText = 'auto',
     children
 }) => {
     const [isIconLeft, setIsIconLeft] = useState(leftIcon);
@@ -141,8 +147,9 @@ const Button: React.FC<ButtonProps> = ({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             type={getTypeBtnClass()}
+            style={{width:`${width}px`,height:`${height}px`}}
         >
-            <div className={` ${getStatusClass()} ${getSizeClass()}`}>
+            <div  style={{width:`${width}px`,height:`${height}px`}} className={` ${getStatusClass()} ${getSizeClass()}`}>
                 <div className='left-icon-container'>
                     {isIconLeft ? (
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='icon-left' >
@@ -152,7 +159,7 @@ const Button: React.FC<ButtonProps> = ({
                     ) : ''
                     }
                 </div>
-                <div className='btn-title'>
+                <div className='btn-title' style={{width:`${widthText}`}}>
                     {children}
                 </div>
                 <div className='right-icon-container'>

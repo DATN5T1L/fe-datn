@@ -8,6 +8,7 @@ interface PokeResult {
 }
 
 interface AllPokeData {
+  [x: string]: any;
   count: number;
   next: string | null;
   previous: string | null;
@@ -38,20 +39,20 @@ const FetchPokemon: React.FC = () => {
         const response = await fetch('/api/allPoke', { cache: 'no-cache' });
 
         if (!response.ok) {
-          throw new Error(`Error fetching all Pokemons: ${response.status}`);
+          throw new Error(`Không thể lấy về Pokemons: ${response.status}`);
         }
 
         const dataAll: AllPokeData = await response.json();
         setAllPokeData(dataAll);
-        const detailsPromises = dataAll.results.map(async (pokemon) => {    
+        const detailsPromises = dataAll.results.map(async (pokemon) => {
           const urlParts = pokemon.url.split('/').filter(Boolean);
           const id = urlParts[urlParts.length - 1];
-            console.log(id);
-            
+          console.log(id);
+
           const res = await fetch(`/api/pokemon/${id}`, { cache: 'no-cache' });
 
           if (!res.ok) {
-            throw new Error(`Error fetching details for ${pokemon.name}: ${res.status}`);
+            throw new Error(`Không thể lấy chi tiết pokemon ${pokemon.name}: ${res.status}`);
           }
 
           const dataDetail: PokemonDetails = await res.json();
@@ -93,9 +94,6 @@ const FetchPokemon: React.FC = () => {
           </li>
         ))}
       </ul>
-      {/* Thêm các nút phân trang nếu cần */}
-      {allPokeData?.next && <a href={allPokeData.next}>Next Page</a>}
-      {allPokeData?.previous && <a href={allPokeData.previous}>Previous Page</a>}
     </div>
   );
 };

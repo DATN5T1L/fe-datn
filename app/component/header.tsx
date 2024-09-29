@@ -1,7 +1,7 @@
 'use client'
-import { usePathname, useRouter } from 'next/navigation'; 
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
-import { Container, Button, Nav, Navbar, Form} from 'react-bootstrap';
+import { Container, Button, Nav, Navbar, Form, Image } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons';
 
 
@@ -26,37 +26,31 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <Navbar expand="lg" className="bg-body-tertiary header-nav">
-                <Container fluid>
-                    <Navbar.Brand href="/"><img src="/img/LogoPage.jpg" style={{ width: '162px', height: '58px' }} alt="" /></Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbarScroll" />
-                    <Navbar.Collapse id="navbarScroll" className="navbar-custom">
-                        <Form className="d-flex ms-auto me-3 search-bar">
-                            <Form.Control
-                                type="text"
-                                placeholder="Tìm kiếm"
-                                className="me-2 rounded-pill"
-                                aria-label="Search"
-                            />
-                            <Button variant="outline-secondary">
-                                <Search className='btn-search-icon' />
-                            </Button>
-                        </Form>
-                        <Nav
-                            className="ms-auto my-2 my-lg-0 btn-header"
-                            navbarScroll
-                        >
-                            <Button 
-                            onClick={handleRegister}
-                            className={`btn-navbar ${isRegister ? 'light-check' : ''}`}
-                            >Đăng ký</Button>
-                            <Button 
-                            onClick={handleLogin}
-                            className={`btn-navbar border-blue-1 ${isLogin ? 'light-check' : ''}`}
-                            >Đăng nhập</Button>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
+            <Navbar className="header-nav">
+                <Navbar.Brand href="/" className='brand-header'><Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' /></Navbar.Brand>
+                <Form className="search-bar">
+                    <Form.Control
+                        type="text"
+                        placeholder="Tìm kiếm"
+                        className="search"
+                        aria-label="Search"
+                    />
+                    <Button variant="outline-secondary" className='btn-search-icon'>
+                        <Search className='search-icon' />
+                    </Button>
+                </Form>
+                <Nav
+                    className="btn-header"
+                >
+                    <Button
+                        onClick={handleRegister}
+                        className={`btn-navbar ${isRegister ? 'light-check' : ''}`}
+                    >Đăng ký</Button>
+                    <Button
+                        onClick={handleLogin}
+                        className={`btn-navbar border-blue-1 ${isLogin ? 'light-check' : ''}`}
+                    >Đăng nhập</Button>
+                </Nav>
             </Navbar>
         </>
     )

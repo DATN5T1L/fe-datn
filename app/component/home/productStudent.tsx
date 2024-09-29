@@ -1,102 +1,96 @@
-'use client'
-import Link from 'next/link';
-import React from 'react';
+
 import styles from '@public/styles/home/ProductStudent.module.css'
-import { Container, Row, Col, Card, Image } from 'react-bootstrap';
+import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 
 const ProductStudent: React.FC = () => {
     return (
         <>
             <Container className={styles.container}>
-                <section className={styles.header}>
-                    <div className={styles.headerLeft}>
-                        <div className={styles.headerLeft__borderImg}>
-                            <Image src="/img/Document.svg" alt="" className={styles.headerLeft__img} />
-                        </div>
-                        <h1 className={styles.headerLeft__title}>Sản phẩm học viên</h1>
-                    </div>
-                    <Link href={'/'} className={styles.headerRight}>
-                        <h2 className={styles.headerRight__title}>Xem thêm</h2>
-                        <Image src="/img/arrowRightBlue.svg" alt="" className={styles.headerRight__img} />
-                    </Link>
-                </section>
-                <Row md={12} className={styles.main}>
-                    <Col className={styles.mainContainer}>
-                        <Card className={styles.mainContainer__box}>
-                            <Card.Img src="/img/post1.png" alt="" className={styles.head__img} />
-                            <Card.Body className={styles.containerBody}>
-                                <Card.Title className={styles.containerBody__title}>
-                                    Bộ công nghệ thông tin vừa ra mắt robot 5.0
-                                </Card.Title>
-                                <section className={styles.content}>
-                                    <div className={styles.leftContent}>
-                                        <Image src="/img/Calendarblue.svg" alt="" className={styles.leftContent__img} />
-                                        <Card.Text className={styles.leftContent__text}>
-                                            28/08/2024
-                                        </Card.Text>
-                                    </div>
-                                    <div className={styles.rightContent}>
-                                        <Card.Text className={styles.rightContent__text}>
-                                            999
-                                        </Card.Text>
-                                        <Image src="/img/eyeYellow.svg" alt="" className={styles.rightContent__img} />
-                                    </div>
-                                </section>
+                <Image src="/img/productStudentIcon.svg" alt="" className={styles.imgIcon} />
+                <div className={styles.bgTop}></div>
+                <Row className={styles.main}>
+                    <Col className={styles.header}>
+                        <h2 className={styles.header__heading}>
+                            Một số sản phẩm của học viên
+                        </h2>
+                        <h4 className={styles.header__title}>
+                            Product
+                        </h4>
+                    </Col>
+                    <Col className={styles.group__post}>
+                        <Card className={styles.post}>
+                            <Card.Img src="/img/productStudent.svg" className={styles.post__img} />
+                            <Card.Body className={styles.post__body}>
+                                <Card.Title className={styles.post__title}>Website Audi clone Website Audi cloneWebsite Audi clone</Card.Title>
+                                <Button className={styles.btn__post}>
+                                    <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </Button>
                             </Card.Body>
                         </Card>
-                    </Col>
-                    <Col  className={styles.mainContainer}>
-                        <Card className={styles.mainContainer__box}>
-                            <Card.Img src="/img/post2.png" alt="" className={styles.head__img} />
-                            <Card.Body className={styles.containerBody}>
-                                <Card.Title className={styles.containerBody__title}>
-                                    Bộ công nghệ thông tin vừa ra mắt robot 5.0
-                                </Card.Title>
-                                <section className={styles.content}>
-                                    <div className={styles.leftContent}>
-                                        <Image src="/img/Calendarblue.svg" alt="" className={styles.leftContent__img} />
-                                        <Card.Text className={styles.leftContent__text}>
-                                            28/08/2024
-                                        </Card.Text>
-                                    </div>
-                                    <div className={styles.rightContent}>
-                                        <Card.Text className={styles.rightContent__text}>
-                                            999
-                                        </Card.Text>
-                                        <Image src="/img/eyeYellow.svg" alt="" className={styles.rightContent__img} />
-                                    </div>
-                                </section>
+                        <Card className={styles.post}>
+                            <Card.Img src="/img/productStudent.svg" className={styles.post__img} />
+                            <Card.Body className={styles.post__body}>
+                                <Card.Title className={styles.post__title}>Website Audi clone Website Audi cloneWebsite Audi clone</Card.Title>
+                                <Button className={styles.btn__post}>
+                                    <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </Button>
                             </Card.Body>
                         </Card>
-                    </Col>
-                    <Col  className={styles.mainContainer}>
-                        <Card className={styles.mainContainer__box}>
-                            <Card.Img src="/img/post3.png" alt="" className={styles.head__img} />
-                            <Card.Body className={styles.containerBody}>
-                                <Card.Title className={styles.containerBody__title}>
-                                    Bộ công nghệ thông tin vừa ra mắt robot 5.0
-                                </Card.Title>
-                                <section className={styles.content}>
-                                    <div className={styles.leftContent}>
-                                        <Image src="/img/Calendarblue.svg" alt="" className={styles.leftContent__img} />
-                                        <Card.Text className={styles.leftContent__text}>
-                                            28/08/2024
-                                        </Card.Text>
-                                    </div>
-                                    <div className={styles.rightContent}>
-                                        <Card.Text className={styles.rightContent__text}>
-                                            999
-                                        </Card.Text>
-                                        <Image src="/img/eyeYellow.svg" alt="" className={styles.rightContent__img} />
-                                    </div>
-                                </section>
+                        <Card className={styles.post}>
+                            <Card.Img src="/img/productStudent.svg" className={styles.post__img} />
+                            <Card.Body className={styles.post__body}>
+                                <Card.Title className={styles.post__title}>Website Audi clone Website Audi cloneWebsite Audi clone</Card.Title>
+                                <Button className={styles.btn__post}>
+                                    <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </Button>
+                            </Card.Body>
+                        </Card>
+                        <Card className={styles.post}>
+                            <Card.Img src="/img/productStudent.svg" className={styles.post__img} />
+                            <Card.Body className={styles.post__body}>
+                                <Card.Title className={styles.post__title}>Website Audi clone Website Audi cloneWebsite Audi clone</Card.Title>
+                                <Button className={styles.btn__post}>
+                                    <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </Button>
+                            </Card.Body>
+                        </Card>
+                        <Card className={styles.post}>
+                            <Card.Img src="/img/productStudent.svg" className={styles.post__img} />
+                            <Card.Body className={styles.post__body}>
+                                <Card.Title className={styles.post__title}>Website Audi clone Website Audi cloneWebsite Audi clone</Card.Title>
+                                <Button className={styles.btn__post}>
+                                    <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </Button>
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
+                <div className={styles.bgBottom}></div>
+                <div className={styles.btn__group}>
+                    <Button className={styles.btn__prev}>
+                        <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={styles.stroke__icon} />
+                        </svg>
+                    </Button>
+                    <Button className={styles.btn__next}>
+                        <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </Button>
+                </div>
             </Container>
         </>
     )
 }
 
-export default ProductStudent;
+export default ProductStudent 

@@ -4,7 +4,7 @@ import Button from "../component/btnComponent"
 const Demo: React.FC = () => {
     return (
         <>
-            <table style={{ borderCollapse: 'collapse' }}>
+            <table style={{ borderCollapse: 'collapse', marginTop:'100px '}}>
                 <tbody>
                     <tr style={{ display: 'flex', flexDirection: 'row', gap: '30px' }}>
                         <td style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
