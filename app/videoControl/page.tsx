@@ -32,7 +32,7 @@ declare namespace YT {
     }
 }
 
-const Video: React.FC<VideoProps> = ({ VideoOne = null }) => {
+const VideoControl: React.FC<VideoProps> = ({ VideoOne = null }) => {
     const fetcher = (...args: [RequestInfo, RequestInit?]) => fetch(...args).then(res => res.json())
     const { data, error, isLoading, mutate} = useSWR(`http://localhost:3003/statusVideo/_id/66f1116214388e0b0541e891`, fetcher)
     const playerRef = useRef<HTMLDivElement>(null);
@@ -156,4 +156,4 @@ const Video: React.FC<VideoProps> = ({ VideoOne = null }) => {
     );
 };
 
-export default Video;
+export default VideoControl;
