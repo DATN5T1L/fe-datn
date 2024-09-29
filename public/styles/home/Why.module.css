@@ -237,7 +237,7 @@
 }
 
 .leftChat__container__content {
-    background-image: url('/img/boxChatleft.svg');
+    background-image: url('/img/chatLeft.svg');
     background-size: cover;
     position: relative;
     width: 100%;
