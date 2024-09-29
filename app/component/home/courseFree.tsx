@@ -499,28 +499,6 @@ const CourseFree: React.FC = () => {
                                         <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
                                     </div>
                                 </section>
-                                <section className={styles.mainContent__headContent}>
-                                    <div className={styles.headContent__evaluete}>
-                                        <div className={styles.evaluete__main}>
-                                            <div className={styles.starGroup}>
-                                                <Image src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                                <Image src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                                <Image src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                                <Image src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                                <Image src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                            </div>
-
-                                            <Card.Text className={styles.starNumber}>
-                                                {'('} 4,5 {')'}
-                                            </Card.Text>
-                                        </div>
-                                    </div>
-                                    <div className={styles.headContent__percent}>
-                                        <Card.Text className={styles.evaluete__note}>
-                                            {'('} 504 phản hồi {')'}
-                                        </Card.Text>
-                                    </div>
-                                </section>
                             </Card.Body>
                         </Card>
                     </Col>
