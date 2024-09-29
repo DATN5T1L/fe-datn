@@ -15,11 +15,13 @@ import Why from "../component/home/why"
 const Home: React.FC = () => {
     return (
         <>
+            <title>TTO - Khám phá, học hỏi, vươn xa</title>
+            <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
                 <LeftSlider></LeftSlider>
-                <SliderShow/>
+                <SliderShow />
                 <LearningPath></LearningPath>
-                <CoursePro></CoursePro>     
+                <CoursePro></CoursePro>
                 <CourseFree></CourseFree>
                 <Why></Why>
                 <Post></Post>
@@ -27,7 +29,7 @@ const Home: React.FC = () => {
                 <ProductStudent></ProductStudent>
                 <FeedBack></FeedBack>
             </Body>
-        </> 
+        </>
     )
 }
 
