@@ -374,7 +374,7 @@
     border-radius: 32px;
     padding: 16px 0px;
     border: 0;
-    background-color: rgba(153, 153, 153, 1);
+    background-color: var(--blue-50);
     font-weight: 500;
     font-size: 22px;
     line-height: 33px;
