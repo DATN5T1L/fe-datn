@@ -1,5 +1,5 @@
 'use client'
-import Button from "../component/btnComponent"
+import Button from "../component/globalControl/btnComponent"
 
 const Demo: React.FC = () => {
     return (

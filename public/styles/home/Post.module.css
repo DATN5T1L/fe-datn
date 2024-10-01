@@ -28,6 +28,7 @@
     border-radius: 36px;
     background: var(--cyan-90);
     flex-direction: row;
+    position: relative;
 }
 
 .img__logo {
@@ -151,12 +152,11 @@
 .btn__next {}
 
 .right__body {
-    width: 835px;
-    min-width: 835px;
+    width: 1035px;
+    min-width: 1035px;
     height: auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding: 0;
     margin: 0;
     align-items: flex-start;
@@ -166,9 +166,16 @@
     scrollbar-width: none;
     flex-grow: 0;
     white-space: nowrap;
+    position: absolute;
+    left: 329px;
+    cursor: pointer;
 }
 
 .right__body>* {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     min-width: 300px;
     max-width: 300px;
 }
@@ -195,6 +202,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    pointer-events: none;
 }
 
 .right__body__main {

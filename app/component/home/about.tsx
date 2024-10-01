@@ -1,7 +1,7 @@
 
 import styles from '@public/styles/home/About.module.css'
 import { Container, Image } from 'react-bootstrap'
-import ButtonCpn from '../btnComponent'
+import ButtonCpn from '../globalControl/btnComponent'
 
 const About: React.FC = () => {
     return (

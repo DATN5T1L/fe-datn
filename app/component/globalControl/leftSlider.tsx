@@ -6,7 +6,7 @@ import { Button, Image, Nav } from "react-bootstrap"
 
 
 const LeftSlider: React.FC = () => {
-    const [isMenu, setIsMenu] = useState(false)
+    const [isMenu, setIsMenu] = useState(true)
     const [isCourseOpen, setIsCourseOpen] = useState(false);
 
     const openMenu = () => {

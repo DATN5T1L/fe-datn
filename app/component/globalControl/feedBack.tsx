@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '@public/styles/home/FeedBack.module.css';
+import styles from '@public/styles/globalControl/FeedBack.module.css';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 
 const FeedBack: React.FC = () => {

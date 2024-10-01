@@ -38,7 +38,7 @@ const Login: React.FC = () => {
                         <Card.Header className={styles.headerLogin}>
                             <section className={styles.titleGroup}>
                                 <h1 className={styles.titleGroup__h1}>Đăng nhập</h1>
-                                <Link href={'/'} className={styles.titleGroup__link}>Bạn chưa có tài khoản? <bdi className={styles.titleGroup__link__bdi}> Đăng ký</bdi></Link>
+                                <Link href={'/register'} className={styles.titleGroup__link}>Bạn chưa có tài khoản? <bdi className={styles.titleGroup__link__bdi}> Đăng ký</bdi></Link>
                             </section>
                             <section className={styles.loginMedia}>
                                 <Button className={styles.loginMedia__btn}>

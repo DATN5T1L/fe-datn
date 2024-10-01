@@ -1,12 +1,12 @@
 'use client'
 
-import Body from "../component/body"
+import Body from "../component/globalControl/body"
 import About from "../component/home/about"
 import CourseFree from "../component/home/courseFree"
 import CoursePro from "../component/home/coursePro"
-import FeedBack from "../component/home/feedBack"
+import FeedBack from "../component/globalControl/feedBack"
 import LearningPath from "../component/home/learningPath"
-import LeftSlider from "../component/home/leftSlider"
+import LeftSlider from "../component/globalControl/leftSlider"
 import Post from "../component/home/post"
 import ProductStudent from "../component/home/productStudent"
 import SliderShow from "../component/home/sliderShow"

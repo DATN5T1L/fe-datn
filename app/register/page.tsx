@@ -39,7 +39,7 @@ const Register: React.FC = () => {
                     <Card className={styles.form}>
                         <Card.Header className={styles.headerRegister}>
                             <Card.Title className={styles.headerRegister__title}>Đăng ký tài khoản</Card.Title>
-                            <Link href={'/Register'} className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi}> Đăng nhập</bdi></Link>
+                            <Link href={'/login'} className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi}> Đăng nhập</bdi></Link>
                         </Card.Header>
                         <Card.Body className={styles.bodyRegister}>
                             <Form className={styles.formRegister} noValidate validated={validated} onSubmit={handleSubmit}>
