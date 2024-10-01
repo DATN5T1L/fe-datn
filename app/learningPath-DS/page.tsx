@@ -13,7 +13,7 @@ import LeftSlider from "../component/globalControl/leftSlider"
 const LearningPath__DS: React.FC = () => {
     return (
         <>
-            <title>TTO - Lộ trình Back-End</title>
+            <title>TTO - Lộ trình Designer</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
                 <LeftSlider></LeftSlider>
