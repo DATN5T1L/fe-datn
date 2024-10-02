@@ -1,9 +1,16 @@
 import { Col, Container, Row } from "react-bootstrap"
 import ButtonCpn from "../globalControl/btnComponent"
 import styles from '@public/styles/learningPath/HeaderLearning.module.css'
+import { useRouter } from "next/navigation"
 
 
 const HeaderLearning: React.FC = () => {
+    const router = useRouter()
+
+    const handleCreateRouter = () =>{
+        router.push('/createLearningPath')
+    }
+
     return (
         <>
             <Container className={styles.container}>
@@ -35,7 +42,9 @@ const HeaderLearning: React.FC = () => {
                             width={264}
                             size="M"
                             rightIcon={false}
-                            status="hover">
+                            status="hover"
+                            onClick={handleCreateRouter}
+                            >
                             Tạo lộ trình của riêng bạn</ButtonCpn>
                     </Col>
                 </Row>

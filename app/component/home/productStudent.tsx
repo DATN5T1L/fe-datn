@@ -32,7 +32,7 @@ const ProductStudent: React.FC = () => {
     const handleWheel = (e: WheelEvent) => {
         if (rightBodyRef.current) {
             e.preventDefault();
-            rightBodyRef.current.scrollLeft += e.deltaY; 
+            rightBodyRef.current.scrollLeft += e.deltaY;
         }
     };
 
@@ -80,6 +80,17 @@ const ProductStudent: React.FC = () => {
                         onMouseUp={handleMouseLeaveOrUp}
                         onMouseMove={handleMouseMove}
                     >
+                        <Card className={styles.post}>
+                            <Card.Img src="/img/productStudent.svg" className={styles.post__img} />
+                            <Card.Body className={styles.post__body}>
+                                <Card.Title className={styles.post__title}>Website Audi clone Website Audi cloneWebsite Audi clone</Card.Title>
+                                <Button className={styles.btn__post}>
+                                    <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </Button>
+                            </Card.Body>
+                        </Card>
                         <Card className={styles.post}>
                             <Card.Img src="/img/productStudent.svg" className={styles.post__img} />
                             <Card.Body className={styles.post__body}>

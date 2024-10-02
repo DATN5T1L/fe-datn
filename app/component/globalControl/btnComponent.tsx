@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import '@app/global.css'
 
 interface ButtonProps {
-    type?: 'secondery' | 'premary';
+    type?: 'secondery' | 'premary' | 'disable';
     size?: 'S' | 'M';
     status?: 'default' | 'disable' | 'hover' | 'noBorder';
     leftIcon?: boolean;
@@ -15,6 +15,7 @@ interface ButtonProps {
     width?: number;
     height?: number;
     widthText?: string;
+    onClick?: () => void;
     children: React.ReactNode;
 }
 
@@ -31,7 +32,8 @@ const Button: React.FC<ButtonProps> = ({
     width = 198,
     height = 48,
     widthText = 'auto',
-    children
+    children,
+    onClick
 }) => {
     const [isIconLeft, setIsIconLeft] = useState(leftIcon);
     const [isIconRight, setIsIconRight] = useState(rightIcon);
@@ -43,6 +45,8 @@ const Button: React.FC<ButtonProps> = ({
                 return 'btn-secondery';
             case 'premary':
                 return 'btn-premary';
+            case 'disable':
+                return 'btn-dsb'
             default:
                 return 'btn-secondery';
         }
@@ -147,6 +151,7 @@ const Button: React.FC<ButtonProps> = ({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             type={getTypeBtnClass()}
+            onClick={onClick}
             style={{width:`${width}px`,height:`${height}px`}}
         >
             <div  style={{width:`${width}px`,height:`${height}px`}} className={` ${getStatusClass()} ${getSizeClass()}`}>
