@@ -1,5 +1,13 @@
 @import url('../root.css');
 
+.body{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
 .container {
     width: 100%;
     max-width: 1440px;
@@ -16,7 +24,7 @@
 
 .imgBg{
     width: 100%;
-    max-width: 1440px;
+    max-width: 100%;
     position: absolute;
     z-index: -10000;
     bottom: 0;

@@ -15,7 +15,7 @@ const CoursePro: React.FC = () => {
                                 <div className={styles.main__title__strokeLeft}>
                                     <div className={styles.strokeLeft__element}> </div>
                                 </div>
-                                <h2 className={styles.main__title__content}>Khóa học Pro</h2>
+                                <h2 className={styles.main__title__content} aria-hidden={true}>Khóa học Pro</h2>
                                 <div className={styles.main__title__strokeRight}>
                                     <div className={styles.strokeRight__element}></div>
                                 </div>

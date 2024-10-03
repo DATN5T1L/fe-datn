@@ -71,6 +71,9 @@
 
 .header__title__content {
     position: relative;
+    display: block; 
+    width: 328.08px;
+    max-width: 328.08px;
     margin: 0;
     padding: 0;
     font-size: 34px;
@@ -78,6 +81,9 @@
     font-weight: 600;
     line-height: 42px;
     letter-spacing: -0.68px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .header__border__blue {
@@ -161,16 +167,22 @@
 .box__body__title {
     margin: 0 !important;
     padding: 0 !important;
+    width: auto;
+    max-width: 100%;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
     color: var(--text-100);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .box__body__btn {
     position: relative;
-    display: flex;
+    display: inline-block;
     height: 48px;
     min-width: 120px;
     padding: 12px 16px;
@@ -187,6 +199,9 @@
     border-radius: 99px;
     background: var(--bgFull, linear-gradient(90deg, #F5FEFF 0%, #C4EAF6 100%));
     border: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn__next {

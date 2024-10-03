@@ -17,6 +17,7 @@ const RetrievePassword: React.FC = () => {
     }
     return (
         <>
+   
             <title>TTO - Quên mật khẩu</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Container className={styles.main}>
@@ -25,6 +26,7 @@ const RetrievePassword: React.FC = () => {
                         <fieldset className={styles.headerRetrieve}>
                             <legend className={styles.headerRetrieve__title}>Quên mật khẩu</legend>
                             <legend className={styles.headerRetrieve__subTitle}>Nhập email hoặc username của bạn và chúng tôi sẽ gửi cho bạn mã khôi phục mật khẩu.</legend>
+                            <Link href={'/login'} className={styles.back}>Quay về trang đăng nhập</Link>
                         </fieldset>
                         <section className={styles.validateRetrieve}>
                             <Form.Group className={styles.userNameRetrieve} controlId="validationUserName">

@@ -89,6 +89,10 @@
     line-height: normal;
 }
 
+.linkLogin:hover>.link__bdi{
+    color: var(--gray-70);
+}
+
 .bodyRegister {
     width: 100%;
     height: auto;
@@ -200,6 +204,10 @@
     line-height: 27px;
 }
 
+.checkPass__btn:hover>.checkPass__text{
+    color: var(--gray-70);
+}
+
 .noteRegister {
     height: 24px;
     width: 100%;
@@ -243,6 +251,9 @@
     color: var(--text-100);
 }
 
+.rememberRegister:hover>.rememberRegister__div{
+    color:var(--gray-70);
+}
 
 .btnSubmit {
     width: 100%;
@@ -285,6 +296,7 @@
     border: 0;
     margin: 0;
     padding: 0;
+    background-color: inherit;
 }
 
 .headWithRegister {
@@ -302,7 +314,7 @@
     color: var(--gray-60);
     align-items: center;
     justify-content: center;
-}
+}   
 
 .RegisterMedia {
     width: 100%;

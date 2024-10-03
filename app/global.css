@@ -131,9 +131,11 @@
   }
 
   body {
-    max-width: 1440px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     gap: 16px;
     overflow-x: hidden;
@@ -151,7 +153,6 @@
     position: fixed;
     top: 0;
     width: 100%;
-    max-width: 1440px;
     height: 74px;
     max-height: 74px;
     z-index: 100000000;
@@ -323,11 +324,14 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 1440px;
+    max-width: 5000px;
+    max-width: auto;
     margin-top: 75px !important;
     box-sizing: border-box;
     height: auto;
     position: relative;
+    justify-content: center;
+    align-items: center;
   }
 
   /* left slider bar start */
@@ -341,6 +345,7 @@
     position: fixed;
     display: flex;
     top: 100px;
+    left: 32px;
     padding: 36px 16px;
     flex-direction: column;
     align-items: flex-start;
@@ -899,6 +904,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-secondery .btn-hover {
@@ -930,6 +938,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-secondery .btn-no-border {
@@ -960,6 +971,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-secondery .btn-disable {
@@ -998,6 +1012,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* premary  */
@@ -1039,6 +1056,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-premary .btn-hover {
@@ -1071,6 +1091,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-premary .btn-no-border {
@@ -1102,6 +1125,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-premary .btn-disable {
@@ -1140,6 +1166,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* disable */
@@ -1153,7 +1182,7 @@
     background: none !important;
   }
 
-  
+
   .btn-dsb .btn-default {
     background-color: var(--text-0);
     width: auto;
@@ -1184,6 +1213,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-dsb .btn-hover {
@@ -1223,6 +1255,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-dsb .btn-no-border {
@@ -1254,6 +1289,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .btn-dsb .btn-disable {
@@ -1292,6 +1330,9 @@
     line-height: 24px;
     display: flex;
     flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* end btn */

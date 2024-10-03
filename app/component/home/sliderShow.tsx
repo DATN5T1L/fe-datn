@@ -1,8 +1,32 @@
 'use client'
 import styles from '@public/styles/home/SliderShow.module.css'
+import { useState } from 'react'
 import { Button, Col, Container, Image, Row } from 'react-bootstrap'
 
 const SliderShow: React.FC = () => {
+    const [isFocus1, setIsFocus1] = useState(true)
+    const [isFocus2, setIsFocus2] = useState(false)
+    const [isFocus3, setIsFocus3] = useState(false)
+
+
+    const handleFocus1 = () => {
+        setIsFocus1(true)
+        setIsFocus2(false)
+        setIsFocus3(false)
+    }
+
+    const handleFocus2 = () => {
+        setIsFocus1(false)
+        setIsFocus2(true)
+        setIsFocus3(false)
+    }
+
+    const handleFocus3 = () => {
+        setIsFocus1(false)
+        setIsFocus2(false)
+        setIsFocus3(true)
+    }
+
     return (
         <>
             <Container className={styles.container}>
@@ -13,12 +37,12 @@ const SliderShow: React.FC = () => {
                     <Row className={styles.body__header}>
                         <Button className={styles.btn__prev}>
                             <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 18L9 12L15 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={styles.stroke__icon}/>
+                                <path d="M15 18L9 12L15 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={styles.stroke__icon} />
                             </svg>
                         </Button>
                         <Col className={styles.title}>
                             <div className={styles.title__main}>
-                                <h4 className={styles.title__subTitle}>COURSE</h4>  
+                                <h4 className={styles.title__subTitle}>COURSE</h4>
                                 <h2 className={styles.title__mainTitle}>UI/UX Designer</h2>
                             </div>
 
@@ -50,20 +74,26 @@ const SliderShow: React.FC = () => {
                         </Button>
                     </Row>
                     <Row className={styles.body__footer}>
-                        <Col className={styles.box__user}>
-                            <Image src="/img/avt.jpg" alt="" className={styles.box__user__img} />
-                            <h3 className={styles.box__user__title}>Nguyễn Phương Thảo</h3>
-                        </Col>
-                        <Col className={styles.box__user}>
-                            <Image src="/img/avt.jpg" alt="" className={`${styles.box__user__img} ${styles.border__cyan}`} />
-                            <h3 className={`${styles.box__user__title} ${styles.color__cyan}`}>Nguyễn Phương Thảo</h3>
+                        <Col className={styles.box__user} onClick={handleFocus1}>
+                            <Image src="/img/avt.jpg" alt="" className={`${styles.box__user__img} ${isFocus1 ? styles.border__cyan : ''}`} />
+                            <h3 className={`${styles.box__user__title} ${isFocus1 ? styles.color__cyan : ''}`}>Nguyễn Phương Thảo</h3>
                             <div className={styles.box__user__border}>
-                                <div className={styles.box__user__element}></div>
+                                <div className={`${styles.box__user__element} ${isFocus1 ? styles.active : ''}`}></div>
                             </div>
                         </Col>
-                        <Col className={styles.box__user}>
-                            <Image src="/img/avt.jpg" alt="" className={styles.box__user__img} />
-                            <h3 className={styles.box__user__title}>Nguyễn Phương Thảo</h3>
+                        <Col className={styles.box__user} onClick={handleFocus2}>
+                            <Image src="/img/avt.jpg" alt="" className={`${styles.box__user__img} ${isFocus2 ? styles.border__cyan : ''}`} />
+                            <h3 className={`${styles.box__user__title} ${isFocus2 ? styles.color__cyan : ''}`}>Nguyễn Phương Thảo</h3>
+                            <div className={styles.box__user__border}>
+                                <div className={`${styles.box__user__element} ${isFocus2 ? styles.active : ''}`}></div>
+                            </div>
+                        </Col>
+                        <Col className={styles.box__user} onClick={handleFocus3}>
+                            <Image src="/img/avt.jpg" alt="" className={`${styles.box__user__img} ${isFocus3 ? styles.border__cyan : ''}`} />
+                            <h3 className={`${styles.box__user__title} ${isFocus3 ? styles.color__cyan : ''}`}>Nguyễn Phương Thảo</h3>
+                            <div className={styles.box__user__border}>
+                                <div className={`${styles.box__user__element} ${isFocus3 ? styles.active : ''}`}></div>
+                            </div>
                         </Col>
                     </Row>
                 </section>

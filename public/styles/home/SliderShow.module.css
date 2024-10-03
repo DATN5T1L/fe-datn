@@ -82,13 +82,20 @@
     margin: 0;
     padding: 0;
     width: auto;
+    max-width: 100%;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
-    display: flex;
+    display: block;
     align-items: center;
     color: var(--text-0);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box; */
 }
 
 .title__mainTitle {
@@ -99,9 +106,14 @@
     font-weight: 600;
     line-height: 42px;
     letter-spacing: -0.68px;
-    display: flex;
+    width: auto;
+    max-width: 100%;
+    display: block;
     align-items: center;
     color: var(--text-0);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .main {
@@ -156,6 +168,11 @@
     margin-right: 20px;
     margin-left: auto;
     margin-bottom: 58.84px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
 }
 
 .under {
@@ -205,6 +222,7 @@
     max-width: 33%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding: 0;
     padding-bottom: 10px;
     box-sizing: border-box;
@@ -213,6 +231,7 @@
 .box__user__img {
     width: 80px;
     height: 80px;
+    min-width: 80px;
     border-radius: 8px;
     object-fit: cover;
 }
@@ -222,17 +241,21 @@
 }
 
 .box__user__title {
-    display: flex;
+    display: block;
     align-items: center;
     margin: 0;
     width: auto;
+    max-width: 100%;
     height: auto;
-    padding-left: 10px;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
     color: var(--text-100);
+    padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .color__cyan {
@@ -251,8 +274,17 @@
     position: absolute;
     bottom: 0px;
     background-color: #00BCD2;
-    width: 90%;
+    width: 0%;
     height: 2px;
+    transition: width 0.7s ease-in-out;
+}
+
+.box__user:hover .box__user__element:not(.active) {
+    width: 90%; 
+}
+
+.box__user__element.active {
+    width: 90%;
 }
 
 .btn__prev,
