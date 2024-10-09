@@ -2,7 +2,7 @@
 const Admin:React.FC = () =>{
     return(
         <>
-        
+        hello
         </>
     )
 }
