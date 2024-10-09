@@ -3,8 +3,9 @@ const User:React.FC = () => {
     return(
         <>
             <div style={{height:'500px'}}>
-                hello
+                hello xin chào
                 
+
             </div>
         </>
     )
