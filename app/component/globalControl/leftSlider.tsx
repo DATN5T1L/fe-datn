@@ -8,6 +8,30 @@ import { Button, Image, Nav } from "react-bootstrap"
 const LeftSlider: React.FC = () => {
     const [isMenu, setIsMenu] = useState(true)
     const [isCourseOpen, setIsCourseOpen] = useState(false);
+    const [headerHeight, setHeaderHeight] = useState(0);
+
+    useEffect(() => {
+        const header = document.querySelector('.header-nav') as HTMLElement;
+
+        const setHeight = () => {
+            if (header) {
+                setHeaderHeight(header.offsetHeight);
+            }
+        };
+
+        const observer = new ResizeObserver(setHeight);
+        if (header) {
+            observer.observe(header);
+        }
+
+        setHeight();
+
+        return () => {
+            if (header) {
+                observer.unobserve(header);
+            }
+        };
+    }, []);
 
     const openMenu = () => {
         setIsMenu(!isMenu)
@@ -18,7 +42,7 @@ const LeftSlider: React.FC = () => {
     };
 
     return (
-        <Nav className={`slider-bar`} >
+        <Nav className={`slider-bar`} style={{top:`calc(${headerHeight}px + 16px)`}}>
             <section className={`slide-bar-categories`}>
                 <Link href="/" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
                     <img src='/img/home-fill.svg' className='img block' />

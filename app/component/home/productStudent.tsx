@@ -36,17 +36,17 @@ const ProductStudent: React.FC = () => {
         }
     };
 
-    useEffect(() => {
-        const currentRef = rightBodyRef.current;
-        if (currentRef) {
-            currentRef.addEventListener('wheel', handleWheel);
-        }
-        return () => {
-            if (currentRef) {
-                currentRef.removeEventListener('wheel', handleWheel);
-            }
-        };
-    }, [rightBodyRef]);
+    // useEffect(() => {
+    //     const currentRef = rightBodyRef.current;
+    //     if (currentRef) {
+    //         currentRef.addEventListener('wheel', handleWheel);
+    //     }
+    //     return () => {
+    //         if (currentRef) {
+    //             currentRef.removeEventListener('wheel', handleWheel);
+    //         }
+    //     };
+    // }, [rightBodyRef]);
 
     const scrollLeftHandler = () => {
         if (rightBodyRef.current) {
