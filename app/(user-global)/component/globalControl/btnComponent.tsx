@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import '@app/global.css'
+import '@app/(user-global)/global.css';
 
 interface ButtonProps {
     type?: 'secondery' | 'premary' | 'disable';

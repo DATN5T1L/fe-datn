@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import Head from 'next/head'; 
-import "@app/global.css"; 
+import '@app/(user-global)/global.css';
 import Header from "./component/globalControl/header";
 import Footer from "./component/globalControl/footer";
 
