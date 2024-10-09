@@ -19,6 +19,7 @@ const Header: React.FC = () => {
             const currentScroll = window.pageYOffset;
             setShowHeader(currentScroll <= lastScroll);
             setLastScroll(currentScroll);
+            setShowSearch(false)
         };
 
         window.addEventListener('scroll', handleScroll);

@@ -11,6 +11,7 @@ import Post from "../component/home/post"
 import ProductStudent from "../component/home/productStudent"
 import SliderShow from "../component/home/sliderShow"
 import Why from "../component/home/why"
+import FeedBackToStudent from "../component/home/feedBackToStudent"
 
 const Home: React.FC = () => {
     return (
@@ -24,9 +25,10 @@ const Home: React.FC = () => {
                 <CoursePro></CoursePro>
                 <CourseFree></CourseFree>
                 <Why></Why>
-                <Post></Post>
                 <About></About>
                 <ProductStudent></ProductStudent>
+                <FeedBackToStudent></FeedBackToStudent>
+                <Post></Post>
                 <FeedBack></FeedBack>
             </Body>
         </>
