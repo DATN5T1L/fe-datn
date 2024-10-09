@@ -12,8 +12,8 @@ interface ButtonProps {
     hover?: boolean;
     hoverType?: 'default' | 'other';
     typeButton?: 'btn' | 'sm' | 'rs';
-    width?: number;
-    height?: number;
+    width?: number|string;
+    height?: number|string;
     widthText?: string;
     onClick?: () => void;
     children: React.ReactNode;
@@ -29,8 +29,8 @@ const Button: React.FC<ButtonProps> = ({
     hover = true,
     hoverType = 'default',
     typeButton = 'btn',
-    width = 198,
-    height = 48,
+    width = 'auto',
+    height = 'auto',
     widthText = 'auto',
     children,
     onClick
