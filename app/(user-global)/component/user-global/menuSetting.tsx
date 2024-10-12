@@ -60,7 +60,6 @@ const MenuSetting: React.FC = () => {
                 show={showChangePassWord}
                 onClose={() => setShowChangePassWord(false)}
             />
-            <div></div>
         </>
     )
 }
