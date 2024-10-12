@@ -713,9 +713,24 @@
     background-color: var(--blue-50);
   }
 
+  .bg-blu-50 {
+    background-color: var(--blue-50);
+  }
+
+  .text-white-100 {
+    color: var(--text-0);
+  }
+
+  .block-icon {
+    display: block !important;
+  }
+
+  .none-icon {
+    display: none !important;
+  }
+
   .btn-slide-bar:active {
     background-color: var(--blue-30);
-
   }
 
   .btn-slide-bar:hover .block,
