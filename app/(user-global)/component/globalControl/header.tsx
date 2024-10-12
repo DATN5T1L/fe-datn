@@ -43,15 +43,17 @@ const Header: React.FC = () => {
     }
 
     const isLogin = pathname === '/login';
-    const isUser = pathname === '/user';
+    const isUser = pathname === '/info-user';
+    const isUser1 = pathname === '/intro-user';
+    const isUser2 = pathname === '/wallet-user';
 
     return (
         <>
             <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'}`}>
                 <section className='header-nav-head'>
-                    <Navbar.Brand href="/" className='brand-header'>
+                    <Link href="/" className='brand-header'>
                         <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' />
-                    </Navbar.Brand>
+                    </Link>
                     <Nav className="btn-header">
                         <Row md={12} className='btn-header-container'>
                             <Col md={4} className='btn-header-container-element'>
@@ -66,7 +68,7 @@ const Header: React.FC = () => {
                                     <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
                                 </Link>
                             </Col>
-                            {isUser ? (
+                            {isUser||isUser1||isUser2 ? (
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
                                         <div className='user-notification'>

@@ -5,6 +5,7 @@ import Head from 'next/head';
 import '@app/(user-global)/global.css';
 import Header from "./component/globalControl/header";
 import Footer from "./component/globalControl/footer";
+import ScrollToTop from "./component/globalControl/scrollToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       </Head>
       <body className={inter.className}>
         <Header />  
+        <ScrollToTop></ScrollToTop>
         {children} 
         <Footer /> 
       </body>
