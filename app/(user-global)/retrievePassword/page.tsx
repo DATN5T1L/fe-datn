@@ -65,7 +65,7 @@ const RetrievePassword: React.FC = () => {
                                     <Button type="button" className={styles.sendCode}>Gửi mã</Button>
                                 </Form.Group>
                             </section>
-                            <Button type='submit' className={styles.btnSubmit}>Xác nhận</Button>
+                            <Button type='submit' className={styles.btnSubmit}>Đặt lại mật khẩu</Button>
                         </Form>
                     </div>
                 </Container>

@@ -169,12 +169,6 @@ const Register: React.FC = () => {
                                             Google
                                         </div>
                                     </Button>
-                                    <Button className={styles.RegisterMedia__btn}>
-                                        <Image src="/img/apple.svg" alt="" className={styles.RegisterMedia__img} />
-                                        <div className={styles.RegisterMedia__title}>
-                                            Apple
-                                        </div>
-                                    </Button>
                                 </section>
                             </Card.Footer>
                         </Card>

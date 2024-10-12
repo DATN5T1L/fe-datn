@@ -55,12 +55,6 @@ const Login: React.FC = () => {
                                             Google
                                         </div>
                                     </Button>
-                                    <Button className={styles.loginMedia__btn}>
-                                        <Image src="/img/apple.svg" alt="" className={styles.loginMedia__img} />
-                                        <div className={styles.loginMedia__title}>
-                                            Apple
-                                        </div>
-                                    </Button>
                                 </section>
                             </Card.Header>
                             <Card.Body className={styles.bodyLogin}>
@@ -82,6 +76,7 @@ const Login: React.FC = () => {
                                                 className={styles.userNameLogin__input}
                                                 value={userName}
                                                 onChange={(e) => setUserName(e.target.value)}
+                                                autoComplete='off'
                                             />
                                             <Form.Control.Feedback type="invalid" className={styles.feedBack}>
                                                 Hãy nhập tên đăng nhập hoặc email
@@ -117,6 +112,7 @@ const Login: React.FC = () => {
                                                 className={styles.passLogin__input}
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
+                                                autoComplete="off"
                                             />
                                             <Form.Control.Feedback type="invalid" className={styles.feedBack}>
                                                 Hãy nhập mật khẩu
