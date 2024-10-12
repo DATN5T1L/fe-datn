@@ -9,6 +9,7 @@ const LeftSlider: React.FC = () => {
     const [isMenu, setIsMenu] = useState(true)
     const [isCourseOpen, setIsCourseOpen] = useState(false);
     const [headerHeight, setHeaderHeight] = useState(0);
+    const [isHidden, setIsHidden] = useState(false)
 
     useEffect(() => {
         const header = document.querySelector('.header-nav') as HTMLElement;
@@ -33,6 +34,27 @@ const LeftSlider: React.FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const footer = document.querySelector('footer') as HTMLElement;
+
+        const handleScroll = () => {
+            const footerRect = footer.getBoundingClientRect();
+            const isFooterVisible = footerRect.top <= window.innerHeight;
+
+            if (isFooterVisible && footerRect.top < window.innerHeight - headerHeight) {
+                setIsHidden(true);
+            } else {
+                setIsHidden(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [headerHeight]);
+
     const openMenu = () => {
         setIsMenu(!isMenu)
     }
@@ -42,7 +64,7 @@ const LeftSlider: React.FC = () => {
     };
 
     return (
-        <Nav className={`slider-bar`} style={{top:`calc(${headerHeight}px + 16px)`}}>
+        <Nav className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`} style={{ top: `calc(${headerHeight}px + 16px)` }}>
             <section className={`slide-bar-categories`}>
                 <Link href="/" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
                     <img src='/img/home-fill.svg' className='img block' />
