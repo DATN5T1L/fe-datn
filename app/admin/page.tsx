@@ -1,25 +1,5 @@
 "use client";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPen,
-  faTrash,
-  faSyncAlt,
-  faFilter,
-  faChevronDown,
-  faSearch,
-  faMagnifyingGlass,
-  faBell,
-  faUserCircle,
-  faBars,
-  faChevronLeft,
-  faChevronRight,
-  faChartSimple,
-  faPenToSquare,
-  faComment,
-  faFolderPlus,
-  faPlusCircle,
-} from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Image,
@@ -34,29 +14,22 @@ import {
   Table,
   Pagination,
 } from "react-bootstrap";
-import logo from "../../public/img/LogoPage.jpg";
-import "./index.css";
+import "./globals.css";
 import Header from "./component/Header/header";
 import Sidebar from "./component/Sidebar/sidebar";
 import Article from "./component/Article/article";
 
 const Admin: React.FC = () => {
   return (
-    <Container
-      fluid
-      style={{
-        backgroundColor: "#f0f0f0",
-        minHeight: "100%",
-        overflow: "auto",
-      }}
-    >
-      <Row>
-        <Header />
-      </Row>
-
-      <Row>
-        <Sidebar />
-        <Article />
+    <Container fluid >
+      <Header />
+      <Row className="d-flex">
+        <Col xs={2}>
+          <Sidebar />
+        </Col>
+        <Col xs={10}>
+          <Article />
+        </Col>
       </Row>
     </Container>
   );

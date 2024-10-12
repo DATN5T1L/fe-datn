@@ -1,11 +1,9 @@
 .container {
-    width: 1217px;
-    max-height: 950px;
     padding: 32px 40px;
     justify-content: center;
     align-items: flex-start;
-    align-self: stretch;
     background: var(--background-bg-admin, #F5F6FA);
+    gap: 32px;
 }
 
 .header {
@@ -15,9 +13,17 @@
     align-self: stretch;
 }
 
+.heading {
+    color: var(--text-100);
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 42px;
+    letter-spacing: -0.68px;
+}
+
 .actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .customHeight {
@@ -33,14 +39,22 @@
     border-radius: 10px;
     width: 40%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    gap: 40px;
 }
 
 .inputGroupText {
     border: none;
+    padding: 24px 20px;
+    border-radius: 14px;
 }
 
 .formSelect {
+    width: fit-content;
     border: none;
+}
+
+.formSelect option {
+    padding: 12px 20px;
 }
 
 .resetGroupText {
@@ -81,4 +95,18 @@
 .pagination {
     background-color: #fff;
     border-radius: 15px;
+}
+
+/*  Actions */
+
+/*  */
+.btnCTA {
+    color: var(--text-0);
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--blue-60);
+}
+
+.btnCTAOutline {
+    color: var(--blue-60);
 }

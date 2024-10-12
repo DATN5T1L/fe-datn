@@ -1,5 +1,5 @@
 import Header from "./component/Header/header";
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const metadata = {
   title: 'Admin',
@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="body">
         {children}
       </body>
     </html>

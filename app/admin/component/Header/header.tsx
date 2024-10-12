@@ -1,16 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  Navbar,
-  Form,
-  FormControl,
-  InputGroup,
-  Button,
-  Row,
-  Col,
-  ButtonGroup,
-} from "react-bootstrap";
+import { Navbar, Form, FormControl, InputGroup, Button, Row, Col, ButtonGroup } from "react-bootstrap";
 import h from "./Header.module.css";
 
 const Header: React.FC = () => {
@@ -24,18 +15,15 @@ const Header: React.FC = () => {
             alt="Logo"
           />
         </Navbar.Brand>
-        <Form className={`${h.searchForm} mx-auto`}>
-          <InputGroup>
-            <FormControl
-              type="text"
-              placeholder="Tìm kiếm"
-              aria-label="Search"
-              className={h.searchInput}
-            />
-            <InputGroup.Text className={h.searchIcon}>
-              <img src="/img/searchBlue.svg" alt="Search" />
-            </InputGroup.Text>
-          </InputGroup>
+        <Form className={` ${h.formGroup} mx-auto`}>
+
+          <input type="text"
+            placeholder="Tìm kiếm"
+            aria-label="Search"
+            className={h.searchInput} />
+
+          <Button className={h.btnSearch}> <img src="/img/searchBlue.svg" alt="Search" /></Button>
+
         </Form>
         <ButtonGroup className={`${h.CTA}`}>
           <Button variant="link" className={h.iconButton}>
@@ -49,7 +37,7 @@ const Header: React.FC = () => {
             <img src="/img/list.svg" alt="Menu" />
           </Button>
         </ButtonGroup>
-      </Navbar>
+      </Navbar >
     </>
   );
 };
