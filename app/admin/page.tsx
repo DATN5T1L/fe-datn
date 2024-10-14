@@ -18,14 +18,14 @@ const Admin: React.FC = () => {
       <header className={styles.header}>
         <Header />
       </header>
-      <Row className={styles.mainContent}>
+      <div className={styles.mainContent}>
         <Col xs={2} className={styles.sidebar}>
           <Sidebar />
         </Col>
-        <Col xs={10} className={styles.article}>
+        <Col className={styles.article}>
           <Article />
         </Col>
-      </Row>
+      </div>
     </Container>
   );
 };
