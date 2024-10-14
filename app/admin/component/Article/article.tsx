@@ -100,7 +100,7 @@ const Article: React.FC = () => {
                 </td>
 
                 <td>01/02/2024</td>
-                <td>
+                <td className={h.option_button_group}>
                   <div
                     className={`d-flex justify-content-between ${h.option_button}`}
                   >

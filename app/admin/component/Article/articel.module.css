@@ -133,6 +133,7 @@
 
 .option_button {
   display: flex;
+  max-width: 185px;
   justify-content: space-between;
   align-items: center;
   background-color: #fafafa;
@@ -156,6 +157,17 @@
 .option_button a img {
   width: 24px;
   height: 24px;
+}
+.option_button_group{
+  display: flex;
+  height: 108px;
+  padding: 16px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 0px 8px 8px 0px;
+
 }
 
 /*  Actions */
