@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, Suspense } from 'react';
 import styles from '@public/styles/user-component/ModalChangePass.module.css';
 import { Button, Form, Image } from 'react-bootstrap';
 import Link from 'next/link';
@@ -11,7 +11,7 @@ interface ModalChangePassProps {
     onClose: () => void;
 }
 
-const ModalChangePass: React.FC<ModalChangePassProps> = ({ show, onClose }) => {
+const ModalChangePassContent: React.FC<ModalChangePassProps> = ({ show, onClose }) => {
     const searchParams = useSearchParams();
     const pathName = usePathname()
     const [isVisible, setIsVisible] = useState(false);
@@ -135,4 +135,10 @@ const ModalChangePass: React.FC<ModalChangePassProps> = ({ show, onClose }) => {
     );
 };
 
-export default ModalChangePass;
+export default function ModalChangePass(props: ModalChangePassProps) {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <ModalChangePassContent {...props} />
+        </Suspense>
+    );
+}
