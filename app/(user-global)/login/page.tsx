@@ -36,6 +36,7 @@ const Login: React.FC = () => {
             <Body>
                 <Container className={styles.main}>
                     <div className={styles.main__container}>
+                        <Image src="/img/pandaLogin.svg" alt="logo login" className={styles.logoLogin}/>
                         <Card className={styles.cardContainer}>
                             <Card.Header className={styles.headerLogin}>
                                 <section className={styles.titleGroup}>

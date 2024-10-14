@@ -14,12 +14,22 @@
 
 .main__container {
     display: flex;
+    width: 100%;
     max-width: 1200px;
     height: auto;
     padding: 4px;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: flex-start;
     gap: 4px;
+    position: relative;
+}
+
+.logoRegister {
+    position: absolute;
+    left: 33px;
+    top: 280px;
+    width: 369px;
+    height: 369px;
 }
 
 .form {
