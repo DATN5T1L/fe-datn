@@ -11,6 +11,7 @@ interface ModalChangeNameProps {
 
 const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
+    const [value,setValue] = useState('Con Văn Người')
 
     useEffect(() => {
         if (show) {
@@ -28,7 +29,6 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
         }
     }, [show]);
 
-    const [NameNow, setNameNow] = useState('');
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,9 +65,9 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                                 required
                                 placeholder='Nhập họ và tên'
                                 className={styles.formControlChangeName__input}
-                                value={NameNow}
-                                onChange={(e) => setNameNow(e.target.value)}
-                            />
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
+                            />  
                             <Form.Control.Feedback type="invalid" className={styles.feedBack}>
                                 Hãy nhập họ và tên
                             </Form.Control.Feedback>

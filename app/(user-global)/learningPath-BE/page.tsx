@@ -7,7 +7,6 @@ import ForWhom from "../component/globalLearningPath/forWhom"
 import HeaderLearning from "../component/globalLearningPath/headerLearning"
 import LearningPathSection from "../component/globalLearningPath/learningPathSection"
 import TimeLine from "../component/globalLearningPath/timeLine"
-import LeftSlider from "../component/globalControl/leftSlider"
 
 
 const LearningPath__BE: React.FC = () => {
@@ -16,7 +15,6 @@ const LearningPath__BE: React.FC = () => {
             <title>TTO - Lộ trình Back-End</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
-                <LeftSlider></LeftSlider>
                 <HeaderLearning></HeaderLearning>
                 <CategoriesLearningPath></CategoriesLearningPath>
                 <ForWhom

@@ -38,8 +38,6 @@ const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log("Form submitted");
-        // Thêm logic xử lý file ở đây (nếu cần)
     };
 
     return (

@@ -6,6 +6,7 @@ import '@app/(user-global)/global.css';
 import Header from "./component/globalControl/header";
 import Footer from "./component/globalControl/footer";
 import ScrollToTop from "./component/globalControl/scrollToTop";
+import LeftSlider from "./component/globalControl/leftSlider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header />  
         <ScrollToTop></ScrollToTop>
+        <LeftSlider></LeftSlider>
         {children} 
         <Footer /> 
       </body>

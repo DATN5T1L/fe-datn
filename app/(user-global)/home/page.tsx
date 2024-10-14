@@ -6,7 +6,6 @@ import CourseFree from "../component/home/courseFree"
 import CoursePro from "../component/home/coursePro"
 import FeedBack from "../component/globalControl/feedBack"
 import LearningPath from "../component/home/learningPath"
-import LeftSlider from "../component/globalControl/leftSlider"
 import Post from "../component/home/post"
 import ProductStudent from "../component/home/productStudent"
 import SliderShow from "../component/home/sliderShow"
@@ -19,7 +18,7 @@ const Home: React.FC = () => {
             <title>TTO - Khám phá, học hỏi, vươn xa</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
-                <LeftSlider></LeftSlider>
+            
                 <SliderShow />
                 <LearningPath></LearningPath>
                 <CoursePro></CoursePro>
