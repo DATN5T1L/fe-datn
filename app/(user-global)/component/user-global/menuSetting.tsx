@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { Button, Container, Nav } from "react-bootstrap";
+import { Button, Container, Nav, Image } from "react-bootstrap";  // Import Image từ react-bootstrap
 import styles from '@public/styles/user/MenuSetting.module.css'
 import '@public/styles/user/MenuSetting.module.css'
 import { useState } from "react";
