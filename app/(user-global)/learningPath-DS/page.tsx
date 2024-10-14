@@ -16,8 +16,8 @@ const LearningPath__DS: React.FC = () => {
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
 
-                <HeaderLearning></HeaderLearning>
-                <CategoriesLearningPath></CategoriesLearningPath>
+                <HeaderLearning />
+                <CategoriesLearningPath />
                 <ForWhom
                     title1="Sinh viên mới bắt đầu trong lĩnh vực UI/UX:"
                     title2="Người chuyển đổi sang thiết kế UI/UX:"
@@ -62,7 +62,7 @@ const LearningPath__DS: React.FC = () => {
                     content4="Nguyên mẫu tương tác"
                     content5="Đánh giá và cải thiện trải nghiệm người dùng"
                 />
-                <FeedBack></FeedBack>
+                <FeedBack />
             </Body>
         </>
     )

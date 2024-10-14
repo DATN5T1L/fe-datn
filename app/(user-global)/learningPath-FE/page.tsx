@@ -15,8 +15,8 @@ const LearningPath__FE: React.FC = () => {
             <title>TTO - Lộ trình Front-End</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
-                <HeaderLearning></HeaderLearning>
-                <CategoriesLearningPath></CategoriesLearningPath>
+                <HeaderLearning />
+                <CategoriesLearningPath />
                 <ForWhom
                     title1="Sinh viên công nghệ thông tin mới bắt đầu:"
                     title2="Người chuyển ngành sang lập trình Front-end:"
