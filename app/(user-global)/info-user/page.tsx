@@ -1,8 +1,8 @@
 import Body from "../component/globalControl/body";
-import Infomation from "../component/user-component/infomation";
-import HeaderUser from "../component/user-global/headerUser";
-import Main from "../component/user-global/main";
-import MenuSetting from "../component/user-global/menuSetting";
+import Infomation from "../component/auth/user-component/infomation";
+import HeaderUser from "../component/auth/user-global/headerUser";
+import Main from "../component/auth/user-global/main";
+import MenuSetting from "../component/auth/user-global/menuSetting";
 
 
 const InfoUser: React.FC = () => {
