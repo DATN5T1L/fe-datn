@@ -2,11 +2,11 @@
 
 import Body from "../component/globalControl/body"
 import FeedBack from "../component/globalControl/feedBack"
-import CategoriesLearningPath from "../component/globalLearningPath/categoriesLearningPath"
-import ForWhom from "../component/globalLearningPath/forWhom"
-import HeaderLearning from "../component/globalLearningPath/headerLearning"
-import LearningPathSection from "../component/globalLearningPath/learningPathSection"
-import TimeLine from "../component/globalLearningPath/timeLine"
+import CategoriesLearningPath from "../component/router/categoriesLearningPath"
+import ForWhom from "../component/router/forWhom"
+import HeaderLearning from "../component/router/headerLearning"
+import LearningPathSection from "../component/router/learningPathSection"
+import TimeLine from "../component/router/timeLine"
 
 
 const LearningPath__FE: React.FC = () => {
@@ -15,8 +15,8 @@ const LearningPath__FE: React.FC = () => {
             <title>TTO - Lộ trình Front-End</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
-                <HeaderLearning></HeaderLearning>
-                <CategoriesLearningPath></CategoriesLearningPath>
+                <HeaderLearning />
+                <CategoriesLearningPath />
                 <ForWhom
                     title1="Sinh viên công nghệ thông tin mới bắt đầu:"
                     title2="Người chuyển ngành sang lập trình Front-end:"

@@ -24,7 +24,7 @@ const RetrievePassword: React.FC = () => {
             <Body>
                 <Container className={styles.main}>
                     <div className={styles.main__container}>
-                        <Image src="/img/pandaRetrieve.svg" alt="logo retrieve password" className={styles.logoRetrieve}/>
+                        <Image src="/img/pandaRetrieve.svg" alt="logo retrieve password" className={styles.logoRetrieve} />
                         <Form className={styles.formRetrieve} noValidate validated={validated} onSubmit={handleSubmit}>
                             <fieldset className={styles.headerRetrieve}>
                                 <legend className={styles.headerRetrieve__title}>Quên mật khẩu</legend>

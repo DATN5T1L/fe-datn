@@ -57,11 +57,11 @@ const CreateRouter: React.FC = () => {
                                             <InputGroup.Text id="inputGroupPrepend" className={styles.inputGroup__text}>
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.inputGroup__text__icon}>
                                                     <g clip-path="url(#clip0_590_6710)">
-                                                        <path d="M4 19L8 5" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
-                                                        <path d="M16 5L20 19" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
-                                                        <path d="M12 8V6" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
-                                                        <path d="M12 13V11" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
-                                                        <path d="M12 18V16" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
+                                                        <path d="M4 19L8 5" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
+                                                        <path d="M16 5L20 19" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
+                                                        <path d="M12 8V6" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
+                                                        <path d="M12 13V11" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
+                                                        <path d="M12 18V16" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused1 ? styles.blue : styles.black}`} />
                                                     </g>
                                                     <defs>
                                                         <clipPath id="clip0_590_6710">
@@ -98,11 +98,11 @@ const CreateRouter: React.FC = () => {
                                             <InputGroup.Text id="inputGroupPrepend" className={styles.inputGroup__text}>
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.inputGroup__text__icon}>
                                                     <g clip-path="url(#clip0_590_6710)">
-                                                        <path d="M4 19L8 5" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
-                                                        <path d="M16 5L20 19" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
-                                                        <path d="M12 8V6" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
-                                                        <path d="M12 13V11" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
-                                                        <path d="M12 18V16" stroke="#DBDBDB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
+                                                        <path d="M4 19L8 5" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
+                                                        <path d="M16 5L20 19" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
+                                                        <path d="M12 8V6" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
+                                                        <path d="M12 13V11" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
+                                                        <path d="M12 18V16" stroke="#DBDBDB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`${isFocused2 ? styles.blue : styles.black}`} />
                                                     </g>
                                                     <defs>
                                                         <clipPath id="clip0_590_6710">
