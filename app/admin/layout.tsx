@@ -1,5 +1,3 @@
-import Header from "./component/Header/header";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const metadata = {
   title: 'Admin',

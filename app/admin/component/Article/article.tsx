@@ -19,7 +19,7 @@ const Article: React.FC = () => {
       className={`${h.container} d-flex flex-column flex-grow-1 align-items-start`}
     >
       {/* Header */}
-      <div className={`${h.header}`}>
+      <div className={`${h.header} d-flex justify-content-between align-items-center`}>
         <h2 className={h.heading}>Bài viết</h2>
         <div className={`${h.actions} d-flex`}>
           <Button
@@ -134,7 +134,7 @@ const Article: React.FC = () => {
               </Pagination.Item>
             ))}
           <Pagination.Next>
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" /> 
+            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
           </Pagination.Next>
         </Pagination>
       </div>
