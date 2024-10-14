@@ -1,26 +1,40 @@
 "use client";
 
 import React from "react";
-import { Button, Form, InputGroup, Table, Pagination, Container } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  InputGroup,
+  Table,
+  Pagination,
+  Container,
+} from "react-bootstrap";
 import h from "./articel.module.css";
 import Link from "next/link";
-
+import "./articel.css"
 
 const Article: React.FC = () => {
   return (
-    <Container className={`${h.container} d-flex flex-column flex-grow-1 align-items-start`}>
+    <Container
+      className={`${h.container} d-flex flex-column flex-grow-1 align-items-start`}
+    >
       {/* Header */}
       <div className={`${h.header}`}>
         <h2 className={h.heading}>Bài viết</h2>
         <div className={`${h.actions} d-flex`}>
-          <Button variant="outline-primary" className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}>
+          <Button
+            variant="outline-primary"
+            className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
+          >
             Thêm danh mục bài viết
           </Button>
           <Button className={h.btnCTA}>Thêm bài viết</Button>
         </div>
       </div>
 
-      <div className={`${h.filterBar} d-flex justify-content-between align-items-center w-100`}>
+      <div
+        className={`${h.filterBar} d-flex justify-content-between align-items-center w-100`}
+      >
         <InputGroup className={`${h.filterInputGroup} d-flex`}>
           <InputGroup.Text className={h.inputGroupText}>
             <img src="/img_admin/action.svg" alt="Action" />
@@ -51,7 +65,12 @@ const Article: React.FC = () => {
             className={h.searchInput}
           />
           <div className={h.searchIconWrapper}>
-            <img src="/img_admin/search-icon.svg" alt="Search" />
+            <img
+              src="/img_admin/search.svg"
+              alt="Search"
+              width={"24px"}
+              height={"24px"}
+            />
           </div>
         </InputGroup>
       </div>
@@ -60,12 +79,12 @@ const Article: React.FC = () => {
       <Table bordered hover className={`${h.table}`}>
         <thead>
           <tr>
-            <th>Tiêu đề</th>
-            <th>Nội dung</th>
-            <th>Lượt xem</th>
-            <th>Trạng thái</th>
-            <th>Ngày đăng</th>
-            <th>Hành động</th>
+            <td>Tiêu đề</td>
+            <td>Nội dung</td>
+            <td>Lượt xem</td>
+            <td>Trạng thái</td>
+            <td>Ngày đăng</td>
+            <td>Hành động</td>
           </tr>
         </thead>
         <tbody>
@@ -77,20 +96,22 @@ const Article: React.FC = () => {
                 <td>Bài viết này tổng hợp lại các dự án mẫu...</td>
                 <td>3,000</td>
                 <td>
-                  <span className="">Active</span>
+                  <span className={h.active_text}>Active</span>
                 </td>
 
                 <td>01/02/2024</td>
                 <td>
-                  <div className="d-flex justify-content-between">
-                    <Link href="/#!" >
-                      <img src="/img/Bell.svg" alt="Edit" />
+                  <div
+                    className={`d-flex justify-content-between ${h.option_button}`}
+                  >
+                    <Link href="/#!">
+                      <img src="/img_admin/action1.svg" alt="Edit" />
                     </Link>
-                    <Link href="/#!" >
-                      <img src="/img/Bell.svg" alt="Delete" />
+                    <Link href="/#!">
+                      <img src="/img_admin/action2.svg" alt="Delete" />
                     </Link>
-                    <Link href="/#!" >
-                      <img src="/img/Bell.svg" alt="View" />
+                    <Link href="/#!">
+                      <img src="/img_admin/action3.svg" alt="View" />
                     </Link>
                   </div>
                 </td>
@@ -100,9 +121,11 @@ const Article: React.FC = () => {
       </Table>
 
       {/* Pagination */}
-      <div className={`${h.paginationWrapper}`}>
-        <Pagination className={h.pagination}>
-          <Pagination.Prev>«</Pagination.Prev>
+      <div className="paginationWrapper">
+        <Pagination className="pagination">
+          <Pagination.Prev>
+            <img src="/img_admin/prep.svg" alt="Previous" width="8" height="16" />
+          </Pagination.Prev>
           {Array(7)
             .fill(null)
             .map((_, idx) => (
@@ -110,9 +133,12 @@ const Article: React.FC = () => {
                 {idx + 1}
               </Pagination.Item>
             ))}
-          <Pagination.Next>»</Pagination.Next>
+          <Pagination.Next>
+            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" /> 
+          </Pagination.Next>
         </Pagination>
       </div>
+
     </Container>
   );
 };

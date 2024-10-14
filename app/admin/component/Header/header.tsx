@@ -16,14 +16,11 @@ const Header: React.FC = () => {
           />
         </Navbar.Brand>
         <Form className={` ${h.formGroup} mx-auto`}>
-
           <input type="text"
             placeholder="Tìm kiếm"
             aria-label="Search"
             className={h.searchInput} />
-
           <Button className={h.btnSearch}> <img src="/img/searchBlue.svg" alt="Search" /></Button>
-
         </Form>
         <ButtonGroup className={`${h.CTA}`}>
           <Button variant="link" className={h.iconButton}>

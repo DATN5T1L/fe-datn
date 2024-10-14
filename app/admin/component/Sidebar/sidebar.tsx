@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Col, Nav } from "react-bootstrap";
-import h from "../Sidebar/sidebar.module.css"; // Import the CSS module
+import h from "../Sidebar/sidebar.module.css";
 
 const Sidebar: React.FC = () => {
   return (
