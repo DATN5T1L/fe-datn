@@ -5,7 +5,7 @@
     overflow: hidden;
   }
   
-  /* Header cố định chiếm 10% chiều cao màn hình */
+
   .header {
     position: fixed;
     top: 0;
@@ -13,28 +13,28 @@
     width: 100%;
     z-index: 1000;
     background-color: #fff;
-    height: 10vh; /* Chiều cao của Header: 10% chiều cao màn hình */
+    height: 10vh; 
   }
   
-  /* Phần nội dung chính, đảm bảo nó nằm dưới Header */
+  
   .mainContent {
-    margin-top: 10vh; /* Tránh phần Header */
-    height: 90vh; /* Chiều cao của nội dung còn lại: 90% */
+    margin-top: 10vh; 
+    height: 90vh;
   }
   
-  /* Sidebar chiếm 100% chiều cao còn lại */
+
   .sidebar {
     position: fixed;
     top: 10vh; 
     left: 0;
-    height: 90vh; /* Chiều cao bằng với phần còn lại sau Header */
+    height: 90vh; 
     background-color: #f8f9fa;
     overflow-y: auto;
     z-index: 999;
     padding: 0px;
   }
   
-  /* Nội dung Article có thể cuộn */
+
   .article {
     margin-left: 233px;
     height: 90vh;
