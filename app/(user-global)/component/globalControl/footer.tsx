@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { Container, Row, Col, Image, Nav } from 'react-bootstrap';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Footer: React.FC = () => {
     return (
