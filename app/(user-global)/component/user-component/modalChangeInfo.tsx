@@ -28,7 +28,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
         }
     }, [show]);
 
-    const [info, setInfo] = useState('');
+    const [info, setInfo] = useState('Tôi lớn lên tại Tiền Giang');
 
     const [validated, setValidated] = useState(false);
 

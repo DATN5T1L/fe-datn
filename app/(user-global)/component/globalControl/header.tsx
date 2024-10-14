@@ -13,6 +13,8 @@ const Header: React.FC = () => {
     const [lastScroll, setLastScroll] = useState(0);
     const [showSearch, setShowSearch] = useState(false);
     const [valueInput, setValueInput] = useState('')
+    const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -20,6 +22,7 @@ const Header: React.FC = () => {
             setShowHeader(currentScroll <= lastScroll);
             setLastScroll(currentScroll);
             setShowSearch(false)
+            setIsOpenSubMenu(false)
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -34,6 +37,20 @@ const Header: React.FC = () => {
         }
     }
 
+    useEffect(() => {
+        const handleClick = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsOpenSubMenu(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClick);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClick);
+        };
+    }, [menuRef]);
+
     const handleLogin = () => {
         router.push('/login');
     };
@@ -42,10 +59,15 @@ const Header: React.FC = () => {
         setShowSearch(!showSearch)
     }
 
+    const handleOpenSubMenu = () => {
+        setIsOpenSubMenu(!isOpenSubMenu)
+    }
+
     const isLogin = pathname === '/login';
     const isUser = pathname === '/info-user';
     const isUser1 = pathname === '/intro-user';
     const isUser2 = pathname === '/wallet-user';
+    const home = pathname === '/home'
 
     return (
         <>
@@ -68,22 +90,57 @@ const Header: React.FC = () => {
                                     <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
                                 </Link>
                             </Col>
-                            {isUser||isUser1||isUser2 ? (
+                            {isUser || isUser1 || isUser2 ? (
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
                                         <div className='user-notification'>
                                             <Image src="/img/Bell.svg" alt="" className='icon-notification' />
                                             <Image src="/img/ChatTick.svg" alt="" className='icon-notification' />
                                         </div>
-                                        <div className='user'>
+                                        <div className='user' onClick={handleOpenSubMenu} ref={menuRef}>
                                             <Image src="/img/avt.jpg" alt="" className='avt' />
                                             <section className='title-group'>
                                                 <h4 className='title-1'>Xin chào</h4>
                                                 <h4 className='title-name'>Huỳnh Võ Hoàng Tuấn</h4>
                                             </section>
-                                            <svg className='right-icon-user' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='right-icon-user-stroke' />
                                             </svg>
+                                            <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'}`} >
+                                                <h3 className='subMenu-title'>
+                                                    Cài đặt thông tin
+                                                </h3>
+                                                <section className='subMenu-body'>
+                                                    <Link href={'/info-user'} className={`subMenu-body-link ${isUser ? 'subMenu-body-link-blue' : ''}`} autoFocus={false} >
+                                                        <Image src='/img/infoProfile-black.svg' className={`subMenu-body-img-black ${isUser ? 'subMenu-body-img-black-none' : ''}`} />
+                                                        <Image src='/img/infoProfile-white.svg' className={`subMenu-body-img-white ${isUser ? 'subMenu-body-img-white-block' : ''}`} />
+                                                        <div className={`subMenu-body-link-title ${isUser ? 'subMenu-body-link-title-white' : ''}`}>
+                                                            Thông tin cá nhân
+                                                        </div>
+                                                    </Link>
+                                                    <Link href={'/wallet-user'} className={`subMenu-body-link ${isUser2 ? 'subMenu-body-link-blue' : ''}`} autoFocus={false} >
+                                                        <Image src='/img/infoPay-black.svg' className={`subMenu-body-img-black ${isUser2 ? 'subMenu-body-img-black-none' : ''}`} />
+                                                        <Image src='/img/infoPay-white.svg' className={`subMenu-body-img-white ${isUser2 ? 'subMenu-body-img-white-block' : ''}`} />
+                                                        <div className={`subMenu-body-link-title ${isUser2 ? 'subMenu-body-link-title-white' : ''}`}>
+                                                            Ví
+                                                        </div>
+                                                    </Link>
+                                                    <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
+                                                        <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
+                                                        <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
+                                                        <div className='subMenu-body-link-title'>
+                                                            Cài đặt mật khẩu
+                                                        </div>
+                                                    </Link>
+                                                    <Link href={'/'} className='subMenu-body-link' autoFocus={false}>
+                                                        <Image src='/img/infoLogout-black.svg' className='subMenu-body-img-black' />
+                                                        <Image src='/img/infoLogout-white.svg' className='subMenu-body-img-white' />
+                                                        <div className='subMenu-body-link-title'>
+                                                            Đăng xuất
+                                                        </div>
+                                                    </Link>
+                                                </section>
+                                            </section>
                                         </div>
                                     </section>
                                 </Col>
@@ -134,19 +191,19 @@ const Header: React.FC = () => {
 
                 <Nav className={`box-search ${showSearch ? '' : 'box-search-h0'}`}>
                     <Form className={`search-bar ${showSearch ? '' : 'opct-0'} ${valueInput ? 'has-value' : ''}`} >
-                    <Form.Control
-                        type="text"
-                        className="search"
-                        aria-label="Search"
+                        <Form.Control
+                            type="text"
+                            className="search"
+                            aria-label="Search"
                             ref={inputRef}
                             value={valueInput}
                             onChange={(e) => setValueInput(e.target.value)}
-                    />
+                        />
                         <span className='search-span' onClick={onFocus}>Nhập thông tin cần tìm</span>
-                    <Button variant="outline-secondary" className='btn-search-icon'>
+                        <Button variant="outline-secondary" className='btn-search-icon'>
                             <Image src="/img/searchBlue.svg" alt="" className='search-icon' />
-                    </Button>
-                </Form>
+                        </Button>
+                    </Form>
                 </Nav>
             </Navbar>
         </>
