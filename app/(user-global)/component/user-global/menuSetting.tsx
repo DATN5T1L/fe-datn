@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { Button, Container, Nav, Image } from "react-bootstrap";
-import styles from '@public/styles/user/MenuSetting.module.css'
-import '@public/styles/user/MenuSetting.module.css'
+import styles from '@public/styles/user/MenuSetting.module.css';
+import '@public/styles/user/MenuSetting.module.css';
 import { useState } from "react";
 import ModalChangePass from "../user-component/modalChangePass";
 import { usePathname } from "next/navigation";

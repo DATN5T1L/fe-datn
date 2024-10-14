@@ -1,6 +1,5 @@
 .container {
-  padding: 32px 0px;
-  padding-left: 0px;
+  padding: 32px 40px;
   justify-content: center;
   align-items: flex-start;
   background: var(--background-bg-admin, #f5f6fa);
