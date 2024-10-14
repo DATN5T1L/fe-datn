@@ -72,7 +72,7 @@ const SliderShow: React.FC = () => {
                     <section className={styles.footer}>
                         <Button className={styles.btn__prev}>
                             <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M15 18L9 12L15 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className={styles.stroke__icon} />
+                                <path d="M15 18L9 12L15 6" stroke="#15C8E0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stroke__icon} />
                             </svg>
                         </Button>
                         <section className={styles.body__footer}>
@@ -107,7 +107,7 @@ const SliderShow: React.FC = () => {
                         </section>
                         <Button className={styles.btn__next}>
                             <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 18L15 12L9 6" stroke="#15C8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M9 18L15 12L9 6" stroke="#15C8E0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </Button>
                     </section>

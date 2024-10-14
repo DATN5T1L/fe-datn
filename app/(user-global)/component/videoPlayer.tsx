@@ -4,8 +4,9 @@ import styles from '@public/styles/VideoPlayer.module.css';
 import React, { useRef, useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Spinner } from 'react-bootstrap';
 import { Play, Pause, VolumeUp, VolumeDown, VolumeMute, Fullscreen, FullscreenExit, FastForward, Rewind, Gear, ChevronRight, ChevronLeft, BadgeCc, PauseCircle, PlayCircle, PauseFill, PlayFill, SkipBackward, SkipForward } from 'react-bootstrap-icons';
+import Body from './globalControl/body';
 
-const videoSources: Record< '240p' | '360p' | '480p' | '720p' | '1080p' | '1440p', string> = {
+const videoSources: Record<'240p' | '360p' | '480p' | '720p' | '1080p' | '1440p', string> = {
   '240p': 'http://localhost:3003/video/test_240p.mp4',
   '360p': 'http://localhost:3003/video/test_360p.mp4',
   '480p': 'http://localhost:3003/video/test_480p.mp4',
@@ -490,227 +491,229 @@ const VideoPlayer: React.FC = () => {
     }
   };
   return (
-    <Container className={styles.container}>
-      <Row>
-        <Col className={styles.videoPlayer}>
-          <div
-            className={styles.videoWrapper}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {isLoading && (
-              <div className={styles.loadingOverlay}>
-                <Spinner animation="border" variant="light" style={{ width: "100px", height: '100px' }} />
-              </div>
-            )}
-            <video
-              preload="metadata"
-              className={styles.mainVideo}
-              ref={videoRef}
-              onTimeUpdate={handleTimeUpdate}
-              onLoadedMetadata={handleLoadedMetadata}
-              onClick={handlePlayPause}
-              poster='/img/poster_video.png'
+    <Body>
+      <Container className={styles.container}>
+        <Row>
+          <Col className={styles.videoPlayer}>
+            <div
+              className={styles.videoWrapper}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
-              {isVisible &&
-                <source
-                  src={videoList[currentVideoIndex].replace(/(\d+p)\.mp4$/, `${selectedQuality}.mp4`)}
-                  type="video/mp4"
-                />
-              }
-              {isVisible && <track
-                src={subtitles[selectedLanguage]}
-                kind="subtitles"
-                srcLang={selectedLanguage}
-                label={selectedLanguage}
-                className={styles.trackVideo}
-                default
-              />}
-            </video>
-            {showButton && (
-              <div className={`${styles.playPauseButton} ${isFading ? styles.fadeOut : ''}`}>
-                {isPlaying ? (
-                  <PauseFill
-                    className={styles.iconPlayPauseButton}
-                    onClick={handlePlayPause}
-                  />
-                ) : (
-                  <PlayFill
-                    className={styles.iconPlayPauseButton}
-                    onClick={handlePlayPause}
-                  />
-                )}
-              </div>
-            )}
-
-            {showControls && (
-              <>
-                <div className={styles.videoTitle}>
-                  {videoTitle}
+              {isLoading && (
+                <div className={styles.loadingOverlay}>
+                  <Spinner animation="border" variant="light" style={{ width: "100px", height: '100px' }} />
                 </div>
-                <div className={styles.timeControl}>
-                  <input
-                    id="time"
-                    type="range"
-                    min="0"
-                    max={duration}
-                    step="0.1"
-                    value={currentTime}
-                    onChange={handleTimeSliderChange}
-                    className={styles.slider}
-                    onMouseEnter={handleMouseEnterSlider}
-                    onMouseLeave={handleMouseLeaveSlider}
-                    onMouseMove={handleMouseMoveSlider}
+              )}
+              <video
+                preload="metadata"
+                className={styles.mainVideo}
+                ref={videoRef}
+                onTimeUpdate={handleTimeUpdate}
+                onLoadedMetadata={handleLoadedMetadata}
+                onClick={handlePlayPause}
+                poster='/img/poster_video.png'
+              >
+                {isVisible &&
+                  <source
+                    src={videoList[currentVideoIndex].replace(/(\d+p)\.mp4$/, `${selectedQuality}.mp4`)}
+                    type="video/mp4"
                   />
-                  {tooltipPosition !== null && (
-                    <div className={styles.tooltip} style={{ left: `${(tooltipPosition / duration) * 100}%` }}>
-                      {formatTime(tooltipPosition)}
-                    </div>
+                }
+                {isVisible && <track
+                  src={subtitles[selectedLanguage]}
+                  kind="subtitles"
+                  srcLang={selectedLanguage}
+                  label={selectedLanguage}
+                  className={styles.trackVideo}
+                  default
+                />}
+              </video>
+              {showButton && (
+                <div className={`${styles.playPauseButton} ${isFading ? styles.fadeOut : ''}`}>
+                  {isPlaying ? (
+                    <PauseFill
+                      className={styles.iconPlayPauseButton}
+                      onClick={handlePlayPause}
+                    />
+                  ) : (
+                    <PlayFill
+                      className={styles.iconPlayPauseButton}
+                      onClick={handlePlayPause}
+                    />
                   )}
                 </div>
-                <div
-                  className={styles.controls}
-                  onMouseEnter={handleMouseEnterControl}
-                >
-                  <Button onClick={handleVideoBack} className={styles.controlButton}>
-                    <SkipBackward />
-                  </Button>
-                  <Button onClick={() => handleSeek(-10)} className={styles.controlButton}>
-                    <Rewind />
-                  </Button>
-                  <Button onClick={handlePlayPause} className={styles.controlButton}>
-                    {isPlaying ? <Pause /> : <Play />}
-                  </Button>
-                  <Button onClick={() => handleSeek(10)} className={styles.controlButton}>
-                    <FastForward />
-                  </Button>
-                  <Button onClick={handleVideoNext} className={styles.controlButton}>
-                    <SkipForward />
-                  </Button>
-                  <div className={styles.volumeControlWrapper}>
-                    <Button onClick={handleMuteUnmute} className={styles.controlButton}>
-                      {isMuted ? <VolumeMute /> : volume <= 0.5 ? <VolumeDown /> : <VolumeUp />}
+              )}
+
+              {showControls && (
+                <>
+                  <div className={styles.videoTitle}>
+                    {videoTitle}
+                  </div>
+                  <div className={styles.timeControl}>
+                    <input
+                      id="time"
+                      type="range"
+                      min="0"
+                      max={duration}
+                      step="0.1"
+                      value={currentTime}
+                      onChange={handleTimeSliderChange}
+                      className={styles.slider}
+                      onMouseEnter={handleMouseEnterSlider}
+                      onMouseLeave={handleMouseLeaveSlider}
+                      onMouseMove={handleMouseMoveSlider}
+                    />
+                    {tooltipPosition !== null && (
+                      <div className={styles.tooltip} style={{ left: `${(tooltipPosition / duration) * 100}%` }}>
+                        {formatTime(tooltipPosition)}
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className={styles.controls}
+                    onMouseEnter={handleMouseEnterControl}
+                  >
+                    <Button onClick={handleVideoBack} className={styles.controlButton}>
+                      <SkipBackward />
                     </Button>
-                    <div className={styles.volumeControl}>
-                      <input
-                        id="volume"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value={volume}
-                        onChange={handleVolumeChange}
-                        className={styles.slider}
-                      />
+                    <Button onClick={() => handleSeek(-10)} className={styles.controlButton}>
+                      <Rewind />
+                    </Button>
+                    <Button onClick={handlePlayPause} className={styles.controlButton}>
+                      {isPlaying ? <Pause /> : <Play />}
+                    </Button>
+                    <Button onClick={() => handleSeek(10)} className={styles.controlButton}>
+                      <FastForward />
+                    </Button>
+                    <Button onClick={handleVideoNext} className={styles.controlButton}>
+                      <SkipForward />
+                    </Button>
+                    <div className={styles.volumeControlWrapper}>
+                      <Button onClick={handleMuteUnmute} className={styles.controlButton}>
+                        {isMuted ? <VolumeMute /> : volume <= 0.5 ? <VolumeDown /> : <VolumeUp />}
+                      </Button>
+                      <div className={styles.volumeControl}>
+                        <input
+                          id="volume"
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.01"
+                          value={volume}
+                          onChange={handleVolumeChange}
+                          className={styles.slider}
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.timeVideo}>{`${formatTime(currentTime)} / ${formatTime(duration)}`}</div>
+                    <div style={{ marginLeft: 'auto' }}>
+                      <Button
+                        className={styles.controlButtonAuto}
+                        style={{ marginRight: '10px' }}
+                      >
+                        <div className={`${styles.toggleContainer} ${isAutoplay ? styles.activeToggleContainer : ''}`} onClick={toggleAutoplay}>
+                          <div className={`${styles.toggleSwitch} ${isAutoplay ? styles.active : ''}`}>
+                            {isAutoplay ? <PauseCircle className={styles.icon} /> : <PlayCircle className={styles.icon} />}
+                          </div>
+                        </div>
+                      </Button>
+                      <Button
+                        onClick={handleSubtitleToggle}
+                        className={styles.controlButton}
+                        style={{ marginRight: '10px' }}
+                      >
+                        <BadgeCc />
+                      </Button>
+                      {isSubtitleSectionVisible && (
+                        <div className={styles.settings}>
+                          <div className={styles.playback}>
+                            <ul className={styles.playbackList}>
+                              {languages.map((language) => (
+                                <li
+                                  key={language}
+                                  className={`${styles.playbackItem} ${selectedLanguage === language ? styles.active : ''}`}
+                                  onClick={() => handleLanguageChange(language)}
+                                >
+                                  {languageNames[language]}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      )}
+                      <Button className={styles.controlButton} style={{ marginRight: '10px' }} onClick={handleSettingsToggle}>
+                        <Gear />
+                      </Button>
+                      {isSettingsVisible && (
+                        <div className={styles.settings}>
+                          <div
+                            onClick={handleSpeedToggle}
+                            className={styles.controlButtonSettingSpeed}
+                            style={{ width: '100%', margin: '0 auto', fontSize: '16px' }}
+                          >
+                            {isSpeedSectionVisible ? <ChevronLeft style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
+                            Tốc độ phát
+                            {!isSpeedSectionVisible ? <ChevronRight style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
+                          </div>
+
+                          {isSpeedSectionVisible && (
+                            <div className={styles.playback}>
+                              <ul className={styles.playbackList}>
+                                {['0.25', '0.5', '0.75', 'Normal', '1.25', '1.5', '1.75', '2'].map((speed) => (
+                                  <li
+                                    key={speed}
+                                    className={`${styles.playbackItem} ${selectedSpeed === speed ? styles.active : ''}`}
+                                    onClick={() => handleSpeedChange(speed)}
+                                  >
+                                    {speed}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+
+                          <div
+                            onClick={handleQualityToggle}
+                            className={styles.controlButtonSettingSpeed}
+                            style={{ width: '100%', margin: '0 auto', fontSize: '16px' }}
+                          >
+                            {isQualitySectionVisible ? <ChevronLeft style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
+                            Chất lượng video
+                            {!isQualitySectionVisible ? <ChevronRight style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
+                          </div>
+
+                          {isQualitySectionVisible && (
+                            <div className={styles.playback}>
+                              <ul className={styles.playbackList}>
+                                {['144p', '240p', '360p', '480p', '720p', '1080p', '1440p'].map((quality) => (
+                                  <li
+                                    key={quality}
+                                    className={`${styles.playbackItem} ${selectedQuality === quality ? styles.active : ''}`}
+                                    onClick={() => handleQualityChange(quality as '144p' | '240p' | '360p' | '480p' | '720p' | '1080p' | '1440p')}
+                                  >
+                                    {quality}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      <Button onClick={handleFullscreen} className={styles.controlButton} >
+                        {isFullscreen ? <FullscreenExit /> : <Fullscreen />}
+                      </Button>
                     </div>
                   </div>
-                  <div className={styles.timeVideo}>{`${formatTime(currentTime)} / ${formatTime(duration)}`}</div>
-                  <div style={{ marginLeft: 'auto' }}>
-                    <Button
-                      className={styles.controlButtonAuto}
-                      style={{ marginRight: '10px' }}
-                    >
-                      <div className={`${styles.toggleContainer} ${isAutoplay ? styles.activeToggleContainer : ''}`} onClick={toggleAutoplay}>
-                        <div className={`${styles.toggleSwitch} ${isAutoplay ? styles.active : ''}`}>
-                          {isAutoplay ? <PauseCircle className={styles.icon} /> : <PlayCircle className={styles.icon} />}
-                        </div>
-                      </div>
-                    </Button>
-                    <Button
-                      onClick={handleSubtitleToggle}
-                      className={styles.controlButton}
-                      style={{ marginRight: '10px' }}
-                    >
-                      <BadgeCc />
-                    </Button>
-                    {isSubtitleSectionVisible && (
-                      <div className={styles.settings}>
-                        <div className={styles.playback}>
-                          <ul className={styles.playbackList}>
-                            {languages.map((language) => (
-                              <li
-                                key={language}
-                                className={`${styles.playbackItem} ${selectedLanguage === language ? styles.active : ''}`}
-                                onClick={() => handleLanguageChange(language)}
-                              >
-                                {languageNames[language]}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    )}
-                    <Button className={styles.controlButton} style={{ marginRight: '10px' }} onClick={handleSettingsToggle}>
-                      <Gear />
-                    </Button>
-                    {isSettingsVisible && (
-                      <div className={styles.settings}>
-                        <div
-                          onClick={handleSpeedToggle}
-                          className={styles.controlButtonSettingSpeed}
-                          style={{ width: '100%', margin: '0 auto', fontSize: '16px' }}
-                        >
-                          {isSpeedSectionVisible ? <ChevronLeft style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
-                          Tốc độ phát
-                          {!isSpeedSectionVisible ? <ChevronRight style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
-                        </div>
-
-                        {isSpeedSectionVisible && (
-                          <div className={styles.playback}>
-                            <ul className={styles.playbackList}>
-                              {['0.25', '0.5', '0.75', 'Normal', '1.25', '1.5', '1.75', '2'].map((speed) => (
-                                <li
-                                  key={speed}
-                                  className={`${styles.playbackItem} ${selectedSpeed === speed ? styles.active : ''}`}
-                                  onClick={() => handleSpeedChange(speed)}
-                                >
-                                  {speed}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-
-                        <div
-                          onClick={handleQualityToggle}
-                          className={styles.controlButtonSettingSpeed}
-                          style={{ width: '100%', margin: '0 auto', fontSize: '16px' }}
-                        >
-                          {isQualitySectionVisible ? <ChevronLeft style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
-                          Chất lượng video
-                          {!isQualitySectionVisible ? <ChevronRight style={{ marginBottom: '3px', marginRight: '5px' }} /> : ''}
-                        </div>
-
-                        {isQualitySectionVisible && (
-                          <div className={styles.playback}>
-                            <ul className={styles.playbackList}>
-                              {['144p', '240p', '360p', '480p', '720p', '1080p', '1440p'].map((quality) => (
-                                <li
-                                  key={quality}
-                                  className={`${styles.playbackItem} ${selectedQuality === quality ? styles.active : ''}`}
-                                  onClick={() => handleQualityChange(quality as '144p' | '240p' | '360p' | '480p' | '720p' | '1080p' | '1440p')}
-                                >
-                                  {quality}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    <Button onClick={handleFullscreen} className={styles.controlButton} >
-                      {isFullscreen ? <FullscreenExit /> : <Fullscreen />}
-                    </Button>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-        </Col>
-      </Row>
-    </Container>
-  );  
+                </>
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </Body>
+  );
 };
 
 export default VideoPlayer;
