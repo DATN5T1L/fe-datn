@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { Button, Container, Image, Nav } from "react-bootstrap";
+import { Button, Container, Nav } from "react-bootstrap";
 import styles from '@public/styles/user/MenuSetting.module.css'
 import '@public/styles/user/MenuSetting.module.css'
 import { useState } from "react";
@@ -20,7 +20,7 @@ const MenuSetting: React.FC = () => {
 
     return (
         <>
-            <section className={styles.container} >
+            <Container className={styles.container} >
                 <h3 className={styles.header__title}>
                     Cài đặt thông tin
                 </h3>
@@ -55,7 +55,7 @@ const MenuSetting: React.FC = () => {
                         <div className={styles.link__title}>Đăng xuất</div>
                     </Link>
                 </section>
-            </section>
+            </Container>
             <ModalChangePass
                 show={showChangePassWord}
                 onClose={() => setShowChangePassWord(false)}
