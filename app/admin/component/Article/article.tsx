@@ -41,20 +41,20 @@ const Article: React.FC = () => {
           </InputGroup.Text>
 
           <select aria-label="Trạng thái" className={h.formSelect}>
-            <option>Trạng thái</option>
+            <option>Trạng thái  </option>
             <option value="1">Active</option>
             <option value="2">Inactive</option>
           </select>
 
           <select aria-label="Lượt xem" className={h.formSelect}>
-            <option>Lượt xem</option>
+            <option>Lượt xem  </option>
             <option value="1">0-100</option>
             <option value="2">1000+</option>
           </select>
 
           <InputGroup.Text className={h.resetGroupText}>
             <img src="/img_admin/restart.svg" alt="Reset" />
-            <span>Cài lại</span>
+            <span>  Cài lại</span>
           </InputGroup.Text>
         </InputGroup>
 
@@ -108,10 +108,10 @@ const Article: React.FC = () => {
                       <img src="/img_admin/action1.svg" alt="Edit" />
                     </Link>
                     <Link href="/#!">
-                      <img src="/img_admin/action2.svg" alt="Delete" />
+                      <img src="/img_admin/action2.svg" alt="View" />
                     </Link>
                     <Link href="/#!">
-                      <img src="/img_admin/action3.svg" alt="View" />
+                      <img src="/img_admin/action3.svg" alt="Delete" />
                     </Link>
                   </div>
                 </td>
