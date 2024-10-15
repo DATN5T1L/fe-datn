@@ -1,12 +1,12 @@
-/* sidebar.module.css */
+
 .sidebar {
     width: auto;
+    min-width: 233px;
     height: 100%;
     display: flex;
     flex-direction: column;
     padding: 30px;
     background-color: var(--gray-100);
-    /* background: #000; */
 }
 
 .navItem {

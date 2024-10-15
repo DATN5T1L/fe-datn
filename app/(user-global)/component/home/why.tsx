@@ -60,12 +60,12 @@ const Why: React.FC = () => {
                                 <div className={styles.rightChat__container__content}>
                                     <div className={styles.boom2}>
                                         <h3 className={styles.leftChat__container__content__title}>
-                                            Chất lượng khóa học chuẩn quốc tế
+                                            Lộ trình học rõ ràng và khoa học
                                         </h3>
                                         <h5 className={styles.leftChat__container__content__subTitle}>
-                                            Chúng tôi cung cấp các khóa học chất lượng cao được thiết kế bởi những
-                                            chuyên gia hàng đầu trong ngành công nghệ thông tin,
-                                            đảm bảo bạn luôn cập nhật kiến thức mới nhất.
+                                            Các khóa học của chúng tôi được xây dựng với lộ trình học cụ thể,
+                                            giúp bạn nắm vững từng kiến thức theo từng cấp độ từ cơ bản đến nâng cao,
+                                            phù hợp cho cả người mới bắt đầu lẫn những người đã có kinh nghiệm.
                                         </h5>
                                     </div>
                                     <img src="/img/chatRight.svg" alt="" className={styles.rightChat__container__content__img} />
@@ -87,12 +87,11 @@ const Why: React.FC = () => {
                                 <div className={styles.leftChat__container__content}>
                                     <div className={styles.boom}>
                                         <h3 className={styles.leftChat__container__content__title}>
-                                            Chất lượng khóa học chuẩn quốc tế
+                                            Thực hành ngay trong quá trình học
                                         </h3>
                                         <h5 className={styles.leftChat__container__content__subTitle}>
-                                            Chúng tôi cung cấp các khóa học chất lượng cao được thiết kế bởi những
-                                            chuyên gia hàng đầu trong ngành công nghệ thông tin,
-                                            đảm bảo bạn luôn cập nhật kiến thức mới nhất.
+                                            Ngoài lý thuyết, chúng tôi tập trung vào các bài tập thực hành và dự án thực tế,
+                                            giúp bạn áp dụng kiến thức vào công việc ngay sau khi hoàn thành khóa học.
                                         </h5>
                                     </div>
                                     <img src="/img/bgChat.svg" alt="" className={styles.leftChat__container__content__img} />
@@ -104,12 +103,11 @@ const Why: React.FC = () => {
                                 <div className={styles.rightChat__container__content}>
                                     <div className={styles.boom2}>
                                         <h3 className={styles.leftChat__container__content__title}>
-                                            Chất lượng khóa học chuẩn quốc tế
+                                            Tương tác trực tiếp với giảng viên
                                         </h3>
                                         <h5 className={styles.leftChat__container__content__subTitle}>
-                                            Chúng tôi cung cấp các khóa học chất lượng cao được thiết kế bởi những
-                                            chuyên gia hàng đầu trong ngành công nghệ thông tin,
-                                            đảm bảo bạn luôn cập nhật kiến thức mới nhất.
+                                            Bạn có thể đặt câu hỏi, thảo luận và nhận sự hỗ trợ trực tiếp từ giảng viên trong quá trình học,
+                                            đảm bảo không bỏ lỡ bất kỳ kiến thức quan trọng nào.
                                         </h5>
                                     </div>
                                     <img src="/img/chatRight.svg" alt="" className={styles.rightChat__container__content__img} />
@@ -118,6 +116,27 @@ const Why: React.FC = () => {
                             <div className={styles.main__content__wrap}>
                                 <div className={styles.main__content__imgWrap}>
                                     <Image src="/img/tesla.jpg" width="360" height="360" alt="" className={styles.main__content__imgBg} />
+                                </div>
+                            </div>
+                        </section>
+                        <section className={styles.leftChat}>
+                            <div className={styles.main__content__wrap}>
+                                <div className={styles.main__content__imgWrap}>
+                                    <Image src="/img/tesla.jpg" width="360" height="360" alt="" className={styles.main__content__imgBg} />
+                                </div>
+                            </div>
+                            <div className={styles.leftChat__container}>
+                                <div className={styles.leftChat__container__content}>
+                                    <div className={styles.boom}>
+                                        <h3 className={styles.leftChat__container__content__title}>
+                                            Chứng chỉ uy tín sau khóa học
+                                        </h3>
+                                        <h5 className={styles.leftChat__container__content__subTitle}>
+                                            Sau khi hoàn thành khóa học, bạn sẽ nhận được chứng chỉ được công nhận bởi các doanh nghiệp và tổ chức,
+                                            giúp tăng cơ hội việc làm và phát triển sự nghiệp trong lĩnh vực công nghệ thông tin.
+                                        </h5>
+                                    </div>
+                                    <img src="/img/bgChat.svg" alt="" className={styles.leftChat__container__content__img} />
                                 </div>
                             </div>
                         </section>

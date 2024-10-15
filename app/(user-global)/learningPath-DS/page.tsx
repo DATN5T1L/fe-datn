@@ -2,12 +2,11 @@
 
 import Body from "../component/globalControl/body"
 import FeedBack from "../component/globalControl/feedBack"
-import CategoriesLearningPath from "../component/globalLearningPath/categoriesLearningPath"
-import ForWhom from "../component/globalLearningPath/forWhom"
-import HeaderLearning from "../component/globalLearningPath/headerLearning"
-import LearningPathSection from "../component/globalLearningPath/learningPathSection"
-import TimeLine from "../component/globalLearningPath/timeLine"
-import LeftSlider from "../component/globalControl/leftSlider"
+import CategoriesLearningPath from "../component/router/categoriesLearningPath"
+import ForWhom from "../component/router/forWhom"
+import HeaderLearning from "../component/router/headerLearning"
+import LearningPathSection from "../component/router/learningPathSection"
+import TimeLine from "../component/router/timeLine"
 
 
 const LearningPath__DS: React.FC = () => {
@@ -16,9 +15,9 @@ const LearningPath__DS: React.FC = () => {
             <title>TTO - Lộ trình Designer</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
-                <LeftSlider></LeftSlider>
-                <HeaderLearning></HeaderLearning>
-                <CategoriesLearningPath></CategoriesLearningPath>
+
+                <HeaderLearning />
+                <CategoriesLearningPath />
                 <ForWhom
                     title1="Sinh viên mới bắt đầu trong lĩnh vực UI/UX:"
                     title2="Người chuyển đổi sang thiết kế UI/UX:"
@@ -63,7 +62,7 @@ const LearningPath__DS: React.FC = () => {
                     content4="Nguyên mẫu tương tác"
                     content5="Đánh giá và cải thiện trải nghiệm người dùng"
                 />
-                <FeedBack></FeedBack>
+                <FeedBack />
             </Body>
         </>
     )

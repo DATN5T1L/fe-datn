@@ -1,14 +1,17 @@
 'use client'
 
 import Link from "next/link"
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button, Image, Nav } from "react-bootstrap"
 
 
 const LeftSlider: React.FC = () => {
+    const pathName = usePathname()
     const [isMenu, setIsMenu] = useState(true)
     const [isCourseOpen, setIsCourseOpen] = useState(false);
     const [headerHeight, setHeaderHeight] = useState(0);
+    const [isHidden, setIsHidden] = useState(false)
 
     useEffect(() => {
         const header = document.querySelector('.header-nav') as HTMLElement;
@@ -33,6 +36,27 @@ const LeftSlider: React.FC = () => {
         };
     }, []);
 
+    useEffect(() => {
+        const footer = document.querySelector('footer') as HTMLElement;
+
+        const handleScroll = () => {
+            const footerRect = footer.getBoundingClientRect();
+            const isFooterVisible = footerRect.top <= window.innerHeight;
+
+            if (isFooterVisible && footerRect.top < window.innerHeight - headerHeight) {
+                setIsHidden(true);
+            } else {
+                setIsHidden(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [headerHeight]);
+
     const openMenu = () => {
         setIsMenu(!isMenu)
     }
@@ -41,13 +65,15 @@ const LeftSlider: React.FC = () => {
         setIsCourseOpen(!isCourseOpen);
     };
 
+    const isHome = pathName === '/' || pathName === '/home';
+
     return (
-        <Nav className={`slider-bar`} style={{top:`calc(${headerHeight}px + 16px)`}}>
+        <Nav className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`} style={{ top: `calc(${headerHeight}px + 16px)` }}>
             <section className={`slide-bar-categories`}>
-                <Link href="/" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                    <img src='/img/home-fill.svg' className='img block' />
-                    <img src='/img/home.svg' className='img none' />
-                    <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Trang chủ</div>
+                <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
+                    <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
+                    <img src='/img/home.svg' className={`img none ${isHome ? 'block-icon' : ''}`} />
+                    <div className={`btn-e ${isHome ? 'text-white-100' : ''} ${isMenu ? 'w-0px' : 'block-text'}`}>Trang chủ</div>
                 </Link>
 
                 <div className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`} onClick={openCourses}>
@@ -74,7 +100,7 @@ const LeftSlider: React.FC = () => {
                     <img src='/img/bag.svg' className='img none' />
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Học ngay</div>
                 </Link>
-                <Link href="/learning-path" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
+                <Link href="/learningPath-FE" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
                     <img src='/img/roadfill.svg' className='img block' />
                     <img src='/img/road.svg' className='img none' />
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Lộ trình</div>

@@ -15,7 +15,7 @@ import "./articel.css"
 
 const Article: React.FC = () => {
   return (
-    <Container
+    <div
       className={`${h.container} d-flex flex-column flex-grow-1 align-items-start`}
     >
       {/* Header */}
@@ -139,7 +139,7 @@ const Article: React.FC = () => {
         </Pagination>
       </div>
 
-    </Container>
+    </div>
   );
 };
 

@@ -48,7 +48,7 @@
 }
 
 .main__title {
-    width: 373px;
+    width: auto;
     height: auto;
     display: flex;
     flex-direction: row;
@@ -93,11 +93,12 @@
 }
 
 .main__title__content {
-    font-size: 34px;
+    font-size: 48px;
     font-style: normal;
     font-weight: 600;
-    line-height: 42px;
-    letter-spacing: -0.68px;
+    line-height: 56px;
+    letter-spacing: -0.96px;
+    color: var(--text-100);
     margin: 0;
     width: auto;
     display: block;
@@ -133,7 +134,7 @@
     gap: 16px;
 }
 
-.nav__btn__muti{
+.nav__btn__muti {
     width: auto;
     height: auto;
     display: flex;
@@ -143,7 +144,7 @@
     gap: 32px;
 }
 
-.nav__btn__single{
+.nav__btn__single {
     padding: 0;
     margin: 0;
     width: auto;
@@ -169,7 +170,7 @@
 
 .mainBox {
     width: 272px;
-    max-width: 272px; 
+    max-width: 272px;
     height: auto;
     border-radius: 16px;
     display: flex;
@@ -181,7 +182,7 @@
     flex-grow: 0;
 }
 
-.mainBox__content{
+.mainBox__content {
     width: 100%;
     max-width: 275px;
     height: auto;
@@ -273,11 +274,11 @@
 }
 
 .headContent__evaluete {
-    height: auto;   
+    height: auto;
     width: auto;
 }
 
-.starGroup{
+.starGroup {
     display: flex;
     flex-direction: row;
     gap: 3px;
@@ -304,7 +305,7 @@
     font-weight: 400;
     line-height: 16px;
     text-align: center;
-    color: rgba(153, 153, 153, 1);
+    color: var(--text-25);
 }
 
 .evaluete__note {
@@ -314,7 +315,7 @@
     font-weight: 400;
     line-height: 16px;
     text-align: start;
-    color: rgba(153, 153, 153, 1);
+    color: var(--text-25);
 }
 
 .headContent__percent {
@@ -374,7 +375,7 @@
     border: 2px solid rgba(219, 219, 219, 1);
     font-size: 8px;
     font-weight: 400;
-    color: rgba(153, 153, 153, 1);
+    color: var(--text-25);
 }
 
 .percent__name {
@@ -386,7 +387,7 @@
     align-items: center;
 }
 
-.nameContent{
+.nameContent {
     font-size: 10px;
     line-height: 16px;
     font-weight: 400;
@@ -418,7 +419,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--Gray-gray-95, rgba(250, 250, 250, 1));
+    background: var(--gray-95);
     box-shadow: 0px 0.5px 2px 0px rgba(96, 97, 112, 0.16);
 }
 

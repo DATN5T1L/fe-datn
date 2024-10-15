@@ -1,43 +1,43 @@
-/* Container bao quanh */
 .container {
-    padding: 0;
-    height: 100vh; /* Chiếm toàn bộ chiều cao màn hình */
-    overflow: hidden;
-  }
-  
-  /* Header cố định chiếm 10% chiều cao màn hình */
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: #fff;
-    height: 10vh; /* Chiều cao của Header: 10% chiều cao màn hình */
-  }
-  
-  /* Phần nội dung chính, đảm bảo nó nằm dưới Header */
-  .mainContent {
-    margin-top: 10vh; /* Tránh phần Header */
-    height: 90vh; /* Chiều cao của nội dung còn lại: 90% */
-  }
-  
-  /* Sidebar chiếm 100% chiều cao còn lại */
-  .sidebar {
-    position: fixed;
-    top: 10vh; /* Nằm dưới Header */
-    left: 0;
-    height: 90vh; /* Chiều cao bằng với phần còn lại sau Header */
-    background-color: #f8f9fa;
-    overflow-y: auto;
-    z-index: 999;
-    padding: 0px;
-  }
-  
-  /* Nội dung Article có thể cuộn */
-  .article {
-    margin-left: 16.66667%;
-    height: 90vh;
-    overflow-y: auto; /* Đẩy nội dung sang phải, chiếm khoảng không của sidebar */
-  }
-  
+  width: 100%;
+  padding: 0;
+  height: 100vh; 
+  overflow: hidden;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+  height: 10vh; 
+}
+
+.mainContent {
+  width: 100%;
+  margin-top: 10vh; /* Đảm bảo nội dung không bị che bởi header */
+  height: 90vh;
+  display: flex;
+  flex-grow: 1; /* Sử dụng flexbox cho layout */
+}
+
+.sidebar {
+  width: 233px; /* Chiều rộng cố định cho sidebar */
+  position: fixed;
+  top: 10vh; 
+  left: 0;
+  height: 90vh; 
+  background-color: #f8f9fa;
+  overflow-y: auto; 
+  z-index: 999;
+  padding: 0;
+}
+
+.article {
+  width: 100%;
+  margin-left: 233px; 
+  height: 90vh;
+  overflow-y: auto; 
+}
