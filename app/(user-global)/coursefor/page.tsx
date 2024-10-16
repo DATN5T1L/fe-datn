@@ -1,8 +1,8 @@
 'use client';
 
 import Body from "../component/globalControl/body";
-import CourseFor from "./CourseFor/page";
-import CourseForNext from "./CourseForNext/page";
+import CourseFor from "../component/course/courseFor";
+import CourseForNext from "../component/course/CourseForNext";
 import TimeLine from "../component/router/timeLine";
 import LearningPathSection from "../component/router/learningPathSection";
 

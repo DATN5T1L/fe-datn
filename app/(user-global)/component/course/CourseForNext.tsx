@@ -1,7 +1,7 @@
 import { Card, Col, Container, Image, Row } from "react-bootstrap";
-import Button from "@/app/(user-global)/component/globalControl/btnComponent";
+import Button from "../globalControl/btnComponent";
 import styles from '@public/styles/home/CoursePro.module.css';
-import styleFor from "../style.module.css";
+import styleFor from "@public/styles/course/coursefor.module.css";
 
 const CourseForNext: React.FC = () => {
     return (
