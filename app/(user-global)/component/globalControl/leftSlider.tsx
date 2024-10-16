@@ -84,13 +84,13 @@ const LeftSlider: React.FC = () => {
 
                 <div className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}>
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
-                    <Link href="/course/topic1" className={`btn-slide-bar-mini`}>
+                    <Link href="/coursefor" className={`btn-slide-bar-mini`}>
                         <div className={`btn-e`}>Khóa học của bạn</div>
                     </Link>
-                    <Link href="/course/topic2" className={`btn-slide-bar-mini`}>
+                    <Link href="/coursefor" className={`btn-slide-bar-mini`}>
                         <div className={`btn-e`}>Khóa học có phí</div>
                     </Link>
-                    <Link href="/course/topic3" className={`btn-slide-bar-mini`}>
+                    <Link href="/coursefor" className={`btn-slide-bar-mini`}>
                         <div className={`btn-e`}>Khóa học miễn phí</div>
                     </Link>
                 </div>

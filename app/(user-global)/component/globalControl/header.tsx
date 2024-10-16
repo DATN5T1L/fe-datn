@@ -67,6 +67,7 @@ const Header: React.FC = () => {
     const isUser = pathname === '/info-user';
     const isUser1 = pathname === '/intro-user';
     const isUser2 = pathname === '/wallet-user';
+    const isUser3 = pathname === '/coursefor';
     const home = pathname === '/home'
 
     return (
@@ -90,7 +91,7 @@ const Header: React.FC = () => {
                                     <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
                                 </Link>
                             </Col>
-                            {isUser || isUser1 || isUser2 ? (
+                            {isUser || isUser1 || isUser2 || isUser3 ? (
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
                                         <div className='user-notification'>
