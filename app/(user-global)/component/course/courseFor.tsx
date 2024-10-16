@@ -8,9 +8,9 @@ const CourseFor: React.FC = () => {
 
         <Container className={styleFor.container}>
             <section className={styleFor.main}>
-                <h2 className={styleFor.main__title} aria-hidden={true}>Khóa học Pro</h2>
+                <h2 className={styleFor.main__title} aria-hidden={true}>Khóa học của bạn</h2>
                 <p className={styleFor.main__subTitle}>
-                    Khóa học của bạn là khóa học mà bạn đã chọn, bao gồm các khóa học mà bạn đã mua hoặc các khóa học miễn phí.
+                    Khóa học của bạn là khóa học mà bạn đang học, bao gồm các khóa học mà bạn đã mua hoặc các khóa học miễn phí.
                 </p>
             </section>
             <section className={styleFor.cta}>

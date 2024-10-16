@@ -1,5 +1,3 @@
-
-
 .body {
     width: 100%;
     display: flex;
@@ -23,8 +21,7 @@
 }
 
 .imgBg {
-    width: 100%;
-    max-width: 100%;
+    width: 1920px;
     position: absolute;
     z-index: -10000;
     bottom: 0;
@@ -255,6 +252,8 @@
     color: white;
     padding: 0;
     margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .text__hedding3 {
