@@ -5,8 +5,6 @@ import styleFor from "../style.module.css";
 
 const CourseForNext: React.FC = () => {
     return (
-
-
         <Container className={styleFor.containerNext}>
             <svg width="100%" height="714" viewBox="0 0 1440 714" fill="none"
                 xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" className={styleFor.bg}>

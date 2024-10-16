@@ -10,7 +10,7 @@ import LearningPathSection from "../component/router/learningPathSection"
 const courseForYou: React.FC = () => {
     return (
         <>
-            <title>TTO - Lộ trình Front-End</title>
+            <title>TTO - Khóa học của bạn</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
                 <CourseFor />
