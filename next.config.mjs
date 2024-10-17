@@ -19,6 +19,10 @@ const nextConfig = {
         source: '/api/coursetype/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/course-price/:path*',
       },
+      {
+        source: '/api/posthighest/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/post-highest-view/:path*',
+      }
 
     ];
   },

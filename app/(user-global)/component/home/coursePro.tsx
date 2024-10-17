@@ -15,11 +15,8 @@ const CoursePro: React.FC = () => {
     if (error) return <div>Error loading courses</div>;
     if (!data) return <div>Loading...</div>;
 
-    // Extract courses from the API response
     const courses = Array.isArray(data.data) ? data.data : [];
 
-
-    console.log(courses, "Lấy dữ liệu thành công");
 
     return (
         <Container className={styles.container}>

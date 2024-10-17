@@ -1,9 +1,21 @@
 import Link from "next/link"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import styles from '@public/styles/home/FeedBackToStudent.module.css'
+import { Post } from "@/app/(user-global)/model/post"
+import useSWR from 'swr';
 
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const FeedBackToStudent: React.FC = () => {
+    const { data, error } = useSWR<{ status: string; message: string; data: Post[] }>('/api/coursetype/free/8', fetcher, {
+        revalidateOnFocus: true,
+        revalidateOnReconnect: true,
+    });
+
+    if (error) return <div>Error loading courses</div>;
+    if (!data) return <div>Loading...</div>;
+
+    const FeedBack = Array.isArray(data.data) ? data.data : [];
     return (
         <>
             <Container className={styles.container}>
