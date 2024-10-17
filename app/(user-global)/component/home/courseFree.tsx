@@ -81,7 +81,7 @@ const CourseFree: React.FC = () => {
                     </Row>
                     <Row md={12} className={styles.main__course}>
                         {courses.map(course => (
-                            <Col md={4} className={styles.mainBox} key={course.course_id}>
+                            <Col md={4} className={styles.mainBox} >
                                 <Card className={styles.mainBox__content}>
                                     <Card.Header className={styles.headerContent}>
                                         <section className={styles.headerContent__text}>
