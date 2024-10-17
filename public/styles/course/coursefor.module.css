@@ -105,3 +105,29 @@
     position: absolute;
     top: 22%;
 }
+
+.progress-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.progress-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(#2196f3 calc(40% * 3.6deg),
+            /* Màu tiến độ */
+            #ddd 0deg
+            /* Màu nền */
+        );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.progress-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}

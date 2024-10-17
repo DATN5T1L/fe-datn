@@ -55,10 +55,10 @@ const Footer: React.FC = () => {
                     </Col >
                 </Row >
                 <Nav className='media-logo'>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/fb.svg" alt=""  className='media-logo-img'/></Nav.Link>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/intagram.svg" alt=""  className='media-logo-img'/></Nav.Link>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/IN.svg" alt=""  className='media-logo-img'/></Nav.Link>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/X.com.svg" alt=""  className='media-logo-img'/></Nav.Link>
+                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/fb.svg" alt="" className='media-logo-img' /></Nav.Link>
+                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/intagram.svg" alt="" className='media-logo-img' /></Nav.Link>
+                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/IN.svg" alt="" className='media-logo-img' /></Nav.Link>
+                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/X.com.svg" alt="" className='media-logo-img' /></Nav.Link>
                 </Nav>
                 <section className='copyright'>
                     <div className="copyright-content">

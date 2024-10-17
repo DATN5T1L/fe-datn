@@ -1,3 +1,4 @@
+
 'use client';
 import { usePathname } from 'next/navigation'; // Sử dụng usePathname thay cho useRouter
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,11 +14,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname(); // Lấy đường dẫn hiện tại
+  const pathname = usePathname();
+  console.log(pathname);
 
-  // Kiểm tra xem có phải là trang couseDetaile hay không
-  const isNoHeaderPage = pathname === '/couseDetaile/{id}';
-
+  const isNoHeaderPage = /^\/course(\/.*)?$/.test(pathname);
   return (
     <html lang="en">
       <Head>

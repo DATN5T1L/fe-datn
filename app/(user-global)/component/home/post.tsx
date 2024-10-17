@@ -73,7 +73,7 @@ const Post: React.FC = () => {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                    <ButtonComponet type='secondary' size='M' status='default' leftIcon={false} chevron={2}>Xem thêm tin tức</ButtonComponet>
+                    <ButtonComponet type='secondery' size='M' status='default' leftIcon={false} chevron={2}>Xem thêm tin tức</ButtonComponet>
                     <div className={styles.left__body__card__groupBtn}>
                         <Button className={styles.btn__prev} onClick={scrollLeftHandler}>
                             <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

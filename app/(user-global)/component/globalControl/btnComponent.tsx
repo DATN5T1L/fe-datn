@@ -29,8 +29,8 @@ const Button: React.FC<ButtonProps> = ({
     hover = true,
     hoverType = 'default',
     typeButton = 'btn',
-    width = 198,
-    height = 48,
+    width,
+    height,
     widthText = 'auto',
     children,
     onClick
@@ -152,9 +152,9 @@ const Button: React.FC<ButtonProps> = ({
             onMouseLeave={() => setIsHovered(false)}
             type={getTypeBtnClass()}
             onClick={onClick}
-            style={{width:`${width}px`,height:`${height}px`}}
+
         >
-            <div  style={{width:`${width}px`,height:`${height}px`}} className={` ${getStatusClass()} ${getSizeClass()}`}>
+            <div className={` ${getStatusClass()} ${getSizeClass()}`}>
                 <div className='left-icon-container'>
                     {isIconLeft ? (
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='icon-left' >
@@ -164,7 +164,7 @@ const Button: React.FC<ButtonProps> = ({
                     ) : ''
                     }
                 </div>
-                <div className='btn-title' style={{width:`${widthText}`}}>
+                <div className='btn-title'>
                     {children}
                 </div>
                 <div className='right-icon-container'>

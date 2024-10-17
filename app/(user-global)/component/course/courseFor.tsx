@@ -2,6 +2,7 @@ import { Card, Col, Container, Image, Row } from "react-bootstrap";
 import Button from "../globalControl/btnComponent";
 import styles from '@public/styles/home/CoursePro.module.css';
 import styleFor from "@public/styles/course/coursefor.module.css";
+import ProgressCircle from "../course/ProgressCircle";
 
 const CourseFor: React.FC = () => {
     return (
@@ -19,7 +20,7 @@ const CourseFor: React.FC = () => {
                     <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học có phí</Button>
                     <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học miễn phí</Button>
                 </div>
-                <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Tất cả</Button>
+                <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Xem tất cả</Button>
             </section>
             <section className={styleFor.listCard}>
                 <Row className={styleFor.mainCard}>
@@ -38,20 +39,6 @@ const CourseFor: React.FC = () => {
                                 <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
                             </Card.Header>
                             <Card.Body className={styles.mainContent}>
-                                <section className={styles.bodyContent}>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
-                                    </div>
-                                </section>
                                 <section className={styles.mainContent__headContent}>
                                     <div className={styles.headContent__evaluete}>
                                         <div className={styles.evaluete__main}>
@@ -66,13 +53,29 @@ const CourseFor: React.FC = () => {
                                                 {'('} 4,5 {')'}
                                             </Card.Text>
                                         </div>
+                                        <div className={styles.headContent__percent}>
+                                            <Card.Text className={styles.evaluete__note}>
+                                                {'('} 504 phản hồi {')'}
+                                            </Card.Text>
+                                        </div>
                                     </div>
-                                    <div className={styles.headContent__percent}>
-                                        <Card.Text className={styles.evaluete__note}>
-                                            {'('} 504 phản hồi {')'}
-                                        </Card.Text>
+
+                                </section>
+                                <section className={styles.bodyContent}>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
                                     </div>
                                 </section>
+
                             </Card.Body>
                         </Card>
                     </Col>
@@ -92,20 +95,6 @@ const CourseFor: React.FC = () => {
                                 <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
                             </Card.Header>
                             <Card.Body className={styles.mainContent}>
-                                <section className={styles.bodyContent}>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
-                                    </div>
-                                </section>
                                 <section className={styles.mainContent__headContent}>
                                     <div className={styles.headContent__evaluete}>
                                         <div className={styles.evaluete__main}>
@@ -120,13 +109,29 @@ const CourseFor: React.FC = () => {
                                                 {'('} 4,5 {')'}
                                             </Card.Text>
                                         </div>
+                                        <div className={styles.headContent__percent}>
+                                            <Card.Text className={styles.evaluete__note}>
+                                                {'('} 504 phản hồi {')'}
+                                            </Card.Text>
+                                        </div>
                                     </div>
-                                    <div className={styles.headContent__percent}>
-                                        <Card.Text className={styles.evaluete__note}>
-                                            {'('} 504 phản hồi {')'}
-                                        </Card.Text>
+                                    <ProgressCircle progress={20} />
+                                </section>
+                                <section className={styles.bodyContent}>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
                                     </div>
                                 </section>
+
                             </Card.Body>
                         </Card>
                     </Col>
@@ -146,20 +151,6 @@ const CourseFor: React.FC = () => {
                                 <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
                             </Card.Header>
                             <Card.Body className={styles.mainContent}>
-                                <section className={styles.bodyContent}>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
-                                    </div>
-                                </section>
                                 <section className={styles.mainContent__headContent}>
                                     <div className={styles.headContent__evaluete}>
                                         <div className={styles.evaluete__main}>
@@ -174,13 +165,29 @@ const CourseFor: React.FC = () => {
                                                 {'('} 4,5 {')'}
                                             </Card.Text>
                                         </div>
+                                        <div className={styles.headContent__percent}>
+                                            <Card.Text className={styles.evaluete__note}>
+                                                {'('} 504 phản hồi {')'}
+                                            </Card.Text>
+                                        </div>
                                     </div>
-                                    <div className={styles.headContent__percent}>
-                                        <Card.Text className={styles.evaluete__note}>
-                                            {'('} 504 phản hồi {')'}
-                                        </Card.Text>
+
+                                </section>
+                                <section className={styles.bodyContent}>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
                                     </div>
                                 </section>
+
                             </Card.Body>
                         </Card>
                     </Col>
@@ -200,20 +207,6 @@ const CourseFor: React.FC = () => {
                                 <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
                             </Card.Header>
                             <Card.Body className={styles.mainContent}>
-                                <section className={styles.bodyContent}>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
-                                    </div>
-                                    <div className={styles.bodyContent__element}>
-                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
-                                    </div>
-                                </section>
                                 <section className={styles.mainContent__headContent}>
                                     <div className={styles.headContent__evaluete}>
                                         <div className={styles.evaluete__main}>
@@ -228,13 +221,29 @@ const CourseFor: React.FC = () => {
                                                 {'('} 4,5 {')'}
                                             </Card.Text>
                                         </div>
+                                        <div className={styles.headContent__percent}>
+                                            <Card.Text className={styles.evaluete__note}>
+                                                {'('} 504 phản hồi {')'}
+                                            </Card.Text>
+                                        </div>
                                     </div>
-                                    <div className={styles.headContent__percent}>
-                                        <Card.Text className={styles.evaluete__note}>
-                                            {'('} 504 phản hồi {')'}
-                                        </Card.Text>
+
+                                </section>
+                                <section className={styles.bodyContent}>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Chương</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Bài tập</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
                                     </div>
                                 </section>
+
                             </Card.Body>
                         </Card>
                     </Col>

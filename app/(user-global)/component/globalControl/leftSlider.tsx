@@ -68,7 +68,7 @@ const LeftSlider: React.FC = () => {
     const isHome = pathName === '/' || pathName === '/home';
 
     return (
-        <Nav className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`} style={{ top: `calc(${headerHeight}px + 16px)` }}>
+        <Nav className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`} style={{ top: `calc(${headerHeight}px + 120px)` }}>
             <section className={`slide-bar-categories`}>
                 <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
                     <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
@@ -122,4 +122,4 @@ const LeftSlider: React.FC = () => {
     );
 }
 
-export default LeftSlider
+export default LeftSlider;

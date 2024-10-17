@@ -77,7 +77,7 @@ const CourseForNext: React.FC = () => {
                                     </div>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>10 Đã học</Card.Text>
+                                        <Card.Text className={styles.element__text}>Học ngay</Card.Text>
                                     </div>
                                 </section>
                                 <section className={styles.mainContent__headContent}>
