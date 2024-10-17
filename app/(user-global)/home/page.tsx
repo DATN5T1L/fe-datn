@@ -18,7 +18,6 @@ const Home: React.FC = () => {
             <title>TTO - Khám phá, học hỏi, vươn xa</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
-            
                 <SliderShow />
                 <LearningPath></LearningPath>
                 <CoursePro></CoursePro>

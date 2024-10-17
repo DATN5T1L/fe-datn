@@ -45,6 +45,14 @@ const nextConfig = {
         source: '/api/getNameChapterCourse/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/name-chapter-by-course/:path*',
       },
+      {
+        source: '/api/getFeedBackCourse/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/feedback-course/:path*',
+      },
+      {
+        source: '/api/getFaqCourse/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/faq-course/:path*',
+      },
 
 
     ];

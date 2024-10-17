@@ -1,6 +1,6 @@
 
 'use client';
-import { usePathname } from 'next/navigation'; // Sử dụng usePathname thay cho useRouter
+import { usePathname } from 'next/navigation';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
 import '@app/(user-global)/global.css';
@@ -8,6 +8,7 @@ import Header from "./component/globalControl/header";
 import Footer from "./component/globalControl/footer";
 import ScrollToTop from "./component/globalControl/scrollToTop";
 import LeftSlider from "./component/globalControl/leftSlider";
+import FooterBlack from "./component/globalControl/footerBlack"
 
 export default function RootLayout({
   children,
@@ -30,13 +31,12 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
         />
       </Head>
-      <body className="inter.className"> {/* Bạn có thể sử dụng className ở đây */}
-        {/* Chỉ render Header nếu không phải là trang couseDetaile */}
+      <body className="inter.className">
         {!isNoHeaderPage && <Header />}
         <ScrollToTop />
         <LeftSlider />
         {children}
-        <Footer />
+        {isNoHeaderPage ? <FooterBlack /> : <Footer />}
       </body>
     </html>
   );

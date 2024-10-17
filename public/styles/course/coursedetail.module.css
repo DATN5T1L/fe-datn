@@ -80,7 +80,10 @@
 .Practice,
 .intructor,
 .whyTTO,
-.knowledge {
+.knowledge,
+.Feedback,
+.FAQ,
+.callHelp {
     width: 100%;
     padding: 80px 40px;
     background-color: var(--gray-00);
@@ -98,7 +101,6 @@
 .row {
     width: 100%;
     align-items: flex-start;
-
 }
 
 .contentPractice,
@@ -232,7 +234,8 @@
     gap: 32px;
 }
 
-.containerWhytto {
+.containerWhytto,
+.containerFeedback {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -338,6 +341,177 @@
     font-style: italic;
     text-align: start;
 }
+
+/* feedback */
+
+.rowFeedback {
+    flex-direction: row;
+    gap: 32px;
+    justify-content: space-between;
+}
+
+.FeedbackItem {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background-color: var(--gray-20);
+    border-radius: 12px;
+    padding: 16px;
+    max-width: 507px;
+    color: var(--text-0);
+    transition: background-color 0.3s ease, color 0.3s;
+
+    &:hover {
+        background-color: var(--gray-90);
+        color: var(--text-100);
+    }
+}
+
+.FeedbackBody {
+    color: inherit;
+}
+
+.FeedbackDesc {
+    color: inherit;
+    text-align: justify;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 32px;
+    padding: 0;
+}
+
+
+.FeedbackUser {
+    color: inherit;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.userFeedback {
+    border-radius: 50%;
+}
+
+.FeedbackContent {
+    color: inherit;
+}
+
+.userNameFeedback {
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+
+.userOfCourse {
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+/* where study */
+
+.rowStudy {
+    justify-content: center;
+}
+
+.imageMap {
+    object-fit: contain;
+}
+
+.descWhereStudy {
+    width: 100%;
+    max-width: 754px;
+    color: var(--text-0);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 80px;
+}
+
+.rowFaq {
+    padding: 32px;
+}
+
+.faqItem {
+    cursor: pointer;
+    color: var(--text-0);
+    border-bottom: 1px solid var(--gray-90);
+    padding: 12px 0px 24px 0px;
+}
+
+.faqItemWhat {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.faqContent,
+.faqCata {
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+    margin-left: 32px;
+}
+
+.faqCata {
+    color: var(--text-0);
+    margin-left: 12px;
+    margin-bottom: 12px;
+}
+
+.containerCallHelp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.containerCallHelp {
+    padding: 32px;
+    border-radius: 12px;
+    background: var(--gray-20);
+    display: flex;
+    gap: 32px;
+}
+
+.rowCallhelp {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titleCallHelp {
+    text-align: center;
+    color: var(--text-0);
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 56px;
+    letter-spacing: -0.96px;
+    max-width: 611px;
+
+}
+
+.descCallHelp {
+    color: var(--text-0);
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 32px;
+}
+
+
 
 /* Màn hình nhỏ: hiển thị 1 cột */
 @media (max-width: 576px) {

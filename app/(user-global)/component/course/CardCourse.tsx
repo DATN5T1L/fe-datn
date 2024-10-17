@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import Image from 'next/image';
-import ProgressCircle from './ProgressCircle'; // Đảm bảo đường dẫn đúng tới component ProgressCircle
-import styles from "@public/styles/course/CourseCard.module.css"; // Đảm bảo đường dẫn đúng tới file CSS
-import { Course } from "@app/(user-global)/model/course"; // Đảm bảo đường dẫn đúng tới model Course
+import ProgressCircle from './ProgressCircle';
+import styles from "@public/styles/course/CourseCard.module.css";
+import { Course } from "@app/(user-global)/model/course";
 
 interface CourseCardProps extends Course {
-    progress: number; // Thêm biến cho tiến độ
+    progress: number;
 }
 
 const CourseCard: React.FC<CourseCardProps> = ({
