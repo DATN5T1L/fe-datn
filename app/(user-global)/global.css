@@ -1967,10 +1967,10 @@
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--blue-40) var(--blue-95);
+    scrollbar-color: #1E6AD2 #E3ECF8;
     /
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    background: var(--cyan-40);
+    background: #1E6AD2;
   }
