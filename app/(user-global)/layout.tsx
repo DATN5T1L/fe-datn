@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Head from 'next/head';
 import '@app/(user-global)/global.css';
 import Header from "./component/globalControl/header";
+import HeaderCourseDetail from "./component/globalControl/headerCourseDetail";
 import Footer from "./component/globalControl/footer";
 import ScrollToTop from "./component/globalControl/scrollToTop";
 import LeftSlider from "./component/globalControl/leftSlider";
@@ -32,7 +33,7 @@ export default function RootLayout({
         />
       </Head>
       <body className="inter.className">
-        {!isNoHeaderPage && <Header />}
+        {isNoHeaderPage ? <HeaderCourseDetail /> : <Header />}
         <ScrollToTop />
         <LeftSlider />
         {children}

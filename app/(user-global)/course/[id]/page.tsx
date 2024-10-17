@@ -82,23 +82,7 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
     const faqs = faqData.data;
     return (
         <>
-            <Navbar className={`${styles.nav}`} fixed='top'>
-                <Container className={`${styles.container}`}>
-                    <Navbar.Brand href="/home">
-                        <img
-                            src="/img/logoamban.png"
-                            className="d-inline-block align-top"
-                            alt="Logo"
-                        />
-                    </Navbar.Brand>
-                    <Nav className={`${styles.menu}`}>
-                        <Nav.Link href="#home" className={`${styles.menuItem}`}>Nội dung</Nav.Link>
-                        <Nav.Link href="#about" className={`${styles.menuItem}`}>Liên hệ</Nav.Link>
-                        <Nav.Link href="#services" className={`${styles.menuItem}`}>Câu hỏi thường gặp</Nav.Link>
-                    </Nav>
-                    <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40}>Học thử miễn phí</Button>
-                </Container>
-            </Navbar>
+
 
             <section className={`${styles.couserOverview}`}>
                 <Container className={`${styles.container} ${styles.hero}`}>
@@ -347,7 +331,8 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                     <Row className={`${styles.row} ${styles.rowFaq}`}>
                         <Col md="12">
                             <p className={styles.faqCata}>Đối tượng tham gia</p>
-                            {faqs.map((faq, index) => (
+
+                            {Array.isArray(faqs) ? (faqs.map((faq, index) => (
                                 <div key={index} className={styles.faqItem}>
                                     <div className={styles.faqItemWhat} onClick={() => toggleContent(index)}>
                                         <Image
@@ -365,7 +350,7 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                                         </p>
                                     )}
                                 </div>
-                            ))}
+                            ))) : ("")}
 
                         </Col>
                     </Row>
