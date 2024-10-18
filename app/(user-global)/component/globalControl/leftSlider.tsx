@@ -4,7 +4,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Button, Image, Nav } from "react-bootstrap"
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 
 const LeftSlider: React.FC = () => {
     const pathName = usePathname()
@@ -12,6 +13,7 @@ const LeftSlider: React.FC = () => {
     const [isCourseOpen, setIsCourseOpen] = useState(false);
     const [headerHeight, setHeaderHeight] = useState(0);
     const [isHidden, setIsHidden] = useState(false)
+    const userState = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
         const header = document.querySelector('.header-nav') as HTMLElement;
@@ -84,7 +86,10 @@ const LeftSlider: React.FC = () => {
 
                 <div className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}>
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
-                    <Link href="/coursefor" className={`btn-slide-bar-mini`}>
+                    <Link
+                        href={`${userState.user ? `/course?user_id=${userState.user.id}` : `/login`}`}
+                        className={`btn-slide-bar-mini`}
+                    >
                         <div className={`btn-e`}>Khóa học của bạn</div>
                     </Link>
                     <Link href="/coursefor" className={`btn-slide-bar-mini`}>
