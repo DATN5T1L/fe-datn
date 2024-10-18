@@ -7,6 +7,7 @@ import '@public/styles/user/MenuSetting.module.css';
 import { useState } from "react";
 import ModalChangePass from "../user-component/modalChangePass";
 import { usePathname } from "next/navigation";
+import GgLogout from "../user-component/ggLogout";
 
 const MenuSetting: React.FC = () => {
     const [showChangePassWord, setShowChangePassWord] = useState(false)
@@ -49,11 +50,7 @@ const MenuSetting: React.FC = () => {
                         <Image src='/img/infoPassWord-white.svg' className={styles.white} />
                         <div className={styles.link__title}>Thay đổi mật khẩu</div>
                     </Button>
-                    <Link href="/" className={styles.link}>
-                        <Image src='/img/infoLogout-black.svg' className={styles.black} />
-                        <Image src='/img/infoLogout-white.svg' className={styles.white} />
-                        <div className={styles.link__title}>Đăng xuất</div>
-                    </Link>
+                    <GgLogout></GgLogout>
                 </section>
             </Container>
             <ModalChangePass

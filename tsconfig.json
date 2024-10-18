@@ -21,9 +21,10 @@
     "paths": {
       "@/*": ["./*"],
       "@app/*": ["app/*"],
-      "@public/*": ["public/*"]
+      "@public/*": ["public/*"],
+      "@reduxTolkit": ["redux/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pages/api/auth/[...nextauth]/router.ts", "app/api/auth/[...nextauth].js"],
   "exclude": ["node_modules"]
 }

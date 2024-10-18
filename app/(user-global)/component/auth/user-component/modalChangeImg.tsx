@@ -78,7 +78,7 @@ const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
                                     <p className={styles.uploadButton__title}>Tải ảnh lên</p>
                                 </section>
                                 <Image
-                                    src={selectedFile ? selectedFile : '/img/avt.jpg'}
+                                    src={selectedFile ? selectedFile : '/img/avtDefault.jpg'}
                                     alt="Avatar"
                                     className={styles.img__index}
                                 />
