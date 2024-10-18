@@ -28,7 +28,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                         {name_course}
                     </Card.Title>
                     <Card.Subtitle className={styles.subtitle}>
-                        by Team {instructor_id} {/* Hoặc hiển thị tên người hướng dẫn */}
+                        by Team {instructor_id}
                     </Card.Subtitle>
                     <Card.Img src="/img/iconReact.svg" alt="Icon" className={styles.icon} />
                 </section>
@@ -66,7 +66,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
                     </div>
                     <div className={styles.contentElement}>
                         <Image src="/img/bookopenyellow.svg" alt="Documents Icon" className={styles.elementIcon} />
-                        <Card.Text className={styles.elementText}>{documents_count} Đã học</Card.Text>
+                        <Card.Text className={styles.elementText}>{documents_count}Học ngay</Card.Text>
                     </div>
                 </section>
             </Card.Body>

@@ -1,15 +1,24 @@
 import React from 'react';
+import { useEffect } from 'react';
+
 import { Container, Row, Col, Image, Nav } from 'react-bootstrap';
 import Link from "next/link";
 import styles from '@public/styles/globalControl/Footer.module.css'; // Import CSS Module
-
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 const Footer: React.FC = () => {
+
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+        });
+    }, []);
     return (
-        <footer className={styles.footerContainer}>
+        <footer className={styles.footerContainer} data-aos="fade-up">
             <Row className={styles.footerContent}>
                 <Col md={3} >
                     <section className={styles.logo}  >
-                        <Image src="/img/logotrangden.png" alt="Logo" className={styles.logoFooter} />
+                        <Image src="/img/logottotrangden.png" alt="Logo" className={styles.logoFooter} />
                         <span>"Khám phá, học hỏi, vươn xa"</span>
                     </section>
                     <section className={styles.contact}>

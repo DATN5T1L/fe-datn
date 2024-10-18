@@ -53,6 +53,10 @@ const nextConfig = {
         source: '/api/getFaqCourse/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/faq-course/:path*',
       },
+      {
+        source: '/api/feedbackhome/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/feedback-limit//:path*',
+      },
 
 
     ];

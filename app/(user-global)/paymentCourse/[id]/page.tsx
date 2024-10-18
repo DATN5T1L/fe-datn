@@ -1,7 +1,6 @@
 "use client";
 import useSWR from 'swr';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
@@ -40,11 +39,6 @@ interface ApiResponse<T> {
 }
 
 const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
-    const router = useRouter();
-
-    const handleButtonClick = () => {
-        router.push(`/paymentCourse/${id}`);
-    };
     useEffect(() => {
         AOS.init({
             duration: 1200,
@@ -111,7 +105,7 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                     </p>
                     <div className={`${styles.CTA}`}>
                         <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40}>Học thử miễn phí</Button>
-                        <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClick}>Sở hữu khóa học</Button>
+                        <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40}>Sở hữu khóa học</Button>
                     </div>
                 </Container>
             </section>

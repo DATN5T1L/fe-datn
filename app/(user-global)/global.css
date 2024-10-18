@@ -1934,3 +1934,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  /* global.css */
+  .body-black {
+    background-color: black;
+    /* Màu nền đen */
+    color: white;
+    /* Màu chữ trắng (tuỳ chọn) */
+  }
