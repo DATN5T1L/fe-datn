@@ -8,8 +8,8 @@ const HeaderCourseDetail: React.FC = () => {
     const pathname = usePathname();
     return (
         <>
-            {pathname.includes('/paymentCourse') ? (<Navbar className={`${styles.nav}`} fixed='top'>
-                <Container className={`${styles.container}`}>
+            {pathname.includes('/paymentCourse') ? (<div className={`${styles.nav}`}>
+                <section className={`${styles.containerHeader}`}>
                     <Navbar.Brand href="/home">
                         <img
                             src="/img/Logoambantto.png"
@@ -18,10 +18,10 @@ const HeaderCourseDetail: React.FC = () => {
                         />
                     </Navbar.Brand>
 
-                </Container>
-            </Navbar>) :
-                (<Navbar className={`${styles.nav}`} fixed='top'>
-                    <Container className={`${styles.container}`}>
+                </section>
+            </div>) :
+                (<div className={`${styles.nav}`} >
+                    <section className={`${styles.containerHeaderCouser}`}>
                         <Navbar.Brand href="/home">
                             <img
                                 src="/img/Logoambantto.png"
@@ -35,8 +35,8 @@ const HeaderCourseDetail: React.FC = () => {
                             <Link href="#!" className={`${styles.menuItem}`}>Câu hỏi thường gặp</Link>
                         </Nav>
                         <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40}>Học thử miễn phí</Button>
-                    </Container>
-                </Navbar>)}
+                    </section>
+                </div>)}
         </>
 
     )

@@ -1,3 +1,9 @@
+.container {
+    max-width: 1440px;
+    padding: 0;
+    margin: 0;
+}
+
 .footerContainer {
     background: var(--gray-00);
     width: 100%;
