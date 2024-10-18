@@ -69,7 +69,7 @@ const Login: React.FC = () => {
 
                 if (token && token.split('.').length === 3) {
                     console.log("Token:", token);
-                    document.cookie = `token=${token}; path=/; max-age=${300 * 60}`;
+                    document.cookie = `token=${token}; path=/; max-age=${0.5 * 60}`;
                     const payload = JSON.parse(atob(token.split('.')[1]));
                     dispatch(login(data));
 

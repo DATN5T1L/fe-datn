@@ -50,7 +50,6 @@ const CreateRouter: React.FC = () => {
                 const data = await res.json();
                 setRouterList(data.data)
                 setUniqueCourses(uniqueCourses);
-
             } catch (error) {
                 console.log('errer: ', error);
             }
