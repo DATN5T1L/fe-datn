@@ -6,10 +6,18 @@ import useSWR from "swr";
 import CourseCard from "./CardCourse";
 import { Course } from "@app/(user-global)/model/course"
 import Link from "next/link";
+import ProgressCircle from './ProgressCircle';
+
+interface CourseForProps {
+    id: number;
+}
+interface CourseCardProps extends Course {
+    progress: number;
+}
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-const CourseFor: React.FC = () => {
-    const { data, error } = useSWR<{ status: string; message: string; data: Course[] }>('/api/coursetype/pro/8', fetcher, {
+const CourseFor: React.FC<CourseForProps> = ({ id }) => {
+    const { data, error } = useSWR<{ status: string; message: string; data: CourseCardProps[] }>(`/api/courseFor/${id}`, fetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
     });

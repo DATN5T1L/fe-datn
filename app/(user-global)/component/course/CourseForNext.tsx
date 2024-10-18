@@ -2,8 +2,14 @@ import { Card, Col, Container, Image, Row } from "react-bootstrap";
 import Button from "../globalControl/btnComponent";
 import styles from '@public/styles/home/CoursePro.module.css';
 import styleFor from "@public/styles/course/coursefor.module.css";
+import { Course } from "@app/(user-global)/model/course";
+import Link from "next/link";
 
-const CourseForNext: React.FC = () => {
+interface CourseForProps {
+    id: number;
+}
+
+const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
     return (
         <Container className={styleFor.containerNext}>
             <svg width="100%" height="714" viewBox="0 0 1440 714" fill="none"

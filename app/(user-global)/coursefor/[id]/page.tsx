@@ -1,18 +1,19 @@
 'use client';
 
-import Body from "../component/globalControl/body";
-import CourseFor from "../component/course/courseFor";
-import CourseForNext from "../component/course/CourseForNext";
-import TimeLine from "../component/router/timeLine";
-import LearningPathSection from "../component/router/learningPathSection";
+import Body from "@app/(user-global)/component/globalControl/body";
+import CourseFor from "@app/(user-global)/component/course/courseFor";
+import CourseForNext from "@app/(user-global)/component/course/CourseForNext";
+import TimeLine from "@app/(user-global)/component/router/timeLine";
+import LearningPathSection from "@app/(user-global)/component/router/learningPathSection";
 
 
 
-const CourseForYou: React.FC = () => {
+const CourseForYou: React.FC<{ params: { id: number } }> = ({ params }) => {
+    const { id } = params;
     return (
         <Body>
-            <CourseFor />
-            <CourseForNext />
+            <CourseFor id={id} />
+            <CourseForNext id={id} />
             <LearningPathSection
                 title='UI/UX Design'
                 contentTitle='Thiết kế UI/UX luôn là một lĩnh vực hấp dẫn và thời thượng.

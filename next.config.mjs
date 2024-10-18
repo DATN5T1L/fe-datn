@@ -96,6 +96,10 @@ const nextConfig = {
         source: '/api/feedbackhome/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/feedback-limit/:path*',
       },
+      {
+        source: '/api/courseFor/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/progress/:path*',
+      },
     ];
   },
   images: {
@@ -103,6 +107,12 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'via.placeholder.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'be-datn-production-19f3.up.railway.app',
         port: '',
         pathname: '/**',
       },
