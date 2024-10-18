@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { login, logout } from '../../../../../redux/slices/userSlice';
 import { usePathname, useRouter } from "next/navigation";
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const ProfileDispatch = () => {
     const dispatch = useDispatch();
@@ -38,8 +40,9 @@ const ProfileDispatch = () => {
     const fetchUserInfo = async (tokenValue: string) => {
         if (tokenValue) {
             if (isRegister || isLogin || isRetrievePassword) {
+                localStorage.setItem('isLoggedIn', 'true');
                 router.push('/info-user');
-                return;
+                // return;
             }
         }
 
@@ -47,7 +50,7 @@ const ProfileDispatch = () => {
             if (isInfo || isIntro || isWallet) {
                 console.error("Token không hợp lệ hoặc không tồn tại");
                 router.push('/login');
-                return;
+                // return;
             }
         }
 
@@ -60,6 +63,7 @@ const ProfileDispatch = () => {
             console.error("Token đã hết hạn");
             dispatch(logout());
             localStorage.removeItem('token');
+            localStorage.setItem('isLoggedIn', 'false');
             document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
             // router.push('/login');
             return;
@@ -79,10 +83,15 @@ const ProfileDispatch = () => {
             const data = await res.json();
 
             dispatch(login(data));
+            localStorage.setItem('isLoggedIn', 'true');
+            if (isLogin || isRegister || isRetrievePassword) {
+                router.push('/info-user');
+            }
         } catch (error) {
             console.error("Lỗi khi lấy thông tin người dùng:", error);
             dispatch(logout());
             localStorage.removeItem('token');
+            localStorage.setItem('isLoggedIn', 'false');
             router.push('/login');
         }
     };
@@ -139,11 +148,26 @@ const ProfileDispatch = () => {
         const handleStorageChange = (event: StorageEvent) => {
             if (event.key === 'token') {
                 const newToken = event.newValue;
+
                 if (!newToken) {
                     dispatch(logout());
                     router.push('/login');
                 } else {
                     fetchUserInfo(newToken);
+                }
+            }
+
+            if (event.key === 'isLoggedIn') {
+                const isLoggedIn = event.newValue;
+
+                if (isLoggedIn === 'false') {
+                    dispatch(logout());
+                    router.push('/login');
+                } else if (isLoggedIn === 'true') {
+                    const tokenValue = localStorage.getItem('token');
+                    if (tokenValue) {
+                        fetchUserInfo(tokenValue);
+                    }
                 }
             }
         };
@@ -155,7 +179,7 @@ const ProfileDispatch = () => {
             window.removeEventListener('login', handleLogin);
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [dispatch,router]);
+    }, [dispatch, router]);
 
     return null;
 };
