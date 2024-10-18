@@ -1,12 +1,26 @@
 'use client'
+import { auth } from '@/app/auth';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { Container, Button, Nav, Navbar, Form, Image, Row, Col } from 'react-bootstrap';
+import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
+
+
 
 const Header: React.FC = () => {
+    const userState = useSelector((state: RootState) => state.user);
     const router = useRouter();
     const pathname = usePathname();
+
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
     const inputRef = useRef<HTMLInputElement>(null)
     const [showHeader, setShowHeader] = useState(true);
@@ -15,6 +29,14 @@ const Header: React.FC = () => {
     const [valueInput, setValueInput] = useState('')
     const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null);
+    const { data: session, status } = useSession();
+
+
+    useEffect(() => {
+        if (status === "authenticated") {
+            console.log("User session data:", session);
+        }
+    }, [status, session]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -30,6 +52,13 @@ const Header: React.FC = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, [lastScroll]);
+
+    useEffect(() => {
+        if (userState.user) {
+            console.log("Fullname:", userState.user);
+        }
+    }, [userState]);
+
 
     const onFocus = () => {
         if (inputRef.current) {
@@ -90,7 +119,7 @@ const Header: React.FC = () => {
                                     <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
                                 </Link>
                             </Col>
-                            {isUser || isUser1 || isUser2 ? (
+                            {isClient && userState.user ? (
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
                                         <div className='user-notification'>
@@ -98,10 +127,15 @@ const Header: React.FC = () => {
                                             <Image src="/img/ChatTick.svg" alt="" className='icon-notification' />
                                         </div>
                                         <div className='user' onClick={handleOpenSubMenu} ref={menuRef}>
-                                            <Image src="/img/avt.jpg" alt="" className='avt' />
+                                            {userState.user.avatar === null ? (
+                                                <Image src="/img/avtDefault.jpg" alt="" className='avt' />
+                                            ) : (
+                                                <Image src={`${userState.user.avatar}`} alt="" className='avt' />
+                                            )}
+
                                             <section className='title-group'>
                                                 <h4 className='title-1'>Xin chào</h4>
-                                                <h4 className='title-name'>Huỳnh Võ Hoàng Tuấn</h4>
+                                                <h4 className='title-name'>{userState.user.fullname}</h4>
                                             </section>
                                             <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='right-icon-user-stroke' />
@@ -132,13 +166,7 @@ const Header: React.FC = () => {
                                                             Cài đặt mật khẩu
                                                         </div>
                                                     </Link>
-                                                    <Link href={'/'} className='subMenu-body-link' autoFocus={false}>
-                                                        <Image src='/img/infoLogout-black.svg' className='subMenu-body-img-black' />
-                                                        <Image src='/img/infoLogout-white.svg' className='subMenu-body-img-white' />
-                                                        <div className='subMenu-body-link-title'>
-                                                            Đăng xuất
-                                                        </div>
-                                                    </Link>
+                                                    <GgLogoutHeader></GgLogoutHeader>
                                                 </section>
                                             </section>
                                         </div>

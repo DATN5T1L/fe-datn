@@ -1,9 +1,16 @@
 'use client'
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Col, Container, Form, Image, InputGroup, Row } from "react-bootstrap";
 import styles from '@public/styles/learningPath/CreateRouter.module.css';
 import ButtonCpn from "../globalControl/btnComponent";
+
+interface MyData {
+    route_id: string;
+    name_route: string;
+}
+
+type MyDataArray = MyData[];
 
 const CreateRouter: React.FC = () => {
     const inputRef1 = useRef<HTMLInputElement>(null);
@@ -12,6 +19,9 @@ const CreateRouter: React.FC = () => {
     const [isFocused2, setIsFocused2] = useState(false);
     const [open1, SetOpen1] = useState(false)
     const [open2, SetOpen2] = useState(false)
+    const [routerList, setRouterList] = useState<MyDataArray>([])
+    const [uniqueCourses, setUniqueCourses] = useState<MyDataArray>([]);
+    const [selectedRoutes, setSelectedRoutes] = useState<number[]>([]);
 
     const handleFocus1 = () => {
         if (inputRef1.current) {
@@ -32,6 +42,22 @@ const CreateRouter: React.FC = () => {
     const handleOpenMenu2 = () => {
         SetOpen2(!open2)
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch('/api/routerAll/');
+                const data = await res.json();
+                setRouterList(data.data)
+                setUniqueCourses(uniqueCourses);
+
+            } catch (error) {
+                console.log('errer: ', error);
+            }
+        }
+        fetchData()
+    }, [])
+
     return (
         <>
             <Container className={styles.conatiner}>
@@ -143,60 +169,24 @@ const CreateRouter: React.FC = () => {
                                         <Image src="/img/chevron-black.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon1__r} ${open1 ? styles.none : styles.block}`} />
                                         <Image src="/img/chevronBlue-04.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon2__r} ${open1 ? styles.block : styles.none}`} />
                                     </Button>
-                                    <section className={`${open1 ? styles.box : styles.h__0}`}>
+                                    <div className={`${open1 ? styles.box : styles.h__0}`}>
                                         <article className={`${styles.box__r} ${open1 ? '' : styles.h__hidden}`}>
-                                            <Form.Group className={styles.formGroup__bottom}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    label="Front-end"
-                                                    value="Front-end"
-                                                    id="checkboxFrontEnd"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    className={styles.customCheckbox}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group className={styles.formGroup__bottom}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    label="Back-end"
-                                                    value="Back-end"
-                                                    id="checkboxBackEnd"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    className={styles.customCheckbox}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group className={styles.formGroup__bottom}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    label="Designer"
-                                                    value="Designer"
-                                                    id="checkboxDesigner"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    className={styles.customCheckbox}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group className={styles.formGroup__bottom}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    label="Big data"
-                                                    value="Big data"
-                                                    id="checkboxBigData"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    className={styles.customCheckbox}
-                                                />
-                                            </Form.Group>
-                                            <Form.Group className={styles.formGroup__bottom}>
-                                                <Form.Check
-                                                    type="checkbox"
-                                                    label="Mobile"
-                                                    value="Mobile"
-                                                    id="checkboxMobile"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    className={styles.customCheckbox}
-                                                />
-                                            </Form.Group>
+                                            {Array.isArray(routerList) ? (routerList.map((item) => (
+                                                <Form.Group className={styles.formGroup__bottom} key={item.route_id}>
+                                                    <Form.Check
+                                                        type="checkbox"
+                                                        label={`${item.name_route}`}
+                                                        value={`${item.name_route}`}
+                                                        id={`checkbox${item.route_id}`}
+                                                        aria-describedby="inputGroupPrepend"
+                                                        className={styles.customCheckbox}
+                                                    />
+                                                </Form.Group>
+                                            ))) : (
+                                                ''
+                                            )}
                                         </article>
-                                    </section>
+                                    </div>
                                 </Col>
                                 <Col className={styles.form__container__bottom__right}>
                                     <h3 className={styles.formGroup__bottom__title}>Chọn môn học để thêm vào lộ trình</h3>
@@ -212,7 +202,7 @@ const CreateRouter: React.FC = () => {
                                         <Image src="/img/chevron-black.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon1__r} ${open2 ? styles.none : styles.block}`} />
                                         <Image src="/img/chevronBlue-04.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon2__r} ${open2 ? styles.block : styles.none}`} />
                                     </Button>
-                                    <section className={`${open2 ? styles.box__a : styles.h__0}`}>  
+                                    <section className={`${open2 ? styles.box__a : styles.h__0}`}>
                                         <article className={`${styles.box__r} ${open2 ? '' : styles.h__hidden}`}>
                                             <Form.Group className={styles.formGroup__bottom}>
                                                 <Form.Check

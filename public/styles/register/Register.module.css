@@ -381,4 +381,5 @@
 .feedBack {
     margin: 0;
     padding: 0;
+    color: var(--red-40);
 }

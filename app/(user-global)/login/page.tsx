@@ -1,16 +1,103 @@
-'use client'
-import React, { useState } from 'react';
-import styles from '@public/styles/login/Login.module.css'
+'use client';
+import React, { useEffect, useState } from 'react';
+import styles from '@public/styles/login/Login.module.css';
 import Link from 'next/link';
 import { Button, Card, Container, Form, Image } from 'react-bootstrap';
+import { FormikErrors, useFormik } from 'formik';
+import * as Yup from 'yup';
 import Body from '../component/globalControl/body';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/slices/userSlice';
+import { store } from '@/redux/store';
+
+interface LoginFormInputs {
+    email: string;
+    password: string;
+    general?: string;
+}
+
+type ExtendedFormikErrors = FormikErrors<LoginFormInputs> & {
+    general?: string;
+};
 
 const Login: React.FC = () => {
     const [isCheckPass, setIsCheckPass] = useState(true);
     const [isRememberLogin, setIsRememberLogin] = useState(false);
-    const [validated, setValidated] = useState(false);
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    const router = useRouter();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
+        const tokenValue = token?.split('=')[1];
+        if (tokenValue) {
+            router.push(`/info-user`)
+        }
+    }, []);
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            general: '',
+        },
+        validationSchema: Yup.object({
+            email: Yup.string().required('Bắt buộc'),
+            password: Yup.string().required('Bắt buộc'),
+        }),
+        onSubmit: async (values, { setSubmitting, setFieldError }) => {
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: values.email, password: values.password }),
+                });
+
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    console.error("Error response:", errorData);
+                    const errorMessage = errorData.errors?.email ? errorData.errors.email[0] : 'Đăng nhập thất bại';
+                    throw new Error(errorMessage);
+                }
+
+                const data = await res.json();
+                console.log(data);
+
+                const token = data.access_token;
+
+                if (token && token.split('.').length === 3) {
+                    console.log("Token:", token);
+                    document.cookie = `token=${token}; path=/; max-age=${300 * 60}`;
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    dispatch(login(data));
+
+                    console.log("State after login: ", store.getState().user);
+                    const loginEvent = new CustomEvent('login', { detail: { token: data.access_token } });
+                    window.dispatchEvent(loginEvent);
+
+                    alert('Đăng nhập thành công');
+
+                    if (payload.role === 'admin') {
+                        router.push('/admin');
+                    } else {
+                        router.push('/info-user');
+                    }
+                } else {
+                    throw new Error('Token không hợp lệ');
+                }
+            } catch (error) {
+                if (error instanceof Error) {
+                    setFieldError('general', error.message);
+                } else {
+                    setFieldError('general', 'Đã xảy ra lỗi không xác định');
+                }
+            } finally {
+                setSubmitting(false);
+            }
+        },
+    });
 
     const handleCheckPass = () => {
         setIsCheckPass(!isCheckPass);
@@ -20,23 +107,14 @@ const Login: React.FC = () => {
         setIsRememberLogin(!isRememberLogin);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        setValidated(true);
-    };
-
     return (
         <>
             <title>TTO - Đăng nhập</title>
-            <meta name="description" content="Được tạo bởi Taem TTO" />
+            <meta name="description" content="Được tạo bởi Team TTO" />
             <Body>
                 <Container className={styles.main}>
                     <div className={styles.main__container}>
-                        <Image src="/img/pandaLogin.svg" alt="logo login" className={styles.logoLogin}/>
+                        <Image src="/img/pandaLogin.svg" alt="logo login" className={styles.logoLogin} />
                         <Card className={styles.cardContainer}>
                             <Card.Header className={styles.headerLogin}>
                                 <section className={styles.titleGroup}>
@@ -59,90 +137,80 @@ const Login: React.FC = () => {
                                 </section>
                             </Card.Header>
                             <Card.Body className={styles.bodyLogin}>
-                                <Form className={styles.form} noValidate validated={validated} onSubmit={handleSubmit}>
+                                <Form className={styles.form} onSubmit={formik.handleSubmit}>
                                     <fieldset className={styles.fieldsetLogin}>
                                         <legend className={styles.fieldsetLogin__line}></legend>
                                         <legend className={styles.fieldsetLogin__title}>hoặc đăng nhập với email</legend>
                                         <legend className={styles.fieldsetLogin__line}></legend>
                                     </fieldset>
                                     <section className={styles.mainLogin}>
-                                        <Form.Group className={styles.userNameLogin} controlId="validationUserName">
-                                            <Form.Label htmlFor="userName" className={styles.userNameLogin__label}>
-                                                Email hoặc tên người dùng
-                                            </Form.Label>
+                                        <Form.Group className={styles.userNameLogin}>
+                                            <Form.Label htmlFor="email" className={styles.userNameLogin__label}>Email hoặc tên người dùng</Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                required
+                                                name="email"
                                                 placeholder="Tên đăng nhập hoặc email"
                                                 className={styles.userNameLogin__input}
-                                                value={userName}
-                                                onChange={(e) => setUserName(e.target.value)}
-                                                autoComplete='off'
+                                                autoComplete="off"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.email}
                                             />
-                                            <Form.Control.Feedback type="invalid" className={styles.feedBack}>
-                                                Hãy nhập tên đăng nhập hoặc email
-                                            </Form.Control.Feedback>
+                                            {formik.touched.email && formik.errors.email ? (
+                                                <div className={styles.feedBack}>{formik.errors.email}</div>
+                                            ) : null}
                                         </Form.Group>
-                                        <Form.Group className={styles.passLogin} controlId="validationPassword">
+                                        <Form.Group className={styles.passLogin}>
                                             <section className={styles.checkPass}>
                                                 <Form.Label htmlFor="password" className={styles.passLogin__label}>Mật khẩu</Form.Label>
-                                                <Button
-                                                    type='button'
-                                                    onClick={handleCheckPass}
-                                                    className={styles.checkPass__btn}
-                                                >
-                                                    {isCheckPass ?
-                                                        (
-                                                            <>
-                                                                <Image src="/img/eyeHidden.svg" alt="" className={styles.checkPass__img} />
-                                                                <div className={styles.checkPass__text}>ẩn</div>
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <Image src="/img/eye.svg" alt="" className={styles.checkPass__img} />
-                                                                <div className={styles.checkPass__text}>hiện</div>
-                                                            </>
-                                                        )
-                                                    }
+                                                <Button type="button" onClick={handleCheckPass} className={styles.checkPass__btn}>
+                                                    {isCheckPass ? (
+                                                        <>
+                                                            <Image src="/img/eyeHidden.svg" alt="" className={styles.checkPass__img} />
+                                                            <div className={styles.checkPass__text}>ẩn</div>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Image src="/img/eye.svg" alt="" className={styles.checkPass__img} />
+                                                            <div className={styles.checkPass__text}>hiện</div>
+                                                        </>
+                                                    )}
                                                 </Button>
                                             </section>
                                             <Form.Control
                                                 type={isCheckPass ? 'password' : 'text'}
-                                                required
+                                                name="password"
                                                 placeholder="Mật khẩu"
                                                 className={styles.passLogin__input}
-                                                value={password}
-                                                onChange={(e) => setPassword(e.target.value)}
                                                 autoComplete="off"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.password}
                                             />
-                                            <Form.Control.Feedback type="invalid" className={styles.feedBack}>
-                                                Hãy nhập mật khẩu
-                                            </Form.Control.Feedback>
-                                        </Form.Group >
+                                            {formik.touched.password && formik.errors.password ? (
+                                                <div className={styles.feedBack}>{formik.errors.password}</div>
+                                            ) : null}
+                                        </Form.Group>
                                         <Form.Group className={styles.taskLogin}>
                                             <Button
-                                                type='button'
+                                                type="button"
                                                 className={styles.rememberLogin}
                                                 onClick={handleRememberLogin}
                                             >
                                                 {isRememberLogin ? (
-                                                    <>
-                                                        <Image src="/img/checkBoxFalse.svg" alt="" className={styles.rememberLogin__img} />
-                                                    </>
-                                                ) :
-                                                    (
-                                                        <>
-                                                            <Image src="/img/checkBoxTrue.svg" alt="" className={styles.rememberLogin__img} />
-                                                        </>
-                                                    )}
+                                                    <Image src="/img/checkBoxFalse.svg" alt="" className={styles.rememberLogin__img} />
+                                                ) : (
+                                                    <Image src="/img/checkBoxTrue.svg" alt="" className={styles.rememberLogin__img} />
+                                                )}
                                                 <div className={styles.rememberLogin__div}>Ghi nhớ đăng nhập</div>
                                             </Button>
-                                            <Link href={'/retrievePassword'} className={styles.forgetPass}>
-                                                Quên mật khẩu
-                                            </Link>
+                                            <Link href={'/retrievePassword'} className={styles.forgetPass}>Quên mật khẩu</Link>
                                         </Form.Group>
                                     </section>
-                                    <Button type='submit' className={styles.btnSubmit}>Đăng nhập</Button>
+                                    {formik.errors.general && <div className={styles.feedBack}>{formik.errors.general}</div>}
+                                    <Button type="submit" className={styles.btnSubmit} disabled={formik.isSubmitting}>
+                                        Đăng nhập
+                                    </Button>
                                 </Form>
                             </Card.Body>
                         </Card>
@@ -150,7 +218,7 @@ const Login: React.FC = () => {
                 </Container>
             </Body>
         </>
-    )
-}
+    );
+};
 
 export default Login;

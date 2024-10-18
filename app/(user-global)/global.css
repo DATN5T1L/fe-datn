@@ -544,6 +544,9 @@
     flex-direction: row;
     align-items: center;
     position: relative;
+    width: 186px;
+    max-width: 186px;
+    justify-content: center;
   }
 
   .avt {
@@ -587,7 +590,7 @@
     font-weight: 400;
     line-height: 16px;
     color: var(--primary);
-    width: auto;
+    width: 106px;
     max-width: 106px;
     height: auto;
     display: flex;
@@ -669,6 +672,8 @@
     height: auto;
     align-items: center;
     border-radius: 8px;
+    border: 0;
+    background-color: var(--gray-100);
   }
 
   .subMenu-body-link:hover {
