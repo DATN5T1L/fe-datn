@@ -15,12 +15,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     callbacks: {
         async jwt({ token, account }) {
             if (account) {
-                token.accessToken = account.access_token || null; // Lưu access token vào token
+                token.accessToken = account.access_token || null;
             }
             return token;
         },
         async session({ session, token }) {
-            session.user.accessToken = token.accessToken || null; // Gán access token cho session
+            session.user.accessToken = token.accessToken || null;
             return session;
         },
     },
