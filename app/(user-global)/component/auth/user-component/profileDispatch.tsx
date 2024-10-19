@@ -108,9 +108,17 @@ const ProfileDispatch = () => {
             fetchUserInfo(token);
         } else {
             console.error('Không tìm thấy token trong localStorage');
-            if (isInfo) {
-                router.push('/login')
-            } else if (isIntro) {
+            if (isRegister) {
+                router.push('/register')
+            } else if (isRetrievePassword) {
+                router.push('/retrievePassword')
+            } else if (isHome) {
+                router.push('/home')
+            } else if (isCreateLearningPath) {
+                router.push('/createLearningPath')
+            } else if (isPokemon) {
+                router.push('/pokemon')
+            } else {
                 router.push('/login')
             } else if (isWallet) {
                 router.push('/home')

@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import Body from '../component/globalControl/body';
 
 // Định nghĩa các interface đã nêu ở trên
 interface PokeResult {
@@ -79,22 +80,25 @@ const FetchPokemon: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div>
-      <h1>Danh Sách Pokémon:</h1>
-      <ul>
-        {pokemonDetails.map((pokemon) => (
-          <li key={pokemon.name} style={{ marginBottom: '20px' }}>
-            <h2>{pokemon.name.toUpperCase()}</h2>
-            <div>
-              <img src={pokemon.sprites.front_default} alt={`${pokemon.name} front`} />
-              <img src={pokemon.sprites.back_default} alt={`${pokemon.name} back`} />
-              <img src={pokemon.sprites.front_shiny} alt={`${pokemon.name} front shiny`} />
-              <img src={pokemon.sprites.back_shiny} alt={`${pokemon.name} back shiny`} />
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Body>
+      <div>
+        <h1>Danh Sách Pokémon:</h1>
+        <ul>
+          {pokemonDetails.map((pokemon) => (
+            <li key={pokemon.name} style={{ marginBottom: '20px' }}>
+              <h2>{pokemon.name.toUpperCase()}</h2>
+              <div>
+                <img src={pokemon.sprites.front_default} alt={`${pokemon.name} front`} />
+                <img src={pokemon.sprites.back_default} alt={`${pokemon.name} back`} />
+                <img src={pokemon.sprites.front_shiny} alt={`${pokemon.name} front shiny`} />
+                <img src={pokemon.sprites.back_shiny} alt={`${pokemon.name} back shiny`} />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Body>
+
   );
 };
 
