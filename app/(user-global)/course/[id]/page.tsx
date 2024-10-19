@@ -12,6 +12,7 @@ import styles from "@public/styles/course/coursedetail.module.css";
 import Link from "next/link"
 import Image from 'next/image';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
+import Body from '../../component/globalControl/body';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -95,9 +96,7 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
     const feedbacks = feedbackData.data;
     const faqs = faqData.data;
     return (
-        <>
-
-
+        <Body>
             <section className={`${styles.couserOverview}`}>
                 <Container className={`${styles.container} ${styles.hero}`}>
                     <h2 className={`${styles.heading} text-center`}>
@@ -157,7 +156,6 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                                 với phong cách giảng dạy dễ hiểu và thực tế. Anh đã giúp hàng ngàn người nâng cao kỹ
                                 năng qua các khóa học kết hợp giữa lý thuyết và bài tập ứng dụng, mang lại hiệu quả cao
                                 và dễ dàng áp dụng vào công việc.”</p>
-
                         </Col>
                         <Col md={6} className={styles.Imageintructor}>
                             <Image
@@ -168,7 +166,6 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                                 height={467}
                             />
                             <figcaption className={styles.descImageIn}>Tai Huynh is CEO - Founder of TTO Programming Learning Community. Currently, he is still a Fullstack developer with more than 10 years of practical work experience.</figcaption>
-
                         </Col>
                     </Row>
                 </Container>
@@ -380,7 +377,7 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
 
                 </Container>
             </section >
-        </>
+        </Body>
     );
 };
 

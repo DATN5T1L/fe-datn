@@ -1,76 +1,79 @@
-'use client'
+'use client';
 
-import Link from "next/link"
-import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { Button, Image, Nav } from "react-bootstrap"
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Button, Image, Nav } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 
 const LeftSlider: React.FC = () => {
-    const pathName = usePathname()
-    const [isMenu, setIsMenu] = useState(true)
+    const pathName = usePathname();
+    const [isMenu, setIsMenu] = useState(true);
     const [isCourseOpen, setIsCourseOpen] = useState(false);
     const [headerHeight, setHeaderHeight] = useState(0);
-    const [isHidden, setIsHidden] = useState(false)
+    const [isHidden, setIsHidden] = useState(false);
     const userState = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
-        const header = document.querySelector('.header-nav') as HTMLElement;
+        const checkElementsAndSetHeight = () => {
+            const header = document.querySelector('.header-over') as HTMLElement;
+            const footer = document.querySelector('footer') as HTMLElement;
 
-        const setHeight = () => {
-            if (header) {
-                setHeaderHeight(header.offsetHeight);
+            if (header && footer) {
+                const setHeight = () => {
+                    setHeaderHeight(header.offsetHeight);
+                };
+
+                const observer = new ResizeObserver(setHeight);
+                observer.observe(header);
+                setHeight();
+
+                const handleScroll = () => {
+                    const footerRect = footer.getBoundingClientRect();
+                    const isFooterVisible = footerRect.top <= window.innerHeight;
+
+                    if (isFooterVisible && footerRect.top < window.innerHeight - headerHeight) {
+                        setIsHidden(true);
+                    } else {
+                        setIsHidden(false);
+                    }
+                };
+
+                window.addEventListener('scroll', handleScroll);
+
+                return () => {
+                    window.removeEventListener('scroll', handleScroll);
+                    observer.unobserve(header);
+                };
             }
         };
 
-        const observer = new ResizeObserver(setHeight);
-        if (header) {
-            observer.observe(header);
-        }
+        // Đợi một chút sau khi DOM đã sẵn sàng
+        const timeout = setTimeout(checkElementsAndSetHeight, 100);
 
-        setHeight();
-
-        return () => {
-            if (header) {
-                observer.unobserve(header);
-            }
-        };
-    }, []);
-
-    useEffect(() => {
-        const footer = document.querySelector('footer') as HTMLElement;
-
-        const handleScroll = () => {
-            const footerRect = footer.getBoundingClientRect();
-            const isFooterVisible = footerRect.top <= window.innerHeight;
-
-            if (isFooterVisible && footerRect.top < window.innerHeight - headerHeight) {
-                setIsHidden(true);
-            } else {
-                setIsHidden(false);
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => clearTimeout(timeout);
     }, [headerHeight]);
 
     const openMenu = () => {
-        setIsMenu(!isMenu)
-    }
+        setIsMenu(!isMenu);
+    };
 
     const openCourses = () => {
         setIsCourseOpen(!isCourseOpen);
     };
 
+    const offCourse = () => {
+        setIsCourseOpen(false);
+    }
+
     const isHome = pathName === '/' || pathName === '/home';
 
     return (
-        <Nav className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`} style={{ top: `calc(${headerHeight}px + 120px)` }}>
+        <Nav
+            className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`}
+            style={{ top: `calc(${headerHeight}px + 120px)` }}
+        >
             <section className={`slide-bar-categories`}>
                 <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
                     <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
@@ -84,7 +87,10 @@ const LeftSlider: React.FC = () => {
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Khóa học</div>
                 </div>
 
-                <div className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}>
+                <div
+                 className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}
+                 onClick={offCourse}
+                 >
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
                     <Link
                         href={`${userState.user ? `/course?user_id=${userState.user.id}` : `/login`}`}
@@ -92,10 +98,16 @@ const LeftSlider: React.FC = () => {
                     >
                         <div className={`btn-e`}>Khóa học của bạn</div>
                     </Link>
-                    <Link href="/coursefor" className={`btn-slide-bar-mini`}>
+                    <Link
+                        href="/coursefor/1"
+                        className={`btn-slide-bar-mini`}
+                    >
                         <div className={`btn-e`}>Khóa học có phí</div>
                     </Link>
-                    <Link href="/coursefor" className={`btn-slide-bar-mini`}>
+                    <Link
+                        href="/course/1"
+                        className={`btn-slide-bar-mini`}
+                    >
                         <div className={`btn-e`}>Khóa học miễn phí</div>
                     </Link>
                 </div>
@@ -117,14 +129,14 @@ const LeftSlider: React.FC = () => {
                 </Link>
             </section>
             <Button className='menu' onClick={openMenu}>
-                {
-                    isMenu
-                        ? (<Image src='/img/chevronFill-01.svg' className='menu-img' />)
-                        : (<Image src='/img/chevronFill-02.svg' className='menu-img' />)
-                }
+                {isMenu ? (
+                    <Image src='/img/chevronFill-01.svg' className='menu-img' />
+                ) : (
+                    <Image src='/img/chevronFill-02.svg' className='menu-img' />
+                )}
             </Button>
         </Nav>
     );
-}
+};
 
 export default LeftSlider;

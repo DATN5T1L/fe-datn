@@ -278,6 +278,10 @@
 
   /* header nav bar start  */
 
+  .header-over{
+    
+  }
+
   .header-nav {
     border-left: 0;
     border-right: 0;
@@ -910,6 +914,7 @@
     max-width: auto;
     box-sizing: border-box;
     height: auto;
+    min-height: 100vh;
     position: relative;
     justify-content: center;
     align-items: center;

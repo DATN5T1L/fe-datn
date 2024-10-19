@@ -37,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
             {isNoHeaderPage ? <HeaderCourseDetail /> : <Header />}
             <ScrollToTop></ScrollToTop>
             <LeftSlider></LeftSlider>
+            <ProfileDispatch></ProfileDispatch>
             {children}
             {isNoHeaderPage ? <FooterBlack /> : <Footer />}
           </SessionProvider>

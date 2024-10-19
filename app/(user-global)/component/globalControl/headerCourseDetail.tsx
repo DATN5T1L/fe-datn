@@ -8,8 +8,8 @@ const HeaderCourseDetail: React.FC = () => {
     const pathname = usePathname();
     return (
         <>
-            {pathname.includes('/paymentCourse') ? (<div className={`${styles.nav}`}>
-                <section className={`${styles.containerHeader}`}>
+            {pathname.includes('/paymentCourse') ? (<div className={`${styles.nav} header-over`}>
+                <section className={`${styles.containerHeader} `}>
                     <Navbar.Brand href="/home">
                         <img
                             src="/img/Logoambantto.png"
@@ -20,7 +20,7 @@ const HeaderCourseDetail: React.FC = () => {
 
                 </section>
             </div>) :
-                (<div className={`${styles.nav}`} >
+                (<div className={`${styles.nav} header-over`} >
                     <section className={`${styles.containerHeaderCouser}`}>
                         <Navbar.Brand href="/home">
                             <img

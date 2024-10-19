@@ -19,7 +19,10 @@ const ProfileDispatch = () => {
     const isIntro = pathName === '/intro-user'
     const isWallet = pathName === '/wallet-user'
     const isHome = pathName === '/home'
+    const isPokemon = pathName === '/pokemon'
     const isCreateLearningPath = pathName === '/createLearningPath'
+    const isCourse = pathName === '/course'
+    const isCourseFor = pathName === '/coursefor'
 
 
     const isTokenExpired = (token: string) => {
@@ -83,6 +86,8 @@ const ProfileDispatch = () => {
             const data = await res.json();
 
             dispatch(login(data));
+            console.log(data);
+
             localStorage.setItem('isLoggedIn', 'true');
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
@@ -103,17 +108,14 @@ const ProfileDispatch = () => {
             fetchUserInfo(token);
         } else {
             console.error('Không tìm thấy token trong localStorage');
-            if (isRegister) {
-                router.push('/register')
-            } else if (isRetrievePassword) {
-                router.push('/retrievePassword')
-            } else if (isHome) {
-                router.push('/home')
-            } else if (isCreateLearningPath) {
-                router.push('/createLearningPath')
-            } else {
+            if (isInfo) {
                 router.push('/login')
-            }
+            } else if (isIntro) {
+                router.push('/login')
+            } else if (isWallet) {
+                router.push('/home')
+            } 
+            
         }
         const interval = setInterval(() => {
             const storedToken = localStorage.getItem('token');

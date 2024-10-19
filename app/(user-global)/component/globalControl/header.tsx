@@ -101,7 +101,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'}`} style={{ gap: showSearch ? '12px' : '' }}>
+            <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '' }}>
                 <section className='header-nav-head'>
                     <Link href="/" className='brand-header'>
                         <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' />
