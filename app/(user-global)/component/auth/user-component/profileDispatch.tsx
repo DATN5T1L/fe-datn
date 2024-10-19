@@ -21,6 +21,8 @@ const ProfileDispatch = () => {
     const isHome = pathName === '/home'
     const isPokemon = pathName === '/pokemon'
     const isCreateLearningPath = pathName === '/createLearningPath'
+    const isCourse = pathName === '/course'
+    const isCourseFor = pathName === '/coursefor'
 
 
     const isTokenExpired = (token: string) => {
@@ -84,6 +86,8 @@ const ProfileDispatch = () => {
             const data = await res.json();
 
             dispatch(login(data));
+            console.log(data);
+
             localStorage.setItem('isLoggedIn', 'true');
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
@@ -112,11 +116,12 @@ const ProfileDispatch = () => {
                 router.push('/home')
             } else if (isCreateLearningPath) {
                 router.push('/createLearningPath')
-            } else if (isPokemon) {
-                router.push('/pokemon')
             } else {
                 router.push('/login')
-            }
+            } else if (isWallet) {
+                router.push('/home')
+            } 
+            
         }
         const interval = setInterval(() => {
             const storedToken = localStorage.getItem('token');

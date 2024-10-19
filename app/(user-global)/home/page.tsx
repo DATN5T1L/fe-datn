@@ -1,5 +1,9 @@
 'use client'
 
+import { useState, useEffect } from 'react';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
+
 import Body from "../component/globalControl/body"
 import About from "../component/home/about"
 import CourseFree from "../component/home/courseFree"
@@ -13,21 +17,26 @@ import Why from "../component/home/why"
 import FeedBackToStudent from "../component/home/feedBackToStudent"
 
 const Home: React.FC = () => {
+    useEffect(() => {
+        AOS.init({
+            duration: 1200,
+        });
+    }, []);
     return (
         <>
             <title>TTO - Khám phá, học hỏi, vươn xa</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
                 <SliderShow />
-                <LearningPath></LearningPath>
-                <CoursePro></CoursePro>
-                <CourseFree></CourseFree>
-                <Why></Why>
-                <About></About>
-                <ProductStudent></ProductStudent>
-                <FeedBackToStudent></FeedBackToStudent>
-                <Post></Post>
-                <FeedBack></FeedBack>
+                <LearningPath />
+                <CoursePro />
+                <CourseFree />
+                <Why />
+                <About />
+                <ProductStudent />
+                <FeedBackToStudent />
+                <Post />
+                <FeedBack />
             </Body>
         </>
     )

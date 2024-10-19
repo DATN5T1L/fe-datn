@@ -1,0 +1,37 @@
+.progressContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progressBackground {
+    fill: none;
+    stroke: #ddd;
+}
+
+.progressCircle {
+    fill: none;
+    stroke: #391ab3;
+    /* Màu viền tiến độ */
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.innerCircle {
+    position: absolute;
+    top: 30px;
+    right: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.progressText {
+    font-size: .625rem;
+    color: var(--text);
+}
+
+.progressLabel {
+    font-size: .625rem;
+    color: #666;
+}

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@public/styles/login/Login.module.css';
 import Link from 'next/link';
-import { Button, Card, Container, Form, Image } from 'react-bootstrap';
+import { Button, Card, Container, Form, Image } from 'react-bootstrap'
 import { FormikErrors, useFormik } from 'formik';
 import * as Yup from 'yup';
 import Body from '../component/globalControl/body';
