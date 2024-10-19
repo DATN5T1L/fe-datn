@@ -19,6 +19,7 @@ const ProfileDispatch = () => {
     const isIntro = pathName === '/intro-user'
     const isWallet = pathName === '/wallet-user'
     const isHome = pathName === '/home'
+    const isPokemon = pathName === '/pokemon'
     const isCreateLearningPath = pathName === '/createLearningPath'
 
 
@@ -111,6 +112,8 @@ const ProfileDispatch = () => {
                 router.push('/home')
             } else if (isCreateLearningPath) {
                 router.push('/createLearningPath')
+            } else if (isPokemon) {
+                router.push('/pokemon')
             } else {
                 router.push('/login')
             }
