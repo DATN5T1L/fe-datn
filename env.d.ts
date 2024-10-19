@@ -9,18 +9,18 @@ declare namespace NodeJS {
 
 declare module 'next-auth' {
   interface User {
-      id: string;
-      name: string;
-      email: string;
-      image: string;
-      accessToken?: string ; // Thêm accessToken
+    id: string;
+    name: string;
+    email: string;
+    image: string;
+    accessToken?: string; 
   }
 
   interface Session {
-      user: User; 
+    user: User;
   }
 
   interface JWT {
-      accessToken?: string | null; // Thêm accessToken
+    accessToken?: string | null; 
   }
 }

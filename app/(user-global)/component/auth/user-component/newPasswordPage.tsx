@@ -5,21 +5,59 @@ import Link from 'next/link'
 import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Container, Image } from 'react-bootstrap';
-import Body from '../../globalControl/body';
+import { useRouter } from 'next/navigation';
 
-const NewPasswordPage: React.FC = () => {
+interface UserIdProps {
+    user_id: number;
+}
 
+const NewPasswordPage: React.FC<UserIdProps> = (user_id) => {
+    const router = useRouter()
+    const userId = user_id.user_id
     const validationSchema = Yup.object().shape({
         newPassword: Yup.string()
-            .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
-            .required('Hãy nhập mật khẩu mới'),
+            .transform(value => value.replace(/\s+/g, ''))
+            .required('Vui lòng nhập mật khẩu')
+            .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
+            .max(12, 'Mật khẩu tối đa là 12 ký tự')
+            .matches(/[A-Z]/, 'Mật khẩu phải có ít nhất 1 ký tự viết hoa')
+            .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Mật khẩu phải có ít nhất 1 ký tự đặc biệt'),
         confirmPassword: Yup.string()
             .oneOf([Yup.ref('newPassword')], 'Mật khẩu xác nhận không khớp')
             .required('Hãy nhập lại mật khẩu'),
     });
 
     const handleSubmit = (values: { newPassword: string; confirmPassword: string }) => {
+        console.log(userId);
 
+        fetch('/api/resetPassword/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    password: values.newPassword,
+                    confirm_password: values.confirmPassword,
+                    user_id: userId
+                }
+            )
+        })
+            .then(res => {
+                if (res.status === 200) {
+                    alert('Thay đổi thành công')
+                    router.push('/login')
+                }
+                else if (res.status === 500) {
+                    alert('Thay đổi thất bại')
+                    router.push('/login')
+                }
+                return res.json()
+            })
+            .catch(error => {
+                alert('Có lỗi xảy ra')
+                // router.push('/login')
+            })
     }
 
     return (
@@ -51,7 +89,7 @@ const NewPasswordPage: React.FC = () => {
                                             Nhập mật khẩu mới
                                         </label>
                                         <Field
-                                            type="password"
+                                            type="text"
                                             name="newPassword"
                                             placeholder="Mật khẩu mới"
                                             className={styles.userNameRetrieve__input}
@@ -64,7 +102,7 @@ const NewPasswordPage: React.FC = () => {
                                             Nhập lại mật khẩu
                                         </label>
                                         <Field
-                                            type="password"
+                                            type="text"
                                             name="confirmPassword"
                                             placeholder="Xác nhận mật khẩu"
                                             className={styles.userNameRetrieve__input}
