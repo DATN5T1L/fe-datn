@@ -108,22 +108,13 @@ const ProfileDispatch = () => {
             fetchUserInfo(token);
         } else {
             console.error('Không tìm thấy token trong localStorage');
-            if (isRegister) {
-                router.push('/register')
-            } else if (isRetrievePassword) {
-                router.push('/retrievePassword')
-            } else if (isHome) {
-                router.push('/home')
-            } else if (isCreateLearningPath) {
-                router.push('/createLearningPath')
-            } else if (isPokemon) {
-                router.push('/pokemon')
-            } else {
+            if (isInfo) {
                 router.push('/login')
             } else if (isWallet) {
-                router.push('/home')
-            } 
-            
+                router.push('/login')
+            } else if (isIntro) {
+                router.push('/login')
+            }
         }
         const interval = setInterval(() => {
             const storedToken = localStorage.getItem('token');

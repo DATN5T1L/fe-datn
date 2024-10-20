@@ -17,11 +17,6 @@ import Why from "../component/home/why"
 import FeedBackToStudent from "../component/home/feedBackToStudent"
 
 const Home: React.FC = () => {
-    useEffect(() => {
-        AOS.init({
-            duration: 1200,
-        });
-    }, []);
     return (
         <>
             <title>TTO - Khám phá, học hỏi, vươn xa</title>

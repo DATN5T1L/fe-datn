@@ -1,15 +1,32 @@
 'use client';
-
+import useSWR from 'swr';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import Body from "@app/(user-global)/component/globalControl/body";
 import CourseFor from "@app/(user-global)/component/course/courseFor";
 import CourseForNext from "@app/(user-global)/component/course/CourseForNext";
 import TimeLine from "@app/(user-global)/component/router/timeLine";
 import LearningPathSection from "@app/(user-global)/component/router/learningPathSection";
 
+// thêm model
 
+import { Course } from "@app/(user-global)/model/course";
+
+interface ApiResponse<T> {
+    status: string;
+    message: string;
+    data: T;
+}
+const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseForYou: React.FC<{ params: { id: number } }> = ({ params }) => {
     const { id } = params;
+
+    const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
+        `/api/courseFor/${id}`,
+        fetcher
+    );
+    console.log(courseData);
     return (
         <Body>
             <CourseFor id={id} />

@@ -262,6 +262,10 @@
     border-spacing: 0;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   body {
     width: 100%;
     margin: 0 auto;
@@ -276,10 +280,8 @@
     -ms-user-select: none;
   }
 
-  /* header nav bar start  */
-
-  .header-over{
-    
+  .body-main {
+    width: 100%;
   }
 
   .header-nav {
@@ -289,13 +291,15 @@
     top: 0;
     width: 100%;
     height: auto;
-    z-index: 100000000;
+    z-index: 10;
     padding: 8px 32px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.24);
-    background-color: white !important;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
     transition: top 0.3s ease-in-out;
   }
 
@@ -667,6 +671,7 @@
   }
 
   .icon-notification {
+    cursor: pointer;
     width: 24px;
     height: 24px;
   }
@@ -682,6 +687,7 @@
     width: 186px;
     max-width: 186px;
     justify-content: center;
+    cursor: pointer;
   }
 
   .avt {
@@ -906,25 +912,22 @@
   /* header nav bar end  */
 
   .body-container {
-    margin: 0;
-    padding: 0 !important;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: auto;
-    box-sizing: border-box;
-    height: auto;
-    min-height: 100vh;
-    position: relative;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+
   }
 
   /* left slider bar start */
 
   .slider-bar {
     opacity: 1;
-    margin: 0;
+    margin: 0 auto;
     padding: 36px 16px;
     width: auto;
     max-width: 300px;
@@ -939,8 +942,12 @@
     transition: width 0.2s ease-in-out, transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
     z-index: 1000000;
     border-radius: 12px;
-    background: #FFF;
-    box-shadow: 0px 0px 4px 0px var(--blue-50)
+    box-shadow: 0px 0px 4px 0px var(--blue-50);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* border: 1px solid rgba(255, 255, 255, 0.3); */
+    /* Viền mờ */
   }
 
   .slide-bar-categories {

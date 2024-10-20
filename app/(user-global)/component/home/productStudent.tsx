@@ -61,7 +61,7 @@ const ProductStudent: React.FC = () => {
     };
     return (
         <>
-            <Container className={styles.container}>
+            <div className={styles.container}>
                 <Image src="/img/productStudentIcon.svg" alt="" className={styles.imgIcon} />
                 <div className={styles.bgTop}></div>
                 <Row className={styles.main}>
@@ -165,7 +165,7 @@ const ProductStudent: React.FC = () => {
                         </svg>
                     </Button>
                 </div>
-            </Container>
+            </div>
         </>
     )
 }
