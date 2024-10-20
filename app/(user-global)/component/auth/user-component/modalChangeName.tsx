@@ -11,20 +11,17 @@ interface ModalChangeNameProps {
 
 const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [value,setValue] = useState('Con Văn Người')
+    const [value, setValue] = useState('Con Văn Người')
 
     useEffect(() => {
         if (show) {
             setIsVisible(true);
-            document.body.style.overflow = 'hidden';
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
-                document.body.style.overflow = '';
             }, 300);
             return () => {
                 clearTimeout(timer);
-                document.body.style.overflow = '';
             };
         }
     }, [show]);
@@ -67,7 +64,7 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                                 className={styles.formControlChangeName__input}
                                 value={value}
                                 onChange={(e) => setValue(e.target.value)}
-                            />  
+                            />
                             <Form.Control.Feedback type="invalid" className={styles.feedBack}>
                                 Hãy nhập họ và tên
                             </Form.Control.Feedback>

@@ -15,15 +15,12 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
     useEffect(() => {
         if (show) {
             setIsVisible(true);
-            document.body.style.overflow = 'hidden';
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
-                document.body.style.overflow = '';
             }, 300);
             return () => {
                 clearTimeout(timer);
-                document.body.style.overflow = '';
             };
         }
     }, [show]);
