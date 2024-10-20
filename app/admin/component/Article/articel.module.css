@@ -12,6 +12,16 @@
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
+  background: var(--background-bg-admin, #f5f6fa);
+  padding: 25px 32px;
+}
+.header1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  background: var(--background-bg-admin, #f5f6fa);
+  padding: 0px 40px;
 }
 
 .heading {
@@ -32,11 +42,12 @@
 }
 
 .filterBar {
-  margin-bottom: 20px;
+  padding: 0px 32px 20px 32px;
+  background: var(--background-bg-admin, #f5f6fa);
 }
 
 .filterInputGroup {
-  background: var(--Gray-gray-100, #FFF);
+  background: var(--Gray-gray-100, #fff);
   border-radius: 10px;
   width: 40%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -67,45 +78,44 @@
 .searchInputGroup {
   display: flex;
   width: 100%;
-  max-width: 270px; 
-  height: 40px; 
-  border-radius: 30px; 
-  background-color: #fff; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  max-width: 250px;
+  height: 32px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
 .searchInput {
   width: 250px;
-  padding: 8px 12px; 
+  height: 32px;
+  padding: 8px 12px;
   border: 1px solid #c3c3c3;
-  border-radius: 30px !important; 
-  outline: none; 
+  border-radius: 40px !important;
+  outline: none;
   transition: border-color 0.2s ease;
+  font-size: 14px;
 }
 
 .searchInput:focus {
-  border-color: var(--blue-60); 
+  border-color: var(--blue-60);
 }
 
 .searchIconWrapper {
   position: absolute;
-  right: 12px; 
+  right: 12px;
   top: 50%;
-  transform: translateY(-50%); 
+  transform: translateY(-50%);
   color: #c3c3c3;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
-.table {
-  margin-top: 20px;
-}
 .table thead tr {
   border: none;
 }
 .table thead tr td {
   padding: 20px 10px;
-  background: var(--Gray-gray-95, #FAFAFA);
+  background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
@@ -116,6 +126,17 @@
   text-align: center;
 }
 
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.table td:nth-child(2) {
+  max-width: 300px;
+}
+
 .table tbody tr td {
   padding: 40px 10px;
   border: none;
@@ -123,6 +144,9 @@
 }
 .table tbody tr td:nth-child(4) {
   text-align: center;
+}
+.table thead td {
+  white-space: nowrap;
 }
 
 .active_text {
@@ -132,10 +156,9 @@
   border-radius: 5px;
 }
 
-
 .option_button {
   display: flex;
-  max-width: 185px;
+  /* max-width: 185px; */
   justify-content: space-between;
   align-items: center;
   background-color: #fafafa;
@@ -148,7 +171,7 @@
   justify-content: center;
   align-items: center;
   padding: 5px 10px;
-  width: 63px; 
+  width: 63px;
   height: 38px;
   margin: 0;
 }
@@ -160,16 +183,15 @@
   width: 24px;
   height: 24px;
 }
-.option_button_group{
-  display: flex;
-  height: 108px;
+.option_button_group {
+  /* display: flex; */
+  /* height: 108px; */
   padding: 16px 20px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   align-self: stretch;
   border-radius: 0px 8px 8px 0px;
-
 }
 
 /*  Actions */

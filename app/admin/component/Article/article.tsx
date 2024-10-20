@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import {
   Button,
   Form,
@@ -11,25 +11,30 @@ import {
 } from "react-bootstrap";
 import h from "./articel.module.css";
 import Link from "next/link";
-import "./articel.css"
+import "./articel.css";
+import header from "@/app/(user-global)/component/globalControl/header";
 
-const Article: React.FC = () => {
+const Article: React.FC<{}> = () => {
   return (
     <div
       className={`${h.container} d-flex flex-column flex-grow-1 align-items-start`}
     >
       {/* Header */}
-      <div className={`${h.header} d-flex justify-content-between align-items-center`}>
+      {/* <div
+        className={`${h.header} d-flex justify-content-between align-items-center`}
+      >
         <h2 className={h.heading}>Bài viết</h2>
-        <div className={`${h.actions} d-flex`}>
-          <Button
-            variant="outline-primary"
-            className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
-          >
-            Thêm danh mục bài viết
-          </Button>
-          <Button className={h.btnCTA}>Thêm bài viết</Button>
-        </div>
+        {showActions && (
+          <div className={`${h.actions} d-flex`}>
+            <Button
+              variant="outline-primary"
+              className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
+            >
+              Thêm danh mục bài viết
+            </Button>
+            <Button className={`${h.btnCTA}`}>Thêm bài viết</Button>
+          </div>
+        )}
       </div>
 
       <div
@@ -73,7 +78,7 @@ const Article: React.FC = () => {
             />
           </div>
         </InputGroup>
-      </div>
+      </div> */}
 
       {/* Post List */}
       <Table bordered hover className={`${h.table}`}>
@@ -93,7 +98,17 @@ const Article: React.FC = () => {
             .map((_, idx) => (
               <tr key={idx}>
                 <td>Học ReactJS với TTO</td>
-                <td>Bài viết này tổng hợp lại các dự án mẫu...</td>
+                <td>
+                  Được định hình là dự án đô thị cao cấp, sau gần 30 năm, dự án
+                  Sing - Việt ở huyện Bình Chánh chỉ là bãi đất trống, nhà cửa
+                  lụp xụp, ảnh hưởng khoảng 700 hộ dân. Giữa trưa, căn nhà vách
+                  gỗ, lợp tôn cất trên mảnh đất hơn 200 m2 của ông Đặng Văn Sáu,
+                  64 tuổi, ở mặt tiền đường Mai Bá Hương, xã Lê Minh Xuân, huyện
+                  Bình Chánh, nóng hầm hập. Lô đất thuộc diện giải tỏa để làm dự
+                  án khu đô thị Sing - Việt nên ngôi nhà gần 70 m2 của ông không
+                  thể xây kiên cố mà chỉ dựng tạm bợ, sửa chắp vá gần 30 năm
+                  qua, ảnh hưởng 5 thành viên trong gia đình.
+                </td>
                 <td>3,000</td>
                 <td>
                   <span className={h.active_text}>Active</span>
@@ -124,7 +139,12 @@ const Article: React.FC = () => {
       <div className="paginationWrapper">
         <Pagination className="pagination">
           <Pagination.Prev>
-            <img src="/img_admin/prep.svg" alt="Previous" width="8" height="16" />
+            <img
+              src="/img_admin/prep.svg"
+              alt="Previous"
+              width="8"
+              height="16"
+            />
           </Pagination.Prev>
           {Array(7)
             .fill(null)
@@ -138,7 +158,6 @@ const Article: React.FC = () => {
           </Pagination.Next>
         </Pagination>
       </div>
-
     </div>
   );
 };

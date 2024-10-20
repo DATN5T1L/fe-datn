@@ -1,43 +1,47 @@
 .container {
   width: 100%;
   padding: 0;
-  height: 100vh; 
+  margin: 0;
+  height: 100vh;
   overflow: hidden;
 }
 
 .header {
   position: fixed;
   top: 0;
-  left: 0;
   width: 100%;
   z-index: 1000;
   background-color: #fff;
-  height: 10vh; 
+  height: 74px;
+  /* margin: 0px 20px; */
 }
 
 .mainContent {
   width: 100%;
-  margin-top: 10vh; /* Đảm bảo nội dung không bị che bởi header */
-  height: 90vh;
+
+  margin-top: 10vh;
   display: flex;
   flex-grow: 1; /* Sử dụng flexbox cho layout */
+}
+.content {
+  margin-top: 15vh;
 }
 
 .sidebar {
   width: 233px; /* Chiều rộng cố định cho sidebar */
   position: fixed;
-  top: 10vh; 
+  top: 10vh;
   left: 0;
-  height: 90vh; 
+  height: 90vh;
   background-color: #f8f9fa;
-  overflow-y: auto; 
+
   z-index: 999;
   padding: 0;
 }
 
 .article {
-  width: 100%;
-  margin-left: 233px; 
+  /* width: 100%; */
+  margin-left: 233px;
   height: 90vh;
-  overflow-y: auto; 
+  overflow-y: auto;
 }

@@ -1,29 +1,83 @@
 "use client";
-import React from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Col } from "react-bootstrap";
-import "./globals.css";
-import Header from "./component/Header/header";
-import Sidebar from "./component/Sidebar/sidebar";
 import Article from "./component/Article/article";
-import styles from './layout.module.css';
+import ViewBarCharts from "./component/Dashboard/ViewChart";
+import style from "./component/Dashboard/Chart.module.css";
+import { Image } from "react-bootstrap";
+import { useState } from "react";
+import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu";
+import { HeaderArticleSimple } from "./component/Article/headerArrticle";
 
-const Admin: React.FC = () => {
+const Dashboard = () => {
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <Header />
-      </header>
-      <div className={styles.mainContent}>
-        <Col xs={2} className={styles.sidebar}>
-          <Sidebar />
-        </Col>
-        <Col className={styles.article}>
+    <>
+      <div className={style.mar}>
+        <section className={style.container}>
+          <div className={style.tag_notice}>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng bài viết</p>
+                <h3>100</h3>
+              </span>
+              <Image
+                src={"/img_admin/total_article.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng danh mục</p>
+                <h3>200</h3>
+              </span>
+              <Image
+                src={"/img_admin/category.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng bình luận</p>
+                <h3>3000</h3>
+              </span>
+              <Image
+                src={"/img_admin/comment.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng lượt xem</p>
+                <h3>230,000</h3>
+              </span>
+              <Image
+                src={"/img_admin/total_view.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+                onClick={handleShow}
+              />
+            </div>
+            <OffcanvasComponent show={show} handleClose={handleClose} />
+          </div>
+          <div className={style.chart}>
+            <ViewBarCharts />
+          </div>
+        </section>
+        <section>
+          <HeaderArticleSimple />
           <Article />
-        </Col>
+        </section>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Admin;
+export default Dashboard;
