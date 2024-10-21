@@ -7,9 +7,8 @@ import Tippy from '@tippyjs/react/headless';
 import Image from "next/image";
 import Link from "next/link";
 import { Nav, Navbar } from "react-bootstrap";
-import GgLogout from "@app/(user-global)/component/auth/user-component/ggLogout"
+import GgLogout from "@app/(user-global)/component/auth/user-component/ggLogout";
 
-// thêm css.module
 
 import ProgressCircle from '../course/ProgressCircle'
 import styles from "@public/styles/globalControl/Nav.module.css";

@@ -2,15 +2,16 @@ import NavCourse from "../component/globalControl/navCourse";
 import Learning from "../component/globalControl/Learning";
 import { Course } from "@app/(user-global)/model/course";
 
-interface courseidProp {
-    id: number;
-}
+// interface LearningProp {
+//     id: number;
+//     userId: number;
+// }
 
-const LearningCourse: React.FC<courseidProp> = ({ id }) => {
+const LearningCourse: React.FC = () => {
     return (
         <>
-            <NavCourse userId={1} courseId={id} />
-            <Learning courseId={id} />
+            <NavCourse userId={1} courseId={1} />
+            <Learning courseId={1} />
         </>
     );
 };

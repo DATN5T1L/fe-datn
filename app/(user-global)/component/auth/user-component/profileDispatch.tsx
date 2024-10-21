@@ -115,10 +115,6 @@ const ProfileDispatch = () => {
             } else if (isIntro) {
                 router.push('/login')
             }
-<<<<<<< HEAD
-=======
-
->>>>>>> thuando
         }
         const interval = setInterval(() => {
             const storedToken = localStorage.getItem('token');
