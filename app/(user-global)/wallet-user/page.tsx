@@ -30,5 +30,3 @@ const WalletUser: React.FC = () => {
         </>
     )
 }
-
-export default WalletUser;

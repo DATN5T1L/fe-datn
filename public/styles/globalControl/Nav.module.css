@@ -1,0 +1,197 @@
+.nav {
+    width: 100%;
+    box-shadow: 0px 0px 2px 0px rgba(40, 41, 61, 0.04), 0px 4px 8px 0px rgba(96, 97, 112, 0.16);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 32px;
+}
+
+.brandHeader {
+    width: 54px;
+    height: 56px;
+    object-fit: cover;
+}
+
+.brandProgress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+
+
+.heading {
+    color: var(--text-100);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.cta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 12px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    margin-bottom: 14px;
+    cursor: pointer;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+
+}
+
+.slider {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 4px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 0.5px solid var(--gray-70);
+    background: var(--gray-100);
+    box-shadow: 0px 2px 0px 0px rgba(204, 204, 204, 0.50) inset, -2px 0px 0px 0px rgba(204, 204, 204, 0.25) inset, 2px 0px 0px 0px rgba(204, 204, 204, 0.25) inset, 0px -2px 0px 0px rgba(204, 204, 204, 0.50) inset;
+    transition: 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+.slider svg {
+    position: relative;
+    transform: translateX(0);
+    transition: transform 0.4s ease-in-out, fill 0.4s ease-in-out;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    fill: var(--gray-70);
+}
+
+input:checked+.slider {
+    justify-content: flex-start;
+    background: var(--gray-100);
+    box-shadow: 0px 2px 0px 0px rgba(35, 125, 247, 0.50) inset, -2px 0px 0px 0px rgba(35, 125, 247, 0.25) inset, 2px 0px 0px 0px rgba(35, 125, 247, 0.25) inset, 0px -2px 0px 0px rgba(35, 125, 247, 0.50) inset;
+}
+
+input:checked+.slider svg {
+    transform: translateX(0);
+    fill: var(--blue-50);
+}
+
+input:not(:checked)+.slider svg {
+    transform: translateX(0);
+    fill: var(--gray-70);
+}
+
+.slider svg:hover {
+    transform: scale(1.15);
+}
+
+/* iconNotifition */
+
+
+.iconNotifition {
+    height: auto;
+}
+
+/* menuOptions */
+
+
+.menuOptions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 12px 4px 4px;
+    gap: 8px;
+    border-radius: 9999px;
+    border: 1px solid var(--gray-80);
+    background: var(--gray-100);
+}
+
+.menuOptions:active {
+    border: 1px solid var(--blue-50);
+    box-shadow: 0px 2px 0px 0px rgba(204, 204, 204, 0.50) inset, -2px 0px 0px 0px rgba(204, 204, 204, 0.25) inset, 2px 0px 0px 0px rgba(204, 204, 204, 0.25) inset, 0px -2px 0px 0px rgba(204, 204, 204, 0.50) inset;
+}
+
+.userImage {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    border: .5px solid var(--gray-70);
+}
+
+.titleName {
+    color: var(--blue-50);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* menuContent */
+
+
+.menuContent {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 0px;
+    width: 270px;
+    border: 1px solid var(--blue-50);
+    border-radius: 12px;
+    margin-right: 16px;
+    background: var(--gray-100);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.menuTitle {
+    margin-left: 12px;
+}
+
+.menuLink {
+    display: flex;
+    width: 100%;
+    padding: 8px;
+    align-items: center;
+    gap: 4px;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--blue-95);
+    }
+}
+
+.tippyBox {
+    position: relative;
+    padding: 10px;
+    border-radius: 4px;
+
+}
+
+
+
+.tippyBox::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 31px;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--blue-50);
+
+}

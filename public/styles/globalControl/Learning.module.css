@@ -1,0 +1,220 @@
+.container {
+    display: flex;
+    min-height: calc(100vh - 68px);
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+}
+
+.fixed {
+    width: 21.67%;
+}
+
+.flexGrow {
+    overflow-y: auto;
+
+}
+
+
+
+
+
+/* Video */
+
+
+
+.Video {
+    background-color: var(--gray-00);
+    padding: 0px 64px;
+    height: calc(100% - 100px);
+}
+
+.body {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    padding: 24px 64px;
+    gap: 24px;
+}
+
+.bodyTop {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+
+.timeUpdate {
+    color: var(--text-50);
+    font-size: 0.625rem;
+    font-weight: 400;
+}
+
+.titleCourse {
+    margin-top: 8px;
+    color: var(--text-100);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+
+
+.content {
+    font-size: 1rem;
+    font-weight: 400;
+    column-gap: 12px;
+}
+
+.actionBar {
+    height: auto;
+    width: 100%;
+    background-color: transparent;
+    padding: 4px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq {
+    cursor: pointer;
+}
+
+.faq:hover svg path,
+.faq:hover svg circle {
+    /* stroke: var(--blue-80); */
+    /* Màu stroke mới khi hover */
+    fill: var(--blue-90);
+    /* Màu fill mới cho các phần tử có fill (ví dụ như circle nhỏ) */
+}
+
+.ctaNextPev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.cateSec {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.listCourse {
+    padding: 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.searchContainer {
+    margin: 0px 12px;
+    padding: 8px;
+    border-radius: 12px;
+    background: var(--gray-90);
+    display: flex;
+    gap: 12px;
+
+    &:hover {
+        outline: 1px solid var(--blue-50);
+    }
+}
+
+
+
+.inputSearch {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.iconCatesec {
+    padding: 8px;
+    background-color: var(--blue-95);
+    border-radius: 50%;
+    cursor: pointer;
+
+}
+
+
+.listItem__title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+
+    &:hover {
+        background-color: var(--blue-95);
+    }
+}
+
+.listItem__titleText {
+    color: var(--text-100);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.listItem__contentCount {
+    margin-right: 4px;
+}
+
+.listItem__totalDuration {
+    margin-left: 4px;
+}
+
+.listItem__contentCount,
+.listItem__totalDuration {
+    color: var(--text-75);
+    font-size: .875rem;
+    font-weight: 400;
+    display: inline;
+}
+
+.rotated {
+    rotate: 180deg;
+}
+
+
+.listItem__docs {
+    padding: 8px 0px;
+}
+
+.listItem__doc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 12px;
+
+    &:hover {
+        background-color: var(--blue-95);
+    }
+}
+
+.listItemDoc {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 0px;
+}
+
+.listItem__docTitle {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.listItem__docIndex {
+    margin-bottom: 4px;
+}

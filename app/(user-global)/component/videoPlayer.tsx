@@ -547,9 +547,7 @@ const VideoPlayer: React.FC = () => {
 
               {showControls && (
                 <>
-                  <div className={styles.videoTitle}>
-                    {videoTitle}
-                  </div>
+
                   <div className={styles.timeControl}>
                     <input
                       id="time"

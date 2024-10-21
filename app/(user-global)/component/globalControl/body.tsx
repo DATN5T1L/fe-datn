@@ -26,11 +26,11 @@ const Body: React.FC<BodyProps> = ({ children }) => {
         observer.observe(header);
       }
 
-      setHeight(); 
+      setHeight();
 
       return () => {
         if (header) {
-          observer.unobserve(header); 
+          observer.unobserve(header);
         }
       };
     }
