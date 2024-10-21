@@ -17,8 +17,8 @@ interface NavCourseProps {
     userId: number;
     courseId: number;
 }
-
-const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
+// { userId, courseId }
+const NavCourse: React.FC = () => {
     const { handleLogout } = useLogout();
     const [visible, setVisible] = useState(false);
     const show = () => setVisible(true);

@@ -39,7 +39,8 @@ const listData: ListItem[] = [
         ],
     },
 ];
-const Learning: React.FC<courseidProp> = ({ courseId }) => {
+// { courseId }
+const Learning: React.FC = () => {
 
 
     const [isVisible, setIsVisible] = useState(true);

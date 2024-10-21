@@ -6,12 +6,12 @@ import { Course } from "@app/(user-global)/model/course";
 //     id: number;
 //     userId: number;
 // }
-
+// userId={1} courseId={1}
 const LearningCourse: React.FC = () => {
     return (
         <>
-            <NavCourse userId={1} courseId={1} />
-            <Learning courseId={1} />
+            <NavCourse />
+            <Learning />
         </>
     );
 };
