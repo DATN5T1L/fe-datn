@@ -33,7 +33,7 @@ const RetrievePassword: React.FC = () => {
                 body: JSON.stringify({ email: userName })
             })
                 .then(response => {
-                    if (response.status == 422) {
+                    if (response.status == 404 ) {
                         alert('Email không tồn tại. Xin vui lòng nhập lại!')
                         setFieldValue('userName', '')
                     }
