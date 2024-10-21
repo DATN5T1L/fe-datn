@@ -28,8 +28,8 @@ const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
         <header>
             <Navbar className={styles.nav} >
                 <div className={styles.brandProgress}>
-                    <Link href="/" className='brand-header'>
-                        <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' width="170" height={80} />
+                    <Link href="/" className={styles.brandHeader}>
+                        <Image src="/img/logo.svg" alt="logo" className={styles.imgBrandHeader} width={54} height={56} />
                     </Link>
                     <h4 className={styles.heading}>HTML CSS PRO</h4>
                     <ProgressCircle progress={10} />  {/* Khi nào có api truyền truyền tham số vào */}
