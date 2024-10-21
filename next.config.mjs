@@ -49,6 +49,18 @@ const nextConfig = {
         source: '/api/courses/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/detail-route/:path*',
       },
+      {
+        source: '/api/getToken/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/send-reset-password-mail/:path*',
+      },
+      {
+        source: '/api/verifyToken/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/verifyToken/:path*',
+      },
+      {
+        source: '/api/resetPassword/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/reset-password/:path*',
+      },
       // Client API rewrites
       {
         source: '/api/routes/:path*',
