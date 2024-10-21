@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .progressBackground {
@@ -11,15 +12,16 @@
 
 .progressCircle {
     fill: none;
-    stroke: #391ab3;
+    stroke: var(--blue-50);
     /* Màu viền tiến độ */
     transition: stroke-dashoffset 0.5s ease;
 }
 
 .innerCircle {
     position: absolute;
-    top: 30px;
-    right: 28px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,8 +29,9 @@
 }
 
 .progressText {
-    font-size: .625rem;
+    font-size: .85rem;
     color: var(--text);
+    font-weight: 600;
 }
 
 .progressLabel {
