@@ -16,43 +16,45 @@ const LeftSlider: React.FC = () => {
     const userState = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
-        const checkElementsAndSetHeight = () => {
-            const header = document.querySelector('.header-over') as HTMLElement;
-            const footer = document.querySelector('footer') as HTMLElement;
+        if (typeof window !== 'undefined') {
+            const checkElementsAndSetHeight = () => {
+                const header = document.querySelector('.header-over') as HTMLElement;
+                const footer = document.querySelector('footer') as HTMLElement;
 
-            if (header && footer) {
-                const setHeight = () => {
-                    setHeaderHeight(header.offsetHeight);
-                };
+                if (header && footer) {
+                    const setHeight = () => {
+                        setHeaderHeight(header.offsetHeight);
+                    };
 
-                const observer = new ResizeObserver(setHeight);
-                observer.observe(header);
-                setHeight();
+                    const observer = new ResizeObserver(setHeight);
+                    observer.observe(header);
+                    setHeight();
 
-                const handleScroll = () => {
-                    const footerRect = footer.getBoundingClientRect();
-                    const isFooterVisible = footerRect.top <= window.innerHeight;
+                    const handleScroll = () => {
+                        const footerRect = footer.getBoundingClientRect();
+                        const isFooterVisible = footerRect.top <= window.innerHeight;
 
-                    if (isFooterVisible && footerRect.top < window.innerHeight - headerHeight) {
-                        setIsHidden(true);
-                    } else {
-                        setIsHidden(false);
-                    }
-                };
+                        if (isFooterVisible && footerRect.top < window.innerHeight - headerHeight) {
+                            setIsHidden(true);
+                        } else {
+                            setIsHidden(false);
+                        }
+                    };
 
-                window.addEventListener('scroll', handleScroll);
+                    window.addEventListener('scroll', handleScroll);
 
-                return () => {
-                    window.removeEventListener('scroll', handleScroll);
-                    observer.unobserve(header);
-                };
-            }
-        };
+                    return () => {
+                        window.removeEventListener('scroll', handleScroll);
+                        observer.unobserve(header);
+                    };
+                }
+            };
 
-        // Đợi một chút sau khi DOM đã sẵn sàng
-        const timeout = setTimeout(checkElementsAndSetHeight, 100);
+            // Đợi một chút sau khi DOM đã sẵn sàng
+            const timeout = setTimeout(checkElementsAndSetHeight, 100);
 
-        return () => clearTimeout(timeout);
+            return () => clearTimeout(timeout);
+        }
     }, [headerHeight]);
 
     const openMenu = () => {
@@ -88,9 +90,9 @@ const LeftSlider: React.FC = () => {
                 </div>
 
                 <div
-                 className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}
-                 onClick={offCourse}
-                 >
+                    className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}
+                    onClick={offCourse}
+                >
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
                     <Link
                         href={`${userState.user ? `/course?user_id=${userState.user.id}` : `/login`}`}

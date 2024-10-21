@@ -10,6 +10,8 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/slices/userSlice';
 import { store } from '@/redux/store';
+import GgLogin from '../component/auth/user-component/ggLogin';
+import FbLogin from '../component/auth/user-component/fbLogin';
 
 interface LoginFormInputs {
     email: string;
@@ -122,18 +124,8 @@ const Login: React.FC = () => {
                                     <Link href={'/register'} className={styles.titleGroup__link}>Bạn chưa có tài khoản? <bdi className={styles.titleGroup__link__bdi}> Đăng ký</bdi></Link>
                                 </section>
                                 <section className={styles.loginMedia}>
-                                    <Button className={styles.loginMedia__btn}>
-                                        <Image src="/img/fb.svg" alt="" className={styles.loginMedia__img} />
-                                        <div className={styles.loginMedia__title}>
-                                            Facebook
-                                        </div>
-                                    </Button>
-                                    <Button className={styles.loginMedia__btn}>
-                                        <Image src="/img/google.svg" alt="" className={styles.loginMedia__img} />
-                                        <div className={styles.loginMedia__title}>
-                                            Google
-                                        </div>
-                                    </Button>
+                                    <FbLogin></FbLogin>
+                                    <GgLogin></GgLogin>
                                 </section>
                             </Card.Header>
                             <Card.Body className={styles.bodyLogin}>

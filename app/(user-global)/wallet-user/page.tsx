@@ -4,9 +4,18 @@ import Wallet from "../component/auth/user-component/wallet";
 import HeaderUser from "../component/auth/user-global/headerUser";
 import Main from "../component/auth/user-global/main";
 import MenuSetting from "../component/auth/user-global/menuSetting";
+import { useEffect, useState } from "react";
 
 
 const WalletUser: React.FC = () => {
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
+    if (!isClient) {
+        return <div>Loading...</div>;
+    }
     return (
         <>
             <title>TTO - Ví người dùng</title>

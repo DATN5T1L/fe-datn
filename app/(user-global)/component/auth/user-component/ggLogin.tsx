@@ -17,21 +17,8 @@ const GgLogin = () => {
     }, [status, session, router]);
 
     const handleLogin = async () => {
-        try {
             const result = await signIn("google", { redirect: false });
             console.log("Login result:", result);
-
-            // Kiểm tra kết quả đăng nhập
-            if (result?.error) {
-                // Xử lý khi đăng nhập không thành công
-                console.error("Login failed:", result.error);
-            } else if (result?.ok) {
-                // Đăng nhập thành công, có thể chuyển hướng hoặc làm gì đó
-                console.log("Login successful");
-            }
-        } catch (error) {
-            console.error("Error during login:", error);
-        }
     };
 
     return (
