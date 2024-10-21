@@ -1,3 +1,5 @@
+'use client'
+
 import Body from "../component/globalControl/body";
 import Infomation from "../component/auth/user-component/infomation";
 import Wallet from "../component/auth/user-component/wallet";

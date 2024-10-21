@@ -1,3 +1,5 @@
+'use client'
+
 import Body from "../component/globalControl/body"
 import Introduce from "../component/auth/user-component/introduce"
 import HeaderUser from "../component/auth/user-global/headerUser"
