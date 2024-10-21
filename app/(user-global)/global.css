@@ -1959,3 +1959,27 @@
     color: white;
     /* Màu chữ trắng (tuỳ chọn) */
   }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--blue-80);
+    border-radius: 4px;
+    border: 2px solid var(--blue-80);
+
+  }
+
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--blue-80);
+
+    border-radius: 4px;
+
+  }
+
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }

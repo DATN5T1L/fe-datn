@@ -1,5 +1,7 @@
 'use client'
 // import { auth } from '@/app/auth';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -103,9 +105,11 @@ const Header: React.FC = () => {
         <>
             <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '' }}>
                 <section className='header-nav-head'>
-                    <Link href="/" className='brand-header'>
-                        <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' />
-                    </Link>
+                    <Tippy content="Trang chủ">
+                        <Link href="/" className='brand-header'>
+                            <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' />
+                        </Link>
+                    </Tippy>
                     <Nav className="btn-header">
                         <Row md={12} className='btn-header-container'>
                             <Col md={4} className='btn-header-container-element'>
@@ -175,12 +179,14 @@ const Header: React.FC = () => {
                                 </Col>
                             ) : (
                                 <Col md={4} className='btn-header-container-element'>
-                                    <Button
-                                        onClick={handleLogin}
-                                        className={`btn-navbar border-blue-1 ${isLogin ? 'light-check' : ''}`}
-                                    >
-                                        Đăng nhập
-                                    </Button>
+                                    <Tippy content="Đăng ký đăng nhập">
+                                        <Button
+                                            onClick={handleLogin}
+                                            className={`btn-navbar border-blue-1 ${isLogin ? 'light-check' : ''}`}
+                                        >
+                                            Đăng nhập
+                                        </Button>
+                                    </Tippy>
                                 </Col>
                             )}
                         </Row>
