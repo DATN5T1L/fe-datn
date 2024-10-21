@@ -28,8 +28,10 @@ export const useLogout = () => {
             });
 
             if (res.ok) {
-                document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-                localStorage.removeItem('token');
+                if (typeof window !== 'undefined') {
+                    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                    localStorage.removeItem('token');
+                }
                 dispatch(logout());
                 router.push("/home");
             } else {
