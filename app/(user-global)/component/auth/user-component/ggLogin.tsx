@@ -1,13 +1,12 @@
 'use client'
 
-
 import { signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@public/styles/login/LoginBtn.module.css';
 
 const GgLogin = () => {
-    const { data: session, status } = useSession(); 
+    const { data: session, status } = useSession();
     const router = useRouter();
 
     useEffect(() => {
@@ -18,13 +17,26 @@ const GgLogin = () => {
     }, [status, session, router]);
 
     const handleLogin = async () => {
-        const result = await signIn("google", { redirect: false }); 
-        console.log("Login result:", result);
+        try {
+            const result = await signIn("google", { redirect: false });
+            console.log("Login result:", result);
+
+            // Kiểm tra kết quả đăng nhập
+            if (result?.error) {
+                // Xử lý khi đăng nhập không thành công
+                console.error("Login failed:", result.error);
+            } else if (result?.ok) {
+                // Đăng nhập thành công, có thể chuyển hướng hoặc làm gì đó
+                console.log("Login successful");
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+        }
     };
 
     return (
         <button className={styles.RegisterMedia__btn} onClick={handleLogin}>
-            <img src="/img/google.svg" alt="" className={styles.RegisterMedia__img} />
+            <img src="/img/google.svg" alt="Google logo" className={styles.RegisterMedia__img} />
             <div className={styles.RegisterMedia__title}>
                 Google
             </div>
@@ -33,3 +45,4 @@ const GgLogin = () => {
 };
 
 export default GgLogin;
+
