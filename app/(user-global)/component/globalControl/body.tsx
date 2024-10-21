@@ -1,6 +1,5 @@
 'use client'
 
-import { Container } from "react-bootstrap";
 import '@app/(user-global)/global.css';
 import { useEffect, useState } from "react";
 
@@ -38,9 +37,9 @@ const Body: React.FC<BodyProps> = ({ children }) => {
   }, []);
 
   return (
-    <Container className='body-container' style={{ marginTop: `${headerHeight}px` }}>
+    <div className='body-container' style={{ marginTop: `${headerHeight}px` }}>
       {children}
-    </Container>
+    </div>
   );
 };
 

@@ -115,7 +115,6 @@ const ProfileDispatch = () => {
             } else if (isIntro) {
                 router.push('/login')
             }
-
         }
         const interval = setInterval(() => {
             const storedToken = localStorage.getItem('token');

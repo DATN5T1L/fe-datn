@@ -35,7 +35,7 @@ const nextConfig = {
       },
       {
         source: '/api/newUser/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/user/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/auth/register/:path*',
       },
       {
         source: '/api/logout/:path*',

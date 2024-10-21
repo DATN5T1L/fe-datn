@@ -12,19 +12,20 @@ interface ModalChangeImgProps {
 const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
+    const [validated, setValidated] = useState(false);
 
+    // Reset trạng thái khi đóng modal
     useEffect(() => {
         if (show) {
             setIsVisible(true);
-            document.body.style.overflow = 'hidden';
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
-                document.body.style.overflow = '';
+                setSelectedFile(null);
+                setValidated(false);
             }, 300);
             return () => {
                 clearTimeout(timer);
-                document.body.style.overflow = '';
             };
         }
     }, [show]);
@@ -38,6 +39,15 @@ const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        } else {
+            // Logic lưu ảnh đại diện
+            console.log('Ảnh đã được cập nhật');
+        }
+
+        setValidated(true);
     };
 
     return (
@@ -47,7 +57,7 @@ const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
                     <Button className={styles.closeBtn} onClick={onClose}>
                         <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
                     </Button>
-                    <Form className={styles.formChangeImg} noValidate onSubmit={handleSubmit}>
+                    <Form className={styles.formChangeImg} noValidate validated={validated} onSubmit={handleSubmit}>
                         <fieldset className={styles.modalBody}>
                             <legend className={styles.modalBody__title}>Thay đổi ảnh đại diện</legend>
                             <legend className={styles.modalBody__subTitle}>
@@ -84,7 +94,9 @@ const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
                                 />
                             </section>
                         </Form.Group>
-                        <Button className={styles.closeBtn2}>Lưu lại</Button>
+                        <Button className={styles.closeBtn2} type="submit">
+                            Lưu lại
+                        </Button>
                     </Form>
                 </section>
             )}

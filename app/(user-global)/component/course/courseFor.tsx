@@ -29,24 +29,6 @@ const CourseFor: React.FC<CourseForProps> = ({ id }) => {
 
     console.log(courses);
 
-    const courseData = {
-        id: 1,
-        name_course: 'React for Beginners',
-        img_course: '/img/react-course.jpg',
-        price_course: 49.99,
-        rating_course: 4.5,
-        chapters_count: 12,
-        documents_count: 5,
-        num_lesson: 50,
-        instructor_id: 12,
-        progress: 75,
-        status_course: 'active', // Đảm bảo giá trị là 'active', 'inactive', hoặc 'archived'
-        views_course: 1000,
-        tax_rate: 0.1,
-        del_flag: false,
-        created_at: '2023-01-01',
-        updated_at: '2023-01-10',
-    };
 
     return (
 

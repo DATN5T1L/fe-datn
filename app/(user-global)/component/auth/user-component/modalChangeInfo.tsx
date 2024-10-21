@@ -11,36 +11,36 @@ interface ModalChangeInfoProps {
 
 const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
+    const [info, setInfo] = useState('Tôi lớn lên tại Tiền Giang');
+    const [validated, setValidated] = useState(false);
+
 
     useEffect(() => {
         if (show) {
             setIsVisible(true);
-            document.body.style.overflow = 'hidden';
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
-                document.body.style.overflow = '';
+                setValidated(false);
             }, 300);
             return () => {
                 clearTimeout(timer);
-                document.body.style.overflow = '';
             };
         }
     }, [show]);
 
-    const [info, setInfo] = useState('Tôi lớn lên tại Tiền Giang');
-
-    const [validated, setValidated] = useState(false);
-
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
+
         if (form.checkValidity() === false) {
             event.stopPropagation();
+        } else {
+            console.log('Thông tin đã được cập nhật:', info);
         }
+
         setValidated(true);
     };
-
 
     return (
         <main className={`${styles.modalOverlay} ${show ? styles.show : styles.hide}`} onClick={onClose}>
@@ -64,7 +64,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
                             <Form.Control
                                 type="text"
                                 required
-                                placeholder='Nhập nội dung'
+                                placeholder="Nhập nội dung"
                                 className={styles.formControlChangeInfo__input}
                                 value={info}
                                 onChange={(e) => setInfo(e.target.value)}
@@ -73,7 +73,9 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
                                 Hãy nhập nội dung bất kỳ
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Button className={styles.closeBtn2} >Lưu lại</Button>
+                        <Button className={styles.closeBtn2} type="submit">
+                            Lưu lại
+                        </Button>
                     </Form>
                 </section>
             )}

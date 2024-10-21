@@ -1,6 +1,6 @@
 .conatiner {
     display: flex;
-    margin: 0;
+    margin: 0 auto;
     border-radius: 36px;
     width: 100%;
     max-width: 1440px;
@@ -430,6 +430,7 @@
     position: relative;
     transition: all 0.3s ease;
 }
+
 /* 
 .customCheckbox input[type="checkbox"]:checked {
     background-color: white;

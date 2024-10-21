@@ -17,7 +17,6 @@ const HeaderCourseDetail: React.FC = () => {
                             alt="Logo"
                         />
                     </Navbar.Brand>
-
                 </section>
             </div>) :
                 (<div className={`${styles.nav} header-over`} >

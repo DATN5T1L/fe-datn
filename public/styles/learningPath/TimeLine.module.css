@@ -1,12 +1,10 @@
-
-
 .container {
     display: flex;
     padding: 80px 40px;
     justify-content: center;
     align-items: flex-start;
     align-self: stretch;
-    margin: 0;
+    margin: 0 auto;
     width: 100%;
     max-width: 1440px;
 }
@@ -41,7 +39,7 @@
     font-size: 34px;
     font-style: normal;
     font-weight: 700;
-    line-height: 48px;  
+    line-height: 48px;
     letter-spacing: -0.68px;
     display: flex;
     align-items: center;

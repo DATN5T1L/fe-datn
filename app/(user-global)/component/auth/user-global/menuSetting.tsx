@@ -17,7 +17,6 @@ const MenuSetting: React.FC = () => {
 
     const isUser = pathname === '/intro-user';
     const isUser1 = pathname === '/info-user';
-    const isUser2 = pathname === '/wallet-user';
 
     return (
         <>
@@ -35,11 +34,6 @@ const MenuSetting: React.FC = () => {
                         <Image src='/img/infoProfile-black.svg' className={`${styles.black} ${isUser1 ? styles.none : styles.block}`} />
                         <Image src='/img/infoProfile-white.svg' className={`${styles.white} ${isUser1 ? styles.block : styles.none}`} />
                         <div className={`${styles.link__title} ${isUser1 ? styles.whiteCl : ''}`}>Thông tin cá nhân</div>
-                    </Link>
-                    <Link href="/wallet-user" className={`${styles.link} ${isUser2 ? styles.blue : ''}`}>
-                        <Image src='/img/infoPay-black.svg' className={`${styles.black} ${isUser2 ? styles.none : styles.block}`} />
-                        <Image src='/img/infoPay-white.svg' className={`${styles.white} ${isUser2 ? styles.block : ''}`} />
-                        <div className={`${styles.link__title} ${isUser2 ? styles.whiteCl : ''}`}>Ví</div>
                     </Link>
                     <Button
                         className={styles.link}

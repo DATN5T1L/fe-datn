@@ -29,7 +29,7 @@ const SliderShow: React.FC = () => {
 
     return (
         <>
-            <Container className={styles.container}>
+            <div className={styles.container}>
                 <div className={styles.top__gaden}>
 
                 </div>
@@ -114,7 +114,7 @@ const SliderShow: React.FC = () => {
                 </section>
                 <div className={styles.bottom__gaden}>
                 </div>
-            </Container>
+            </div>
         </>
     )
 }

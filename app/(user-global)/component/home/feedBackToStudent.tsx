@@ -7,6 +7,7 @@ interface Feedback {
     module_id: number;
     course_id: number;
     user_id: number;
+    img_course: string;
     rating_course: number;
     feedback_text: string | null;
 }
@@ -81,7 +82,7 @@ const FeedBackToStudent: React.FC = () => {
                                 <Col className={styles.post__feedBack}>
                                     <section className={styles.post__feedBack__container}>
                                         <div className={styles.left__post__feedBack}>
-                                            <Image src="/img/feedBackToStudent.svg" alt="" className={styles.left__post__feedBack__img} />
+                                            <Image src={feedback.img_course} alt="" className={styles.left__post__feedBack__img} />
                                         </div>
                                         <div className={styles.right__post__feedBack}>
                                             <div className={styles.right__post__feedBack__content}>

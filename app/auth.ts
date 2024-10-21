@@ -7,12 +7,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     callbacks: {
         async jwt({ token, account }) {
             if (account) {
-                token.accessToken = account.access_token || null;
+                token.accessToken = typeof account.access_token === 'string' ? account.access_token : undefined;
             }
             return token;
         },
         async session({ session, token }) {
-            session.user.accessToken = token.accessToken || null;
+            session.user.accessToken = typeof token.accessToken === 'string' ? token.accessToken : undefined;
             return session;
         },
     },
