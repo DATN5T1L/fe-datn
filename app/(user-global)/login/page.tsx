@@ -28,7 +28,7 @@ const Login: React.FC = () => {
     const [isRememberLogin, setIsRememberLogin] = useState(false);
     const router = useRouter();
     const dispatch = useDispatch();
-    const url = localStorage.getItem('url')
+    const url = typeof window !== 'undefined' ? localStorage.getItem('url') : null;
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
