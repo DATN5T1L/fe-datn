@@ -34,9 +34,10 @@ const Login: React.FC = () => {
         if (typeof window !== 'undefined') {
             const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
             const tokenValue = token?.split('=')[1];
-        }
-        if (tokenValue) {
-            router.push(`/info-user`)
+
+            if (tokenValue) {
+                router.push(`/info-user`)
+            }
         }
     }, []);
 
