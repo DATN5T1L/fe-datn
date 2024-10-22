@@ -15,6 +15,7 @@ interface User {
     provider_id: string;
     created_at: string;
     updated_at: string;
+    discription_user: string;
 }
 
 interface UserState {
@@ -32,12 +33,20 @@ const userSlice = createSlice({
         login: (state, action: PayloadAction<User>) => {
             state.user = action.payload;
         },
+        update: (state, action: PayloadAction<Partial<User>>) => {
+            if (state.user) {
+                state.user = {
+                    ...state.user,
+                    ...action.payload,
+                };
+            }
+        },
         logout: (state) => {
             state.user = null;
         },
     },
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, update } = userSlice.actions;
 export default userSlice.reducer;
 export type { UserState }; 

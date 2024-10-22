@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import React from 'react';
 import { Container, Row, Col, Image, Nav } from 'react-bootstrap';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -24,21 +25,21 @@ const Footer: React.FC = () => {
                             <Col md={3} className="footer-about">
                                 <h5 className='footer-h5-title'>Về TTO</h5>
                                 <Nav className="list-unstyled">
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Giới thiệu</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Liên hệ</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Điều khoản</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Bảo mật</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Cơ hội việc làm</Nav.Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Giới thiệu</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Liên hệ</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Điều khoản</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Bảo mật</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Cơ hội việc làm</Link>
                                 </Nav>
                             </Col>
                             <Col md={3} className='footer-support'>
                                 <h5 className='footer-h5-title'>Hỗ trợ học viên</h5>
                                 <ul className="list-unstyled">
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Facebook</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Zalo</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Instagram</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">TTCHAT</Nav.Link>
-                                    <Nav.Link className='text-decoration-none list-unstyled-li' href="/">Trực tuyến</Nav.Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Facebook</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Zalo</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Instagram</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">TTCHAT</Link>
+                                    <Link className='text-decoration-none list-unstyled-li' href="/">Trực tuyến</Link>
                                 </ul>
                             </Col>
                             <Col md={4} className="footer-info">
@@ -55,17 +56,17 @@ const Footer: React.FC = () => {
                     </Col >
                 </Row >
                 <Nav className='media-logo'>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/fb.svg" alt="" className='media-logo-img' /></Nav.Link>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/intagram.svg" alt="" className='media-logo-img' /></Nav.Link>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/IN.svg" alt="" className='media-logo-img' /></Nav.Link>
-                    <Nav.Link href="/" className='media-logo-link'><Image src="/img/X.com.svg" alt="" className='media-logo-img' /></Nav.Link>
+                    <Link href="/" className='media-logo-link'><Image src="/img/fb.svg" alt="" className='media-logo-img' /></Link>
+                    <Link href="/" className='media-logo-link'><Image src="/img/intagram.svg" alt="" className='media-logo-img' /></Link>
+                    <Link href="/" className='media-logo-link'><Image src="/img/IN.svg" alt="" className='media-logo-img' /></Link>
+                    <Link href="/" className='media-logo-link'><Image src="/img/X.com.svg" alt="" className='media-logo-img' /></Link>
                 </Nav>
                 <section className='copyright'>
                     <div className="copyright-content">
                         <p>Copyright © 2024 tto.sh</p>
                     </div>
                     <Nav className='copyright-service'>
-                        <Nav.Link href="/" className='service'>Quyền lợi</Nav.Link> | <Nav.Link href="/" className='text-blue service'>Điều khoản điều kiện</Nav.Link> | <Nav.Link href="/" className='text-blue service'> Chính sách bảo mật</Nav.Link>
+                        <Link href="/" className='service'>Quyền lợi</Link> | <Link href="/" className='text-blue service'>Điều khoản điều kiện</Link> | <Link href="/" className='text-blue service'> Chính sách bảo mật</Link>
                     </Nav>
                 </section>
             </Container >

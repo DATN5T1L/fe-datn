@@ -13,7 +13,6 @@ const ModalChangeInfo = dynamic(() => import("./modalChangeInfo"), { ssr: false 
 
 const Infomation: React.FC = () => {
     const userState = useSelector((state: RootState) => state.user);
-
     useEffect(() => {
         if (userState?.user) {
             console.log("Fullname:", userState.user);
@@ -67,7 +66,7 @@ const Infomation: React.FC = () => {
                         <Col className={styles.change__more} onClick={handleChangeInfo}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Giới thiệu</h4>
-                                <h3 className={styles.change__more__group__subTitle}>{'Chưa có giới thiệu'}</h3>
+                                <h3 className={styles.change__more__group__subTitle}>{userState.user.discription_user === null ? 'Chưa có giới thiệu' : userState.user.discription_user}</h3>
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>

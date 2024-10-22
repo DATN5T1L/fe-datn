@@ -28,6 +28,7 @@ const Login: React.FC = () => {
     const [isRememberLogin, setIsRememberLogin] = useState(false);
     const router = useRouter();
     const dispatch = useDispatch();
+    const url = localStorage.getItem('url')
 
     useEffect(() => {
         const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
@@ -81,8 +82,9 @@ const Login: React.FC = () => {
 
                     alert('Đăng nhập thành công');
 
-                    if (payload.role === 'admin') {
-                        router.push('/admin');
+                    if (url) {
+                        router.push(`${url}`);
+                        localStorage.removeItem('url')
                     } else {
                         router.push('/info-user');
                     }

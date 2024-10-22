@@ -1,7 +1,7 @@
 "use client";
 import useSWR from 'swr';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
@@ -42,9 +42,17 @@ interface ApiResponse<T> {
 
 const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
     const router = useRouter();
+    const token = localStorage.getItem('token')
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     const handleButtonClick = () => {
-        router.push(`/paymentCourse/${id}`);
+        if (token) {
+            router.push(`/paymentCourse/${id}`);
+        } else {
+            localStorage.setItem('url', pathname)
+            router.push('/login')
+        }
     };
     useEffect(() => {
         AOS.init({

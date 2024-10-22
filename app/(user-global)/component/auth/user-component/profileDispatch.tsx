@@ -45,7 +45,7 @@ const ProfileDispatch = () => {
             if (isRegister || isLogin || isRetrievePassword) {
                 localStorage.setItem('isLoggedIn', 'true');
                 router.push('/info-user');
-                // return;
+                return;
             }
         }
 
@@ -53,7 +53,7 @@ const ProfileDispatch = () => {
             if (isInfo || isIntro || isWallet) {
                 console.error("Token không hợp lệ hoặc không tồn tại");
                 router.push('/login');
-                // return;
+                return;
             }
         }
 
@@ -68,7 +68,7 @@ const ProfileDispatch = () => {
             localStorage.removeItem('token');
             localStorage.setItem('isLoggedIn', 'false');
             document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-            // router.push('/login');
+            router.push('/login');
             return;
         }
 
@@ -87,7 +87,6 @@ const ProfileDispatch = () => {
 
             dispatch(login(data));
             console.log(data);
-
             localStorage.setItem('isLoggedIn', 'true');
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
@@ -122,6 +121,7 @@ const ProfileDispatch = () => {
                 console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
                 dispatch(logout());
                 localStorage.removeItem('token');
+                localStorage.setItem('isLoggedIn', 'false')
                 document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
                 alert('đăng nhập lại để kiểm tra thông tin vì tính bảo mật')
                 if (isRegister) {
@@ -151,6 +151,8 @@ const ProfileDispatch = () => {
                 const newToken = event.newValue;
 
                 if (!newToken) {
+                    localStorage.setItem('isLoggedIn', 'false')
+                    localStorage.removeItem('token');
                     dispatch(logout());
                     router.push('/login');
                 } else {
@@ -162,6 +164,7 @@ const ProfileDispatch = () => {
                 const isLoggedIn = event.newValue;
 
                 if (isLoggedIn === 'false') {
+                    localStorage.removeItem('token');
                     dispatch(logout());
                     router.push('/login');
                 } else if (isLoggedIn === 'true') {
