@@ -50,11 +50,11 @@ const CourseFor: React.FC<CourseForProps> = ({ id }) => {
             <section className={styleFor.listCard}>
                 <Row className={styleFor.mainCard}>
                     {courses.map(course => (
-                        <Col md={4} className={styles.mainBox} key={course.id}>
+                        <Col md={4} className={styles.mainBox} key={course.course_id}>
                             <Card className={styles.mainBox__content}>
                                 <Card.Header className={styles.headerContent}>
                                     <section className={styles.headerContent__text}>
-                                        <Link href={`/course/${course.id}`}>
+                                        <Link href={`/course/${course.course_id}`}>
                                             <Card.Title className={styles.text__hedding2}>
                                                 {course.name_course}
                                             </Card.Title>
