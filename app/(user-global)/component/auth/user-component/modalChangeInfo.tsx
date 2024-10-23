@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import userSlice, { update } from '@/redux/slices/userSlice';
+import { update } from '@/redux/slices/userSlice';
 
 interface ModalChangeInfoProps {
     show: boolean;
