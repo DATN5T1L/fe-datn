@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Button from '../globalControl/btnComponent';
 import styles from "@public/styles/globalControl/NoteCourse.module.css";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import CKEditorComponent from "../globalControl/ckedditor";
 
 interface NoteCourseProps {
-    id: string;
+    id: number;
     time: string;
     onClose: () => void; // Thêm prop để đóng popup từ bên ngoài
 }
@@ -58,7 +57,10 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, time, onClose }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-
+    const handleSubmit = (data: string) => {
+        console.log('Dữ liệu từ CKEditor:', data);
+        // Xử lý dữ liệu tại đây
+    };
     return (
         <div className={styles.popupNoteCourse} ref={popupRef}>
             <div className={styles.container}>
@@ -68,37 +70,7 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, time, onClose }) => {
                 </div>
 
                 <div className={styles.editorWrapper}>
-                    <CKEditor
-                        editor={ClassicEditor}
-                        data={noteContent} // Dữ liệu cho CKEditor
-                        config={{
-                            toolbar: [
-                                'heading',
-                                '|',
-                                'bold',
-                                'italic',
-                                'link',
-                                'bulletedList',
-                                'numberedList',
-                                'blockQuote',
-                                'imageUpload',
-                            ],
-                            image: {
-                                toolbar: [
-                                    'imageTextAlternative',
-                                    'imageStyle:full',
-                                    'imageStyle:side',
-                                ],
-                            },
-                        }}
-                        onChange={(event, editor) => {
-                            const data = editor.getData(); // Lấy dữ liệu từ CKEditor
-                            setNoteContent(data); // Cập nhật state noteContent
-                        }}
-                        onReady={editor => {
-                            console.log('Trình soạn thảo đã sẵn sàng!', editor);
-                        }}
-                    />
+                    <CKEditorComponent courseId={id} onClose={onClose} onSubmit={handleSubmit} />
                 </div>
 
                 <div className={styles.cta}>

@@ -2,7 +2,7 @@
 
 import VideoPlayer from "../videoPlayer"
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
 import { Nav, Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
@@ -11,14 +11,11 @@ import Image from "next/image";
 import { motion } from 'framer-motion';
 import CodeDev from "./codeDev";
 import ProgressCircle from '../course/ProgressCircle';
+import Button from "../globalControl/btnComponent";
+import Faq from "../globalControl/Faq"
+import NoteCourse from "../globalControl/NoteCourse"
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 import styles from "@public/styles/globalControl/Learning.module.css";
-import Button from "../globalControl/btnComponent";
-
-import Faq from "../globalControl/Faq"
-
-import NoteCourse from "../globalControl/NoteCourse"
-
 
 
 interface courseidProp {
@@ -179,6 +176,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
     const [tippyVisible, setTippyVisible] = useState(false);
     const [isFAQ, setFAQ] = useState(false);
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
 
     const toggleSwitch = () => {
@@ -191,6 +189,12 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
 
     const toggleNote = () => {
         setIsNote(prev => !prev);
+        const parentElement = document.querySelector('.row');
+
+        if (!isNote && parentElement) {
+            // Cuộn phần tử cha đến cuối
+            parentElement.scrollTop = parentElement.scrollHeight;
+        }
     };
 
     const toggleFaq = () => {
@@ -222,7 +226,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
                             <Image src="/img/logo.svg" alt="logo" className={stylesNav.imgBrandHeader} width={54} height={56} />
                         </Link>
                         <h4 className={stylesNav.heading}>HTML CSS PRO</h4>
-                        <ProgressCircle progress={10} />  {/* Khi nào có api truyền truyền tham số vào */}
+                        <ProgressCircle progress={10} />
                     </div>
                     <div className={stylesNav.cta}>
 
@@ -311,6 +315,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
 
                     <div className={`${styles.flexGrow} ${styles.videoContainer}`} > {/*Không động css thằng này*/}
                         <div className={`${styles.Video}`}>
+                            {/* <VideoPlayer /> */}
                             <iframe src="https://www.youtube.com/embed/tTQNbiaQ1-s?si=qFajN9dLQ_U4XpPJ" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ></iframe>
                         </div>
                         <div className={styles.body}>
@@ -359,10 +364,10 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
                                     initial={{ y: '100%' }}
                                     animate={{ y: 0 }}
                                     exit={{ y: '-100%' }}
-                                    transition={{ duration: 0.5 }}
+                                    transition={{ duration: .5 }}
                                     className={styles.noteTap}
                                 >
-                                    <NoteCourse id="adajgdhaj" time="10.00" onClose={toggleNote} />
+                                    <NoteCourse id={1} time="10.00" onClose={toggleNote} />
                                 </motion.div>
                             )}
 
