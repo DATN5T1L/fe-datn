@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2px 32px;
+    padding: 0px 32px;
 }
 
 .brandHeader {
@@ -19,8 +19,6 @@
     align-items: center;
     gap: 12px;
 }
-
-
 
 .heading {
     color: var(--text-100);
@@ -40,16 +38,7 @@
     position: relative;
     display: inline-block;
     width: 50px;
-    margin-bottom: 14px;
     cursor: pointer;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    visibility: hidden;
-
 }
 
 .slider {
@@ -63,9 +52,7 @@
     border-radius: 10px;
     border: 0.5px solid var(--gray-70);
     background: var(--gray-100);
-    box-shadow: 0px 2px 0px 0px rgba(204, 204, 204, 0.50) inset, -2px 0px 0px 0px rgba(204, 204, 204, 0.25) inset, 2px 0px 0px 0px rgba(204, 204, 204, 0.25) inset, 0px -2px 0px 0px rgba(204, 204, 204, 0.50) inset;
     transition: 0.4s ease-in-out;
-    cursor: pointer;
 }
 
 .slider svg {
@@ -74,24 +61,18 @@
     transition: transform 0.4s ease-in-out, fill 0.4s ease-in-out;
     width: 24px;
     height: 24px;
-    pointer-events: none;
     fill: var(--gray-70);
 }
 
-input:checked+.slider {
+/* Thêm các lớp CSS để xử lý trạng thái bật/tắt */
+.slider.active {
     justify-content: flex-start;
     background: var(--gray-100);
-    box-shadow: 0px 2px 0px 0px rgba(35, 125, 247, 0.50) inset, -2px 0px 0px 0px rgba(35, 125, 247, 0.25) inset, 2px 0px 0px 0px rgba(35, 125, 247, 0.25) inset, 0px -2px 0px 0px rgba(35, 125, 247, 0.50) inset;
 }
 
-input:checked+.slider svg {
+.slider.active svg {
     transform: translateX(0);
     fill: var(--blue-50);
-}
-
-input:not(:checked)+.slider svg {
-    transform: translateX(0);
-    fill: var(--gray-70);
 }
 
 .slider svg:hover {
@@ -176,6 +157,7 @@ input:not(:checked)+.slider svg {
 }
 
 .tippyBox {
+    z-index: 3;
     position: relative;
     padding: 10px;
     border-radius: 4px;
@@ -195,3 +177,5 @@ input:not(:checked)+.slider svg {
     border-bottom: 10px solid var(--blue-50);
 
 }
+
+/* codedev */
