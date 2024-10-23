@@ -190,13 +190,13 @@ const Faq: React.FC<FaqProps> = ({ courseId, onClose }) => {
                 display: activeTab === 'dschcuabai' ? 'flex' : 'none',
                 zIndex: activeTab === 'dschcuabai' ? 1 : 0
             }}>
-                <div className={styles.titleNext}>
-                    <svg onClick={() => setActiveTab('hoidap')} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <div className={styles.titleNext} onClick={() => setActiveTab('hoidap')}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M15 18L9 12L15 6" stroke="#237DF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                     <h4 className={styles.titleDs}>Danh sách câu hỏi</h4>
                 </div>
-                <h4 className={styles.title}>Danh sách câu hỏi</h4>
+                <h4 className={styles.title}>Hỏi đáp</h4>
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none" onClick={onClose}>
                     <path d="M2.85612 1.24003C2.20274 0.586656 1.14341 0.586656 0.490032 1.24003C-0.163344 1.89341 -0.163344 2.95274 0.490032 3.60612L4.88393 8.00002L0.49008 12.3939C-0.163297 13.0473 -0.163297 14.1066 0.49008 14.76C1.14346 15.4133 2.20279 15.4133 2.85617 14.76L7.25002 10.3661L11.6438 14.7599C12.2972 15.4133 13.3565 15.4133 14.0099 14.7599C14.6633 14.1065 14.6633 13.0472 14.0099 12.3938L9.61611 8.00002L14.01 3.60616C14.6633 2.95279 14.6633 1.89346 14.01 1.24008C13.3566 0.586701 12.2973 0.586701 11.6439 1.24008L7.25002 5.63393L2.85612 1.24003Z" fill="#666666" />
                 </svg>
@@ -209,7 +209,7 @@ const Faq: React.FC<FaqProps> = ({ courseId, onClose }) => {
                     <svg onClick={() => setActiveTab('hoidap')} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M15 18L9 12L15 6" stroke="#237DF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <h4 className={styles.titleDs}>Danh sác</h4>
+                    <h4 className={styles.titleDs}>Danh sách</h4>
                     <h4 className={styles.title}>Hỏi đáp</h4>
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="16" viewBox="0 0 15 16" fill="none" onClick={onClose}>
