@@ -145,6 +145,10 @@ const nextConfig = {
         source: '/api/checkEnrollment/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/check-enrollment/:path*',
       },
+      {
+        source: '/api/checkProgress/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/learning-course/:path*',
+      },
     ];
   },
   images: {
