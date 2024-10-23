@@ -61,6 +61,26 @@ const nextConfig = {
         source: '/api/resetPassword/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/reset-password/:path*',
       },
+
+      /*Change info */
+
+      {
+        source: '/api/changeDiscription/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-discription-user/:path*',
+      },
+      {
+        source: '/api/changeFullName/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-fullname-user/:path*',
+      },
+      {
+        source: '/api/changePassword/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-password-user/:path*',
+      },
+      {
+        source: '/api/changePassword/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-password-user/:path*',
+      },
+
       // Client API rewrites
       {
         source: '/api/routes/:path*',
@@ -91,7 +111,9 @@ const nextConfig = {
         source: '/hinhuser',
         destination: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8VVNFUnxlbnwwfHwwfHx8MA%3D%3D',
       },
+
       // Additional API rewrites
+
       {
         source: '/api/getNameChapterCourse/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/name-chapter-by-course/:path*',
@@ -111,6 +133,17 @@ const nextConfig = {
       {
         source: '/api/courseFor/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/progress/:path*',
+      },
+
+      // API Enrollment 
+
+      {
+        source: '/api/userRegisterCourse/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/user-register-course/:path*',
+      },
+      {
+        source: '/api/checkEnrollment/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/check-enrollment/:path*',
       },
     ];
   },

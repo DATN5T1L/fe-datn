@@ -1,16 +1,26 @@
+'use client'
+
 import { Card, Col, Container, Image, Row } from "react-bootstrap"
 import Button from "../globalControl/btnComponent"
 import styles from '@public/styles/home/CourseFree.module.css'
 import useSWR from 'swr';
 import { Course } from "@/app/(user-global)/model/course";
 import Link from "next/link";
+import { useState } from "react";
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseFree: React.FC = () => {
-    const { data, error } = useSWR<{ status: string; message: string; data: Course[] }>('/api/coursetype/free/8', fetcher, {
+
+    const [routerId, setRouterId] = useState<number|string>(8)
+
+    const { data, error } = useSWR<{ status: string; message: string; data: Course[] }>(`/api/coursetype/free/${routerId}`, fetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
     });
+
+    const handleCount = (count: number|string) => {
+        setRouterId(count)
+    }
 
     if (error) return <div>Error loading courses</div>;
     if (!data) return <div>Loading...</div>;
@@ -71,22 +81,22 @@ const CourseFree: React.FC = () => {
                     </Row>
                     <Row className={styles.nav}>
                         <Col className={styles.nav__btn__muti}>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học lộ trình FE</Button>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học lộ trình BE</Button>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} height={40}>Khóa học lộ trình Tester</Button>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40}>Khóa học lộ trình Designer</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={()=>handleCount(1)}>Khóa học lộ trình FE</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={()=>handleCount(2)}>Khóa học lộ trình BE</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} height={40} onClick={()=>handleCount(3)}>Khóa học lộ trình Tester</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40} onClick={()=>handleCount(4)}>Khóa học lộ trình Designer</Button>
                         </Col>
                         <Col className={styles.nav__btn__single}>
-                            <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Xem thêm</Button>
+                            <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40} onClick={()=>handleCount('')}>Xem thêm</Button>
                         </Col>
                     </Row>
                     <Row md={12} className={styles.main__course}>
-                        {courses.map(course => (
-                            <Col md={4} className={styles.mainBox} key={course.id}>
+                        {courses?.map(course => (
+                            <Col md={4} className={styles.mainBox} key={course.course_id}>
                                 <Card className={styles.mainBox__content}>
                                     <Card.Header className={styles.headerContent}>
                                         <section className={styles.headerContent__text}>
-                                            <Link href={`/course/${course.id}`}>
+                                            <Link href={`/course/${course.course_id}`}>
                                                 <Card.Title className={styles.text__hedding2}>
                                                     {course.name_course}
                                                 </Card.Title>

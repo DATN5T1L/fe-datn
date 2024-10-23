@@ -1,9 +1,3 @@
-.container {
-    max-width: 1440px;
-    padding: 0;
-    margin: 0;
-}
-
 .footerContainer {
     background: var(--gray-00);
     width: 100%;
@@ -14,6 +8,12 @@
     gap: 32px;
     color: var(--text-0);
 
+}
+
+.container {
+    max-width: 1440px;
+    padding: 0;
+    margin: 0;
 }
 
 .footerContent {

@@ -3,6 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@public/styles/user-component/ModalChangeInfo.module.css';
 import { Button, Form, Image } from 'react-bootstrap';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import userSlice, { update } from '@/redux/slices/userSlice';
 
 interface ModalChangeInfoProps {
     show: boolean;
@@ -10,18 +15,21 @@ interface ModalChangeInfoProps {
 }
 
 const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
+    const userState = useSelector((state: RootState) => state.user);
     const [isVisible, setIsVisible] = useState(false);
-    const [info, setInfo] = useState('Tôi lớn lên tại Tiền Giang');
-    const [validated, setValidated] = useState(false);
+    const token = localStorage.getItem('token');
+    const dispatch = useDispatch()
 
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (show) {
             setIsVisible(true);
+            document.body.style.overflow = 'hidden';
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
-                setValidated(false);
+                document.body.style.overflow = 'auto';
             }, 300);
             return () => {
                 clearTimeout(timer);
@@ -29,27 +37,57 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
         }
     }, [show]);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const form = event.currentTarget;
+    const formik = useFormik({
+        initialValues: {
+            discriptionUser: userState.user?.discription_user || '', // Đặt giá trị mặc định từ state
+        },
+        validationSchema: Yup.object({
+            discriptionUser: Yup.string()
+                .required('Bắt buộc nhập thông tin giới thiệu')
+                .min(3, 'Tối thiểu 3 ký tự')
+                .max(150, 'Tối đa 150 ký tự')
+        }),
+        onSubmit: async (values) => {
+            setLoading(true);
+            try {
+                const res = await fetch('/api/changeDiscription/', {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ discription_user: values.discriptionUser })
+                });
 
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-        } else {
-            console.log('Thông tin đã được cập nhật:', info);
+                if (res.ok) {
+                    alert('Thay đổi thông tin thành công');
+                    onClose();
+                    dispatch(update({
+                        discription_user: values.discriptionUser
+                    }))
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         }
+    });
 
-        setValidated(true);
-    };
+    useEffect(() => {
+        if (userState.user?.discription_user !== formik.values.discriptionUser) {
+            formik.setFieldValue('discriptionUser', userState.user?.discription_user || '');
+        }
+    }, [userState.user?.discription_user]);
 
     return (
         <main className={`${styles.modalOverlay} ${show ? styles.show : styles.hide}`} onClick={onClose}>
             {isVisible && (
                 <section className={`${styles.modal} ${show ? styles.show : styles.hide}`} onClick={(e) => e.stopPropagation()}>
                     <Button className={styles.closeBtn} onClick={onClose}>
-                        <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
+                        <Image src="/img/closeBtn.svg" alt="Close" className={styles.closeBtn__img} />
                     </Button>
-                    <Form className={styles.formChangeInfo} noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form className={styles.formChangeInfo} noValidate validated={formik.touched.discriptionUser && !formik.errors.discriptionUser} onSubmit={formik.handleSubmit}>
                         <fieldset className={styles.modalBody}>
                             <legend className={styles.modalBody__title}>Cập nhật thông tin giới thiệu</legend>
                             <legend className={styles.modalBody__subTitle}>
@@ -58,7 +96,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
                             </legend>
                         </fieldset>
                         <Form.Group className={styles.formControlChangeInfo} controlId="validationUserName">
-                            <Form.Label htmlFor="userInfo" className={styles.formControlChangeInfo__label}>
+                            <Form.Label className={styles.formControlChangeInfo__label}>
                                 Giới thiệu
                             </Form.Label>
                             <Form.Control
@@ -66,15 +104,17 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
                                 required
                                 placeholder="Nhập nội dung"
                                 className={styles.formControlChangeInfo__input}
-                                value={info}
-                                onChange={(e) => setInfo(e.target.value)}
+                                value={formik.values.discriptionUser}
+                                onChange={(e) => formik.setFieldValue('discriptionUser', e.target.value)}
+                                onBlur={formik.handleBlur}
+                                isInvalid={!!formik.errors.discriptionUser && formik.touched.discriptionUser}
                             />
                             <Form.Control.Feedback type="invalid" className={styles.feedBack}>
-                                Hãy nhập nội dung bất kỳ
+                                {formik.errors.discriptionUser}
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Button className={styles.closeBtn2} type="submit">
-                            Lưu lại
+                        <Button className={styles.closeBtn2} type="submit" disabled={loading}>
+                            {loading ? 'Đang xử lý...' : 'Lưu lại'}
                         </Button>
                     </Form>
                 </section>

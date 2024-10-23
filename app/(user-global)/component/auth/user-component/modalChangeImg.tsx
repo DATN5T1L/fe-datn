@@ -3,6 +3,10 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from '@public/styles/user-component/ModalChangeImg.module.css';
 import { Button, Form, Image } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 interface ModalChangeImgProps {
     show: boolean;
@@ -10,19 +14,26 @@ interface ModalChangeImgProps {
 }
 
 const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
+    const userState = useSelector((state: RootState) => state.user);
     const [isVisible, setIsVisible] = useState(false);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
-    const [validated, setValidated] = useState(false);
+    const token = localStorage.getItem('token');
+
+    // Validation schema với Yup
+    const validationSchema = Yup.object({
+
+    });
 
     // Reset trạng thái khi đóng modal
     useEffect(() => {
         if (show) {
             setIsVisible(true);
+            document.body.style.overflow = 'hidden';
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
                 setSelectedFile(null);
-                setValidated(false);
+                document.body.style.overflow = 'auto';
             }, 300);
             return () => {
                 clearTimeout(timer);
@@ -30,24 +41,33 @@ const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
         }
     }, [show]);
 
-    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, setFieldValue: any) => {
         const file = event.target.files?.[0];
         if (file) {
             setSelectedFile(URL.createObjectURL(file));
+            setFieldValue('img', file);
         }
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
+    const handleSubmit = (values: { img: string }) => {
+        if (!values.img) {
+            alert('giữ bạn ko chọn ảnh mới sẽ giữ lại ảnh cũ')
         } else {
-            // Logic lưu ảnh đại diện
-            console.log('Ảnh đã được cập nhật');
-        }
+            try {
+                const res = fetch('', {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                })
+            } catch (error) {
 
-        setValidated(true);
+            }
+            console.log('Ảnh đã được cập nhật', values.img);
+        }
+        setIsVisible(false)
+        onClose()
     };
 
     return (
@@ -57,47 +77,52 @@ const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
                     <Button className={styles.closeBtn} onClick={onClose}>
                         <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
                     </Button>
-                    <Form className={styles.formChangeImg} noValidate validated={validated} onSubmit={handleSubmit}>
-                        <fieldset className={styles.modalBody}>
-                            <legend className={styles.modalBody__title}>Thay đổi ảnh đại diện</legend>
-                            <legend className={styles.modalBody__subTitle}>
-                                Ảnh đại diện giúp giảng viên và người dùng dễ nhận biết bạn qua các tin nhắn và câu hỏi
-                            </legend>
-                        </fieldset>
-                        <Form.Group className={styles.formControlChangeImg} controlId="img">
-                            <Form.Label htmlFor="img" className={styles.formControlChangeImg__label}>
-                                Ảnh đại diện
-                            </Form.Label>
-                            <Form.Control
-                                id="img"
-                                type="file"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                                className={styles.hiddenInput}
-                                required
-                            />
-                            <Form.Control.Feedback type="invalid" className={styles.feedBack}>
-                                Hãy chọn ảnh
-                            </Form.Control.Feedback>
-                            <section className={styles.inputGroup}>
-                                <section
-                                    className={styles.uploadButtonContainer}
-                                    onClick={() => document.getElementById('img')?.click()}
-                                >
-                                    <Image src="/img/upload.svg" alt="" className={styles.iconContainer} />
-                                    <p className={styles.uploadButton__title}>Tải ảnh lên</p>
-                                </section>
-                                <Image
-                                    src={selectedFile ? selectedFile : '/img/avtDefault.jpg'}
-                                    alt="Avatar"
-                                    className={styles.img__index}
-                                />
-                            </section>
-                        </Form.Group>
-                        <Button className={styles.closeBtn2} type="submit">
-                            Lưu lại
-                        </Button>
-                    </Form>
+                    <Formik
+                        initialValues={{ img: '' }}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {({ setFieldValue }) => (
+                            <FormikForm className={styles.formChangeImg} noValidate>
+                                <fieldset className={styles.modalBody}>
+                                    <legend className={styles.modalBody__title}>Thay đổi ảnh đại diện</legend>
+                                    <legend className={styles.modalBody__subTitle}>
+                                        Ảnh đại diện giúp giảng viên và người dùng dễ nhận biết bạn qua các tin nhắn và câu hỏi
+                                    </legend>
+                                </fieldset>
+                                <Form.Group className={styles.formControlChangeImg} controlId="img">
+                                    <Form.Label className={styles.formControlChangeImg__label}>
+                                        Ảnh đại diện
+                                    </Form.Label>
+                                    <input
+                                        id="img"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(event) => handleFileChange(event, setFieldValue)}
+                                        className={styles.hiddenInput}
+                                    />
+                                    <ErrorMessage name="img" component="div" className={styles.feedBack} />
+                                    <section className={styles.inputGroup}>
+                                        <section
+                                            className={styles.uploadButtonContainer}
+                                            onClick={() => document.getElementById('img')?.click()}
+                                        >
+                                            <Image src="/img/upload.svg" alt="" className={styles.iconContainer} />
+                                            <p className={styles.uploadButton__title}>Tải ảnh lên</p>
+                                        </section>
+                                        <Image
+                                            src={selectedFile || userState.user?.avatar || "/img/avtDefault.jpg"}
+                                            alt="Avatar"
+                                            className={styles.img__index}
+                                        />
+                                    </section>
+                                </Form.Group>
+                                <Button className={styles.closeBtn2} type="submit">
+                                    Lưu lại
+                                </Button>
+                            </FormikForm>
+                        )}
+                    </Formik>
                 </section>
             )}
         </main>

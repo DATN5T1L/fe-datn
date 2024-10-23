@@ -28,12 +28,16 @@ const Login: React.FC = () => {
     const [isRememberLogin, setIsRememberLogin] = useState(false);
     const router = useRouter();
     const dispatch = useDispatch();
+    const url = typeof window !== 'undefined' ? localStorage.getItem('url') : null;
 
     useEffect(() => {
-        const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
-        const tokenValue = token?.split('=')[1];
-        if (tokenValue) {
-            router.push(`/info-user`)
+        if (typeof window !== 'undefined') {
+            const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
+            const tokenValue = token?.split('=')[1];
+
+            if (tokenValue) {
+                router.push(`/info-user`)
+            }
         }
     }, []);
 
@@ -71,18 +75,20 @@ const Login: React.FC = () => {
 
                 if (token && token.split('.').length === 3) {
                     console.log("Token:", token);
-                    document.cookie = `token=${token}; path=/; max-age=${0.5 * 60}`;
-                    const payload = JSON.parse(atob(token.split('.')[1]));
-                    dispatch(login(data));
-
+                    if (typeof window !== 'undefined') {
+                        document.cookie = `token=${token}; path=/; max-age=${0.5 * 60}`;
+                        const payload = JSON.parse(atob(token.split('.')[1]));
+                        dispatch(login(data));
+                    }
                     console.log("State after login: ", store.getState().user);
                     const loginEvent = new CustomEvent('login', { detail: { token: data.access_token } });
                     window.dispatchEvent(loginEvent);
 
                     alert('Đăng nhập thành công');
 
-                    if (payload.role === 'admin') {
-                        router.push('/admin');
+                    if (url) {
+                        router.push(`${url}`);
+                        localStorage.removeItem('url')
                     } else {
                         router.push('/info-user');
                     }

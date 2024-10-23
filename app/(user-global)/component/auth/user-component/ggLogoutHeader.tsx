@@ -24,22 +24,24 @@ const GgLogoutHeader = () => {
             console.error("Token not found");
             return;
         }
+
         try {
+            if (confirm('Bạn có muốn đăng xuất không !!!')) {
+                const res = await fetch('/api/logout/', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
-            const res = await fetch('/api/logout/', {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`
+                if (res.ok) {
+                    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                    localStorage.removeItem('token');
+                    dispatch(logout());
+                    router.push("/home");
+                } else {
+                    console.error("Failed to log out:", res.status);
                 }
-            });
-
-            if (res.ok) {
-                document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-                localStorage.removeItem('token');
-                dispatch(logout());
-                router.push("/home");
-            } else {
-                console.error("Failed to log out:", res.status);
             }
         } catch (error) {
             console.error("Logout error:", error);

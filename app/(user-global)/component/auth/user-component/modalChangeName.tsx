@@ -3,6 +3,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from '@public/styles/user-component/ModalChangeName.module.css';
 import { Button, Form, Image } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
+import { update } from '@/redux/slices/userSlice';
 
 interface ModalChangeNameProps {
     show: boolean;
@@ -11,17 +16,20 @@ interface ModalChangeNameProps {
 
 const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
-    const [value, setValue] = useState('Con Văn Người');
-    const [validated, setValidated] = useState(false);
+    const userState = useSelector((state: RootState) => state.user);
+    const token = localStorage.getItem('token');
+    const dispatch = useDispatch()
 
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (show) {
             setIsVisible(true);
+            document.body.style.overflow = 'hidden';
         } else {
             const timer = setTimeout(() => {
                 setIsVisible(false);
-                setValidated(false);
+                document.body.style.overflow = 'auto';
             }, 300);
             return () => {
                 clearTimeout(timer);
@@ -29,19 +37,56 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
         }
     }, [show]);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const form = event.currentTarget;
+    const formik = useFormik({
+        initialValues: {
+            fullName: userState.user?.fullname || '',
+        },
+        validationSchema: Yup.object({
+            fullName: Yup.string()
+                .required('Bắt buộc nhập thông tin giới thiệu')
+                .min(3, 'Tối thiểu 3 ký tự')
+                .max(150, 'Tối đa 150 ký tự')
+                .test('capitalize', 'Chữ cái đầu tiên của mỗi từ phải viết hoa', (value) => {
+                    if (!value) return true;
+                    return value
+                        .split(' ')
+                        .every(word => /^[\p{Lu}]/u.test(word.charAt(0))); 
+                })
+                .transform((value) => value.trim())
+                .matches(/^[\p{L}\s]+$/u, 'Chỉ cho phép chữ cái và khoảng trắng.'),
+        }),
+        onSubmit: async (values) => {
+            setLoading(true);
+            try {
+                const res = await fetch('/api/changeFullName/', {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ fullname: values.fullName })
+                });
 
-        if (form.checkValidity() === false) {
-            event.stopPropagation();
-        } else {
-
-            console.log('Tên người dùng đã được cập nhật:', value);
+                if (res.ok) {
+                    alert('Thay đổi thông tin thành công');
+                    onClose();
+                    dispatch(update({
+                        fullname: values.fullName
+                    }))
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
         }
+    });
 
-        setValidated(true);
-    };
+    useEffect(() => {
+        if (userState.user?.fullname !== formik.values.fullName) {
+            formik.setFieldValue('fullName', userState.user?.fullname || '');
+        }
+    }, [userState.user?.fullname]);
 
     return (
         <main className={`${styles.modalOverlay} ${show ? styles.show : styles.hide}`} onClick={onClose}>
@@ -50,7 +95,7 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                     <Button className={styles.closeBtn} onClick={onClose}>
                         <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
                     </Button>
-                    <Form className={styles.formChangeName} noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form className={styles.formChangeName} noValidate validated={formik.touched.fullName && !formik.errors.fullName} onSubmit={formik.handleSubmit}>
                         <fieldset className={styles.modalBody}>
                             <legend className={styles.modalBody__title}>Cập nhật tên của bạn</legend>
                             <legend className={styles.modalBody__subTitle}>
@@ -66,16 +111,18 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                                 type="text"
                                 required
                                 placeholder="Nhập họ và tên"
-                                className={styles.formControlChangeName__input}
-                                value={value}
-                                onChange={(e) => setValue(e.target.value)}
+                                className={styles.formControlChangeInfo__input}
+                                value={formik.values.fullName}
+                                onChange={(e) => formik.setFieldValue('fullName', e.target.value)}
+                                onBlur={formik.handleBlur}
+                                isInvalid={!!formik.errors.fullName && formik.touched.fullName}
                             />
                             <Form.Control.Feedback type="invalid" className={styles.feedBack}>
-                                Hãy nhập họ và tên
+                                {formik.errors.fullName}
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Button className={styles.closeBtn2} type="submit">
-                            Lưu lại
+                        <Button className={styles.closeBtn2} type="submit" disabled={loading}>
+                            {loading ? 'Đang xử lý...' : 'Lưu lại'}
                         </Button>
                     </Form>
                 </section>

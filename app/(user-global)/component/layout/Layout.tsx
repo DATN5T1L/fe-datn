@@ -27,11 +27,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         isNoHeaderPage ? <HeaderCourseDetail /> : <Header />
                     )}
                     <GlobalComponents />
-                    {children}
-                    {!isLearningCoursePage && (
-                        isNoHeaderPage ? <FooterBlack /> : <Footer />
-                    )}
-
+                    <div className='main-global'>
+                        {children}
+                    </div>
+                    <Footer></Footer>
                 </SessionProvider>
             </ReduxRender>
         </div>
