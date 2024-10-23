@@ -19,6 +19,7 @@ import styles from "@public/styles/globalControl/Learning.module.css";
 
 
 interface courseidProp {
+    user_id: number;
     courseId: number;
 }
 interface ListItem {
@@ -167,7 +168,7 @@ const listData: ListItem[] = [
         ],
     },
 ];
-const Learning: React.FC<courseidProp> = ({ courseId }) => {
+const Learning: React.FC<courseidProp> = ({ courseId, user_id }) => {
     const { handleLogout } = useLogout();
     const [visible, setVisible] = useState(false);
     const [isNote, setIsNote] = useState(false);
@@ -177,7 +178,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
     const [isFAQ, setFAQ] = useState(false);
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
     const containerRef = useRef<HTMLDivElement | null>(null);
-
+    console.log("user", user_id, "course", courseId)
 
     const toggleSwitch = () => {
         setIsActive(!isActive);

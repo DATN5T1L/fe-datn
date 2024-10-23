@@ -12,22 +12,33 @@ interface CourseForProps {
     id: number;
 }
 interface CourseCardProps extends Course {
-    progress: number;
+    progress_percentage: number;
 }
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseFor: React.FC<CourseForProps> = ({ id }) => {
-    const { data, error } = useSWR<{ status: string; message: string; data: CourseCardProps[] }>(`/api/courseFor/${id}`, fetcher, {
+    const { data, error } = useSWR<{ status: string; message: string; courses: { user_id: string; data: CourseCardProps[] } }>(`/api/courseFor/${id}`, fetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
     });
 
+    console.log(data, "data");
+
     if (error) return <div>Error loading courses</div>;
     if (!data) return <div>Loading...</div>;
 
-    const courses = Array.isArray(data.data) ? data.data : [];
+    const courses = Array.isArray(data?.courses?.data) ? data.courses.data : [];
+    const progressList = courses.map((course) => ({
+        course_id: course.course_id,
+        progress_percentage: course.progress_percentage,
+    }));
 
-    console.log(courses);
+
+    localStorage.setItem('progress_percentages', JSON.stringify(progressList));
+
+
+    console.log(progressList, "progress percentages");
+    console.log(courses, "courses");
 
 
     return (
@@ -68,24 +79,28 @@ const CourseFor: React.FC<CourseForProps> = ({ id }) => {
                                 </Card.Header>
                                 <Card.Body className={styles.mainContent}>
                                     <section className={styles.mainContent__headContent}>
-                                        <div className={styles.headContent__evaluete}>
-                                            <div className={styles.evaluete__main}>
-                                                <div className={styles.starGroup}>
-                                                    {/* Star rating */}
-                                                    {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                                        <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                                    ))}
+                                        <div className={styleFor.topHeader}>
+                                            <div className={`${styles.headContent__evaluete} ${styleFor.headContent__evalueteFor}`}>
+                                                <div className={styles.evaluete__main}>
+                                                    <div className={styles.starGroup}>
+                                                        {/* Star rating */}
+                                                        {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
+                                                            <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
+                                                        ))}
+
+                                                    </div>
+                                                    <Card.Text className={styles.starNumber}>
+                                                        {'('} {course.rating_course} {')'}
+                                                    </Card.Text>
                                                 </div>
-                                                <Card.Text className={styles.starNumber}>
-                                                    {'('} {course.rating_course} {')'}
-                                                </Card.Text>
+                                                <div className={styles.headContent__percent}>
+                                                    <Card.Text className={styles.evaluete__note}>
+                                                        {'('} {course.views_course} phản hồi {')'}
+                                                    </Card.Text>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className={styles.headContent__percent}>
-                                            <Card.Text className={styles.evaluete__note}>
-                                                {'('} {course.views_course} phản hồi {')'}
-                                            </Card.Text>
-                                        </div>
+                                        <ProgressCircle progress={course.progress_percentage} />
                                     </section>
                                     <section className={styles.bodyContent}>
 

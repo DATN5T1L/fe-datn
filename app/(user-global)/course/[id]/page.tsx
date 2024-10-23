@@ -108,7 +108,7 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
 
     const handleStudy = () => {
         alert('Học bài thật vui')
-        router.push('/learningCourse')
+        router.push(`/learningCourse/${id}`)
     }
 
     const handleButtonClick = () => {
