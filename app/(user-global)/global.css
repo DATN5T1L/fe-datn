@@ -923,6 +923,11 @@
 
   }
 
+  .main-global {
+    width: 100%;
+    min-height: 100vh;
+  }
+
   /* left slider bar start */
 
   .slider-bar {
@@ -1339,7 +1344,7 @@
     color: var(--text-100);
   }
 
-  .list-unstyled-li:hover{
+  .list-unstyled-li:hover {
     color: var(--blue-50);
   }
 

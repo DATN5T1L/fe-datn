@@ -27,7 +27,7 @@ const LeftSlider: React.FC = () => {
                     };
 
                     const observer = new ResizeObserver(setHeight);
-                    observer.observe(header);
+                    observer.observe(header);   
                     setHeight();
 
                     const handleScroll = () => {
@@ -43,6 +43,8 @@ const LeftSlider: React.FC = () => {
 
                     window.addEventListener('scroll', handleScroll);
 
+                    handleScroll();
+
                     return () => {
                         window.removeEventListener('scroll', handleScroll);
                         observer.unobserve(header);
@@ -50,12 +52,11 @@ const LeftSlider: React.FC = () => {
                 }
             };
 
-            // Đợi một chút sau khi DOM đã sẵn sàng
             const timeout = setTimeout(checkElementsAndSetHeight, 100);
 
             return () => clearTimeout(timeout);
         }
-    }, [headerHeight]);
+    }, [headerHeight, pathName]);
 
     const openMenu = () => {
         setIsMenu(!isMenu);

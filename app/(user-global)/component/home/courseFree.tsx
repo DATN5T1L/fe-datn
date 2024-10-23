@@ -11,14 +11,14 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseFree: React.FC = () => {
 
-    const [routerId, setRouterId] = useState(8)
+    const [routerId, setRouterId] = useState<number|string>(8)
 
     const { data, error } = useSWR<{ status: string; message: string; data: Course[] }>(`/api/coursetype/free/${routerId}`, fetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
     });
 
-    const handleCount = (count: number) => {
+    const handleCount = (count: number|string) => {
         setRouterId(count)
     }
 
@@ -87,7 +87,7 @@ const CourseFree: React.FC = () => {
                             <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40} onClick={()=>handleCount(4)}>Khóa học lộ trình Designer</Button>
                         </Col>
                         <Col className={styles.nav__btn__single}>
-                            <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Xem thêm</Button>
+                            <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40} onClick={()=>handleCount('')}>Xem thêm</Button>
                         </Col>
                     </Row>
                     <Row md={12} className={styles.main__course}>
