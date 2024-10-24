@@ -2,7 +2,7 @@
 
 import VideoPlayer from "../videoPlayer"
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
 import { Nav, Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
@@ -178,6 +178,9 @@ const Learning: React.FC<courseidProp> = ({ courseId, user_id }) => {
     const [isFAQ, setFAQ] = useState(false);
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
     const containerRef = useRef<HTMLDivElement | null>(null);
+    const [data, setData] = useState(null);
+
+
     console.log("user", user_id, "course", courseId)
 
     const toggleSwitch = () => {
@@ -215,6 +218,20 @@ const Learning: React.FC<courseidProp> = ({ courseId, user_id }) => {
             setOpenIndexes([...openIndexes, index]);
         }
     };
+    // Lấy dữ liệu từ localStorage
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('progress_percentages');
+        if (storedData) {
+            const parsedData = JSON.parse(storedData);
+            const filteredData = Array.isArray(parsedData)
+                ? parsedData.find(course => course.course_id === courseId) // Chuyển đổi courseId sang số
+                : null;
+
+            console.log('Filtered Data:', filteredData); // Log dữ liệu đã lọc
+            setData(filteredData);
+        }
+    }, []);
 
 
 

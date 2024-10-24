@@ -3,10 +3,10 @@ import Button from "../globalControl/btnComponent";
 import styles from '@public/styles/home/CoursePro.module.css';
 import styleFor from "@public/styles/course/coursefor.module.css";
 import useSWR from "swr";
-import CourseCard from "./CardCourse";
 import { Course } from "@app/(user-global)/model/course"
 import Link from "next/link";
 import ProgressCircle from './ProgressCircle';
+
 
 interface CourseForProps {
     id: number;
@@ -17,29 +17,23 @@ interface CourseCardProps extends Course {
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseFor: React.FC<CourseForProps> = ({ id }) => {
-    const { data, error } = useSWR<{ status: string; message: string; courses: { user_id: string; data: CourseCardProps[] } }>(`/api/courseFor/${id}`, fetcher, {
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-    });
 
-    console.log(data, "data");
+    const { data, error } = useSWR<{ status: string; message: string; courses: { user_id: string; data: CourseCardProps[] } }>(`/api/courseFor/${id}`, fetcher, {
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false,
+    });
 
     if (error) return <div>Error loading courses</div>;
     if (!data) return <div>Loading...</div>;
 
     const courses = Array.isArray(data?.courses?.data) ? data.courses.data : [];
+
     const progressList = courses.map((course) => ({
         course_id: course.course_id,
         progress_percentage: course.progress_percentage,
     }));
 
-
     localStorage.setItem('progress_percentages', JSON.stringify(progressList));
-
-
-    console.log(progressList, "progress percentages");
-    console.log(courses, "courses");
-
 
     return (
 
@@ -113,8 +107,10 @@ const CourseFor: React.FC<CourseForProps> = ({ id }) => {
                                             <Card.Text className={styles.element__text}>{course.documents_count} Bài tập</Card.Text>
                                         </div>
                                         <div className={styles.bodyContent__element}>
-                                            <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                            <Card.Text className={styles.element__text}>Học ngay</Card.Text>
+                                            <Link href={`/learningCourse/${id}`} className={styleFor.linkCta}>
+                                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                                <Card.Text className={styles.element__text}>Học ngay</Card.Text>
+                                            </Link>
                                         </div>
                                     </section>
 
