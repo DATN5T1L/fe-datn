@@ -35,12 +35,12 @@ import 'ckeditor5/ckeditor5.css';
 import styles from '@public/styles/globalControl/Cked.module.css';
 
 interface FaqProps {
-    courseId: number;
+    course_Id: number;
     onClose: () => void;
     onSubmit: (data: string) => void; // Callback để gửi dữ liệu ra ngoài
 }
 
-const CKEditorComponent: React.FC<FaqProps> = ({ courseId, onClose, onSubmit }) => {
+const CKEditorComponent: React.FC<FaqProps> = ({ course_Id, onClose, onSubmit }) => {
     const editorContainerRef = useRef(null);
     const editorRef = useRef(null);
     const [isLayoutReady, setIsLayoutReady] = useState(false);

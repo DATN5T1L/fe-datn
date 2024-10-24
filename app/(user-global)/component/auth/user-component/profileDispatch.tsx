@@ -30,7 +30,7 @@ const ProfileDispatch = () => {
             const payload = JSON.parse(atob(token.split('.')[1]));
             const expiration = payload.exp;
 
-            console.log('Token exp:', expiration, 'Current time:', Math.floor(Date.now() / 1000));
+            // console.log('Token exp:', expiration, 'Current time:', Math.floor(Date.now() / 1000));
 
             return expiration < Math.floor(Date.now() / 1000);
         } catch (error) {

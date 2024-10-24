@@ -2,6 +2,8 @@
 
 import VideoPlayer from "../videoPlayer"
 
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 import { useState, useRef, useEffect } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
 import { Nav, Navbar } from "react-bootstrap";
@@ -19,17 +21,13 @@ import styles from "@public/styles/globalControl/Learning.module.css";
 
 
 interface courseidProp {
-    user_id: number;
     courseId: number;
 }
 interface ListItem {
     title: string;
     content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
 }
-interface NavCourseProps {
-    userId: number;
-    courseId: number;
-}
+
 const listData: ListItem[] = [
     {
         title: 'Bắt đầu',
@@ -168,7 +166,9 @@ const listData: ListItem[] = [
         ],
     },
 ];
-const Learning: React.FC<courseidProp> = ({ courseId, user_id }) => {
+const Learning: React.FC<courseidProp> = ({ courseId }) => {
+    const userState = useSelector((state: RootState) => state.user);
+    console.log(userState?.user?.id)
     const { handleLogout } = useLogout();
     const [visible, setVisible] = useState(false);
     const [isNote, setIsNote] = useState(false);
@@ -179,6 +179,8 @@ const Learning: React.FC<courseidProp> = ({ courseId, user_id }) => {
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [data, setData] = useState(null);
+
+    const user_id = userState?.user?.id;
 
 
     console.log("user", user_id, "course", courseId)
