@@ -1,4 +1,4 @@
-@import url('../root.css');
+
 
 .container {
     margin: 0;
@@ -82,11 +82,12 @@
     height: auto;
     display: flex;
     flex-direction: row;
-    font-size: 24px;
+    font-size: 34px;
     font-style: normal;
     font-weight: 600;
-    line-height: 32px;
-    letter-spacing: -0.48px;
+    line-height: 42px;
+    letter-spacing: -0.68px;
+    color: var(--text-100);
 }
 
 .left__body__card__subTitle {

@@ -1,6 +1,6 @@
-@import url('../root.css');
 
-.body{
+
+.body {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -22,7 +22,7 @@
     position: relative;
 }
 
-.imgBg{
+.imgBg {
     width: 100%;
     max-width: 100%;
     position: absolute;
@@ -42,8 +42,8 @@
 }
 
 .header__content__left {
-    width: 347px;
-    max-width: 347px;
+    width: 442px;
+    max-width: 442px;
     position: relative;
     display: flex;
     padding: 0;
@@ -54,16 +54,16 @@
     position: absolute;
     width: 93px;
     height: 76px;
-    left: -63px;
-    bottom: 0;
+    left: -67px;
+    top: -9px;
 }
 
 .header__content__rightIcon {
     position: absolute;
     width: 56px;
     height: 46px;
-    right: -56px;
-    bottom: -2px;
+    right: -16px;
+    bottom: 18px;
 }
 
 
@@ -113,11 +113,12 @@
 }
 
 .main__title__content {
-    font-size: 34px;
+    font-size: 48px;
     font-style: normal;
     font-weight: 600;
-    line-height: 42px;
-    letter-spacing: -0.68px;
+    line-height: 56px;
+    letter-spacing: -0.96px;
+    color: var(--text-100);
     margin: 0;
 }
 
@@ -130,7 +131,7 @@
     margin: 0;
 }
 
-.header__content__right{
+.header__content__right {
     width: 650px;
     max-width: 650px;
     margin: 0;
@@ -333,7 +334,7 @@
     font-weight: 400;
     line-height: 16px;
     text-align: center;
-    color: rgba(153, 153, 153, 1);
+    color: var(--text-25);
 }
 
 .evaluete__note {
@@ -343,7 +344,7 @@
     font-weight: 400;
     line-height: 16px;
     text-align: start;
-    color: rgba(153, 153, 153, 1);
+    color: var(--text-25);
 }
 
 .headContent__percent {
@@ -403,7 +404,7 @@
     border: 2px solid rgba(219, 219, 219, 1);
     font-size: 8px;
     font-weight: 400;
-    color: rgba(153, 153, 153, 1);
+    color: var(--text-25);
 }
 
 .percent__name {
