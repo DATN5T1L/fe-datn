@@ -1,7 +1,13 @@
+.main {
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     display: flex;
     height: calc(100vh - 72px);
-    flex-direction: column;
+    flex-direction: row;
     padding-bottom: 4px;
     overflow-x: hidden;
 }
@@ -231,6 +237,12 @@
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 4px;
+    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--line-clamp, 1);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 80%;
 }
 
 .listItem__contentCount {
@@ -249,6 +261,15 @@
     display: inline;
 }
 
+.listItem__docName {
+    display: inline-block;
+    width: 60%;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--line-clamp, 1);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .rotated {
     rotate: 180deg;
 }
@@ -259,35 +280,32 @@
 }
 
 .listItem__doc {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 12px;
+    padding: 8px 12px;
 
     &:hover {
         background-color: var(--blue-95);
     }
 }
 
-.listItemDoc {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 8px 0px;
-}
-
 .listItem__docTitle {
-    width: 100%;
     display: flex;
-    align-items: start;
-    flex-direction: column;
+    align-items: center;
     gap: 4px;
 }
 
-.listItem__docIndex {
-    margin-bottom: 4px;
+.doc_title {
+    display: flex;
+    gap: 12px;
 }
 
+.listItem__iconSuccess {
+    width: 12px;
+    height: 12px;
+}
 
 .devBox {
     width: 100%;
@@ -323,5 +341,4 @@
     display: flex;
     flex-direction: column;
     position: relative;
-
 }

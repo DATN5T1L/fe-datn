@@ -34,10 +34,6 @@
   font-size: 100px;
 }
 
-.mainVideo {
-  width: 100%;
-  height: auto;
-}
 
 .trackVideo {
   margin-bottom: 200px;
@@ -51,6 +47,13 @@
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
   padding: 50px;
 }  */
+
+
+ .mainVideo {
+   width: 80%;
+   height: 80vh;
+ }
+
  .ctaVideo {
    position: absolute;
    width: 100%;
