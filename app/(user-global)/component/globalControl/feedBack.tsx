@@ -34,7 +34,7 @@ const FeedBack: React.FC = () => {
                         <section className={styles.gap1}>
                             <section className={styles.gap2}>
                                 <Form.Group className={styles.formControlRegister} controlId="validationUserName">
-                                    <Form.Label htmlFor="userName" className={styles.formControlRegister__label}>
+                                    <Form.Label className={styles.formControlRegister__label}>
                                         Tên của bạn là gì?
                                     </Form.Label>
                                     <Form.Control
@@ -49,7 +49,7 @@ const FeedBack: React.FC = () => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group className={styles.formControlRegister} controlId="validationEmail">
-                                    <Form.Label htmlFor="email" className={styles.formControlRegister__label}>
+                                    <Form.Label className={styles.formControlRegister__label}>
                                         Email của bạn?
                                     </Form.Label>
                                     <Form.Control
@@ -64,7 +64,7 @@ const FeedBack: React.FC = () => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group className={styles.formControlRegister} controlId="validationQuest">
-                                    <Form.Label htmlFor="quest" className={styles.formControlRegister__label}>
+                                    <Form.Label className={styles.formControlRegister__label}>
                                         Nhập câu hỏi của bạn?
                                     </Form.Label>
                                     <Form.Control

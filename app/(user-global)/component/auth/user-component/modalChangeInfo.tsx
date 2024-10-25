@@ -39,7 +39,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
 
     const formik = useFormik({
         initialValues: {
-            discriptionUser: userState.user?.discription_user || '', // Đặt giá trị mặc định từ state
+            discriptionUser: userState.user?.discription_user || '', 
         },
         validationSchema: Yup.object({
             discriptionUser: Yup.string()

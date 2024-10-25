@@ -66,6 +66,7 @@ const ProfileDispatch = () => {
             console.error("Token đã hết hạn");
             dispatch(logout());
             localStorage.removeItem('token');
+            localStorage.removeItem('progress_percentages')
             localStorage.setItem('isLoggedIn', 'false');
             document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
             router.push('/login');
@@ -95,6 +96,7 @@ const ProfileDispatch = () => {
             console.error("Lỗi khi lấy thông tin người dùng:", error);
             dispatch(logout());
             localStorage.removeItem('token');
+            localStorage.removeItem('progress_percentages')
             localStorage.setItem('isLoggedIn', 'false');
             router.push('/login');
         }
@@ -121,6 +123,7 @@ const ProfileDispatch = () => {
                 console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
                 dispatch(logout());
                 localStorage.removeItem('token');
+                localStorage.removeItem('progress_percentages')
                 localStorage.setItem('isLoggedIn', 'false')
                 document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
                 alert('đăng nhập lại để kiểm tra thông tin vì tính bảo mật')
@@ -153,6 +156,7 @@ const ProfileDispatch = () => {
                 if (!newToken) {
                     localStorage.setItem('isLoggedIn', 'false')
                     localStorage.removeItem('token');
+                    localStorage.removeItem('progress_percentages')
                     dispatch(logout());
                     router.push('/login');
                 } else {
