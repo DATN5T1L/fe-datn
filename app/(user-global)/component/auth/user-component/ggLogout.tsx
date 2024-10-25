@@ -24,6 +24,8 @@ const GgLogout = () => {
             console.error("Token not found");
             return;
         }
+        console.log(token);
+        
         try {
             if (confirm('Bạn có muốn đăng xuất không !!!')) {
                 const res = await fetch('/api/logout/', {
@@ -32,7 +34,7 @@ const GgLogout = () => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-
+                
                 if (res.ok) {
                     document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
                     localStorage.removeItem('token');
@@ -43,6 +45,7 @@ const GgLogout = () => {
                     console.error("Failed to log out:", res.status);
                 }
             }
+            
         } catch (error) {
             console.error("Logout error:", error);
         }

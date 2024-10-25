@@ -23,7 +23,7 @@ const Admin: React.FC = () => {
       if (userState?.role === 'admin') {
         setIsLoading(false);
       } else {
-        alert('bạn đéo có quyền gì ở đây!!! cút....');
+        alert('bạn không có quuyền ở đây!');
         router.push('/home');
       }
       alertShown.current = true;
