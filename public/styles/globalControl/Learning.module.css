@@ -3,6 +3,7 @@
     height: calc(100vh - 72px);
     flex-direction: column;
     padding-bottom: 4px;
+    overflow-x: hidden;
 }
 
 .row {
@@ -11,6 +12,7 @@
     height: 100%;
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .fixed {

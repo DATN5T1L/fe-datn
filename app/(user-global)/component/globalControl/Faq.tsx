@@ -6,7 +6,7 @@ import Button from "../globalControl/btnComponent";
 import CKEditorComponent from "../globalControl/ckedditor";
 // import Ckeditor from './ckedditor';
 interface FaqProps {
-    courseId: number;
+    course_Id: number;
     onClose: () => void;
 }
 interface ListItem {
@@ -152,7 +152,7 @@ const listData: ListItem[] = [
     },
 ];
 
-const Faq: React.FC<FaqProps> = ({ courseId, onClose }) => {
+const Faq: React.FC<FaqProps> = ({ course_Id, onClose }) => {
     const [noteContent, setNoteContent] = useState<string>('');
     const popupRef = useRef<HTMLDivElement | null>(null);
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
@@ -392,7 +392,7 @@ const Faq: React.FC<FaqProps> = ({ courseId, onClose }) => {
                 <div className={styles.editorWrapper}>
                     <h4 className={styles.title}>Đặt câu hỏi</h4>
                     <input type="text" className={styles.inputtTitle} placeholder='Nhập tiêu đề câu hỏi' />
-                    <CKEditorComponent courseId={courseId} onClose={onClose} onSubmit={handleSubmit} />
+                    <CKEditorComponent course_Id={course_Id} onClose={onClose} onSubmit={handleSubmit} />
                 </div>
 
                 <div className={styles.cta}>

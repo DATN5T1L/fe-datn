@@ -30,7 +30,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <div className='main-global' style={isNoHeaderPage ? { minHeight: '100vh' } : {}}>
                         {children}
                     </div>
-                    <Footer></Footer>
+                    {!isLearningCoursePage && (
+                        isNoHeaderPage ? <FooterBlack /> : <Footer />
+                    )}
                 </SessionProvider>
             </ReduxRender>
         </div >

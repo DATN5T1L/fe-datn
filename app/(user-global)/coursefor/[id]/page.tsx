@@ -21,7 +21,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseForYou: React.FC<{ params: { id: number } }> = ({ params }) => {
     const { id } = params;
-
+    console.log(id, "id là ")
     const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
         `/api/courseFor/${id}`,
         fetcher
