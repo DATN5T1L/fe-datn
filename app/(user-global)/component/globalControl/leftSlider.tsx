@@ -13,6 +13,8 @@ const LeftSlider: React.FC = () => {
     const [headerHeight, setHeaderHeight] = useState(0);
     const [isHidden, setIsHidden] = useState(false)
 
+
+
     useEffect(() => {
         const header = document.querySelector('.header-nav') as HTMLElement;
 
@@ -70,6 +72,7 @@ const LeftSlider: React.FC = () => {
     return (
         <Nav className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`} style={{ top: `calc(${headerHeight}px + 16px)` }}>
             <section className={`slide-bar-categories`}>
+
                 <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
                     <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
                     <img src='/img/home.svg' className={`img none ${isHome ? 'block-icon' : ''}`} />
@@ -82,7 +85,7 @@ const LeftSlider: React.FC = () => {
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Khóa học</div>
                 </div>
 
-                <div className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}>
+                <div className={`course-submenu ${!isMenu && isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}>
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
                     <Link href="/course/topic1" className={`btn-slide-bar-mini`}>
                         <div className={`btn-e`}>Khóa học của bạn</div>
