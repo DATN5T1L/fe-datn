@@ -4,6 +4,7 @@ import styles from '@public/styles/home/LearningPath.module.css';
 import { useRef, useState } from "react";
 import useSWR from "swr";
 import { Route } from "@/app/(user-global)/model/router";
+import Link from "next/link";
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -68,9 +69,11 @@ const LearningPath: React.FC = () => {
                         </div>
                     </section>
                     <section className={styles.btn__group}>
-                        <ButtonComponet status={'hover'} hover={true} hoverType={'default'} rightIcon={false} width={264} height={40} widthText="201px">
-                            Tạo lộ trình của riêng bạn
-                        </ButtonComponet>
+                        <Link href="/createLearningPath">
+                            <ButtonComponet status={'hover'} hover={true} hoverType={'default'} rightIcon={false} width={264} height={40} widthText="201px">
+                                Tạo lộ trình của riêng bạn
+                            </ButtonComponet>
+                        </Link>
                     </section>
                 </Col>
                 <Col

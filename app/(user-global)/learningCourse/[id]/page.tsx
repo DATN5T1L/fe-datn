@@ -4,7 +4,7 @@
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
 import { Nav, Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
@@ -170,6 +170,24 @@ const listData: ListItem[] = [
         ],
     },
 ];
+interface Document {
+    document_id: number;
+    name_document: string;
+    type_document: "code" | "quiz" | "video";
+    status_video: boolean | null;
+}
+
+interface Chapter {
+    chapter_id: number;
+    chapter_name: string;
+    documents: Document[];
+}
+
+interface CourseData {
+    course_id: number;
+    data: Chapter[];
+}
+
 const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const { id } = params;
     const userState = useSelector((state: RootState) => state.user);
@@ -181,12 +199,13 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const [isVisible, setIsVisible] = useState(true);
     const [tippyVisible, setTippyVisible] = useState(false);
     const [isFAQ, setFAQ] = useState(false);
-    const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [progress, setprogress] = useState<Progress | null>(null);
-    const [documents, setDocuments] = useState<Document[]>([]);
     const [error, setError] = useState<string | null>(null);
 
+    const [course, setCourse] = useState<Chapter[] | null>(null);
+    const [mappedCourse, setMappedCourse] = useState<JSX.Element[]>([]);
 
 
 
@@ -216,41 +235,132 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
         setIsVisible(!isVisible);
     };
 
-    const toggleItem = (index: number) => {
-        if (openIndexes.includes(index)) {
-            setOpenIndexes(openIndexes.filter((i) => i !== index));
-        } else {
-            setOpenIndexes([...openIndexes, index]);
-        }
-    };
 
-    // get token
 
     const fetchDocuments = async (token: string) => {
         try {
-            const response = await fetch(`/api/getdocforyou/1`, {
+            const response = await fetch(`/api/getdocforyou/${id}`, {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
             if (!response.ok) {
-                throw new Error("Failed to fetch documents");
+                throw new Error("Failed to fetch course");
             }
 
-            const data = await response.json();
-            setDocuments(data);
+            const data = await response.json() as CourseData;
+
+            if (Array.isArray(data.data)) {
+                setCourse(data.data);
+            } else {
+                console.error("data.data is not an array");
+            }
         } catch (err: any) {
             setError(err.message);
         }
     };
+    const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+    const toggleItem = useCallback((index: number) => {
+        setOpenIndexes(prev => {
+            if (prev.includes(index)) {
+                return prev.filter(i => i !== index);
+            } else {
+                return [...prev, index];
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        console.log("Documents updated:", course);
+        if (course && Array.isArray(course)) {
+            const mappedCourse = course.map((item, index) => (
+                <div key={index} className={styles.listItem}>
+                    <div className={styles.listItem__title} onClick={() => toggleItem(index)}>
+                        <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}>
+                            <path
+                                d="M18 15L12 9L6 15"
+                                stroke="#B3B3B3"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round" />
+                        </svg>
+                    </div>
+                    {openIndexes.includes(index) && (
+                        <ul className={styles.listItem__docs}>
+                            {item.documents && item.documents.map((doc, subIndex) => (
+                                <li key={subIndex} className={styles.listItem__doc}>
+                                    <div className={styles.listItemDoc}>
+                                        {doc.type_document === "video" ? (
+                                            // Video icon
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <g clipPath="url(#clip0_4106_3787)">
+                                                    <circle cx="9.99935" cy="9.99999" r="8.33333" stroke="#B3B3B3" strokeWidth="1.5" />
+                                                    <path
+                                                        d="M12.8447 9.11752C13.4962 9.50215 13.4962 10.4978 12.8447 10.8825L8.91124 13.2048C8.27809 13.5786 7.5 13.0921 7.5 12.3224L7.5 7.67762C7.5 6.90788 8.27809 6.42133 8.91124 6.79515L12.8447 9.11752Z"
+                                                        stroke="#B3B3B3"
+                                                        strokeWidth="1.5" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_4106_3787">
+                                                        <rect width="20" height="20" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        ) : (
+                                            // Document icon
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                <path opacity="0.5" d="M3.33398 18.3333H16.6673" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                                <path
+                                                    d="M12.1919 2.43451L11.574 3.05243L5.8932 8.73325C5.50843 9.11803 5.31604 9.31042 5.15058 9.52255C4.95541 9.77278 4.78807 10.0435 4.65155 10.33C4.53581 10.5729 4.44977 10.831 4.27769 11.3472L3.54852 13.5347L3.37028 14.0694C3.2856 14.3235 3.35172 14.6036 3.54107 14.7929C3.73042 14.9823 4.0105 15.0484 4.26455 14.9637L4.79926 14.7855L6.98677 14.0563L6.9868 14.0563C7.50301 13.8842 7.76112 13.7982 8.00397 13.6824C8.29045 13.5459 8.5612 13.3786 8.81143 13.1834C9.02355 13.0179 9.21594 12.8256 9.60071 12.4408L9.60072 12.4408L15.2815 6.75995L15.8995 6.14203C16.9233 5.11822 16.9233 3.45831 15.8995 2.43451C14.8757 1.41071 13.2157 1.41071 12.1919 2.43451Z"
+                                                    stroke="#B3B3B3"
+                                                    strokeWidth="1.5" />
+                                                <path opacity="0.5" d="M11.5724 3.05258C11.5724 3.05258 11.6496 4.36566 12.8082 5.52426C13.9668 6.68286 15.2799 6.7601 15.2799 6.7601M4.79762 14.7856L3.54688 13.5349" stroke="#B3B3B3" strokeWidth="1.5" />
+                                            </svg>
+                                        )}
+                                        <div className={styles.listItem__docTitle}>
+                                            <div>
+                                                <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}</span>
+                                                <span className={styles.listItem__docName}> {doc.name_document}</span>
+                                            </div>
+                                        </div>
+                                        {doc.status_video ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" className={styles.listItem__iconSuccess}>
+                                                <g clipPath="url(#clip0_4106_3752)">
+                                                    <circle cx="6" cy="6" r="5" stroke="#24A148" strokeWidth="1.5" />
+                                                    <path d="M4.25 6.25L5.25 7.25L7.75 4.75" stroke="#24A148" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_4106_3752">
+                                                        <rect width="12" height="12" fill="white" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        ) : null}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            ));
+
+            setMappedCourse(mappedCourse);
+        }
+    }, [course, toggleItem]);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             fetchDocuments(token);
-
         } else {
             console.error('Token is null');
         }
@@ -258,7 +368,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     // user
     const avatar: string = user?.avatar ?? 'https://plus.unsplash.com/premium_photo-1729708654992-28f9185f82b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw2fHx8ZW58MHx8fHx8';
 
-    console.log(documents)
+
     // Lấy dữ liệu từ localStorage
     useEffect(() => {
         const storedData = localStorage.getItem('progress_percentages');
@@ -268,11 +378,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
         }
     }, [id]);
 
-    if (progress) {
-        console.log(progress.progress_percentage);
-    } else {
-        console.log('Progress data is not available.');
-    }
+
     return (
         <>
             <header>
@@ -461,97 +567,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                         placeholder="Tìm kiếm bài học"
                                     />
                                 </div>
-                                {listData.map((item, index) => {
-
-                                    const totalDurations = item.content.reduce((total, subItem) => {
-
-                                        const minutes = parseFloat(subItem.duration.replace(' phút', '').trim());
-                                        return total + minutes;
-                                    }, 0);
-                                    const totalDuration = totalDurations.toFixed(2);
-
-
-                                    return (
-                                        <div key={index} className={styles.listItem}>
-
-                                            <div className={styles.listItem__title} onClick={() => toggleItem(index)}>
-
-                                                <div>
-                                                    <div className={styles.listItem__titleText}>{index + 1}. {item.title}</div>
-                                                    <div className={styles.listItem__contentCount}>{item.content.length}/{item.content.length}</div>|
-                                                    <div className={styles.listItem__totalDuration}>{totalDuration}</div>
-                                                </div>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}>
-                                                    <path d="M18 15L12 9L6 15" stroke="#B3B3B3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                            </div>
-                                            {openIndexes.includes(index) && (
-                                                <ul className={styles.listItem__docs}>
-                                                    {item.content.map((subItem, subIndex) => (
-                                                        <li key={subIndex} className={styles.listItem__doc}>
-                                                            <div className={styles.listItemDoc}>
-                                                                {subItem.type === "video" ? (<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                                    <g clipPath="url(#clip0_4106_3787)">
-                                                                        <circle cx="9.99935" cy="9.99999" r="8.33333" stroke="#B3B3B3" strokeWidth="1.5" />
-                                                                        <path
-                                                                            d="M12.8447 9.11752C13.4962 9.50215 13.4962 10.4978 12.8447 10.8825L8.91124 13.2048C8.27809 13.5786 7.5 13.0921 7.5 12.3224L7.5 7.67762C7.5 6.90788 8.27809 6.42133 8.91124 6.79515L12.8447 9.11752Z"
-                                                                            stroke="#B3B3B3" strokeWidth="1.5" />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_4106_3787">
-                                                                            <rect width="20" height="20" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>) : (
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                                        <path opacity="0.5" d="M3.33398 18.3333H16.6673" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                                                        <path d="M12.1919 2.43451L11.574 3.05243L5.8932 8.73325C5.50843 9.11803 5.31604 9.31042 5.15058 9.52255C4.95541 9.77278 4.78807 10.0435 4.65155 10.33C4.53581 10.5729 4.44977 10.831 4.27769 11.3472L3.54852 13.5347L3.37028 14.0694C3.2856 14.3235 3.35172 14.6036 3.54107 14.7929C3.73042 14.9823 4.0105 15.0484 4.26455 14.9637L4.79926 14.7855L6.98677 14.0563L6.9868 14.0563C7.50301 13.8842 7.76112 13.7982 8.00397 13.6824C8.29045 13.5459 8.5612 13.3786 8.81143 13.1834C9.02355 13.0179 9.21594 12.8256 9.60071 12.4408L9.60072 12.4408L15.2815 6.75995L15.8995 6.14203C16.9233 5.11822 16.9233 3.45831 15.8995 2.43451C14.8757 1.41071 13.2157 1.41071 12.1919 2.43451Z" stroke="#B3B3B3" stroke-width="1.5" />
-                                                                        <path opacity="0.5" d="M11.5724 3.05258C11.5724 3.05258 11.6496 4.36566 12.8082 5.52426C13.9668 6.68286 15.2799 6.7601 15.2799 6.7601M4.79762 14.7856L3.54688 13.5349" stroke="#B3B3B3" stroke-width="1.5" />
-                                                                    </svg>
-                                                                )}
-
-
-                                                                <div className={styles.listItem__docTitle}>
-                                                                    <div>
-                                                                        <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`} </span>
-                                                                        <span className={styles.listItem__docName}>{subItem.name}</span>
-                                                                    </div>
-                                                                    <span className={styles.listItem__docDuration}>{subItem.duration}</span>
-                                                                </div>
-                                                            </div>
-                                                            {subItem.status ? (
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" className={styles.listItem__iconSuccess}>
-                                                                    <g clipPath="url(#clip0_4106_3752)">
-                                                                        <circle cx="6" cy="6" r="5" stroke="#24A148" strokeWidth="1.5" />
-                                                                        <path d="M4.25 6.25L5.25 7.25L7.75 4.75" stroke="#24A148" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_4106_3752">
-                                                                            <rect width="12" height="12" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                            ) : (
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" className={styles.listItem__iconFailure}>
-                                                                    <g clipPath="url(#clip0_4106_3794)">
-                                                                        <path d="M1 8C1 6.58579 1 5.87868 1.43934 5.43934C1.87868 5 2.58579 5 4 5H8C9.41421 5 10.1213 5 10.5607 5.43934C11 5.87868 11 6.58579 11 8C11 9.41421 11 10.1213 10.5607 10.5607C10.1213 11 9.41421 11 8 11H4C2.58579 11 1.87868 11 1.43934 10.5607C1 10.1213 1 9.41421 1 8Z" stroke="#B3B3B3" strokeWidth="1.5" />
-                                                                        <path d="M6 7V9" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
-                                                                        <path d="M3 5V4C3 2.34315 4.34315 1 6 1C7.65685 1 9 2.34315 9 4V5" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_4106_3794">
-                                                                            <rect width="12" height="12" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                            )}
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            )}
-                                        </div>
-                                    );
-                                })}
+                                {mappedCourse}
 
 
 
