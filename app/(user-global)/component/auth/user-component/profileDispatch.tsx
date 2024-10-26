@@ -23,6 +23,9 @@ const ProfileDispatch = () => {
     const isCreateLearningPath = pathName === '/createLearningPath'
     const isCourse = pathName === '/course'
     const isCourseFor = pathName === '/coursefor'
+    const isAdmin = /^\/(admin)(\/.*)?$/.test(pathName);
+    const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
+
 
     const getCookie = (name: string) => {
         const value = `; ${document.cookie}`;
@@ -67,21 +70,34 @@ const ProfileDispatch = () => {
         if (!tokenValue) {
             if (isInfo || isIntro || isWallet) {
                 console.error("Token không hợp lệ hoặc không tồn tại");
-                router.push('/login');
+                if (isPage) {
+                    router.push('/login');
+                } else if (isAdmin) {
+                    router.push('/home');
+                }
                 return;
             }
         }
 
         if (!tokenCookie) {
             handleLogout()
-            router.push('/login');
+            if (isPage) {
+                router.push('/login');
+            } else if (isAdmin) {
+                router.push('/home');
+            }
+
             return;
         }
 
         if (isTokenExpired(tokenValue)) {
             console.error("Token đã hết hạn");
             handleLogout()
-            router.push('/login');
+            if (isPage) {
+                router.push('/login');
+            } else if (isAdmin) {
+                router.push('/home');
+            }
             return;
         }
 
@@ -106,8 +122,12 @@ const ProfileDispatch = () => {
             }
         } catch (error) {
             console.error("Lỗi khi lấy thông tin người dùng:", error);
-            handleLogout()
-            router.push('/login');
+            // handleLogout()
+            if (isPage) {
+                router.push('/login');
+            } else if (isAdmin) {
+                router.push('/home');
+            }
         }
     };
 
@@ -143,7 +163,9 @@ const ProfileDispatch = () => {
                 } else if (isHome) {
                     router.push('/home')
                 } else {
-                    router.push('/login')
+                    if (isAdmin) {
+                        router.push('/home');
+                    }
                 }
             }
         }, 10000);
@@ -164,7 +186,11 @@ const ProfileDispatch = () => {
 
                 if (!newToken) {
                     handleLogout()
-                    router.push('/login');
+                    if (isPage) {
+                        router.push('/login');
+                    } else if (isAdmin) {
+                        router.push('/home');
+                    }
                 } else {
                     fetchUserInfo(newToken);
                 }
@@ -175,7 +201,11 @@ const ProfileDispatch = () => {
 
                 if (isLoggedIn === 'false') {
                     handleLogout()
-                    router.push('/login');
+                    if (isPage) {
+                        router.push('/login');
+                    } else if (isAdmin) {
+                        router.push('/home');
+                    }
                 } else if (isLoggedIn === 'true') {
                     const tokenValue = localStorage.getItem('token');
                     if (tokenValue) {
@@ -200,8 +230,8 @@ const ProfileDispatch = () => {
             if (!tokenCookie) {
                 console.error('Token cookie is missing. Logging out...');
                 handleLogout();
-                if(isInfo||isIntro||isWallet)
-                router.push('login')
+                if (isInfo || isIntro || isWallet){router.push('login')}
+                else if(isAdmin){router.push('/home')}
             }
         };
 

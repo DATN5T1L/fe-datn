@@ -149,6 +149,14 @@ const nextConfig = {
         source: '/api/checkProgress/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/learning-course/:path*',
       },
+
+      // Admin 
+
+      {
+        source: '/api/allUser/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/users/:path*',
+      },
+  
     ];
   },
   images: {
