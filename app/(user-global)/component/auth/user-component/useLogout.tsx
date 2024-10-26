@@ -33,6 +33,7 @@ export const useLogout = () => {
                 if (typeof window !== 'undefined') {
                     document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
                     localStorage.removeItem('token');
+                    localStorage.removeItem('progress_percentages')
                 }
                 dispatch(logout());
                 router.push("/home");

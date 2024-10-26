@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import userSlice, { update } from '@/redux/slices/userSlice';
+import { update } from '@/redux/slices/userSlice';
 
 interface ModalChangeInfoProps {
     show: boolean;
@@ -39,7 +39,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
 
     const formik = useFormik({
         initialValues: {
-            discriptionUser: userState.user?.discription_user || '', // Đặt giá trị mặc định từ state
+            discriptionUser: userState.user?.discription_user || '', 
         },
         validationSchema: Yup.object({
             discriptionUser: Yup.string()
