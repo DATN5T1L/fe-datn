@@ -32,144 +32,7 @@ interface ListItem {
     content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
 }
 
-const listData: ListItem[] = [
-    {
-        title: 'Bắt đầu',
-        content: [
-            { name: 'Phần tử 1', duration: '10.22', status: true, type: "video" },
-            { name: 'Phần tử 2', duration: '15.22', status: true, type: "code" },
-            { name: 'Phần tử 3', duration: '12.22', status: true, type: "video" },
-        ],
-    },
-    {
-        title: 'Tiếp theo',
-        content: [
-            { name: 'Phần tử A', duration: '8.22', status: false, type: "video" },
-            { name: 'Phần tử B', duration: '20.22', status: false, type: "video" },
-            { name: 'Phần tử C', duration: '18.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-    {
-        title: 'Thêm nữa',
-        content: [
-            { name: 'Phần tử X', duration: '30.22', status: false, type: "video" },
-            { name: 'Phần tử Y', duration: '25.22', status: false, type: "video" },
-            { name: 'Phần tử Z', duration: '12.22', status: false, type: "code" },
-        ],
-    },
-];
+
 interface Document {
     document_id: number;
     name_document: string;
@@ -190,6 +53,7 @@ interface CourseData {
 
 const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const { id } = params;
+    const course_Id = id;
     const userState = useSelector((state: RootState) => state.user);
     const user = userState?.user;
     const { handleLogout } = useLogout();
@@ -205,9 +69,6 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const [error, setError] = useState<string | null>(null);
 
     const [course, setCourse] = useState<Chapter[] | null>(null);
-    // const [mappedCourse, setMappedCourse] = useState<JSX.Element[]>([]);
-
-
 
     const toggleSwitch = () => {
         setIsActive(!isActive);
@@ -239,7 +100,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
 
     const fetchDocuments = async (token: string) => {
         try {
-            const response = await fetch(`/api/getdocforyou/${id}`, {
+            const response = await fetch(`/api/getdocforyou/${course_Id}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -323,7 +184,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                 transition={{ duration: 0.5 }}
                                 className={styles.noteTap}
                             >
-                                <NoteCourse id={1} time="10.00" onClose={toggleNote} />
+                                <NoteCourse id={course_Id} time="10.00" onClose={toggleNote} />
                             </motion.div>
                         )}
                     </div>
@@ -336,7 +197,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                             transition={{ duration: 0.5 }}
                             className={styles.FAQ}
                         >
-                            <Faq course_Id={id} onClose={toggleFaq} />
+                            <Faq course_Id={course_Id} onClose={toggleFaq} />
                         </motion.div>
                     )}
                 </div>
