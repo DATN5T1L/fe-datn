@@ -29,7 +29,11 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> temp-branch
 
       if (
         notificationRef.current &&
@@ -69,7 +73,11 @@ const Header: React.FC = () => {
             alt="Logo"
           />
         </Navbar.Brand>
+<<<<<<< HEAD
         <Form className={` ${h.formGroup} mx-auto`}>
+=======
+        <Form className={` ${h.formGroup} mx-auto d-none d-xl-block`}>
+>>>>>>> temp-branch
           <input
             type="text"
             placeholder="Tìm kiếm"
@@ -80,7 +88,11 @@ const Header: React.FC = () => {
             <img src="/img_admin/searchheader.svg" alt="Search" />
           </Button>
         </Form>
+<<<<<<< HEAD
         <ButtonGroup className={`${h.CTA}`}>
+=======
+        <ButtonGroup className={`${h.CTA} d-none d-xl-block`}>
+>>>>>>> temp-branch
           <Button
             variant="link"
             className={h.iconButton}
@@ -94,7 +106,11 @@ const Header: React.FC = () => {
             className={h.iconButton}
             onClick={toggleSettings}
           >
+<<<<<<< HEAD
             <img src="/img/user.svg" alt="User" />
+=======
+            <img src="/img/user.svg" alt="User d-none d-xl-block" />
+>>>>>>> temp-branch
           </Button>
           <Button variant="link" className={h.iconButton}>
             <img src="/img/list.svg" alt="Menu" onClick={handleShow} />

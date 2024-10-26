@@ -18,10 +18,15 @@
 
 .mainContent {
   width: 100%;
+<<<<<<< HEAD
 
   margin-top: 10vh;
+=======
+>>>>>>> temp-branch
   display: flex;
-  flex-grow: 1; /* Sử dụng flexbox cho layout */
+}
+.content {
+  margin-top: 15vh;
 }
 .content {
   margin-top: 15vh;
@@ -41,7 +46,19 @@
 
 .article {
   /* width: 100%; */
+<<<<<<< HEAD
   margin-left: 233px;
   height: 90vh;
   overflow-y: auto;
+=======
+  padding-top: 10vh;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--background-bg-admin, #f5f6fa);
+>>>>>>> temp-branch
+}
+
+
+.custom-col {
+  width: calc(100% / 12 * 1.5); /* Custom width for 1.5 columns */
 }

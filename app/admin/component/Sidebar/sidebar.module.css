@@ -13,7 +13,11 @@
 
 .navItem {
   display: flex;
+<<<<<<< HEAD
   padding: 8px 30px ;
+=======
+  padding: 8px 10px ;
+>>>>>>> temp-branch
   align-items: center;
   gap: 12px;
 

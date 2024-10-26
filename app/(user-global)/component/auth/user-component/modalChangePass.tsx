@@ -12,7 +12,7 @@ interface ModalChangePassProps {
 }
 
 const ModalChangePassContent: React.FC<ModalChangePassProps> = ({ show, onClose }) => {
-    const searchParams = useSearchParams();
+    const searchParams: any = useSearchParams();
     const pathName = usePathname()
     const [isVisible, setIsVisible] = useState(false);
     const showModal = searchParams.get('showModal');
