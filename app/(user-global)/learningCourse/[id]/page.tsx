@@ -1,7 +1,7 @@
 "use client"
 
-import VideoPlayer from "@app/(user-global)/component/videoPlayer"
-
+// import VideoPlayer from "@app/(user-global)/component/videoPlayer";
+import ReactPlayer from 'react-player/youtube';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
@@ -67,8 +67,10 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [progress, setprogress] = useState<Progress | null>(null);
     const [error, setError] = useState<string | null>(null);
-
     const [course, setCourse] = useState<Chapter[] | null>(null);
+
+    // tạo biến cho video  
+
 
     const toggleSwitch = () => {
         setIsActive(!isActive);
@@ -129,7 +131,30 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
             prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
         );
     }, []);
+    const [lastValidTime, setLastValidTime] = useState(0); // Thời gian hợp lệ cuối cùng
+    const playerRef = useRef<any>(null); // Tham chiếu tới video player
+    const [timePause, setTimePause] = useState(0);
 
+    // Hàm kiểm tra tua video
+    const handleProgress = (progress: { playedSeconds: number }) => {
+        const { playedSeconds } = progress;
+        console.log(playedSeconds);
+
+        // Nếu người dùng cố gắng tua quá 15 giây từ lastValidTime
+        if (Math.abs(playedSeconds - lastValidTime) > 15) {
+            console.log(lastValidTime, "giay tua");
+            setTimePause(lastValidTime); // Cập nhật timePause
+            playerRef.current.seekTo(lastValidTime); // Khôi phục lại vị trí
+            console.log(timePause, "thời gian dừng lại"); // Đây sẽ không hiển thị giá trị mới ngay lập tức
+        } else {
+            // Cập nhật thời gian hợp lệ cuối cùng
+            setLastValidTime(playedSeconds);
+        }
+    };
+
+    useEffect(() => {
+        console.log(timePause, "thời gian dừng lại từ useEffect"); // Giá trị này sẽ đúng
+    }, [timePause]);
     const mappedCourseNew = useMemo(() => {
         if (!course || !Array.isArray(course)) return null; // Trả về null nếu không có course
 
@@ -137,12 +162,16 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
             <div className={`${styles.row}`}>
                 <div className={`${styles.flexGrow} ${styles.videoContainer}`}>
                     <div className={styles.Video}>
-                        <VideoPlayer />
-                        {/* <iframe
-                            src="https://www.youtube.com/embed/tTQNbiaQ1-s?si=qFajN9dLQ_U4XpPJ"
-                            title="YouTube video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        /> */}
+                        <ReactPlayer
+                            ref={playerRef} // Gán ref cho ReactPlayer
+                            url="https://www.youtube.com/watch?v=wfokir0ih9U"
+                            controls
+                            width="100%"
+                            height="100%"
+                            onProgress={handleProgress}
+                            playing={true}
+                            onError={(e) => console.log("Error loading video", e)}
+                        />
                     </div>
                     <div className={styles.body}>
                         {!isNote ? (

@@ -16,13 +16,13 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     const pathname = usePathname();
     const isNoHeaderPage = /^\/(course|paymentCourse)(\/.*)?$/.test(pathname);
-    const isLearningCoursePage = /^\/learningCourse(\/.*)?$/.test(pathname);
+    const isLearningCoursePage = /^\/learningCourse|test(\/.*)?$/.test(pathname);
 
     return (
         <div className={`${isNoHeaderPage ? 'body-black' : 'body-main'}`}>
             <ReduxRender>
                 <SessionProvider>
-                    
+
                     {!isLearningCoursePage && (
                         isNoHeaderPage ? <HeaderCourseDetail /> : <Header />
                     )}

@@ -230,12 +230,12 @@ const ProfileDispatch = () => {
             if (!tokenCookie) {
                 console.error('Token cookie is missing. Logging out...');
                 handleLogout();
-                if (isInfo || isIntro || isWallet){router.push('login')}
-                else if(isAdmin){router.push('/home')}
+                if (isInfo || isIntro || isWallet) { router.push('login') }
+                else if (isAdmin) { router.push('/home') }
             }
         };
 
-        const interval = setInterval(checkTokenCookie, 1000);
+        const interval = setInterval(checkTokenCookie, 100000);
 
         return () => clearInterval(interval);
     }, [dispatch, router]);

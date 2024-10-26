@@ -28,7 +28,6 @@ interface ApiResponse<T> {
 
 const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
     const { id } = params;
-    console.log(id);
     const [error, setError] = useState<string | null>(null);
     useEffect(() => {
         AOS.init({
@@ -53,9 +52,9 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
     );
 
     const token = localStorage.getItem('token');
-    const fetchPayMent = async () => {
+    const fetchPayMentVn = async () => {
         try {
-            const response = await fetch(`/api/paymentLink/${id}/${totalPrice}`, {
+            const response = await fetch(`/api/paymentvn/${id}/${totalPrice}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -63,13 +62,42 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
             });
             if (response.ok) {
                 const data = await response.json();
+                console.log(data)
                 const paymentUrl = data.data;
 
                 if (paymentUrl) {
-                    window.location.href = paymentUrl;
+                    // window.location.href = paymentUrl;
                 } else {
                     throw new Error("Payment URL is missing");
                 }
+            } else if (!response.ok) {
+                throw new Error("Thanh toán thất bại");
+            }
+
+
+
+        } catch (err: any) {
+            setError(err.message);
+        }
+    };
+    const fetchPayMentMomo = async () => {
+        try {
+            const response = await fetch(`/api/paymentmomo/${id}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                // const paymentUrl = data.payUrl;
+                console.log(data);
+
+                // if (paymentUrl) {
+                //     window.location.href = paymentUrl;
+                // } else {
+                //     throw new Error("Payment URL is missing");
+                // }
             } else if (!response.ok) {
                 throw new Error("Thanh toán thất bại");
             }
@@ -87,8 +115,6 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
 
 
     const course = courseData.data;
-    console.log(course)
-
     const faqs = faqData.data;
     const costDis = 100000;
     const priceString = course.price_course;
@@ -189,7 +215,8 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                                         <p className={stylesP.titlePỉce}>-{formattedcostDise}</p>
                                     </div>
                                 </div>
-                                <button className={stylesP.btnTotal} onClick={fetchPayMent} name='redirect'>Thanh toán ngay</button>
+                                <button className={stylesP.btnTotal} onClick={fetchPayMentVn} name='redirect'>Thanh toán ngay bằng vnp</button>
+                                <button className={stylesP.btnTotal} onClick={fetchPayMentMomo} name='payUrl'>Thanh toán ngay bằng momo</button>
                             </div>
                         </Col>
                     </Row>

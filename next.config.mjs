@@ -155,8 +155,14 @@ const nextConfig = {
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/learning-course/:path*',
       },
       // THANH TOÁN
+      //Phương thức thanh toán momo
       {
-        source: '/api/paymentLink/:path*',
+        source: '/api/paymentmomo/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/MOMO/:path*',
+      },
+      // thanh toán bằng vn
+      {
+        source: '/api/paymentvn/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/VNPay/:path*',
       }];
   },
