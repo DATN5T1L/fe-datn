@@ -55,7 +55,6 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
 
     useEffect(() => {
         console.log(id);
-
         if (token) {
             fetch(`/api/checkEnrollment/${id}`, {
                 method: 'GET',
