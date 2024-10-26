@@ -5,6 +5,8 @@ import styles from '@public/styles/user-component/Infomation.module.css';
 import { useState, useEffect } from "react";
 import { RootState } from '../../../../../redux/store';
 import { useSelector } from "react-redux";
+import Button from "../../globalControl/btnComponent";
+import { useRouter } from "next/navigation";
 
 // Dùng dynamic import để tắt SSR cho component này
 const ModalChangeImg = dynamic(() => import("./modalChangeImg"), { ssr: false });
@@ -12,12 +14,22 @@ const ModalChangeName = dynamic(() => import("./modalChangeName"), { ssr: false 
 const ModalChangeInfo = dynamic(() => import("./modalChangeInfo"), { ssr: false });
 
 const Infomation: React.FC = () => {
+    const router = useRouter()
+    const [isRole, setIsRole] = useState(false)
     const userState = useSelector((state: RootState) => state.user);
     useEffect(() => {
         if (userState?.user) {
             console.log("Fullname:", userState.user);
         }
     }, [userState]);
+
+    useEffect(() => {
+        if (userState.user?.role === 'admin') {
+            setIsRole(true)
+        } else {
+            setIsRole(false)
+        }
+    }, [userState])
 
     const [showChangeImg, setShowChangeImg] = useState(false);
     const [showChangeName, setShowChangeName] = useState(false);
@@ -26,6 +38,10 @@ const Infomation: React.FC = () => {
     const handleChangeImg = () => setShowChangeImg(true);
     const handleChangeName = () => setShowChangeName(true);
     const handleChangeInfo = () => setShowChangeInfo(true);
+
+    const handleToAdmin = () => {
+        router.push('/admin')
+    }
 
     return (
         <>
@@ -67,6 +83,13 @@ const Infomation: React.FC = () => {
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Giới thiệu</h4>
                                 <h3 className={styles.change__more__group__subTitle}>{userState.user.discription_user === null ? 'Chưa có giới thiệu' : userState.user.discription_user}</h3>
+                            </div>
+                            <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                        </Col>
+                        <Col className={styles.change__more} onClick={handleToAdmin}>
+                            <div className={styles.change__more__group}>
+                                <h4 className={styles.change__more__group__title}>Quyền</h4>
+                                <h3 className={styles.change__more__group__subTitle}>{userState.user.role}</h3>
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>

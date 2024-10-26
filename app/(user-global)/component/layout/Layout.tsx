@@ -22,12 +22,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className={`${isNoHeaderPage ? 'body-black' : 'body-main'}`}>
             <ReduxRender>
                 <SessionProvider>
-
+                    
                     {!isLearningCoursePage && (
                         isNoHeaderPage ? <HeaderCourseDetail /> : <Header />
                     )}
                     <GlobalComponents />
-                    <div className='main-global'>
+                    <div className='main-global' style={isNoHeaderPage ? { minHeight: '100vh' } : {}}>
                         {children}
                     </div>
                     {!isLearningCoursePage && (
@@ -35,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     )}
                 </SessionProvider>
             </ReduxRender>
-        </div>
+        </div >
     );
 };
 

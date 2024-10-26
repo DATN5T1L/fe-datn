@@ -16,6 +16,7 @@ interface RegisterFormData {
     email: string;
     password: string;
     confirmPassword: string;
+    role: string;
 }
 
 const Register: React.FC = () => {
@@ -68,7 +69,8 @@ const Register: React.FC = () => {
                         fullname: values.fullName,
                         email: values.email,
                         password: values.password,
-                        confirm_password: values.confirm_password
+                        confirm_password: values.confirm_password,
+                        role: 'client'
                     }),
                 });
                 if (!res.ok) {

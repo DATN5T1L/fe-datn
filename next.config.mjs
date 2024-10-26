@@ -158,8 +158,7 @@ const nextConfig = {
       {
         source: '/api/paymentLink/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/VNPay/:path*',
-      }
-    ];
+      }];
   },
   images: {
     remotePatterns: [

@@ -13,6 +13,7 @@ interface User {
     PIN: string;
     status_provider: string;
     provider_id: string;
+    role: string;
     created_at: string;
     updated_at: string;
     discription_user: string;

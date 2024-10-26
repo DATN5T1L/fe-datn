@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col } from "react-bootstrap";
 import "./globals.css";
@@ -7,23 +7,108 @@ import Header from "./component/Header/header";
 import Sidebar from "./component/Sidebar/sidebar";
 import Article from "./component/Article/article";
 import styles from './layout.module.css';
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
-const Admin: React.FC = () => {
+import ViewBarCharts from "./component/Dashboard/ViewChart";
+import style from "./component/Dashboard/Chart.module.css";
+import { Image } from "react-bootstrap";
+import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu";
+import { HeaderArticleSimple } from "./component/Article/headerArrticle";
+
+const Dashboard: React.FC = () => {
+  const router = useRouter()
+  const userState = useSelector((state: RootState) => state.user.user)
+  const alertShown = useRef(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [show, setShow] = useState(false);
+
+
+  useEffect(() => {
+    if (!alertShown.current) {
+      if (userState?.role === 'admin') {
+        setIsLoading(false);
+      } else {
+        alert('bạn không có quuyền ở đây!');
+        router.push('/home');
+      }
+      alertShown.current = true;
+    }
+  }, [userState, router]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <Header />
-      </header>
-      <div className={styles.mainContent}>
-        <Col xs={2} className={styles.sidebar}>
-          <Sidebar />
-        </Col>
-        <Col className={styles.article}>
+    <>
+      <div className={style.mar}>
+        <section className={style.container}>
+          <div className={style.tag_notice}>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng bài viết</p>
+                <h3>100</h3>
+              </span>
+              <Image
+                src={"/img_admin/total_article.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng danh mục</p>
+                <h3>200</h3>
+              </span>
+              <Image
+                src={"/img_admin/category.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng bình luận</p>
+                <h3>3000</h3>
+              </span>
+              <Image
+                src={"/img_admin/comment.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className={style.card_notice}>
+              <span>
+                <p>Tổng lượt xem</p>
+                <h3>230,000</h3>
+              </span>
+              <Image
+                src={"/img_admin/total_view.svg"}
+                alt="icon"
+                width={60}
+                height={60}
+                onClick={handleShow}
+              />
+            </div>
+            <OffcanvasComponent show={show} handleClose={handleClose} />
+          </div>
+          <div className={style.chart}>
+            <ViewBarCharts />
+          </div>
+        </section>
+        <section>
+          <HeaderArticleSimple />
           <Article />
-        </Col>
+        </section>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Admin;
+export default Dashboard;

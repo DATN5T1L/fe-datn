@@ -32,14 +32,14 @@ const SliderShow: React.FC = () => {
             <div className={styles.container}>
                 <div className={styles.top__gaden}>
 
-                </div>
+            </div>
 
-                <div className={styles.white}>
+            <div className={styles.white}>
 
-                </div>
-                <section className={styles.container__body}>
-                    <Row className={styles.body__header}>
-                        <div className={styles.blue}>
+            </div>
+            <section className={styles.container__body}>
+                <Row className={styles.body__header}>
+                    <div className={styles.blue}>
 
                         </div>
                         <Col className={styles.title}>
