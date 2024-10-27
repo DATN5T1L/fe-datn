@@ -42,13 +42,10 @@
 }
 
 .filterBar {
-<<<<<<< HEAD
-  padding: 0px 32px 20px 32px;
-  background: var(--background-bg-admin, #f5f6fa);
-=======
   background: var(--background-bg-admin, #f5f6fa);
   margin-left: 0px;
->>>>>>> temp-branch
+     align-self: stretch !important;
+
 }
 
 .filterInputGroup {
@@ -57,6 +54,7 @@
   width: 40%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
+    align-self: stretch !important;
   justify-content: space-between;
 }
 

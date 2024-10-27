@@ -30,6 +30,7 @@ const VideoDetail = () => (
             <p>
               HTML CSS (HyperText Markup Language Cascading Style Sheets) Nội
               dung bổ sung: https://www.w3schools.com/css/css_pseudo_classes.asp
+              
             </p>
           </div>
           <div

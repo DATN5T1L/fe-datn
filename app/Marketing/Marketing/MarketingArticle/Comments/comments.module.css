@@ -1,0 +1,12 @@
+.comments {
+  min-width: 280px;
+}
+
+.name {
+  color: var(--blue-30);
+  font-weight: 600;
+}
+
+.seperator {
+  border-left: solid 1px var(--gray-50);
+}

@@ -81,40 +81,6 @@ const Article: React.FC<{}> = () => {
       </div> */}
 
       {/* Post List */}
-<<<<<<< HEAD
-      <Table bordered hover className={`${h.table}`}>
-        <thead>
-          <tr>
-            <td>Tiêu đề</td>
-            <td>Nội dung</td>
-            <td>Lượt xem</td>
-            <td>Trạng thái</td>
-            <td>Ngày đăng</td>
-            <td>Hành động</td>
-          </tr>
-        </thead>
-        <tbody>
-          {Array(5)
-            .fill(null)
-            .map((_, idx) => (
-              <tr key={idx}>
-                <td>Học ReactJS với TTO</td>
-                <td>
-                  Được định hình là dự án đô thị cao cấp, sau gần 30 năm, dự án
-                  Sing - Việt ở huyện Bình Chánh chỉ là bãi đất trống, nhà cửa
-                  lụp xụp, ảnh hưởng khoảng 700 hộ dân. Giữa trưa, căn nhà vách
-                  gỗ, lợp tôn cất trên mảnh đất hơn 200 m2 của ông Đặng Văn Sáu,
-                  64 tuổi, ở mặt tiền đường Mai Bá Hương, xã Lê Minh Xuân, huyện
-                  Bình Chánh, nóng hầm hập. Lô đất thuộc diện giải tỏa để làm dự
-                  án khu đô thị Sing - Việt nên ngôi nhà gần 70 m2 của ông không
-                  thể xây kiên cố mà chỉ dựng tạm bợ, sửa chắp vá gần 30 năm
-                  qua, ảnh hưởng 5 thành viên trong gia đình.
-                </td>
-                <td>3,000</td>
-                <td>
-                  <span className={h.active_text}>Active</span>
-                </td>
-=======
       <div className="d-flex overflow-auto w-100" style={{ whiteSpace: 'nowrap' }}>
         <Table bordered hover className={`${h.table}`}>
           <thead>
@@ -148,7 +114,6 @@ const Article: React.FC<{}> = () => {
                   <td>
                     <span className={h.active_text}>Active</span>
                   </td>
->>>>>>> temp-branch
 
                   <td>01/02/2024</td>
                   <td className={h.option_button_group}>
@@ -185,7 +150,7 @@ const Article: React.FC<{}> = () => {
               height="16"
             />
           </Pagination.Prev>
-          {Array(2)
+          {Array(7)
             .fill(null)
             .map((_, idx) => (
               <Pagination.Item key={idx} active={idx === 0}>

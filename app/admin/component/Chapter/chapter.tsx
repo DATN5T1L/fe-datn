@@ -21,10 +21,34 @@ const Chapter: React.FC<{}> = () => {
       <div
         className={`${h.header} d-flex justify-content-between align-items-center`}
       >
-        <h2 className={h.heading}>Danh sách chapter</h2>
+        <h2 className={h.heading}>Quản lý chapter</h2>
 
         <div className={`${h.actions} d-flex`}>
           <Button className={`${h.btnCTA}`}>Thêm chapter</Button>
+        </div>
+      </div>
+      <div
+        className={`${h.left_right} d-flex justify-content-between align-items-center`}
+      >
+        <div className={h.left}>
+          Khóa học: <span>Website Design UI/UX</span>
+        </div>
+        <div className={`${h.right} d-flex`}>
+          <InputGroup className={h.searchInputGroup}>
+            <Form.Control
+              type="text"
+              placeholder="Tìm kiếm bài viết"
+              className={h.searchInput}
+            />
+            <div className={h.searchIconWrapper}>
+              <img
+                src="/img_admin/search.svg"
+                alt="Search"
+                width={"24px"}
+                height={"24px"}
+              />
+            </div>
+          </InputGroup>
         </div>
       </div>
 
