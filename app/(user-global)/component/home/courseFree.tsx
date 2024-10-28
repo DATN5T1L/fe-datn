@@ -6,27 +6,58 @@ import styles from '@public/styles/home/CourseFree.module.css'
 import useSWR from 'swr';
 import { Course } from "@/app/(user-global)/model/course";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
+import ReactLoading from 'react-loading';
+
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseFree: React.FC = () => {
 
-    const [routerId, setRouterId] = useState<number|string>(8)
+    const [routerId, setRouterId] = useState<number | string>(8);
+    const [cache, setCache] = useState<Record<number | string, Course[]>>({});
+    const [courses, setCourses] = useState<Course[]>([]);
+    const [isCount, setIsCount] = useState(false)
 
-    const { data, error } = useSWR<{ status: string; message: string; data: Course[] }>(`/api/coursetype/free/${routerId}`, fetcher, {
-        revalidateOnFocus: true,
-        revalidateOnReconnect: true,
-    });
+    const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
+        `/api/coursetype/free/${routerId}`,
+        fetcher,
+        {
+            revalidateOnFocus: true,
+            revalidateOnReconnect: true,
+            revalidateIfStale: false
+        }
+    );
 
-    const handleCount = (count: number|string) => {
-        setRouterId(count)
-    }
+    useEffect(() => {
+        if (data?.data && !cache[routerId]) {
+            setCache(prevCache => ({ ...prevCache, [routerId]: data.data }));
+        }
+    }, [data, routerId, cache]);
+
+    const handleCount = useCallback((count: number | string) => {
+        if (count !== routerId) {
+            setRouterId(count);
+            setCourses(cache[count] || []);
+        }
+        else if (isCount) {
+            setCourses(cache[8] || []);
+            setIsCount(false);
+        }
+        else {
+            setCourses(cache[count] || []);
+            setIsCount(true);
+        }
+    }, [routerId, cache, isCount]);
+
+    useEffect(() => {
+        if (cache[routerId]) {
+            setCourses(cache[routerId]);
+        } else if (data?.data) {
+            setCourses(data.data);
+        }
+    }, [data, routerId, cache]);
 
     if (error) return <div>Error loading courses</div>;
-    if (!data) return <div>Loading...</div>;
-
-
-    const courses = Array.isArray(data.data) ? data.data : [];
 
 
     return (
@@ -81,16 +112,17 @@ const CourseFree: React.FC = () => {
                     </Row>
                     <Row className={styles.nav}>
                         <Col className={styles.nav__btn__muti}>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={()=>handleCount(1)}>Khóa học lộ trình FE</Button>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={()=>handleCount(2)}>Khóa học lộ trình BE</Button>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} height={40} onClick={()=>handleCount(3)}>Khóa học lộ trình Tester</Button>
-                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40} onClick={()=>handleCount(4)}>Khóa học lộ trình Designer</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handleCount(1)}>Khóa học lộ trình FE</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handleCount(2)}>Khóa học lộ trình BE</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} height={40} onClick={() => handleCount(3)}>Khóa học lộ trình Tester</Button>
+                            <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40} onClick={() => handleCount(4)}>Khóa học lộ trình Designer</Button>
                         </Col>
                         <Col className={styles.nav__btn__single}>
-                            <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40} onClick={()=>handleCount('')}>Xem thêm</Button>
+                            <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={isCount ? 3 : 4} width={145} height={40} onClick={() => handleCount(20)}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
                         </Col>
                     </Row>
                     <Row md={12} className={styles.main__course}>
+                        {isValidating && (<ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={styles.align} />)}
                         {courses?.map(course => (
                             <Col md={4} className={styles.mainBox} key={course.course_id}>
                                 <Card className={styles.mainBox__content}>

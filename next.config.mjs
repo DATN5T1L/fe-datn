@@ -80,8 +80,17 @@ const nextConfig = {
         source: '/api/changePassword/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-password-user/:path*',
       },
+      {
+        source: '/api/changePhone/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-phone-user/:path*',
+      },
+      {
+        source: '/api/changeImg/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/update-avatar/:path*',
+      },
 
       // Client API rewrites
+
       {
         source: '/api/routes/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/client/route/:path*',
@@ -156,7 +165,14 @@ const nextConfig = {
         source: '/api/allUser/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/users/:path*',
       },
-  
+      {
+        source: '/api/allCourse/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/courses/:path*',
+      },
+
+
+
+
     ];
   },
   images: {

@@ -62,7 +62,7 @@ const Header: React.FC = () => {
         expand="lg"
         className={`${h.nav} d-flex justify-content-between align-items-center `}
       >
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <img
             src="/img/logoPage.jpg"
             className="d-inline-block align-top"
