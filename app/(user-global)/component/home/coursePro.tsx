@@ -38,6 +38,13 @@ const CoursePro: React.FC = () => {
         if (count !== routerId) {
             setRouterId(count);
             setCourses(cache[count] || []);
+        }
+    }, [routerId, cache]);
+
+    const handleCountAll = useCallback((count: number | string) => {
+        if (count !== routerId) {
+            setRouterId(count);
+            setCourses(cache[count] || []);
             setIsCount(true);
         }
         else if (isCount) {
@@ -93,7 +100,7 @@ const CoursePro: React.FC = () => {
                     <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40} onClick={() => handleCount(4)}>Khóa học lộ trình Designer</Button>
                 </Col>
                 <Col className={styles.nav__btn__single}>
-                    <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={isCount ? 3 : 4} width={145} height={40} onClick={() => handleCount(20)}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
+                    <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={isCount ? 3 : 4} width={145} height={40} onClick={() => handleCountAll(20)}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
                 </Col>
             </Row>
 

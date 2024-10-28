@@ -295,6 +295,7 @@
     padding: 8px 32px;
     display: flex;
     flex-direction: column;
+    gap: 12px;
     justify-content: space-between;
     box-shadow: 0px 5px 8px -5px rgba(0, 0, 0, 0.24);
     background: var(--gray-100);
@@ -507,6 +508,88 @@
     align-items: center;
     max-height: 64px;
     overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+  }
+
+  .btn-header-btn-group {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    height: auto;
+    gap: 21px;
+  }
+
+  .btn-header-btn-group-element {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: auto;
+    display: flex;
+  }
+
+  .btn-header-btn-group-main {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    border-radius: 12px;
+    border: 1px solid var(--blue-50);
+    background: var(--gray-100);
+    padding: 0px 16px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .btn-header-btn-group-main2 {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: var(--gray-100);
+  }
+
+  .btn-header-btn-group-main:hover,
+  .btn-header-btn-group-main :active {
+    background: var(--gray-100) !important;
+  }
+
+  .btn-header-btn-group-main2:hover,
+  .btn-header-btn-group-main2 :active {
+    background: var(--gray-100) !important;
+  }
+
+  .btn-header-btn-group-main-img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .btn-header-btn-group-main-img1 {
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+    transition: all 0.5 ease-in-out;
+  }
+
+  .btn-header-btn-group-main-content {
+    color: var(--text-100);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  .box-search {
+    width: 100%;
+    padding: 8px 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 64px;
     transition: max-height 0.5s ease-in-out;
   }
 
@@ -908,6 +991,122 @@
     padding: 0;
     transition: padding 2s ease-in-out, max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
   }
+
+  .search-bar:focus-within {
+    border-color: #237DF7;
+  }
+
+  .search-bar:focus-within .search-span,
+  .search-bar.has-value .search-span {
+    background-color: var(--gray-100);
+    top: -1px;
+    font-size: 12px;
+    padding: 2px !important;
+    color: #237DF7;
+    transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
+  }
+
+  .box-search-h0 {
+    max-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+  }
+
+  /* header login :true  */
+
+  .user-group {
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: auto;
+    gap: 36px;
+    flex-direction: row;
+  }
+
+  .user-notification {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .icon-notification {
+    width: 24px;
+    height: 24px;
+  }
+
+  .user {
+    display: flex;
+    width: auto;
+    height: auto;
+    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .avt {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .itle-group {
+    display: flex;
+    width: 106px;
+    max-width: 106px;
+    flex-direction: column;
+  }
+
+  .title-1 {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    color: var(--text-25);
+    width: auto;
+    max-width: 106px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+  }
+
+  .title-name {
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    color: var(--primary);
+    width: auto;
+    max-width: 106px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+  }
+
+  .right-icon-user {
+    width: 24px;
+    height: 24px;
+  }
+
+  .right-icon-user-stroke {
+    stroke: var(--gray-80);
+  }
+
 
   /* header nav bar end  */
 

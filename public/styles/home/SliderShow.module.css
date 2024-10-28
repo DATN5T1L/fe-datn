@@ -337,7 +337,7 @@
 }
 
 .color__cyan {
-    color: var(--cyan-40);
+    color: var(--cyan-40); 
 }
 
 .box__user__border {
