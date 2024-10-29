@@ -3,10 +3,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import styles from '@public/styles/user-component/ModalChangeImg.module.css';
 import { Button, Form, Image } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { update } from '@/redux/slices/userSlice';
 
 interface ModalChangeImgProps {
     show: boolean;
@@ -18,6 +19,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
     const token = localStorage.getItem('token');
+    const disPatch = useDispatch()
 
     // Validation schema với Yup
     const validationSchema = Yup.object({
@@ -52,7 +54,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
         const file = event.target.files?.[0];
         if (file) {
             setSelectedFile(URL.createObjectURL(file));
-            setFieldValue('avatar', file); 
+            setFieldValue('avatar', file);
         }
     };
 
@@ -76,7 +78,11 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
                 body: formData,
             });
             if (response.ok) {
+                const data = await response.json()
                 alert('Ảnh đã được cập nhật thành công');
+                disPatch(update({
+                    avatar: data?.avatar
+                }))
                 onClose();
             } else {
                 alert('Cập nhật ảnh thất bại');

@@ -26,6 +26,7 @@
   align-items: center !important;
   justify-content: center !important;
   max-height: 32px;
+  align-items: center;
   &:hover {
     border-color: var(--blue-40);
   }
@@ -59,17 +60,17 @@
   background-color: white !important;
   background-color: transparent;
   border: none !important;
-  display: flex;
+  display: flex !important;
   align-items: center !important;
-
+  justify-content: center;
 
   &:hover {
     background-color: transparent;
   }
 }
 .btnSearch img {
-  height: 24px;
-  width: 24px;
+  height: 11px;
+  width: 11px;
 }
 
 .rightIcons {

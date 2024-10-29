@@ -15,6 +15,7 @@
   background: var(--background-bg-admin, #f5f6fa);
   padding: 25px 32px;
 }
+
 .header1 {
   display: flex;
   justify-content: space-between;
@@ -44,6 +45,29 @@
 .filterBar {
   background: var(--background-bg-admin, #f5f6fa);
   margin-left: 0px;
+  align-self: stretch !important;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 5.5rem;
+
+}
+
+.filterBar__group {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.filterBar__menu {
+  width: auto;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 32px !important;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .filterInputGroup {
@@ -52,6 +76,7 @@
   width: 40%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
+  align-self: stretch !important;
   justify-content: space-between;
 }
 
@@ -113,15 +138,18 @@
 .table thead tr {
   border: none;
 }
+
 .table thead tr td {
   padding: 20px 10px;
   background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
+
 .table thead tr td:nth-child(6) {
   text-align: center;
 }
+
 .table thead tr td:nth-child(4) {
   text-align: center;
 }
@@ -142,9 +170,11 @@
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
+
 .table tbody tr td:nth-child(4) {
   text-align: center;
 }
+
 .table thead td {
   white-space: nowrap;
 }
@@ -175,14 +205,17 @@
   height: 38px;
   margin: 0;
 }
+
 .option_button a:nth-child(2) {
   border-left: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
 }
+
 .option_button a img {
   width: 24px;
   height: 24px;
 }
+
 .option_button_group {
   /* display: flex; */
   /* height: 108px; */
@@ -214,6 +247,7 @@
   margin-top: 20px;
   width: 100%;
 }
+
 .pagination {
   display: flex;
   align-items: center;
@@ -265,4 +299,12 @@
 .pagination-next:hover {
   background-color: #e9ecef;
   border-radius: 50%;
+}
+
+.align{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
