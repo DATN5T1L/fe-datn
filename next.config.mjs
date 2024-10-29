@@ -178,6 +178,22 @@ const nextConfig = {
         destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/users-role/:path*',
       },
 
+      // statistical
+
+      {
+        source: '/api/statistical_admin/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/statistical-admin/:path*',
+      },
+      {
+        source: '/api/statistical_post/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/statistical-post-by-user/:path*',
+      },
+      {
+        source: '/api/statistical_revenue_mouth/:path*',
+        destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/statistical-revenue-mouth/:path*',
+      },
+
+
     ];
   },
   images: {

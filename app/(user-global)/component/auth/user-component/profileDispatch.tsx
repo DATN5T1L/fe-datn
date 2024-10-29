@@ -11,7 +11,6 @@ const ProfileDispatch = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const pathName = usePathname()
-
     const isRegister = pathName === '/register'
     const isLogin = pathName === '/login'
     const isRetrievePassword = pathName === '/retrievePassword'

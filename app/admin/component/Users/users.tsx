@@ -24,6 +24,7 @@ interface User {
   email: string;
   phonenumber: string;
   created_at: string;
+  role: string;
 }
 
 interface ApiResponse<T> {
@@ -54,12 +55,8 @@ const Users: React.FC = () => {
 
   useEffect(() => {
     setIsloading(true)
-    fetch(`/api/allUser/`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    }).then(res => res.json())
+    fetch(`/api/allUser/client`, { cache: 'no-cache' })
+      .then(res => res.json())
       .then(data => {
         setUserData(data)
         setIsloading(false)
@@ -183,8 +180,8 @@ const Users: React.FC = () => {
                     <td>
                       {item.email}
                     </td>
-                    <td>{item.phonenumber}</td>
-                    <td>Học viên</td>
+                    <td>{item.phonenumber ? item.phonenumber : 'Chưa thêm số'}</td>
+                    <td>{item.role === 'client' ? 'Học viên' : ''}</td>
                     <td>{useFormatDate(item.created_at)}</td>
                     <td>
                       <span className={h.active_text}>Active</span>

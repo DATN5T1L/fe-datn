@@ -18,13 +18,43 @@ import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu
 import { HeaderArticleSimple } from "./component/Article/headerArrticle";
 import BodyDashboard from "@/app/admin/component/Dashboard/BodyDashboard";
 
+interface Statistical{
+  totalCourse:number;
+  totalCourseLecturer:number; // nhân viên
+  totalCourseNow:number; //  
+  totalCourseRevenue:string; // doanh thu
+}
+
+const getCookie = (name: string) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  return null;
+};
+
 const Dashboard: React.FC = () => {
   const router = useRouter()
   const userState = useSelector((state: RootState) => state.user.user)
   const alertShown = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
+  const token = getCookie('token');
 
+  useEffect(() => {
+    fetch(`/api/statistical_admin/`, {
+      cache: 'no-cache',
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+
+      })
+      .catch(error => console.log(error))
+  }, [])
 
   useEffect(() => {
     if (!alertShown.current) {
