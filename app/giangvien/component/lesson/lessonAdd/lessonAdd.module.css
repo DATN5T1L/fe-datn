@@ -96,21 +96,73 @@ padding: 32px;
     
    
 }
-.inputne {
-    position: relative;
+.selectne {
+  position: relative;
+width: 360px;
+
+}
+.inputne{
+    margin-top: 10px;
     width: 360px;
     height: 48px;
-    margin-top: 10px;
-    margin-bottom: 12px;
-    background: #F2F2F2;
     border: none;
     border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    color: #666;
-     outline: none;
+    background: #F2F2F2;
+    margin-bottom: 12px;
+    outline: none;
     padding-left: 12px;
-    
+
+     appearance: none; /* ẩn mũi tên mặc định */
+  -webkit-appearance: none; /* ẩn mũi tên trên Safari */
+   align-self: stretch;
+
+}
+.custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.custom-file-upload::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 20px;
+    background-color: #ccc;
+    margin: 0 8px;
+}
+
+
+.selectne img {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* để ảnh không gây cản trở khi bấm vào select */
+  width: 16px; /* điều chỉnh kích thước mũi tên */
+  height: auto;
+  
+}
+.inputne1{
+    margin-top: 10px;
+    width: 360px;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: #F2F2F2;
+    margin-bottom: 12px;
+    outline: none;
+    padding-top: 12px;
+    padding-left: 12px;
+
+     appearance: none; /* ẩn mũi tên mặc định */
+  -webkit-appearance: none; /* ẩn mũi tên trên Safari */
+   
+
 }
 .nutheader{
     padding-left:  32px;

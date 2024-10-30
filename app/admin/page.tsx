@@ -5,7 +5,6 @@ import style from "./component/Dashboard/Chart.module.css";
 import { Image } from "react-bootstrap";
 import { useState } from "react";
 import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu";
-import { HeaderArticleSimple } from "./component/Article/headerArrticle";
 import BodyDashboard from "@/app/admin/component/Dashboard/BodyDashboard";
 
 const Dashboard = () => {
@@ -31,8 +30,8 @@ const Dashboard = () => {
             </div>
             <div className={style.card_notice}>
               <span>
-                <p>Tổng lợi nhuận</p>
-                <h3>900k</h3>
+                <p>Đơn hôm nay</p>
+                <h3>180</h3>
               </span>
               <Image
                 src={"/img_admin/monneyvip.svg"}

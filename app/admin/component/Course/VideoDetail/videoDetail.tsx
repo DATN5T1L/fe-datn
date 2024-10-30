@@ -1,6 +1,7 @@
 import videoMod from "./course-video.module.css";
-import courseMod from "../course.module.css";
+import courseMod from "./course.module.css";
 import { Button, Stack } from "react-bootstrap";
+import Link from "next/link";
 import {
   ChevronLeft,
   ChevronRight,
@@ -37,12 +38,14 @@ const VideoDetail = () => (
             className={`${courseMod.actions} d-flex flex-column flex-shrink-0`}
           >
             <Button className={`${courseMod.btnCTA}`}>Duyệt video</Button>
+            <Link href="/admin/StatisticalCourse">
             <Button
               variant="outline-primary"
               className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline}`}
             >
-              Từ chối video
+              Chi tiết
             </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -61,9 +64,9 @@ export default VideoDetail;
 const ChapterSearchBar = () => {
   return (
     <div className="input-group mb-3">
-      <div className="input-group-prepend">
+      <div className={`input-group-prepend ${courseMod.iconInput} rounded-start-4`}>
         <span
-          className="input-group-text bg-transparent border-end-0 rounded-start-5 rounded-end-0 p-2"
+          className={`input-group-text bg-transparent border-end-0 rounded-start-4 rounded-end-0 p-2 ${courseMod.iconInput}`}
           id="inputGroup-sizing-default"
         >
           {/* Search icon start */}
@@ -72,7 +75,7 @@ const ChapterSearchBar = () => {
             width="24"
             height="24"
             viewBox="0 0 12 12"
-            fill="none"
+            fill="#dbdbdb"
           >
             <g clip-path="url(#clip0_3435_8010)">
               <path
@@ -94,7 +97,7 @@ const ChapterSearchBar = () => {
       <input
         placeholder="Tìm kiếm bài học"
         type="text"
-        className="form-control rounded-end-5 border-start-0 p-2"
+        className={`form-control rounded-end-4 border-start-0 p-2 ${courseMod.textInput}`}
         aria-label="Default"
         aria-describedby="inputGroup-sizing-default"
       />

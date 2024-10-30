@@ -207,7 +207,7 @@
   color: var(--text-0);
   width: 184px;
   height: 56px;
- 
+ background-color: #438FF7;
   padding: 8px 12px;
   border-radius: 12px;
   border: 1px solid var(--blue-60);

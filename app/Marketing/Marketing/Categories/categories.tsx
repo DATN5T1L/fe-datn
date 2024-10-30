@@ -36,19 +36,20 @@ const Categories = () => {
                 <tr
                   key={idx}
                   onClick={() => {
-                    router.push(`MarketingCategories/AddCategory`);
+                    router.push(``);
                   }}
                 >
                   <td className="text-start">Học reactJS với TTO</td>
                   <td>01/02/2024</td>
                   <td className={`${h.category_btns}`}>
                     <div
-                      className={`justify-content-between border d-flex py-2 rounded`}
+                      className={`d-flex justify-content-evenly border py-2 rounded`}
                     >
-                      <Link href="/#!" className="border-end  flex-grow-1">
+                      <Link href="Marketing/MarketingCategories/EditCategory">
                         <img src="/img_admin/action1.svg" alt="Edit" />
                       </Link>
-                      <Link href={""} className="border-end flex-grow-1">
+                      <div className="border-end" />
+                      <Link href={""} className="">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="25"
@@ -66,10 +67,8 @@ const Categories = () => {
                           />
                         </svg>
                       </Link>
-                      <Link
-                        href="UsersPage/DetailUser/"
-                        className="flex-grow-1"
-                      >
+                      <div className="border-end" />
+                      <Link href="/Marketing/MarketingCategories/EditCategory" className="">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="25"

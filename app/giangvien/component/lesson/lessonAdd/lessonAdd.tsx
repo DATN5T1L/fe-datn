@@ -3,6 +3,7 @@
 import { SetStateAction, useState } from "react";
 import { Button } from "react-bootstrap";
 import h from "./lessonAdd.module.css";
+import { type } from "os";
 
 const LessonAdd = () => {
   const [showForm, setShowForm] = useState(true);
@@ -58,7 +59,7 @@ const LessonAdd = () => {
               <div className={h.bentrong}>
                 <div>Mô tả</div>
                 <textarea
-                  className={h.inputne}
+                  className={h.inputne1}
                   placeholder="Nhập mô tả vào đây"
                 />
               </div>
@@ -68,13 +69,19 @@ const LessonAdd = () => {
               <div className={h.formnhap}>
                 <div className={h.bentrong}>
                   <div>Tên tiêu đề</div>
-                  <input
-                    className={h.inputne}
-                    placeholder="Nhập vào tiêu đề nội dung"
-                  />
+                  <div className={h.selectne}>
+                    <select className={h.inputne}>
+                      <option value="reactjs">Tiêu đề 1</option>
+                      <option value="nodejs">NodeJS</option>
+                      <option value="typescript">TypeScript</option>
+                      <option value="nextjs">Next.js</option>
+                    </select>
+                    <img src="/img_admin/down.svg" />
+                  </div>
                 </div>
                 <div className={h.bentrong}>
                   <div>Video</div>
+
                   <input className={h.inputne} type="file" />
                 </div>
               </div>

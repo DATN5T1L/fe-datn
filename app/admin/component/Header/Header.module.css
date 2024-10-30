@@ -17,22 +17,15 @@
 
 /* form */
 .formGroup {
-  
 }
 
 .searchInput {
-  width: 400px;
   max-width: 400px;
-  padding: 8px 12px;
-  padding: 8px 12px;
-  background-color: var(--gray-100);
-  border: 1px solid var(--gray-80);
   height: auto;
-  border-radius: 9999px;
+}
 
-  &:hover {
-    border-color: var(--blue-40);
-  }
+.searchText {
+  font-size: 10px;
 }
 
 .searchInput {
@@ -48,7 +41,6 @@
   padding: 0;
   display: flex;
   align-items: center;
- 
 }
 
 /* btnSearch */
@@ -58,7 +50,6 @@
   background-color: white !important;
   background-color: transparent;
   border: none !important;
-   
 
   &:hover {
     background-color: transparent;
@@ -74,13 +65,27 @@
   align-items: center;
 }
 
-.iconButton {
+.iconButton1 {
   font-size: 1.25rem;
   margin-left: 20px;
   color: #333;
   background: none;
   border: none;
   padding: 0;
+}
+.iconButton2 {
+  font-size: 1.25rem;
+  margin-left: 20px;
+  color: #333;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.iconButton2 img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .CTA {

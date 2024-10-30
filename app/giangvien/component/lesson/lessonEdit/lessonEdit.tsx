@@ -35,20 +35,22 @@ const LessonEdit = () => {
               </div>
               <div className={h.bentrong}>
                 <div>Mô tả</div>
-                <input
-                  className={h.inputne}
-                  placeholder="Nhập mô tả vào đây"
-                />
+                <input className={h.inputne} placeholder="Nhập mô tả vào đây" />
               </div>
             </div>
 
             <div className={h.formnhap}>
               <div className={h.bentrong}>
                 <div>Tên tiêu đề</div>
-                <input
-                  className={h.inputne}
-                  placeholder="Nhập vào tiêu đề nội dung"
-                />
+                <div className={h.selectne}>
+                  <select className={h.inputne}>
+                    <option value="reactjs">tiều đề 1</option>
+                    <option value="nodejs">NodeJS</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="nextjs">Next.js</option>
+                  </select>
+                  <img src="/img_admin/down.svg" />
+                </div>
               </div>
               <div className={h.bentrong}>
                 <div>Video</div>

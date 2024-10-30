@@ -25,12 +25,6 @@ export default function RootLayout({
         <div className={styles.header}>
           <Header />
         </div>
-        {/* <div className={styles.mainContent}>
-          <Col className={styles.sidebar}>
-            <Sidebar />
-          </Col>
-          <Col className={styles.article}>{children}</Col>
-        </div> */}
         <Row className={`${styles.mainContent} m-0`}>
           <Col md={0} xl={2} sm={0} xs={0} className={`d-none d-md-none d-xl-block`}>
             <Sidebar />

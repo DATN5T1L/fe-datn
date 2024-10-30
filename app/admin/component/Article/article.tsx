@@ -19,67 +19,6 @@ const Article: React.FC<{}> = () => {
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
-      {/* Header */}
-      {/* <div
-        className={`${h.header} d-flex justify-content-between align-items-center`}
-      >
-        <h2 className={h.heading}>Bài viết</h2>
-        {showActions && (
-          <div className={`${h.actions} d-flex`}>
-            <Button
-              variant="outline-primary"
-              className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
-            >
-              Thêm danh mục bài viết
-            </Button>
-            <Button className={`${h.btnCTA}`}>Thêm bài viết</Button>
-          </div>
-        )}
-      </div>
-
-      <div
-        className={`${h.filterBar} d-flex justify-content-between align-items-center w-100`}
-      >
-        <InputGroup className={`${h.filterInputGroup} d-flex`}>
-          <InputGroup.Text className={h.inputGroupText}>
-            <img src="/img_admin/action.svg" alt="Action" />
-          </InputGroup.Text>
-
-          <select aria-label="Trạng thái" className={h.formSelect}>
-            <option>Trạng thái  </option>
-            <option value="1">Active</option>
-            <option value="2">Inactive</option>
-          </select>
-
-          <select aria-label="Lượt xem" className={h.formSelect}>
-            <option>Lượt xem  </option>
-            <option value="1">0-100</option>
-            <option value="2">1000+</option>
-          </select>
-
-          <InputGroup.Text className={h.resetGroupText}>
-            <img src="/img_admin/restart.svg" alt="Reset" />
-            <span>  Cài lại</span>
-          </InputGroup.Text>
-        </InputGroup>
-
-        <InputGroup className={h.searchInputGroup}>
-          <Form.Control
-            type="text"
-            placeholder="Tìm kiếm bài viết"
-            className={h.searchInput}
-          />
-          <div className={h.searchIconWrapper}>
-            <img
-              src="/img_admin/search.svg"
-              alt="Search"
-              width={"24px"}
-              height={"24px"}
-            />
-          </div>
-        </InputGroup>
-      </div> */}
-
       {/* Post List */}
       <div className="d-flex overflow-auto w-100" style={{ whiteSpace: 'nowrap' }}>
         <Table bordered hover className={`${h.table}`}>
@@ -121,7 +60,7 @@ const Article: React.FC<{}> = () => {
                     <div
                       className={`justify-content-between border d-flex py-2 rounded row mx-1`}
                     >
-                      <Link href="/#!" className="w border-end justify-content-center align-item-center d-flex col-6">
+                      <Link href="/admin/ArticlePage/1" className="w border-end justify-content-center align-item-center d-flex col-6">
                         <img src="/img_admin/action1.svg" alt="Edit" />
                       </Link>
                       <Link href={`ArticlePage?id=${1}`} as={`ArticlePage/${1}`} className="w-30 border-end justify-content-center align-item-center d-flex col-6">

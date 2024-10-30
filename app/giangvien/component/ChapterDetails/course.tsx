@@ -9,28 +9,56 @@ import {
   Container,
   Card,
 } from "react-bootstrap";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import h from "./course.module.css";
 import Link from "next/link";
 import "./course.css";
-import header from "@/app/(user-global)/component/globalControl/header";
 
 const Course: React.FC<{}> = () => {
+  const totalPages = 10;
+  const currentPage = 1;
+  const onPageChange = (page: number) => {
+    console.log("Chuyển tới trang:", page);
+  };
+
+  const renderPaginationItems = () => {
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, idx) => (
+        <Pagination.Item
+          key={idx}
+          active={currentPage === idx + 1}
+          onClick={() => onPageChange(idx + 1)}
+        >
+          {idx + 1}
+        </Pagination.Item>
+      ));
+    }
+    return (
+      <>
+        {Array.from({ length: 7 }, (_, idx) => (
+          <Pagination.Item
+            key={idx}
+            active={currentPage === idx + 1}
+            onClick={() => onPageChange(idx + 1)}
+          >
+            {idx + 1}
+          </Pagination.Item>
+        ))}
+        <Pagination.Ellipsis disabled />
+      </>
+    );
+  };
+
   return (
     <div
-      className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
+      className={`${h.main} d-flex flex-column  align-items-start `}
     >
       {/* Post List */}
       <div
         className="d-flex overflow-auto w-100"
         style={{ whiteSpace: "nowrap" }}
       >
-        <Table
-          id="cssTable"
-          bordered
-          hover
-          className={`${h.table} table-responsive`}
-        >
+        <Table bordered hover className={`${h.table} table-responsive`}>
           <thead>
             <tr>
               <td>Hình ảnh</td>
@@ -82,16 +110,16 @@ const Course: React.FC<{}> = () => {
                     <div
                       className={`justify-content-between border d-flex py-2 rounded`}
                     >
-                      <Link href="/#!" className="w-50 border-end">
+                      <Link href="/giangvien/CoursePage/CourseVideoDetail" className="w-50 border-end">
                         <img src="/img_admin/action1.svg" alt="Edit" />
                       </Link>
-                      <Link href="/#!" className="w-50 border-end">
+                      <Link href="/giangvien/CoursePage/CourseFQA" className="w-50 border-end">
                         <img src="/img_admin/hoicham.svg" alt="Edit" />
                       </Link>
-                      <Link href="/#!" className="w-50 border-end">
+                      <Link href="/giangvien/ChapterPage/ManagerChapter" className="w-50 border-end">
                         <img src="/img_admin/vitien.svg" alt="Edit" />
                       </Link>
-                      <Link href="UsersPage/DetailUser/" className="w-50">
+                      <Link href="/giangvien/Lesson/LessonEdit" className="w-50">
                         <img src="/img_admin/action2.svg" alt="Edit" />
                       </Link>
                     </div>
@@ -105,7 +133,9 @@ const Course: React.FC<{}> = () => {
       {/* Pagination */}
       <div className="paginationWrapper">
         <Pagination className="pagination">
-          <Pagination.Prev>
+          <Pagination.Prev
+            onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+          >
             <img
               src="/img_admin/prep.svg"
               alt="Previous"
@@ -113,14 +143,10 @@ const Course: React.FC<{}> = () => {
               height="16"
             />
           </Pagination.Prev>
-          {Array(2)
-            .fill(null)
-            .map((_, idx) => (
-              <Pagination.Item key={idx} active={idx === 0}>
-                {idx + 1}
-              </Pagination.Item>
-            ))}
-          <Pagination.Next>
+          {renderPaginationItems()}
+          <Pagination.Next
+            onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+          >
             <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
           </Pagination.Next>
         </Pagination>

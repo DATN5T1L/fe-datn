@@ -1,5 +1,5 @@
 "use client";
-import h from "@/app/admin/UsersDetail/UsersDetail.module.css";
+import h from "./UsersDetail.module.css";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Figure, Image } from "react-bootstrap";
 const UserDetail = () => {
@@ -65,6 +65,7 @@ const UserDetail = () => {
               alt="Avatar"
               src="/img_admin/avatarvip.png"
               roundedCircle
+              className="mt-4"
             />
             <Figure.Caption className={h.name_title}>Minh Tâm</Figure.Caption>
             <Figure.Caption>Học viên</Figure.Caption>

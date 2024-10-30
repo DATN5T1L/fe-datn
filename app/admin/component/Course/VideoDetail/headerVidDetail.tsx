@@ -1,4 +1,4 @@
-import h from "../course.module.css";
+import h from "./course.module.css";
 
 import { Button } from "react-bootstrap";
 
@@ -11,11 +11,13 @@ const HeaderVideoDetail = () => {
         <div className={`${h.actions} d-flex`}>
           <Button
             variant="outline-primary"
-            className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
+            className={`${h.btnCTA} ${h.btnCTAOutline} ${h.btnCTAWidth} me-2`}
           >
             Từ chối khoá học
           </Button>
-          <Button className={`${h.btnCTA}`}>Đăng khoa học</Button>
+          <Button className={`${h.btnCTA} ${h.btnCTAWidth}`}>
+            Đăng khóa học
+          </Button>
         </div>
       </div>
     </div>

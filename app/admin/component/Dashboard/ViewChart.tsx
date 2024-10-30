@@ -124,7 +124,7 @@ const MyChartComponent = () => {
 
   return (
     <div className={style.bg_chart}>
-      <h3>Khóa đã duyệt</h3>
+      <h3>Doanh thu khóa học</h3>
       <canvas ref={chartRef}></canvas>
     </div>
   );

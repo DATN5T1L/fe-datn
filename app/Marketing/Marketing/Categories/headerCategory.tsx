@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import h from "./category.module.css";
+import Link from "next/link";
 
 export const HeaderMarketingCategory = () => {
   return (
@@ -14,13 +15,17 @@ export const HeaderMarketingCategory = () => {
               <h2 className={h.heading}>Danh mục</h2>
             </div>
             <div className={`${h.actions} d-flex`}>
+            <Link href="/Marketing/MarketingCategories/AddCategory">
               <Button
                 variant="outline-primary"
                 className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
               >
                 Thêm danh mục bài viết
               </Button>
+              </Link>
+              <Link href="/Marketing/MarketingPosts/AddPost">
               <Button className={`${h.btnCTA}`}>Thêm bài viết</Button>
+              </Link>
             </div>
           </div>
         </div>

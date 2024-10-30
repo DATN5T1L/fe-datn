@@ -1,6 +1,7 @@
 import videoMod from "./course-video.module.css";
 import courseMod from "../course.module.css";
 import { Button, Stack } from "react-bootstrap";
+import Link from "next/link";
 import {
   ChevronLeft,
   ChevronRight,
@@ -35,7 +36,15 @@ const VideoDetail = () => (
           <div
             className={`${courseMod.actions} d-flex flex-column flex-shrink-0`}
           >
-            <Button className={`${courseMod.btnCTA2}`}>Chỉnh sửa video</Button>
+            <Button className={`${courseMod.btnCTA}`}>Chỉnh sửa video</Button>
+            <Link href="/giangvien/CoursePage/StatisticalCourse">
+            <Button
+              variant="outline-primary"
+              className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline} w-100`}
+            >
+              Chi tiết video
+            </Button>
+            </Link>
           </div>
         </div>
       </div>

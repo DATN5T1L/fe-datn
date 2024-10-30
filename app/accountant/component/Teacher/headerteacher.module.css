@@ -87,6 +87,9 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
+.searchInputGroup input {
+  border-radius: 40px;
+}
 
 .searchInput {
   width: 250px;

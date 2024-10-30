@@ -22,4 +22,4 @@ const AccepptArticel: React.FC = () => {
 }
 
 
-export default AccepptArticel
+export default AccepptArticel;

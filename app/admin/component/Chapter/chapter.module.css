@@ -16,10 +16,13 @@
   padding: 25px 0px;
 }
 
-.left_right{
+.left_right {
   display: flex;
   justify-content: space-between; /* Đẩy .left và .right về hai đầu */
+  align-items: center;
+  width: 100%; /* Đảm bảo nó chiếm toàn bộ chiều rộng của container cha */
 }
+
 .left{
   font-size: 24px;
   font-weight: 500;
@@ -168,8 +171,17 @@
   text-align: left;
 }
 
+.table td:nth-child(1) {
+  width: 284px;
+}
 .table td:nth-child(2) {
-  max-width: 300px;
+  width: 284px;
+}
+.table td:nth-child(3) {
+  width: 284px;
+}
+.table td:nth-child(4) {
+  width: 284px;
 }
 
 .table tbody tr td {
@@ -232,6 +244,7 @@
   align-self: stretch;
   border-radius: 0px 8px 8px 0px;
 }
+
 
 /*  Actions */
 .btnCTA {

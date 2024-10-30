@@ -10,6 +10,7 @@ import {
   FormControl,
 } from "react-bootstrap";
 import h from "./marketing.module.css";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export const HeaderMarketing = () => {
@@ -27,6 +28,7 @@ export const HeaderMarketing = () => {
           >
             Thêm danh mục bài viết
           </Button>
+          <Link href="/Marketing/MarketingPosts/AddPost">
           <Button
             className={`${h.btnCTA}`}
             onClick={() => {
@@ -35,6 +37,7 @@ export const HeaderMarketing = () => {
           >
             Thêm bài viết
           </Button>
+          </Link>
         </div>
       </div>
 

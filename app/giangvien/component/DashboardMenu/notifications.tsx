@@ -35,7 +35,7 @@ const Notifications = () => {
 
             <div className={styles.option_button_group}>
               <div
-                className={`d-flex justify-content-between ${styles.option_button}`}
+                className={`d-block  ${styles.option_button}`}
               >
                 <Link href="/#!">
                   <img src="/img_admin/eyes.svg" alt="Edit" />

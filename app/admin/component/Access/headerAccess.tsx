@@ -17,7 +17,7 @@ export const HeaderAccess = () => {
 
 
         <Link href={`AccessPage/Add`} className={`col-12 col-md-6 flex-row d-flex justify-content-end`}>
-          <Button className={`${h.btnCTA}`}>Thêm bộ phận</Button>
+          <Button className={`${h.btnCTA}`}>Thêm vai trò</Button>
         </Link>
       </div>
       {/* <Row className={`${h.filterBar} justify-content-between align-items-center`}>
