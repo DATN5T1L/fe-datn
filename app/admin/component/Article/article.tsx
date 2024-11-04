@@ -12,7 +12,6 @@ import {
 import h from "./articel.module.css";
 import Link from "next/link";
 import "./articel.css";
-import header from "@/app/(user-global)/component/globalControl/header";
 
 const Article: React.FC<{}> = () => {
   return (
