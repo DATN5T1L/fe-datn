@@ -115,7 +115,7 @@ const ProfileDispatch = () => {
             const data = await res.json();
 
             dispatch(login(data));
-            console.log(data);
+            // console.log(data);
             localStorage.setItem('isLoggedIn', 'true');
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
@@ -235,7 +235,7 @@ const ProfileDispatch = () => {
             }
         };
 
-        const interval = setInterval(checkTokenCookie, 100000);
+        const interval = setInterval(checkTokenCookie, 1000);
 
         return () => clearInterval(interval);
     }, [dispatch, router]);

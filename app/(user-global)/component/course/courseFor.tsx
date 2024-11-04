@@ -7,20 +7,44 @@ import { Course } from "@app/(user-global)/model/course";
 import Link from "next/link";
 import ProgressCircle from './ProgressCircle';
 
-interface CourseForProps {
-    id: number;
-}
 
 interface CourseCardProps extends Course {
     progress_percentage: number;
 }
+interface ApiResponse {
+    courses: {
+        user_id: string;
+        data: CourseCardProps[];
+    };
+}
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+const fetcher = async (url: string, token: string): Promise<ApiResponse> => {
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`, // Thêm token vào header
+            'Content-Type': 'application/json',
+        },
+    });
 
-const CourseFor: React.FC<CourseForProps> = ({ id }) => {
-    const { data, error } = useSWR<{ status: string; message: string; courses: { user_id: string; data: CourseCardProps[] } }>(
-        `/api/courseFor/${id}`,
-        fetcher,
+    // Kiểm tra xem phản hồi có thành công không
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Đã xảy ra lỗi khi lấy dữ liệu.');
+    }
+
+    return response.json(); // Trả về dữ liệu phản hồi
+};
+
+
+
+const CourseFor: React.FC = () => {
+
+    const token: string = localStorage.getItem('token') || ''; // Lấy token từ localStorage
+
+    const { data, error } = useSWR<ApiResponse>(
+        '/api/courseFor', // Đường dẫn API
+        (url) => fetcher(url, token), // Hàm fetcher
         {
             revalidateOnFocus: false,
             revalidateOnReconnect: false,
@@ -28,14 +52,13 @@ const CourseFor: React.FC<CourseForProps> = ({ id }) => {
     );
 
     if (error) return <div>Error loading courses</div>;
-    if (!data) return <div>Loading...</div>;
-
     const courses = Array.isArray(data?.courses?.data) ? data.courses.data : [];
-
+    console.log(courses);
     const handleClick = (course: CourseCardProps) => {
 
         const newProgress = {
             course_id: course.course_id,
+            course_name: course.name_course,
             progress_percentage: course.progress_percentage,
         };
 

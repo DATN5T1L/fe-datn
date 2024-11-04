@@ -1,31 +1,30 @@
 "use client"
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player/youtube';
 
-const YouTubePlayer = () => {
-    const [lastValidTime, setLastValidTime] = useState(0); // Thời gian hợp lệ cuối cùng
-    const playerRef = useRef<any>(null); // Tham chiếu tới video player
+const VideoPlayer: React.FC = () => {
+    const [url] = useState<string>('https://www.youtube.com/watch?v=dQw4w9WgXcQ'); // Thay đổi link video tại đây
+    const playerRef = useRef<ReactPlayer | null>(null);
 
-    const handleProgress = (progress: { playedSeconds: number }) => {
-        const { playedSeconds } = progress;
-        console.log(playedSeconds);
-
-        // Nếu người dùng cố gắng tua quá 15 giây từ lastValidTime
-        if (Math.abs(playedSeconds - lastValidTime) > 15) {
-            console.log(lastValidTime, "giay tua");
-            // Khôi phục lại vị trí
-            playerRef.current.seekTo(lastValidTime); // Quay về thời gian hợp lệ trước đó
-        } else {
-            // Cập nhật thời gian hợp lệ cuối cùng
-            setLastValidTime(playedSeconds);
-        }
+    const handleSeek = (seconds: number) => {
+        console.log(`Số giây đã tua: ${seconds}`);
     };
 
     return (
-        <div style={{ maxWidth: '560px', margin: 'auto' }}>
-
+        <div>
+            <h1>Video Player</h1>
+            <ReactPlayer
+                ref={playerRef}
+                url={url}
+                controls={true}
+                onSeek={data => handleSeek(data)}
+                width="100%"
+                height="100%"
+            />
         </div>
     );
 };
 
-export default YouTubePlayer;
+export default VideoPlayer;
+
+

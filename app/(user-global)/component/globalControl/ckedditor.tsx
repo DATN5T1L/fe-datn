@@ -42,7 +42,6 @@ interface FaqProps {
 
 const CKEditorComponent: React.FC<FaqProps> = ({ course_Id, onClose, onSubmit }) => {
     const editorContainerRef = useRef(null);
-    const editorRef = useRef(null);
     const [isLayoutReady, setIsLayoutReady] = useState(false);
     const [editorData, setEditorData] = useState('');
 
@@ -53,13 +52,15 @@ const CKEditorComponent: React.FC<FaqProps> = ({ course_Id, onClose, onSubmit })
 
     const handleEditorChange = (event: any, editor: any) => {
         const data = editor.getData();
+        console.log(data)
+        onSubmit(editorData);
         setEditorData(data);
     };
 
-    const handleSubmit = () => {
-        onSubmit(editorData);
-        onClose();
-    };
+    // const handleSubmit = () => {
+
+    //     onClose();
+    // };
 
     const editorConfig = {
         toolbar: {
@@ -123,7 +124,13 @@ const CKEditorComponent: React.FC<FaqProps> = ({ course_Id, onClose, onSubmit })
                 ref={editorContainerRef}
             >
                 <div className={styles.editor}>
-                    {isLayoutReady && <CKEditor editor={ClassicEditor} config={editorConfig} onChange={handleEditorChange} />}
+                    {isLayoutReady && (
+                        <CKEditor
+                            editor={ClassicEditor}
+                            config={editorConfig}
+                            onChange={handleEditorChange}
+                        />
+                    )}
                 </div>
             </div>
         </div>

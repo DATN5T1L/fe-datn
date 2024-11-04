@@ -21,15 +21,12 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseForYou: React.FC<{ params: { id: number } }> = ({ params }) => {
     const { id } = params;
-    console.log(id, "id là ")
-    const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
-        `/api/courseFor/${id}`,
-        fetcher
-    );
-    console.log(courseData);
+
+
+
     return (
         <Body>
-            <CourseFor id={id} />
+            <CourseFor />
             <CourseForNext id={id} />
             <LearningPathSection
                 title='UI/UX Design'

@@ -66,7 +66,7 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                 const paymentUrl = data.data;
 
                 if (paymentUrl) {
-                    // window.location.href = paymentUrl;
+                    window.location.href = paymentUrl;
                 } else {
                     throw new Error("Payment URL is missing");
                 }

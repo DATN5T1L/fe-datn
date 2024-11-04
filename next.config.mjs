@@ -23,84 +23,88 @@ const nextConfig = {
       // Auth API rewrites
       {
         source: '/api/login/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/auth/login/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/login/:path*',
+      },
+      {
+        source: '/api/loginGg',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/login-google',
       },
       {
         source: '/api/checktoken/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/check-token/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/check-token/:path*',
       },
       {
         source: '/api/profile/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/auth/profile/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/profile/:path*',
       },
       {
         source: '/api/newUser/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/auth/register/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/register/:path*',
       },
       {
         source: '/api/logout/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/auth/logout/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/logout/:path*',
       },
       {
         source: '/api/routerAll/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/route/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/route/:path*',
       },
       {
         source: '/api/courses/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/detail-route/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/detail-route/:path*',
       },
       {
         source: '/api/getToken/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/send-reset-password-mail/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/send-reset-password-mail/:path*',
       },
       {
         source: '/api/verifyToken/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/verifyToken/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/verifyToken/:path*',
       },
       {
         source: '/api/resetPassword/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/reset-password/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/reset-password/:path*',
       },
 
       /*Change info */
 
       {
         source: '/api/changeDiscription/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-discription-user/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-discription-user/:path*',
       },
       {
         source: '/api/changeFullName/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-fullname-user/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-fullname-user/:path*',
       },
       {
         source: '/api/changePassword/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-password-user/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-password-user/:path*',
       },
       {
         source: '/api/changePassword/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-password-user/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-password-user/:path*',
       },
 
       // Client API rewrites
       {
         source: '/api/routes/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/route/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/route/:path*',
       },
       {
         source: '/api/coursetype/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/course-price/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/course-price/:path*',
       },
       {
         source: '/api/posthighest/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/post-highest-view/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/post-highest-view/:path*',
       },
       {
         source: '/api/courseDetail/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/course/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/course/:path*',
       },
       {
         source: '/api/user/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/user/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/user/:path*',
       },
       // Image rewrites
       {
@@ -116,54 +120,76 @@ const nextConfig = {
 
       {
         source: '/api/getNameChapterCourse/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/name-chapter-by-course/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/name-chapter-by-course/:path*',
       },
       // api get document
       {
         source: '/api/getdocforyou/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/doc-by-course/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/doc-by-course/:path*',
       },
+      {
+        source: '/api/docCourse/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/doc-course/:path*',
+      },
+      // thêm ghi chú của học viên cho từng doc
+      {
+        source: '/api/addNote/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/post-note/:path*',
+      },
+      // lấy ghi chú của học viên cho cả khóa học
+      {
+        source: '/api/getNote/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/get-note-doc/:path*',
+      },
+      // Lấy ra số lượng phản hồi của người dùng cho từng tập tin
       {
         source: '/api/getFeedBackCourse/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/feedback-course/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/feedback-course/:path*',
       },
+      // Lấy ra số lượng phản hồi của người dùng cho từng khóa học
       {
         source: '/api/getFaqCourse/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/faq-course/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/faq-course/:path*',
       },
+      // Lấy ra số lượng phản hồi tốt của người dùng cho tất cả khóa học
       {
         source: '/api/feedbackhome/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/feedback-limit/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/feedback-limit/:path*',
+      },
+      //lấy ra tiến độ khóa học của người dùng
+      {
+        source: '/api/courseFor',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/progress',
       },
       {
-        source: '/api/courseFor/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/progress/:path*',
+        source: '/api/getnoteByCourse/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/get-note-by-course/:path*',
       },
 
       // API Enrollment 
 
       {
         source: '/api/userRegisterCourse/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/user-register-course/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/user-register-course/:path*',
       },
       {
         source: '/api/checkEnrollment/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/check-enrollment/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/check-enrollment/:path*',
       },
       {
         source: '/api/checkProgress/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/learning-course/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/learning-course/:path*',
       },
       // THANH TOÁN
       //Phương thức thanh toán momo
       {
         source: '/api/paymentmomo/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/MOMO/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/MOMO/:path*',
       },
       // thanh toán bằng vn
       {
         source: '/api/paymentvn/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/VNPay/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/VNPay/:path*',
       }];
   },
   images: {
@@ -177,6 +203,12 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'be-datn-production-19f3.up.railway.app',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
         port: '',
         pathname: '/**',
       },

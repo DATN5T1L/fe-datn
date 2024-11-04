@@ -275,10 +275,10 @@
     justify-content: center;
     flex-direction: column;
     overflow-x: hidden;
-    user-select: none;
+    /* user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
-    -ms-user-select: none;
+    -ms-user-select: none; */
   }
 
   .body-main {
