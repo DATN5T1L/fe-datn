@@ -9,7 +9,7 @@ import {
   Container,
   Card,
 } from "react-bootstrap";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import h from "./course.module.css";
 import Link from "next/link";
 import "./course.css";
@@ -145,7 +145,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
               <td>Giá giảm</td>
               <td>Lượt xem</td>
               <td>Giảng viên</td>
-              <td>Trạng thái</td>
+              <td className="text-center">Trạng thái</td>
               <td>Hành động</td>
             </tr>
           </thead>
@@ -189,17 +189,17 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                     <td>{item.discount_price_course ? item.discount_price_course + '%' : 0}</td>
                     <td>{item.views_course}</td>
                     <td>{item.instructor_name}</td>
-                    <td>
+                    <td className="text-center">
                       <span className={h.active_text}>{item.status_course}</span>
                     </td>
                     <td className={h.option_button_group}>
                       <div
-                        className={`justify-content-between border d-flex py-2 rounded`}
+                        className={`justify-content-evenly border d-flex py-2 rounded`}
                       >
-                        <Link href={``} className="w-50 border-end">
+                        <Link href={`/admin/CoursePage/CourseVideoDetail`} className="w-50 border-end">
                           <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
-                        <Link href="UsersPage/DetailUser/" className="w-50">
+                        <Link href="UsersPage/DetailUser/" className="">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"

@@ -94,30 +94,39 @@ justify-content: center;
     
    
 }
-.inputne {
-    position: relative;
+.selectne {
+  position: relative;
+width: 360px;
+
+}
+.inputne{
+    margin-top: 10px;
     width: 360px;
     height: 48px;
-    margin-top: 10px;
-    margin-bottom: 12px;
-    background: #F2F2F2;
     border: none;
     border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    color: #666;
+    background: #F2F2F2;
+    margin-bottom: 12px;
     outline: none;
     padding-left: 12px;
+
+     appearance: none; /* ẩn mũi tên mặc định */
+  -webkit-appearance: none; /* ẩn mũi tên trên Safari */
+   
+
+}
+.selectne img {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* để ảnh không gây cản trở khi bấm vào select */
+  width: 16px; /* điều chỉnh kích thước mũi tên */
+  height: auto;
+  
 }
 
-.inputne::before {
-    content: "Chọn file";
-    display: inline-block;
-    padding: 10px 15px;
-    color: black;
-    font-size: 16px;
-    pointer-events: none;
-}
+
 
 .inputne::file-selector-button {
     display: none;

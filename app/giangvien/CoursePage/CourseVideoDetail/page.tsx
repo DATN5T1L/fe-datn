@@ -1,9 +1,9 @@
 "use client";
 
-import HeaderVideoDetail from "../../component/ChapterDetails/VideoDetail/headerVidDetail";
-import VideoDetail from "../../component/ChapterDetails/VideoDetail/videoDetail";
+import HeaderVideoDetail from "../../component/Course/VideoDetail/headerVidDetail";
+import VideoDetail from "../../component/Course/VideoDetail/videoDetail";
 
-const CourseVideoDetail = () => {
+const CourseVideoDetailgiangvien = () => {
   return (
     <div>
       <HeaderVideoDetail />
@@ -12,4 +12,4 @@ const CourseVideoDetail = () => {
   );
 };
 
-export default CourseVideoDetail;
+export default CourseVideoDetailgiangvien;

@@ -69,7 +69,7 @@ const Dashboard = () => {
           <div className={style.chart}>
             <LineChartView />
           </div>
-          <div className={h.card_group}>
+          {/* <div className={h.card_group}>
             <div className={h.card}>
               <div className={h.card_content}>
                 <h6>Người hoàn thành khóa học</h6>
@@ -207,7 +207,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </section>
       </div>
     </>

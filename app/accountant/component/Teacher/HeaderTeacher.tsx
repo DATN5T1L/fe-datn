@@ -19,33 +19,28 @@ export const HeaderTeacher = () => {
       <Row
         className={`${h.filterBar} justify-content-between align-items-center`}
       >
-        <Col xs={4} sm={4} md={4} className="mb-4">
-          <Row className="bg-white d-flex flex-row rounded-lg justify-content-between py-3 rounded-3">
-            <Col
-              xs={2}
-              sm={2}
-              md={1}
-              className={`d-flex flex-row justify-content-center align-items-center  mb-4 mb-md-0 mb-sm-0 px-0`}
-            >
-              <img src="/img_admin/action.svg" alt="Action" />
-            </Col>
-            <Col
-              xs={3}
-              sm={2}
-              md={2}
-              className=" justify-content-center align-items-center d-flex mb-4 mb-md-0 mb-sm-0"
-            >
-              <select aria-label="Tuổi" className={`${h.formSelect} `}>
-                <option>Tuổi  </option>
+        <Col xs={4} sm={4} md={5} className="mb-4">
+          <div className="d-flex">
+            <img
+              src="/img_admin/action.svg"
+              className="bg-white border-end p-4 rounded-start-4"
+              alt="Action"
+            />
+            <div className="bg-white border-end p-4">
+              <select
+                aria-label="Trạng thái"
+                className={`${h.formSelect} bg-transparent`}
+              >
+                <option>Trạng thái  </option>
+                <option value="1">Active</option>
+                <option value="2">Inactive</option>
               </select>
-            </Col>
-            <Col xs={3} sm={2} md={4}>
-              <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0">
-                <img src="/img_admin/restart.svg" alt="Reset" />
-                <span className="text-danger">  Cài lại</span>
-              </div>
-            </Col>
-          </Row>
+            </div>
+            <div className="bg-white p-4 d-inline-flex align-items-center rounded-end-4">
+              <img src="/img_admin/restart.svg" alt="Reset" />
+              <span className="text-danger">  Cài lại</span>
+            </div>
+          </div>
         </Col>
 
         <Col

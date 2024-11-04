@@ -10,9 +10,9 @@ import { HeaderUpdateAccess } from "../../component/Access/Update/HeaderUpdate";
 const UpdateAccessPage = () => {
 
   const [formData, setFormData] = useState({
-    name: '',
-    account: '',
-    password: '',
+    name: 'Nguyễn Minh Tâm',
+    account: 'mta@gmail.com',
+    password: '123456',
     role: '',
     confirmation: '',
   });
@@ -37,7 +37,7 @@ const UpdateAccessPage = () => {
         className={` flex-column flex-grow-1 mx-4 mx-xs-2 mx-sm-3 bg-white`}
         style={{ minHeight: '75vh' }}
       >
-        <form className="d-flex align-items-center justify-center col" onSubmit={handleSubmit} style={{ flexDirection: 'column' }}>
+        <form className="d-flex align-items-center justify-center col w-50 m-auto" onSubmit={handleSubmit} style={{ flexDirection: 'column' }}>
           <div className="row d-flex align-items-center justify-content-center my-4" style={{ width: '100%' }}>
             <div className="col-12 col-md-6 col-lg-6">
               <label htmlFor="name" className="form-label">

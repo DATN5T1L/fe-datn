@@ -23,67 +23,6 @@ const Comments: React.FC<{}> = () => {
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
-      {/* Header */}
-      {/* <div
-        className={`${h.header} d-flex justify-content-between align-items-center`}
-      >
-        <h2 className={h.heading}>Bài viết</h2>
-        {showActions && (
-          <div className={`${h.actions} d-flex`}>
-            <Button
-              variant="outline-primary"
-              className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
-            >
-              Thêm danh mục bài viết
-            </Button>
-            <Button className={`${h.btnCTA}`}>Thêm bài viết</Button>
-          </div>
-        )}
-      </div>
-
-      <div
-        className={`${h.filterBar} d-flex justify-content-between align-items-center w-100`}
-      >
-        <InputGroup className={`${h.filterInputGroup} d-flex`}>
-          <InputGroup.Text className={h.inputGroupText}>
-            <img src="/img_admin/action.svg" alt="Action" />
-          </InputGroup.Text>
-
-          <select aria-label="Trạng thái" className={h.formSelect}>
-            <option>Trạng thái  </option>
-            <option value="1">Active</option>
-            <option value="2">Inactive</option>
-          </select>
-
-          <select aria-label="Lượt xem" className={h.formSelect}>
-            <option>Lượt xem  </option>
-            <option value="1">0-100</option>
-            <option value="2">1000+</option>
-          </select>
-
-          <InputGroup.Text className={h.resetGroupText}>
-            <img src="/img_admin/restart.svg" alt="Reset" />
-            <span>  Cài lại</span>
-          </InputGroup.Text>
-        </InputGroup>
-
-        <InputGroup className={h.searchInputGroup}>
-          <Form.Control
-            type="text"
-            placeholder="Tìm kiếm bài viết"
-            className={h.searchInput}
-          />
-          <div className={h.searchIconWrapper}>
-            <img
-              src="/img_admin/search.svg"
-              alt="Search"
-              width={"24px"}
-              height={"24px"}
-            />
-          </div>
-        </InputGroup>
-      </div> */}
-
       {/* Post List */}
       <div
         className="d-flex overflow-auto w-100"
@@ -102,7 +41,7 @@ const Comments: React.FC<{}> = () => {
               <td>Nội dung</td>
               <td>Trả lời</td>
               <td>Ngày đăng</td>
-              <td>Trạng thái</td>
+              <td className="text-center">Trạng thái</td>
               <td>Hành động</td>
             </tr>
           </thead>
@@ -123,7 +62,7 @@ const Comments: React.FC<{}> = () => {
                   <td>Bài viết này hay quá đi cảm ơn TTO</td>
                   <td>Cảm ơn</td>
                   <td>01/02/2024</td>
-                  <td>
+                  <td className="text-center">
                     {idx % 2 == 0 ? (
                       <span className={h.active_text}>Active</span>
                     ) : (
@@ -142,16 +81,16 @@ const Comments: React.FC<{}> = () => {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          d="M12.0703 22C17.5932 22 22.0703 17.5228 22.0703 12C22.0703 6.47715 17.5932 2 12.0703 2C6.54747 2 2.07031 6.47715 2.07031 12C2.07031 13.5997 2.44593 15.1116 3.11378 16.4525C3.29125 16.8088 3.35032 17.2161 3.24743 17.6006L2.65183 19.8267C2.39327 20.793 3.27733 21.677 4.24366 21.4185L6.4697 20.8229C6.85425 20.72 7.26152 20.7791 7.61784 20.9565C8.95868 21.6244 10.4706 22 12.0703 22Z"
-                          stroke="#438FF7"
-                          stroke-width="1.5"
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12.5 8.25C10.4289 8.25 8.75 9.92893 8.75 12C8.75 14.0711 10.4289 15.75 12.5 15.75C14.5711 15.75 16.25 14.0711 16.25 12C16.25 9.92893 14.5711 8.25 12.5 8.25ZM10.25 12C10.25 10.7574 11.2574 9.75 12.5 9.75C13.7426 9.75 14.75 10.7574 14.75 12C14.75 13.2426 13.7426 14.25 12.5 14.25C11.2574 14.25 10.25 13.2426 10.25 12Z"
+                          fill="#4D4D4D"
                         />
                         <path
-                          d="M9.07031 12.08L11.0703 14L15.0703 10"
-                          stroke="#438FF7"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12.5 3.25C7.98587 3.25 4.94529 5.9542 3.18057 8.24686L3.14874 8.2882C2.74964 8.80653 2.38206 9.28392 2.13269 9.8484C1.86564 10.4529 1.75 11.1117 1.75 12C1.75 12.8883 1.86564 13.5471 2.13269 14.1516C2.38206 14.7161 2.74964 15.1935 3.14875 15.7118L3.18057 15.7531C4.94529 18.0458 7.98587 20.75 12.5 20.75C17.0141 20.75 20.0547 18.0458 21.8194 15.7531L21.8512 15.7118C22.2504 15.1935 22.6179 14.7161 22.8673 14.1516C23.1344 13.5471 23.25 12.8883 23.25 12C23.25 11.1117 23.1344 10.4529 22.8673 9.8484C22.6179 9.28391 22.2504 8.80652 21.8512 8.28818L21.8194 8.24686C20.0547 5.9542 17.0141 3.25 12.5 3.25ZM4.36922 9.1618C5.99864 7.04492 8.65036 4.75 12.5 4.75C16.3496 4.75 19.0014 7.04492 20.6308 9.1618C21.0694 9.73159 21.3263 10.0721 21.4952 10.4545C21.6532 10.812 21.75 11.2489 21.75 12C21.75 12.7511 21.6532 13.188 21.4952 13.5455C21.3263 13.9279 21.0694 14.2684 20.6308 14.8382C19.0014 16.9551 16.3496 19.25 12.5 19.25C8.65036 19.25 5.99864 16.9551 4.36922 14.8382C3.93064 14.2684 3.67374 13.9279 3.50476 13.5455C3.34684 13.188 3.25 12.7511 3.25 12C3.25 11.2489 3.34684 10.812 3.50476 10.4545C3.67374 10.0721 3.93063 9.73159 4.36922 9.1618Z"
+                          fill="#4D4D4D"
                         />
                       </svg>
                       <div className="border border-start" />
@@ -163,16 +102,16 @@ const Comments: React.FC<{}> = () => {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M12.5 8.25C10.4289 8.25 8.75 9.92893 8.75 12C8.75 14.0711 10.4289 15.75 12.5 15.75C14.5711 15.75 16.25 14.0711 16.25 12C16.25 9.92893 14.5711 8.25 12.5 8.25ZM10.25 12C10.25 10.7574 11.2574 9.75 12.5 9.75C13.7426 9.75 14.75 10.7574 14.75 12C14.75 13.2426 13.7426 14.25 12.5 14.25C11.2574 14.25 10.25 13.2426 10.25 12Z"
-                          fill="#4D4D4D"
+                          d="M12.0703 22C17.5932 22 22.0703 17.5228 22.0703 12C22.0703 6.47715 17.5932 2 12.0703 2C6.54747 2 2.07031 6.47715 2.07031 12C2.07031 13.5997 2.44593 15.1116 3.11378 16.4525C3.29125 16.8088 3.35032 17.2161 3.24743 17.6006L2.65183 19.8267C2.39327 20.793 3.27733 21.677 4.24366 21.4185L6.4697 20.8229C6.85425 20.72 7.26152 20.7791 7.61784 20.9565C8.95868 21.6244 10.4706 22 12.0703 22Z"
+                          stroke="#438FF7"
+                          stroke-width="1.5"
                         />
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M12.5 3.25C7.98587 3.25 4.94529 5.9542 3.18057 8.24686L3.14874 8.2882C2.74964 8.80653 2.38206 9.28392 2.13269 9.8484C1.86564 10.4529 1.75 11.1117 1.75 12C1.75 12.8883 1.86564 13.5471 2.13269 14.1516C2.38206 14.7161 2.74964 15.1935 3.14875 15.7118L3.18057 15.7531C4.94529 18.0458 7.98587 20.75 12.5 20.75C17.0141 20.75 20.0547 18.0458 21.8194 15.7531L21.8512 15.7118C22.2504 15.1935 22.6179 14.7161 22.8673 14.1516C23.1344 13.5471 23.25 12.8883 23.25 12C23.25 11.1117 23.1344 10.4529 22.8673 9.8484C22.6179 9.28391 22.2504 8.80652 21.8512 8.28818L21.8194 8.24686C20.0547 5.9542 17.0141 3.25 12.5 3.25ZM4.36922 9.1618C5.99864 7.04492 8.65036 4.75 12.5 4.75C16.3496 4.75 19.0014 7.04492 20.6308 9.1618C21.0694 9.73159 21.3263 10.0721 21.4952 10.4545C21.6532 10.812 21.75 11.2489 21.75 12C21.75 12.7511 21.6532 13.188 21.4952 13.5455C21.3263 13.9279 21.0694 14.2684 20.6308 14.8382C19.0014 16.9551 16.3496 19.25 12.5 19.25C8.65036 19.25 5.99864 16.9551 4.36922 14.8382C3.93064 14.2684 3.67374 13.9279 3.50476 13.5455C3.34684 13.188 3.25 12.7511 3.25 12C3.25 11.2489 3.34684 10.812 3.50476 10.4545C3.67374 10.0721 3.93063 9.73159 4.36922 9.1618Z"
-                          fill="#4D4D4D"
+                          d="M9.07031 12.08L11.0703 14L15.0703 10"
+                          stroke="#438FF7"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
                         />
                       </svg>
                     </div>

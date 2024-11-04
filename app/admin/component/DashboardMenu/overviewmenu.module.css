@@ -29,8 +29,8 @@
 }
 
 .closeIcon {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
   transition: transform 0.3s ease;
@@ -87,79 +87,77 @@
   color: #666666;
 }
 
-.tableContainer {
-  max-height: 450px; /* Đặt chiều cao tối đa */
-  overflow-y: scroll; /* Bật cuộn dọc */
-  scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+.wapper_chart{
+  margin: 16px 24px 24px 24px;
+  padding: 16px 24px 24px 24px;
+  width: 374px;
+  height: 328px;
+  background-color: #FFFFFF;
+  border: 1px solid #F1F1F1;
+  display: block;
+  
+  
 }
-
-.tableContainer::-webkit-scrollbar {
-  display: none; /* Ẩn thanh cuộn trên Chrome và Safari */
-}
-
-.table thead tr {
-  border: none;
-}
-.table thead tr td {
-  padding: 20px 10px;
-  background: var(--Gray-gray-95, #fafafa);
-  border: none;
-  border-bottom: 1.5px solid #b3b3b3;
-}
-.table thead tr td:nth-child(2) {
-  text-align: center;
-}
-.table thead tr td:nth-child(4) {
-  text-align: center;
-}
-
-.table tbody tr td {
-  padding: 40px 10px;
-  border: none;
-  border-bottom: 1.5px solid #b3b3b3;
-}
-.table tbody tr td:nth-child(4) {
-  text-align: center;
-}
-.table thead td {
-  white-space: nowrap;
-}
-
-.option_button {
+.tieude_chart{
   display: flex;
-  max-width: 185px;
-  align-items: center;
-  justify-content: center;
-  background-color: #fafafa;
-  border-radius: 5px;
-  border: 1px solid #dbdbdb;
-  float: right;
+  justify-content: space-between;
+  justify-items: center;
+  text-align: center;
+  padding-bottom: 8px;
+  
 }
+.tieude1{
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500px;
+  
+}
+ .custom_select {
+    width: 163px;
+    height: 24px;
+    font-size: 16px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+    position: relative;
+   
+  }
 
-.option_button a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 10px;
-  width: 63px;
-  height: 38px;
-  margin: 0;
-}
-.option_button a:nth-child(2) {
-  border-left: 1px solid #dbdbdb;
-  border-right: 1px solid #dbdbdb;
-}
-.option_button a img {
-  width: 24px;
-  height: 24px;
-}
-.option_button_group {
-  /* display: flex; */
-  /* height: 108px; */
-  padding: 16px 20px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  align-self: stretch;
-  border-radius: 0px 8px 8px 0px;
-}
+  /* Tạo mũi tên tùy chỉnh bằng CSS */
+  .custom_select-wrapper {
+    position: relative;
+    display: inline-block;
+    
+    width: 24px;
+    height: 24px;
+  }
+  .custom_select-wrapper::after {
+    content: "▼";
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Ngăn mũi tên tương tác chuột */
+    color: #333;
+  }
+
+
+  .soluonghocvien{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    color: #1958AD;
+  
+    
+  }
+  .soluongonline{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #666666;
+ 
+    padding-bottom: 16px;
+  }
+
+

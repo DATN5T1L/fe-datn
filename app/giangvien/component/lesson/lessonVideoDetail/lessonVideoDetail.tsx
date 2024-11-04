@@ -48,35 +48,39 @@ const LessonVideoDetail = () => {
             <div className={h.formnhap}>
               <div className={h.bentrong}>
                 <div>Video</div>
-                <select
-                  className={h.inputne}
-                  defaultValue=""
-                  aria-placeholder="1.2 HTML CSS là gì"
-                >
-                  <option value="" disabled>
-                    1.2 HTML CSS là gì
-                  </option>
-                  <option value="reactjs">ReactJS</option>
-                  <option value="nodejs">NodeJS</option>
-                  <option value="typescript">TypeScript</option>
-                  <option value="nextjs">Next.js</option>
-                </select>
+                <div className={h.selectne}>
+                  <select
+                    className={h.inputne}
+                   
+                    aria-placeholder="1.2 HTML CSS là gì"
+                  >
+                   
+                    <option value="reactjs">ReactJS</option>
+                    <option value="nodejs">NodeJS</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="nextjs">Next.js</option>
+                  </select>
+                  <img src="/img_admin/down.svg" />
+                </div>
               </div>
               <div className={h.bentrong}>
                 <div>Video</div>
-                <select
-                  className={h.inputne}
-                  defaultValue=""
-                  aria-placeholder="1.2 HTML CSS là gì"
-                >
-                  <option value="" disabled>
-                    1.2 HTML CSS là gì
-                  </option>
-                  <option value="reactjs">ReactJS</option>
-                  <option value="nodejs">NodeJS</option>
-                  <option value="typescript">TypeScript</option>
-                  <option value="nextjs">Next.js</option>
-                </select>
+                <div className={h.selectne}>
+                  <select
+                    className={h.inputne}
+                  
+                    aria-placeholder="1.2 HTML CSS là gì"
+                  >
+                    <option value="" disabled>
+                      1.2 HTML CSS là gì
+                    </option>
+                    <option value="reactjs">ReactJS</option>
+                    <option value="nodejs">NodeJS</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="nextjs">Next.js</option>
+                  </select>
+                  <img src="/img_admin/down.svg" />
+                </div>
               </div>
             </div>
 

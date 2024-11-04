@@ -190,7 +190,7 @@ const Users: React.FC = () => {
                       <div
                         className={`justify-content-between border d-flex py-2`}
                       >
-                        <Link href="/#!" className="w-50 border-end">
+                        <Link href="/admin/UsersDetail" className="w-50 border-end">
                           <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
                         <Link href={`/UsersPage?id=${1}`} as={`UsersPage/${1}`} className="w-50">
@@ -218,7 +218,7 @@ const Users: React.FC = () => {
           <Pagination.Next onClick={handleNextPage} />
         </Pagination>
       </div>
-    </div >
+    </div>
   );
 };
 

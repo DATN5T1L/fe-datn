@@ -59,7 +59,7 @@ export const HeaderArticle: React.FC = () => {
 
   const filteredPost = postData?.data?.filter(post => {
     // const matchStatus = selectedStatus ? post.updated_at === selectedStatus : true;
-    const matchViews = selectedViews === '1' ? post.views_post <= 100 : selectedViews === '2' ? post.views_post > 1000 : true;
+    const matchViews = selectedViews === '1' ? post.views_post <= 1000 : selectedViews === '2' ? post.views_post > 1000 : true;
     return matchViews;
   }) || [];
 
@@ -83,66 +83,42 @@ export const HeaderArticle: React.FC = () => {
           <div className="col-12 col-md-6">
             <h2 className={h.heading}>Bài viết</h2>
           </div>
-          <div className={`col-12 col-md-6 flex-row d-flex justify-content-end`}>
-            <Button
-              variant="outline-primary"
-              className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
-            >
-              Thêm danh mục bài viết
-            </Button>
-            <Button className={`${h.btnCTA}`}>Thêm bài viết</Button>
+        </div>
+        <div className="d-flex align-items-center justify-content-between mx-3">
+          <div className="d-flex mb-4">
+            <img
+              src="/img_admin/action.svg"
+              className="bg-white border-end p-4 rounded-start-4"
+              alt="Action"
+            />
+            <div className="bg-white border-end p-4">
+              <select aria-label="Lượt xem" className={`${h.formSelect} bg-transparent`} value={selectedViews} onChange={(e) => setSelectedViews(e.target.value)}>
+                <option>Lượt xem</option>
+                <option value="1">{"<1k"}</option>
+                <option value="2">{">1k"}</option>
+              </select>
+            </div>
+            <div className="bg-white border-end p-4">
+              <select aria-label="Trạng thái" className={`${h.formSelect} bg-transparent`}>
+                <option>Trạng thái</option>
+                <option value="1">Active</option>
+                <option value="2">Inactive</option>
+              </select>
+            </div>
+
+            <div className="bg-white p-4 d-inline-flex align-items-center rounded-end-4" onClick={handleReset}>
+              <img src="/img_admin/restart.svg" alt="Reset" />
+              <span className="text-danger">Cài lại</span>
+            </div>
           </div>
         </div>
-        <Row className={`${h.filterBar} justify-content-between align-items-center w-auto`}>
-          <Col xs={12} sm={12} md={4} className={`${h.filterBar__group} w-auto`} >
-            <Row className={`${h.filterBar__menu} bg-white d-flex align-items-center rounded-lg justify-content-between py-3 rounded-3`}>
-              <Col xs="auto" className="d-flex justify-content-center align-items-center px-0">
-                <img src="/img_admin/action.svg" alt="Action" />
-              </Col>
-              <Col xs="auto" className="d-flex justify-content-center align-items-center">
-                <select aria-label="Trạng thái" className={`${h.formSelect}`}>
-                  <option>Trạng thái</option>
-                  <option value="1">Active</option>
-                  <option value="2">Inactive</option>
-                </select>
-              </Col>
-              <Col xs="auto" className="d-flex justify-content-center align-items-center">
-                <select aria-label="Lượt xem" className={`${h.formSelect}`} value={selectedViews} onChange={(e) => setSelectedViews(e.target.value)}>
-                  <option>Lượt xem</option>
-                  <option value="1">0-100</option>
-                  <option value="2">1000+</option>
-                </select>
-              </Col>
-              <Col xs="auto" className="d-flex justify-content-center align-items-center" onClick={handleReset}>
-                <img src="/img_admin/restart.svg" alt="Reset" />
-                <span className="text-danger">Cài lại</span>
-              </Col>
-            </Row>
-          </Col>
-          <Col xs={12} sm={12} md={4} className="align-items-end d-flex justify-content-end mb-4 mb-md-0 mb-sm-0">
-            <div className={`${h.searchInputGroup} `}>
-              <Form.Control
-                type="text"
-                placeholder="Tìm kiếm bài viết"
-                className="w-100"
-              />
-              <div className={h.searchIconWrapper}>
-                <img
-                  src="/img_admin/search.svg"
-                  alt="Search"
-                  width={"24px"}
-                  height={"24px"}
-                />
-              </div>
-            </div>
-          </Col>
-        </Row>
       </div>
-      {loading ? (
-        <Article postData={array} loading={true}></Article>
-      ) : (
-        <Article postData={array} loading={false}></Article>
-      )}
+      {
+        loading ? (
+          <Article postData={array} loading={true} ></Article>
+        ) : (
+          <Article postData={array} loading={false}></Article>
+        )}
     </>
   );
 };

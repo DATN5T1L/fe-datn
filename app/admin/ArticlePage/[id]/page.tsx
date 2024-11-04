@@ -72,4 +72,4 @@ const AccepptArticel: React.FC<AccepptArticelProps> = ({ params }) => {
 }
 
 
-export default AccepptArticel
+export default AccepptArticel;

@@ -5,9 +5,10 @@ import { Col, Row } from "react-bootstrap";
 import "./globals.css";
 
 import styles from "./layout.module.css";
-import Header from "@/app/admin/component/Header/header";
-import Sidebar from "@/app/admin/component/Sidebar/sidebar";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from "../admin/component/Header/header";
+import Sidebar from "../Marketing/component/Sidebar/sidebar";
 
 export const metadata: Metadata = {
   title: "Admin",

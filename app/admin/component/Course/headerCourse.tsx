@@ -1,7 +1,12 @@
-'use client';
-
 import React, { useEffect, useState } from "react";
-import { Row, Col, Form, InputGroup } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  InputGroup,
+  Row,
+  Col,
+  FormControl,
+} from "react-bootstrap";
 import h from "./course.module.css";
 import Course from "./course";
 

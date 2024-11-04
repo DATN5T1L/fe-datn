@@ -47,8 +47,8 @@ const MarketingCourse: React.FC<{}> = () => {
               .fill(null)
               .map((_, idx) => (
                 <tr key={idx}>
-                  <td>
-                    <Card.Header className={h.headerContent}>
+                  <td className={h.headerTD}>
+                    <Card.Header className={`${h.headerContent}`}>
                       <section className={h.headerContent__text}>
                         <Card.Title className={h.text__hedding2}>
                           WEBSITE DESIGN UI/UX
@@ -73,17 +73,18 @@ const MarketingCourse: React.FC<{}> = () => {
                   <td>1.000.000</td>
                   <td>20%</td>
                   <td>20.000</td>
-                  <td>
-                    <span className={h.active_text}>Active</span>
+                  <td className="text-center">
+                    <span className={`${h.active_text}`}>Active</span>
                   </td>
                   <td className={h.option_button_group}>
                     <div
-                      className={`justify-content-between border d-flex py-2 rounded`}
+                      className={`justify-content-evenly border d-flex py-2 rounded`}
                     >
-                      <Link href="/#!" className="w-50 border-end">
+                      <Link href="/#!" className="">
                         <img src="/img_admin/action1.svg" alt="Edit" />
                       </Link>
-                      <Link href="UsersPage/DetailUser/" className="w-50">
+                      <div className="border border-start" />
+                      <Link href="UsersPage/DetailUser/" className="">
                         <svg
                           width="24"
                           height="25"

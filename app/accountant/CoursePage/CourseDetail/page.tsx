@@ -2,7 +2,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CourseDetailPage from "../../component/Course/course_detail";
-import { Image } from "react-bootstrap";
+import { Card, Image } from "react-bootstrap";
 import style from "./courseDetail.module.css";
 
 const CourseDetail = () => {
@@ -11,12 +11,28 @@ const CourseDetail = () => {
       <div className={style.generalInfo}>
         <div>
           <h5>Khóa học:</h5>
-          <Image
-            src="/img_accountant/img_Course.png"
-            alt=""
-            width={155}
-            height={73}
-          />
+          <div>
+            <Card.Header className={style.headerContent}>
+              <section className={style.headerContent__text}>
+                <Card.Title className={style.text__hedding2}>
+                  WEBSITE DESIGN UI/UX
+                </Card.Title>
+                <Card.Subtitle className={style.text__hedding3}>
+                  by My Team
+                </Card.Subtitle>
+                <Card.Img
+                  src="/img/iconReact.svg"
+                  alt=""
+                  className={style.text__img}
+                />
+              </section>
+              <Card.Img
+                src="/img/tuan.png"
+                alt=""
+                className={style.headerContent__avt}
+              />
+            </Card.Header>
+          </div>
           <p>Khóa học UI/UX</p>
         </div>
         <div>

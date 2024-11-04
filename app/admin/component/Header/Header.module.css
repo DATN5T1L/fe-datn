@@ -27,9 +27,14 @@
   justify-content: center !important;
   max-height: 32px;
   align-items: center;
+
   &:hover {
     border-color: var(--blue-40);
   }
+}
+
+.searchText {
+  font-size: 10px;
 }
 
 .searchInput {
@@ -64,10 +69,12 @@
   align-items: center !important;
   justify-content: center;
 
+
   &:hover {
     background-color: transparent;
   }
 }
+
 .btnSearch img {
   height: 11px;
   width: 11px;
@@ -78,13 +85,29 @@
   align-items: center;
 }
 
-.iconButton {
+.iconButton1 {
   font-size: 1.25rem;
   margin-left: 20px;
   color: #333;
   background: none;
   border: none;
   padding: 0;
+}
+
+.iconButton2 {
+  font-size: 1.25rem;
+  margin-left: 20px;
+  color: #333;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.iconButton2 img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .CTA {

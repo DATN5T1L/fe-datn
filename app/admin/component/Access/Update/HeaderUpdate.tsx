@@ -10,7 +10,7 @@ export const HeaderUpdateAccess = () => {
         className={`d-flex justify-content-between align-items-center my-4 flex-wrap`}
       >
         <div className="col-12 col-md-6">
-          <h2 className={h.heading}>Cập nhật vai trò</h2>
+          <h2 className={h.heading}>Chỉnh sửa vai trò</h2>
         </div>
       </div>
     </div>

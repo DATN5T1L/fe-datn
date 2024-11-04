@@ -232,6 +232,8 @@
   color: var(--text-0);
   padding: 8px 12px;
   border-radius: 12px;
+  width: 170px;
+  height: 60px;
   border: 1px solid var(--blue-60);
 }
 

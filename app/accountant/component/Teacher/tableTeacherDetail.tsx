@@ -32,12 +32,26 @@ const TeacherDetailPage: React.FC<{}> = () => {
               .map((_, idx) => (
                 <tr key={idx}>
                   <td>
-                    <Image
-                      src="/img_accountant/img_Course.png"
-                      alt=""
-                      width={155}
-                      height={73}
-                    />
+                    <Card.Header className={h.headerContent}>
+                      <section className={h.headerContent__text}>
+                        <Card.Title className={h.text__hedding2}>
+                          WEBSITE DESIGN UI/UX
+                        </Card.Title>
+                        <Card.Subtitle className={h.text__hedding3}>
+                          by My Team
+                        </Card.Subtitle>
+                        <Card.Img
+                          src="/img/iconReact.svg"
+                          alt=""
+                          className={h.text__img}
+                        />
+                      </section>
+                      <Card.Img
+                        src="/img/tuan.png"
+                        alt=""
+                        className={h.headerContent__avt}
+                      />
+                    </Card.Header>
                   </td>
                   <td>Website Design UI/UX</td>
                   <td>1.000.000</td>

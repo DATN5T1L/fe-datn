@@ -15,14 +15,16 @@ import ViewBarCharts from "./component/Dashboard/ViewChart";
 import style from "./component/Dashboard/Chart.module.css";
 import { Image } from "react-bootstrap";
 import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu";
-import { HeaderArticleSimple } from "./component/Article/headerArrticle";
 import BodyDashboard from "@/app/admin/component/Dashboard/BodyDashboard";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import ReactLoading from 'react-loading';
 
-interface Statistical{
-  totalCourse:number;
-  totalCourseLecturer:number; // nhân viên
-  totalCourseNow:number; //  
-  totalCourseRevenue:string; // doanh thu
+interface Statistical {
+  totalCourse: number;
+  totalCourseLecturer: number; // nhân viên
+  totalCourseNow: number; //  
+  totalCourseRevenue: string; // doanh thu
 }
 
 const getCookie = (name: string) => {
@@ -35,12 +37,14 @@ const getCookie = (name: string) => {
 const Dashboard: React.FC = () => {
   const router = useRouter()
   const userState = useSelector((state: RootState) => state.user.user)
+  const [data, setData] = useState<Statistical | null>(null)
   const alertShown = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
   const token = getCookie('token');
 
   useEffect(() => {
+    setIsLoading(true)
     fetch(`/api/statistical_admin/`, {
       cache: 'no-cache',
       method: 'GET',
@@ -50,10 +54,14 @@ const Dashboard: React.FC = () => {
     })
       .then(res => res.json())
       .then(data => {
+        setIsLoading(false)
         console.log(data);
-
+        setData(data)
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error)
+        setIsLoading(false)
+      })
   }, [])
 
   useEffect(() => {
@@ -68,11 +76,10 @@ const Dashboard: React.FC = () => {
     }
   }, [userState, router]);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+
+
   return (
     <>
       <div className={style.mar}>
@@ -81,7 +88,11 @@ const Dashboard: React.FC = () => {
             <div className={style.card_notice}>
               <span>
                 <p>Tổng khóa học</p>
-                <h3>50</h3>
+                {isLoading ? (
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                ) : (
+                  <h3>{data?.totalCourse}</h3>
+                )}
               </span>
               <Image
                 src={"/img_admin/boxvippro.png"}
@@ -92,11 +103,15 @@ const Dashboard: React.FC = () => {
             </div>
             <div className={style.card_notice}>
               <span>
-                <p>Tổng lợi nhuận</p>
-                <h3>900k</h3>
+                <p>Đơn hôm nay</p>
+                {isLoading ? (
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                ) : (
+                  <h3>{data?.totalCourseNow}</h3>
+                )}
               </span>
               <Image
-                src={"/img_admin/monneyvip.svg"}
+                src={"/img_admin/total_view.svg"}
                 alt="icon"
                 width={60}
                 height={60}
@@ -105,7 +120,11 @@ const Dashboard: React.FC = () => {
             <div className={style.card_notice}>
               <span>
                 <p>Tổng nhân viên</p>
-                <h3>20</h3>
+                {isLoading ? (
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                ) : (
+                  <h3>{data?.totalCourseLecturer}</h3>
+                )}
               </span>
               <Image
                 src={"/img_admin/comment.svg"}
@@ -115,12 +134,24 @@ const Dashboard: React.FC = () => {
               />
             </div>
             <div className={style.card_notice}>
-              <span>
+              <span id="tippy">
                 <p>Tổng doanh thu</p>
-                <h3>1000k</h3>
+                {isLoading ? (
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                ) : (
+                  <Tippy
+                    content={`${parseFloat(typeof data?.totalCourseRevenue === 'string' ? data.totalCourseRevenue.replace(/[^\d]/g, "") : '').toLocaleString('vi-VN')}đ`}
+                    animation='scale-extreme'
+                    theme="light"
+                    placement="bottom"
+                  >
+                    <h3>{`${Math.floor(parseFloat(data?.totalCourseRevenue?.replace(/[^\d]/g, "") || "0") / 1_000_000)}tr VND`}</h3>
+                  </Tippy>
+                )}
               </span>
+
               <Image
-                src={"/img_admin/total_view.svg"}
+                src={"/img_admin/monneyvip.svg"}
                 alt="icon"
                 width={60}
                 height={60}

@@ -5,7 +5,6 @@ import style from "./component/Dashboard/Chart.module.css";
 import { Card, Image } from "react-bootstrap";
 import { useState } from "react";
 import OffcanvasComponent from "@/app/giangvien/component/DashboardMenu/overviewmenu";
-
 import LineChart from "@/app/accountant/chart/LineChart";
 import DoughnutChart from "@/app/accountant/chart/DoughnutChart";
 import h from "./test.module.css";
@@ -45,8 +44,8 @@ const Dashboard = () => {
             </div>
             <div className={style.card_notice}>
               <span>
-                <p>Tổng bình luận</p>
-                <h3>3000</h3>
+                <p>Đánh giá giảng viên</p>
+                <h3>4.5</h3>
               </span>
               <Image
                 src={"/img_admin/comment.svg"}
