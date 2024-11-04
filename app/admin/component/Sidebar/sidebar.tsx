@@ -40,7 +40,7 @@ const Sidebar: React.FC = () => {
           <Dropdown.Item as={Link} href={"/admin/UsersPage"} className={h.dropdownItem}>
             <span>Học viên</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateUser"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/admin"} className={h.dropdownItem}>
             <span>Quản trị viên</span>
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -62,10 +62,10 @@ const Sidebar: React.FC = () => {
           <Dropdown.Item as={Link} href={"/admin/CoursePage"} className={h.dropdownItem}>
             <span>Khóa học mặc định</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateCourse"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/giangvien/CoursePage"} className={h.dropdownItem}>
             <span>Khóa học của giảng viên</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateCourse"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/admin"} className={h.dropdownItem}>
             <span>Thống kê</span>
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -82,10 +82,10 @@ const Sidebar: React.FC = () => {
           <Dropdown.Item as={Link} href={"/admin/ArticlePage"} className={h.dropdownItem}>
             <span>Danh mục</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateArticle"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/admin/ArticlePage"} className={h.dropdownItem}>
             <span>Bài viết</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateCourse"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={""} className={h.dropdownItem}>
             <span>Bình luận</span>
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -108,16 +108,16 @@ const Sidebar: React.FC = () => {
           <Dropdown.Item as={Link} href={"/admin/CreateAccess"} className={h.dropdownItem}>
             <span>Tạo quyền truy cập mới</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateCourse"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/admin"} className={h.dropdownItem}>
             <span>Admin</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateCourse"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/accountant"} className={h.dropdownItem}>
             <span>Kế Toán</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateCourse"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/Marketing"} className={h.dropdownItem}>
             <span>Marketing</span>
           </Dropdown.Item>
-          <Dropdown.Item as={Link} href={"/admin/CreateCourse"} className={h.dropdownItem}>
+          <Dropdown.Item as={Link} href={"/giangvien"} className={h.dropdownItem}>
             <span>Giảng viên</span>
           </Dropdown.Item>
         </Dropdown.Menu>
