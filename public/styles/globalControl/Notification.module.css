@@ -1,0 +1,33 @@
+.wapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 352px;
+    padding: 8px 12px;
+    margin: 16px 0;
+    border-radius: 12px;
+    position: absolute;
+    right: 32px;
+    top: 10%;
+    z-index: 20;
+}
+
+.content {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+}
+
+.IconCanel {
+    padding: 8px;
+    background-color: transparent;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--gray-100);
+    }
+}

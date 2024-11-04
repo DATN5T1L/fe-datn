@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation"
 const HeaderLearning: React.FC = () => {
     const router = useRouter()
 
-    const handleCreateRouter = () =>{
+    const handleCreateRouter = () => {
         router.push('/createLearningPath')
     }
 
@@ -44,7 +44,7 @@ const HeaderLearning: React.FC = () => {
                             rightIcon={false}
                             status="hover"
                             onClick={handleCreateRouter}
-                            >
+                        >
                             Tạo lộ trình của riêng bạn</ButtonCpn>
                     </Col>
                 </Row>

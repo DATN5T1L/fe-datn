@@ -46,7 +46,7 @@ const ProfileDispatch = () => {
             const payload = JSON.parse(atob(token.split('.')[1]));
             const expiration = payload.exp;
 
-            console.log('Token exp:', expiration, 'Current time:', Math.floor(Date.now() / 1000));
+            // console.log('Token exp:', expiration, 'Current time:', Math.floor(Date.now() / 1000));
 
             return expiration < Math.floor(Date.now() / 1000);
         } catch (error) {
@@ -70,7 +70,7 @@ const ProfileDispatch = () => {
             if (isInfo || isIntro || isWallet) {
                 console.error("Token không hợp lệ hoặc không tồn tại");
                 if (isPage) {
-                    router.push('/login');
+                    router.push('/home');
                 } else if (isAdmin) {
                     router.push('/home');
                 }
@@ -81,7 +81,7 @@ const ProfileDispatch = () => {
         if (!tokenCookie) {
             handleLogout()
             if (isPage) {
-                router.push('/login');
+                router.push('/home');
             } else if (isAdmin) {
                 router.push('/home');
             }
@@ -114,7 +114,7 @@ const ProfileDispatch = () => {
             const data = await res.json();
 
             dispatch(login(data));
-            console.log(data);
+            // console.log(data);
             localStorage.setItem('isLoggedIn', 'true');
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
@@ -229,8 +229,8 @@ const ProfileDispatch = () => {
             if (!tokenCookie) {
                 console.error('Token cookie is missing. Logging out...');
                 handleLogout();
-                if (isInfo || isIntro || isWallet){router.push('login')}
-                else if(isAdmin){router.push('/home')}
+                if (isInfo || isIntro || isWallet) { router.push('login') }
+                else if (isAdmin) { router.push('/home') }
             }
         };
 

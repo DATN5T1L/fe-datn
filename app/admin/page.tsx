@@ -44,6 +44,7 @@ const Dashboard: React.FC = () => {
   const token = getCookie('token');
 
   useEffect(() => {
+    if (!token) return; 
     setIsLoading(true)
     fetch(`/api/statistical_admin/`, {
       cache: 'no-cache',

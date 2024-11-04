@@ -64,7 +64,7 @@ const CategoriesLearningPath: React.FC = () => {
         <>
             <Container className={styles.conatiner}>
                 <Button className={styles.btn__prev}
-                onClick={scrollLeftHandler}
+                    onClick={scrollLeftHandler}
                 >
                     <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15 18L9 12L15 6" stroke="#15C8E0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.stroke__icon} />
@@ -143,7 +143,7 @@ const CategoriesLearningPath: React.FC = () => {
                     </section>
                 </article>
                 <Button className={styles.btn__next}
-                onClick={scrollRightHandler}
+                    onClick={scrollRightHandler}
                 >
                     <svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 18L15 12L9 6" stroke="#15C8E0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

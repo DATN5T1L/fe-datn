@@ -103,7 +103,7 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '' }}>
+            <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '0' }}>
                 <section className='header-nav-head'>
                     <Tippy content="Trang chủ">
                         <Link href="/" className='brand-header'>

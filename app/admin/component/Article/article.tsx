@@ -158,8 +158,8 @@ const Article: React.FC<PostProps> = ({ postData, loading }) => {
           ) : (
             <tbody>
               {count ?
-                currentPost.map((item) => (
-                  <tr >
+                currentPost.map((item,index) => (
+                  <tr key={index}>
                     <td>{item.title_post}</td>
                     <td>
                       {item.content_post}
@@ -177,7 +177,7 @@ const Article: React.FC<PostProps> = ({ postData, loading }) => {
                         <Link href={`ArticlePage/${item.post_id}`} className="w border-end justify-content-center align-item-center d-flex col-6">
                           <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
-                        <Link href={`ArticlePage/${item.post_id}`}  className="w-30 border-end justify-content-center align-item-center d-flex col-6">
+                        <Link href={`ArticlePage/${item.post_id}`} className="w-30 border-end justify-content-center align-item-center d-flex col-6">
                           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="green" className="bi bi-check-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                             <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
@@ -187,7 +187,13 @@ const Article: React.FC<PostProps> = ({ postData, loading }) => {
 
                     </td>
                   </tr>
-                )) : (<td colSpan={7} style={{ margin: '0 auto', textAlign:'center' }}>Không có dữ liệu</td>)}
+                )) : (
+                  <>
+                    <tr>
+                      <td colSpan={7} style={{ margin: '0 auto', textAlign: 'center' }}>Không có dữ liệu</td>
+                    </tr>
+                  </>
+                )}
             </tbody>
           )}
         </Table>

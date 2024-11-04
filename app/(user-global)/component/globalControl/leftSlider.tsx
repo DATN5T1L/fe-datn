@@ -14,6 +14,12 @@ const LeftSlider: React.FC = () => {
     const [headerHeight, setHeaderHeight] = useState(0);
     const [isHidden, setIsHidden] = useState(false);
     const userState = useSelector((state: RootState) => state.user);
+    const [clientHref, setClientHref] = useState('/login');
+
+    useEffect(() => {
+        // Cập nhật URL sau khi client đã có trạng thái user
+        setClientHref(userState?.user ? `/coursefor/${userState.user.id}` : '/login');
+    }, [userState]);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -96,7 +102,7 @@ const LeftSlider: React.FC = () => {
                 >
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
                     <Link
-                        href={`${userState.user ? `/coursefor/${userState.user.id}` : `/login`}`}
+                        href={clientHref}
                         className={`btn-slide-bar-mini`}
                     >
                         <div className={`btn-e`}>Khóa học của bạn</div>

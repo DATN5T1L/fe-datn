@@ -27,6 +27,8 @@ interface ApiResponse<T> {
 }
 
 const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
+    const { id } = params;
+    const [error, setError] = useState<string | null>(null);
     useEffect(() => {
         AOS.init({
             duration: 1200,
@@ -39,8 +41,6 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
         setOpenIndex(prevIndex => (prevIndex === index ? null : index));
     };
 
-    const { id } = params;
-
     const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
         `/api/courseDetail/${id}`,
         fetcher
@@ -51,23 +51,71 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
         fetcher
     );
 
+    const token = localStorage.getItem('token');
+    const fetchPayMentVn = async () => {
+        try {
+            const response = await fetch(`/api/paymentvn/${id}/${totalPrice}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data)
+                const paymentUrl = data.data;
+
+                if (paymentUrl) {
+                    window.location.href = paymentUrl;
+                } else {
+                    throw new Error("Payment URL is missing");
+                }
+            } else if (!response.ok) {
+                throw new Error("Thanh toán thất bại");
+            }
 
 
-    const instructorId = courseData?.data?.instructor_id;
-    const { data: userData, error: userError } = useSWR<ApiResponse<User>>(
-        instructorId ? `/api/user/${instructorId}` : null,
-        fetcher
-    );
+
+        } catch (err: any) {
+            setError(err.message);
+        }
+    };
+    const fetchPayMentMomo = async () => {
+        try {
+            const response = await fetch(`/api/paymentmomo/${id}`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                // const paymentUrl = data.payUrl;
+                console.log(data);
+
+                // if (paymentUrl) {
+                //     window.location.href = paymentUrl;
+                // } else {
+                //     throw new Error("Payment URL is missing");
+                // }
+            } else if (!response.ok) {
+                throw new Error("Thanh toán thất bại");
+            }
+
+
+
+        } catch (err: any) {
+            setError(err.message);
+        }
+    };
 
     // Handle loading and error states
-    if (courseError || userError || faqError) return <div>Failed to load data</div>;
-    if (!courseData || !userData || !faqData) return <div>Loading...</div>;
+    if (courseError || faqError) return <div>Failed to load data</div>;
+    if (!courseData || !faqData) return <div>Loading...</div>;
 
 
     const course = courseData.data;
-    const user = userData.data;
     const faqs = faqData.data;
-
     const costDis = 100000;
     const priceString = course.price_course;
     const formattedPrice = new Intl.NumberFormat('vi-VN', {
@@ -78,6 +126,8 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
         style: 'currency',
         currency: 'VND',
     }).format(costDis);
+
+    const totalPrice = priceString - costDis;
     return (
         <>
 
@@ -165,7 +215,8 @@ const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
                                         <p className={stylesP.titlePỉce}>-{formattedcostDise}</p>
                                     </div>
                                 </div>
-                                <button className={stylesP.btnTotal}>Thanh toán ngay</button>
+                                <button className={stylesP.btnTotal} onClick={fetchPayMentVn} name='redirect'>Thanh toán ngay bằng vnp</button>
+                                <button className={stylesP.btnTotal} onClick={fetchPayMentMomo} name='payUrl'>Thanh toán ngay bằng momo</button>
                             </div>
                         </Col>
                     </Row>

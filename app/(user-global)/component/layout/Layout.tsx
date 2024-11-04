@@ -16,13 +16,13 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     const pathname = usePathname();
     const isNoHeaderPage = /^\/(course|paymentCourse)(\/.*)?$/.test(pathname);
-    const isLearningCoursePage = /^\/learningCourse(\/.*)?$/.test(pathname);
+    const isLearningCoursePage = /^\/learningCourse|test(\/.*)?$/.test(pathname);
 
     return (
         <div className={`${isNoHeaderPage ? 'body-black' : 'body-main'}`}>
             <ReduxRender>
                 <SessionProvider>
-                    
+
                     {!isLearningCoursePage && (
                         isNoHeaderPage ? <HeaderCourseDetail /> : <Header />
                     )}
@@ -30,7 +30,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <div className='main-global' style={isNoHeaderPage ? { minHeight: '100vh' } : {}}>
                         {children}
                     </div>
-                    <Footer></Footer>
+                    {!isLearningCoursePage && (
+                        isNoHeaderPage ? <FooterBlack /> : <Footer />
+                    )}
                 </SessionProvider>
             </ReduxRender>
         </div >

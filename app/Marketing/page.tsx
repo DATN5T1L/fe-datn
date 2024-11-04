@@ -8,12 +8,17 @@ import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu
 import { HeaderArticleSimple } from "@/app/admin/component/Article/headerArrticle";
 import ViewBarCharts from "@/app/admin/component/Dashboard/ViewChart";
 import Article from "@/app/admin/component/Article/article";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/rootReducer";
+import { HeaderArticle } from "@/app/admin/component/Article/headerArrticle";
 
 
 const Dashboard = () => {
+  const userState = useSelector((state:RootState)=>state.user.user)
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  console.log(userState?.avatar);
   return (
     <>
       <div className={style.mar}>
@@ -76,7 +81,7 @@ const Dashboard = () => {
         </section>
         <section>
           <HeaderArticleSimple />
-          <Article />
+          <HeaderArticle />
         </section>
       </div>
     </>

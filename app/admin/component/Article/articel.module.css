@@ -5,6 +5,7 @@
   align-items: flex-start;
   background: var(--background-bg-admin, #f5f6fa);
   gap: 24px;
+  display: flex;
 }
 
 .header {

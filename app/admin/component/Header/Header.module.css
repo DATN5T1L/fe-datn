@@ -43,6 +43,10 @@
   height: auto;
 }
 
+.searchText {
+  font-size: 10px;
+}
+
 .searchInput {
   flex-grow: 1;
   border: none;
@@ -75,6 +79,7 @@
   }
 }
 
+
 .btnSearch img {
   height: 11px;
   width: 11px;
@@ -94,6 +99,7 @@
   padding: 0;
 }
 
+
 .iconButton2 {
   font-size: 1.25rem;
   margin-left: 20px;
@@ -102,6 +108,7 @@
   border: none;
   padding: 0;
 }
+
 
 .iconButton2 img {
   width: 32px;
