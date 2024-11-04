@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 // import VideoPlayer from "@app/(user-global)/component/videoPlayer";
 import ReactPlayer from 'react-player/youtube';
