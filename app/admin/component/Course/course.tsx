@@ -129,22 +129,8 @@ const Course: React.FC<{}> = () => {
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
-<<<<<<< HEAD
-      {/* Post List */}
-      <div
-        className="d-flex overflow-auto w-100"
-        style={{ whiteSpace: "nowrap" }}
-      >
-        <Table
-          id="cssTable"
-          bordered
-          hover
-          className={`${h.table} table-responsive`}
-        >
-=======
       <div className="d-flex overflow-auto w-100" style={{ whiteSpace: 'nowrap' }}>
         <Table id="cssTable" bordered hover className={`${h.table} table-responsive`}>
->>>>>>> main
           <thead>
             <tr>
               <td>Hình ảnh</td>
