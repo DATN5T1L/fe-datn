@@ -67,7 +67,21 @@ const Header: React.FC = () => {
             alt="Logo"
           />
         </Navbar.Brand>
+<<<<<<< HEAD
         <SearchBar />
+=======
+        <Form className={` ${h.formGroup} mx-auto d-none d-xl-flex`}>
+          <input
+            type="text"
+            placeholder="Tìm kiếm"
+            aria-label="Search"
+            className={h.searchInput}
+          />
+          <Button className={h.btnSearch}>
+            <img src="/img_admin/searchheader.svg" alt="Search" />
+          </Button>
+        </Form>
+>>>>>>> main
         <ButtonGroup className={`${h.CTA} d-none d-xl-block`}>
           <Button
             variant="link"

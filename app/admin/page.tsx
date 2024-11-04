@@ -1,14 +1,45 @@
 "use client";
+import React, { useEffect, useRef, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Col } from "react-bootstrap";
+import "./globals.css";
+import Header from "./component/Header/header";
+import Sidebar from "./component/Sidebar/sidebar";
 import Article from "./component/Article/article";
+import styles from './layout.module.css';
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+
 import ViewBarCharts from "./component/Dashboard/ViewChart";
 import style from "./component/Dashboard/Chart.module.css";
 import { Image } from "react-bootstrap";
-import { useState } from "react";
 import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu";
 import BodyDashboard from "@/app/admin/component/Dashboard/BodyDashboard";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
+  const router = useRouter()
+  const userState = useSelector((state: RootState) => state.user.user)
+  const alertShown = useRef(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
+
+
+  useEffect(() => {
+    if (!alertShown.current) {
+      if (userState?.role === 'admin') {
+        setIsLoading(false);
+      } else {
+        alert('bạn không có quuyền ở đây!');
+        router.push('/home');
+      }
+      alertShown.current = true;
+    }
+  }, [userState, router]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
   return (

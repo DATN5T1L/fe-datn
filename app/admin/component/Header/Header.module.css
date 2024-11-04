@@ -17,15 +17,33 @@
 
 /* form */
 .formGroup {
+<<<<<<< HEAD
+=======
+  padding: 8px 12px;
+  background-color: var(--gray-100);
+  border: 1px solid var(--gray-80);
+  height: auto;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  max-height: 32px;
+  &:hover {
+    border-color: var(--blue-40);
+  }
+>>>>>>> main
 }
 
 .searchInput {
   max-width: 400px;
   height: auto;
+<<<<<<< HEAD
 }
 
 .searchText {
   font-size: 10px;
+=======
+>>>>>>> main
 }
 
 .searchInput {
@@ -50,6 +68,9 @@
   background-color: white !important;
   background-color: transparent;
   border: none !important;
+  display: flex;
+  align-items: center !important;
+
 
   &:hover {
     background-color: transparent;

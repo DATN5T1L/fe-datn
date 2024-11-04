@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   Button,
   Form,
@@ -14,12 +14,122 @@ import h from "./course.module.css";
 import Link from "next/link";
 import "./course.css";
 import header from "@/app/(user-global)/component/globalControl/header";
+import useSWR from 'swr';
+import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
+import ReactLoading from 'react-loading';
+
+interface User {
+  user_id: number;
+  fullname: string;
+  email: string;
+  phonenumber: string;
+  created_at: string;
+}
+
+interface ApiResponse<T> {
+  status: string;
+  message: string;
+  data: T[];
+}
+
+// const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Course: React.FC<{}> = () => {
+  // const { data: userData, isLoading: userIsLoading, error: userError } = useSWR<ApiResponse<User>>(
+  //   `/api/allUser/`,
+  //   fetcher
+  // );
+
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const usersPerPage = 5;
+  // const totalPages = Math.ceil((userData?.data.length || 0) / usersPerPage);
+
+  // const handleNextPage = () => {
+  //   if (currentPage < totalPages) {
+  //     setCurrentPage(currentPage + 1);
+  //   }
+  // };
+
+  // const handlePrevPage = () => {
+  //   if (currentPage > 1) {
+  //     setCurrentPage(currentPage - 1);
+  //   }
+  // };
+
+  // const indexOfLastUser = currentPage * usersPerPage;
+  // const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  // const currentUsers =
+  //   userData?.data && Array.isArray(userData.data)
+  //     ? userData.data.slice(indexOfFirstUser, indexOfLastUser)
+  //     : [];
+
+  // const renderPaginationItems = () => {
+  //   const pageNumbers = [];
+  //   if (totalPages <= 5) {
+  //     for (let i = 1; i <= totalPages; i++) {
+  //       pageNumbers.push(
+  //         <Pagination.Item
+  //           key={i}
+  //           active={i === currentPage}
+  //           onClick={() => setCurrentPage(i)}
+  //         >
+  //           {i}
+  //         </Pagination.Item>
+  //       );
+  //     }
+  //   } else {
+  //     pageNumbers.push(
+  //       <Pagination.Item
+  //         key={1}
+  //         active={1 === currentPage}
+  //         onClick={() => setCurrentPage(1)}
+  //       >
+  //         1
+  //       </Pagination.Item>
+  //     );
+
+  //     if (currentPage > 3) {
+  //       pageNumbers.push(<Pagination.Ellipsis key="start-ellipsis" />);
+  //     }
+
+  //     for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+  //       pageNumbers.push(
+  //         <Pagination.Item
+  //           key={i}
+  //           active={i === currentPage}
+  //           onClick={() => setCurrentPage(i)}
+  //         >
+  //           {i}
+  //         </Pagination.Item>
+  //       );
+  //     }
+
+  //     if (currentPage < totalPages - 2) {
+  //       pageNumbers.push(<Pagination.Ellipsis key="end-ellipsis" />);
+  //     }
+
+  //     pageNumbers.push(
+  //       <Pagination.Item
+  //         key={totalPages}
+  //         active={totalPages === currentPage}
+  //         onClick={() => setCurrentPage(totalPages)}
+  //       >
+  //         {totalPages}
+  //       </Pagination.Item>
+  //     );
+  //   }
+  //   return pageNumbers;
+  // };
+
+  // if (userIsLoading) return <ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={h.align} />
+  // if (userError) return <div>Error loading data</div>;
+
+
   return (
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
+<<<<<<< HEAD
       {/* Post List */}
       <div
         className="d-flex overflow-auto w-100"
@@ -31,6 +141,10 @@ const Course: React.FC<{}> = () => {
           hover
           className={`${h.table} table-responsive`}
         >
+=======
+      <div className="d-flex overflow-auto w-100" style={{ whiteSpace: 'nowrap' }}>
+        <Table id="cssTable" bordered hover className={`${h.table} table-responsive`}>
+>>>>>>> main
           <thead>
             <tr>
               <td>Hình ảnh</td>

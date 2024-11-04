@@ -1,0 +1,154 @@
+.container,
+.containerNext {
+    width: 100%;
+    max-width: 1440px;
+    height: auto;
+    margin: 0 !important;
+    display: flex;
+    padding: 80px 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+}
+
+/* .evaluete__main {
+    display: flex;
+    flex-direction: column;
+} */
+
+.container::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 137px;
+    height: 97px;
+    right: 4px;
+    top: 43px;
+    background-image: url("../../../public/img/GroupRight.svg");
+}
+
+.container::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 137px;
+    height: 97px;
+    left: -70px;
+    bottom: 43px;
+    background-image: url("../../../public/img/GroupLeft.svg");
+}
+
+/* test */
+.main {
+    max-width: 1200px;
+    padding: 0px 32px;
+    width: 100%;
+    color: var(--text-text-m, #000);
+    position: relative;
+}
+
+
+
+.main__title {
+    color: inherit;
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 56px;
+    letter-spacing: -0.96px;
+}
+
+.main__subTitle {
+    color: inherit;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 24px;
+    max-width: 630px;
+}
+
+.mainCard {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+    gap: 16px;
+    height: auto;
+    padding: 18px 32px 0px 32px;
+}
+
+.cta {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 32px;
+}
+
+.ctaLeft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+.listCard {
+    border-radius: 12px;
+    background: linear-gradient(0deg, #DDF8FC 0%, #FFF 100%);
+    /* 2 */
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.15);
+    padding-bottom: 32px;
+}
+
+.bg {
+    width: 1920px;
+    position: absolute;
+    top: 22%;
+}
+
+.progress-container {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.progress-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(#2196f3 calc(40% * 3.6deg),
+            /* Màu tiến độ */
+            #ddd 0deg
+            /* Màu nền */
+        );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.progress-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.topHeader {
+    display: flex;
+}
+
+.headContent__evalueteFor {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.linkCta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
