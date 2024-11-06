@@ -121,7 +121,7 @@ const MyChartComponent = () => {
                   },
                 },
                 suggestedMin: 0,
-                suggestedMax: count, // Sử dụng count dưới dạng number
+                suggestedMax: count, 
               },
             },
           },

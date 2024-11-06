@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: false,
   async redirects() {
     return [
       {
@@ -200,9 +201,9 @@ const nextConfig = {
         source: '/api/paymentvn/:path*',
         destination: 'https://be-datn-production-f680.up.railway.app/api/client/VNPay/:path*',
       },
-       // Admin 
+      // Admin 
 
-       {
+      {
         source: '/api/allUser/:path*',
         destination: 'https://be-datn-production-f680.up.railway.app/api/admin/users/:path*',
       },
@@ -218,6 +219,14 @@ const nextConfig = {
         source: '/api/allRole/:path*',
         destination: 'https://be-datn-production-f680.up.railway.app/api/admin/users-role/:path*',
       },
+      {
+        source: '/api/courseEnrollments/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/enrollments/:path*',
+      },
+      {
+        source: '/api/courseForUser/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/get-course-admin-by-user/:path*',
+      },
 
       // statistical
 
@@ -232,6 +241,21 @@ const nextConfig = {
       {
         source: '/api/statistical_revenue_mouth/:path*',
         destination: 'https://be-datn-production-f680.up.railway.app/api/admin/statistical-revenue-mouth/:path*',
+      },
+      {
+        source: '/api/statistical_detail_user/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/get-statistical-detail-user-admin/:path*',
+      },
+      {
+        source: '/api/statistical_complete/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
+      },
+
+      //instructor
+
+      {
+        source: '/api/coures_rating/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
       },
     ];
   },

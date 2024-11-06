@@ -27,7 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                         isNoHeaderPage ? <HeaderCourseDetail /> : <Header />
                     )}
                     <GlobalComponents />
-                    <div className='main-global' style={isNoHeaderPage ? { minHeight: '100vh' } : {}}>
+                    <div className='main-global' style={isNoHeaderPage ? { minHeight: '3000px' } : {}}>
                         {children}
                     </div>
                     {!isLearningCoursePage && (

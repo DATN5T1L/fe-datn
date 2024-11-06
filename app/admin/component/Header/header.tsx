@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Navbar, Form, Button, ButtonGroup } from "react-bootstrap";
+import { Navbar, Form, Button, ButtonGroup, Spinner } from "react-bootstrap";
 import h from "./Header.module.css";
 import Notifications from "@/app/admin/component/DashboardMenu/notifications";
 import Settings from "@/app/admin/component/DashboardMenu/settings";
@@ -17,6 +17,7 @@ const Header: React.FC = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const userState = useSelector((state: RootState) => state.user.user)
+  const [loadingAvatar, setLoadingAvatar] = useState(true);
   const pathName = usePathname()
 
   const notificationRef = useRef<HTMLDivElement>(null);
@@ -31,6 +32,12 @@ const Header: React.FC = () => {
     setShowSettings(!showSettings);
     setShowNotifications(false);
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setLoadingAvatar(false)
+    }
+  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -90,7 +97,15 @@ const Header: React.FC = () => {
             className={h.iconButton2}
             onClick={toggleSettings}
           >
-            <img src={`${userState?.avatar}`} alt="User" className="d-none d-xl-block" />
+            {loadingAvatar ? (
+              <Spinner animation="border" size="sm" />
+            ) : (
+              <img
+                src={`${userState?.avatar}`}
+                alt="User"
+                className="d-none d-xl-block"
+              />
+            )}
           </Button>
           <Button variant="link" className={h.iconButton}>
             <img src="/img/list.svg" alt="Menu" onClick={handleShow} />

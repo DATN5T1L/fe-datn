@@ -28,9 +28,11 @@ interface Statistical {
 }
 
 const getCookie = (name: string) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
+  if (typeof window !== 'undefined') {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+  }
   return null;
 };
 
@@ -42,28 +44,68 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
   const token = getCookie('token');
+  const [countEnrollments, setCountEnrollments] = useState(0)
 
   useEffect(() => {
-    if (!token) return; 
-    setIsLoading(true)
-    fetch(`/api/statistical_admin/`, {
-      cache: 'no-cache',
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
+    if (token) {
+      setIsLoading(true)
+      fetch(`/api/statistical_admin/`, {
+        cache: 'no-cache',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+        .then(async res => {
+          if (!res.ok) {
+            const errorDetail = await res.text();
+            throw new Error(`HTTP error! status: ${res.status} - ${errorDetail}`);
+          }
+          return res.json();
+        })
+        .then(data => {
+          setIsLoading(false)
+          console.log(data);
+          setData(data)
+        })
+        .catch(error => {
+          console.log(error)
+          setIsLoading(false)
+        })
+    }
+  }, [token])
+
+    useEffect(() => {
+      if (token) {
+        setIsLoading(true)
+        fetch(`/api/courseEnrollments/`, {
+          cache: 'no-cache',
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        })
+          .then(async res => {
+            if (!res.ok) {
+              const errorDetail = await res.text();
+              throw new Error(`HTTP error! status: ${res.status} - ${errorDetail}`);
+            }
+            return res.json();
+          })
+          .then(data => {
+            setIsLoading(false)
+            console.log(data);
+            setCountEnrollments(data.data.length)
+          })
+          .catch(error => {
+            console.log(error)
+            setIsLoading(false)
+          })
       }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setIsLoading(false)
-        console.log(data);
-        setData(data)
-      })
-      .catch(error => {
-        console.log(error)
-        setIsLoading(false)
-      })
-  }, [])
+    }, [token])
+
+    // console.log('phần tử:',countEnrollments);
+    
 
   useEffect(() => {
     if (!alertShown.current) {

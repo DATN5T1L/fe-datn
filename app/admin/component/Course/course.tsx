@@ -46,6 +46,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
   const coursePerPage = 5;
   const totalPages = Math.ceil((courseData?.data.length || 0) / coursePerPage);
   const [count, setCount] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -58,6 +59,16 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
       setCurrentPage(currentPage - 1);
     }
   };
+
+  useEffect(() => {
+    if (!loading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   const indexOfLastUser = currentPage * coursePerPage;
   const indexOfFirstUser = indexOfLastUser - coursePerPage;
