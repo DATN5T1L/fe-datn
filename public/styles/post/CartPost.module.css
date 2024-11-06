@@ -1,0 +1,41 @@
+.body {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+}
+.content {
+  height: 50px;
+  width: 275px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.footer {
+}
+.mainContainer img {
+  border-radius: 6px;
+}
+.heroArticleContainer {
+  min-height: 480px;
+  min-width: 632px;
+}
+.titleArticle {
+  position: absolute;
+  top: 55%;
+  left: 5%;
+  max-width: 600px;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+}
+.titleArticle p,
+.titleArticle h2 {
+  position: relative;
+}
+
+.articleLRInfo {
+  font-size: 10px;
+}
+.articleLRColorText {
+  color: #45daee;
+}
