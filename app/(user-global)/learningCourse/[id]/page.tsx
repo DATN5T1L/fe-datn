@@ -6,16 +6,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
-import { Nav, Navbar } from "react-bootstrap";
+import { Row, Col, Nav, Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from 'framer-motion';
+
+// thêm component
 import CodeDev from "@app/(user-global)/component/globalControl/codeDev";
 import ProgressCircle from '@app/(user-global)/component/course/ProgressCircle';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
-import Faq from "@app/(user-global)/component/globalControl/Faq"
-import NoteCourse from "@app/(user-global)/component/globalControl/NoteCourse"
+import Faq from "@app/(user-global)/component/globalControl/Faq";
+import NoteCourse from "@app/(user-global)/component/globalControl/NoteCourse";
+import CodeDevLearning from "@app/(user-global)/component/globalControl/CodeDevLearning";
 
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
@@ -332,7 +335,13 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
         //     setnameDocument(inactiveDoc.name_document);
         //     settypeDoc(inactiveDoc.type_document);
         // }
+        const handleExport = (data: { html: string, css: string, js: string }) => {
+            console.log('HTML:', data.html);
+            console.log('CSS:', data.css);
+            console.log('JS:', data.js);
 
+            // Ở đây bạn có thể thực hiện các hành động khác với dữ liệu, như lưu trữ, hiển thị, v.v.
+        };
 
         return (
             <div className={`${styles.row}`}>
@@ -417,17 +426,26 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                     ) : typeDoc === 'code' ? (
                         <div className={styles.wapperCode}>
                             {/* Thêm nội dung của code ở đây */}
-                            <div className={styles.bodyTitle}>
+                            {/* <div className={styles.bodyTitle}>
                                 <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
                                 <h4 className={styles.titleCourse}>{nameDocument}</h4>
-                            </div>
+                            </div> */}
                             {code?.map((code, index) => (
-                                <div key={index} className={styles.codeItem}>
-                                    <p>Mã câu trả lời: {code.answer_code}</p>
+                                <Row key={index} className={styles.codeMain}>
+                                    <Col md={6}></Col>
+                                    <Col md={6}>
+                                        <CodeDevLearning onExport={handleExport}
+                                            answer_code={code.answer_code}
+                                            correct_answer={code.correct_answer}
+                                            question_code={code.question_code}
+                                            tutorial_code={code.tutorial_code}
+                                        />
+                                    </Col>
+                                    {/* <p>Mã câu trả lời: {code.answer_code}</p>
                                     <p>Đáp án đúng: {code.correct_answer}</p>
                                     <p>Mã câu hỏi: {code.question_code}</p>
-                                    <p>Mã hướng dẫn: {code.tutorial_code}</p>
-                                </div>
+                                    <p>Mã hướng dẫn: {code.tutorial_code}</p> */}
+                                </Row>
                             ))}
                         </div>
                     ) : (

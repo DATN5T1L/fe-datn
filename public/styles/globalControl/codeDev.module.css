@@ -6,6 +6,13 @@
     padding-top: 20px;
 }
 
+.DevLearning {
+    padding-top: 2px;
+    margin-top: 0px;
+    height: 100%;
+    background-color: var(--gray-95);
+}
+
 .resize-handle {
     width: 10px;
     height: 100%;
@@ -32,6 +39,7 @@
     border-right: 1px solid var(--gray-95);
     border-left: 1px solid var(--gray-95);
     background: var(--gray-95);
+    cursor: pointer;
 
     &:hover {
         outline: 1px solid var(--blue-50);
@@ -56,11 +64,12 @@
     align-items: center;
     justify-content: start;
     padding: 4px;
-    max-height: 100%;
+    /* max-height: 60vh; */
     overflow: hidden;
     margin-top: 20px;
     gap: 10px;
     background-color: var(--gray-90);
+    border-right: 1px solid var(--blue-50);
 }
 
 .lines span {
@@ -76,7 +85,8 @@
     outline: none;
     width: calc(100% - 10px);
     padding: 12px;
-    height: 40vh;
+    height: 60vh;
+    max-height: 60vh;
     border-left: 1px solid var(--blue-50);
     border-bottom: 1px solid var(--blue-50);
     border: none;
@@ -89,11 +99,73 @@
     justify-content: end;
     padding: 8px 0px;
     gap: 12px;
+    padding-right: 24px;
+    border-top: 1px solid var(--blue-50);
+}
+
+.btnCtaDev {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--blue-50);
+    color: var(--blue-50);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+    background-color: transparent;
+
+    &:hover {
+        background-color: var(--blue-50);
+        color: var(--text-0);
+    }
 }
 
 .showResult {
     width: 100%;
     padding: 32px;
-    border-top: 1px solid var(--blue-50);
     position: relative;
+}
+
+/* SuggestBox */
+
+.SuggestBox {
+    max-width: 330px;
+    display: inline-flex;
+    padding: 32px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    border-radius: 12px;
+    border-color: transparent;
+    background-color: var(--blue-05);
+    color: var(--text-0);
+    cursor: pointer;
+    box-shadow: 0px 32px 64px -12px rgba(16, 24, 40, 0.14);
+
+
+    &:hover {
+        opacity: .95;
+    }
+}
+
+.SuggestBoxTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.SuggestBoxTitle,
+.SuggestBoxContent {
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: justify;
+}
+
+/* Answer */
+
+.Answer {
+    background-color: var(--gray-95);
+    height: 100%;
 }
