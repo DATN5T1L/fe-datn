@@ -179,7 +179,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--text-text-m, #000);
-    margin-bottom: 8px;
+    margin-bottom: 8px; 
 }
 
 

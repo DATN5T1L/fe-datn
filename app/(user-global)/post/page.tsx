@@ -1,7 +1,13 @@
 "use client";
 
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import styles from "@public/styles/post/post.module.css";
 import Body from "../component/globalControl/body";
 import HeroPost from "../component/globalControl/HeroPost";
+import CardPosts from "../component/globalControl/CartPost";
 import TwoColumnLayout from "../component/globalControl/twoColumnPosts";
 import SplitOrientationLayout from "../component/globalControl/splitPosts";
 import LeftRightLayout from "../component/globalControl/leftRightPosts";
@@ -19,7 +25,7 @@ const listItems = [
       "Trong thời đại số hóa, bảo mật phần mềm trở thành một yếu tố không thể thiếu. Việc tích hợp các quy trình bảo mật ngay từ giai đoạn thiết kế và phát triển giúp giảm thiểu nguy cơ bị tấn công, bảo vệ dữ liệu người dùng và nâng cao uy tín doanh nghiệp.",
     author: "Tuấn Huỳnh",
   },
-
+  
 ];
 
 const Post: React.FC = () => {
@@ -27,8 +33,9 @@ const Post: React.FC = () => {
     <>
       <Body>
         <HeroPost />
+
         {listItems.map((item, index) => (
-          <div className="d-flex flex-column gap-5">
+          <div className="d-flex flex-column gap-5 w-100">
             <TwoColumnLayout
               type={"Horizontal"}
               direction={"Left"}
