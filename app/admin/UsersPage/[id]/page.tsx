@@ -10,7 +10,7 @@ import ReactLoading from 'react-loading';
 
 interface UserDetailProps {
     params: {
-        id: number;
+        id: number|string;
     };
 }
 

@@ -36,35 +36,32 @@
 'use client'
 
 import { signIn, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@public/styles/login/LoginBtn.module.css';
 
 const GgLogin = () => {
-    const { data: session, status } = useSession();
+    // const { data: session, status } = useSession();
     const router = useRouter();
+    const [data, setData] = useState(null)
 
-    useEffect(() => {
-        if (status === "authenticated") {
-            console.log("User session data:", session);
-            router.push("/info-user");
-        }
-    }, [status, session, router]);
+    // useEffect(() => {
+    //     if (status === "authenticated") {
+    //         console.log("User session data:", session);
+    //         router.push("/info-user");
+    //     }
+    // }, [status, session, router]);
 
     const handleLogin = async () => {
-        // Gọi trực tiếp API login-google
         try {
             const response = await fetch('/api/loginGg', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                method: 'GET',
+                credentials: 'include' 
             });
 
             if (response.ok) {
-                console.log("API login-google response:", await response.json());
-                // Chuyển hướng đến trang /info-user nếu thành công
-                // router.push("/info-user");
+                const data = await response.json()
+                setData(data)
             } else {
                 console.error("API login-google failed:", response.statusText);
             }

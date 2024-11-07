@@ -47,3 +47,7 @@
 .chapterBtn:hover {
   background-color: var(--blue-95);
 }
+
+.align{
+  margin: 0 auto;
+}

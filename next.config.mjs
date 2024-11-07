@@ -28,7 +28,7 @@ const nextConfig = {
       },
       {
         source: '/api/loginGg',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/login-google',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/login-google',
       },
       {
         source: '/api/checktoken/:path*',
@@ -226,6 +226,14 @@ const nextConfig = {
       {
         source: '/api/courseForUser/:path*',
         destination: 'https://be-datn-production-f680.up.railway.app/api/admin/get-course-admin-by-user/:path*',
+      },
+      {
+        source: '/api/courseChapters/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/chapters/:path*',
+      },     
+      {
+        source: '/api/courseDocumnets/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/doc-course/:path*',
       },
 
       // statistical

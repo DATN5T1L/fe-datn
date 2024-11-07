@@ -79,7 +79,7 @@ const Dashboard = () => {
                 <h6>Người hoàn thành khóa học</h6>
                 <div className={h.chart}>
                   <div>
-                    <DoughnutChart />
+                    {/* <DoughnutChart /> */}
                   </div>
                 </div>
                 <div className={h.info_course}>
