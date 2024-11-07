@@ -72,6 +72,9 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
 
+    // state change
+    const [isActiveDoc, setIsActiveDoc] = useState(false);
+    const [activeDocIndex, setActiveDocIndex] = useState<number | null>(null);
     const toggleSwitch = () => {
         setIsActive(!isActive);
         setTippyVisible(prev => !prev);
@@ -333,8 +336,9 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                                         <span className={styles.subtitleQuestion}>Điền vào phần còn thiếu</span>
                                                         <ul className={styles.listQuestion}>
                                                             {parsedQuestion.answers.map((answer, idx) => (
-                                                                <li key={idx} className={styles.itemQuestion}> <input type="checkbox" name="" id="" /> Câu trả lời: {answer}</li>
-                                                            ))}
+                                                                <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
+                                                                    <input type="checkbox" name="" id={`submit${idx}`} value={answer} /> {answer}
+                                                                </label>))}
                                                         </ul>
                                                     </div>
                                                 ) : null}
@@ -354,11 +358,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                         </div>
                     ) : typeDoc === 'code' ? (
                         <div className={styles.wapperCode}>
-                            {/* Thêm nội dung của code ở đây */}
-                            {/* <div className={styles.bodyTitle}>
-                                <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
-                                <h4 className={styles.titleCourse}>{nameDocument}</h4>
-                            </div> */}
+
                             {code?.map((code, index) => (
                                 <Row key={index} className={styles.codeMain}>
                                     <Col md={6}></Col>
@@ -370,10 +370,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                             tutorial_code={code.tutorial_code}
                                         />
                                     </Col>
-                                    {/* <p>Mã câu trả lời: {code.answer_code}</p>
-                                    <p>Đáp án đúng: {code.correct_answer}</p>
-                                    <p>Mã câu hỏi: {code.question_code}</p>
-                                    <p>Mã hướng dẫn: {code.tutorial_code}</p> */}
+
                                 </Row>
                             ))}
                         </div>
@@ -490,8 +487,35 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                             <ul className={styles.listItem__docs}>
 
                                                 {item.documents.map((doc, subIndex) => (
-                                                    <li key={subIndex} className={styles.listItem__doc}>
-                                                        <div className={styles.doc_title}>
+                                                    <li key={subIndex} className={`${styles.listItem__doc}`}
+                                                        style={{
+                                                            backgroundColor: activeDocIndex === subIndex ? "#fff" : "#000",
+                                                        }}
+
+                                                        onClick={() => {
+                                                            // if (isActiveDoc === false) {
+                                                            //     setIsActiveDoc(true)
+                                                            // } else {
+                                                            //     alert("Please select")
+                                                            // }
+                                                            setActiveDocIndex(subIndex);
+                                                            setnameDocument(doc.name_document);
+                                                            settypeDoc(doc.type_document);
+                                                            setIdDocument(doc.document_id)
+                                                            settimedocument(formatDateTime(doc.updated_at));
+                                                            setUrlVideo(doc.url_video);
+
+                                                            if (doc.type_document === 'quiz' && doc.questions) {
+                                                                setQuestion(doc.questions);
+                                                                setContent(false);
+                                                            } else if (doc.type_document === 'code' && doc.codes) {
+                                                                setCode(doc.codes);
+                                                                setContent(false);
+                                                            } else if (doc.type_document === 'video') {
+                                                                setContent(true);
+                                                            }
+                                                        }}>
+                                                        <div className={styles.doc_title} >
                                                             {doc.type_document === "video" ? (
                                                                 // Icon video
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -517,31 +541,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                                                 </svg>
                                                             )}
                                                             <div className={styles.listItem__docTitle}
-                                                                onClick={() => {
-                                                                    // if (doc.status_video === true || doc.status_video === false) {
-                                                                    //     setUrlVideo(doc.url_video);
-                                                                    //     setnameDocument(doc.name_document);
-                                                                    //     settypeDoc(doc.type_document);
-                                                                    //     setIdDocument(doc.document_id)
-                                                                    //     settimedocument(formatDateTime(doc.updated_at));
-                                                                    // } else {
-                                                                    //     alert("Bạn cần hoàn thành các bài học khác")
-                                                                    // }
-                                                                    setnameDocument(doc.name_document);
-                                                                    settypeDoc(doc.type_document);
-                                                                    setIdDocument(doc.document_id)
-                                                                    settimedocument(formatDateTime(doc.updated_at));
-                                                                    setUrlVideo(doc.url_video);
-                                                                    if (doc.type_document === 'quiz' && doc.questions) {
-                                                                        setQuestion(doc.questions);
-                                                                        setContent(false);
-                                                                    } else if (doc.type_document === 'code' && doc.codes) {
-                                                                        setCode(doc.codes);
-                                                                        setContent(false);
-                                                                    } else if (doc.type_document === 'video') {
-                                                                        setContent(true);
-                                                                    }
-                                                                }}>
+                                                            >
                                                                 <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`} {doc.document_id} </span>
                                                                 <span className={styles.listItem__docName}> {doc.name_document} </span>
                                                             </div>
