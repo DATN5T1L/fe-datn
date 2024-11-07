@@ -8,7 +8,7 @@ import { Button, Container, Image } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 
 interface UserIdProps {
-    user_id: number;
+    user_id: number|string;
 }
 
 const NewPasswordPage: React.FC<UserIdProps> = (user_id) => {

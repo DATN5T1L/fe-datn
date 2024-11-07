@@ -13,7 +13,7 @@ interface CourseCardProps extends Course {
 }
 interface ApiResponse {
     courses: {
-        user_id: string;
+        user_id: number|string;
         data: CourseCardProps[];
     };
 }
@@ -52,8 +52,7 @@ const CourseFor: React.FC = () => {
     );
 
     if (error) return <div>Error loading courses</div>;
-    const courses = Array.isArray(data?.courses?.data) ? data.courses.data : [];
-    console.log(courses);
+    const courses = Array.isArray(data?.courses?.data) ? data?.courses.data : [];
     const handleClick = (course: CourseCardProps) => {
 
         const newProgress = {
@@ -84,7 +83,7 @@ const CourseFor: React.FC = () => {
             </section>
             <section className={styleFor.listCard}>
                 <Row className={styleFor.mainCard}>
-                    {courses.map(course => (
+                    {courses?.map(course => (
                         <Col md={4} className={styles.mainBox} key={course.course_id}>
                             <Card className={styles.mainBox__content}>
                                 <Card.Header className={styles.headerContent}>

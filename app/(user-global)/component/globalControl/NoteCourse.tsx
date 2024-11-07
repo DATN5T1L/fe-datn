@@ -4,16 +4,19 @@ import styles from "@public/styles/globalControl/NoteCourse.module.css";
 import CKEditorComponent from "../globalControl/ckedditor";
 
 interface NoteCourseProps {
-    id: number;
+    id: number | string;
     title: string;
-    time: number;
+    time: number|string;
     onClose: () => void; // Thêm prop để đóng popup từ bên ngoài
 }
 
 const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => {
     const [noteContent, setNoteContent] = useState<string>(''); // State để lưu nội dung ghi chú
     const popupRef = useRef<HTMLDivElement | null>(null);
-    const formatTime = (seconds: number): string => {
+    const formatTime = (seconds: number | string): string => {
+        if (typeof seconds === 'string') {
+            return seconds;
+        }
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;

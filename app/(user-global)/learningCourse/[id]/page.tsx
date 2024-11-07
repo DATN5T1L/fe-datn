@@ -28,7 +28,7 @@ import styles from "@public/styles/globalControl/Learning.module.css";
 interface Progress {
     progress_percentage: number;
     course_name: string;
-    course_id: number;
+    course_id: number|string;
 }
 
 // Khởi tạo trạng thái với kiểu dữ liệu
@@ -37,7 +37,7 @@ interface Progress {
 
 
 interface Document {
-    document_id: number;
+    document_id: number|string;
     name_document: string;
     type_document: "code" | "quiz" | "video";
     status_video: boolean;
@@ -46,19 +46,19 @@ interface Document {
 }
 
 interface Chapter {
-    chapter_id: number;
+    chapter_id: number|string;
     chapter_name: string;
     documents: CombinedDocument[];
 }
 
 interface CourseData {
-    course_id: number;
+    course_id: number|string;
     course_name: string;
     data: Chapter[];
 }
 
 interface Note {
-    note_id: number;
+    note_id: number|string;
     title_note: string;
     content_note: string;
     cache_time_note: number;
@@ -101,7 +101,7 @@ interface QuestionAnswer {
 }
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
-const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
+const Learning: React.FC<{ params: { id: number|string } }> = ({ params }) => {
 
     const { id } = params;
     const course_Id = id; // tạo biến Id thành course_id
@@ -125,7 +125,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const [error, setError] = useState<string | null>(null);
     const [course, setCourse] = useState<Chapter[] | null>(null);
     const [nameDocument, setnameDocument] = useState('');
-    const [idDocument, setIdDocument] = useState(0);
+    const [idDocument, setIdDocument] = useState<number|string>(0);
     const [typeDoc, settypeDoc] = useState('');
     const [descdocument, setdescdocument] = useState('');
     const [note, setNote] = useState<Note[] | null>(null);

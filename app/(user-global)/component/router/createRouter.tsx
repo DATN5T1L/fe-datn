@@ -6,7 +6,7 @@ import styles from '@public/styles/learningPath/CreateRouter.module.css';
 import ButtonCpn from "../globalControl/btnComponent";
 
 interface MyData {
-    route_id: string;
+    route_id: string|number;
     name_route: string;
 }
 

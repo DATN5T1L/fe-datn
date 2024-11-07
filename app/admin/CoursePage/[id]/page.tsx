@@ -13,10 +13,11 @@ import {
     SkipStart,
 } from "react-bootstrap-icons";
 import Accordion from "react-bootstrap/Accordion";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 import ReactLoading from 'react-loading';
+import { AccordionSelectCallback } from "react-bootstrap/esm/AccordionContext";
 
 interface CourseDetailProps {
     params: {
@@ -40,9 +41,11 @@ interface DataCourse {
 interface ChapterAccordionProps {
     data: DataCourse[];
     setVideoDetails: React.Dispatch<React.SetStateAction<VideoDetailProps>>;
+    currentDocumentId: string | number;
 }
 
 interface VideoDetailProps {
+    id: string | number;
     name: string;
     updated_at: string;
 }
@@ -53,12 +56,14 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
     const token = useCookie('token')
     const idCourse = params.id
     const [videoDetails, setVideoDetails] = useState<VideoDetailProps>({
+        id: '',
         name: '',
         updated_at: '',
     });
     const videoRef = useRef<HTMLDivElement | null>(null);
     const [currentChapterIndex, setCurrentChapterIndex] = useState<number>(0);
     const [currentDocumentIndex, setCurrentDocumentIndex] = useState<number>(0);
+    const [activeChapterIndex, setActiveChapterIndex] = useState<number>(0);
 
 
     useEffect(() => {
@@ -76,6 +81,7 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
                 if (data.data && data.data.length > 0) {
                     const firstDocument = data.data[0].documents[0];
                     setVideoDetails({
+                        id: firstDocument.document_id,
                         name: firstDocument.name_document,
                         updated_at: firstDocument.updated_at,
                     });
@@ -90,48 +96,53 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
             });
     }, [token, idCourse]);
 
-    const goToPreviousDocument = () => {
+    const goToPreviousDocument = useCallback(() => {
         if (data) {
             if (currentDocumentIndex > 0) {
                 const previousDocument = data[currentChapterIndex].documents[currentDocumentIndex - 1];
                 setCurrentDocumentIndex(currentDocumentIndex - 1);
                 setVideoDetails({
-                    name: previousDocument?.name_document || '',
-                    updated_at: previousDocument?.updated_at || '',
+                    id: previousDocument.document_id,
+                    name: previousDocument.name_document,
+                    updated_at: previousDocument.updated_at,
                 });
             } else if (currentChapterIndex > 0) {
                 setCurrentChapterIndex(currentChapterIndex - 1);
                 const previousDocument = data[currentChapterIndex - 1].documents[data[currentChapterIndex - 1].documents.length - 1];
                 setCurrentDocumentIndex(data[currentChapterIndex - 1].documents.length - 1);
                 setVideoDetails({
-                    name: previousDocument?.name_document || '',
-                    updated_at: previousDocument?.updated_at || '',
+                    id: previousDocument.document_id,
+                    name: previousDocument.name_document,
+                    updated_at: previousDocument.updated_at,
                 });
+                setActiveChapterIndex(currentChapterIndex - 1);
             }
         }
-    };
+    }, [currentChapterIndex, currentDocumentIndex, data]);
 
-    const goToNextDocument = () => {
+    const goToNextDocument = useCallback(() => {
         if (data) {
             if (currentDocumentIndex < data[currentChapterIndex].documents.length - 1) {
                 const nextDocument = data[currentChapterIndex].documents[currentDocumentIndex + 1];
                 setCurrentDocumentIndex(currentDocumentIndex + 1);
                 setVideoDetails({
-                    name: nextDocument?.name_document || '',
-                    updated_at: nextDocument?.updated_at || '',
+                    id: nextDocument.document_id,
+                    name: nextDocument.name_document,
+                    updated_at: nextDocument.updated_at,
                 });
             } else if (currentChapterIndex < data.length - 1) {
                 setCurrentChapterIndex(currentChapterIndex + 1);
                 setCurrentDocumentIndex(0);
                 const nextDocument = data[currentChapterIndex + 1].documents[0];
                 setVideoDetails({
-                    name: nextDocument?.name_document || '',
-                    updated_at: nextDocument?.updated_at || '',
+                    id: nextDocument.document_id,
+                    name: nextDocument.name_document,
+                    updated_at: nextDocument.updated_at,
                 });
+                setActiveChapterIndex(currentChapterIndex + 1);
             }
         }
-    };
-
+    }, [currentChapterIndex, currentDocumentIndex, data]);
 
     console.log('dữ liệu:', data);
 
@@ -145,13 +156,13 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
                 ) : (
                     <>
                         <div style={{ minHeight: '400px' }} className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}>
-                            <VideoDetail name={videoDetails.name} updated_at={videoDetails.updated_at} />
+                            <VideoDetail id={videoDetails.id} name={videoDetails.name} updated_at={videoDetails.updated_at} />
 
                         </div>
                         {/*Accordion gồm chương và dấu thời gian*/}
                         <div style={{ maxWidth: '376px' }} className={`${videoMod.chapters} flex-md-shrink-1 flex-grow-1 p-2`}>
                             <ChapterSearchBar />
-                            {data && <ChapterAccordion data={data} setVideoDetails={setVideoDetails} />}
+                            {data && <ChapterAccordion data={data} setVideoDetails={setVideoDetails} currentDocumentId={videoDetails.id} />}
                         </div>
                     </>
                 )}
@@ -166,6 +177,7 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
                         variant="outline-primary"
                         className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline} d-flex align-items-center gap-2`}
                         onClick={goToPreviousDocument}
+                        disabled={currentChapterIndex === 0 && currentDocumentIndex === 0}
                     >
                         <ChevronLeft />
                         Bài trước
@@ -192,11 +204,24 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
     )
 }
 
-const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ data, setVideoDetails }) => {
+const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ data, setVideoDetails, currentDocumentId }) => {
     const firstDocumentRef = useRef<HTMLButtonElement | null>(null);
+    const [activeChapterIndex, setActiveChapterIndex] = useState<string>("0");
+
     if (!data) {
         return <p>Không có dữ liệu.</p>;
     }
+
+    useEffect(() => {
+        const chapterIndex = data.findIndex(chapter =>
+            chapter.documents.some(doc => doc.document_id === currentDocumentId)
+        );
+
+        if (chapterIndex !== -1) {
+            setActiveChapterIndex(String(chapterIndex));
+        }
+    }, [currentDocumentId, data]);
+
     useEffect(() => {
         const timer = setTimeout(() => {
             if (firstDocumentRef.current) {
@@ -206,15 +231,23 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ data, setVideoDetai
 
         return () => clearTimeout(timer);
     }, [data]);
-    const handleDocumentClick = (document: { name_document: string, updated_at: string }) => {
+    const handleDocumentClick = (document: { document_id: string | number, name_document: string, updated_at: string }) => {
         setVideoDetails({
+            id: document.document_id,
             name: document.name_document,
             updated_at: document.updated_at,
         });
     };
 
+    const handleAccordionSelect: AccordionSelectCallback = (eventKey) => {
+        if (eventKey !== null) {
+            setActiveChapterIndex(String(eventKey));  
+        } else {
+            setActiveChapterIndex("0");  
+        }
+    };
     return (
-        <Accordion defaultActiveKey={["0"]} alwaysOpen>
+        <Accordion activeKey={activeChapterIndex}  onSelect={handleAccordionSelect}>
             {
                 data.map((item, index) => (
                     <Accordion.Item eventKey={`${index}`} key={index}>
@@ -231,7 +264,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ data, setVideoDetai
                                 {item.documents.map((itemDocuments, indexDocuments) => (
                                     <Button
                                         variant="outline"
-                                        className={`${videoMod.chapterBtn}`}
+                                        className={`${videoMod.chapterBtn} ${itemDocuments.document_id === currentDocumentId ? videoMod.chapterBtn__blue : ''}`}
                                         key={indexDocuments}
                                         onClick={() => handleDocumentClick(itemDocuments)}
                                         ref={indexDocuments === 0 ? firstDocumentRef : null}
@@ -271,7 +304,7 @@ const VideoDetail: React.FC<VideoDetailProps> = ({ name, updated_at }) => {
                     </span>
                     <h3>{name}</h3>
                     <p>
-                        HTML CSS (HyperText Markup Language Cascading Style Sheets) Nội
+                        {name} Nội
                         dung bổ sung: https://www.w3schools.com/css/css_pseudo_classes.asp
                     </p>
                 </div>

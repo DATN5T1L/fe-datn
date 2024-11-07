@@ -16,7 +16,7 @@ import CodeDev from "./codeDev";
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 
 interface NavCourseProps {
-    userId: number;
+    userId: number|string;
     courseId: number;
 }
 

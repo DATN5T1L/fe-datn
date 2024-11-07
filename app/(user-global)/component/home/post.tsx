@@ -49,7 +49,7 @@ const Post: React.FC = () => {
         }
     };
 
-    const handleNavigation = (id: number) => {
+    const handleNavigation = (id: number|string) => {
         router.push(`/post/${id}`);
     };
 

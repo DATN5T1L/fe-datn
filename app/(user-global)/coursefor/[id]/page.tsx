@@ -19,7 +19,7 @@ interface ApiResponse<T> {
 }
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-const CourseForYou: React.FC<{ params: { id: number } }> = ({ params }) => {
+const CourseForYou: React.FC<{ params: { id: number|string } }> = ({ params }) => {
     const { id } = params;
 
 

@@ -1,6 +1,6 @@
 // models/Course.tsx
 export class Course {
-    course_id: number;
+    course_id: number|string;
     name_course: string;
     img_course: string;
     price_course: number;
@@ -18,7 +18,7 @@ export class Course {
     instructor_id: number;
 
     constructor(
-        course_id: number,
+        course_id: number|string,
         name_course: string,
         img_course: string,
         price_course: number,

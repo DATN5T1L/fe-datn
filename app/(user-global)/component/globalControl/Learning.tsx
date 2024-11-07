@@ -21,11 +21,11 @@ import styles from "@public/styles/globalControl/Learning.module.css";
 
 
 interface courseidProp {
-    courseId: number;
+    courseId: number|string;
 }
 interface ListItem {
     title: string;
-    content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
+    content: { name: string, duration: string, status: boolean, type: string }[];  
 }
 
 const listData: ListItem[] = [
@@ -179,6 +179,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [data, setData] = useState(null);
+    const courseIds = courseId.toString()
 
     const user_id = userState?.user?.id;
 
@@ -387,7 +388,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
                                     transition={{ duration: .5 }}
                                     className={styles.noteTap}
                                 >
-                                    <NoteCourse id={1} time="10.00" onClose={toggleNote} />
+                                    <NoteCourse id={1} title="" time="10.00" onClose={toggleNote} />
                                 </motion.div>
                             )}
 
@@ -400,7 +401,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
                                 transition={{ duration: 0.5 }}
                                 className={styles.FAQ}
                             >
-                                <Faq courseId={courseId} onClose={toggleFaq} />
+                                <Faq course_Id={courseIds} course={[]} onClose={toggleFaq} />
                             </motion.div>
                         ) : ("")}
 

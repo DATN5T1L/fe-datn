@@ -6,13 +6,13 @@ import Button from "../globalControl/btnComponent";
 import CKEditorComponent from "../globalControl/ckedditor";
 // import Ckeditor from './ckedditor';
 interface FaqProps {
-    course_Id: number;
+    course_Id: number|string;
     course: Chapter[]; // Mảng các chương
     onClose: () => void; // Hàm để đóng popup
 
 }
 interface Document {
-    document_id: number;
+    document_id: number|string;
     name_document: string;
     type_document: "code" | "quiz" | "video";
     status_video: boolean;
@@ -21,7 +21,7 @@ interface Document {
 }
 
 interface Chapter {
-    chapter_id: number;
+    chapter_id: number|string;
     chapter_name: string;
     documents: Document[];
 }

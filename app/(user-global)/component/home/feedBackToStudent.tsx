@@ -4,9 +4,9 @@ import styles from '@public/styles/home/FeedBackToStudent.module.css';
 import useSWR from 'swr';
 
 interface Feedback {
-    module_id: number;
-    course_id: number;
-    user_id: number;
+    module_id: number|string;
+    course_id: number|string;
+    user_id: number|string;
     img_course: string;
     rating_course: number;
     feedback_text: string | null;

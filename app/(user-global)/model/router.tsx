@@ -1,6 +1,6 @@
 // models/Route.ts
 export class Route {
-    route_id: number;
+    route_id: number|string;
     name_route: string;
     img_route: string;
     description_route: string;
@@ -8,7 +8,7 @@ export class Route {
 
 
     constructor(
-        route_id: number,
+        route_id: number|string,
         name_route: string,
         img_route: string,
         description_route: string,

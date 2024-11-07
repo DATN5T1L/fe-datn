@@ -207,7 +207,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                       <div
                         className={`justify-content-evenly border d-flex py-2 rounded`}
                       >
-                        <Link href={`/admin/CoursePage/CourseVideoDetail`} className="w-50 border-end">
+                        <Link href={`/admin/CoursePage/${item.course_id}`} className="w-50 border-end">
                           <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
                         <Link href="UsersPage/DetailUser/" className="">

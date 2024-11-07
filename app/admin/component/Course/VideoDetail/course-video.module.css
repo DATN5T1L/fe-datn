@@ -48,6 +48,10 @@
   background-color: var(--blue-95);
 }
 
+.chapterBtn__blue{
+  background-color: var(--blue-95);
+}
+
 .align{
   margin: 0 auto;
 }

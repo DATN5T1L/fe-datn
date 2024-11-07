@@ -10,7 +10,7 @@ import NewPasswordPage from '../component/auth/user-component/newPasswordPage';
 import { useEffect, useState } from 'react';
 
 const RetrievePassword: React.FC = () => {
-    const [userId, setUserId] = useState<number>(0)
+    const [userId, setUserId] = useState<number|string>(0)
     const [countdown, setCountdown] = useState(30);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 

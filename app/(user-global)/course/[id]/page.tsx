@@ -21,8 +21,8 @@ interface ChapterData {
 }
 
 interface FeedbackData {
-    course_id: number;
-    user_id: number;
+    course_id: number|string;
+    user_id: number|string;
     fullname: string;
     avatar: string;
     rating_course: number;
@@ -40,7 +40,7 @@ interface ApiResponse<T> {
     data: T;
 }
 
-const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
+const CourseDetail: React.FC<{ params: { id: number|string } }> = ({ params }) => {
     const router = useRouter();
     const token = localStorage.getItem('token')
     const pathname = usePathname();
