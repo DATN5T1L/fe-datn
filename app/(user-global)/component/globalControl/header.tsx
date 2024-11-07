@@ -209,7 +209,7 @@ const Header: React.FC = () => {
                             </Col>
                             <Col md={3} className='btn-header-btn-group-element'>
                                 <Button className='btn-header-btn-group-main'>
-                                    <Image src="/img/chatBlue.svg" alt="" className='btn-header-btn-group-main-img' />
+                                    <Image src="/img/chatBlue.svg" alt="chat" className='btn-header-btn-group-main-img' />
                                     <div className='btn-header-btn-group-main-content'>
                                         Để lại thông tin nhận hỗ trợ
                                     </div>

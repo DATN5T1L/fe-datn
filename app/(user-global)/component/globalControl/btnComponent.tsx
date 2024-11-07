@@ -14,8 +14,8 @@ const Button: React.FC<ButtonProps> = ({
     hover = true,
     hoverType = 'default',
     typeButton = 'btn',
-    width,
-    height,
+    width = 198,
+    height = 48,
     widthText = 'auto',
     children,
     onClick

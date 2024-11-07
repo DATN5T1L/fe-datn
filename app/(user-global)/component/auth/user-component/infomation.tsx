@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 const ModalChangeImg = dynamic(() => import("./modalChangeImg"), { ssr: false });
 const ModalChangeName = dynamic(() => import("./modalChangeName"), { ssr: false });
 const ModalChangeInfo = dynamic(() => import("./modalChangeInfo"), { ssr: false });
+const ModalChangePhone = dynamic(() => import("./modalChangePhone"), { ssr: false });
 
 const Infomation: React.FC = () => {
     const router = useRouter()
@@ -34,10 +35,12 @@ const Infomation: React.FC = () => {
     const [showChangeImg, setShowChangeImg] = useState(false);
     const [showChangeName, setShowChangeName] = useState(false);
     const [showChangeInfo, setShowChangeInfo] = useState(false);
+    const [showChangePhone, setShowChangePhone] = useState(false);
 
     const handleChangeImg = () => setShowChangeImg(true);
     const handleChangeName = () => setShowChangeName(true);
     const handleChangeInfo = () => setShowChangeInfo(true);
+    const handleChangePhone = () => setShowChangePhone(true);
 
     const handleToAdmin = () => {
         router.push('/admin')
@@ -72,10 +75,10 @@ const Infomation: React.FC = () => {
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>
-                        <Col className={styles.change__more} >
+                        <Col className={styles.change__more} onClick={handleChangePhone}>
                             <div className={styles.change__more__group}>
-                                <h4 className={styles.change__more__group__title}>Tên người dùng</h4>
-                                <h3 className={styles.change__more__group__subTitle}>{userState.user.username || 'Chưa có tên người dùng'}</h3>
+                                <h4 className={styles.change__more__group__title}>Số điện thoại</h4>
+                                <h3 className={styles.change__more__group__subTitle}>{userState.user.phonenumber || 'Chưa có số điện thoại'}</h3>
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>
@@ -107,6 +110,10 @@ const Infomation: React.FC = () => {
             <ModalChangeInfo
                 show={showChangeInfo}
                 onClose={() => setShowChangeInfo(false)}
+            />
+            <ModalChangePhone
+                show={showChangePhone}
+                onClose={() => setShowChangePhone(false)}
             />
         </>
     );

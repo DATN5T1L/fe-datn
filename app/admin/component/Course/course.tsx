@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -32,13 +32,29 @@ interface ApiResponse<T> {
   data: T[];
 }
 
-// const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Course: React.FC<{}> = () => {
-  // const { data: userData, isLoading: userIsLoading, error: userError } = useSWR<ApiResponse<User>>(
-  //   `/api/allUser/`,
-  //   fetcher
-  // );
+
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+    return null;
+  };
+
+  const token = getCookie('token')
+
+  useEffect(() => {
+    fetch('/api/allCourse/', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err))
+  }, [])
 
   // const [currentPage, setCurrentPage] = useState(1);
   // const usersPerPage = 5;
