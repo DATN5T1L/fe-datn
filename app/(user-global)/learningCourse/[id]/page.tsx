@@ -26,7 +26,10 @@ import Notification from "@app/(user-global)/component/globalControl/Notificatio
 // thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 import styles from "@public/styles/globalControl/Learning.module.css";
-
+interface ApiResponse {
+    status: string;
+    data: Note[];
+}
 
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';

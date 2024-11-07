@@ -61,10 +61,7 @@ interface VideoDocument extends Document {
 type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
 
 // Interface for the API response
-interface ApiResponse {
-    status: string;
-    data: Note[];
-}
+
 
 //  interface cho quesion
 interface QuestionAnswer {
