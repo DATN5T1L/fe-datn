@@ -1,14 +1,6 @@
 import React from 'react';
 import { Card } from "react-bootstrap";
-interface CardPosts {
-    type: "Horizontal" | "Vertical";
-    title: string;
-    image: string;
-    date: string;
-    content: string;
-    author: string;
 
-}
 const CardPosts: React.FC<CardPosts> = ({ type, title, image, date, content, author }) => {
     const getNotificationStyles = () => {
         switch (type) {

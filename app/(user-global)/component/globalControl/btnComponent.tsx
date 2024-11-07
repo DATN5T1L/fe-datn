@@ -2,8 +2,6 @@
 import React, { useState } from 'react';
 import '@app/(user-global)/global.css';
 
-
-
 const Button: React.FC<ButtonProps> = ({
     type = 'secondery',
     size = 'M',
