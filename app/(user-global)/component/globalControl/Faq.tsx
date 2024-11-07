@@ -5,30 +5,7 @@ import Button from "../globalControl/btnComponent";
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditorComponent from "../globalControl/ckedditor";
 // import Ckeditor from './ckedditor';
-interface FaqProps {
-    course_Id: number;
-    course: Chapter[]; // Mảng các chương
-    onClose: () => void; // Hàm để đóng popup
 
-}
-interface Document {
-    document_id: number;
-    name_document: string;
-    type_document: "code" | "quiz" | "video";
-    status_video: boolean;
-    url_video: string;
-    updated_at: string;
-}
-
-interface Chapter {
-    chapter_id: number;
-    chapter_name: string;
-    documents: Document[];
-}
-interface ListItem {
-    title: string;
-    content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
-}
 const listData: ListItem[] = [
     {
         title: 'Bắt đầu',

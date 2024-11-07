@@ -3,12 +3,7 @@ import Button from '../globalControl/btnComponent';
 import styles from "@public/styles/globalControl/NoteCourse.module.css";
 import CKEditorComponent from "../globalControl/ckedditor";
 
-interface NoteCourseProps {
-    id: number;
-    title: string;
-    time: number;
-    onClose: () => void; // Thêm prop để đóng popup từ bên ngoài
-}
+
 
 const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => {
     const [noteContent, setNoteContent] = useState<string>(''); // State để lưu nội dung ghi chú

@@ -387,7 +387,7 @@ const Learning: React.FC<courseidProp> = ({ courseId }) => {
                                     transition={{ duration: .5 }}
                                     className={styles.noteTap}
                                 >
-                                    <NoteCourse id={1} time="10.00" onClose={toggleNote} />
+                                    <NoteCourse id={1} time="data10.00" onClose={toggleNote} />
                                 </motion.div>
                             )}
 

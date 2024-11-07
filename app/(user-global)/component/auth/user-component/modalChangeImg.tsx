@@ -8,10 +8,6 @@ import { RootState } from '@/redux/store';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-interface ModalChangeImgProps {
-    show: boolean;
-    onClose: () => void;
-}
 
 const ModalChangeImg: React.FC<ModalChangeImgProps> = ({ show, onClose }) => {
     const userState = useSelector((state: RootState) => state.user);

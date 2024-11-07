@@ -28,80 +28,6 @@ import stylesNav from "@public/styles/globalControl/Nav.module.css";
 import styles from "@public/styles/globalControl/Learning.module.css";
 
 
-interface Progress {
-    progress_percentage: number;
-    course_name: string;
-    course_id: number;
-}
-
-// Khởi tạo trạng thái với kiểu dữ liệu
-
-
-
-
-interface Document {
-    document_id: number;
-    name_document: string;
-    type_document: "code" | "quiz" | "video";
-    status_video: boolean;
-    url_video: string;
-    updated_at: string;
-}
-
-interface Chapter {
-    chapter_id: number;
-    chapter_name: string;
-    documents: CombinedDocument[];
-}
-
-interface CourseData {
-    course_id: number;
-    course_name: string;
-    data: Chapter[];
-}
-
-interface Note {
-    note_id: number;
-    title_note: string;
-    content_note: string;
-    cache_time_note: number;
-}
-
-interface CodesDocument extends Document {
-    type_document: "code";
-    codes: {
-        answer_code: string;
-        correct_answer: string;
-        question_code: string;
-        tutorial_code: string;
-    }[];
-}
-
-interface QuestionsDocument extends Document {
-    type_document: "quiz";
-    questions: {
-        content_question: string;
-        correct_answer: string;
-        type_question: string;
-    }[];
-}
-interface VideoDocument extends Document {
-    type_document: "video";
-}
-
-type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
-
-// Interface for the API response
-interface ApiResponse {
-    status: string;
-    data: Note[];
-}
-
-//  interface cho quesion
-interface QuestionAnswer {
-    question: string;
-    answers: string[];
-}
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
 const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
@@ -330,11 +256,11 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
 
         const inactiveDoc = findInactiveDocument(course);
 
-        // if (inactiveDoc) {
-        //     setUrlVideo(inactiveDoc.url_video);
-        //     setnameDocument(inactiveDoc.name_document);
-        //     settypeDoc(inactiveDoc.type_document);
-        // }
+        if (inactiveDoc) {
+            setUrlVideo(inactiveDoc.url_video);
+            setnameDocument(inactiveDoc.name_document);
+            settypeDoc(inactiveDoc.type_document);
+        }
         const handleExport = (data: { html: string, css: string, js: string }) => {
             console.log('HTML:', data.html);
             console.log('CSS:', data.css);

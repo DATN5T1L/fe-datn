@@ -15,10 +15,7 @@ import ProgressCircle from '../course/ProgressCircle';
 import CodeDev from "./codeDev";
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 
-interface NavCourseProps {
-    userId: number;
-    courseId: number;
-}
+
 
 const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
     const { handleLogout } = useLogout();

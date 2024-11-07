@@ -9,10 +9,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { update } from '@/redux/slices/userSlice';
 
-interface ModalChangeNameProps {
-    show: boolean;
-    onClose: () => void;
-}
 
 const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -50,7 +46,7 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                     if (!value) return true;
                     return value
                         .split(' ')
-                        .every(word => /^[\p{Lu}]/u.test(word.charAt(0))); 
+                        .every(word => /^[\p{Lu}]/u.test(word.charAt(0)));
                 })
                 .transform((value) => value.trim())
                 .matches(/^[\p{L}\s]+$/u, 'Chỉ cho phép chữ cái và khoảng trắng.'),

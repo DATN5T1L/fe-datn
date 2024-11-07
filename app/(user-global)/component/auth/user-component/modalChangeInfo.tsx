@@ -9,10 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { update } from '@/redux/slices/userSlice';
 
-interface ModalChangeInfoProps {
-    show: boolean;
-    onClose: () => void;
-}
+
 
 const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
     const userState = useSelector((state: RootState) => state.user);
@@ -39,7 +36,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
 
     const formik = useFormik({
         initialValues: {
-            discriptionUser: userState.user?.discription_user || '', 
+            discriptionUser: userState.user?.discription_user || '',
         },
         validationSchema: Yup.object({
             discriptionUser: Yup.string()

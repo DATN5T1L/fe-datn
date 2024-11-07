@@ -11,13 +11,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useRouter } from 'next/navigation';
 
-interface RegisterFormData {
-    userName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    role: string;
-}
+
 
 const Register: React.FC = () => {
     const { register, handleSubmit, formState: { errors }, watch } = useForm<RegisterFormData>();

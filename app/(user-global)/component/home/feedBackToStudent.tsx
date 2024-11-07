@@ -3,20 +3,6 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 import styles from '@public/styles/home/FeedBackToStudent.module.css';
 import useSWR from 'swr';
 
-interface Feedback {
-    module_id: number;
-    course_id: number;
-    user_id: number;
-    img_course: string;
-    rating_course: number;
-    feedback_text: string | null;
-}
-
-interface FeedbackResponse {
-    status: string;
-    message: string;
-    data: Feedback[];
-}
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
