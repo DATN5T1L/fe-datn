@@ -33,7 +33,7 @@ interface ApiResponse {
 
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
-const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
+const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     const { id } = params;
     const course_Id = id; // tạo biến Id thành course_id
@@ -57,7 +57,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     const [error, setError] = useState<string | null>(null);
     const [course, setCourse] = useState<Chapter[] | null>(null);
     const [nameDocument, setnameDocument] = useState('');
-    const [idDocument, setIdDocument] = useState(0);
+    const [idDocument, setIdDocument] = useState('');
     const [typeDoc, settypeDoc] = useState('');
     const [descdocument, setdescdocument] = useState('');
     const [note, setNote] = useState<Note[] | null>(null);
@@ -75,6 +75,10 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
     // state change
     const [isActiveDoc, setIsActiveDoc] = useState(false);
     const [activeDocIndex, setActiveDocIndex] = useState<number | null>(null);
+    // result code 
+    const [html, setHtml] = useState<string>('');
+    const [css, setCss] = useState<string>('');
+    const [js, setJs] = useState<string>('');
     const toggleSwitch = () => {
         setIsActive(!isActive);
         setTippyVisible(prev => !prev);
@@ -242,6 +246,33 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
             answers
         };
     };
+    const handleExport = (data: { html: string, css: string, js: string }) => {
+        console.log('HTML:', data.html);
+        console.log('CSS:', data.css);
+        console.log('JS:', data.js);
+        setHtml(data.html)
+        setCss(data.css)
+        setJs(data.js)
+        // Ở đây bạn có thể thực hiện các hành động khác với dữ liệu, như lưu trữ, hiển thị, v.v.
+    };
+    const runCode = () => {
+        const output = document.getElementById('output') as HTMLIFrameElement;
+        const outputDocument = output?.contentDocument || output?.contentWindow?.document;
+
+        if (outputDocument) {
+            outputDocument.open();
+            outputDocument.write(`
+                <style>${css}</style>
+                ${html}
+                <script>${js}<\/script>
+            `);
+            outputDocument.close();
+        }
+    };
+
+    useEffect(() => {
+        runCode();
+    }, [html, css, js]);
 
     const mappedCourseNew = useMemo(() => {
         if (!course || !Array.isArray(course)) return null; // Trả về null nếu không có course
@@ -267,13 +298,8 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
             setnameDocument(inactiveDoc.name_document);
             settypeDoc(inactiveDoc.type_document);
         }
-        const handleExport = (data: { html: string, css: string, js: string }) => {
-            console.log('HTML:', data.html);
-            console.log('CSS:', data.css);
-            console.log('JS:', data.js);
 
-            // Ở đây bạn có thể thực hiện các hành động khác với dữ liệu, như lưu trữ, hiển thị, v.v.
-        };
+
 
         return (
             <div className={`${styles.row}`}>
@@ -360,18 +386,14 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                         <div className={styles.wapperCode}>
 
                             {code?.map((code, index) => (
-                                <Row key={index} className={styles.codeMain}>
-                                    <Col md={6}></Col>
-                                    <Col md={6}>
-                                        <CodeDevLearning onExport={handleExport}
-                                            answer_code={code.answer_code}
-                                            correct_answer={code.correct_answer}
-                                            question_code={code.question_code}
-                                            tutorial_code={code.tutorial_code}
-                                        />
-                                    </Col>
 
-                                </Row>
+                                <CodeDevLearning onExport={handleExport}
+                                    answer_code={code.answer_code}
+                                    correct_answer={code.correct_answer}
+                                    question_code={code.question_code}
+                                    tutorial_code={code.tutorial_code}
+                                />
+
                             ))}
                         </div>
                     ) : (
@@ -509,6 +531,7 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                                                 setQuestion(doc.questions);
                                                                 setContent(false);
                                                             } else if (doc.type_document === 'code' && doc.codes) {
+                                                                console.log(doc.type_document)
                                                                 setCode(doc.codes);
                                                                 setContent(false);
                                                             } else if (doc.type_document === 'video') {
@@ -542,7 +565,8 @@ const Learning: React.FC<{ params: { id: number } }> = ({ params }) => {
                                                             )}
                                                             <div className={styles.listItem__docTitle}
                                                             >
-                                                                <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`} {doc.document_id} </span>
+                                                                <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}  </span>
+                                                                {/* {doc.document_id} */}
                                                                 <span className={styles.listItem__docName}> {doc.name_document} </span>
                                                             </div>
                                                         </div>

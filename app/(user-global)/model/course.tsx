@@ -1,6 +1,6 @@
 // models/Course.tsx
 export class Course {
-    course_id: number;
+    id: string;
     name_course: string;
     img_course: string;
     price_course: number;
@@ -15,14 +15,14 @@ export class Course {
     updated_at?: Date;
     chapters_count: number; // Thêm thuộc tính chapters_count
     documents_count: number; // Thêm thuộc tính documents_count
-    instructor_id: number;
+    instructor_id: string;
 
     constructor(
-        course_id: number,
+        id: string,
         name_course: string,
         img_course: string,
         price_course: number,
-        instructor_id: number,
+        instructor_id: string,
         discount_price_course?: number,
         status_course: 'active' | 'inactive' | 'archived' = 'active',
         views_course: number = 0,
@@ -35,7 +35,7 @@ export class Course {
         chapters_count: number = 0,
         documents_count: number = 0
     ) {
-        this.course_id = course_id;
+        this.id = id;
         this.name_course = name_course;
         this.img_course = img_course;
         this.price_course = price_course;

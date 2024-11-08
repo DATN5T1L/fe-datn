@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import Tippy from '@tippyjs/react/headless';
+
 import Editor, { OnChange, useMonaco } from '@monaco-editor/react';
 import styles from "@public/styles/globalControl/codeDev.module.css";
+
 
 
 const CodeDevLearning: React.FC<CodeDevProps> = ({
@@ -52,6 +54,8 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
     };
 
     return (
+
+
         !iscorrectAnswer ? (
             <div className={`${styles.containerDev} ${styles.DevLearning}`}>
                 <ul className={styles.nav}>
@@ -149,6 +153,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                 {answerCode}
             </div>
         )
+
     );
 };
 

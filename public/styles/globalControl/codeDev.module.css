@@ -169,3 +169,21 @@
     background-color: var(--gray-95);
     height: 100%;
 }
+
+.codeMain {
+    height: 100%;
+}
+
+.boxContent {
+    height: 100%;
+    background-color: aqua;
+}
+
+.CodeFrame {
+    border-left: 1px solid var(--blue-50);
+}
+
+.itemNavContent {
+    width: 100%;
+    text-align: center;
+}

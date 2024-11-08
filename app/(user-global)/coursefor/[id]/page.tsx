@@ -8,22 +8,11 @@ import CourseForNext from "@app/(user-global)/component/course/CourseForNext";
 import TimeLine from "@app/(user-global)/component/router/timeLine";
 import LearningPathSection from "@app/(user-global)/component/router/learningPathSection";
 
-// thêm model
 
-import { Course } from "@app/(user-global)/model/course";
-
-interface ApiResponse<T> {
-    status: string;
-    message: string;
-    data: T;
-}
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-const CourseForYou: React.FC<{ params: { id: number } }> = ({ params }) => {
+const CourseForYou: React.FC<{ params: { id: string } }> = ({ params }) => {
     const { id } = params;
-
-
-
     return (
         <Body>
             <CourseFor />

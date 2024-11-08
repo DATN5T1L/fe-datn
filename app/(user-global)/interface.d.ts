@@ -2,14 +2,14 @@
 interface Progress {
     progress_percentage: number;
     course_name: string;
-    course_id: number;
+    course_id: string;
 }
 
 // Khởi tạo trạng thái với kiểu dữ liệu
 
 
 interface Document {
-    document_id: number;
+    document_id: string;
     name_document: string;
     type_document: "code" | "quiz" | "video";
     status_video: boolean;
@@ -18,19 +18,19 @@ interface Document {
 }
 
 interface Chapter {
-    chapter_id: number;
+    chapter_id: string;
     chapter_name: string;
     documents: CombinedDocument[];
 }
 
 interface CourseData {
-    course_id: number;
+    course_id: string;
     course_name: string;
     data: Chapter[];
 }
 
 interface Note {
-    note_id: number;
+    note_id: string;
     title_note: string;
     content_note: string;
     cache_time_note: number;
@@ -130,9 +130,9 @@ interface LoginFormInputs {
 
 
 interface Feedback {
-    module_id: number;
-    course_id: number;
-    user_id: number;
+    module_id: string;
+    course_id: string;
+    user_id: string;
     img_course: string;
     rating_course: number;
     feedback_text: string | null;
@@ -149,8 +149,8 @@ interface ChapterData {
 }
 
 interface FeedbackData {
-    course_id: number;
-    user_id: number;
+    course_id: string;
+    user_id: string;
     fullname: string;
     avatar: string;
     rating_course: number;
@@ -195,23 +195,25 @@ interface CardPosts {
 }
 
 interface FaqProps {
-    course_Id: number;
+    course_Id: string;
     course: Chapter[]; // Mảng các chương
     onClose: () => void; // Hàm để đóng popup
 
 }
 interface Document {
-    document_id: number;
+    document_id: string;
     name_document: string;
     type_document: "code" | "quiz" | "video";
     status_video: boolean;
+    del_flag: boolean;
     url_video: string;
     updated_at: string;
 }
 
 interface Chapter {
-    chapter_id: number;
+    chapter_id: string;
     chapter_name: string;
+    del_flag: boolean;
     documents: Document[];
 }
 interface ListItem {
@@ -220,7 +222,7 @@ interface ListItem {
 }
 
 interface courseidProp {
-    courseId: number;
+    courseId: string;
 }
 interface ListItem {
     title: string;
@@ -228,11 +230,11 @@ interface ListItem {
 }
 
 interface NavCourseProps {
-    userId: number;
-    courseId: number;
+    userId: string;
+    courseId: string;
 }
 interface NoteCourseProps {
-    id: number;
+    id: string;
     title: string;
     time: date;
     onClose: () => void; // Thêm prop để đóng popup từ bên ngoài
@@ -241,3 +243,15 @@ interface NotificationProps {
     type: 'success' | 'error' | 'fail' | 'complete';
     message: string;
 }
+
+interface Route {
+    route_id: string;
+    name_route: string;
+    img_route: string;
+    discription_route: string; // Sửa lại tên thuộc tính
+    status: 'default' | 'customize';
+    del_flag: boolean;
+    created_at: Date;
+    updated_at: Date;
+}
+

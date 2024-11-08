@@ -13,7 +13,7 @@ interface CourseCardProps extends Course {
 }
 interface ApiResponse {
     courses: {
-        user_id: string;
+        id: string;
         data: CourseCardProps[];
     };
 }
@@ -50,14 +50,14 @@ const CourseFor: React.FC = () => {
             revalidateOnReconnect: false,
         }
     );
-
+    console.log(data)
     if (error) return <div>Error loading courses</div>;
     const courses = Array.isArray(data?.courses?.data) ? data.courses.data : [];
     console.log(courses);
     const handleClick = (course: CourseCardProps) => {
 
         const newProgress = {
-            course_id: course.course_id,
+            course_id: course.id,
             course_name: course.name_course,
             progress_percentage: course.progress_percentage,
         };
@@ -85,11 +85,11 @@ const CourseFor: React.FC = () => {
             <section className={styleFor.listCard}>
                 <Row className={styleFor.mainCard}>
                     {courses.map(course => (
-                        <Col md={4} className={styles.mainBox} key={course.course_id}>
+                        <Col md={4} className={styles.mainBox} key={course.id}>
                             <Card className={styles.mainBox__content}>
                                 <Card.Header className={styles.headerContent}>
                                     <section className={styles.headerContent__text}>
-                                        <Link href={`/course/${course.course_id}`}>
+                                        <Link href={`/course/${course.id}`}>
                                             <Card.Title className={styles.text__hedding2}>
                                                 {course.name_course}
                                             </Card.Title>
@@ -137,7 +137,7 @@ const CourseFor: React.FC = () => {
                                             <Card.Text className={styles.element__text}>{course.documents_count} Bài tập</Card.Text>
                                         </div>
                                         <div className={styles.bodyContent__element} >
-                                            <Link href={`/learningCourse/${course.course_id}`} className={styleFor.linkCta} onClick={() => handleClick(course)}>
+                                            <Link href={`/learningCourse/${course.id}`} className={styleFor.linkCta} onClick={() => handleClick(course)}>
                                                 <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
                                                 <Card.Text className={styles.element__text}>Học ngay</Card.Text>
                                             </Link>
