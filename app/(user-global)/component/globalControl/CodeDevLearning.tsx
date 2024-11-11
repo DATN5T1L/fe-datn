@@ -6,7 +6,6 @@ import styles from "@public/styles/globalControl/codeDev.module.css";
 
 
 const CodeDevLearning: React.FC<CodeDevProps> = ({
-    onExport,
     answer_code,
     correct_answer,
     question_code,
@@ -29,11 +28,26 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
 
     // Hàm chạy mã
 
+    const runCode = () => {
+        const output = document.getElementById('output') as HTMLIFrameElement;
+        const outputDocument = output?.contentDocument || output?.contentWindow?.document;
+
+        if (outputDocument) {
+            outputDocument.open();
+            outputDocument.write(`
+                <style>${css}</style>
+                ${html}
+                <script>${js}<\/script>
+            `);
+            outputDocument.close();
+        }
+    };
 
     // Hàm xuất mã
-    const exportCode = () => {
-        onExport({ html, css, js });
-    };
+    useEffect(() => {
+        runCode();
+    }, [html, css, js]);
+
 
     return (
         <Row className={styles.codeMain}>
@@ -58,7 +72,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                 </div>
                 <div className={styles.boxContent} style={{ display: activeTab === 'Webs' ? 'block' : 'none' }}>
 
-                    {/* <iframe id="output" style={{ width: '100%', height: '100%', border: '1px solid #ccc' }}></iframe> */}
+                    <iframe id="output" style={{ width: '100%', height: '100%', border: '1px solid #ccc' }}></iframe>
                 </div>
             </Col>
             <Col md={6} className={styles.CodeFrame}>
@@ -148,7 +162,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                                 <button type='button' className={styles.btnCtaDev} onClick={toggleAnswer} >
                                     Xem đáp án
                                 </button>
-                                <button type='button' className={styles.btnCtaDev} onClick={exportCode}>
+                                <button type='button' className={styles.btnCtaDev}>
                                     Chạy
                                 </button>
                             </div>

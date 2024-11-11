@@ -200,22 +200,6 @@ interface FaqProps {
     onClose: () => void; // Hàm để đóng popup
 
 }
-interface Document {
-    document_id: string;
-    name_document: string;
-    type_document: "code" | "quiz" | "video";
-    status_video: boolean;
-    del_flag: boolean;
-    url_video: string;
-    updated_at: string;
-}
-
-interface Chapter {
-    chapter_id: string;
-    chapter_name: string;
-    del_flag: boolean;
-    documents: Document[];
-}
 interface ListItem {
     title: string;
     content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
@@ -255,3 +239,44 @@ interface Route {
     updated_at: Date;
 }
 
+// search
+interface RouteSearch {
+    id: string;
+    title: string;
+    image: string;
+}
+
+interface CourseSearch {
+    id: string;
+    title: string;
+    image: string;
+}
+
+interface PostSearch {
+    id: string;
+    title: string;
+    image: string;
+}
+
+interface ApiResponseSearch {
+    routes: RouteSearch[];
+    courses: CourseSearch[];
+    posts: PostSearch[];
+}
+
+
+// inter of statuc doc
+
+interface StatusData {
+    id: string;
+    status_video: boolean;
+    cache_time_video: number;
+    document_id: string;
+    enrollment_id: string;
+    del_flag: boolean;
+    created_at: string;
+    updated_at: string;
+}
+interface ApiResponseStatus {
+    data: StatusData[];  // Mảng các đối tượng VideoData
+}

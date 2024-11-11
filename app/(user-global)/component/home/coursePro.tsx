@@ -127,11 +127,11 @@ const CoursePro: React.FC = () => {
                                 <section className={styles.bodyContent}>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>{course.num_lesson} Chương</Card.Text>
+                                        <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
                                     </div>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>{course.documents_count} Bài tập</Card.Text>
+                                        <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                                     </div>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />

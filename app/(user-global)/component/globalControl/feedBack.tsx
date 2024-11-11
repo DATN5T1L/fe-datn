@@ -8,13 +8,40 @@ const FeedBack: React.FC = () => {
     const [quest, setQuest] = useState('');
     const [validated, setValidated] = useState(false);
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.stopPropagation();
         }
         setValidated(true);
+
+        // Tạo đối tượng dữ liệu từ form
+        const formData = {
+            userName,
+            email,
+            quest
+        };
+
+        // Gửi dữ liệu lên Google Sheets qua Web App URL
+        try {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbxnWhPBuuRJN9FY0EV-q6Rt6un9K07xy-fV84042wq6KtfarmmoWBMzmGUh0cWLSxAkGg/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+            if (result.status === "success") {
+                alert('Thông tin đã được gửi thành công!');
+            } else {
+                alert('Có lỗi xảy ra khi gửi thông tin.');
+            }
+        } catch (error) {
+            alert('Có lỗi xảy ra khi kết nối với server.');
+        }
     };
 
     return (
@@ -68,8 +95,8 @@ const FeedBack: React.FC = () => {
                                         Nhập câu hỏi của bạn?
                                     </Form.Label>
                                     <Form.Control
-                                        as="textarea" 
-                                        rows={4}      
+                                        as="textarea"
+                                        rows={4}
                                         required
                                         className={styles.formControlRegister__input__text}
                                         value={quest}

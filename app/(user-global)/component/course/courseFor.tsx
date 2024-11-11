@@ -6,43 +6,34 @@ import useSWR from "swr";
 import { Course } from "@app/(user-global)/model/course";
 import Link from "next/link";
 import ProgressCircle from './ProgressCircle';
-
+import useCookie from '@app/(user-global)/component/hook/useCookie';
 
 interface CourseCardProps extends Course {
     progress_percentage: number;
+    watchedVideos: number;
 }
-interface ApiResponse {
-    courses: {
-        id: string;
-        data: CourseCardProps[];
-    };
+interface ApiResponseCourse<T> {
+    data: T[];
 }
 
-const fetcher = async (url: string, token: string): Promise<ApiResponse> => {
-    const response = await fetch(url, {
-        method: 'GET',
+
+const fetcher = (url: string, token: string | null) => {
+    return fetch(url, {
         headers: {
-            'Authorization': `Bearer ${token}`, // Thêm token vào header
+            'Authorization': `Bearer ${token}`, // Thêm token vào tiêu đề nếu có
             'Content-Type': 'application/json',
         },
+    }).then((res) => {
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return res.json();
     });
-
-    // Kiểm tra xem phản hồi có thành công không
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Đã xảy ra lỗi khi lấy dữ liệu.');
-    }
-
-    return response.json(); // Trả về dữ liệu phản hồi
 };
 
-
-
 const CourseFor: React.FC = () => {
-
-    const token: string = localStorage.getItem('token') || ''; // Lấy token từ localStorage
-
-    const { data, error } = useSWR<ApiResponse>(
+    const token = useCookie('token');
+    const { data, error } = useSWR<ApiResponseCourse<CourseCardProps>>(
         '/api/courseFor', // Đường dẫn API
         (url) => fetcher(url, token), // Hàm fetcher
         {
@@ -50,10 +41,9 @@ const CourseFor: React.FC = () => {
             revalidateOnReconnect: false,
         }
     );
-    console.log(data)
-    if (error) return <div>Error loading courses</div>;
-    const courses = Array.isArray(data?.courses?.data) ? data.courses.data : [];
-    console.log(courses);
+    if (error) <div>Chờ TTO chút nhé! </div>;
+    const courses = Array.isArray(data?.data) ? data.data : [];
+
     const handleClick = (course: CourseCardProps) => {
 
         const newProgress = {
@@ -61,7 +51,6 @@ const CourseFor: React.FC = () => {
             course_name: course.name_course,
             progress_percentage: course.progress_percentage,
         };
-
         // Lưu thông tin khóa học vào localStorage dưới dạng object
         localStorage.setItem(`progress_percentages`, JSON.stringify(newProgress));
     };
@@ -75,7 +64,6 @@ const CourseFor: React.FC = () => {
                 </p>
             </section>
             <section className={styleFor.cta}>
-
                 <div className={styleFor.ctaLeft}>
                     <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học có phí</Button>
                     <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học miễn phí</Button>
@@ -85,7 +73,8 @@ const CourseFor: React.FC = () => {
             <section className={styleFor.listCard}>
                 <Row className={styleFor.mainCard}>
                     {courses.map(course => (
-                        <Col md={4} className={styles.mainBox} key={course.id}>
+
+                        <Col Col md={4} className={styles.mainBox} key={course.id}>
                             <Card className={styles.mainBox__content}>
                                 <Card.Header className={styles.headerContent}>
                                     <section className={styles.headerContent__text}>
@@ -127,14 +116,13 @@ const CourseFor: React.FC = () => {
                                         <ProgressCircle progress={course.progress_percentage} />
                                     </section>
                                     <section className={styles.bodyContent}>
-
                                         <div className={styles.bodyContent__element}>
                                             <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                            <Card.Text className={styles.element__text}>{course.num_lesson} Chương</Card.Text>
+                                            <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
                                         </div>
                                         <div className={styles.bodyContent__element}>
                                             <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                            <Card.Text className={styles.element__text}>{course.documents_count} Bài tập</Card.Text>
+                                            <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                                         </div>
                                         <div className={styles.bodyContent__element} >
                                             <Link href={`/learningCourse/${course.id}`} className={styleFor.linkCta} onClick={() => handleClick(course)}>

@@ -1,5 +1,6 @@
 'use client'
 // import { auth } from '@/app/auth';
+
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { useSession } from 'next-auth/react';
@@ -10,7 +11,7 @@ import { Container, Button, Nav, Navbar, Form, Image, Row, Col } from 'react-boo
 import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-
+import Search from "./Search"
 
 
 const Header: React.FC = () => {
@@ -23,12 +24,12 @@ const Header: React.FC = () => {
     useEffect(() => {
         setIsClient(true)
     }, [])
+    const [showSearch, setShowSearch] = useState(false);
 
-    const inputRef = useRef<HTMLInputElement>(null)
     const [showHeader, setShowHeader] = useState(true);
     const [lastScroll, setLastScroll] = useState(0);
-    const [showSearch, setShowSearch] = useState(false);
-    const [valueInput, setValueInput] = useState('')
+
+
     const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null);
     const { data: session, status } = useSession();
@@ -45,7 +46,6 @@ const Header: React.FC = () => {
             const currentScroll = window.pageYOffset;
             setShowHeader(currentScroll <= lastScroll);
             setLastScroll(currentScroll);
-            setShowSearch(false)
             setIsOpenSubMenu(false)
         };
 
@@ -62,11 +62,7 @@ const Header: React.FC = () => {
     }, [userState]);
 
 
-    const onFocus = () => {
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-    }
+
 
     useEffect(() => {
         const handleClick = (event: MouseEvent) => {
@@ -225,22 +221,9 @@ const Header: React.FC = () => {
                 </section>
 
                 <Nav className={`box-search ${showSearch ? '' : 'box-search-h0'}`}>
-                    <Form className={`search-bar ${showSearch ? '' : 'opct-0'} ${valueInput ? 'has-value' : ''}`} >
-                        <Form.Control
-                            type="text"
-                            className="search"
-                            aria-label="Search"
-                            ref={inputRef}
-                            value={valueInput}
-                            onChange={(e) => setValueInput(e.target.value)}
-                        />
-                        <span className='search-span' onClick={onFocus}>Nhập thông tin cần tìm</span>
-                        <Button variant="outline-secondary" className='btn-search-icon'>
-                            <Image src="/img/searchBlue.svg" alt="" className='search-icon' />
-                        </Button>
-                    </Form>
+                    <Search />
                 </Nav>
-            </Navbar>
+            </Navbar >
         </>
     );
 };

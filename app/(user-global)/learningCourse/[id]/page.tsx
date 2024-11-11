@@ -5,7 +5,9 @@ import ReactPlayer from 'react-player/youtube';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import useFetch from '../../component/hook/useFetch';
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
+import useCookie from '@app/(user-global)/component/hook/useCookie';
 import { Row, Col, Nav, Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
 import Link from "next/link";
@@ -30,23 +32,16 @@ interface ApiResponse {
     status: string;
     data: Note[];
 }
-
-
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
-const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
+const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
+    const token = useCookie('token');
     const { id } = params;
     const course_Id = id; // tạo biến Id thành course_id
     const userState = useSelector((state: RootState) => state.user); // lấy thông tin user đang đăng nhập
     const user = userState?.user;  // lấy thông tin user đang đăng nhập
     const { handleLogout } = useLogout(); // hook đăng xuất
-    const [visible, setVisible] = useState(false); // biến để show/hide modal
-    const [isNoteList, setisNoteList] = useState(false);    //  biến để show/hide danh sách ghi chú
-    const [isNote, setIsNote] = useState(false); // biến để show/hide ghi chú
-    const [isActive, setIsActive] = useState(false); // biến để show/hide menu frofile
-    const [isVisible, setIsVisible] = useState(true);
-    const [tippyVisible, setTippyVisible] = useState(false);
-    const [isFAQ, setFAQ] = useState(false); // biến để show/hide câu hỏi thường gặp
+    // biến để show/hide câu hỏi thường gặp
     const [isNoti, setNoti] = useState(false); // biến để show/hide câu hỏi thường gặp
     const [isContent, setContent] = useState(true); // biến để show/hide câu hỏi thường gặp
     const [typeNoti, setTypeNoti] = useState<NotiType | null>(null); // biến để show/hide câu hỏi thường gặp
@@ -64,6 +59,11 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
     const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
 
+    // trạng thái bài học
+    // tạo biến lưu trư id bài học
+    const [doc_id, setdoc_id] = useState<string | null>(null);
+    const [statusDoc, setStatusDoc] = useState(false);
+    const isWarningShown = useRef(false);
     const [urlVideo, setUrlVideo] = useState('');
     const [type, setType] = useState('');
     const lastValidTimeRef = useRef<number>(0);
@@ -79,11 +79,21 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [html, setHtml] = useState<string>('');
     const [css, setCss] = useState<string>('');
     const [js, setJs] = useState<string>('');
+
+
+    // ẩn hiển các hạng mục
+    const [visible, setVisible] = useState(false); // biến để show/hide modal
+    const [isNoteList, setisNoteList] = useState(false);    //  biến để show/hide danh sách ghi chú
+    const [isNote, setIsNote] = useState(false); // biến để show/hide ghi chú
+    const [isActive, setIsActive] = useState(false); // biến để show/hide menu frofile
+    const [isVisible, setIsVisible] = useState(true);
+    const [tippyVisible, setTippyVisible] = useState(false);
+    const [isFAQ, setFAQ] = useState(false);
+
     const toggleSwitch = () => {
         setIsActive(!isActive);
         setTippyVisible(prev => !prev);
     };
-
     const show = () => setVisible(true);
     const hide = () => setVisible(false);
     const showNoteList = () => setisNoteList(true);
@@ -108,10 +118,75 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
 
 
+    //----------------------------------------------------------------
+    // Lưu trạng thái bài học
+    const [statusDocData, setStatusDocData] = useState<ApiResponseStatus | null>(null)
+    const [dataCourses, setDataCourses] = useState<Chapter | null>(null)
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+    };
+    // Call API
+    //Lấy ra danh sách bài học
+    const {
+        data: documentsData,
+        error: documentsError,
+        fetchData: fetchDocuments,
+        loading: documentsLoading,
+    } = useFetch<CourseData>({
+        url: `/api/getdocforyou/${course_Id}`,
+        method: "GET",
+        headers
+    });
+    // Lấy ra trạng thái bài học
+    const {
+        data: statusData,
+        error: statusError,
+        fetchData: fetchStatus,
+        loading: statusLoading,
+    } = useFetch<ApiResponseStatus>({
+        url: `/api/addStatusDoc/${course_Id}`,
+        method: "GET",
+        headers,
+    });
 
-    const fetchDocuments = async (token: string) => {
+    useEffect(() => {
+        // Chỉ gọi API khi dữ liệu chưa tồn tại
+        if (!documentsData && !statusData) {
+            const fetchDatas = async () => {
+                await fetchDocuments();
+                await fetchStatus();
+            };
+            fetchDatas();
+        }
+    }, [fetchDocuments, fetchStatus, documentsData, statusData]);
+    // ghép api
+    useEffect(() => {
+        if (documentsData && statusData) {
+            const updatedChaptersData = documentsData.data.map(chapter => {
+                return {
+                    ...chapter,
+                    documents: chapter.documents.map(document => {
+                        const videoStatus = statusData.data.find(
+                            status => status.document_id === document.document_id
+                        );
+                        if (videoStatus) {
+                            document.status_video = videoStatus.status_video;
+                        }
+                        return document;
+                    }),
+                };
+            });
+            console.log("Updated Chapters Data:", updatedChaptersData);
+            setCourse(updatedChaptersData);
+        }
+    }, [documentsData, statusData]);
+
+
+    // Ghép API
+    const fetchNotes = async () => {
         try {
-            const response = await fetch(`/api/getdocforyou/${course_Id}`, {
+            const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -122,17 +197,57 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 throw new Error("Failed to fetch course");
             }
 
-            const data = await response.json() as CourseData;
-            console.log(data)
-            if (Array.isArray(data.data)) {
-                setCourse(data.data);
+            const dataNote = await response.json() as ApiResponse;
+            console.log(dataNote)
+            if (Array.isArray(dataNote.data)) {
+                setNote(dataNote.data);
+                return dataNote
             } else {
                 console.error("data.data is not an array");
             }
+
         } catch (err: any) {
             setError(err.message);
         }
     };
+
+    // const {
+    //     data: statusData,
+    //     error: statusError,
+    //     fetchData: fetchStatus,
+    //     loading: statusLoading,
+    // } = useFetch<ApiResponseStatus>({
+    //     url: `/api/addStatusDoc/${course_Id}`,
+    //     method: "GET",
+    //     headers,
+    // });
+
+    const fetchCreatStatus = async () => {
+        try {
+            const response = await fetch(`/api/createStatusDoc/${doc_id}/${course_Id}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch course");
+            }
+            const data = await response.json();
+            console.log(data, "trạng thái bài học");
+        } catch (err: any) {
+            setError(err.message);
+        }
+    };
+
+    useEffect(() => {
+        if (doc_id !== null) {
+            // Chạy fetchCreatStatus chỉ khi docId đã được cập nhật
+            fetchCreatStatus();
+        }
+    }, [doc_id]);
+
+
 
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
 
@@ -144,7 +259,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     // Cập nhật secondNew mỗi khi seconds thay đổi
-    const isWarningShown = useRef(false);
+
     const handleProgress = (progress: { playedSeconds: number }) => {
         const { playedSeconds } = progress;
         setPlayedSeconds(playedSeconds);
@@ -195,11 +310,11 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     useEffect(() => {
         // Check if the video has finished
-        if (playedSeconds >= videoDuration - 1 && playedSeconds < videoDuration) {
+        if (playedSeconds >= videoDuration - 30 && playedSeconds < videoDuration) {
             console.log("Video đã kết thúc");
         }
+        return
     }, [playedSeconds, videoDuration]);
-
 
     // hàm định dạng thời gian
     const formatTime = (seconds: number): string => {
@@ -207,7 +322,13 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
+    const handleEnded = () => { //hàm sử lý khi video kết thúc
 
+        alert("Video đã kết thúc");
+        setmessageNoti("Video sắp hết!");
+        setTypeNoti('error');
+        setNoti(true);
+    }
     // hàm định dạng ngày giờ
     const [timedocument, settimedocument] = useState('');
 
@@ -225,13 +346,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         return `${day}-${month}-${year} ${hours}:${minutes}`;
     };
 
-    const handleEnded = () => { //hàm sử lý khi video kết thúc
 
-        alert("Video đã kết thúc");
-        setmessageNoti("Video sắp hết!");
-        setTypeNoti('error');
-        setNoti(true);
-    }
 
     // hàm sử lý tách nội dung câu hỏi
     const parseQues = (input: string): QuestionAnswer | null => {
@@ -247,59 +362,44 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         };
     };
     const handleExport = (data: { html: string, css: string, js: string }) => {
-        console.log('HTML:', data.html);
-        console.log('CSS:', data.css);
-        console.log('JS:', data.js);
+        // console.log('HTML:', data.html);
+        // console.log('CSS:', data.css);
+        // console.log('JS:', data.js);
         setHtml(data.html)
         setCss(data.css)
         setJs(data.js)
         // Ở đây bạn có thể thực hiện các hành động khác với dữ liệu, như lưu trữ, hiển thị, v.v.
     };
-    const runCode = () => {
-        const output = document.getElementById('output') as HTMLIFrameElement;
-        const outputDocument = output?.contentDocument || output?.contentWindow?.document;
 
-        if (outputDocument) {
-            outputDocument.open();
-            outputDocument.write(`
-                <style>${css}</style>
-                ${html}
-                <script>${js}<\/script>
-            `);
-            outputDocument.close();
-        }
-    };
 
-    useEffect(() => {
-        runCode();
-    }, [html, css, js]);
+
+
+
 
     const mappedCourseNew = useMemo(() => {
-        if (!course || !Array.isArray(course)) return null; // Trả về null nếu không có course
+        if (!course || !Array.isArray(course)) return <>Trờ TTO chút xíu nhé</>; // Trả về null nếu không có course
 
-        const findInactiveDocument = (course: Chapter[]) => {
-            let inactiveDoc: Document | null | undefined = null;
+        // const findInactiveDocument = (course: Chapter[]) => {
+        //     let inactiveDoc: Document | null | undefined = null;
 
-            for (const chapter of course) {
-                inactiveDoc = chapter.documents.find(doc => doc.status_video === false);
+        //     for (const chapter of course) {
+        //         inactiveDoc = chapter.documents.find(doc => doc.status_video === false);
 
-                if (inactiveDoc) {
-                    break;
-                }
-            }
+        //         if (inactiveDoc) {
+        //             break;
+        //         }
+        //     }
 
-            return inactiveDoc;
-        };
+        //     return inactiveDoc;
+        // };
 
-        const inactiveDoc = findInactiveDocument(course);
+        // const inactiveDoc = findInactiveDocument(course);
 
-        if (inactiveDoc) {
-            setUrlVideo(inactiveDoc.url_video);
-            setnameDocument(inactiveDoc.name_document);
-            settypeDoc(inactiveDoc.type_document);
-        }
-
-
+        // if (inactiveDoc) {
+        //     setUrlVideo(inactiveDoc.url_video);
+        //     setnameDocument(inactiveDoc.name_document);
+        //     settypeDoc(inactiveDoc.type_document);
+        // }
 
         return (
             <div className={`${styles.row}`}>
@@ -509,23 +609,20 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                             <ul className={styles.listItem__docs}>
 
                                                 {item.documents.map((doc, subIndex) => (
+
                                                     <li key={subIndex} className={`${styles.listItem__doc}`}
                                                         style={{
-                                                            backgroundColor: activeDocIndex === subIndex ? "#fff" : "#000",
+                                                            backgroundColor: activeDocIndex === subIndex ? "#f0f0f0" : "#fff",
                                                         }}
 
                                                         onClick={() => {
-                                                            // if (isActiveDoc === false) {
-                                                            //     setIsActiveDoc(true)
-                                                            // } else {
-                                                            //     alert("Please select")
-                                                            // }
                                                             setActiveDocIndex(subIndex);
                                                             setnameDocument(doc.name_document);
                                                             settypeDoc(doc.type_document);
                                                             setIdDocument(doc.document_id)
                                                             settimedocument(formatDateTime(doc.updated_at));
                                                             setUrlVideo(doc.url_video);
+                                                            setdoc_id(doc.document_id)
 
                                                             if (doc.type_document === 'quiz' && doc.questions) {
                                                                 setQuestion(doc.questions);
@@ -571,20 +668,30 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                             </div>
                                                         </div>
                                                         {
-                                                            doc.status_video === true && (
-                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                                    <g clip-path="url(#clip0_4331_7659)">
-                                                                        <circle cx="6" cy="6" r="5" stroke="#24A148" stroke-width="1.5" />
-                                                                        <path d="M4.25 6.25L5.25 7.25L7.75 4.75" stroke="#24A148" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_4331_7659">
-                                                                            <rect width="12" height="12" fill="white" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                            )
+                                                            doc.status_video === true ? (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                                <g clipPath="url(#clip0_4331_7659)">
+                                                                    <circle cx="6" cy="6" r="5" stroke="#24A148" stroke-width="1.5" />
+                                                                    <path d="M4.25 6.25L5.25 7.25L7.75 4.75" stroke="#24A148" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0_4331_7659">
+                                                                        <rect width="12" height="12" fill="white" />
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>) : (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                                <g clipPath="url(#clip0_4979_2333)">
+                                                                    <path d="M1 8C1 6.58579 1 5.87868 1.43934 5.43934C1.87868 5 2.58579 5 4 5H8C9.41421 5 10.1213 5 10.5607 5.43934C11 5.87868 11 6.58579 11 8C11 9.41421 11 10.1213 10.5607 10.5607C10.1213 11 9.41421 11 8 11H4C2.58579 11 1.87868 11 1.43934 10.5607C1 10.1213 1 9.41421 1 8Z" stroke="#B3B3B3" stroke-width="1.5" />
+                                                                    <path d="M6 7V9" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                                                    <path d="M3 5V4C3 2.34315 4.34315 1 6 1C7.65685 1 9 2.34315 9 4V5" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0_4979_2333">
+                                                                        <rect width="12" height="12" fill="white" />
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>)
                                                         }
+
                                                     </li>
                                                 ))}
                                             </ul>
@@ -603,23 +710,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     }, [course, isNote, isFAQ, tippyVisible, isVisible, openIndexes, playedSeconds, urlVideo, nameDocument, typeDoc]);
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const token = localStorage.getItem('token');
-            if (token) {
-                try {
-                    await fetchNotes(token);
-                    await fetchDocuments(token);
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
-            } else {
-                console.error('Token is null');
-            }
-        };
 
-        fetchData();
-    }, []);
     // user
     const avatar: string = user?.avatar ?? '';
 
@@ -633,31 +724,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     }, [id]);
 
     // lấy ra tất cả note của người dùng
-    const fetchNotes = async (token: string) => {
-        try {
-            const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch course");
-            }
-
-            const data = await response.json() as ApiResponse;
-            console.log(data)
-            if (Array.isArray(data.data)) {
-                setNote(data.data);
-            } else {
-                console.error("data.data is not an array");
-            }
-
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
 
     return (
         <main className={styles.main}>
@@ -701,12 +768,26 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         </svg>
                     </div>
                     <Tippy visible={isNoteList} onClickOutside={hideNoteList} interactive={true} render={attrs => (
-                        <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
-                            <div className={stylesNav.tippyTitle}>Ghi chú của bạn</div>
-                            <div className={stylesNav.tippyList}>
-
-                                <div className={stylesNav.tippyItem}></div>
-                            </div>
+                        <div className={stylesNav.Note} tabIndex={-1} {...attrs}>
+                            {note === null ? (
+                                <p className={stylesNav.noNotes}>Chưa có ghi chú nào</p> // Hiển thị thông báo nếu không có ghi chú
+                            ) : (
+                                <>
+                                    <div className={stylesNav.noteTitle}>Ghi chú của bạn</div> {/* Tiêu đề hiển thị một lần */}
+                                    {note?.map((note, index) => (
+                                        <div key={note.note_id || index} className={stylesNav.noteItem}> {/* Sử dụng note.id nếu có */}
+                                            <div className={stylesNav.noteHeader}>
+                                                <p className={stylesNav.noteItemName}>Tên bài học</p>
+                                                <p className={stylesNav.noteItem__title}>{note.title_note}</p>
+                                            </div>
+                                            <div className={stylesNav.noteBody}>
+                                                <p className={stylesNav.noteItem__content}>{note.content_note}</p>
+                                                <p className={stylesNav.noteItem__content}>{note.cache_time_note}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
                         </div>
                     )}>
                         <div className={stylesNav.iconNotifition} onClick={isNoteList ? hideNoteList : showNoteList}>
@@ -715,6 +796,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             </svg>
                         </div>
                     </Tippy>
+
                     <Tippy visible={visible} onClickOutside={hide} interactive={true} render={attrs => (
                         <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
                             <div className={stylesNav.menuContent}>
@@ -762,7 +844,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             <div className={styles.container}>
                 {/* Video */}
                 {mappedCourseNew}
-
             </div>
             <div className={`${styles.actionBar}`}>
                 <div className={styles.faq} onClick={toggleFaq}>

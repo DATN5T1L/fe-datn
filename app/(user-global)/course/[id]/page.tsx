@@ -2,6 +2,7 @@
 import useSWR from 'swr';
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import useCookie from "@app/(user-global)/component/hook/useCookie"
 import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
@@ -42,7 +43,7 @@ interface ApiResponse<T> {
 
 const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const router = useRouter();
-    const token = localStorage.getItem('token')
+    const token = useCookie('token')
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [isGetCourse, setIsGetCourse] = useState<boolean | null>(null)

@@ -136,6 +136,20 @@ const nextConfig = {
         source: '/api/docCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
       },
+      // Tạo trạng thái bài học cho người người theo từng bài truyền vào id_doc/course_id
+      {
+        source: '/api/getStatusDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/statusDoc-by-document/:path*',
+      },
+      {
+        source: '/api/createStatusDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/create-statusDoc/:path*',
+      },
+      // lấy ra tât cả trạng thái bài học
+      {
+        source: '/api/addStatusDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/all-statusDoc-by-course/:path*',
+      },
       // thêm ghi chú của học viên cho từng doc
       {
         source: '/api/addNote/:path*',
@@ -194,6 +208,10 @@ const nextConfig = {
       {
         source: '/api/allCourse/:path*',
         destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/courses/:path*',
+      },
+      {
+        source: '/api/search/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/search/:path*',
       },
     ];
   },

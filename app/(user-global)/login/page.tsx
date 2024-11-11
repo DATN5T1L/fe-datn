@@ -13,8 +13,6 @@ import { store } from '@/redux/store';
 import GgLogin from '../component/auth/user-component/ggLogin';
 import FbLogin from '../component/auth/user-component/fbLogin';
 
-
-
 type ExtendedFormikErrors = FormikErrors<LoginFormInputs> & {
     general?: string;
 };
