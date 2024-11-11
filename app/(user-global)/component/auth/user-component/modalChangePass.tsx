@@ -79,7 +79,7 @@ const ModalChangePassContent: React.FC<ModalChangePassProps> = ({ show, onClose 
             setLoading(true);
             try {
                 const res = await fetch('/api/changePassword/', {
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

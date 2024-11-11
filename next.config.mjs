@@ -24,97 +24,105 @@ const nextConfig = {
       // Auth API rewrites
       {
         source: '/api/login/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/login/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/login/:path*',
+      },
+      {
+        source: '/api/login-google/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/login-google/:path*',
       },
       {
         source: '/api/loginGg',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/login-google',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/login-google',
       },
       {
         source: '/api/checktoken/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/check-token/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/check-token/:path*',
       },
       {
         source: '/api/profile/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/profile/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/profile/:path*',
       },
       {
         source: '/api/newUser/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/register/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/register/:path*',
+      },
+      {
+        source: '/api/checkTokenNewUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-mail-register/:path*',
       },
       {
         source: '/api/logout/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/logout/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/logout/:path*',
       },
       {
         source: '/api/routerAll/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/route/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/route/:path*',
       },
       {
         source: '/api/courses/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/detail-route/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/detail-route/:path*',
       },
       {
         source: '/api/getToken/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/send-reset-password-mail/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/send-reset-password-mail/:path*',
       },
       {
         source: '/api/verifyToken/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/verifyToken/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/verifyToken/:path*',
       },
       {
         source: '/api/resetPassword/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/reset-password/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/reset-password/:path*',
       },
 
       /*Change info */
 
       {
         source: '/api/changeDiscription/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-discription-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-discription-user/:path*',
       },
       {
         source: '/api/changeFullName/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-fullname-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-fullname-user/:path*',
       },
       {
         source: '/api/changePassword/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-password-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-password-user/:path*',
       },
       {
         source: '/api/changePassword/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-password-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-password-user/:path*',
       },
       {
         source: '/api/changePhone/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/change-profile-phone-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-phone-user/:path*',
       },
       {
         source: '/api/changeImg/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/update-avatar/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/update-avatar/:path*',
       },
 
       // Client API rewrites
 
       {
         source: '/api/routes/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/route/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/route/:path*',
       },
       {
         source: '/api/coursetype/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/course-price/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/course-price/:path*',
       },
       {
         source: '/api/posthighest/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/post-highest-view/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/post-highest-view/:path*',
       },
       {
         source: '/api/courseDetail/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/course/:path*',
       },
       {
         source: '/api/user/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/user/:path*',
       },
       // Image rewrites
       {
@@ -130,140 +138,140 @@ const nextConfig = {
 
       {
         source: '/api/getNameChapterCourse/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/name-chapter-by-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/name-chapter-by-course/:path*',
       },
       // api get document
       {
         source: '/api/getdocforyou/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/doc-by-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/doc-by-course/:path*',
       },
       {
         source: '/api/docCourse/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/doc-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
       },
       // thêm ghi chú của học viên cho từng doc
       {
         source: '/api/addNote/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/post-note/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/post-note/:path*',
       },
       // lấy ghi chú của học viên cho cả khóa học
       {
         source: '/api/getNote/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/get-note-doc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-doc/:path*',
       },
       // Lấy ra số lượng phản hồi của người dùng cho từng tập tin
       {
         source: '/api/getFeedBackCourse/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/feedback-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/feedback-course/:path*',
       },
       // Lấy ra số lượng phản hồi của người dùng cho từng khóa học
       {
         source: '/api/getFaqCourse/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/faq-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/faq-course/:path*',
       },
       // Lấy ra số lượng phản hồi tốt của người dùng cho tất cả khóa học
       {
         source: '/api/feedbackhome/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/feedback-limit/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/feedback-limit/:path*',
       },
       //lấy ra tiến độ khóa học của người dùng
       {
         source: '/api/courseFor',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/progress',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/progress',
       },
       {
         source: '/api/getnoteByCourse/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/get-note-by-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-course/:path*',
       },
 
       // API Enrollment 
 
       {
         source: '/api/userRegisterCourse/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/user-register-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/user-register-course/:path*',
       },
       {
         source: '/api/checkEnrollment/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/check-enrollment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-enrollment/:path*',
       },
       {
         source: '/api/checkProgress/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/learning-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/learning-course/:path*',
       },
       // THANH TOÁN
       //Phương thức thanh toán momo
       {
         source: '/api/paymentmomo/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/MOMO/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/MOMO/:path*',
       },
       // thanh toán bằng vn
       {
         source: '/api/paymentvn/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/VNPay/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/VNPay/:path*',
       },
       // Admin 
 
       {
         source: '/api/allUser/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/users/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/users/:path*',
       },
       {
         source: '/api/allCourse/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/courses/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/courses/:path*',
       },
       {
         source: '/api/allPost/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/posts/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/posts/:path*',
       },
       {
         source: '/api/allRole/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/users-role/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/users-role/:path*',
       },
       {
         source: '/api/courseEnrollments/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/enrollments/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/enrollments/:path*',
       },
       {
         source: '/api/courseForUser/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/get-course-admin-by-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-course-admin-by-user/:path*',
       },
       {
         source: '/api/courseChapters/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/chapters/:path*',
-      },     
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/chapters/:path*',
+      },
       {
         source: '/api/courseDocumnets/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/client/doc-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
       },
 
       // statistical
 
       {
         source: '/api/statistical_admin/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/statistical-admin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/statistical-admin/:path*',
       },
       {
         source: '/api/statistical_post/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/statistical-post-by-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/statistical-post-by-user/:path*',
       },
       {
         source: '/api/statistical_revenue_mouth/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/statistical-revenue-mouth/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/statistical-revenue-mouth/:path*',
       },
       {
         source: '/api/statistical_detail_user/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/admin/get-statistical-detail-user-admin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-statistical-detail-user-admin/:path*',
       },
       {
         source: '/api/statistical_complete/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
       },
 
       //instructor
 
       {
         source: '/api/coures_rating/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
       },
     ];
   },
@@ -277,7 +285,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'be-datn-production-f680.up.railway.app',
+        hostname: 'tto-production-db77.up.railway.app',
         port: '',
         pathname: '/**',
       },

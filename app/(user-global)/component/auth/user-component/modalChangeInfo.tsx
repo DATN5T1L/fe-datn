@@ -51,7 +51,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
             setLoading(true);
             try {
                 const res = await fetch('/api/changeDiscription/', {
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

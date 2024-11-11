@@ -65,8 +65,8 @@ const Login: React.FC = () => {
                     const errorData = await res.json();
                     console.error("Error response:", errorData);
                     console.log(errorData);
-                    
-                    const errorMessage = errorData.error ? errorData.error: 'Đăng nhập thất bại';
+
+                    const errorMessage = errorData.error ? errorData.error : 'Đăng nhập thất bại';
                     throw new Error(errorMessage);
                 }
 

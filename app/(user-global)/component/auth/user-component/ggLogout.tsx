@@ -2,9 +2,10 @@
 import styles from '@public/styles/user/MenuSetting.module.css'
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/redux/slices/userSlice';
+import { useLogout } from './useLogout';
 
 const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
@@ -14,45 +15,53 @@ const getCookie = (name: string) => {
 };
 
 const GgLogout = () => {
-
+    const { data: session, status } = useSession();
     const dispatch = useDispatch()
     const router = useRouter();
     const token = getCookie('token');
 
     const handleLogout = async () => {
-        if (!token) {
-            console.error("Token not found");
-            return;
-        }
-        console.log(token);
-        
-        try {
+        if (session) {
             if (confirm('Bạn có muốn đăng xuất không !!!')) {
-                const res = await fetch('/api/logout/', {
-                    method: 'POST',
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                
-                if (res.ok) {
-                    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('progress_percentages')
-                    dispatch(logout());
-                    router.push("/home");
-                } else {
-                    console.error("Failed to log out:", res.status);
-                }
+                signOut();
             }
-            
-        } catch (error) {
-            console.error("Logout error:", error);
         }
-        // signOut({
-        //     callbackUrl: "/home"
-        // });
-        console.log(token);
+        else {
+            if (!token) {
+                console.error("Token not found");
+                return;
+            }
+            console.log(token);
+
+            try {
+                if (confirm('Bạn có muốn đăng xuất không !!!')) {
+                    const res = await fetch('/api/logout/', {
+                        method: 'POST',
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
+
+                    if (res.ok) {
+                        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                        localStorage.removeItem('token');
+                        localStorage.removeItem('progress_percentages')
+                        dispatch(logout());
+                        useLogout()
+                        router.push("/home");
+                    } else {
+                        console.error("Failed to log out:", res.status);
+                    }
+                }
+
+            } catch (error) {
+                console.error("Logout error:", error);
+            }
+            // signOut({
+            //     callbackUrl: "/home"
+            // });
+            console.log(token);
+        }
     };
 
     return (

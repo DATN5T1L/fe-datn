@@ -10,7 +10,7 @@ import NewPasswordPage from '../component/auth/user-component/newPasswordPage';
 import { useEffect, useState } from 'react';
 
 const RetrievePassword: React.FC = () => {
-    const [userId, setUserId] = useState<number|string>(0)
+    const [userId, setUserId] = useState<number | string>(0)
     const [countdown, setCountdown] = useState(30);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -33,7 +33,7 @@ const RetrievePassword: React.FC = () => {
                 body: JSON.stringify({ email: userName })
             })
                 .then(response => {
-                    if (response.status == 404 ) {
+                    if (response.status == 404) {
                         alert('Email không tồn tại. Xin vui lòng nhập lại!')
                         setFieldValue('userName', '')
                     }
@@ -72,7 +72,6 @@ const RetrievePassword: React.FC = () => {
                     if (res.status === 400) {
                         alert('Mã xác thực không hợp lệ hoặc hết hiệu lực')
                         setFieldValue('check', '')
-                        setFieldValue('check', '');
                     }
                     else if (res.status === 200) {
                         alert('Hoàn thành xác thực')
@@ -110,6 +109,8 @@ const RetrievePassword: React.FC = () => {
         };
     }, [isButtonDisabled, countdown]);
     // console.log('đây là user_id: ', userId);
+    const minutes = Math.floor(countdown / 60);
+    const seconds = countdown % 60;
 
     return (
         <>
@@ -174,7 +175,7 @@ const RetrievePassword: React.FC = () => {
                                                             }
                                                         }}
                                                         disabled={isButtonDisabled}
-                                                    > {isButtonDisabled ? `${countdown} s` : 'Gửi mã'}</Button>
+                                                    > {isButtonDisabled ? `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` : 'Gửi mã'}</Button>
                                                 </div>
                                             </section>
 

@@ -20,6 +20,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
     const token = localStorage.getItem('token');
     const disPatch = useDispatch()
+    const [loading, setLoading] = useState(false)
 
     // Validation schema với Yup
     const validationSchema = Yup.object({
@@ -66,6 +67,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
         }
         console.log(values.avatar);
         try {
+            setLoading(true)
             const formData = new FormData();
             formData.append('avatar', values.avatar);
             console.log('Form Data:', Array.from(formData.entries()));
@@ -80,6 +82,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
             if (response.ok) {
                 const data = await response.json()
                 alert('Ảnh đã được cập nhật thành công');
+                setLoading(false)
                 disPatch(update({
                     avatar: data?.avatar
                 }))
@@ -87,9 +90,13 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
             } else {
                 alert('Cập nhật ảnh thất bại');
                 console.log(formData);
+                console.log(await response.json());
+                setLoading(false)
+
             }
         } catch (error) {
             console.error('Có lỗi xảy ra:', error);
+            setLoading(false)
         }
     };
 
@@ -141,8 +148,11 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
                                         />
                                     </section>
                                 </Form.Group>
-                                <Button className={styles.closeBtn2} type="submit">
-                                    Lưu lại
+                                <Button
+                                    disabled={loading}
+                                    className={styles.closeBtn2}
+                                    type="submit">
+                                    {loading ? 'Đang xử lý ...' : 'Lưu lại'}
                                 </Button>
                             </FormikForm>
                         )}

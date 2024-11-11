@@ -7,12 +7,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     callbacks: {
         async jwt({ token, account }) {
             if (account) {
-                token.accessToken = typeof account.access_token === 'string' ? account.access_token : undefined;
+                token.accessToken = account.access_token;
+                token.provider = account.provider;  // Lưu provider vào token
             }
             return token;
         },
         async session({ session, token }) {
-            session.user.accessToken = typeof token.accessToken === 'string' ? token.accessToken : undefined;
+            session.user.accessToken = token.accessToken;
             return session;
         },
     },
