@@ -36,5 +36,5 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
 // Định cấu hình middleware chỉ áp dụng cho các route `/user`
 export const config = {
-    matcher: '/info-user',
+    matcher: '/info-user,/home',
 };

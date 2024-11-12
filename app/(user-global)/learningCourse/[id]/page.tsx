@@ -28,11 +28,10 @@ import Notification from "@app/(user-global)/component/globalControl/Notificatio
 // thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 import styles from "@public/styles/globalControl/Learning.module.css";
-interface ApiResponse {
-    status: string;
-    data: Note[];
-}
+
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
+
+
 
 const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const token = useCookie('token');
@@ -53,8 +52,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [course, setCourse] = useState<Chapter[] | null>(null);
     const [nameDocument, setnameDocument] = useState('');
     const [idDocument, setIdDocument] = useState('');
-    const [typeDoc, settypeDoc] = useState('');
-    const [descdocument, setdescdocument] = useState('');
+    const [typeDoc, settypeDoc] = useState<string | null>(null);
+    const [descdocument, setdescdocument] = useState<string | null>(null);
     const [note, setNote] = useState<Note[] | null>(null);
     const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
     const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
@@ -65,7 +64,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [statusDoc, setStatusDoc] = useState(false);
     const isWarningShown = useRef(false);
     const [urlVideo, setUrlVideo] = useState('');
-    const [type, setType] = useState('');
+    const [type, setType] = useState<string | null>(null);
     const lastValidTimeRef = useRef<number>(0);
     const playerRef = useRef<any>(null); // Tham chiếu tới video player
     const [videoDuration, setVideoDuration] = useState<number>(0); //lưu thời gian kết thúc video
@@ -145,7 +144,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         fetchData: fetchStatus,
         loading: statusLoading,
     } = useFetch<ApiResponseStatus>({
-        url: `/api/addStatusDoc/${course_Id}`,
+        url: `/api/allStatusDoc/${course_Id}`,
         method: "GET",
         headers,
     });
@@ -167,14 +166,13 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 return {
                     ...chapter,
                     documents: chapter.documents.map(document => {
-                        const videoStatus = statusData.data.find(
-                            status => status.document_id === document.document_id
-                        );
+                        const videoStatus = statusData.data.find(status => status.document_id === document.document_id);
                         if (videoStatus) {
                             document.status_video = videoStatus.status_video;
+
                         }
                         return document;
-                    }),
+                    })
                 };
             });
             console.log("Updated Chapters Data:", updatedChaptersData);
@@ -197,7 +195,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 throw new Error("Failed to fetch course");
             }
 
-            const dataNote = await response.json() as ApiResponse;
+            const dataNote = await response.json();
             console.log(dataNote)
             if (Array.isArray(dataNote.data)) {
                 setNote(dataNote.data);

@@ -15,7 +15,33 @@
   margin-right: 10px;
 }
 
+<<<<<<< HEAD
+=======
+/* form */
+.formGroup {
+  padding: 8px 12px;
+  background-color: var(--gray-100);
+  border: 1px solid var(--gray-80);
+  height: auto;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  max-height: 32px;
+  align-items: center;
+
+  &:hover {
+    border-color: var(--blue-40);
+  }
+}
+
+.searchText {
+  font-size: 10px;
+}
+
+>>>>>>> temp
 .searchInput {
+  width: 400px;
   max-width: 400px;
   height: auto;
 }
@@ -46,11 +72,16 @@
   background-color: white !important;
   background-color: transparent;
   border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center;
+
 
   &:hover {
     background-color: transparent;
   }
 }
+
 
 .btnSearch img {
   height: 11px;
@@ -71,6 +102,7 @@
   padding: 0;
 }
 
+
 .iconButton2 {
   font-size: 1.25rem;
   margin-left: 20px;
@@ -79,6 +111,7 @@
   border: none;
   padding: 0;
 }
+
 
 .iconButton2 img {
   width: 32px;

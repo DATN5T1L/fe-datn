@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: false,
   async redirects() {
     return [
       {
@@ -11,15 +12,6 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      // Pokemon API rewrites
-      {
-        source: '/api/pokemon/:path*',
-        destination: 'https://pokeapi.co/api/v2/pokemon-form/:path*',
-      },
-      {
-        source: '/api/allPoke',
-        destination: 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=300',
-      },
       // Auth API rewrites
       {
         source: '/api/login/:path*',
@@ -27,7 +19,7 @@ const nextConfig = {
       },
       {
         source: '/api/loginGg',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/login-google',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/login-google',
       },
       {
         source: '/api/checktoken/:path*',
@@ -39,7 +31,7 @@ const nextConfig = {
       },
       {
         source: '/api/newUser/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/auth/register/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/register/:path*',
       },
       {
         source: '/api/logout/:path*',
@@ -86,11 +78,11 @@ const nextConfig = {
       },
       {
         source: '/api/changePhone/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/change-profile-phone-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-phone-user/:path*',
       },
       {
         source: '/api/changeImg/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/client/update-avatar/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/update-avatar/:path*',
       },
       // Client API rewrites
       {
@@ -134,6 +126,10 @@ const nextConfig = {
       },
       {
         source: '/api/docCourse/:path*',
+        destination: 'https://be-datn-production-f680.up.railway.app/api/client/doc-course/:path*',
+      },
+      {
+        source: '/api/docCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
       },
       // Tạo trạng thái bài học cho người người theo từng bài truyền vào id_doc/course_id
@@ -147,7 +143,7 @@ const nextConfig = {
       },
       // lấy ra tât cả trạng thái bài học
       {
-        source: '/api/addStatusDoc/:path*',
+        source: '/api/allStatusDoc/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/all-statusDoc-by-course/:path*',
       },
       // thêm ghi chú của học viên cho từng doc
@@ -184,7 +180,11 @@ const nextConfig = {
         source: '/api/getnoteByCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-course/:path*',
       },
-
+      // checkmail
+      {
+        source: '/api/checkTokenNewUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-mail-register/:path*',
+      },
       // API Enrollment 
 
       {
@@ -207,13 +207,22 @@ const nextConfig = {
       },
       {
         source: '/api/allCourse/:path*',
-        destination: 'https://be-datn-production-19f3.up.railway.app/api/admin/courses/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/courses/:path*',
       },
       {
-        source: '/api/search/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/search/:path*',
+        source: '/api/allPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/posts/:path*',
       },
+      {
+        source: '/api/allRole/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/users-role/:path*',
+      },
+
+
+
+
     ];
+
   },
   images: {
     remotePatterns: [
@@ -225,7 +234,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'be-datn-production-19f3.up.railway.app',
+        hostname: 'tto-production-db77.up.railway.app',
         port: '',
         pathname: '/**',
       },

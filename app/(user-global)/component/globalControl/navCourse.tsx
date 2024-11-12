@@ -16,7 +16,6 @@ import CodeDev from "./codeDev";
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 
 
-
 const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
     const { handleLogout } = useLogout();
 

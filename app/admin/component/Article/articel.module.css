@@ -46,8 +46,29 @@
 .filterBar {
   background: var(--background-bg-admin, #f5f6fa);
   margin-left: 0px;
-     align-self: stretch !important;
+  align-self: stretch !important;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 5.5rem;
 
+}
+
+.filterBar__group {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.filterBar__menu {
+  width: auto;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 32px !important;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .filterInputGroup {
@@ -56,7 +77,7 @@
   width: 40%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
-    align-self: stretch !important;
+  align-self: stretch !important;
   justify-content: space-between;
 }
 
@@ -281,4 +302,12 @@
 .pagination-next:hover {
   background-color: #e9ecef;
   border-radius: 50%;
+}
+
+.align{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }

@@ -26,7 +26,7 @@ interface ApiResponse<T> {
     data: T;
 }
 
-const CourseDetail: React.FC<{ params: { id: number } }> = ({ params }) => {
+const CourseDetail: React.FC<{ params: { id: number|string } }> = ({ params }) => {
     const { id } = params;
     const [error, setError] = useState<string | null>(null);
     useEffect(() => {

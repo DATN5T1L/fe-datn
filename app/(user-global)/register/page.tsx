@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '@public/styles/register/Register.module.css';
 import Link from 'next/link';
 import { Button, Card, Container, Form, Image } from 'react-bootstrap';
@@ -11,16 +11,23 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { useRouter } from 'next/navigation';
 
-
+interface RegisterFormData {
+    userName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    token: number | string;
+    role: string;
+}
 
 const Register: React.FC = () => {
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<RegisterFormData>();
     const [isCheckPass, setIsCheckPass] = useState(true);
     const [isRememberRegister, setIsRememberRegister] = useState(false);
-    const router = useRouter()
+    const router = useRouter();
     let errorShown = false;
-
-    const password = watch("password");
+    const [countdown, setCountdown] = useState(30);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [getTokenInput, setGetTokenInput] = useState(true)
 
     const formik = useFormik({
         initialValues: {
@@ -28,15 +35,13 @@ const Register: React.FC = () => {
             email: '',
             password: '',
             confirm_password: '',
+            check: '',
         },
         validationSchema: Yup.object({
             fullName: Yup.string()
-                .transform(value => value
-                    ? value.replace(/\b\w/g, (char: string) => char.toUpperCase())
-                    : ''
-                )
+                .transform(value => value ? value.replace(/\b\w/g, (char: string) => char.toUpperCase()) : '')
                 .required('Vui lòng nhập họ và tên')
-                .min(2, "Họ và tên phải có it nhất 2 ký tự"),
+                .min(2, "Họ và tên phải có ít nhất 2 ký tự"),
             email: Yup.string()
                 .email('Email không hợp lệ')
                 .required('Vui lòng nhập email'),
@@ -48,8 +53,10 @@ const Register: React.FC = () => {
                 .matches(/[A-Z]/, 'Mật khẩu phải có ít nhất 1 ký tự viết hoa')
                 .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Mật khẩu phải có ít nhất 1 ký tự đặc biệt'),
             confirm_password: Yup.string()
-                .oneOf([Yup.ref('password'), undefined], 'Mật khẩu không khớp')
+                .oneOf([Yup.ref('password')], 'Mật khẩu không khớp')
                 .required('Vui lòng nhập lại mật khẩu'),
+            check: Yup.string()
+                .required('Vui lòng nhập mã xác nhận từ email'),
         }),
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
             if (errorShown) return;
@@ -64,22 +71,29 @@ const Register: React.FC = () => {
                         email: values.email,
                         password: values.password,
                         confirm_password: values.confirm_password,
-                        role: 'client'
+                        token: values.check,
+                        role: 'admin'
                     }),
                 });
+
                 if (!res.ok) {
                     const errorData = await res.json();
-                    if (res.status == 422) {
-                        if (!errorShown) {
-                            alert('mail đã tồn tại');
-                            errorShown = true;
+                    console.log(errorData);
+                    console.log("Status:", res.status);
+                    if (res.status === 422) {
+                        if (errorData.errors && errorData.errors.email) {
+                            alert(errorData.errors.email);
+                        } else if (errorData.errors && errorData.errors.token.join()) {// join hiển thì thông tin từ mảng
+                            alert(errorData.errors.token);
                         }
+                        errorShown = true;
+                    } else if (res.status === 400) {
+                        alert(errorData.message);
                     } else {
                         throw new Error(errorData.message || 'Đăng ký thất bại');
                     }
                 } else {
                     alert('Đăng ký thành công');
-                    errorShown = false;
                     router.push('/login');
                 }
             } catch (error) {
@@ -92,8 +106,75 @@ const Register: React.FC = () => {
                 setSubmitting(false);
             }
         }
-    })
+    });
 
+    const handleSendCode = async () => {
+        setGetTokenInput(false)
+        formik.setFieldTouched('email', true);
+
+        if (!formik.values.email) {
+            formik.setFieldError('email', 'Vui lòng nhập email trước khi gửi mã');
+            return;
+        }
+
+        if (formik.errors.email) {
+            return;
+        }
+
+        try {
+            const res = await fetch('/api/checkTokenNewUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email: formik.values.email }),
+            });
+
+            if (res.ok) {
+                alert('Mã xác nhận đã được gửi đến email của bạn');
+                setIsButtonDisabled(true);
+                setCountdown(120);
+            } else if (res.status === 429) {
+                alert('vui lòng chờ cho lượt gửi tiếp theo')
+                setIsButtonDisabled(true);
+                setCountdown(120);
+            }
+            else {
+                alert('Gửi mã thất bại. Vui lòng thử lại');
+                formik.setFieldValue('check', '')
+            }
+        } catch (error) {
+            console.error('Lỗi khi gửi mã xác nhận:', error);
+            alert('Có lỗi xảy ra khi gửi mã xác nhận');
+            formik.setFieldValue('check', '')
+        }
+    };
+
+    useEffect(() => {
+        let timer: NodeJS.Timeout | null = null;
+        if (isButtonDisabled && countdown > 0) {
+            timer = setInterval(() => {
+                setCountdown((prev) => prev - 1);
+            }, 1000);
+        }
+
+        if (countdown === 0) {
+            setIsButtonDisabled(false);
+        }
+
+        return () => {
+            if (timer) clearInterval(timer);
+        };
+    }, [isButtonDisabled, countdown]);
+
+    useEffect(() => {
+        setIsButtonDisabled(false);
+        setCountdown(0);
+
+    }, [formik.values.email]);
+
+    const minutes = Math.floor(countdown / 60);
+    const seconds = countdown % 60;
 
     const handleCheckPass = () => {
         setIsCheckPass(!isCheckPass);
@@ -114,7 +195,7 @@ const Register: React.FC = () => {
                         <Card className={styles.form}>
                             <Card.Header className={styles.headerRegister}>
                                 <Card.Title className={styles.headerRegister__title}>Đăng ký tài khoản</Card.Title>
-                                <Link href={'/login'} className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi}> Đăng nhập</bdi></Link>
+                                <Link href="/login" className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi}> Đăng nhập</bdi></Link>
                             </Card.Header>
                             <Card.Body className={styles.bodyRegister}>
                                 <Form className={styles.formRegister} onSubmit={formik.handleSubmit}>
@@ -132,9 +213,9 @@ const Register: React.FC = () => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                             />
-                                            {formik.touched.fullName && formik.errors.fullName ? (
+                                            {formik.touched.fullName && formik.errors.fullName && (
                                                 <div className={styles.feedBack}>{formik.errors.fullName}</div>
-                                            ) : null}
+                                            )}
                                         </Form.Group>
                                         <Form.Group className={styles.formControlRegister}>
                                             <Form.Label htmlFor="email" className={styles.formControlRegister__label}>
@@ -149,26 +230,26 @@ const Register: React.FC = () => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                             />
-                                            {formik.touched.email && formik.errors.email ? (
+                                            {formik.touched.email && formik.errors.email && (
                                                 <div className={styles.feedBack}>{formik.errors.email}</div>
-                                            ) : null}
+                                            )}
                                         </Form.Group>
                                         <Form.Group className={styles.formControlRegister}>
                                             <section className={styles.checkPass}>
                                                 <Form.Label htmlFor="password" className={styles.formControlRegister__label}>Mật khẩu</Form.Label>
                                                 <Button
-                                                    type='button'
+                                                    type="button"
                                                     onClick={handleCheckPass}
                                                     className={styles.checkPass__btn}
                                                 >
                                                     {isCheckPass ? (
                                                         <>
-                                                            <Image src="/img/eyeHidden.svg" alt="" className={styles.checkPass__img} />
+                                                            <Image src="/img/eyeHidden.svg" alt="Ẩn mật khẩu" className={styles.checkPass__img} />
                                                             <div className={styles.checkPass__text}>ẩn</div>
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <Image src="/img/eye.svg" alt="" className={styles.checkPass__img} />
+                                                            <Image src="/img/eye.svg" alt="Hiện mật khẩu" className={styles.checkPass__img} />
                                                             <div className={styles.checkPass__text}>hiện</div>
                                                         </>
                                                     )}
@@ -187,9 +268,9 @@ const Register: React.FC = () => {
                                             <div className={styles.noteRegister}>
                                                 Sử dụng 8 ký tự trở lên kết hợp chữ cái, số và ký hiệu
                                             </div>
-                                            {formik.touched.password && formik.errors.password ? (
+                                            {formik.touched.password && formik.errors.password && (
                                                 <div className={styles.feedBack}>{formik.errors.password}</div>
-                                            ) : null}
+                                            )}
                                         </Form.Group>
                                         <Form.Group className={styles.formControlRegister}>
                                             <Form.Label htmlFor="confirm_password" className={styles.formControlRegister__label}>Nhập lại mật khẩu</Form.Label>
@@ -202,24 +283,44 @@ const Register: React.FC = () => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                             />
-                                            {formik.touched.confirm_password && formik.errors.confirm_password ? (
+                                            {formik.touched.confirm_password && formik.errors.confirm_password && (
                                                 <div className={styles.feedBack}>{formik.errors.confirm_password}</div>
-                                            ) : null}
+                                            )}
+                                        </Form.Group>
+                                        <Form.Group className={styles.userNameRetrieve}>
+                                            <Form.Label htmlFor="confirm_password" className={styles.userNameRetrieve__label}>Nhập mã xác nhận từ email</Form.Label>
+                                            <Form.Control
+                                                type={'text'}
+                                                placeholder="Nhập mã xác nhận"
+                                                className={styles.userNameRetrieve__input}
+                                                name="check"
+                                                value={formik.values.check}
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                disabled={getTokenInput}
+                                            />
+                                            {formik.touched.check && formik.errors.check && (
+                                                <div className={styles.feedBack}>{formik.errors.check}</div>
+                                            )}
+                                            <Button
+                                                type='button'
+                                                className={styles.sendCode}
+                                                onClick={handleSendCode}
+                                                disabled={isButtonDisabled}
+                                            >
+                                                {isButtonDisabled ? `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` : 'Gửi mã'}
+                                            </Button>
                                         </Form.Group>
                                     </section>
                                     <Button
-                                        type='button'
+                                        type="button"
                                         className={styles.rememberRegister}
                                         onClick={handleRememberRegister}
                                     >
-                                        {isRememberRegister ? (
-                                            <Image src="/img/checkBoxFalse.svg" alt="" className={styles.rememberRegister__img} />
-                                        ) : (
-                                            <Image src="/img/checkBoxTrue.svg" alt="" className={styles.rememberRegister__img} />
-                                        )}
+                                        <Image src={isRememberRegister ? "/img/checkBoxFalse.svg" : "/img/checkBoxTrue.svg"} alt="" className={styles.rememberRegister__img} />
                                         <div className={styles.rememberRegister__div}>Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư.</div>
                                     </Button>
-                                    <Button type='submit' className={styles.btnSubmit} disabled={formik.isSubmitting}>Đăng ký</Button>
+                                    <Button type="submit" className={styles.btnSubmit} disabled={formik.isSubmitting}>Đăng ký</Button>
                                 </Form>
                             </Card.Body>
                             <Card.Footer className={styles.withRegister}>
@@ -234,7 +335,7 @@ const Register: React.FC = () => {
                         </Card>
                     </div>
                 </Container>
-            </Body >
+            </Body>
         </>
     );
 };

@@ -9,7 +9,6 @@ const CoursePage = () => {
   return (
     <div>
       <HeaderCourse />
-      <Course />
     </div>
   );
 };

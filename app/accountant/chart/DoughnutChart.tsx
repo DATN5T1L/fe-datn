@@ -2,7 +2,19 @@
 import { useEffect, useRef } from "react";
 import { Chart, ChartData, ChartConfiguration, ChartOptions } from "chart.js";
 
-const DoughnutChart = () => {
+interface DoughnutChartProps {
+  dataValue: number;     // Giá trị của dữ liệu chính
+  totalValue: number;    // Tổng giá trị
+  dataColor?: string;    // Màu cho dữ liệu
+  emptyColor?: string;   // Màu cho phần còn lại
+}
+
+const DoughnutChart: React.FC<DoughnutChartProps> = ({
+  dataValue,
+  totalValue,
+  dataColor = "#237DF7",
+  emptyColor = "#D9E6FF",
+}) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart<"doughnut"> | null>(null);
 
@@ -16,19 +28,15 @@ const DoughnutChart = () => {
       myChartRef.current.destroy();
     }
 
-    const dotColor = "#237DF7";
-    const emptyColor = "#D9E6FF";
-    const numberOfDots = 4;
-    const totalSegments = numberOfDots * 2;
+    // Tính toán tỷ lệ giữa dữ liệu và phần còn lại
+    const displayedData = [dataValue, totalValue - dataValue];
 
     // Chart data
     const data: ChartData<"doughnut"> = {
       datasets: [
         {
-          data: Array(totalSegments).fill(1),
-          backgroundColor: Array.from({ length: totalSegments }, (_, i) =>
-            i % 2 === 0 ? dotColor : emptyColor
-          ),
+          data: displayedData,
+          backgroundColor: [dataColor, emptyColor],
           borderWidth: 0,
         },
       ],
@@ -60,16 +68,9 @@ const DoughnutChart = () => {
         myChartRef.current.destroy();
       }
     };
-  }, []);
+  }, [dataValue, totalValue, dataColor, emptyColor]);
 
-  return (
-    <canvas
-      id="spacedDotChart"
-      ref={chartRef}
-      width="150"
-      height="150"
-    ></canvas>
-  );
+  return <canvas id="spacedDotChart" ref={chartRef} width="150" height="150"></canvas>;
 };
 
 export default DoughnutChart;

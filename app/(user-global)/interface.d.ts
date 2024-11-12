@@ -162,11 +162,7 @@ interface FaqCourse {
     answer_faq: string;
 }
 
-interface ApiResponse<T> {
-    status: string;
-    message: string;
-    data: T;
-}
+
 interface ButtonProps {
     type?: 'secondery' | 'premary' | 'disable';
     size?: 'S' | 'M';

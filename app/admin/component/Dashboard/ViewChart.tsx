@@ -1,5 +1,4 @@
-"use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import {
   Chart,
   BarController,
@@ -11,11 +10,20 @@ import {
 } from "chart.js";
 import style from "./Chart.module.css";
 
+interface ApiResponse {
+  status: string;
+  data: {
+    month: number;
+    total_price: string;
+  }[];
+}
+
 const MyChartComponent = () => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
+  const [chartData, setChartData] = useState<number[]>(new Array(12).fill(0));
+  const count = 500000000;
 
-  // Đăng ký các thành phần cần thiết cho biểu đồ bar
   Chart.register(
     BarController,
     BarElement,
@@ -26,10 +34,41 @@ const MyChartComponent = () => {
   );
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/statistical_revenue_mouth",{cache:'no-cache'});
+        const result: ApiResponse = await response.json();
+
+        if (result.status === "success") {
+          const monthlyData = new Array(12).fill(0);
+
+          result.data.forEach((item) => {
+            const monthIndex = item.month - 1;
+            monthlyData[monthIndex] = parseFloat(item.total_price.replace(/[^\d]/g, ""));
+            console.log(monthlyData[9]);
+            
+          });
+
+          setChartData(monthlyData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      if (myChartRef.current) {
+        myChartRef.current.destroy();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     if (chartRef.current) {
       const ctx = chartRef.current.getContext("2d");
 
-      // Hủy biểu đồ cũ nếu có
       if (myChartRef.current) {
         myChartRef.current.destroy();
       }
@@ -39,26 +78,14 @@ const MyChartComponent = () => {
           type: "bar",
           data: {
             labels: [
-              "Tháng 1",
-              "Tháng 2",
-              "Tháng 3",
-              "Tháng 4",
-              "Tháng 5",
-              "Tháng 6",
-              "Tháng 7",
-              "Tháng 8",
-              "Tháng 9",
-              "Tháng 10",
-              "Tháng 11",
-              "Tháng 12",
+              "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+              "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
+              "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12",
             ],
             datasets: [
               {
-                label: "Lượt xem(nghìn lượt)",
-                data: [
-                  1500, 8000, 2500, 75000, 12000, 3000, 50000, 20000, 70000,
-                  5000, 18000, 10000,
-                ],
+                label: "Doanh thu (VND)",
+                data: chartData,
                 backgroundColor: "rgba(67, 143, 247, 1.0)",
                 borderColor: "rgba(67, 143, 247, 1.0)",
                 borderWidth: 1,
@@ -82,45 +109,26 @@ const MyChartComponent = () => {
                 },
               },
               y: {
-
                 grid: {
                   display: false,
                 },
-
                 ticks: {
                   callback: function (value) {
-                    if (
-                      value === 0 ||
-                      value === 10000 ||
-                      value === 20000 ||
-                      value === 30000 ||
-                      value === 40000 ||
-                      value === 50000 ||
-                      value === 60000 ||
-                      value === 70000 ||
-                      value === 80000 ||
-                      value === 90000
-                    ) {
-                      return value / 1000;
+                    if (typeof value === "number") {
+                      return value === 0 ? "0" : value.toLocaleString("vi-VN");
                     }
-                    return null;
+                    return value;
                   },
                 },
                 suggestedMin: 0,
-                suggestedMax: 100000,
+                suggestedMax: count, 
               },
             },
           },
         });
       }
     }
-
-    return () => {
-      if (myChartRef.current) {
-        myChartRef.current.destroy();
-      }
-    };
-  }, []);
+  }, [chartData]);
 
   return (
     <div className={style.bg_chart}>

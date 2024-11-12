@@ -8,12 +8,13 @@ import { RootState } from '@/redux/store';
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { update } from '@/redux/slices/userSlice';
+import useCookie from '../../hook/useCookie';
 
 
 const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);
     const userState = useSelector((state: RootState) => state.user);
-    const token = localStorage.getItem('token');
+    const token = useCookie('token')
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false);
@@ -55,7 +56,7 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
             setLoading(true);
             try {
                 const res = await fetch('/api/changeFullName/', {
-                    method: 'PUT',
+                    method: 'PATCH',
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -69,6 +70,8 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                     dispatch(update({
                         fullname: values.fullName
                     }))
+                } if (!res.ok) {
+                    console.log('lỗi: ', await res.json());
                 }
             } catch (error) {
                 console.error(error);
@@ -100,7 +103,7 @@ const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                             </legend>
                         </fieldset>
                         <Form.Group className={styles.formControlChangeName} controlId="validationUserName">
-                            <Form.Label htmlFor="userName" className={styles.formControlChangeName__label}>
+                            <Form.Label className={styles.formControlChangeName__label}>
                                 Họ và tên
                             </Form.Label>
                             <Form.Control

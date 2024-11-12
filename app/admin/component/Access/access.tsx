@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -12,74 +12,141 @@ import {
 import h from "./access.module.css";
 import Link from "next/link";
 import "./access.css";
+import ReactLoading from 'react-loading';
+
+interface Role {
+  user_id: number;
+  fullname: string;
+  email: string;
+  role: string;
+}
+
+interface ApiResponse<T> {
+  status: string;
+  message: string;
+  data: T[];
+}
 
 const Access: React.FC<{}> = () => {
+
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+    return null;
+  };
+
+  const token = getCookie('token');
+
+  const [roleData, setRoleData] = useState<ApiResponse<Role> | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch('/api/allRole/', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setRoleData(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.log(err)
+        setLoading(false);
+      });
+  }, [token]);
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const rolePerPage = 5;
+  const totalPages = Math.ceil((roleData?.data.length || 0) / rolePerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const indexOfLastUser = currentPage * rolePerPage;
+  const indexOfFirstUser = indexOfLastUser - rolePerPage;
+  const currentRole =
+    roleData?.data && Array.isArray(roleData.data)
+      ? roleData.data.slice(indexOfFirstUser, indexOfLastUser)
+      : [];
+
+  const renderPaginationItems = () => {
+    const pageNumbers = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(
+          <Pagination.Item
+            key={i}
+            active={i === currentPage}
+            onClick={() => setCurrentPage(i)}
+          >
+            {i}
+          </Pagination.Item>
+        );
+      }
+    } else {
+      pageNumbers.push(
+        <Pagination.Item
+          key={1}
+          active={1 === currentPage}
+          onClick={() => setCurrentPage(1)}
+        >
+          1
+        </Pagination.Item>
+      );
+
+      if (currentPage > 3) {
+        pageNumbers.push(<Pagination.Ellipsis key="start-ellipsis" />);
+      }
+
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        pageNumbers.push(
+          <Pagination.Item
+            key={i}
+            active={i === currentPage}
+            onClick={() => setCurrentPage(i)}
+          >
+            {i}
+          </Pagination.Item>
+        );
+      }
+
+      if (currentPage < totalPages - 2) {
+        pageNumbers.push(<Pagination.Ellipsis key="end-ellipsis" />);
+      }
+
+      pageNumbers.push(
+        <Pagination.Item
+          key={totalPages}
+          active={totalPages === currentPage}
+          onClick={() => setCurrentPage(totalPages)}
+        >
+          {totalPages}
+        </Pagination.Item>
+      );
+    }
+    return pageNumbers;
+  };
+
+
   return (
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
-      {/* Header */}
-      {/* <div
-        className={`${h.header} d-flex justify-content-between align-items-center`}
-      >
-        <h2 className={h.heading}>Bài viết</h2>
-        {showActions && (
-          <div className={`${h.actions} d-flex`}>
-            <Button
-              variant="outline-primary"
-              className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
-            >
-              Thêm danh mục bài viết
-            </Button>
-            <Button className={`${h.btnCTA}`}>Thêm bài viết</Button>
-          </div>
-        )}
-      </div>
-
-      <div
-        className={`${h.filterBar} d-flex justify-content-between align-items-center w-100`}
-      >
-        <InputGroup className={`${h.filterInputGroup} d-flex`}>
-          <InputGroup.Text className={h.inputGroupText}>
-            <img src="/img_admin/action.svg" alt="Action" />
-          </InputGroup.Text>
-
-          <select aria-label="Trạng thái" className={h.formSelect}>
-            <option>Trạng thái  </option>
-            <option value="1">Active</option>
-            <option value="2">Inactive</option>
-          </select>
-
-          <select aria-label="Lượt xem" className={h.formSelect}>
-            <option>Lượt xem  </option>
-            <option value="1">0-100</option>
-            <option value="2">1000+</option>
-          </select>
-
-          <InputGroup.Text className={h.resetGroupText}>
-            <img src="/img_admin/restart.svg" alt="Reset" />
-            <span>  Cài lại</span>
-          </InputGroup.Text>
-        </InputGroup>
-
-        <InputGroup className={h.searchInputGroup}>
-          <Form.Control
-            type="text"
-            placeholder="Tìm kiếm bài viết"
-            className={h.searchInput}
-          />
-          <div className={h.searchIconWrapper}>
-            <img
-              src="/img_admin/search.svg"
-              alt="Search"
-              width={"24px"}
-              height={"24px"}
-            />
-          </div>
-        </InputGroup>
-      </div> */}
-
-      {/* Post List */}
       <div className="d-flex overflow-auto w-100" style={{ whiteSpace: 'nowrap' }}>
         <Table bordered hover className={`${h.table}`}>
           <thead>
@@ -91,18 +158,32 @@ const Access: React.FC<{}> = () => {
               <td>Hành động</td>
             </tr>
           </thead>
-          <tbody>
-            {Array(5)
-              .fill(null)
-              .map((_, idx) => (
-                <tr key={idx}>
-                  <td>01</td>
+          {loading ? (
+            <tbody>
+              <tr>
+                <td colSpan={5}>
+                  <ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={h.align} />
+                </td>
+              </tr>
+            </tbody>
+          ) : (
+            <tbody>
+              {currentRole.map((item) => (
+                <tr key={item.user_id}>
+                  <td>{item.user_id}</td>
                   <td>
-                    Nguyễn Minh Tâm
+                    {item.fullname}
                   </td>
-                  <td>mta@gmail.com</td>
+                  <td>{item.email}</td>
                   <td>
-                    <span className={h.active_text}>Admin</span>
+                    <span
+                      className={`
+                      ${item.role === 'admin' ?
+                          h.active_text : item.role === 'instructor' ?
+                            h.active_text1 : item.role === 'creator' ? h.active_text2
+                              : h.active_text3
+                        } `}
+                    >{item.role}</span>
                   </td>
 
                   <td className={h.option_button_group}>
@@ -125,31 +206,17 @@ const Access: React.FC<{}> = () => {
                   </td>
                 </tr>
               ))}
-          </tbody>
+            </tbody>
+          )}
         </Table>
       </div>
 
       {/* Pagination */}
       <div className="paginationWrapper">
-        <Pagination className="pagination">
-          <Pagination.Prev>
-            <img
-              src="/img_admin/prep.svg"
-              alt="Previous"
-              width="8"
-              height="16"
-            />
-          </Pagination.Prev>
-          {Array(2)
-            .fill(null)
-            .map((_, idx) => (
-              <Pagination.Item key={idx} active={idx === 0}>
-                {idx + 1}
-              </Pagination.Item>
-            ))}
-          <Pagination.Next>
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
-          </Pagination.Next>
+        <Pagination>
+          <Pagination.Prev onClick={handlePrevPage} />
+          {renderPaginationItems()}
+          <Pagination.Next onClick={handleNextPage} />
         </Pagination>
       </div>
     </div>

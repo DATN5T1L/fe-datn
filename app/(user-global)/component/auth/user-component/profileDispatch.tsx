@@ -6,12 +6,19 @@ import { login, logout } from '../../../../../redux/slices/userSlice';
 import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import useCookie from "../../hook/useCookie";
+
+const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+    return null;
+};
 
 const ProfileDispatch = () => {
     const dispatch = useDispatch();
     const router = useRouter();
     const pathName = usePathname()
-
     const isRegister = pathName === '/register'
     const isLogin = pathName === '/login'
     const isRetrievePassword = pathName === '/retrievePassword'
@@ -25,14 +32,6 @@ const ProfileDispatch = () => {
     const isCourseFor = pathName === '/coursefor'
     const isAdmin = /^\/(admin)(\/.*)?$/.test(pathName);
     const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
-
-
-    const getCookie = (name: string) => {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop()?.split(';').shift();
-        return null;
-    };
 
     const handleLogout = () => {
         dispatch(logout());
@@ -59,7 +58,7 @@ const ProfileDispatch = () => {
 
     const fetchUserInfo = async (tokenValue: string) => {
         const tokenCookie = getCookie('token');
-        if (tokenValue) {
+        if (tokenValue || tokenCookie) {
             if (isRegister || isLogin || isRetrievePassword) {
                 localStorage.setItem('isLoggedIn', 'true');
                 router.push('/info-user');
@@ -70,9 +69,7 @@ const ProfileDispatch = () => {
         if (!tokenValue) {
             if (isInfo || isIntro || isWallet) {
                 console.error("Token không hợp lệ hoặc không tồn tại");
-                if (isPage) {
-                    router.push('/login');
-                } else if (isAdmin) {
+                if (isAdmin) {
                     router.push('/home');
                 }
                 return;
@@ -81,9 +78,7 @@ const ProfileDispatch = () => {
 
         if (!tokenCookie) {
             handleLogout()
-            if (isPage) {
-                router.push('/login');
-            } else if (isAdmin) {
+            if (isAdmin) {
                 router.push('/home');
             }
 
@@ -93,7 +88,7 @@ const ProfileDispatch = () => {
         if (isTokenExpired(tokenValue)) {
             console.error("Token đã hết hạn");
             handleLogout()
-            if (isPage) {
+            if (isInfo || isIntro || isWallet) {
                 router.push('/login');
             } else if (isAdmin) {
                 router.push('/home');
@@ -132,10 +127,9 @@ const ProfileDispatch = () => {
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
         const tokenCookie = getCookie('token');
-        if (token && tokenCookie) {
-            fetchUserInfo(token);
+        if (tokenCookie) {
+            fetchUserInfo(tokenCookie);
         } else if (!tokenCookie) {
             console.error('Không tìm thấy token');
             if (isInfo || isWallet || isIntro) {
@@ -143,7 +137,7 @@ const ProfileDispatch = () => {
                 router.push('/login');
             }
         }
-        else if (!token) {
+        else if (!tokenCookie) {
             console.error('Không tìm thấy token');
             if (isInfo || isWallet || isIntro) {
                 handleLogout()
@@ -151,22 +145,18 @@ const ProfileDispatch = () => {
             }
         }
         const interval = setInterval(() => {
-            const storedToken = localStorage.getItem('token');
-            if (storedToken && isTokenExpired(storedToken)) {
+            const setLogin = localStorage.getItem('isLoggedIn')
+            const token = getCookie('token')
+            if (token && isTokenExpired(token)) {
                 console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
                 handleLogout()
                 alert('đăng nhập lại để kiểm tra thông tin vì tính bảo mật')
-                if (isRegister) {
-                    router.push('/register')
-                } else if (isRetrievePassword) {
-                    router.push('/retrievePassword')
-                } else if (isHome) {
-                    router.push('/home')
-                } else {
-                    if (isAdmin) {
-                        router.push('/home');
-                    }
+                if (isAdmin) {
+                    router.push('/home');
                 }
+            }
+            if (token) {
+                localStorage.setItem('isLoggedIn', 'true')
             }
         }, 10000);
 
@@ -186,9 +176,7 @@ const ProfileDispatch = () => {
 
                 if (!newToken) {
                     handleLogout()
-                    if (isPage) {
-                        router.push('/login');
-                    } else if (isAdmin) {
+                    if (isAdmin) {
                         router.push('/home');
                     }
                 } else {
@@ -201,9 +189,7 @@ const ProfileDispatch = () => {
 
                 if (isLoggedIn === 'false') {
                     handleLogout()
-                    if (isPage) {
-                        router.push('/login');
-                    } else if (isAdmin) {
+                    if (isAdmin) {
                         router.push('/home');
                     }
                 } else if (isLoggedIn === 'true') {
@@ -230,15 +216,18 @@ const ProfileDispatch = () => {
             if (!tokenCookie) {
                 console.error('Token cookie is missing. Logging out...');
                 handleLogout();
-                if (isInfo || isIntro || isWallet) { router.push('login') }
+                if (isInfo || isIntro || isWallet) {
+                    localStorage.setItem('returnPath', '');
+                    router.push('login')
+                }
                 else if (isAdmin) { router.push('/home') }
             }
         };
 
-        const interval = setInterval(checkTokenCookie, 1000);
+        const interval = setInterval(checkTokenCookie, 10000);
 
         return () => clearInterval(interval);
-    }, [dispatch, router]);
+    }, [dispatch, router, pathName]);
 
     return null;
 };

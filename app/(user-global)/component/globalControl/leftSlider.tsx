@@ -14,6 +14,12 @@ const LeftSlider: React.FC = () => {
     const [headerHeight, setHeaderHeight] = useState(0);
     const [isHidden, setIsHidden] = useState(false);
     const userState = useSelector((state: RootState) => state.user);
+    const [clientHref, setClientHref] = useState('/login');
+
+    useEffect(() => {
+        // Cập nhật URL sau khi client đã có trạng thái user
+        setClientHref(userState?.user ? `/coursefor` : '/login');
+    }, [userState]);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {

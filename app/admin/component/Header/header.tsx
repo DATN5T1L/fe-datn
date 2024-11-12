@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Navbar, Form, Button, ButtonGroup } from "react-bootstrap";
+import { Navbar, Form, Button, ButtonGroup, Spinner } from "react-bootstrap";
 import h from "./Header.module.css";
 import Notifications from "@/app/admin/component/DashboardMenu/notifications";
 import Settings from "@/app/admin/component/DashboardMenu/settings";
 import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { usePathname } from "next/navigation";
 
 const Header: React.FC = () => {
   const [show, setShow] = useState(false);
@@ -13,6 +16,9 @@ const Header: React.FC = () => {
   const handleClose = () => setShow(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const userState = useSelector((state: RootState) => state.user.user)
+  const [loadingAvatar, setLoadingAvatar] = useState(true);
+  const pathName = usePathname()
 
   const notificationRef = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
@@ -26,6 +32,12 @@ const Header: React.FC = () => {
     setShowSettings(!showSettings);
     setShowNotifications(false);
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setLoadingAvatar(false)
+    }
+  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -53,6 +65,9 @@ const Header: React.FC = () => {
     };
   }, [showNotifications, showSettings]);
 
+  const isAdmin = /^\/(admin)(\/.*)?$/.test(pathName);
+  const isMarketing = /^\/(Marketing)(\/.*)?$/.test(pathName);
+
   return (
     <>
       <Navbar
@@ -60,7 +75,7 @@ const Header: React.FC = () => {
         expand="lg"
         className={`${h.nav} d-flex justify-content-between align-items-center`}
       >
-        <Navbar.Brand href="/">
+        <Navbar.Brand href={`${isAdmin ? '/home' : isMarketing ? '/admin' : '/'}`}>
           <img
             src="/img/logoPage.jpg"
             className="d-inline-block align-top"
@@ -82,7 +97,15 @@ const Header: React.FC = () => {
             className={h.iconButton2}
             onClick={toggleSettings}
           >
-            <img src="/img_admin/admin.png" alt="User d-none d-xl-block " />
+            {loadingAvatar ? (
+              <Spinner animation="border" size="sm" />
+            ) : (
+              <img
+                src={`${userState?.avatar}`}
+                alt="User"
+                className="d-none d-xl-block"
+              />
+            )}
           </Button>
           <Button variant="link" className={h.iconButton}>
             <img src="/img/list.svg" alt="Menu" onClick={handleShow} />
@@ -126,10 +149,10 @@ const SearchBar = () => {
             viewBox="0 0 12 12"
             fill="none"
           >
-            <g clip-path="url(#clip0_3435_8010)">
+            <g clipPath="url(#clip0_3435_8010)">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M5.75 1.375C3.33375 1.375 1.375 3.33375 1.375 5.75C1.375 8.16625 3.33375 10.125 5.75 10.125C8.16625 10.125 10.125 8.16625 10.125 5.75C10.125 3.33375 8.16625 1.375 5.75 1.375ZM0.625 5.75C0.625 2.91954 2.91954 0.625 5.75 0.625C8.58046 0.625 10.875 2.91954 10.875 5.75C10.875 7.03026 10.4056 8.20087 9.62943 9.0991L11.2652 10.7348C11.4116 10.8813 11.4116 11.1187 11.2652 11.2652C11.1187 11.4116 10.8813 11.4116 10.7348 11.2652L9.0991 9.62943C8.20087 10.4056 7.03026 10.875 5.75 10.875C2.91954 10.875 0.625 8.58046 0.625 5.75Z"
                 fill="#999999"
               />

@@ -10,7 +10,10 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
     const token = useCookie('token');
     const [noteContent, setNoteContent] = useState<string>(''); // State để lưu nội dung ghi chú
     const popupRef = useRef<HTMLDivElement | null>(null);
-    const formatTime = (seconds: number): string => {
+    const formatTime = (seconds: number | string): string => {
+        if (typeof seconds === 'string') {
+            return seconds;
+        }
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
