@@ -243,6 +243,10 @@ const nextConfig = {
         source: '/api/courseDocumnets/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
       },
+      {
+        source: '/api/hiddenUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/toggle-visibility-user-admin/:path*',
+      },
 
       // statistical
 

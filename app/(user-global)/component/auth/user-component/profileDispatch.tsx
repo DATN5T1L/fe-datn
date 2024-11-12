@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login, logout } from '../../../../../redux/slices/userSlice';
 import { usePathname, useRouter } from "next/navigation";
@@ -8,6 +8,20 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import useCookie from "../../hook/useCookie";
 import { Token } from "ckeditor5";
+
+interface User {
+    age: number;
+    avatar: string;
+    created_at: string;
+    del_flag: boolean;
+    discription_user: string;
+    email: string;
+    fullname: string;
+    id: string | number;
+    phonenumber: string;
+    provider_id: string;
+    role: string;
+}
 
 const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
@@ -33,6 +47,7 @@ const ProfileDispatch = () => {
     const isCourseFor = pathName === '/coursefor'
     const isAdmin = /^\/(admin)(\/.*)?$/.test(pathName);
     const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
+    const [dataUser, setDataUser] = useState<User | null>(null)
     // const token = getCookie('token')
 
     const handleLogout = () => {
@@ -107,13 +122,14 @@ const ProfileDispatch = () => {
 
             if (!res.ok) {
                 console.log(await res.json());
-                
+
                 // throw new Error('Không thể lấy thông tin người dùng');
             }
 
             const data = await res.json();
 
             dispatch(login(data));
+            setDataUser(data)
             // console.log(data);
             localStorage.setItem('isLoggedIn', 'true');
             if (isLogin || isRegister || isRetrievePassword) {
@@ -161,6 +177,9 @@ const ProfileDispatch = () => {
             }
             if (token) {
                 localStorage.setItem('isLoggedIn', 'true')
+            }
+            if (dataUser && !dataUser?.del_flag) {
+                handleLogout()
             }
         }, 10000);
 
@@ -212,7 +231,7 @@ const ProfileDispatch = () => {
             window.removeEventListener('login', handleLogin);
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [dispatch, router, pathName]);
+    }, [dispatch, router, pathName, dataUser]);
     useEffect(() => {
         const checkTokenCookie = () => {
             const tokenCookie = getCookie('token');
