@@ -16,9 +16,6 @@ const ModalChangeInfo = dynamic(() => import("./modalChangeInfo"), { ssr: false 
 const ModalChangePhone = dynamic(() => import("./modalChangePhone"), { ssr: false });
 
 const Infomation: React.FC = () => {
-    const { data: session, status } = useSession();
-    console.log('provider:', session?.provider);
-
     const router = useRouter()
     const [isRole, setIsRole] = useState(false)
     const userState = useSelector((state: RootState) => state.user);
@@ -59,13 +56,13 @@ const Infomation: React.FC = () => {
                         <h5 className={styles.titleGroup__subTitle}>Quản lý tên hiển thị, tên người dùng, bio và avatar của bạn.</h5>
                     </Col>
                 </Row>
-                {userState?.user || session?.user ? (
+                {userState?.user ? (
                     <Row className={styles.body}>
-                        <Col className={styles.change__img} onClick={session ? undefined : handleChangeImg}>
+                        <Col className={styles.change__img} onClick={handleChangeImg}>
                             <div className={styles.change__img__group}>
                                 <h4 className={styles.change__img__group__title}>Ảnh đại diện</h4>
                                 <Image
-                                    src={userState?.user?.avatar ? userState.user.avatar : session?.user.image ? session.user.image : "/img/avtDefault.jpg"}
+                                    src={userState?.user?.avatar ? userState.user.avatar : "/img/avtDefault.jpg"}
                                     alt="avt"
                                     className={styles.change__img__group__img}
                                 />
@@ -75,21 +72,21 @@ const Infomation: React.FC = () => {
                         <Col className={styles.change__more} onClick={handleChangeName}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Họ và tên</h4>
-                                <h3 className={styles.change__more__group__subTitle}>{userState?.user?.fullname ? userState.user.fullname : session?.user?.name ? session.user.name : 'Không có dữ liệu'}</h3>
+                                <h3 className={styles.change__more__group__subTitle}>{userState?.user?.fullname ? userState.user.fullname : 'Không có dữ liệu'}</h3>
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>
-                        <Col className={styles.change__more} onClick={session ? undefined : handleChangePhone}>
+                        <Col className={styles.change__more} onClick={handleChangePhone}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Số điện thoại</h4>
                                 <h3 className={styles.change__more__group__subTitle}>{userState?.user?.phonenumber || 'Chưa có số điện thoại'}</h3>
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>
-                        <Col className={styles.change__more} onClick={session ? undefined : handleChangeInfo}>
+                        <Col className={styles.change__more} onClick={handleChangeInfo}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Giới thiệu</h4>
-                                <h3 className={styles.change__more__group__subTitle}>{userState?.user?.discription_user === null ? 'Chưa có giới thiệu' : userState?.user?.discription_user}</h3>
+                                <h3 className={styles.change__more__group__subTitle}>{userState?.user?.discription_user ? userState?.user?.discription_user : 'Chưa có giới thiệu'}</h3>
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>

@@ -83,7 +83,7 @@ const Register: React.FC = () => {
                     if (res.status === 422) {
                         if (errorData.errors && errorData.errors.email) {
                             alert(errorData.errors.email);
-                        } else if (errorData.errors && errorData.errors.token.join()) {// join hiển thì thông tin từ mảng
+                        } else if (errorData.errors && errorData.errors.token.join()) {
                             alert(errorData.errors.token);
                         }
                         errorShown = true;
@@ -142,6 +142,8 @@ const Register: React.FC = () => {
             else {
                 alert('Gửi mã thất bại. Vui lòng thử lại');
                 formik.setFieldValue('check', '')
+                console.log(await res.json());
+
             }
         } catch (error) {
             console.error('Lỗi khi gửi mã xác nhận:', error);

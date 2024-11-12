@@ -10,34 +10,45 @@ const GgLogin = () => {
     const router = useRouter();
 
     useEffect(() => {
-        if (status === "authenticated" && session.user.accessToken) {
-            console.log("User session data:", session);
-            document.cookie = `token=${session.user.accessToken}; path=/; SameSite=Strict`;
-            router.push("/info-user");
+        if (status === "authenticated" && session) {
+
+            // Gọi API sau khi đã xác thực
+            const loginGoogle = async () => {
+                try {
+                    const res = await fetch(`/api/login-google`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: session.user.name,
+                            email: session.user.email,
+                            image: session.user.image,
+                            accessToken: session.user.accessToken,
+                        })
+                    });
+
+                    const data = await res.json();
+                    if (res.ok) {
+                        console.log("User session data:", session);
+                        document.cookie = `token=${data.access_token}; path=/; SameSite=Strict`;
+                        router.push("/info-user");
+                        console.log('Đăng nhập thành công:', data);
+                    } else {
+                        console.log('Đăng nhập thất bại:', data);
+                    }
+                } catch (error) {
+                    console.error('Lỗi khi đăng nhập:', error);
+                }
+            };
+
+            loginGoogle();
         }
     }, [status, session, router]);
 
     const handleLogin = async () => {
-        try {
-            const result = await signIn("google", { redirect: false });
-            if (session?.user.accessToken) {
-                const res = await fetch(`/api/login-google`, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${session.user.accessToken}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(session.user)
-                })
-                if (res.ok) {
-                    console.log(await res.json());
-                } else {
-                    console.log(await res.json());
-                }
-            }
-            console.log("Login result:", result);
-        } catch (error) {
-
+        if (status !== "authenticated") {
+            await signIn("google", { redirect: false });
         }
     };
 

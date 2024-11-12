@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import useCookie from "../../hook/useCookie";
+import { Token } from "ckeditor5";
 
 const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
@@ -32,6 +33,7 @@ const ProfileDispatch = () => {
     const isCourseFor = pathName === '/coursefor'
     const isAdmin = /^\/(admin)(\/.*)?$/.test(pathName);
     const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
+    // const token = getCookie('token')
 
     const handleLogout = () => {
         dispatch(logout());
@@ -104,7 +106,9 @@ const ProfileDispatch = () => {
             });
 
             if (!res.ok) {
-                throw new Error('Không thể lấy thông tin người dùng');
+                console.log(await res.json());
+                
+                // throw new Error('Không thể lấy thông tin người dùng');
             }
 
             const data = await res.json();
@@ -208,7 +212,7 @@ const ProfileDispatch = () => {
             window.removeEventListener('login', handleLogin);
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [dispatch, router]);
+    }, [dispatch, router, pathName]);
     useEffect(() => {
         const checkTokenCookie = () => {
             const tokenCookie = getCookie('token');

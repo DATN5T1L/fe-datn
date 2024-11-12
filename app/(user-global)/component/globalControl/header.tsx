@@ -29,15 +29,7 @@ const Header: React.FC = () => {
     const [showSearch, setShowSearch] = useState(false);
     const [valueInput, setValueInput] = useState('')
     const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
-    const menuRef = useRef<HTMLDivElement>(null);
-    const { data: session, status } = useSession();
-
-
-    useEffect(() => {
-        if (status === "authenticated") {
-            console.log("User session data:", session);
-        }
-    }, [status, session]);
+    const menuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -123,7 +115,7 @@ const Header: React.FC = () => {
                                     <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
                                 </Link>
                             </Col>
-                            {isClient && userState.user || session?.user ? (
+                            {isClient && userState.user ? (
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
                                         <div className='user-notification'>
@@ -131,15 +123,15 @@ const Header: React.FC = () => {
                                             <Image src="/img/ChatTick.svg" alt="" className='icon-notification' />
                                         </div>
                                         <div className='user' onClick={handleOpenSubMenu} ref={menuRef}>
-                                            {userState?.user?.avatar || session?.user?.image ? (
-                                                <Image src={`${userState?.user?.avatar || session?.user?.image}`} alt="" className='avt' />
+                                            {userState?.user?.avatar ? (
+                                                <Image src={`${userState?.user?.avatar}`} alt="" className='avt' />
                                             ) : (
                                                 <Image src="/img/avtDefault.jpg" alt="" className='avt' />
                                             )}
 
                                             <section className='title-group'>
                                                 <h4 className='title-1'>Xin chào</h4>
-                                                <h4 className='title-name'>{userState?.user?.fullname || session?.user?.name}</h4>
+                                                <h4 className='title-name'>{userState?.user?.fullname}</h4>
                                             </section>
                                             <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='right-icon-user-stroke' />
@@ -163,17 +155,13 @@ const Header: React.FC = () => {
                                                             Ví
                                                         </div>
                                                     </Link>
-                                                    {
-                                                        session?.user ? ('') : (
-                                                            <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
-                                                                <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
-                                                                <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
-                                                                <div className='subMenu-body-link-title'>
-                                                                    Cài đặt mật khẩu
-                                                                </div>
-                                                            </Link>
-                                                        )
-                                                    }
+                                                    <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
+                                                        <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
+                                                        <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
+                                                        <div className='subMenu-body-link-title'>
+                                                            Cài đặt mật khẩu
+                                                        </div>
+                                                    </Link>
                                                     <GgLogoutHeader></GgLogoutHeader>
                                                 </section>
                                             </section>
