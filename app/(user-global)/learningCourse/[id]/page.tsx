@@ -4,7 +4,7 @@
 import ReactPlayer from 'react-player/youtube';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo, useLayoutEffect } from "react";
 import useFetch from '../../component/hook/useFetch';
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
 import useCookie from '@app/(user-global)/component/hook/useCookie';
@@ -149,7 +149,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         headers,
     });
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         // Chỉ gọi API khi dữ liệu chưa tồn tại
         if (!documentsData && !statusData) {
             const fetchDatas = async () => {
@@ -160,7 +160,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     }, [fetchDocuments, fetchStatus, documentsData, statusData]);
     // ghép api
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (documentsData && statusData) {
             const updatedChaptersData = documentsData.data.map(chapter => {
                 return {

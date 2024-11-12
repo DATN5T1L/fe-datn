@@ -217,6 +217,11 @@ const nextConfig = {
         source: '/api/allRole/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/users-role/:path*',
       },
+      // search
+      {
+        source: '/api/search/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/search/:path*',
+      },
 
 
 

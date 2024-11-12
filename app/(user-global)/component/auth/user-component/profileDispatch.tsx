@@ -224,7 +224,7 @@ const ProfileDispatch = () => {
             }
         };
 
-        const interval = setInterval(checkTokenCookie, 10000);
+        const interval = setInterval(checkTokenCookie, 10000000000);
 
         return () => clearInterval(interval);
     }, [dispatch, router, pathName]);
