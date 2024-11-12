@@ -32,6 +32,18 @@ import styles from "@public/styles/globalControl/Learning.module.css";
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 
+const fetcher = async (url: string, token: string) => {
+    const res = await fetch(url, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+    });
+    if (!res.ok) {
+        throw new Error("Error fetching data");
+    }
+    return res.json();
+}
 
 const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const token = useCookie('token');
@@ -125,6 +137,12 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
     };
+    const fetcher = (url: string) =>
+        fetch(url, { headers }).then((res) => {
+            if (!res.ok) throw new Error("Error fetching data");
+            return res.json();
+        });
+
     // Call API
     //Lấy ra danh sách bài học
     const {
@@ -149,18 +167,20 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         headers,
     });
 
+    const fetchDatas = () => {
+        if (!documentsData) fetchDocuments();
+        if (!statusData) fetchStatus();
+
+    };
+
     useLayoutEffect(() => {
-        // Chỉ gọi API khi dữ liệu chưa tồn tại
-        if (!documentsData && !statusData) {
-            const fetchDatas = async () => {
-                await fetchDocuments();
-                await fetchStatus();
-            };
+
+        if (!documentsData || !statusData) {
             fetchDatas();
         }
-    }, [fetchDocuments, fetchStatus, documentsData, statusData]);
+    }, [documentsData, statusData]);
     // ghép api
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (documentsData && statusData) {
             const updatedChaptersData = documentsData.data.map(chapter => {
                 return {
@@ -175,7 +195,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     })
                 };
             });
-            console.log("Updated Chapters Data:", updatedChaptersData);
             setCourse(updatedChaptersData);
         }
     }, [documentsData, statusData]);
@@ -208,17 +227,40 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             setError(err.message);
         }
     };
+    const fetchUpdateStatus = async () => {
+        try {
+            const data = {
+                status_video: true,
+                cache_time_video: playedSeconds,
+                document_id: doc_id,
+                course_id: course_Id
+            };
+            console.log(data, "data cập nhật")
+            const response = await fetch(`/api/upStatusDoc/`, {
+                method: "PUT",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data)
+            });
 
-    // const {
-    //     data: statusData,
-    //     error: statusError,
-    //     fetchData: fetchStatus,
-    //     loading: statusLoading,
-    // } = useFetch<ApiResponseStatus>({
-    //     url: `/api/addStatusDoc/${course_Id}`,
-    //     method: "GET",
-    //     headers,
-    // });
+            if (!response.ok) {
+                throw new Error("Failed to fetch course");
+            }
+
+            const dataNote = await response.json();
+            console.log(dataNote, "cập nhật thành công")
+            if (Array.isArray(dataNote.data)) {
+                return dataNote;
+            } else {
+                console.error("data.data is not an array");
+            }
+
+        } catch (err: any) {
+            setError(err.message);
+        }
+    };
+
 
     const fetchCreatStatus = async () => {
         try {
@@ -269,11 +311,11 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             // Quay về thời gian hợp lệ trước đó
             if (playedSeconds < lastValidTimeRef.current) {
                 // Người dùng đang tua ngược, chỉ cập nhật lastValidTime
-                lastValidTimeRef.current = playedSeconds;
+                // lastValidTimeRef.current = playedSeconds;
             } else {
                 // Quay về thời gian hợp lệ trước đó
                 if (playerRef.current) {
-                    playerRef.current.seekTo(lastValidTimeRef.current);
+                    // playerRef.current.seekTo(lastValidTimeRef.current);
                 }
             }
         } else {
@@ -310,6 +352,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         // Check if the video has finished
         if (playedSeconds >= videoDuration - 30 && playedSeconds < videoDuration) {
             console.log("Video đã kết thúc");
+            fetchUpdateStatus();
         }
         return
     }, [playedSeconds, videoDuration]);
@@ -359,6 +402,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             answers
         };
     };
+
     const handleExport = (data: { html: string, css: string, js: string }) => {
         // console.log('HTML:', data.html);
         // console.log('CSS:', data.css);

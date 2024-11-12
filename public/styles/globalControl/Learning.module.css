@@ -264,7 +264,7 @@
 
 .listItem__docName {
     display: inline-block;
-    width: 60%;
+    width: 90%;
     display: -webkit-box;
     -webkit-line-clamp: var(--line-clamp, 1);
     -webkit-box-orient: vertical;

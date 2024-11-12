@@ -41,6 +41,7 @@ interface ApiResponse<T> {
     data: T;
 }
 
+
 const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const router = useRouter();
     const token = useCookie('token')

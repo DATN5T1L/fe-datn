@@ -141,11 +141,16 @@ const nextConfig = {
         source: '/api/createStatusDoc/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/create-statusDoc/:path*',
       },
-      // lấy ra tât cả trạng thái bài học
+      {
+        source: '/api/upStatusDoc',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/update-statusDoc',
+      },
       {
         source: '/api/allStatusDoc/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/all-statusDoc-by-course/:path*',
       },
+      // lấy ra tât cả trạng thái bài học
+
       // thêm ghi chú của học viên cho từng doc
       {
         source: '/api/addNote/:path*',
