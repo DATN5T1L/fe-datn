@@ -1,24 +1,14 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import styles from '@public/styles/register/Register.module.css';
-import Link from 'next/link';
+import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
 import { Button, Card, Container, Form, Image } from 'react-bootstrap';
+import * as Yup from 'yup'
+import Link from 'next/link';
 import Body from '../component/globalControl/body';
-import { useForm } from 'react-hook-form';
 import FbLogin from '../component/auth/user-component/fbLogin';
 import GgLogin from '../component/auth/user-component/ggLogin';
-import { useFormik } from 'formik';
-import * as Yup from 'yup'
-import { useRouter } from 'next/navigation';
-
-interface RegisterFormData {
-    userName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    token: number | string;
-    role: string;
-}
+import styles from '@public/styles/register/Register.module.css';
 
 const Register: React.FC = () => {
     const [isCheckPass, setIsCheckPass] = useState(true);
@@ -58,6 +48,7 @@ const Register: React.FC = () => {
             check: Yup.string()
                 .required('Vui lòng nhập mã xác nhận từ email'),
         }),
+
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
             if (errorShown) return;
             try {
@@ -72,14 +63,11 @@ const Register: React.FC = () => {
                         password: values.password,
                         confirm_password: values.confirm_password,
                         token: values.check,
-                        role: 'admin'
                     }),
                 });
 
                 if (!res.ok) {
-                    const errorData = await res.json();
-                    console.log(errorData);
-                    console.log("Status:", res.status);
+                    const errorData = await res.json()
                     if (res.status === 422) {
                         if (errorData.errors && errorData.errors.email) {
                             alert(errorData.errors.email);

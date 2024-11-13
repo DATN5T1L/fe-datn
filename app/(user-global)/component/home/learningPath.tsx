@@ -3,8 +3,24 @@ import ButtonComponet from "../globalControl/btnComponent";
 import styles from '@public/styles/home/LearningPath.module.css';
 import { useRef, useState } from "react";
 import useSWR from "swr";
-import { Route } from "@/app/(user-global)/model/router";
 import Link from "next/link";
+
+interface Route {
+    route_id: string;
+    name_route: string;
+    img_route: string;
+    discription_route: string;
+    status: 'default' | 'customize';
+    del_flag: boolean;
+    created_at: string;
+    updated_at: string;
+}
+
+interface RouteResponse {
+    status: string;
+    message: string;
+    data: Route[];
+}
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -14,12 +30,10 @@ const LearningPath: React.FC = () => {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
-    const { data, error } = useSWR<{ status: string; message: string; data: Route[] }>('/api/routes', fetcher, {
+    const { data, error } = useSWR<RouteResponse>('/api/routes', fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
     });
-
-    console.log(data, "đã tải thành công");
 
     const handleMouseDown = (e: React.MouseEvent) => {
         if (rightBodyRef.current) {
@@ -51,8 +65,7 @@ const LearningPath: React.FC = () => {
     if (!data) return <div>Loading...</div>; // Display loading state
 
     // Extract routes from the API response
-    const routes = Array.isArray(data?.data) ? data.data.filter(route => route.status === 'default') : [];
-
+    const routes = data?.data
     return (
         <Container className={styles.container}>
             <Row className={styles.body__container}>

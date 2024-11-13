@@ -9,10 +9,6 @@ import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { update } from '@/redux/slices/userSlice';
 
-interface ModalChangeImgProps {
-    show: boolean;
-    onClose: () => void;
-}
 
 const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
     const userState = useSelector((state: RootState) => state.user);

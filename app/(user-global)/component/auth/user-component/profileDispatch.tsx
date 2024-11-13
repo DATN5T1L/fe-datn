@@ -54,14 +54,14 @@ const ProfileDispatch = () => {
     const [hasLoggedOut, setHasLoggedOut] = useState(false);
     const token = getCookie('token')
 
-    const handleLogout = async  () => {
+    const handleLogout = async () => {
         dispatch(logout());
         localStorage.removeItem('token');
         localStorage.removeItem('progress_percentages');
         localStorage.setItem('isLoggedIn', 'false');
         document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-        localStorage.removeItem('persist:root'); 
-        persistor.pause();   
+        localStorage.removeItem('persist:root');
+        persistor.pause();
         await persistor.flush();
         await persistor.purge();
     };

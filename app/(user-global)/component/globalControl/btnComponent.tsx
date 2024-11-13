@@ -2,23 +2,6 @@
 import React, { useState } from 'react';
 import '@app/(user-global)/global.css';
 
-interface ButtonProps {
-    type?: 'secondery' | 'premary' | 'disable';
-    size?: 'S' | 'M';
-    status?: 'default' | 'disable' | 'hover' | 'noBorder';
-    leftIcon?: boolean;
-    rightIcon?: boolean;
-    chevron?: 1 | 2 | 3 | 4;
-    hover?: boolean;
-    hoverType?: 'default' | 'other';
-    typeButton?: 'btn' | 'sm' | 'rs';
-    width?: number|string;
-    height?: number|string;
-    widthText?: string;
-    onClick?: () => void;
-    children: React.ReactNode;
-}
-
 const Button: React.FC<ButtonProps> = ({
     type = 'secondery',
     size = 'M',

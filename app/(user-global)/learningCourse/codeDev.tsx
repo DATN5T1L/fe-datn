@@ -1,6 +1,6 @@
 import { useState, useEffect, MouseEvent } from 'react';
-import styles from "@public/styles/globalControl/codeDev.module.css";
-import Button from "../globalControl/btnComponent";
+import styles from "@public/styles/Learning/codeDev.module.css";
+import Button from "../component/globalControl/btnComponent";
 
 const CodeDev: React.FC = () => {
     const [html, setHtml] = useState<string>('');

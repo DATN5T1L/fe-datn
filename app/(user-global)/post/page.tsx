@@ -25,58 +25,15 @@ const listItems = [
       "Trong thời đại số hóa, bảo mật phần mềm trở thành một yếu tố không thể thiếu. Việc tích hợp các quy trình bảo mật ngay từ giai đoạn thiết kế và phát triển giúp giảm thiểu nguy cơ bị tấn công, bảo vệ dữ liệu người dùng và nâng cao uy tín doanh nghiệp.",
     author: "Tuấn Huỳnh",
   },
-  
+
 ];
 
 const Post: React.FC = () => {
   return (
-    <>
-      <Body>
-        <HeroPost />
-
-        {listItems.map((item, index) => (
-          <div className="d-flex flex-column gap-5 w-100">
-            <TwoColumnLayout
-              type={"Horizontal"}
-              direction={"Left"}
-              title={item.title}
-              image={item.image}
-              date={item.date}
-              content={item.content}
-              author={item.author}
-            />
-            <SplitOrientationLayout
-              type={"Horizontal"}
-              direction={"Left"}
-              title={item.title}
-              image={item.image}
-              date={item.date}
-              content={item.content}
-              author={item.author}
-            />
-            <LeftRightLayout
-              type={"Horizontal"}
-              direction={"Left"}
-              title={item.title}
-              image={item.image}
-              date={item.date}
-              content={item.content}
-              author={item.author}
-            />
-            <TwoColumnLayout
-              type={"Horizontal"}
-              direction={"Left"}
-              title={item.title}
-              image={item.image}
-              date={item.date}
-              content={item.content}
-              author={item.author}
-            />
-          </div>
-        ))}
-      </Body>
-    </>
+    <Body>
+      <HeroPost />
+    </Body>
   );
-};
+}
 
 export default Post;

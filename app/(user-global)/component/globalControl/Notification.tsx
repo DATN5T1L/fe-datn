@@ -3,10 +3,7 @@
 import React, { useState } from 'react';
 import styles from '@public/styles/globalControl/Notification.module.css';
 
-interface NotificationProps {
-    type: 'success' | 'error' | 'fail' | 'complete';
-    message: string;
-}
+
 
 const Notification: React.FC<NotificationProps> = ({ type, message }) => {
     const [visible, setVisible] = useState(true);
