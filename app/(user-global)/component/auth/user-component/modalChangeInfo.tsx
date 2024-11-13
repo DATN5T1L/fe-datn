@@ -8,16 +8,14 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { update } from '@/redux/slices/userSlice';
+import useCookie from '../../hook/useCookie';
 
-interface ModalChangeInfoProps {
-    show: boolean;
-    onClose: () => void;
-}
+
 
 const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
     const userState = useSelector((state: RootState) => state.user);
     const [isVisible, setIsVisible] = useState(false);
-    const token = localStorage.getItem('token');
+    const token = useCookie('token');
     const dispatch = useDispatch()
 
     const [loading, setLoading] = useState(false);
@@ -39,7 +37,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
 
     const formik = useFormik({
         initialValues: {
-            discriptionUser: userState.user?.discription_user || '', 
+            discriptionUser: userState.user?.discription_user || '',
         },
         validationSchema: Yup.object({
             discriptionUser: Yup.string()
@@ -65,6 +63,8 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
                     dispatch(update({
                         discription_user: values.discriptionUser
                     }))
+                } else {
+                    console.log(await res.json());
                 }
             } catch (error) {
                 console.error(error);

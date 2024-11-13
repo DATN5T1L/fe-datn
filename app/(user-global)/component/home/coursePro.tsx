@@ -106,12 +106,12 @@ const CoursePro: React.FC = () => {
 
             <Row md={12} className={styles.main__course}>
                 {isValidating && (<ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={styles.align} />)}
-                {courses?.map(course => (
-                    <Col md={4} className={styles.mainBox} key={course.course_id}>
+                {courses?.map((course, index) => (
+                    <Col md={4} className={styles.mainBox} key={index}>
                         <Card className={styles.mainBox__content}>
                             <Card.Header className={styles.headerContent}>
                                 <section className={styles.headerContent__text}>
-                                    <Link href={`/course/${course.course_id}`}>
+                                    <Link href={`/course/${course.id}`}>
                                         <Card.Title className={styles.text__hedding2}>
                                             {course.name_course}
                                         </Card.Title>
@@ -127,11 +127,11 @@ const CoursePro: React.FC = () => {
                                 <section className={styles.bodyContent}>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>{course.num_lesson} Chương</Card.Text>
+                                        <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
                                     </div>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>{course.documents_count} Bài tập</Card.Text>
+                                        <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                                     </div>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />

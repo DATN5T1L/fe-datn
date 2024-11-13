@@ -25,7 +25,7 @@ const clientStorage =
 
 const persistConfig = {
   key: 'root',
-  storage: clientStorage,   
+  storage: clientStorage,    
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

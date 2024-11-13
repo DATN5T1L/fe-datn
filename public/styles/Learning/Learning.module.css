@@ -45,7 +45,7 @@
 /* Video */
 
 .Video {
-
+    height: 100%;
     flex: 1;
     background-color: var(--gray-00);
 }
@@ -175,13 +175,14 @@
 }
 
 .listCourse {
-    height: 85vh;
+    height: 100%;
     padding: 12px 0px;
     display: flex;
     flex-direction: column;
     gap: 2px;
     cursor: pointer;
     position: relative;
+    background-color: var(--gray-100);
 
 }
 
@@ -263,7 +264,7 @@
 
 .listItem__docName {
     display: inline-block;
-    width: 60%;
+    width: 90%;
     display: -webkit-box;
     -webkit-line-clamp: var(--line-clamp, 1);
     -webkit-box-orient: vertical;
@@ -290,6 +291,8 @@
         background-color: var(--blue-95);
     }
 }
+
+
 
 .listItem__docTitle {
     display: flex;
@@ -451,4 +454,12 @@
     padding: 16px 24px;
     display: flex;
     gap: 24px;
+}
+
+/* Codes */
+
+.wapperCode {
+    width: 100%;
+    background-color: var(--gray-95);
+    height: 100%;
 }

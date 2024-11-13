@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Button from '../globalControl/btnComponent';
-import styles from "@public/styles/globalControl/NoteCourse.module.css";
-import CKEditorComponent from "../globalControl/ckedditor";
+import Button from '../component/globalControl/btnComponent';
+import styles from "@public/styles/Learning/NoteCourse.module.css";
+import CKEditorComponent from "../component/globalControl/ckedditor";
 
-interface NoteCourseProps {
-    id: number | string;
-    title: string;
-    time: number|string;
-    onClose: () => void; // Thêm prop để đóng popup từ bên ngoài
-}
+import useCookie from '@app/(user-global)/component/hook/useCookie';
+
 
 const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => {
+    const token = useCookie('token');
     const [noteContent, setNoteContent] = useState<string>(''); // State để lưu nội dung ghi chú
     const popupRef = useRef<HTMLDivElement | null>(null);
     const formatTime = (seconds: number | string): string => {
@@ -24,15 +21,14 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
     // Hàm lưu ghi chú
     const noteData = {
         title_note: title,
-        cache_time_note: time,
+        cache_time_note: Math.round(time),
         content_note: noteContent, // Sử dụng noteContent ở đây
     };
-    console.log(noteData); // In ra console để kiểm tra
+    // console.log(noteData); // In ra console để kiểm tra
     const handleSaveNote = async () => {
         // Xử lý lưu ghi chú qua API
-        const token = localStorage.getItem('token');
-        console.log('ID:', id);
-        console.log('Note Data:', noteData);
+        // console.log('TOKEN:', token);
+        // console.log('Note Data:', noteData);
         try {
             const response = await fetch(`/api/addNote/${id}`, {
                 method: 'POST',
@@ -47,8 +43,8 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
                 throw new Error(`Error: ${response.statusText}`);
             }
 
-            const responseData = await response.json();
-            console.log('Note saved successfully:', responseData);
+            // const responseData = await response.json();
+            // console.log('Note saved successfully:', responseData);
             onClose(); // Đóng popup sau khi lưu thành công
         } catch (error) {
             console.error('Failed to save note:', error);

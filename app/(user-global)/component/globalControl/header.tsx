@@ -1,5 +1,6 @@
 'use client'
 // import { auth } from '@/app/auth';
+
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { useSession } from 'next-auth/react';
@@ -10,7 +11,7 @@ import { Container, Button, Nav, Navbar, Form, Image, Row, Col } from 'react-boo
 import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-
+import Search from "./Search"
 
 const Header: React.FC = () => {
     const userState = useSelector((state: RootState) => state.user);
@@ -22,29 +23,20 @@ const Header: React.FC = () => {
     useEffect(() => {
         setIsClient(true)
     }, [])
+    const [showSearch, setShowSearch] = useState(false);
 
-    const inputRef = useRef<HTMLInputElement>(null)
     const [showHeader, setShowHeader] = useState(true);
     const [lastScroll, setLastScroll] = useState(0);
-    const [showSearch, setShowSearch] = useState(false);
-    const [valueInput, setValueInput] = useState('')
+
+
     const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
-    const menuRef = useRef<HTMLDivElement>(null);
-    const { data: session, status } = useSession();
-
-
-    useEffect(() => {
-        if (status === "authenticated") {
-            console.log("User session data:", session);
-        }
-    }, [status, session]);
+    const menuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScroll = window.pageYOffset;
             setShowHeader(currentScroll <= lastScroll);
             setLastScroll(currentScroll);
-            setShowSearch(false)
             setIsOpenSubMenu(false)
         };
 
@@ -56,16 +48,12 @@ const Header: React.FC = () => {
 
     useEffect(() => {
         if (userState.user) {
-            console.log("Fullname:", userState.user);
+            // console.log("Fullname:", userState.user);
         }
     }, [userState]);
 
 
-    const onFocus = () => {
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-    }
+
 
     useEffect(() => {
         const handleClick = (event: MouseEvent) => {
@@ -123,7 +111,7 @@ const Header: React.FC = () => {
                                     <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
                                 </Link>
                             </Col>
-                            {isClient && userState.user || session?.user ? (
+                            {isClient && userState.user ? (
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
                                         <div className='user-notification'>
@@ -131,15 +119,15 @@ const Header: React.FC = () => {
                                             <Image src="/img/ChatTick.svg" alt="" className='icon-notification' />
                                         </div>
                                         <div className='user' onClick={handleOpenSubMenu} ref={menuRef}>
-                                            {userState?.user?.avatar || session?.user?.image ? (
-                                                <Image src={`${userState?.user?.avatar || session?.user?.image}`} alt="" className='avt' />
+                                            {userState?.user?.avatar ? (
+                                                <Image src={`${userState?.user?.avatar}`} alt="" className='avt' />
                                             ) : (
                                                 <Image src="/img/avtDefault.jpg" alt="" className='avt' />
                                             )}
 
                                             <section className='title-group'>
                                                 <h4 className='title-1'>Xin chào</h4>
-                                                <h4 className='title-name'>{userState?.user?.fullname || session?.user?.name}</h4>
+                                                <h4 className='title-name'>{userState?.user?.fullname}</h4>
                                             </section>
                                             <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='right-icon-user-stroke' />
@@ -163,17 +151,13 @@ const Header: React.FC = () => {
                                                             Ví
                                                         </div>
                                                     </Link>
-                                                    {
-                                                        session?.user ? ('') : (
-                                                            <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
-                                                                <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
-                                                                <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
-                                                                <div className='subMenu-body-link-title'>
-                                                                    Cài đặt mật khẩu
-                                                                </div>
-                                                            </Link>
-                                                        )
-                                                    }
+                                                    <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
+                                                        <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
+                                                        <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
+                                                        <div className='subMenu-body-link-title'>
+                                                            Cài đặt mật khẩu
+                                                        </div>
+                                                    </Link>
                                                     <GgLogoutHeader></GgLogoutHeader>
                                                 </section>
                                             </section>
@@ -228,22 +212,9 @@ const Header: React.FC = () => {
                 </section>
 
                 <Nav className={`box-search ${showSearch ? '' : 'box-search-h0'}`}>
-                    <Form className={`search-bar ${showSearch ? '' : 'opct-0'} ${valueInput ? 'has-value' : ''}`} >
-                        <Form.Control
-                            type="text"
-                            className="search"
-                            aria-label="Search"
-                            ref={inputRef}
-                            value={valueInput}
-                            onChange={(e) => setValueInput(e.target.value)}
-                        />
-                        <span className='search-span' onClick={onFocus}>Nhập thông tin cần tìm</span>
-                        <Button variant="outline-secondary" className='btn-search-icon'>
-                            <Image src="/img/searchBlue.svg" alt="" className='search-icon' />
-                        </Button>
-                    </Form>
+                    <Search />
                 </Nav>
-            </Navbar>
+            </Navbar >
         </>
     );
 };

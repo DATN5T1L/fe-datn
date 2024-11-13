@@ -1,6 +1,6 @@
 // models/Course.tsx
 export class Course {
-    course_id: number|string;
+    id: string;
     name_course: string;
     img_course: string;
     price_course: number;
@@ -13,16 +13,16 @@ export class Course {
     del_flag: boolean;
     created_at: Date;
     updated_at?: Date;
-    chapters_count: number; // Thêm thuộc tính chapters_count
-    documents_count: number; // Thêm thuộc tính documents_count
-    instructor_id: number;
+    num_chapter: number; // Thêm thuộc tính chapters_count
+    num_document: number; // Thêm thuộc tính documents_count
+    instructor_id: string;
 
     constructor(
-        course_id: number|string,
+        id: string,
         name_course: string,
         img_course: string,
         price_course: number,
-        instructor_id: number,
+        instructor_id: string,
         discount_price_course?: number,
         status_course: 'active' | 'inactive' | 'archived' = 'active',
         views_course: number = 0,
@@ -32,10 +32,10 @@ export class Course {
         created_at: Date = new Date(),
         updated_at?: Date,
         num_lesson: number = 0,
-        chapters_count: number = 0,
-        documents_count: number = 0
+        num_chapter: number = 0,
+        num_document: number = 0
     ) {
-        this.course_id = course_id;
+        this.id = id;
         this.name_course = name_course;
         this.img_course = img_course;
         this.price_course = price_course;
@@ -49,8 +49,8 @@ export class Course {
         this.updated_at = updated_at;
         this.instructor_id = instructor_id;
         this.num_lesson = num_lesson; // Khởi tạo num_lesson
-        this.chapters_count = chapters_count; // Khởi tạo chapters_count
-        this.documents_count = documents_count; // Khởi tạo documents_count
+        this.num_chapter = num_chapter; // Khởi tạo chapters_count
+        this.num_document = num_document; // Khởi tạo documents_count
     }
 
     // Phương thức để hiển thị thông tin khóa học
