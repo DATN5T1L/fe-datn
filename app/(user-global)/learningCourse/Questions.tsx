@@ -41,12 +41,15 @@ const Questions: React.FC<QuestionsProps> = ({ timedocument, nameDocument, quest
                                 <>
                                     <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion.question}</p>
                                     {question.type_question === 'true_false' ? (
-                                        <div className={styles.tfQuesion}>
+                                        <div className={styles.multipleQuesion}>
                                             <span className={styles.subtitleQuestion}>Câu hỏi đúng/sai</span>
                                             <ul className={styles.listQuestion}>
                                                 {parsedQuestion.answers.map((answer, idx) => (
-                                                    <li key={idx} className={styles.itemQuestion}> <input type="checkbox" name="" id="" /> {answer}</li>
-                                                ))}
+                                                    <li key={idx} className={styles.itemQuestion}>
+                                                        <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
+                                                            <input type="checkbox" name="" id={`submit${idx}`} value={answer} /> {answer}
+                                                        </label>
+                                                    </li>))}
                                             </ul>
                                         </div>
                                     ) : question.type_question === 'multiple_choice' ? (
@@ -67,9 +70,11 @@ const Questions: React.FC<QuestionsProps> = ({ timedocument, nameDocument, quest
                                             <span className={styles.subtitleQuestion}>Điền vào phần còn thiếu</span>
                                             <ul className={styles.listQuestion}>
                                                 {parsedQuestion.answers.map((answer, idx) => (
-                                                    <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
-                                                        <input type="checkbox" name="" id={`submit${idx}`} value={answer} /> {answer}
-                                                    </label>))}
+                                                    <li key={idx} className={styles.itemQuestion}>
+                                                        <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
+                                                            <input type="checkbox" name="" id={`submit${idx}`} value={answer} /> {answer}
+                                                        </label>
+                                                    </li>))}
                                             </ul>
                                         </div>
                                     ) : null}

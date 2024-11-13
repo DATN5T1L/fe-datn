@@ -7,9 +7,10 @@ type NotiType = 'success' | 'error' | 'fail' | 'complete';
 interface VideoProp {
     urlVideo: string;
     onProgressChange: (playedSeconds: number) => void;
+    onPause?: () => void;
 }
 
-const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange }) => {
+const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause }) => {
 
     const [type, setType] = useState<string | null>(null);
     const lastValidTimeRef = useRef<number>(0);
@@ -22,6 +23,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange }) => {
     const [isContent, setContent] = useState(true);
     const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
     const [messageNoti, setmessageNoti] = useState("");
+
     const handleProgress = (progress: { playedSeconds: number }) => {
         const { playedSeconds } = progress;
         setPlayedSeconds(playedSeconds);
@@ -49,8 +51,8 @@ const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange }) => {
     };
     // hàm dừng video
     const pauseVideo = () => {
-
         setIsPlaying(false);
+        if (onPause) pauseVideo();
     };
     const nextVideo = (url: string) => {
         // TODO: Lấy tài liệu tiếp theo

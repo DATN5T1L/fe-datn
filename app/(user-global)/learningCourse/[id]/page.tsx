@@ -201,7 +201,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     }, []);
 
-
+    const handlePause = () => {
+        console.log("Video Paused");
+    };
 
     const fetchNotes = async () => {
         try {
@@ -351,7 +353,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
                     {typeDoc === 'video' ? (
 
-                        <VideoPlayer urlVideo={urlVideo} onProgressChange={handleProgressChange} />
+                        <VideoPlayer urlVideo={urlVideo} onProgressChange={handleProgressChange} onPause={handlePause} />
 
                     ) : typeDoc === 'quiz' ? (
                         < Questions nameDocument={nameDocument} timedocument={timedocument} questions={question} />
@@ -383,7 +385,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                         <Button
                                             onClick={() => {
                                                 toggleNote();
-                                                pauseVideo();
+                                                handlePause();
                                             }}
                                             type="premary" // Đã sửa thành "primary"
                                             status="hover"
