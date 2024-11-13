@@ -106,8 +106,8 @@ const CoursePro: React.FC = () => {
 
             <Row md={12} className={styles.main__course}>
                 {isValidating && (<ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={styles.align} />)}
-                {courses?.map(course => (
-                    <Col md={4} className={styles.mainBox} key={course.id}>
+                {courses?.map((course, index) => (
+                    <Col md={4} className={styles.mainBox} key={index}>
                         <Card className={styles.mainBox__content}>
                             <Card.Header className={styles.headerContent}>
                                 <section className={styles.headerContent__text}>
