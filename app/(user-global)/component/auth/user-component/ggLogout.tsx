@@ -21,45 +21,53 @@ const GgLogout = () => {
     const token = getCookie('token');
 
     const handleLogout = async () => {
-        if (session) {
-            if (confirm('Bạn có muốn đăng xuất không !!!')) {
-                signOut();
-            }
-        }
-        else {
+        if (confirm('Bạn có muốn đăng xuất không !!!')) {
             if (!token) {
                 console.error("Token not found");
                 return;
             }
-            console.log(token);
+            const deleteCookie = (name: string) => {
+                document.cookie = `${name}=; path=/; domain=localhost; expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; SameSite=Lax`;
+            };
 
             try {
-                if (confirm('Bạn có muốn đăng xuất không !!!')) {
-                    const res = await fetch('/api/logout/', {
-                        method: 'POST',
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    });
-
-                    if (res.ok) {
-                        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-                        localStorage.removeItem('token');
-                        localStorage.removeItem('progress_percentages')
-                        dispatch(logout());
-                        useLogout()
-                        router.push("/home");
-                    } else {
-                        console.error("Failed to log out:", res.status);
+                const res = await fetch('/api/logout/', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`
                     }
+                });
+                const data = await res.json()
+                if (res.ok) {
+                    deleteCookie("token");
+                    deleteCookie("authjs.callback-url");
+                    deleteCookie("authjs.csrf-token");
+                    deleteCookie("tto_session");
+                    deleteCookie("authjs.session-token");
+                    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('progress_percentages')
+                    localStorage.clear()
+                    dispatch(logout());
+                    if (session) {
+                        signOut();
+                    }
+                    router.replace("/home")
+                } else {
+                    console.error("Failed to log out:", res.status);
+                    console.log(data)
+                }
+                if (typeof window !== 'undefined' && session) {
+                    signOut(
+                        { redirect: false, }
+                    );
+                    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+                    useLogout()
                 }
 
             } catch (error) {
                 console.error("Logout error:", error);
             }
-            // signOut({
-            //     callbackUrl: "/home"
-            // });
             console.log(token);
         }
     };

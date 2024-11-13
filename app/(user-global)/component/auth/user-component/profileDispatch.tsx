@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { login, logout } from '../../../../../redux/slices/userSlice';
 import { usePathname, useRouter } from "next/navigation";
@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { RootState, persistor } from '@/redux/store';
 import useCookie from "../../hook/useCookie";
 import { Token } from "ckeditor5";
+import { signOut } from "next-auth/react";
 
 interface User {
     age: number;
@@ -60,8 +61,13 @@ const ProfileDispatch = () => {
         localStorage.removeItem('progress_percentages');
         localStorage.setItem('isLoggedIn', 'false');
         document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie = "authjs.session-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+        document.cookie = "authjs.csrf-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         localStorage.removeItem('persist:root');
         dispatch(logout());
+        signOut(
+            { redirect: false, }
+        );
     };
 
     const isTokenExpired = (token: string) => {
@@ -95,6 +101,9 @@ const ProfileDispatch = () => {
         if (isTokenExpired(tokenValue)) {
             console.error("Token đã hết hạn");
             handleLogout()
+            signOut(
+                { redirect: false, }
+            );
             if (isInfo || isIntro || isWallet) {
                 router.push('/login');
             } else if (isAdmin) {
@@ -113,13 +122,15 @@ const ProfileDispatch = () => {
 
             if (!res.ok) {
                 console.log(await res.json());
-
-                // throw new Error('Không thể lấy thông tin người dùng');
+                return;
             }
 
             const data = await res.json();
+            console.log(data);
+
             dispatch(login(data));
             setDataUser(data)
+
             localStorage.setItem('isLoggedIn', 'true');
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
@@ -133,80 +144,108 @@ const ProfileDispatch = () => {
         }
     };
 
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         const token = getCookie('token')
+    //         if (token) {
+    //             localStorage.setItem('isLoggedIn', 'true');
+    //             fetchUserInfo(token);
+    //         }
+    //         if (token && isTokenExpired(token)) {
+    //             console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
+    //             handleLogout();
+    //             alert('Đăng nhập lại để kiểm tra thông tin vì lý do bảo mật');
+    //             if (isAdmin) {
+    //                 router.push('/home');
+    //             }
+    //             return;
+    //         }
+    //         if (dataUser && dataUser.del_flag === false && !hasLoggedOut) {
+    //             handleLogout();
+    //             setHasLoggedOut(true);
+    //             localStorage.setItem('isLoggedIn', 'false');
+    //         } else if (dataUser && dataUser.del_flag === true) {
+    //             setHasLoggedOut(false);
+    //         }
+    //         console.log('check:', dataUser);
+    //         console.log(dataUser);
+
+    //     }, 30000);
+    //     return () => clearInterval(interval);
+    // }, [dataUser, hasLoggedOut, isAdmin, router])
+
+    useEffect(() => {
+        setDataUser(null)
+        const interval = setInterval(() => {
+            const token = getCookie('token');
+            if (token) {
+                localStorage.setItem('isLoggedIn', 'true');
+                fetchUserInfo(token);
+            }
+            if (token && isTokenExpired(token)) {
+                console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
+                handleLogout();
+                alert('Đăng nhập lại để kiểm tra thông tin vì lý do bảo mật');
+                if (isAdmin) {
+                    router.push('/home');
+                }
+                return;
+            }
+            console.log('check');
+
+        }, 30000);
+        return () => clearInterval(interval);
+    }, [isAdmin, router]);
+
+    useEffect(() => {
+        if (dataUser) {
+            if (dataUser.del_flag === false && !hasLoggedOut) {
+                handleLogout();
+                signOut(
+                    { redirect: false, }
+                );
+                setHasLoggedOut(true);
+                localStorage.setItem('isLoggedIn', 'false');
+                router.push('/')
+            } else if (dataUser.del_flag === true) {
+                setHasLoggedOut(false);
+            }
+        }
+
+    }, [dataUser, hasLoggedOut]);
+
     useEffect(() => {
         const tokenCookie = getCookie('token');
         if (tokenCookie) {
             fetchUserInfo(tokenCookie);
-        }
-        else if (!tokenCookie) {
+        } else {
             console.error('Không tìm thấy token');
             if (isInfo || isWallet || isIntro) {
                 handleLogout()
+                signOut(
+                    { redirect: false, }
+                );
                 router.push('/login');
             }
         }
-        const interval = setInterval(() => {
- 
-            const setLogin = localStorage.setItem('isLoggedIn', 'false')
-            const token = getCookie('token')
-            if (token && isTokenExpired(token)) {
-                console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
-                handleLogout()
-                alert('đăng nhập lại để kiểm tra thông tin vì tính bảo mật')
-                if (isAdmin) {
-                    router.push('/home');
-                }
-            }
-            if (token) {
-                localStorage.setItem('isLoggedIn', 'true')
-                clearInterval(interval);
-            }
-            if (dataUser && dataUser.del_flag === false && !hasLoggedOut) {
-                setDataUser(null);
-                handleLogout();
-                setHasLoggedOut(true);
-                localStorage.setItem('isLoggedIn', 'false')
-                // if (token) {
-                //     fetchUserInfo(token);
-                // }
-                
-                clearInterval(interval);
-            }
-            else if (dataUser && dataUser.del_flag === true) {
-                setHasLoggedOut(false);
-            }
-            // console.error('check');
-        }, 10000);
-
         const handleLogin = (event: Event) => {
             const customEvent = event as CustomEvent;
             const { token } = customEvent.detail;
             if (token) {
-                // localStorage.setItem('token', token);
                 fetchUserInfo(token);
             } else {
                 console.error("Token không hợp lệ từ sự kiện login");
             }
         };
         const handleStorageChange = (event: StorageEvent) => {
-            if (event.key === 'token') {
-                const newToken = event.newValue;
-
-                if (!newToken) {
-                    handleLogout()
-                    if (isAdmin) {
-                        router.push('/home');
-                    }
-                } else {
-                    fetchUserInfo(newToken);
-                }
-            }
-
             if (event.key === 'isLoggedIn') {
                 const isLoggedIn = event.newValue;
 
                 if (isLoggedIn === 'false') {
                     handleLogout()
+                    signOut(
+                        { redirect: false, }
+                    );
                     if (isAdmin) {
                         router.push('/home');
                     }
@@ -214,6 +253,7 @@ const ProfileDispatch = () => {
                     const tokenValue = getCookie('token')
                     if (tokenValue) {
                         fetchUserInfo(tokenValue);
+
                     }
                 }
             }
@@ -225,7 +265,10 @@ const ProfileDispatch = () => {
             window.removeEventListener('login', handleLogin);
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [token, dataUser, dispatch, router, pathName]);
+    }, [isLogin, isAdmin]);
+
+
+
     useEffect(() => {
         const checkTokenCookie = () => {
             const tokenCookie = getCookie('token');
@@ -233,6 +276,9 @@ const ProfileDispatch = () => {
             if (!tokenCookie) {
                 console.error('Token cookie is missing. Logging out...');
                 handleLogout();
+                signOut(
+                    { redirect: false, }
+                );
                 if (isInfo || isIntro || isWallet) {
                     localStorage.setItem('returnPath', '');
                     router.push('login')

@@ -74,18 +74,20 @@ const Login: React.FC = () => {
                 console.log(data);
 
                 const token = data.access_token;
-
-                if (token && token.split('.').length === 3) {
+                const expiresIn = data.expires_in;
+                const expirationDate = new Date(Date.now() + expiresIn * 1000).toUTCString();
+                // && token.split('.').length === 3
+                if (token) {
                     console.log("Token:", token);
                     if (typeof window !== 'undefined') {
-                        document.cookie = `token=${token}; path=/; max-age=${60 * 60}`;
+                        document.cookie = `token=${token}; path=/; expires=${expirationDate};`;
                         // document.cookie = `token=${token}; path=/admin; max-age=${5 * 60}`;
-                        const payload = JSON.parse(atob(token.split('.')[1]));
-                        dispatch(login(data));
+                        // const payload = JSON.parse(atob(token.split('.')[1]));
+                        // dispatch(login(data));
                     }
-                    console.log("State after login: ", store.getState().user);
-                    const loginEvent = new CustomEvent('login', { detail: { token: data.access_token } });
-                    window.dispatchEvent(loginEvent);
+                    // console.log("State after login: ", store.getState().user);
+                    // const loginEvent = new CustomEvent('login', { detail: { token: data.access_token } });
+                    // window.dispatchEvent(loginEvent);
 
                     alert('Đăng nhập thành công');
 
