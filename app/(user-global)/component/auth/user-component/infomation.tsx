@@ -21,7 +21,7 @@ const Infomation: React.FC = () => {
     const userState = useSelector((state: RootState) => state.user);
     useEffect(() => {
         if (userState?.user) {
-            console.log("Fullname:", userState.user);
+            // console.log("Fullname:", userState.user);
         }
     }, [userState]);
 
