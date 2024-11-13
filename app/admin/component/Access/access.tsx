@@ -148,6 +148,7 @@ const Access: React.FC<{}> = () => {
   const handleHiddenUser = async (id: number | string) => {
     try {
       const res = await fetch(`/api/hiddenUser/${id}`, {
+        cache: "no-cache",
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,

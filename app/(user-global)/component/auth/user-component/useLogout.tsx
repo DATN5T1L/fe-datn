@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { logout } from '@/redux/slices/userSlice';
 import { signOut } from 'next-auth/react';
+import { persistor } from '@/redux/store';
 
 const getCookie = (name: string) => {
     if (typeof window !== 'undefined') {
@@ -36,9 +37,13 @@ export const useLogout = () => {
                     localStorage.removeItem('token');
                     localStorage.removeItem('progress_percentages')
                     localStorage.removeItem('isLoggedIn')
+                    localStorage.removeItem('persist:root');
                 }
                 dispatch(logout());
-                router.push("/home");
+                 persistor.pause();   
+                await persistor.flush();
+                await persistor.purge();
+                // router.push("/home");
                 signOut();
             } else {
                 console.error("Failed to log out:", res.status);

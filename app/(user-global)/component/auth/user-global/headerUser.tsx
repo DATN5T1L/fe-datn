@@ -13,7 +13,7 @@ const HeaderUser: React.FC = () => {
 
     useEffect(() => {
         if (userState.user) {
-            console.log("Fullname:", userState.user);
+            // console.log("Fullname:", userState.user);
         }
     }, [userState]);
     return (
