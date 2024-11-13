@@ -149,6 +149,10 @@ const nextConfig = {
         source: '/api/allStatusDoc/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/all-statusDoc-by-course/:path*',
       },
+      {
+        source: '/api/checkAnswer/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-answer/:path*',
+      },
       // lấy ra tât cả trạng thái bài học
 
       // thêm ghi chú của học viên cho từng doc

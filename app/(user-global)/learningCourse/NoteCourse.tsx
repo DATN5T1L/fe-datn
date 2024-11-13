@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Button from '../globalControl/btnComponent';
-import styles from "@public/styles/globalControl/NoteCourse.module.css";
-import CKEditorComponent from "../globalControl/ckedditor";
+import Button from '../component/globalControl/btnComponent';
+import styles from "@public/styles/Learning/NoteCourse.module.css";
+import CKEditorComponent from "../component/globalControl/ckedditor";
 
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 

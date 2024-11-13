@@ -12,7 +12,7 @@ import GgLogout from "@app/(user-global)/component/auth/user-component/ggLogout"
 
 
 import ProgressCircle from '../course/ProgressCircle';
-import CodeDev from "./codeDev";
+import CodeDev from "../../learningCourse/codeDev";
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 
 

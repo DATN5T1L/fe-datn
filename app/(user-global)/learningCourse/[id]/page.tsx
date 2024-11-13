@@ -1,11 +1,9 @@
 "use client";
 
-// import VideoPlayer from "@app/(user-global)/component/videoPlayer";
-import ReactPlayer from 'react-player/youtube';
+
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { useState, useRef, useEffect, useCallback, useMemo, useLayoutEffect } from "react";
-import useFetch from '../../component/hook/useFetch';
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 import { Row, Col, Nav, Navbar } from "react-bootstrap";
@@ -15,88 +13,70 @@ import Image from "next/image";
 import { motion } from 'framer-motion';
 
 // thêm component
-import CodeDev from "@app/(user-global)/component/globalControl/codeDev";
+import CodeDev from "../codeDev";
+import CodeDevLearning from "../CodeDevLearning";
 import ProgressCircle from '@app/(user-global)/component/course/ProgressCircle';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
-import Faq from "@app/(user-global)/component/globalControl/Faq";
-import NoteCourse from "@app/(user-global)/component/globalControl/NoteCourse";
-import CodeDevLearning from "@app/(user-global)/component/globalControl/CodeDevLearning";
-
+import Faq from "../Faq";
+import NoteCourse from "../NoteCourse";
+import Questions from '../Questions';
+import VideoPlayer from '../VideoPlayer';
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 
 // thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
-import styles from "@public/styles/globalControl/Learning.module.css";
+import styles from "@public/styles/Learning/Learning.module.css";
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 
-const fetcher = async (url: string, token: string) => {
-    const res = await fetch(url, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-        },
-    });
-    if (!res.ok) {
-        throw new Error("Error fetching data");
-    }
-    return res.json();
-}
-
 const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const token = useCookie('token');
     const { id } = params;
-    const course_Id = id; // tạo biến Id thành course_id
-    const userState = useSelector((state: RootState) => state.user); // lấy thông tin user đang đăng nhập
-    const user = userState?.user;  // lấy thông tin user đang đăng nhập
-    const { handleLogout } = useLogout(); // hook đăng xuất
-    // biến để show/hide câu hỏi thường gặp
-    const [isNoti, setNoti] = useState(false); // biến để show/hide câu hỏi thường gặp
-    const [isContent, setContent] = useState(true); // biến để show/hide câu hỏi thường gặp
-    const [typeNoti, setTypeNoti] = useState<NotiType | null>(null); // biến để show/hide câu hỏi thường gặp
-    const [messageNoti, setmessageNoti] = useState(""); // biến để show/hide câu hỏi thường gặp
+    const course_Id = id;
+    const userState = useSelector((state: RootState) => state.user);
+    const user = userState?.user;
+    const { handleLogout } = useLogout();
 
-    // danh sách các biến lưu trữ dữ liệu khóa học
-    const [progress, setprogress] = useState<Progress | null>(null); // biến lưu tiến độ người dùng
-    const [error, setError] = useState<string | null>(null);
+    const [isNoti, setNoti] = useState(false);
+    const [isContent, setContent] = useState(true);
+    const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
+    const [messageNoti, setmessageNoti] = useState("");
+
     const [course, setCourse] = useState<Chapter[] | null>(null);
+    const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
+    const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
+    const [progress, setprogress] = useState<Progress | null>(null);
     const [nameDocument, setnameDocument] = useState('');
     const [idDocument, setIdDocument] = useState('');
     const [typeDoc, settypeDoc] = useState<string | null>(null);
     const [descdocument, setdescdocument] = useState<string | null>(null);
     const [note, setNote] = useState<Note[] | null>(null);
-    const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
-    const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
-    // trạng thái bài học
-    // tạo biến lưu trư id bài học
+
     const [doc_id, setdoc_id] = useState<string | null>(null);
     const [statusDoc, setStatusDoc] = useState(false);
-    const isWarningShown = useRef(false);
+
     const [urlVideo, setUrlVideo] = useState('');
     const [type, setType] = useState<string | null>(null);
-    const lastValidTimeRef = useRef<number>(0);
-    const playerRef = useRef<any>(null); // Tham chiếu tới video player
-    const [videoDuration, setVideoDuration] = useState<number>(0); //lưu thời gian kết thúc video
     const [playedSeconds, setPlayedSeconds] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(true);
 
-    // state change
+
     const [isActiveDoc, setIsActiveDoc] = useState(false);
     const [activeDocIndex, setActiveDocIndex] = useState<number | null>(null);
-    // result code 
+
     const [html, setHtml] = useState<string>('');
     const [css, setCss] = useState<string>('');
     const [js, setJs] = useState<string>('');
 
 
-    // ẩn hiển các hạng mục
-    const [visible, setVisible] = useState(false); // biến để show/hide modal
-    const [isNoteList, setisNoteList] = useState(false);    //  biến để show/hide danh sách ghi chú
-    const [isNote, setIsNote] = useState(false); // biến để show/hide ghi chú
-    const [isActive, setIsActive] = useState(false); // biến để show/hide menu frofile
+
+    const [visible, setVisible] = useState(false);
+    const [isNoteList, setisNoteList] = useState(false);
+    const [isNote, setIsNote] = useState(false);
+    const [isActive, setIsActive] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [tippyVisible, setTippyVisible] = useState(false);
     const [isFAQ, setFAQ] = useState(false);
@@ -112,12 +92,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     const toggleNote = () => {
         setIsNote(prev => !prev);
-        const parentElement = document.querySelector('.row');
 
-        if (!isNote && parentElement) {
-            // Cuộn phần tử cha đến cuối
-            parentElement.scrollTop = parentElement.scrollHeight;
-        }
+
     };
 
     const toggleFaq = () => {
@@ -129,78 +105,104 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
 
 
-    //----------------------------------------------------------------
-    // Lưu trạng thái bài học
+
     const [statusDocData, setStatusDocData] = useState<ApiResponseStatus | null>(null)
     const [dataCourses, setDataCourses] = useState<Chapter | null>(null)
-    const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-    };
-    const fetcher = (url: string) =>
-        fetch(url, { headers }).then((res) => {
-            if (!res.ok) throw new Error("Error fetching data");
-            return res.json();
-        });
 
-    // Call API
-    //Lấy ra danh sách bài học
-    const {
-        data: documentsData,
-        error: documentsError,
-        fetchData: fetchDocuments,
-        loading: documentsLoading,
-    } = useFetch<CourseData>({
-        url: `/api/getdocforyou/${course_Id}`,
-        method: "GET",
-        headers
-    });
-    // Lấy ra trạng thái bài học
-    const {
-        data: statusData,
-        error: statusError,
-        fetchData: fetchStatus,
-        loading: statusLoading,
-    } = useFetch<ApiResponseStatus>({
-        url: `/api/allStatusDoc/${course_Id}`,
-        method: "GET",
-        headers,
-    });
 
-    const fetchDatas = () => {
-        if (!documentsData) fetchDocuments();
-        if (!statusData) fetchStatus();
+    const fetchStatus = async (retries = 3): Promise<ApiResponseStatus | null> => {
+        try {
+            const response = await fetch(`/api/allStatusDoc/${course_Id}`, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
-    };
+            if (!response.ok) {
+                if (response.status === 401 && retries > 0) {
 
-    useLayoutEffect(() => {
+                    console.log('Lỗi 401, thử lại lần nữa...');
+                    return await fetchStatus(retries - 1);
+                }
+                throw new Error("Không thể lấy dữ liệu");
+            }
 
-        if (!documentsData || !statusData) {
-            fetchDatas();
+            const result = await response.json() as ApiResponseStatus;
+            setStatusDocData(result);
+            return result;
+        } catch (err: any) {
+            setError(err.message);
+            return null;
         }
-    }, [documentsData, statusData]);
-    // ghép api
+    };
+
+    const fetchDocuments = async (retries = 3): Promise<CourseData | null> => {
+        try {
+            const response = await fetch(`/api/getdocforyou/${course_Id}`, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                if (response.status === 401 && retries > 0) {
+
+                    console.log('Lỗi 401, thử lại lần nữa...');
+                    return await fetchDocuments(retries - 1);
+                }
+                throw new Error("Không thể lấy dữ liệu");
+            }
+
+            const result = await response.json() as CourseData;
+            setCourse(result.data);
+            return result;
+        } catch (err: any) {
+            setError(err.message);
+            return null;
+        }
+    };
+
+    // Hàm chờ đợi dữ liệu có sẵn
+    const fetchDatas = async () => {
+        let statusData: ApiResponseStatus | null = null;
+        let courseData: CourseData | null = null;
+
+        while (!statusData || !courseData) {
+            statusData = await fetchStatus();
+            courseData = await fetchDocuments();
+        }
+
+        console.log('Dữ liệu đã được tải thành công');
+    };
+
     useEffect(() => {
-        if (documentsData && statusData) {
-            const updatedChaptersData = documentsData.data.map(chapter => {
+        fetchDatas();
+        fetchNotes();
+    }, [course_Id]);
+
+    useEffect(() => {
+        if (course && statusDocData) {
+            const updatedChaptersData = course.map(chapter => {
                 return {
                     ...chapter,
                     documents: chapter.documents.map(document => {
-                        const videoStatus = statusData.data.find(status => status.document_id === document.document_id);
+                        const videoStatus = statusDocData.data.find(status => status.document_id === document.document_id);
                         if (videoStatus) {
-                            document.status_video = videoStatus.status_video;
-
+                            document.status_doc = videoStatus.status_doc;
                         }
                         return document;
-                    })
+                    }),
                 };
             });
             setCourse(updatedChaptersData);
+            console.log('updatedChaptersData', updatedChaptersData);
         }
-    }, [documentsData, statusData]);
+    }, []);
 
 
-    // Ghép API
+
     const fetchNotes = async () => {
         try {
             const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
@@ -222,44 +224,11 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             } else {
                 console.error("data.data is not an array");
             }
-
         } catch (err: any) {
             setError(err.message);
         }
     };
-    const fetchUpdateStatus = async () => {
-        try {
-            const data = {
-                status_video: true,
-                cache_time_video: playedSeconds,
-                document_id: doc_id,
-                course_id: course_Id
-            };
-            console.log(data, "data cập nhật")
-            const response = await fetch(`/api/upStatusDoc/`, {
-                method: "PUT",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(data)
-            });
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch course");
-            }
-
-            const dataNote = await response.json();
-            console.log(dataNote, "cập nhật thành công")
-            if (Array.isArray(dataNote.data)) {
-                return dataNote;
-            } else {
-                console.error("data.data is not an array");
-            }
-
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
 
 
     const fetchCreatStatus = async () => {
@@ -282,7 +251,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     useEffect(() => {
         if (doc_id !== null) {
-            // Chạy fetchCreatStatus chỉ khi docId đã được cập nhật
+
             fetchCreatStatus();
         }
     }, [doc_id]);
@@ -298,64 +267,11 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     }, []);
 
 
-    // Cập nhật secondNew mỗi khi seconds thay đổi
-
-    const handleProgress = (progress: { playedSeconds: number }) => {
-        const { playedSeconds } = progress;
-        setPlayedSeconds(playedSeconds);
-        // console.log(lastValidTimeRef.current, "giây hợp lệ trước đó");
 
 
-        // Kiểm tra nếu người dùng cố gắng tua quá 2 giây từ lastValidTime
-        if (Math.abs(playedSeconds - lastValidTimeRef.current) > 15) {
-            // Quay về thời gian hợp lệ trước đó
-            if (playedSeconds < lastValidTimeRef.current) {
-                // Người dùng đang tua ngược, chỉ cập nhật lastValidTime
-                // lastValidTimeRef.current = playedSeconds;
-            } else {
-                // Quay về thời gian hợp lệ trước đó
-                if (playerRef.current) {
-                    // playerRef.current.seekTo(lastValidTimeRef.current);
-                }
-            }
-        } else {
-            // Cập nhật thời gian hợp lệ cuối cùng trong ref
-            lastValidTimeRef.current = playedSeconds;
-        }
-        if (videoDuration - playedSeconds <= 30 && !isWarningShown.current) {
 
-            isWarningShown.current = true; // Đảm bảo chỉ hiện thông báo một lần
-        }
 
-    };
-    // hàm dừng video
-    const pauseVideo = () => {
 
-        setIsPlaying(false);
-    };
-    const nextVideo = (url: string) => {
-        // TODO: Lấy tài liệu tiếp theo
-        //...
-        setUrlVideo(url);
-    }
-    // console.log("playedSeconds", playedSeconds);
-
-    const handleDuration = (duration: number) => {
-        setVideoDuration(duration); // Save the video duration
-        const minutes = Math.floor(duration / 60); // Calculate minutes
-        const seconds = Math.floor(duration % 60); // Calculate remaining seconds
-        console.log(`Thời gian kết thúc video: ${minutes} phút ${seconds} giây`);
-        isWarningShown.current = false;
-    };
-
-    useEffect(() => {
-        // Check if the video has finished
-        if (playedSeconds >= videoDuration - 30 && playedSeconds < videoDuration) {
-            console.log("Video đã kết thúc");
-            fetchUpdateStatus();
-        }
-        return
-    }, [playedSeconds, videoDuration]);
 
     // hàm định dạng thời gian
     const formatTime = (seconds: number): string => {
@@ -363,13 +279,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         const remainingSeconds = Math.floor(seconds % 60);
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
-    const handleEnded = () => { //hàm sử lý khi video kết thúc
 
-        alert("Video đã kết thúc");
-        setmessageNoti("Video sắp hết!");
-        setTypeNoti('error');
-        setNoti(true);
-    }
     // hàm định dạng ngày giờ
     const [timedocument, settimedocument] = useState('');
 
@@ -390,18 +300,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     // hàm sử lý tách nội dung câu hỏi
-    const parseQues = (input: string): QuestionAnswer | null => {
-        const [questionPart, answerPart] = input.split('?');
 
-        if (!questionPart || !answerPart) return null;
-
-        const answers = answerPart.split('/').map((str) => str.trim());
-
-        return {
-            question: questionPart.trim(),
-            answers
-        };
-    };
 
     const handleExport = (data: { html: string, css: string, js: string }) => {
         // console.log('HTML:', data.html);
@@ -413,7 +312,10 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         // Ở đây bạn có thể thực hiện các hành động khác với dữ liệu, như lưu trữ, hiển thị, v.v.
     };
 
-
+    const handleProgressChange = (playedSeconds: number) => {
+        console.log("Thời gian đã xem:", playedSeconds, "giây");
+        setPlayedSeconds(playedSeconds)
+    };
 
 
 
@@ -421,121 +323,48 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const mappedCourseNew = useMemo(() => {
         if (!course || !Array.isArray(course)) return <>Trờ TTO chút xíu nhé</>; // Trả về null nếu không có course
 
-        // const findInactiveDocument = (course: Chapter[]) => {
-        //     let inactiveDoc: Document | null | undefined = null;
+        const findInactiveDocument = (course: Chapter[]) => {
+            let inactiveDoc: Document | null | undefined = null;
 
-        //     for (const chapter of course) {
-        //         inactiveDoc = chapter.documents.find(doc => doc.status_video === false);
+            for (const chapter of course) {
+                inactiveDoc = chapter.documents.find(doc => doc.status_doc === false);
 
-        //         if (inactiveDoc) {
-        //             break;
-        //         }
-        //     }
+                if (inactiveDoc) {
+                    break;
+                }
+            }
 
-        //     return inactiveDoc;
-        // };
+            return inactiveDoc;
+        };
 
-        // const inactiveDoc = findInactiveDocument(course);
+        const inactiveDoc = findInactiveDocument(course);
 
-        // if (inactiveDoc) {
-        //     setUrlVideo(inactiveDoc.url_video);
-        //     setnameDocument(inactiveDoc.name_document);
-        //     settypeDoc(inactiveDoc.type_document);
-        // }
+        if (inactiveDoc) {
+            setUrlVideo(inactiveDoc.url_video);
+            setnameDocument(inactiveDoc.name_document);
+            settypeDoc(inactiveDoc.type_document);
+        }
 
         return (
             <div className={`${styles.row}`}>
                 <div className={`${styles.flexGrow} ${styles.videoContainer}`}>
 
                     {typeDoc === 'video' ? (
-                        <div className={styles.Video}>
-                            <ReactPlayer
-                                ref={playerRef}
-                                url={urlVideo}
-                                controls
-                                width="100%"
-                                height="100%"
-                                onProgress={handleProgress}
-                                onDuration={handleDuration}
-                                playing={isPlaying}
-                                autoPlay
-                                onEnded={handleEnded} // Tự động phát
-                            />
-                        </div>
-                    ) : typeDoc === 'quiz' ? (
-                        <div className={styles.wapperQuestion}>
-                            {/* Thêm nội dung của quiz ở đây */}
-                            <div className={styles.bodyTitle}>
-                                <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
-                                <h4 className={styles.titleCourse}>{nameDocument}</h4>
-                            </div>
-                            {question?.map((question, index) => {
-                                const parsedQuestion = parseQues(question.content_question);
 
-                                return (
-                                    <div key={index} className={styles.questionItem}>
-                                        {parsedQuestion ? (
-                                            <>
-                                                <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion.question}</p>
-                                                {question.type_question === 'true_false' ? (
-                                                    <div className={styles.tfQuesion}>
-                                                        <span className={styles.subtitleQuestion}>Câu hỏi đúng/sai</span>
-                                                        <ul className={styles.listQuestion}>
-                                                            {parsedQuestion.answers.map((answer, idx) => (
-                                                                <li key={idx} className={styles.itemQuestion}> <input type="checkbox" name="" id="" /> {answer}</li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                ) : question.type_question === 'multiple_choice' ? (
-                                                    <div className={styles.multipleQuesion}>
-                                                        <span className={styles.subtitleQuestion}>Chọn ít nhất 1 câu trả lời đúng</span>
-                                                        <ul className={styles.listQuestion} >
-                                                            {parsedQuestion.answers.map((answer, idx) => (
-                                                                <li key={idx} className={styles.itemQuestion}>
-                                                                    <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
-                                                                        <input type="checkbox" name="" id={`submit${idx}`} value={answer} /> {answer}
-                                                                    </label>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    </div>
-                                                ) : question.type_question === 'fill' ? (
-                                                    <div className={styles.filleQuesion} >
-                                                        <span className={styles.subtitleQuestion}>Điền vào phần còn thiếu</span>
-                                                        <ul className={styles.listQuestion}>
-                                                            {parsedQuestion.answers.map((answer, idx) => (
-                                                                <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
-                                                                    <input type="checkbox" name="" id={`submit${idx}`} value={answer} /> {answer}
-                                                                </label>))}
-                                                        </ul>
-                                                    </div>
-                                                ) : null}
-                                                <div className={styles.ctaQuestion}>
-                                                    <button className={`${styles.btnAnswer} `}>Hủy</button>
-                                                    <button className={`${styles.btnAnswer} ${styles.btnAnswerActive} `}>Trả lời</button>
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <p>Nội dung câu hỏi không hợp lệ.</p>
-                                        )}
-                                        {/* <p>Đáp án đúng: {question.correct_answer}</p>
-                                        <p>Loại câu hỏi: {question.type_question}</p> */}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                        <VideoPlayer urlVideo={urlVideo} onProgressChange={handleProgressChange} />
+
+                    ) : typeDoc === 'quiz' ? (
+                        < Questions nameDocument={nameDocument} timedocument={timedocument} questions={question} />
                     ) : typeDoc === 'code' ? (
                         <div className={styles.wapperCode}>
 
                             {code?.map((code, index) => (
-
                                 <CodeDevLearning onExport={handleExport}
                                     answer_code={code.answer_code}
                                     correct_answer={code.correct_answer}
                                     question_code={code.question_code}
                                     tutorial_code={code.tutorial_code}
                                 />
-
                             ))}
                         </div>
                     ) : (
@@ -568,7 +397,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                     </div>
                                     <div className={styles.bodyContent}>
                                         <p className={styles.content}>
-                                            HTML CSS (HyperText Markup Language Cascading Style Sheets) Nội dung bổ sung:
+                                            {descdocument}
                                             <a
                                                 href="https://www.w3schools.com/css/css_pseudo_classes.asp"
                                                 target="_blank"
@@ -663,9 +492,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                             settypeDoc(doc.type_document);
                                                             setIdDocument(doc.document_id)
                                                             settimedocument(formatDateTime(doc.updated_at));
-                                                            setUrlVideo(doc.url_video);
-                                                            setdoc_id(doc.document_id)
 
+                                                            setdoc_id(doc.document_id)
+                                                            setdescdocument(doc.discription_document)
                                                             if (doc.type_document === 'quiz' && doc.questions) {
                                                                 setQuestion(doc.questions);
                                                                 setContent(false);
@@ -674,12 +503,12 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                                 setCode(doc.codes);
                                                                 setContent(false);
                                                             } else if (doc.type_document === 'video') {
+                                                                setUrlVideo(doc.url_video);
                                                                 setContent(true);
                                                             }
                                                         }}>
                                                         <div className={styles.doc_title} >
                                                             {doc.type_document === "video" ? (
-                                                                // Icon video
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                                                     <g clipPath="url(#clip0_4106_3787)">
                                                                         <circle cx="9.99935" cy="9.99999" r="8.33333" stroke="#B3B3B3" strokeWidth="1.5" />
@@ -710,7 +539,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                             </div>
                                                         </div>
                                                         {
-                                                            doc.status_video === true ? (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                            doc.status_doc === true ? (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                                 <g clipPath="url(#clip0_4331_7659)">
                                                                     <circle cx="6" cy="6" r="5" stroke="#24A148" stroke-width="1.5" />
                                                                     <path d="M4.25 6.25L5.25 7.25L7.75 4.75" stroke="#24A148" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -834,7 +663,15 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     )}>
                         <div className={stylesNav.iconNotifition} onClick={isNoteList ? hideNoteList : showNoteList}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.81 0H13.191C16.28 0 18 1.78 18 4.83V15.16C18 18.26 16.28 20 13.191 20H4.81C1.77 20 0 18.26 0 15.16V4.83C0 1.78 1.77 0 4.81 0ZM5.08 4.66V4.65H8.069C8.5 4.65 8.85 5 8.85 5.429C8.85 5.87 8.5 6.22 8.069 6.22H5.08C4.649 6.22 4.3 5.87 4.3 5.44C4.3 5.01 4.649 4.66 5.08 4.66ZM5.08 10.74H12.92C13.35 10.74 13.7 10.39 13.7 9.96C13.7 9.53 13.35 9.179 12.92 9.179H5.08C4.649 9.179 4.3 9.53 4.3 9.96C4.3 10.39 4.649 10.74 5.08 10.74ZM5.08 15.31H12.92C13.319 15.27 13.62 14.929 13.62 14.53C13.62 14.12 13.319 13.78 12.92 13.74H5.08C4.78 13.71 4.49 13.85 4.33 14.11C4.17 14.36 4.17 14.69 4.33 14.95C4.49 15.2 4.78 15.35 5.08 15.31Z" fill="#808080" />
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.81 0H13.191C16.28 0 18 1.78 18
+                                 4.83V15.16C18 18.26 16.28 20 13.191 20H4.81C1.77 20 0 18.26 0 15.16V4.83C0 1.78 1.77
+                                  0 4.81 0ZM5.08 4.66V4.65H8.069C8.5 4.65 8.85 5 8.85
+                                 5.429C8.85 5.87 8.5 6.22 8.069 6.22H5.08C4.649 6.22 4.3 5.87 4.3 5.44C4.3 5.01 4.649
+                                  4.66 5.08 4.66ZM5.08 10.74H12.92C13.35 10.74 13.7 10.39 13.7 9.96C13.7 9.53 13.35
+                                   9.179 12.92 9.179H5.08C4.649 9.179 4.3 9.53 4.3 9.96C4.3 10.39 4.649 10.74 5.08 
+                                   10.74ZM5.08 15.31H12.92C13.319 15.27 13.62 14.929 13.62 14.53C13.62 14.12 13.319 
+                                   13.78 12.92 13.74H5.08C4.78 13.71 4.49 13.85 4.33 14.11C4.17 14.36 4.17 14.69 4.33 
+                                   14.95C4.49 15.2 4.78 15.35 5.08 15.31Z" fill="#808080" />
                             </svg>
                         </div>
                     </Tippy>
@@ -844,7 +681,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             <div className={stylesNav.menuContent}>
                                 <p className={stylesNav.menuTitle}>Tùy chọn</p>
                                 <Link href="#!" className={stylesNav.menuLink}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614
+                                     17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
                                     <path d="M12 2V4" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
                                     <path d="M12 20V22" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
                                     <path d="M4 12L2 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
@@ -858,7 +696,27 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                 <p className={stylesNav.menuTitle}>Cài đặt</p>
                                 <Link href="#!" className={stylesNav.menuLink}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.4023 11.5801C18.76 11.7701 19.036 12.0701 19.2301 12.3701C19.6083 12.9901 19.5776 13.7501 19.2097 14.4201L18.4943 15.6201C18.1162 16.2601 17.411 16.6601 16.6855 16.6601C16.3278 16.6601 15.9292 16.5601 15.6022 16.3601C15.3365 16.1901 15.0299 16.1301 14.7029 16.1301C13.6911 16.1301 12.8429 16.9601 12.8122 17.9501C12.8122 19.1001 11.872 20.0001 10.6968 20.0001H9.30692C8.12145 20.0001 7.18125 19.1001 7.18125 17.9501C7.16081 16.9601 6.31259 16.1301 5.30085 16.1301C4.96361 16.1301 4.65702 16.1901 4.40153 16.3601C4.0745 16.5601 3.66572 16.6601 3.31825 16.6601C2.58245 16.6601 1.87729 16.2601 1.49917 15.6201L0.79402 14.4201C0.415896 13.7701 0.395456 12.9901 0.773581 12.3701C0.937094 12.0701 1.24368 11.7701 1.59115 11.5801C1.87729 11.4401 2.06125 11.2101 2.23498 10.9401C2.74596 10.0801 2.43937 8.95012 1.57071 8.44012C0.55897 7.87012 0.231943 6.60012 0.814459 5.61012L1.49917 4.43012C2.09191 3.44012 3.35913 3.09012 4.38109 3.67012C5.27019 4.15012 6.425 3.83012 6.9462 2.98012C7.10972 2.70012 7.20169 2.40012 7.18125 2.10012C7.16081 1.71012 7.27323 1.34012 7.4674 1.04012C7.84553 0.420122 8.53024 0.0201221 9.27627 0.00012207H10.7172C11.4735 0.00012207 12.1582 0.420122 12.5363 1.04012C12.7203 1.34012 12.8429 1.71012 12.8122 2.10012C12.7918 2.40012 12.8838 2.70012 13.0473 2.98012C13.5685 3.83012 14.7233 4.15012 15.6226 3.67012C16.6344 3.09012 17.9118 3.44012 18.4943 4.43012L19.179 5.61012C19.7718 6.60012 19.4447 7.87012 18.4228 8.44012C17.5541 8.95012 17.2475 10.0801 17.7687 10.9401C17.9322 11.2101 18.1162 11.4401 18.4023 11.5801ZM7.10972 10.0101C7.10972 11.5801 8.4076 12.8301 10.0121 12.8301C11.6165 12.8301 12.8838 11.5801 12.8838 10.0101C12.8838 8.44012 11.6165 7.18012 10.0121 7.18012C8.4076 7.18012 7.10972 8.44012 7.10972 10.0101Z" fill="#B3B3B3" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.4023 11.5801C18.76 11.7701 19.036 12.0701 
+                                        19.2301 12.3701C19.6083 12.9901 19.5776 13.7501 19.2097 14.4201L18.4943 15.6201C18.1162 16.2601
+                                         17.411 16.6601 16.6855 16.6601C16.3278 16.6601 15.9292 16.5601 15.6022 16.3601C15.3365 16.1901 
+                                         15.0299 16.1301 14.7029 16.1301C13.6911 16.1301 12.8429 16.9601 12.8122 17.9501C12.8122 19.1001
+                                          11.872 20.0001 10.6968 20.0001H9.30692C8.12145 20.0001 7.18125 19.1001 7.18125 17.9501C7.16081
+                                           16.9601 6.31259 16.1301 5.30085 16.1301C4.96361 16.1301 4.65702 16.1901 4.40153 16.3601C4.0745
+                                            16.5601 3.66572 16.6601 3.31825 16.6601C2.58245 16.6601 1.87729 16.2601 1.49917 15.6201L0.79402
+                                             14.4201C0.415896 13.7701 0.395456 12.9901 0.773581 12.3701C0.937094 12.0701 1.24368 11.7701
+                                              1.59115 11.5801C1.87729 11.4401 2.06125 11.2101 2.23498 10.9401C2.74596 10.0801 2.43937
+                                               8.95012 1.57071 8.44012C0.55897 7.87012 0.231943 6.60012 0.814459 5.61012L1.49917
+                                                4.43012C2.09191 3.44012 3.35913 3.09012 4.38109 3.67012C5.27019 4.15012 6.425 3.83012
+                                                 6.9462 2.98012C7.10972 2.70012 7.20169 2.40012 7.18125 2.10012C7.16081 1.71012 7.27323
+                                                  1.34012 7.4674 1.04012C7.84553 0.420122 8.53024 0.0201221 9.27627 0.00012207H10.7172C11.4735
+                                                   0.00012207 12.1582 0.420122 12.5363 1.04012C12.7203 1.34012 12.8429 1.71012 12.8122
+                                                    2.10012C12.7918 2.40012 12.8838 2.70012 13.0473 2.98012C13.5685 3.83012 14.7233 4.15012 
+                                                    15.6226 3.67012C16.6344 3.09012 17.9118 3.44012 18.4943 4.43012L19.179 5.61012C19.7718 
+                                                    6.60012 19.4447 7.87012 18.4228 8.44012C17.5541 8.95012 17.2475 10.0801 17.7687
+                                                     10.9401C17.9322 11.2101 18.1162 11.4401 18.4023 11.5801ZM7.10972 10.0101C7.10972
+                                                      11.5801 8.4076 12.8301 10.0121 12.8301C11.6165 12.8301 12.8838 11.5801 12.8838
+                                                       10.0101C12.8838 8.44012 11.6165 7.18012 10.0121 7.18012C8.4076 7.18012
+                                                        7.10972 8.44012 7.10972 10.0101Z" fill="#B3B3B3" />
                                     </svg>
                                     Cài đặt
                                 </Link>

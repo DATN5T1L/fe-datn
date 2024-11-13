@@ -45,7 +45,7 @@
 /* Video */
 
 .Video {
-
+    height: 100%;
     flex: 1;
     background-color: var(--gray-00);
 }
@@ -463,5 +463,3 @@
     background-color: var(--gray-95);
     height: 100%;
 }
-
-.bodyTitle {}

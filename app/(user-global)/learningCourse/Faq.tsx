@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from "@public/styles/globalControl/Faq.module.css";
-import Button from "../globalControl/btnComponent";
+import styles from "@public/styles/Learning/Faq.module.css";
+import Button from "../component/globalControl/btnComponent";
 // import { CKEditor } from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import CKEditorComponent from "../globalControl/ckedditor";
+import CKEditorComponent from "../component/globalControl/ckedditor";
 // import Ckeditor from './ckedditor';
 
 
@@ -173,7 +173,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, onClose, course }) => {
                                                 <span className={styles.listItem__docName}> {doc.name_document} </span>
                                             </div>
                                         </div>
-                                        {doc.status_video === true && (
+                                        {doc.status_doc === true && (
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                                                 <g clip-path="url(#clip0_4331_7659)">
                                                     <circle cx="6" cy="6" r="5" stroke="#24A148" stroke-width="1.5" />

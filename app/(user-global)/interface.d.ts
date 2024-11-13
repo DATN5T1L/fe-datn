@@ -12,7 +12,8 @@ interface Document {
     document_id: string;
     name_document: string;
     type_document: "code" | "quiz" | "video";
-    status_video: boolean;
+    status_doc: boolean;
+    discription_document: string;
     url_video: string;
     updated_at: string;
 }
@@ -48,11 +49,12 @@ interface CodesDocument extends Document {
 
 interface QuestionsDocument extends Document {
     type_document: "quiz";
-    questions: {
-        content_question: string;
-        correct_answer: string;
-        type_question: string;
-    }[];
+    questions: Question[] | null;
+}
+interface Question {
+    content_question: string;
+    correct_answer: string;
+    type_question: string;
 }
 interface VideoDocument extends Document {
     type_document: "video";
@@ -265,7 +267,7 @@ interface ApiResponseSearch {
 
 interface StatusData {
     id: string;
-    status_video: boolean;
+    status_doc: boolean;
     cache_time_video: number;
     document_id: string;
     enrollment_id: string;

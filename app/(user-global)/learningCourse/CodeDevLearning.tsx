@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Container, Col, Row } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
 import Editor, { OnChange, useMonaco } from '@monaco-editor/react';
-import styles from "@public/styles/globalControl/codeDev.module.css";
+import styles from "@public/styles/Learning/codeDev.module.css";
 
 
 const CodeDevLearning: React.FC<CodeDevProps> = ({
