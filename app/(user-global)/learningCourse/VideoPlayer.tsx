@@ -1,5 +1,7 @@
 import ReactPlayer from 'react-player/youtube';
 import { useRef, useState, useEffect } from "react";
+import useCookie from '@app/(user-global)/component/hook/useCookie';
+
 import styles from '@public/styles/Learning/Video.module.css'
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
@@ -13,7 +15,7 @@ interface VideoProp {
 }
 
 const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying }) => {
-
+    const token = useCookie('token');
     const playerRef = useRef<any>(null);
     const lastValidTimeRef = useRef<number>(0);
     const [videoDuration, setVideoDuration] = useState<number>(0);
@@ -37,7 +39,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
             } else {
                 // Quay về thời gian hợp lệ trước đó
                 if (playerRef.current) {
-                    playerRef.current.seekTo(lastValidTimeRef.current);
+                    // playerRef.current.seekTo(lastValidTimeRef.current);
                 }
             }
         } else {
@@ -84,23 +86,55 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
             window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, []); // Thêm các phụ thuộc để đảm bảo các giá trị cập nhật
+    const formatTime = (seconds: number | string): number | string => {
+        if (typeof seconds === 'string') {
+            return seconds;
+        }
+        return Math.floor(seconds); // Trả về phần nguyên của số giây
+    };
 
+    const updataStatus = async () => {
+        // console.log(JSON.stringify(payload, null, 2));
+        try {
+            const data = {
+                course_id: course_id,
+                status_doc: true,
+                cache_time_video: formatTime(playedSeconds),
+                document_id: document_id,
+            };
+
+            const response = await fetch(`/api/upStatusDoc`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) throw new Error('Đã xảy ra lỗi khi kiểm tra câu trả lời');
+            const datas = await response.json();
+            console.log('Cập nhật trạng thái thàng công', datas);
+        } catch (error) {
+            console.error('Lỗi khi kiểm tra câu trả lời:', error);
+        }
+    };
 
     useEffect(() => {
 
-        if (playedSeconds >= videoDuration - 30 && playedSeconds < videoDuration) {
-
+        if (playedSeconds >= videoDuration - 60 && playedSeconds < videoDuration) {
+            updataStatus();
             console.log("Video đã kết thúc");
         }
 
-    }, [playedSeconds, videoDuration])
+    }, [])
 
     const handleEnded = () => { //hàm sử lý khi video kết thúc
-
-        alert("Video đã kết thúc");
+        updataStatus();
         setmessageNoti("Video sắp hết!");
         setTypeNoti('error');
         setNoti(true);
+        alert("Video đã kết thúc");
     }
     return (
         <div className={styles.Video}>

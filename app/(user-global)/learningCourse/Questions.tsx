@@ -67,7 +67,10 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
             console.log('Kết quả kiểm tra:', data);
             setResult(data.is_correct ? 'Bạn đã trả lời đúng!' : 'Bạn đã trả lời sai. Hãy thử lại!');
             updataStatus();
-            handleCorrectAnswer();
+            if (data.is_correct === true) {
+
+                handleCorrectAnswer();
+            }
         } catch (error) {
             console.error('Lỗi khi kiểm tra câu trả lời:', error);
             setResult('Có lỗi xảy ra, vui lòng thử lại sau.');

@@ -204,8 +204,7 @@ interface CardPosts {
 }
 
 interface FaqProps {
-    course_Id: string;
-    course: Chapter[]; // Mảng các chương
+    course_Id: string; // Mảng các chương
     onClose: () => void; // Hàm để đóng popup
 
 }
@@ -285,7 +284,4 @@ interface StatusData {
     del_flag: boolean;
     created_at: string;
     updated_at: string;
-}
-interface ApiResponseStatus {
-    data: StatusData[];  // Mảng các đối tượng VideoData
 }
