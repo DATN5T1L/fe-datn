@@ -17,7 +17,7 @@ interface User {
     discription_user: string;
     email: string;
     fullname: string;
-    id: string | number;
+    id: string;
     phonenumber: string;
     provider_id: string;
     role: string;
@@ -86,21 +86,19 @@ const ProfileDispatch = () => {
 
 
     const fetchUserInfo = async (tokenValue: string) => {
-        if (tokenValue && (isRegister || isLogin || isRetrievePassword)) {
-            localStorage.setItem('isLoggedIn', 'true');
-            router.push('/info-user');
-            return;
-        }
+        if (!tokenValue) return;  // Nếu không có token, không cần thực hiện gì
 
-        if (!tokenValue && (isInfo || isIntro || isWallet)) {
-            console.error("Token không hợp lệ hoặc không tồn tại");
-            if (isAdmin) router.push('/home');
+        // Kiểm tra các trạng thái nếu cần
+        if (isRegister || isLogin || isRetrievePassword) {
+            if (!localStorage.getItem('isLoggedIn')) {
+                localStorage.setItem('isLoggedIn', 'true');
+                router.push('/info-user');
+            }
             return;
         }
 
         if (isTokenExpired(tokenValue)) {
-            console.error("Token đã hết hạn");
-            handleLogout()
+            handleLogout();
             if (isInfo || isIntro || isWallet) {
                 router.push('/login');
             } else if (isAdmin) {
@@ -109,6 +107,7 @@ const ProfileDispatch = () => {
             return;
         }
 
+        // Gọi API để lấy thông tin người dùng
         try {
             const res = await fetch('/api/profile', {
                 cache: "no-cache",
@@ -118,26 +117,27 @@ const ProfileDispatch = () => {
             });
 
             if (!res.ok) {
-                console.log(await res.json());
-
-                // throw new Error('Không thể lấy thông tin người dùng');
+                console.error("Không thể lấy thông tin người dùng");
+                return;
             }
 
             const data = await res.json();
             dispatch(login(data));
-            setDataUser(data)
+            setDataUser(data);
             localStorage.setItem('isLoggedIn', 'true');
+
+            // Chuyển hướng sau khi lấy thông tin
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
             }
         } catch (error) {
             console.error("Lỗi khi lấy thông tin người dùng:", error);
-            // handleLogout
             if (isAdmin) {
                 router.push('/home');
             }
         }
     };
+
 
     useEffect(() => {
         const tokenCookie = getCookie('token');
@@ -232,6 +232,8 @@ const ProfileDispatch = () => {
             window.removeEventListener('storage', handleStorageChange);
         };
     }, [token, dataUser, dispatch, router, pathName]);
+
+
     useEffect(() => {
         const checkTokenCookie = () => {
             const tokenCookie = getCookie('token');

@@ -45,6 +45,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [messageNoti, setmessageNoti] = useState("");
 
     const [course, setCourse] = useState<Chapter[] | null>(null);
+    const [statusDocData, setStatusDocData] = useState<ApiResponseStatus | null>(null)
     const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
     const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
     const [progress, setprogress] = useState<Progress | null>(null);
@@ -62,7 +63,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [urlVideo, setUrlVideo] = useState('');
     const [type, setType] = useState<string | null>(null);
     const [playedSeconds, setPlayedSeconds] = useState(0);
-
+    const [isPlaying, setIsPlaying] = useState(true);
 
     const [isActiveDoc, setIsActiveDoc] = useState(false);
     const [activeDocIndex, setActiveDocIndex] = useState<number | null>(null);
@@ -92,8 +93,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     const toggleNote = () => {
         setIsNote(prev => !prev);
-
-
+        setIsPlaying(prev => !prev);
     };
 
     const toggleFaq = () => {
@@ -104,10 +104,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         setIsVisible(!isVisible);
     };
 
-
-
-    const [statusDocData, setStatusDocData] = useState<ApiResponseStatus | null>(null)
-    const [dataCourses, setDataCourses] = useState<Chapter | null>(null)
+    const handelIsPlaying = () => {
+        setIsPlaying(!isPlaying);
+    }
 
 
     const fetchStatus = async (retries = 3): Promise<ApiResponseStatus | null> => {
@@ -156,7 +155,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             }
 
             const result = await response.json() as CourseData;
-            setCourse(result.data);
+            setCourse(result.data)
             return result;
         } catch (err: any) {
             setError(err.message);
@@ -165,20 +164,21 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
 
     // Hàm chờ đợi dữ liệu có sẵn
-    const fetchDatas = async () => {
-        let statusData: ApiResponseStatus | null = null;
-        let courseData: CourseData | null = null;
+    // const fetchDatas = async () => {
+    //     let statusData: ApiResponseStatus | null = null;
+    //     let courseData: CourseData | null = null;
 
-        while (!statusData || !courseData) {
-            statusData = await fetchStatus();
-            courseData = await fetchDocuments();
-        }
+    //     while (!statusData || !courseData) {
+    //         statusData = await fetchStatus();
+    //         courseData = await fetchDocuments();
+    //     }
 
-        console.log('Dữ liệu đã được tải thành công');
-    };
+    //     console.log('Dữ liệu đã được tải thành công');
+    // };
 
     useEffect(() => {
-        fetchDatas();
+        fetchStatus()
+        fetchDocuments()
         fetchNotes();
     }, [course_Id]);
 
@@ -199,7 +199,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             setCourse(updatedChaptersData);
             console.log('updatedChaptersData', updatedChaptersData);
         }
-    }, []);
+    }, [course_Id]);
 
     const handlePause = () => {
         console.log("Video Paused");
@@ -219,7 +219,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             }
 
             const dataNote = await response.json();
-            console.log(dataNote)
+            // console.log(dataNote)
             if (Array.isArray(dataNote.data)) {
                 setNote(dataNote.data);
                 return dataNote
@@ -245,7 +245,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 throw new Error("Failed to fetch course");
             }
             const data = await response.json();
-            console.log(data, "trạng thái bài học");
+            // console.log(data, "trạng thái bài học");
         } catch (err: any) {
             setError(err.message);
         }
@@ -315,11 +315,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
 
     const handleProgressChange = (playedSeconds: number) => {
-        console.log("Thời gian đã xem:", playedSeconds, "giây");
+        // console.log("Thời gian đã xem:", playedSeconds, "giây");
         setPlayedSeconds(playedSeconds)
     };
-
-
 
 
     const mappedCourseNew = useMemo(() => {
@@ -353,10 +351,10 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
                     {typeDoc === 'video' ? (
 
-                        <VideoPlayer urlVideo={urlVideo} onProgressChange={handleProgressChange} onPause={handlePause} />
+                        <VideoPlayer course_id={course_Id} document_id={doc_id} urlVideo={urlVideo} onProgressChange={handleProgressChange} isPlaying={isPlaying} />
 
                     ) : typeDoc === 'quiz' ? (
-                        < Questions nameDocument={nameDocument} timedocument={timedocument} questions={question} />
+                        < Questions course_id={course_Id} documents_id={doc_id} nameDocument={nameDocument} timedocument={timedocument} questions={question} />
                     ) : typeDoc === 'code' ? (
                         <div className={styles.wapperCode}>
 
@@ -385,7 +383,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                         <Button
                                             onClick={() => {
                                                 toggleNote();
-                                                handlePause();
+                                                handelIsPlaying();
                                             }}
                                             type="premary" // Đã sửa thành "primary"
                                             status="hover"

@@ -5,20 +5,21 @@ import styles from '@public/styles/Learning/Video.module.css'
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 interface VideoProp {
+    course_id: string | null;
+    document_id: string | null;
     urlVideo: string;
     onProgressChange: (playedSeconds: number) => void;
-    onPause?: () => void;
+    isPlaying: boolean;
 }
 
-const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause }) => {
+const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying }) => {
 
-    const [type, setType] = useState<string | null>(null);
-    const lastValidTimeRef = useRef<number>(0);
     const playerRef = useRef<any>(null);
+    const lastValidTimeRef = useRef<number>(0);
     const [videoDuration, setVideoDuration] = useState<number>(0);
     const [playedSeconds, setPlayedSeconds] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(true);
     const isWarningShown = useRef(false);
+    const [type, setType] = useState<string | null>(null);
     const [isNoti, setNoti] = useState(false);
     const [isContent, setContent] = useState(true);
     const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
@@ -49,16 +50,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause 
         }
 
     };
-    // hàm dừng video
-    const pauseVideo = () => {
-        setIsPlaying(false);
-        if (onPause) pauseVideo();
-    };
-    const nextVideo = (url: string) => {
-        // TODO: Lấy tài liệu tiếp theo
-        //...
-        // setUrlVideo(url);
-    }
+
     const handleDuration = (duration: number) => {
         setVideoDuration(duration); // Save the video duration
         const minutes = Math.floor(duration / 60); // Calculate minutes
@@ -66,6 +58,33 @@ const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause 
         console.log(`Thời gian kết thúc video: ${minutes} phút ${seconds} giây`);
         isWarningShown.current = false;
     };
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            // Ngăn hành động thoát trình duyệt và hiển thị hộp thoại xác nhận (chỉ một số trình duyệt hỗ trợ)
+            event.preventDefault();
+            event.returnValue = '';  // Cần trả về chuỗi rỗng để kích hoạt hành động thoát
+
+            const url = "/api/upStatusDoc";
+            const data = JSON.stringify({
+                course_id: course_id,
+                status_doc: false,
+                cache_time_video: videoDuration,
+                document_id: document_id,
+            });
+
+            console.log(data); // Gửi dữ liệu khi trang được tải lại
+            navigator.sendBeacon(url, data); // Gửi dữ liệu mà không ảnh hưởng đến việc thoát trang
+        };
+
+        // Thêm sự kiện `beforeunload` khi component mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Xóa sự kiện khi component unmount
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []); // Thêm các phụ thuộc để đảm bảo các giá trị cập nhật
+
 
     useEffect(() => {
 
