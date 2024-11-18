@@ -76,7 +76,10 @@ import {
     Title,
     TodoList,
     Underline,
-    Undo
+    Undo,
+    SimpleUploadAdapter,
+    EasyImage,
+    Image
 } from 'ckeditor5';
 import { AIAssistant, ExportPdf, ExportWord, ImportWord, OpenAITextAdapter } from 'ckeditor5-premium-features';
 
@@ -86,9 +89,11 @@ import premiumFeaturesTranslations from 'ckeditor5-premium-features/translations
 import 'ckeditor5/ckeditor5.css';
 import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
 import useCookie from '@/app/(user-global)/component/hook/useCookie';
+import { useEffect, useState } from 'react';
 
 const CkediterCustom: React.FC = () => {
     const token = useCookie('token')
+    const tokenImg = process.env.NEXT_PUBLIC_TOKEN_IMAGE
 
     const licenseKey = 'RmtGcTJLcjZLMVluN1NUb1EvS1dwV01tRUlBeXZMejNiV2dzZHpWZ0tranFKalBFOG9SeHMzaFJMaWg2M2c9PS1NakF5TkRFeU1UZz0=';
 
@@ -96,6 +101,7 @@ const CkediterCustom: React.FC = () => {
         const data = editor.getData();
         console.log({ data });
     };
+
     return (
         <CKEditor
             editor={ClassicEditor}
@@ -105,7 +111,6 @@ const CkediterCustom: React.FC = () => {
                 licenseKey: licenseKey,
                 cloudServices: {
                     tokenUrl: 'https://123319.cke-cs.com/token/dev/35d1d27f0e9e385c53edf0d6b267c2f4b82c737a333c23aec4e4bebc4f8e?limit=10',
-                    webSocketUrl: 'wss://123319.cke-cs.com/ws',
                     uploadUrl: 'https://123319.cke-cs.com/easyimage/upload/'
                 },
                 plugins: [
@@ -119,7 +124,7 @@ const CkediterCustom: React.FC = () => {
                     SpecialCharactersCurrency, SpecialCharactersEssentials, SpecialCharactersLatin, SpecialCharactersMathematical,
                     SpecialCharactersText, Strikethrough, Subscript, Superscript, Table, TableCaption, TableCellProperties,
                     TableColumnResize, TableProperties, TableToolbar, TextPartLanguage, TextTransformation, Title, TodoList,
-                    Underline, Undo, ExportPdf, ExportWord, ImportWord,
+                    Underline, Undo, ExportPdf, ExportWord, ImportWord, SimpleUploadAdapter, EasyImage, Image
                 ],
                 toolbar: [
                     "undo", "redo",
@@ -150,14 +155,21 @@ const CkediterCustom: React.FC = () => {
                 },
                 image: {
                     toolbar: [
-                        "imageTextAlternative", "imageStyle:inline", "imageStyle:block", "imageStyle:side"
+                        'toggleImageCaption', 'imageTextAlternative', 'ckboxImageEdit',"resizeImage", "imageTextAlternative", "imageStyle:inline", "imageStyle:block", "imageStyle:side"
                     ],
-                },
-                simpleUpload: {
-                    uploadUrl: 'https://123319.cke-cs.com/easyimage/upload/',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
+                    resizeUnit: "%",
+                    resizeOptions: [{
+                        name: 'resizeImage:original',
+                        value: null
                     },
+                    {
+                        name: 'resizeImage:50',
+                        value: '50'
+                    },
+                    {
+                        name: 'resizeImage:75',
+                        value: '75'
+                    }],
                 },
                 language: {
                     ui: 'vi',
@@ -165,7 +177,6 @@ const CkediterCustom: React.FC = () => {
                 },
             }}
         />
-
     )
 }
 

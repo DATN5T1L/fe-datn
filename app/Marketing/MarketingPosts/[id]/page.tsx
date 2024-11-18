@@ -527,7 +527,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                       >
                         Trả lời
                       </small>
-                      {item.id === userId?.id ? (
+                      {item.user_id === userId?.id ? (
                         <small
                           className="text-primary"
                           onClick={() => {

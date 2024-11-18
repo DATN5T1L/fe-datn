@@ -320,10 +320,6 @@ const nextConfig = {
         source: '/api/uploadImgPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
       },
-      {
-        source: '/api/tokenImage/:path*',
-        destination: 'https://123319.cke-cs.com/token/dev/35d1d27f0e9e385c53edf0d6b267c2f4b82c737a333c23aec4e4bebc4f8e?limit=10/:path*',
-      },
     ];
   },
   images: {
