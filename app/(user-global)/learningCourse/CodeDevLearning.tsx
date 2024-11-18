@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Container, Col, Row } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
 import Editor, { OnChange, useMonaco } from '@monaco-editor/react';
+import { formatDateTime, parseCode } from "@/app/(user-global)/component/globalControl/commonC";
 import styles from "@public/styles/Learning/codeDev.module.css";
 
 
@@ -9,7 +10,9 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
     answer_code,
     correct_answer,
     question_code,
-    tutorial_code
+    tutorial_code,
+    updated_at,
+    name_document
 }) => {
     const [html, setHtml] = useState<string>('<h1>Hello, World!</h1>');
     const [css, setCss] = useState<string>('h1 { color: blue; }');
@@ -21,7 +24,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
 
     const [answerCode, setAnswerCode] = useState<string | null>(answer_code ?? null);
     const [correctAnswer, setCorrectAnswer] = useState<string | null>(correct_answer ?? null);
-    const [questionCode, setQuestionCode] = useState<string | null>(question_code ?? null);
+    const [questionCode, setQuestionCode] = useState<codeAnswer | null>(null);
     const [tutorialCode, setTutorialCode] = useState<string | null>(tutorial_code ?? null);
 
     const toggleSuggest = () => setSuggest((prev) => !prev);
@@ -96,6 +99,24 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
     const handAnswer = () => {
         runCode();
     }
+    useEffect(() => {
+        if (question_code) {
+            console.log("Input questionCode:", questionCode);
+
+            // Gọi parseCode để phân tích questionCode
+            const parsedResult = parseCode(question_code);
+
+            // Cập nhật lại state hoặc xử lý
+            setQuestionCode(parsedResult);
+
+            // Log kết quả để kiểm tra
+            console.log("Parsed result:", parsedResult);
+        }
+    }, [question_code]);
+
+
+
+
     return (
         <Row className={styles.codeMain}>
             <Col md={6}>
@@ -114,8 +135,16 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                     </li>
 
                 </ul>
-                <div className={styles.boxContent} style={{ display: activeContentTab === 'content' ? 'block' : 'none' }}>
-                    Nội dung bài học
+                <div className={styles.boxContent} style={{ display: activeContentTab === 'content' ? 'flex' : 'none' }}>
+                    <div className={styles.bodyTitle}>
+                        <span className={styles.timeUpdate}>Cập nhật ngày {formatDateTime(updated_at)}</span>
+                        <h4 className={styles.titleCourse}>{name_document}</h4>
+                    </div>
+
+                    <div className={styles.contentText}>
+                        <p className={styles.contentQues}>Câu hỏi: {questionCode?.question}</p>
+                        <p className={styles.contentQuess}> {questionCode?.question}</p>
+                    </div>
                 </div>
                 <div className={styles.boxContent} style={{ display: activeContentTab === 'Webs' ? 'block' : 'none' }}>
 
@@ -215,7 +244,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                             </div>
                         </div>
                     ) : (
-
                         <div onClick={toggleAnswer} className={styles.Answer}>
                             {answerCode}
                         </div>

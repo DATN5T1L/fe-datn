@@ -23,6 +23,7 @@ import Questions from '../Questions';
 import VideoPlayer from '../VideoPlayer';
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
+import { formatDateTime, formatTime } from "@/app/(user-global)/component/globalControl/commonC";
 
 // thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
@@ -110,7 +111,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
 
-
+    // láy ra khóa học
     const fetchDocuments = async (retries = 3): Promise<CourseData | null> => {
         try {
             const response = await fetch(`/api/getdocforyou/${course_Id}`, {
@@ -150,7 +151,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handlePause = () => {
         console.log("Video Paused");
     };
-
+    // lấy ra note
     const fetchNotes = async () => {
         try {
             const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
@@ -178,7 +179,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
 
 
-
+    // tạo mới trạng thái || đã tồn tại return về Status
     const fetchCreatStatus = async () => {
         try {
             const response = await fetch(`/api/createStatusDoc/${doc_id}/${course_Id}`, {
@@ -222,28 +223,12 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     // hàm định dạng thời gian
-    const formatTime = (seconds: number): string => {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = Math.floor(seconds % 60);
-        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
-    };
+
 
     // hàm định dạng ngày giờ
     const [timedocument, settimedocument] = useState('');
 
-    const formatDateTime = (datetimeStr: string): string => {
-        const date = new Date(datetimeStr);
-        // Lấy các thành phần ngày, tháng, năm, giờ, phút
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
 
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-
-        // Kết hợp các thành phần thành chuỗi ngày giờ (không bao gồm giây)
-        return `${day}-${month}-${year} ${hours}:${minutes}`;
-    };
 
 
 
@@ -327,6 +312,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             correct_answer={codeItem.correct_answer}
                             question_code={codeItem.question_code}
                             tutorial_code={codeItem.tutorial_code}
+                            name_document={nameDocument}
+                            updated_at={codeItem.updated_at}
                         />
                     ))}
                 </div>
@@ -675,18 +662,19 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
                             <div className={stylesNav.menuContent}>
                                 <p className={stylesNav.menuTitle}>Tùy chọn</p>
-                                <Link href="#!" className={stylesNav.menuLink}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614
+                                <Link href="#!" className={stylesNav.menuLink}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614
                                      17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M12 2V4" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M12 20V22" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M4 12L2 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M22 12L20 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                </svg> Bật giao diện tối
+                                        <path d="M12 2V4" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M12 20V22" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M4 12L2 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M22 12L20 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                        <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    </svg> Bật giao diện tối
                                 </Link>
                                 <p className={stylesNav.menuTitle}>Cài đặt</p>
                                 <Link href="#!" className={stylesNav.menuLink}>

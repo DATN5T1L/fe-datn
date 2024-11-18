@@ -45,6 +45,7 @@ interface CodesDocument extends Document {
         correct_answer: string;
         question_code: string;
         tutorial_code: string;
+        updated_at: string;
     }[];
 }
 
@@ -72,6 +73,10 @@ interface QuestionAnswer {
     question: string;
     answers: string[];
 }
+interface codeAnswer {
+    question: string;
+    content: string;
+}
 
 interface QuestionsProps {
     course_id: string;
@@ -90,6 +95,8 @@ interface CodeDevProps {
     correct_answer: string;
     question_code: string;
     tutorial_code: string;
+    updated_at: string;
+    name_document: string;
 }
 // Payments
 

@@ -1,7 +1,7 @@
 'use client'
 
 import Body from "../component/globalControl/body"
-// import Introduce from "../component/auth/user-component/introduce"
+import Introduce from "../component/auth/user-component/introduce"
 import HeaderUser from "../component/auth/user-global/headerUser"
 import Main from "../component/auth/user-global/main"
 import MenuSetting from "../component/auth/user-global/menuSetting"
@@ -24,7 +24,7 @@ const IntroUser: React.FC = () => {
                 <HeaderUser></HeaderUser>
                 <Main>
                     <MenuSetting></MenuSetting>
-                    {/* <Introduce></Introduce> */}
+                    <Introduce></Introduce>
                 </Main>
             </Body>
         </>

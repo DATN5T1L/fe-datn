@@ -99,7 +99,7 @@ const nextConfig = {
       },
       {
         source: '/api/courseDetail/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/courses/:path*',
       },
       {
         source: '/api/user/:path*',
