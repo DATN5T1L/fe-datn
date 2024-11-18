@@ -13,8 +13,25 @@ import Form from "react-bootstrap/Form";
 
 import mod from "../../marketing.module.css";
 import postMod from "./post.module.css";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
+import { useState } from "react";
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
+import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload";
+import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
 
 const AddMarketingPost = () => {
+  const [content, setContent] = useState<string>("");
+  const token = useCookie('token')
+
+  const handleEditorChange = (_: any, editor: any) => {
+    const data = editor.getData();
+    console.log({ data });
+  };
+
+  // ClassicEditor.builtinPlugins.push(Strikethrough);
+
   return (
     <div
       className={`${postMod.postContainer} d-flex flex-column gap-4 m-4 m-xs-2 m-sm-3 p-4 bg-white`}
@@ -81,7 +98,7 @@ const AddMarketingPost = () => {
           />
         </Form.Group>
       </Form>
-      <Form>
+      {/* <Form>
         <Form.Group>
           <div className="d-flex flex-wrap border gap-2 p-2 rounded-top">
             <svg
@@ -335,7 +352,42 @@ const AddMarketingPost = () => {
             className={`${postMod.form} text-muted py-2 rounded-top-0`}
           />
         </Form.Group>
-      </Form>
+      </Form> */}
+      <CKEditor
+        editor={ClassicEditor}
+        data="<p>Nhập nội dung bài viết tại đây...</p>"
+        onChange={handleEditorChange}
+        config={{
+          toolbar: [
+            "undo", "redo",
+            "|",
+            "heading",
+            "|",
+            "bold", "italic", "underline", "strikethrough",
+            "|",
+            "link", "imageUpload", "insertTable",
+            "|",
+            "blockQuote",
+            "mediaEmbed",
+            "|",
+            "bulletedList", "numberedList",
+            "|",
+            "alignment:left", "alignment:center", "alignment:right", "alignment:justify",
+          ],
+          alignment: {
+            options: ["left", "center", "right", "justify"],
+          },
+          mediaEmbed: {
+            previewsInData: true,
+          },
+          simpleUpload: {
+            uploadUrl: "/api/uploadImgPost/",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        }}
+      />
       <Form>
         <Form.Group>
           <Form.Label>Danh mục</Form.Label>

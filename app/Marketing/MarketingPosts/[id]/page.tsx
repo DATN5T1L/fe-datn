@@ -49,6 +49,7 @@ interface Comment {
   post_id: string;
   replies: Reply[];
   role: string;
+  user_id: string;
 }
 
 interface Reply {
@@ -62,6 +63,7 @@ interface Reply {
   replies: Reply[];
   role: string;
   updated_at: string;
+  user_id: string;
 }
 
 interface PostWithComments<T> {
@@ -71,7 +73,7 @@ interface PostWithComments<T> {
 
 const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
 
-  const userId = useSelector((state: RootState) => state.user.user?.id)
+  const userId = useSelector((state: RootState) => state.user.user)
   const [data, setData] = useState<Data<Post> | null>(null)
   const [dataWithCmt, setDataWithCmt] = useState<PostWithComments<Comment> | null>(null)
   const token = useCookie('token')
@@ -87,6 +89,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
   const [activeReplyIdRR, setActiveReplyIdRR] = useState<string | null>(null)
   const [editIdRR, setEditIdRR] = useState<string | null>(null);
   const [loadCmt, setLoadCmt] = useState(false)
+  const [reloadCmt, setReloadCmt] = useState(false)
 
   useEffect(() => {
     if (params.id && token) {
@@ -128,6 +131,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
       .catch((error) => console.error(error))
       .finally(() => {
         setLoadCmt(false);
+        setReloadCmt(false)
       });
   };
 
@@ -136,6 +140,12 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
       fetchComments();
     }
   };
+
+  useEffect(() => {
+    if (params.id && token && reloadCmt) {
+      fetchComments();
+    }
+  }, [params.id, token, reloadCmt]);
 
   const handleReplySubmit = (commentId: string) => {
     console.log(`Nội dung trả lời cho comment ${commentId}:`, replyContent)
@@ -283,11 +293,12 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
             })
             const data = await res.json();
             console.log(data);
-          
 
-            if (data.status === 'success') {
-              alert('Bạn đã thay đổi thành công!!!')
 
+            if (res.ok) {
+              alert(data.message)
+              reloadComments()
+              setReloadCmt(true)
             } else {
               alert('Thay đổi thấy bại. Hãy thử lại')
             }
@@ -321,11 +332,11 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
             })
             const data = await res.json();
             console.log(data);
-          
 
-            if (data.status === 'success') {
-              alert('Bạn đã thay đổi thành công!!!')
-              reloadComments()
+
+            if (res.ok) {
+              alert(data.message)
+              setReloadCmt(true)
             } else {
               alert('Thay đổi thấy bại. Hãy thử lại')
             }
@@ -361,10 +372,9 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
             const data = await res.json();
             console.log(data);
 
-            if (data.status === 'success') {
-              alert('Bạn đã thay đổi thành công!!!')
-              reloadComments()
-
+            if (res.ok) {
+              alert(data.message)
+              setReloadCmt(true)
             } else {
               alert('Thay đổi thấy bại. Hãy thử lại')
             }
@@ -473,17 +483,19 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                       >
                         Trả lời
                       </small>
-                      <small
-                        className="text-primary"
-                        onClick={() => {
-                          setActiveReplyId(null)
-                          setActiveReplyIdR(null)
-                          setActiveReplyIdRR(null)
-                          setEditId(editId === item.id ? null : item.id)
-                          setEditIdR(null)
-                          setEditIdRR(null)
-                        }}
-                      >Sửa</small>
+                      {item.id === userId?.id ? (
+                        <small
+                          className="text-primary"
+                          onClick={() => {
+                            setActiveReplyId(null)
+                            setActiveReplyIdR(null)
+                            setActiveReplyIdRR(null)
+                            setEditId(editId === item.id ? null : item.id)
+                            setEditIdR(null)
+                            setEditIdRR(null)
+                          }}
+                        >Sửa</small>
+                      ) : ('')}
                       {
                         item.role === "" ? (
                           <small className="text-primary" onClick={() => handleDelete(item.id)}>Xóa</small>
@@ -572,18 +584,20 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                               >
                                 Trả lời
                               </small>
-                              <small
-                                className="text-primary"
-                                onClick={() => {
-                                  setActiveReplyId(null)
-                                  setActiveReplyIdR(null)
-                                  setActiveReplyIdRR(null)
-                                  setEditId(null)
-                                  setEditIdR(editIdR === itemR.id ? null : itemR.id)
-                                  setEditIdRR(null)
-                                }}
-                              >Sửa</small>
-                              {itemR.role === "admin" ? (
+                              {itemR.user_id === userId?.id ? (
+                                <small
+                                  className="text-primary"
+                                  onClick={() => {
+                                    setActiveReplyId(null)
+                                    setActiveReplyIdR(null)
+                                    setActiveReplyIdRR(null)
+                                    setEditId(null)
+                                    setEditIdR(editIdR === itemR.id ? null : itemR.id)
+                                    setEditIdRR(null)
+                                  }}
+                                >Sửa</small>
+                              ) : ('')}
+                              {itemR.id === userId?.id ? (
                                 <small className="text-primary" onClick={() => handleDelete(itemR.id)}>Xóa</small>
                               ) : (
                                 <small className="text-primary">Ẩn</small>
@@ -666,18 +680,20 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                                   >
                                     Trả lời
                                   </small>
-                                  <small
-                                    className="text-primary"
-                                    onClick={() => {
-                                      setActiveReplyId(null)
-                                      setActiveReplyIdR(null)
-                                      setActiveReplyIdRR(null)
-                                      setEditId(null)
-                                      setEditIdR(null)
-                                      setEditIdRR(editIdRR === itemRR.id ? null : itemRR.id)
-                                    }}
-                                  >Sửa</small>
-                                  {itemRR.role === "admin" ? (
+                                  {itemRR.user_id === userId?.id ? (
+                                    <small
+                                      className="text-primary"
+                                      onClick={() => {
+                                        setActiveReplyId(null)
+                                        setActiveReplyIdR(null)
+                                        setActiveReplyIdRR(null)
+                                        setEditId(null)
+                                        setEditIdR(null)
+                                        setEditIdRR(editIdRR === itemRR.id ? null : itemRR.id)
+                                      }}
+                                    >Sửa</small>
+                                  ) : ('')}
+                                  {itemRR.user_id === userId?.id ? (
                                     <small className="text-primary" onClick={() => handleDelete(itemRR.id)}>Xóa</small>
                                   ) : (
                                     <small className="text-primary">Ẩn</small>

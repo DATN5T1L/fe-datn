@@ -316,6 +316,10 @@ const nextConfig = {
         source: '/api/changeCmtPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/update-comment-post/:path*',
       },
+      {
+        source: '/api/uploadImgPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
+      },
     ];
   },
   images: {
