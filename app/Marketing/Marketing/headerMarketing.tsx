@@ -101,7 +101,6 @@ export const HeaderMarketing = () => {
             </Col>
           </Row>
         </Col>
-
         <Col
           xs={12}
           sm={12}
@@ -126,49 +125,6 @@ export const HeaderMarketing = () => {
           </div>
         </Col>
       </Row>
-
-      {/* <div
-        className={`${h.filterBar} d-flex row justify-content-between align-items-center`}
-      >
-        <InputGroup className={`${h.filterInputGroup} col-12`}>
-          <InputGroup.Text className={h.inputGroupText}>
-            <img src="/img_admin/action.svg" alt="Action" />
-          </InputGroup.Text>
-
-          <select aria-label="Trạng thái" className={h.formSelect}>
-            <option>Trạng thái  </option>
-            <option value="1">Active</option>
-            <option value="2">Inactive</option>
-          </select>
-
-          <select aria-label="Lượt xem" className={h.formSelect}>
-            <option>Lượt xem  </option>
-            <option value="1">0-100</option>
-            <option value="2">1000+</option>
-          </select>
-
-          <InputGroup.Text className={h.resetGroupText}>
-            <img src="/img_admin/restart.svg" alt="Reset" />
-            <span>  Cài lại</span>
-          </InputGroup.Text>
-        </InputGroup>
-
-        <InputGroup className={`${h.searchInputGroup} col-6`}>
-          <Form.Control
-            type="text"
-            placeholder="Tìm kiếm bài viết"
-            className={h.searchInput}
-          />
-          <div className={h.searchIconWrapper}>
-            <img
-              src="/img_admin/search.svg"
-              alt="Search"
-              width={"24px"}
-              height={"24px"}
-            />
-          </div>
-        </InputGroup>
-      </div> */}
     </div>
   );
 };

@@ -241,11 +241,23 @@ const nextConfig = {
       },
       {
         source: '/api/courseDocumnets/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/doc-course/:path*',
       },
       {
         source: '/api/hiddenUser/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/toggle-visibility-user-admin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-user/:path*',
+      },
+      {
+        source: '/api/getAllFpt/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-mail-fpt/:path*',
+      },
+      {
+        source: '/api/updateRoleFpt/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-role-admin/:path*',
+      },
+      {
+        source: '/api/getAllHistory/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-history/:path*',
       },
 
       // statistical
@@ -276,6 +288,33 @@ const nextConfig = {
       {
         source: '/api/coures_rating/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
+      },
+
+      //marketing
+
+      {
+        source: '/api/post_categories/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/post_categories/:path*',
+      },
+      {
+        source: '/api/comment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-comment-post/:path*',
+      },
+      {
+        source: '/api/commentPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-post/:path*',
+      },
+      {
+        source: '/api/deleteCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/delete-comment-post/:path*',
+      },
+      {
+        source: '/api/hiddenCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-comment-post/:path*',
+      },
+      {
+        source: '/api/changeCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-comment-post/:path*',
       },
     ];
   },

@@ -29,32 +29,6 @@ export const HeaderMarketingCategory = () => {
             </div>
           </div>
         </div>
-        <div className="d-flex align-items-center justify-content-between mx-3">
-          <div className="d-flex">
-            <img
-              src="/img_admin/action.svg"
-              className="bg-white border-end p-4 rounded-start-4"
-              alt="Action"
-            />
-            <div className="bg-white border-end p-4">
-              <select
-                aria-label="Trạng thái"
-                className={`${h.formSelect} bg-transparent`}
-              >
-                <option>Trạng thái  </option>
-                <option value="1">Active</option>
-                <option value="2">Inactive</option>
-              </select>
-            </div>
-            <div className="bg-white p-4 d-inline-flex align-items-center rounded-end-4">
-              <img src="/img_admin/restart.svg" alt="Reset" />
-              <span className="text-danger">  Cài lại</span>
-            </div>
-          </div>
-          <div>
-            <ChapterSearchBar />
-          </div>
-        </div>
       </div>
     </>
   );

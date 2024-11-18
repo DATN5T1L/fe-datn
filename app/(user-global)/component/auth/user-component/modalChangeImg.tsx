@@ -8,6 +8,7 @@ import { RootState } from '@/redux/store';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { update } from '@/redux/slices/userSlice';
+import useCookie from '../../hook/useCookie';
 
 interface ModalChangeImgProps {
     show: boolean;
@@ -18,7 +19,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
     const userState = useSelector((state: RootState) => state.user);
     const [isVisible, setIsVisible] = useState(false);
     const [selectedFile, setSelectedFile] = useState<string | null>(null);
-    const token = localStorage.getItem('token');
+    const token = useCookie('token');
     const disPatch = useDispatch()
     const [loading, setLoading] = useState(false)
 
@@ -71,28 +72,29 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
             const formData = new FormData();
             formData.append('avatar', values.avatar);
             console.log('Form Data:', Array.from(formData.entries()));
+            if (token) {
+                const response = await fetch('/api/changeImg/', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: formData,
+                });
+                if (response.ok) {
+                    const data = await response.json()
+                    alert('Ảnh đã được cập nhật thành công');
+                    setLoading(false)
+                    disPatch(update({
+                        avatar: data?.avatar
+                    }))
+                    onClose();
+                } else {
+                    alert('Cập nhật ảnh thất bại');
+                    console.log(formData);
+                    console.log(await response.json());
+                    setLoading(false)
 
-            const response = await fetch('/api/changeImg/', {
-                method: 'POST',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                body: formData,
-            });
-            if (response.ok) {
-                const data = await response.json()
-                alert('Ảnh đã được cập nhật thành công');
-                setLoading(false)
-                disPatch(update({
-                    avatar: data?.avatar
-                }))
-                onClose();
-            } else {
-                alert('Cập nhật ảnh thất bại');
-                console.log(formData);
-                console.log(await response.json());
-                setLoading(false)
-
+                }
             }
         } catch (error) {
             console.error('Có lỗi xảy ra:', error);
