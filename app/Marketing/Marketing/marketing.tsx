@@ -335,11 +335,11 @@ const Marketing: React.FC<{}> = () => {
                     </td>
                     <td className={h.option_button_group}>
                       <div className="d-flex justify-content-evenly border py-2 rounded">
-                        <Link href="/#!" className="">
+                        <Link href={`/Marketing/MarketingPosts/${item.id}`} className="">
                           <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
                         <div className="border-end" />
-                        <Link href={`/Marketing/MarketingPosts/${item.id}`} className="">
+                        <Link href={``} className="">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"

@@ -79,7 +79,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
   const token = useCookie('token')
 
   const [replyContent, setReplyContent] = useState<string>("");
-  const [editContent, setEditContent] = useState<string>("");
+  const [cmt, setCmt] = useState<string>("");
   const [activeReplyId, setActiveReplyId] = useState<string | null>(null);
   const [editId, setEditId] = useState<string | null>(null);
   const [replyContentR, setReplyContentR] = useState<string>("")
@@ -146,6 +146,30 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
       fetchComments();
     }
   }, [params.id, token, reloadCmt]);
+
+  const handleCmtSubmit = (commentId: string | number) => {
+    console.log(`Nội dung cho comment ${commentId}:`, cmt)
+    if (commentId && token && userId?.id) {
+      fetch(`/api/commentPost/${params.id}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ comment_text: cmt })
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          setCmt("")
+          reloadComments()
+        })
+        .catch(error => {
+          setCmt("")
+          console.error(error)
+        })
+    }
+  }
 
   const handleReplySubmit = (commentId: string) => {
     console.log(`Nội dung trả lời cho comment ${commentId}:`, replyContent)
@@ -426,6 +450,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
   return (
     <>
       <HeaderMarketingArticleComments />
+
       {
         data ? (
           <div className="mx-3 d-flex gap-5">
@@ -459,6 +484,25 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
               </div>
             </div>
             <div className={`${mod.comments} d-flex flex-column gap-3`}>
+              <div className="mt-3">
+                <textarea
+                  value={cmt}
+                  onChange={(e) => setCmt(e.target.value)}
+                  placeholder="Nhập nội dung bình luận"
+                  rows={3}
+                  className={mod.comment_input}
+                />
+                <button
+                  className={`btn btn-primary mt-2 ${cmt === '' ? mod.btn_disabled : ''}`}
+                  onClick={() => {
+                    if (params.id) {
+                      handleCmtSubmit(params.id)
+                    }
+                  }}
+                >
+                  Gửi bình luận
+                </button>
+              </div>
               {dataWithCmt?.comments?.map((item, index) => (
                 <div className="d-flex gap-3" key={index}>
                   <img
@@ -497,7 +541,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                         >Sửa</small>
                       ) : ('')}
                       {
-                        item.role === "" ? (
+                        item.user_id === userId?.id ? (
                           <small className="text-primary" onClick={() => handleDelete(item.id)}>Xóa</small>
                         ) : (
                           item.del_flag === true ? (
