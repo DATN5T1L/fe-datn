@@ -79,8 +79,6 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
 
 
     const updataStatus = async () => {
-
-
         // console.log(JSON.stringify(payload, null, 2));
 
         try {

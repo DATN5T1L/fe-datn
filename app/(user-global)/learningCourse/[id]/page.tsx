@@ -21,9 +21,13 @@ import Faq from "../Faq";
 import NoteCourse from "../NoteCourse";
 import Questions from '../Questions';
 import VideoPlayer from '../VideoPlayer';
+
+import { Arrow, IconWhat } from "@/app/(user-global)/component/icon/icons";
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { formatDateTime, formatTime } from "@/app/(user-global)/component/globalControl/commonC";
+
+import DocumentStatus from '../statusDoc';
 
 // thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
@@ -56,7 +60,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [descdocument, setdescdocument] = useState<string | null>(null);
     const [note, setNote] = useState<Note[] | null>(null);
     const [error, setError] = useState<string | null>(null);
-
 
     const [doc_id, setdoc_id] = useState<string | null>(null);
     const [statusDoc, setStatusDoc] = useState(false);
@@ -108,9 +111,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handelIsPlaying = () => {
         setIsPlaying(!isPlaying);
     }
-
-
-
     // láy ra khóa học
     const fetchDocuments = async (retries = 3): Promise<CourseData | null> => {
         try {
@@ -138,20 +138,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             return null;
         }
     };
-
-
-
-    useEffect(() => {
-        fetchDocuments()
-        fetchNotes();
-    }, [course_Id]);
-
-
-
-    const handlePause = () => {
-        console.log("Video Paused");
-    };
-    // lấy ra note
     const fetchNotes = async () => {
         try {
             const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
@@ -198,6 +184,25 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     };
 
+    console.log(JSON.stringify(course))
+
+    const filteredDocuments = course?.flatMap((item) =>
+        item.documents.filter((doc) => doc.status_document)
+    );
+
+    console.log(filteredDocuments)
+
+    // bài này đã học chưa
+    // bạn cần học bài trước
+
+    useEffect(() => {
+        fetchDocuments()
+        fetchNotes();
+    }, [course_Id]);
+
+    // lấy ra note
+
+
     useEffect(() => {
         if (doc_id !== null) {
 
@@ -214,16 +219,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
         );
     }, []);
-
-
-
-
-
-
-
-
-    // hàm định dạng thời gian
-
 
     // hàm định dạng ngày giờ
     const [timedocument, settimedocument] = useState('');
@@ -272,6 +267,17 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     setUrlVideo(initialDoc.url_video);
                     setnameDocument(initialDoc.name_document);
                     settypeDoc(initialDoc.type_document);
+                    if (initialDoc.type_document === 'quiz' && initialDoc.questions) {
+                        setQuestion(initialDoc.questions);
+                        setContent(false);
+                    } else if (initialDoc.type_document === 'code' && initialDoc.codes) {
+                        console.log(initialDoc.type_document)
+                        setCode(initialDoc.codes);
+                        setContent(false);
+                    } else if (initialDoc.type_document === 'video') {
+                        setUrlVideo(initialDoc.url_video);
+                        setContent(true);
+                    }
                 }
             }
         }
@@ -302,6 +308,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             );
         } else if (typeDoc === 'code') {
             console.log("Rendering Code Section");
+            console.log(code)
             return (
                 <div className={styles.wapperCode}>
                     {code?.map((codeItem, index) => (
@@ -314,6 +321,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             tutorial_code={codeItem.tutorial_code}
                             name_document={nameDocument}
                             updated_at={codeItem.updated_at}
+                            course_id={course_Id}
+                            documents_id={doc_id}
                         />
                     ))}
                 </div>
@@ -377,12 +386,13 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                 }}
 
                                                 onClick={() => {
+
+                                                    if (doc.status_document !== true) return;
                                                     setActiveDocIndex(subIndex);
                                                     setnameDocument(doc.name_document);
                                                     settypeDoc(doc.type_document);
                                                     setIdDocument(doc.document_id)
                                                     settimedocument(formatDateTime(doc.updated_at));
-
                                                     setdoc_id(doc.document_id)
                                                     setdescdocument(doc.discription_document)
                                                     if (doc.type_document === 'quiz' && doc.questions) {
@@ -429,28 +439,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                     </div>
                                                 </div>
                                                 {
-                                                    doc.status_document === true ? (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <g clipPath="url(#clip0_4331_7659)">
-                                                            <circle cx="6" cy="6" r="5" stroke="#24A148" stroke-width="1.5" />
-                                                            <path d="M4.25 6.25L5.25 7.25L7.75 4.75" stroke="#24A148" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                                        </g>
-                                                        <defs>
-                                                            <clipPath id="clip0_4331_7659">
-                                                                <rect width="12" height="12" fill="white" />
-                                                            </clipPath>
-                                                        </defs>
-                                                    </svg>) : (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                                        <g clipPath="url(#clip0_4979_2333)">
-                                                            <path d="M1 8C1 6.58579 1 5.87868 1.43934 5.43934C1.87868 5 2.58579 5 4 5H8C9.41421 5 10.1213 5 10.5607 5.43934C11 5.87868 11 6.58579 11 8C11 9.41421 11 10.1213 10.5607 10.5607C10.1213 11 9.41421 11 8 11H4C2.58579 11 1.87868 11 1.43934 10.5607C1 10.1213 1 9.41421 1 8Z" stroke="#B3B3B3" stroke-width="1.5" />
-                                                            <path d="M6 7V9" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                                            <path d="M3 5V4C3 2.34315 4.34315 1 6 1C7.65685 1 9 2.34315 9 4V5" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                                        </g>
-                                                        <defs>
-                                                            <clipPath id="clip0_4979_2333">
-                                                                <rect width="12" height="12" fill="white" />
-                                                            </clipPath>
-                                                        </defs>
-                                                    </svg>)
+                                                    <DocumentStatus status_document={doc.status_document} />
                                                 }
 
                                             </li>
@@ -730,25 +719,17 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             </div>
             <div className={`${styles.actionBar}`}>
                 <div className={styles.faq} onClick={toggleFaq}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                        <circle cx="25.0003" cy="25" r="20.8333" stroke="#237DF7" stroke-width="1.5" />
-                        <path d="M21.0938 18.4896C21.0938 16.3322 22.8426 14.5833 25 14.5833C27.1574 14.5833 28.9062 16.3322 28.9062 18.4896C28.9062 19.9218 28.1355 21.1739 26.9862 21.8539C25.9959 22.4398 25 23.3286 25 24.4792V27.0833" stroke="#237DF7" stroke-width="1.5" stroke-linecap="round" />
-                        <circle cx="25.0003" cy="33.3333" r="2.08333" fill="#237DF7" />
-                    </svg>
+                    <IconWhat />
                 </div>
                 <div className={styles.ctaNextPev}>
-                    <Link href={"/#"} className={styles.nextPrevCourse}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M15 18L9 12L15 6" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
+                    <button className={styles.nextPrevCourse}>
+                        <Arrow deg="-180" />
                         <p className={styles.titleNextPrev}>Bài trước</p>
-                    </Link>
-                    <Link href={"/#"} className={styles.nextPrevCourse}>
+                    </button>
+                    <button className={styles.nextPrevCourse}>
                         <p className={styles.titleNextPrev}>Bài tiếp theo</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M9 18L15 12L9 6" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </Link>
+                        <Arrow deg="0" />
+                    </button>
                 </div>
                 <div className={styles.cateSec}>
                     <span>Chương 1: Bắt đầu</span>

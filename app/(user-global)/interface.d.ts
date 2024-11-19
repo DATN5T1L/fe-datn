@@ -97,6 +97,16 @@ interface CodeDevProps {
     tutorial_code: string;
     updated_at: string;
     name_document: string;
+    course_id: string;
+    documents_id: string | null;
+}
+
+interface UpdateStatusComponentProps {
+    course_id: string | null;
+    documents_id: string | null;
+    token: string | null;
+    onSuccess?: (data: any) => void;
+    onError?: (error: Error) => void;
 }
 // Payments
 

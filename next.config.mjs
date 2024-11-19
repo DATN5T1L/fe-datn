@@ -197,7 +197,6 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/client/check-mail-register/:path*',
       },
       // API Enrollment 
-
       {
         source: '/api/userRegisterCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/user-register-course/:path*',
@@ -237,10 +236,6 @@ const nextConfig = {
         source: '/api/hiddenUser/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/toggle-visibility-user-admin/:path*',
       },
-
-
-
-
     ];
 
   },

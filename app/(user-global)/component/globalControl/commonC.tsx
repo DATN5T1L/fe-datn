@@ -46,7 +46,14 @@ const formatTime = (seconds: number): string => {
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
 };
+const cleaneds = (content: string[]) => {
+    return content.map(item =>
+        item.replace(/\s+/g, '') // Thay thế tất cả khoảng trắng bằng chuỗi rỗng
+    );
+};
+const cleaned = (content: string) => {
+    return content.replace(/\s+/g, ''); // Thay thế tất cả khoảng trắng bằng chuỗi rỗng
+};
 
 
-
-export { parseQues, formatTime, formatDateTime, parseCode, parseFill };
+export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned };
