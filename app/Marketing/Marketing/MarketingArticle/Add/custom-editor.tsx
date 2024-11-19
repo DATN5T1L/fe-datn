@@ -79,7 +79,8 @@ import {
     Undo,
     SimpleUploadAdapter,
     EasyImage,
-    Image
+    Image,
+    Alignment
 } from 'ckeditor5';
 import { AIAssistant, ExportPdf, ExportWord, ImportWord, OpenAITextAdapter } from 'ckeditor5-premium-features';
 
@@ -91,27 +92,40 @@ import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
 import useCookie from '@/app/(user-global)/component/hook/useCookie';
 import { useEffect, useState } from 'react';
 
-const CkediterCustom: React.FC = () => {
-    const token = useCookie('token')
-    const tokenImg = process.env.NEXT_PUBLIC_TOKEN_IMAGE
 
-    const licenseKey = 'RmtGcTJLcjZLMVluN1NUb1EvS1dwV01tRUlBeXZMejNiV2dzZHpWZ0tranFKalBFOG9SeHMzaFJMaWg2M2c9PS1NakF5TkRFeU1UZz0=';
+interface CkEditorCustomProps {
+    initialData?: string;
+    onChange?: (data: string) => void;
+}
+
+
+const CkediterCustom: React.FC<CkEditorCustomProps> = ({ initialData = '', onChange }) => {
+    const token = useCookie('token')
+    const [editorData, setEditorData] = useState<string>(initialData);
+    const tokenImg = process.env.NEXT_PUBLIC_TOKEN_IMAGE
 
     const handleEditorChange = (_: any, editor: any) => {
         const data = editor.getData();
-        console.log({ data });
+        setEditorData(data);
+        if (onChange) {
+            onChange(data);
+        }
     };
 
+    useEffect(() => {
+        setEditorData(initialData);
+    }, [initialData]);
     return (
         <CKEditor
             editor={ClassicEditor}
-            data="<p>Nhập nội dung bài viết tại đây...</p>"
+            data={editorData}
             onChange={handleEditorChange}
             config={{
-                licenseKey: licenseKey,
+                licenseKey: tokenImg,
                 cloudServices: {
                     tokenUrl: 'https://123319.cke-cs.com/token/dev/35d1d27f0e9e385c53edf0d6b267c2f4b82c737a333c23aec4e4bebc4f8e?limit=10',
-                    uploadUrl: 'https://123319.cke-cs.com/easyimage/upload/'
+                    uploadUrl: 'https://123319.cke-cs.com/easyimage/upload/',
+                    webSocketUrl: 'wss://123319.cke-cs.com/ws'
                 },
                 plugins: [
                     AccessibilityHelp, Autoformat, AutoImage, Autosave, BlockQuote, Bold, CKBox, CKBoxImageEdit,
@@ -124,7 +138,7 @@ const CkediterCustom: React.FC = () => {
                     SpecialCharactersCurrency, SpecialCharactersEssentials, SpecialCharactersLatin, SpecialCharactersMathematical,
                     SpecialCharactersText, Strikethrough, Subscript, Superscript, Table, TableCaption, TableCellProperties,
                     TableColumnResize, TableProperties, TableToolbar, TextPartLanguage, TextTransformation, Title, TodoList,
-                    Underline, Undo, ExportPdf, ExportWord, ImportWord, SimpleUploadAdapter, EasyImage, Image
+                    Underline, Undo, ExportPdf, ExportWord, ImportWord, SimpleUploadAdapter, EasyImage, Image, Alignment,
                 ],
                 toolbar: [
                     "undo", "redo",
@@ -155,9 +169,9 @@ const CkediterCustom: React.FC = () => {
                 },
                 image: {
                     toolbar: [
-                        'toggleImageCaption', 'imageTextAlternative', 'ckboxImageEdit',"resizeImage", "imageTextAlternative", "imageStyle:inline", "imageStyle:block", "imageStyle:side"
+                        "toggleImageCaption", "resizeImage", "imageTextAlternative", "imageStyle:inline", "imageStyle:block", "imageStyle:side"
                     ],
-                    resizeUnit: "%",
+                    resizeUnit: "px",
                     resizeOptions: [{
                         name: 'resizeImage:original',
                         value: null

@@ -180,6 +180,36 @@ const Marketing: React.FC<{}> = () => {
     setSelectedViews('');
   };
 
+  const handleDelete = (id: string | number) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn thay đổi trạng thái bài viết này không??')) {
+        fetch(`/api/hiddenPost/${id}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            alert(data.message)
+            console.log(data);
+            setPostData(prev => {
+              if (!prev || !prev.data) return prev;
+              const updatedData = prev.data.map(post => {
+                if (post.id === id) {
+                  return { ...post, del_flag: !post.del_flag };
+                }
+                return post;
+              });
+              return { ...prev, data: updatedData };
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          })
+      }
+    }
+  }
 
   return (
     <>
@@ -339,7 +369,7 @@ const Marketing: React.FC<{}> = () => {
                           <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
                         <div className="border-end" />
-                        <Link href={``} className="">
+                        <Link href={`/Marketing/MarketingPosts/editPost?id=${item.id}`} className="">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -358,7 +388,7 @@ const Marketing: React.FC<{}> = () => {
                           </svg>
                         </Link>
                         <div className="border-end" />
-                        <Link href="UsersPage/DetailUser/" className="">
+                        <Link href="" onClick={() => handleDelete(item.id)} className="">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"

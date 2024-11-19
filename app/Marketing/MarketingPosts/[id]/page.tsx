@@ -461,26 +461,32 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
               <div className="my-4">
                 <span className="fs-5 fs-sm-2 fs-lg-1">{useFormatDate(data.data.created_at)}</span>
               </div>
-              <span className="fs-5 fs-sm-2 fs-lg-1">
-                {data.data.content_post}
-              </span>
+              {data.data.content_post.length >= 1000 ? (
+                <div
+                  dangerouslySetInnerHTML={{ __html: data.data.content_post }}
+                  className="fs-5 fs-sm-2 fs-lg-1">
+
+                </div>
+              ) : (
+                <span className="fs-5 fs-sm-2 fs-lg-1">
+                  {data.data.content_post}
+                </span>
+              )}
+
               <div
                 className="my-5 w-100 d-flex justify-content-center align-items-center"
                 style={{ flexDirection: "column" }}
               >
                 <img
-                  src="/img/html css pro.png"
-                  alt=""
+                  src={`${data.data.img_post}`}
+                  alt={`${data.data.title_post}`}
                   style={{
-                    width: "100%",
-                    height: "30%",
+                    width: "auto",
+                    height: "auto",
                     objectFit: "contain",
                     borderRadius: 10,
                   }}
                 />
-                <span className="mt-2" style={{ fontStyle: "italic" }}>
-                  Click vào màn hình để mở video nhé anh em!
-                </span>
               </div>
             </div>
             <div className={`${mod.comments} d-flex flex-column gap-3`}>

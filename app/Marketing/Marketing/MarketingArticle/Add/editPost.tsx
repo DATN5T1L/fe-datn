@@ -20,47 +20,103 @@ interface Category {
   del_flag: boolean;
 }
 
+interface Post {
+  category_id: string;
+  content_post: string;
+  created_at: string;
+  del_flag: boolean;
+  id: string;
+  img_post: string;
+  title_post: string;
+  updated_at: string;
+  user_id: string;
+  views_post: number;
+}
+
 interface Data<T> {
   status: string;
   message: string;
   data: T[];
 }
 
-const AddMarketingPost = () => {
-  const token = useCookie('token')
-  const [content, setContent] = useState<string>('');
-  const [dataCates, setDataCates] = useState<Data<Category> | null>(null)
+interface Datas<T> {
+  status: string;
+  message: string;
+  data: T;
+}
+
+interface EditProps {
+  id?: string
+}
+
+const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
+  const token = useCookie("token");
+  const [content, setContent] = useState<string>("");
+  const [dataCates, setDataCates] = useState<Data<Category> | null>(null);
+  const [data, setData] = useState<Datas<Post> | null>(null)
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter()
+  const router = useRouter();
+  const [initialValues, setInitialValues] = useState({
+    title_post: "",
+    content_post: "",
+    category_id: "",
+    img_post: null as File | null,
+  });
 
   useEffect(() => {
     if (token) {
       fetch(`/api/post_categories/`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          setDataCates(data)
+        .then((res) => res.json())
+        .then((data) => {
+          setDataCates(data);
         })
-        .catch(error => {
-          console.log(error);
-        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-  }, [token])
+  }, [token]);
+
+  useEffect(() => {
+    if (id && token) {
+      fetch(`/api/allPost/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setData(data)
+          const post = data.data;
+          if (post) {
+            setInitialValues({
+              title_post: post.title_post,
+              content_post: post.content_post,
+              category_id: post.category_id,
+              img_post: post.img_post,
+            });
+          }
+          if (post.img_post) {
+            setPreviewImage(post.img_post);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id, token]);
 
   const formik = useFormik({
-    initialValues: {
-      title_post: "",
-      content_post: "",
-      category_id: "",
-      img_post: null as File | null,
-    },
+    enableReinitialize: true,
+    initialValues,
     validationSchema: Yup.object({
       title_post: Yup.string()
         .required("Tiêu đề không được để trống")
@@ -68,46 +124,60 @@ const AddMarketingPost = () => {
       content_post: Yup.string()
         .test(
           "isNotEmptyHTML",
-          "Tiêu đề không được để trống",
+          "Nội dung không được để trống",
           (value) => !!value && value.replace(/<[^>]*>/g, "").trim() !== ""
         )
-        .required("Tiêu đề không được để trống"),
+        .required("Nội dung không được để trống"),
       category_id: Yup.string().required("Vui lòng chọn danh mục"),
-      img_post: Yup.mixed().required("Hình ảnh không được để trống"),
+      img_post: Yup.mixed().nullable(),
     }),
     onSubmit: async (values) => {
       const formData = new FormData();
-      formData.append("title_post", values.title_post);
-      formData.append("content_post", values.content_post);
-      formData.append("category_id", values.category_id);
-      if (values.img_post) {
+      if (values.title_post) {
+        formData.append("title_post", values.title_post);
+      }
+      if (values.content_post) {
+        formData.append("content_post", values.content_post);
+      }
+      if (values.category_id) {
+        formData.append("category_id", values.category_id);
+      }
+
+      if (values.img_post && values.img_post instanceof File) {
         formData.append("img_post", values.img_post);
+      } else if (data && data.data.img_post) {
+        formData.append("img_post", data.data.img_post);
       }
 
       try {
-        const response = await fetch("/api/allPost", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formData,
-        });
+        if (token) {
+          if (confirm('Bạn muốn cập nhật bài viết này không')) {
+            const response = await fetch(`/api/allPost/${id}`, {
+              method: "PATCH",
+              headers: {
+                Authorization: `Bearer ${token}`,
 
-        const result = await response.json();
-        console.log(result);
-        if (result.ok) {
-          alert('Thêm thành công!!!')
-          router.replace('/Marketing/MarketingPosts/')
+              },
+              body: formData,
+            });
+            console.log(formData);
+
+            const result = await response.json();
+            console.log(result);
+
+            if (response.ok) {
+              alert("Cập nhật bài viết thành công!");
+              router.replace("/Marketing/MarketingPosts/");
+            } else {
+              console.error(result.message || "Đã xảy ra lỗi!");
+            }
+          }
         }
       } catch (error) {
         console.error("Error submitting form:", error);
       }
     },
   });
-
-  const handleEditorChange = (data: string) => {
-    formik.setFieldValue("content_post", data);
-  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -183,19 +253,14 @@ const AddMarketingPost = () => {
           ) : (
             <small className="fw-semibold">Chọn một hình ảnh</small>
           )}
-          <span className="text-muted">
-            JPG, PNG hoặc PDF, kích thước không lớn hơn 10MB
-          </span>
           <input
             type="file"
             accept="image/*"
             ref={fileInputRef}
             onChange={handleImageChange}
             style={{ display: "none" }}
+            name="img_post"
           />
-          {formik.errors.img_post && formik.touched.img_post && (
-            <p className="text-danger">{formik.errors.img_post}</p>
-          )}
           <Button
             variant="outline-primary"
             className={`${mod.btnCTA} ${mod.btnCTAOutline} m-3 p-3`}
@@ -208,12 +273,12 @@ const AddMarketingPost = () => {
           <Form.Label>Tên tiêu đề</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Nhập vào tiêu đề nội dung"
-            className={`${postMod.form} text-muted py-2`}
             name="title_post"
             value={formik.values.title_post}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={`${postMod.form} text-muted py-2`}
+            placeholder="Nhập vào tiêu đề"
           />
           {formik.errors.title_post && formik.touched.title_post && (
             <p className="text-danger">{formik.errors.title_post}</p>
@@ -229,15 +294,15 @@ const AddMarketingPost = () => {
         <Form.Group className="w-25">
           <Form.Label>Danh mục</Form.Label>
           <Form.Select
-            className={`${postMod.form} text-muted py-2`}
             name="category_id"
             value={formik.values.category_id}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            className={`${postMod.form} text-muted py-2`}
           >
             <option value="">Chọn danh mục</option>
-            {dataCates?.data.map((item, index) => (
-              <option key={index} value={item.id}>
+            {dataCates?.data.map((item) => (
+              <option key={item.id} value={item.id}>
                 {item.name_category}
               </option>
             ))}
@@ -246,10 +311,12 @@ const AddMarketingPost = () => {
             <p className="text-danger">{formik.errors.category_id}</p>
           )}
         </Form.Group>
-        <Button type="submit" className={`${postMod.addBtn} ${mod.btnCTA}`}>Thêm vào</Button>
+        <Button type="submit" className={`${postMod.addBtn} ${mod.btnCTA}`}>
+          Cập nhật bài viết
+        </Button>
       </Form>
     </div>
   );
 };
 
-export default AddMarketingPost;
+export default EditMarketingPost;

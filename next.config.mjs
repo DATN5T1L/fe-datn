@@ -320,6 +320,10 @@ const nextConfig = {
         source: '/api/uploadImgPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
       },
+      {
+        source: '/api/hiddenPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
+      },
     ];
   },
   images: {
