@@ -55,7 +55,25 @@ const ProfileDispatch = () => {
     const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
     const [dataUser, setDataUser] = useState<User | null>(null)
     const [hasLoggedOut, setHasLoggedOut] = useState(false);
-    const token = getCookie('token')
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedRegister = localStorage.getItem('register');
+            if (isRegister) {
+                if (savedRegister) {
+                    return;
+                } else {
+                    localStorage.setItem('register', 'email');
+                }
+            }
+            else if (pathName === 'profiledispatch') {
+                localStorage.setItem('register', 'phone');
+            }
+            else {
+                localStorage.removeItem('register');
+            }
+        }
+    }, [pathName, isRegister]);
 
     const handleLogout = async () => {
         localStorage.removeItem('token');

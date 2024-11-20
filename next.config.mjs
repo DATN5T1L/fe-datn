@@ -101,6 +101,14 @@ const nextConfig = {
         source: '/api/changeImg/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/update-avatar/:path*',
       },
+      {
+        source: '/api/checkPhone/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-update-phone/:path*',
+      },
+      {
+        source: '/api/verifyPhone/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-phone/:path*',
+      },
 
       // Client API rewrites
 
