@@ -149,7 +149,7 @@ const Login: React.FC = () => {
                                 <Form className={styles.form} onSubmit={formik.handleSubmit}>
                                     <fieldset className={styles.fieldsetLogin}>
                                         <legend className={styles.fieldsetLogin__line}></legend>
-                                        <legend className={styles.fieldsetLogin__title}>  email hoặc số điện thoại</legend>
+                                        <legend className={styles.fieldsetLogin__title}> Hello email hoặc số điện thoại</legend>
                                         <legend className={styles.fieldsetLogin__line}></legend>
                                     </fieldset>
                                     <section className={styles.mainLogin}>
