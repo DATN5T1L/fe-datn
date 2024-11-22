@@ -4,15 +4,14 @@ import styles from '@public/styles/register/Register.module.css';
 import Link from 'next/link';
 import { Button, Card, Container, Form, Image } from 'react-bootstrap';
 import * as Yup from 'yup'
-import Link from 'next/link';
 import Body from '../component/globalControl/body';
 import { useForm } from 'react-hook-form';
 import FbLogin from '../component/auth/user-component/fbLogin';
 import GgLogin from '../component/auth/user-component/ggLogin';
 import { useFormik } from 'formik';
-import * as Yup from 'yup'
 import { useRouter } from 'next/navigation';
-
+import RegisterPhone from '@app/(user-global)/component/auth/user-component/sign-up-phone';
+import RegisterEmail from '@app/(user-global)/component/auth/user-component/sign-up-email';
 interface RegisterFormData {
     userName: string;
     email: string;
@@ -30,7 +29,7 @@ const Register: React.FC = () => {
     const [countdown, setCountdown] = useState(30);
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [getTokenInput, setGetTokenInput] = useState(true)
-
+    const [checkRegister, setCheckRegister] = useState(false);
     const formik = useFormik({
         initialValues: {
             fullName: '',
