@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { login, logout } from '../../../../../redux/slices/userSlice';
+import { clear, login, logout } from '../../../../../redux/slices/userSlice';
 import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from 'react-redux';
 import { RootState, persistor } from '@/redux/store';
@@ -36,6 +36,7 @@ const getCookie = (name: string) => {
 
 const ProfileDispatch = () => {
     const userState = useSelector((state: RootState) => state.user.user)
+    const dataState = useSelector((state: RootState) => state.user.data)
     const dispatch = useDispatch();
     const router = useRouter();
     const pathName = usePathname()
@@ -54,7 +55,25 @@ const ProfileDispatch = () => {
     const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
     const [dataUser, setDataUser] = useState<User | null>(null)
     const [hasLoggedOut, setHasLoggedOut] = useState(false);
-    const token = getCookie('token')
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedRegister = localStorage.getItem('register');
+            if (isRegister) {
+                if (savedRegister) {
+                    return;
+                } else {
+                    localStorage.setItem('register', 'email');
+                }
+            }
+            else if (pathName === 'profiledispatch') {
+                localStorage.setItem('register', 'phone');
+            }
+            else {
+                localStorage.removeItem('register');
+            }
+        }
+    }, [pathName, isRegister]);
 
 
 
@@ -178,6 +197,13 @@ const ProfileDispatch = () => {
     //     }, 30000);
     //     return () => clearInterval(interval);
     // }, [dataUser, hasLoggedOut, isAdmin, router])
+
+    useEffect(() => {
+        if (pathName !== `/admin/AccessPage/${dataState?.id}`) {
+            console.log("Đang gọi clear");
+            dispatch(clear());
+        }
+    }, [pathName]);
 
     useEffect(() => {
         setDataUser(null)

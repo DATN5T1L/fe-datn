@@ -37,7 +37,7 @@ const Body: React.FC<BodyProps> = ({ children }) => {
   }, []);
 
   return (
-    <div className='body-container' style={{ marginTop: `${headerHeight}px` }}>
+    <div className='body-container' style={{ marginTop: `${headerHeight}px`  }}>
       {children}
     </div>
   );

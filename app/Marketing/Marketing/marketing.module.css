@@ -15,6 +15,7 @@
   background: var(--background-bg-admin, #f5f6fa);
   padding: 25px 32px;
 }
+
 .header1 {
   display: flex;
   justify-content: space-between;
@@ -113,6 +114,7 @@
 .table thead tr {
   border: none;
 }
+
 .table thead tr td {
   padding: 20px 10px;
   background: var(--Gray-gray-95, #fafafa);
@@ -167,14 +169,17 @@
   height: 38px;
   margin: 0;
 }
+
 .option_button a:nth-child(2) {
   border-left: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
 }
+
 .option_button a img {
   width: 24px;
   height: 24px;
 }
+
 .option_button_group {
   /* display: flex; */
   /* height: 108px; */
@@ -206,6 +211,7 @@
   margin-top: 20px;
   width: 100%;
 }
+
 .pagination {
   display: flex;
   align-items: center;
@@ -261,11 +267,9 @@
 
 .headerContent {
   background: linear-gradient(107.66deg, #063b42 2.8%, #0f96a8 98%),
-    linear-gradient(
-      252.45deg,
+    linear-gradient(252.45deg,
       rgba(0, 0, 0, 0) 2.14%,
-      rgba(6, 59, 66, 0.2) 100%
-    );
+      rgba(6, 59, 66, 0.2) 100%);
   width: 100%;
   height: 115px;
   box-sizing: border-box;
@@ -319,4 +323,8 @@
 
 .category_btns {
   width: 190px;
+}
+
+.align {
+  margin: 0 auto;
 }

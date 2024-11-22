@@ -6,7 +6,7 @@ import Marketing from "@/app/Marketing/Marketing/marketing";
 const MarketingManagePost = () => {
   return (
     <>
-      <HeaderMarketing />
+      {/* <HeaderMarketing /> */}
       <Marketing />
     </>
   );

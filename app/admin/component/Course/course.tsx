@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import {
   Button,
   Form,
@@ -20,7 +20,7 @@ import ReactLoading from 'react-loading';
 
 
 interface Course {
-  course_id: number;
+  id: string;
   name_course: string;
   views_course: number;
   discount_price_course: number;
@@ -48,17 +48,17 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
   const [count, setCount] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
 
-  const handleNextPage = () => {
+  const handleNextPage = useCallback(() => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
     }
-  };
+  }, [currentPage, totalPages]);
 
-  const handlePrevPage = () => {
+  const handlePrevPage = useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
-  };
+  }, [currentPage]);
 
   useEffect(() => {
     if (!loading) {
@@ -77,7 +77,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
       ? courseData.data.slice(indexOfFirstUser, indexOfLastUser)
       : [];
 
-  const renderPaginationItems = () => {
+  const renderPaginationItems = useMemo(() => {
     const pageNumbers = [];
     if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) {
@@ -133,7 +133,13 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
       );
     }
     return pageNumbers;
-  };
+  }, [totalPages, currentPage]);
+
+  useLayoutEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1)
+    }
+  }, [currentPage, totalPages, setCurrentPage])
 
   useEffect(() => {
     if (courseData?.data.length === 0) {
@@ -171,8 +177,8 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
           ) : (
             <tbody>
               {count ?
-                currentCourse.map((item) => (
-                  <tr >
+                currentCourse.map((item, index) => (
+                  <tr key={index}>
                     <td>
                       <Card.Header className={h.headerContent}>
                         <section className={h.headerContent__text}>
@@ -207,7 +213,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                       <div
                         className={`justify-content-evenly border d-flex py-2 rounded`}
                       >
-                        <Link href={`/admin/CoursePage/${item.course_id}`} className="w-50 border-end">
+                        <Link href={`/admin/CoursePage/${item.id}`} className="w-50 border-end">
                           <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
                         <Link href="UsersPage/DetailUser/" className="">
@@ -236,7 +242,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
       <div className="paginationWrapper">
         <Pagination>
           <Pagination.Prev onClick={handlePrevPage} />
-          {renderPaginationItems()}
+          {renderPaginationItems}
           <Pagination.Next onClick={handleNextPage} />
         </Pagination>
       </div>

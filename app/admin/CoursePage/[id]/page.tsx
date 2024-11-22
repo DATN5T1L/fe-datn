@@ -21,31 +21,33 @@ import { AccordionSelectCallback } from "react-bootstrap/esm/AccordionContext";
 
 interface CourseDetailProps {
     params: {
-        id: number | string;
+        id: string;
     };
 }
 
 interface DataCourse {
-    chapter_id: string | number;
+    course_id: string
+    chapter_id: string;
     chapter_name: string;
     documents: [
         {
-            document_id: string | number;
+            document_id: string;
             name_document: string;
             type_document: string;
             updated_at: string;
         }
     ];
+    
 }
 
 interface ChapterAccordionProps {
     data: DataCourse[];
     setVideoDetails: React.Dispatch<React.SetStateAction<VideoDetailProps>>;
-    currentDocumentId: string | number;
+    currentDocumentId: string;
 }
 
 interface VideoDetailProps {
-    id: string | number;
+    id: string
     name: string;
     updated_at: string;
 }
@@ -68,32 +70,36 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
 
     useEffect(() => {
         setLoading(true)
-        fetch(`/api/courseDocumnets/${idCourse}`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                setLoading(false)
-                setData(data.data);
-                if (data.data && data.data.length > 0) {
-                    const firstDocument = data.data[0].documents[0];
-                    setVideoDetails({
-                        id: firstDocument.document_id,
-                        name: firstDocument.name_document,
-                        updated_at: firstDocument.updated_at,
-                    });
-                    if (videoRef.current) {
-                        videoRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
+        if (token) {
+            fetch(`/api/courseDocumnets/${idCourse}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
                 }
             })
-            .catch(error => {
-                setLoading(false)
-                console.log(error)
-            });
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+
+                    setLoading(false)
+                    setData(data.data);
+                    if (data.data && data.data.length > 0) {
+                        const firstDocument = data.data[0].documents[0];
+                        setVideoDetails({
+                            id: firstDocument.document_id,
+                            name: firstDocument.name_document,
+                            updated_at: firstDocument.updated_at,
+                        });
+                        if (videoRef.current) {
+                            videoRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }
+                })
+                .catch(error => {
+                    setLoading(false)
+                    console.log(error)
+                });
+        }
     }, [token, idCourse]);
 
     const goToPreviousDocument = useCallback(() => {
@@ -231,7 +237,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ data, setVideoDetai
 
         return () => clearTimeout(timer);
     }, [data]);
-    const handleDocumentClick = (document: { document_id: string | number, name_document: string, updated_at: string }) => {
+    const handleDocumentClick = (document: { document_id: string, name_document: string, updated_at: string }) => {
         setVideoDetails({
             id: document.document_id,
             name: document.name_document,
@@ -241,13 +247,13 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ data, setVideoDetai
 
     const handleAccordionSelect: AccordionSelectCallback = (eventKey) => {
         if (eventKey !== null) {
-            setActiveChapterIndex(String(eventKey));  
+            setActiveChapterIndex(String(eventKey));
         } else {
-            setActiveChapterIndex("0");  
+            setActiveChapterIndex("0");
         }
     };
     return (
-        <Accordion activeKey={activeChapterIndex}  onSelect={handleAccordionSelect}>
+        <Accordion activeKey={activeChapterIndex} onSelect={handleAccordionSelect}>
             {
                 data.map((item, index) => (
                     <Accordion.Item eventKey={`${index}`} key={index}>

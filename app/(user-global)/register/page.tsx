@@ -1,14 +1,26 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { useFormik } from 'formik';
-import { useRouter } from 'next/navigation';
+import styles from '@public/styles/register/Register.module.css';
+import Link from 'next/link';
 import { Button, Card, Container, Form, Image } from 'react-bootstrap';
 import * as Yup from 'yup'
 import Link from 'next/link';
 import Body from '../component/globalControl/body';
+import { useForm } from 'react-hook-form';
 import FbLogin from '../component/auth/user-component/fbLogin';
 import GgLogin from '../component/auth/user-component/ggLogin';
-import styles from '@public/styles/register/Register.module.css';
+import { useFormik } from 'formik';
+import * as Yup from 'yup'
+import { useRouter } from 'next/navigation';
+
+interface RegisterFormData {
+    userName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    token: number | string;
+    role: string;
+}
 
 const Register: React.FC = () => {
     const [isCheckPass, setIsCheckPass] = useState(true);
@@ -48,7 +60,6 @@ const Register: React.FC = () => {
             check: Yup.string()
                 .required('Vui lòng nhập mã xác nhận từ email'),
         }),
-
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
             if (errorShown) return;
             try {
@@ -63,11 +74,14 @@ const Register: React.FC = () => {
                         password: values.password,
                         confirm_password: values.confirm_password,
                         token: values.check,
+                        role: 'admin'
                     }),
                 });
 
                 if (!res.ok) {
-                    const errorData = await res.json()
+                    const errorData = await res.json();
+                    console.log(errorData);
+                    console.log("Status:", res.status);
                     if (res.status === 422) {
                         if (errorData.errors && errorData.errors.email) {
                             alert(errorData.errors.email);
@@ -96,84 +110,11 @@ const Register: React.FC = () => {
         }
     });
 
-    const handleSendCode = async () => {
-        setGetTokenInput(false)
-        formik.setFieldTouched('email', true);
-
-        if (!formik.values.email) {
-            formik.setFieldError('email', 'Vui lòng nhập email trước khi gửi mã');
-            return;
-        }
-
-        if (formik.errors.email) {
-            return;
-        }
-
-        try {
-            const res = await fetch('/api/checkTokenNewUser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email: formik.values.email }),
-            });
-
-            if (res.ok) {
-                alert('Mã xác nhận đã được gửi đến email của bạn');
-                setIsButtonDisabled(true);
-                setCountdown(120);
-            } else if (res.status === 429) {
-                alert('vui lòng chờ cho lượt gửi tiếp theo')
-                setIsButtonDisabled(true);
-                setCountdown(120);
-            }
-            else {
-                alert('Gửi mã thất bại. Vui lòng thử lại');
-                formik.setFieldValue('check', '')
-                console.log(await res.json());
-
-            }
-        } catch (error) {
-            console.error('Lỗi khi gửi mã xác nhận:', error);
-            alert('Có lỗi xảy ra khi gửi mã xác nhận');
-            formik.setFieldValue('check', '')
-        }
+    const handleChangeRegister = () => {
+        const newCheckRegister = !checkRegister;
+        setCheckRegister(newCheckRegister);
+        localStorage.setItem('register', newCheckRegister ? 'phone' : 'email');
     };
-
-    useEffect(() => {
-        let timer: NodeJS.Timeout | null = null;
-        if (isButtonDisabled && countdown > 0) {
-            timer = setInterval(() => {
-                setCountdown((prev) => prev - 1);
-            }, 1000);
-        }
-
-        if (countdown === 0) {
-            setIsButtonDisabled(false);
-        }
-
-        return () => {
-            if (timer) clearInterval(timer);
-        };
-    }, [isButtonDisabled, countdown]);
-
-    useEffect(() => {
-        setIsButtonDisabled(false);
-        setCountdown(0);
-
-    }, [formik.values.email]);
-
-    const minutes = Math.floor(countdown / 60);
-    const seconds = countdown % 60;
-
-    const handleCheckPass = () => {
-        setIsCheckPass(!isCheckPass);
-    };
-
-    const handleRememberRegister = () => {
-        setIsRememberRegister(!isRememberRegister);
-    };
-
     return (
         <>
             <title>TTO - Đăng ký</title>
@@ -186,133 +127,13 @@ const Register: React.FC = () => {
                             <Card.Header className={styles.headerRegister}>
                                 <Card.Title className={styles.headerRegister__title}>Đăng ký tài khoản</Card.Title>
                                 <Link href="/login" className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi}> Đăng nhập</bdi></Link>
+                                <div className={styles.linkLogin} onClick={() => handleChangeRegister()}>
+                                    <div className={styles.link__bdi}>
+                                        {checkRegister ? 'đăng nhập bằng email' : 'đăng nhập bằng số điện thoại'}
+                                    </div>
+                                </div>
                             </Card.Header>
-                            <Card.Body className={styles.bodyRegister}>
-                                <Form className={styles.formRegister} onSubmit={formik.handleSubmit}>
-                                    <section className={styles.validateRegister}>
-                                        <Form.Group className={styles.formControlRegister}>
-                                            <Form.Label htmlFor="fullName" className={styles.formControlRegister__label}>
-                                                Tên của bạn là gì?
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="Họ và tên"
-                                                className={styles.formControlRegister__input}
-                                                name="fullName"
-                                                value={formik.values.fullName}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                            />
-                                            {formik.touched.fullName && formik.errors.fullName && (
-                                                <div className={styles.feedBack}>{formik.errors.fullName}</div>
-                                            )}
-                                        </Form.Group>
-                                        <Form.Group className={styles.formControlRegister}>
-                                            <Form.Label htmlFor="email" className={styles.formControlRegister__label}>
-                                                Email của bạn?
-                                            </Form.Label>
-                                            <Form.Control
-                                                type="email"
-                                                placeholder="Email"
-                                                className={styles.formControlRegister__input}
-                                                name="email"
-                                                value={formik.values.email}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                            />
-                                            {formik.touched.email && formik.errors.email && (
-                                                <div className={styles.feedBack}>{formik.errors.email}</div>
-                                            )}
-                                        </Form.Group>
-                                        <Form.Group className={styles.formControlRegister}>
-                                            <section className={styles.checkPass}>
-                                                <Form.Label htmlFor="password" className={styles.formControlRegister__label}>Mật khẩu</Form.Label>
-                                                <Button
-                                                    type="button"
-                                                    onClick={handleCheckPass}
-                                                    className={styles.checkPass__btn}
-                                                >
-                                                    {isCheckPass ? (
-                                                        <>
-                                                            <Image src="/img/eyeHidden.svg" alt="Ẩn mật khẩu" className={styles.checkPass__img} />
-                                                            <div className={styles.checkPass__text}>ẩn</div>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <Image src="/img/eye.svg" alt="Hiện mật khẩu" className={styles.checkPass__img} />
-                                                            <div className={styles.checkPass__text}>hiện</div>
-                                                        </>
-                                                    )}
-                                                </Button>
-                                            </section>
-                                            <Form.Control
-                                                type={isCheckPass ? 'password' : 'text'}
-                                                placeholder="Mật khẩu"
-                                                className={styles.formControlRegister__input}
-                                                name="password"
-                                                value={formik.values.password}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                autoComplete="new-password"
-                                            />
-                                            <div className={styles.noteRegister}>
-                                                Sử dụng 8 ký tự trở lên kết hợp chữ cái, số và ký hiệu
-                                            </div>
-                                            {formik.touched.password && formik.errors.password && (
-                                                <div className={styles.feedBack}>{formik.errors.password}</div>
-                                            )}
-                                        </Form.Group>
-                                        <Form.Group className={styles.formControlRegister}>
-                                            <Form.Label htmlFor="confirm_password" className={styles.formControlRegister__label}>Nhập lại mật khẩu</Form.Label>
-                                            <Form.Control
-                                                type={isCheckPass ? 'password' : 'text'}
-                                                placeholder="Nhập lại mật khẩu"
-                                                className={styles.formControlRegister__input}
-                                                name="confirm_password"
-                                                value={formik.values.confirm_password}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                            />
-                                            {formik.touched.confirm_password && formik.errors.confirm_password && (
-                                                <div className={styles.feedBack}>{formik.errors.confirm_password}</div>
-                                            )}
-                                        </Form.Group>
-                                        <Form.Group className={styles.userNameRetrieve}>
-                                            <Form.Label htmlFor="confirm_password" className={styles.userNameRetrieve__label}>Nhập mã xác nhận từ email</Form.Label>
-                                            <Form.Control
-                                                type={'text'}
-                                                placeholder="Nhập mã xác nhận"
-                                                className={styles.userNameRetrieve__input}
-                                                name="check"
-                                                value={formik.values.check}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                disabled={getTokenInput}
-                                            />
-                                            {formik.touched.check && formik.errors.check && (
-                                                <div className={styles.feedBack}>{formik.errors.check}</div>
-                                            )}
-                                            <Button
-                                                type='button'
-                                                className={styles.sendCode}
-                                                onClick={handleSendCode}
-                                                disabled={isButtonDisabled}
-                                            >
-                                                {isButtonDisabled ? `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` : 'Gửi mã'}
-                                            </Button>
-                                        </Form.Group>
-                                    </section>
-                                    <Button
-                                        type="button"
-                                        className={styles.rememberRegister}
-                                        onClick={handleRememberRegister}
-                                    >
-                                        <Image src={isRememberRegister ? "/img/checkBoxFalse.svg" : "/img/checkBoxTrue.svg"} alt="" className={styles.rememberRegister__img} />
-                                        <div className={styles.rememberRegister__div}>Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư.</div>
-                                    </Button>
-                                    <Button type="submit" className={styles.btnSubmit} disabled={formik.isSubmitting}>Đăng ký</Button>
-                                </Form>
-                            </Card.Body>
+                            {checkRegister ? <RegisterPhone></RegisterPhone> : <RegisterEmail></RegisterEmail>}
                             <Card.Footer className={styles.withRegister}>
                                 <Card.Subtitle className={styles.headWithRegister}>
                                     Tiếp tục với

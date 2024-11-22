@@ -13,6 +13,12 @@ import { store } from '@/redux/store';
 import GgLogin from '../component/auth/user-component/ggLogin';
 import FbLogin from '../component/auth/user-component/fbLogin';
 
+interface LoginFormInputs {
+    email_or_phone: string;
+    password: string;
+    general?: string;
+}
+
 type ExtendedFormikErrors = FormikErrors<LoginFormInputs> & {
     general?: string;
 };
@@ -37,12 +43,18 @@ const Login: React.FC = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: '',
+            email_or_phone: '',
             password: '',
             general: '',
         },
         validationSchema: Yup.object({
-            email: Yup.string().required('Bắt buộc'),
+            email_or_phone: Yup.string().required('Bắt buộc')
+                .test('email-or-phone', 'Email hoặc số điện thoại không hợp lệ', value => {
+                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    const phoneRegex = /^(03[2-9]|05[6|8|9]|07[0|6-9]|08[1-9]|09[0-9]|02[0-9])\d{7}$/;
+
+                    return emailRegex.test(value) || phoneRegex.test(value);
+                }),
             password: Yup.string().required('Bắt buộc'),
         }),
         onSubmit: async (values, { setSubmitting, setFieldError }) => {
@@ -52,7 +64,7 @@ const Login: React.FC = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ email: values.email, password: values.password }),
+                    body: JSON.stringify({ email_or_phone: values.email_or_phone, password: values.password }),
                 });
 
                 if (!res.ok) {
@@ -137,24 +149,24 @@ const Login: React.FC = () => {
                                 <Form className={styles.form} onSubmit={formik.handleSubmit}>
                                     <fieldset className={styles.fieldsetLogin}>
                                         <legend className={styles.fieldsetLogin__line}></legend>
-                                        <legend className={styles.fieldsetLogin__title}>hoặc đăng nhập với email</legend>
+                                        <legend className={styles.fieldsetLogin__title}> Email hoặc số điện thoại</legend>
                                         <legend className={styles.fieldsetLogin__line}></legend>
                                     </fieldset>
                                     <section className={styles.mainLogin}>
                                         <Form.Group className={styles.userNameLogin}>
-                                            <Form.Label htmlFor="email" className={styles.userNameLogin__label}>Email hoặc tên người dùng</Form.Label>
+                                            <Form.Label htmlFor="email_or_phone" className={styles.userNameLogin__label}>Email hoặc số điện thoại</Form.Label>
                                             <Form.Control
                                                 type="text"
-                                                name="email"
-                                                placeholder="Tên đăng nhập hoặc email"
+                                                name="email_or_phone"
+                                                placeholder="Số điện thoại hoặc email"
                                                 className={styles.userNameLogin__input}
                                                 autoComplete="off"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.email}
+                                                value={formik.values.email_or_phone}
                                             />
-                                            {formik.touched.email && formik.errors.email ? (
-                                                <div className={styles.feedBack}>{formik.errors.email}</div>
+                                            {formik.touched.email_or_phone && formik.errors.email_or_phone ? (
+                                                <div className={styles.feedBack}>{formik.errors.email_or_phone}</div>
                                             ) : null}
                                         </Form.Group>
                                         <Form.Group className={styles.passLogin}>

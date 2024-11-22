@@ -3,7 +3,7 @@
     margin-top: 75px !important;
     width: 100%;
     max-width: 1440px;
-    height: 966px;
+    height: auto;
     display: flex;
     padding: 40px 32px;
     justify-content: center;
@@ -53,6 +53,7 @@
     margin: 0;
     border: 0;
     background: white;
+    align-items: center;
 }
 
 .headerRegister__title {
@@ -101,6 +102,16 @@
 .linkLogin:hover>.link__bdi {
     color: var(--gray-70);
     text-decoration: underline;
+}
+
+.formControlRegister__input::-webkit-outer-spin-button,
+.formControlRegister__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.formControlRegister__input {
+    -moz-appearance: textfield; /* Firefox */
 }
 
 .bodyRegister {

@@ -16,9 +16,9 @@ export const HeaderAccess = () => {
         </div>
 
 
-        <Link href={`AccessPage/Add`} className={`col-12 col-md-6 flex-row d-flex justify-content-end`}>
+        {/* <Link href={`AccessPage/Add`} className={`col-12 col-md-6 flex-row d-flex justify-content-end`}>
           <Button className={`${h.btnCTA}`}>Thêm vai trò</Button>
-        </Link>
+        </Link> */}
       </div>
       {/* <Row className={`${h.filterBar} justify-content-between align-items-center`}>
         <Col xs={12} sm={12} md={8} className="mb-4">
