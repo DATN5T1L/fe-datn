@@ -13,8 +13,9 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
 }) => {
     const [html, setHtml] = useState<string>('<h1>Hello, World!</h1>');
     const [css, setCss] = useState<string>('h1 { color: blue; }');
-    const [js, setJs] = useState<string>('console.log("Hello, World!");');
+    const [js, setJs] = useState<string>('');
     const [activeTab, setActiveTab] = useState('html');
+    const [activeContentTab, setActiveContentTab] = useState('content');
     const [isSuggest, setSuggest] = useState<boolean>(false);
     const [iscorrectAnswer, setcorrectAnswer] = useState<boolean>(false);
 
@@ -25,14 +26,28 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
 
     const toggleSuggest = () => setSuggest((prev) => !prev);
     const toggleAnswer = () => setcorrectAnswer((prev) => !prev);
-
+    const [isCorrect, setIsCorrect] = useState(false);
     // Hàm chạy mã
+
+
+    const [htmlAnswer = '', cssAnswer = '', jsAnswer = ''] = answerCode?.split('|') || [];
+
+
+    const cleaneds = (content: string[]) => {
+        return content.map(item =>
+            item.replace(/\s+/g, '') // Thay thế tất cả khoảng trắng bằng chuỗi rỗng
+        );
+    };
+    const cleaned = (content: string) => {
+        return content.replace(/\s+/g, ''); // Thay thế tất cả khoảng trắng bằng chuỗi rỗng
+    };
 
     const runCode = () => {
         const output = document.getElementById('output') as HTMLIFrameElement;
         const outputDocument = output?.contentDocument || output?.contentWindow?.document;
 
         if (outputDocument) {
+            // Tiêm HTML, CSS, và JS vào iframe
             outputDocument.open();
             outputDocument.write(`
                 <style>${css}</style>
@@ -40,37 +55,69 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                 <script>${js}<\/script>
             `);
             outputDocument.close();
+
+            // Kiểm tra kết quả thực tế
+            const capturedOutputHTML = outputDocument.body.innerHTML.trim();
+            const capturedCSS = cleaned(css);
+            const htmlContent = capturedOutputHTML;
+            const scriptTag = htmlContent.split('<script>');
+            const cleanedContent = scriptTag.map(item =>
+                item.replace(/\n/g, '').replace(/<\/script>$/, '')
+            );
+            const cleanedContents = cleaneds(cleanedContent);
+            const [htmlDone, jsDone] = cleanedContents;
+            // console.log(htmlDone);
+            console.log(jsDone);
+            compareOutput(htmlDone, capturedCSS, jsDone);
         }
     };
 
+    const compareOutput = (capturedHTML: string, capturedCSS: string, capturedJS: string) => {
+        const correctHTML = htmlAnswer;
+        const correctCSS = cssAnswer;
+        const correctJS = jsAnswer;
+
+        const htmlMatch = capturedHTML === correctHTML;
+        const cssMatch = capturedCSS === correctCSS;
+        const jsMatch = capturedJS === correctJS;
+        console.log(htmlMatch)
+        console.log(cssMatch)
+        console.log(jsMatch)
+        if (htmlMatch && cssMatch && jsMatch) {
+            setIsCorrect(true);
+        } else {
+            setIsCorrect(false);
+        }
+    };
+
+    console.log(isCorrect)
+
     // Hàm xuất mã
-    useEffect(() => {
+    const handAnswer = () => {
         runCode();
-    }, [html, css, js]);
-
-
+    }
     return (
         <Row className={styles.codeMain}>
             <Col md={6}>
                 <ul className={styles.nav}>
                     <li
-                        className={`${styles.itemNav} ${styles.itemNavContent} ${activeTab === 'content' ? styles.itemNavActed : ''}`}
-                        onClick={() => setActiveTab('content')}
+                        className={`${styles.itemNav} ${styles.itemNavContent} ${activeContentTab === 'content' ? styles.itemNavActed : ''}`}
+                        onClick={() => setActiveContentTab('content')}
                     >
                         Nội dung
                     </li>
                     <li
-                        className={`${styles.itemNav} ${styles.itemNavContent} ${activeTab === 'Webs' ? styles.itemNavActed : ''}`}
-                        onClick={() => setActiveTab('Webs')}
+                        className={`${styles.itemNav} ${styles.itemNavContent} ${activeContentTab === 'Webs' ? styles.itemNavActed : ''}`}
+                        onClick={() => setActiveContentTab('Webs')}
                     >
                         Trình duyệt
                     </li>
 
                 </ul>
-                <div className={styles.boxContent} style={{ display: activeTab === 'content' ? 'block' : 'none' }}>
+                <div className={styles.boxContent} style={{ display: activeContentTab === 'content' ? 'block' : 'none' }}>
                     Nội dung bài học
                 </div>
-                <div className={styles.boxContent} style={{ display: activeTab === 'Webs' ? 'block' : 'none' }}>
+                <div className={styles.boxContent} style={{ display: activeContentTab === 'Webs' ? 'block' : 'none' }}>
 
                     <iframe id="output" style={{ width: '100%', height: '100%', border: '1px solid #ccc' }}></iframe>
                 </div>
@@ -162,7 +209,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                                 <button type='button' className={styles.btnCtaDev} onClick={toggleAnswer} >
                                     Xem đáp án
                                 </button>
-                                <button type='button' className={styles.btnCtaDev}>
+                                <button type='button' className={styles.btnCtaDev} onClick={handAnswer}>
                                     Chạy
                                 </button>
                             </div>

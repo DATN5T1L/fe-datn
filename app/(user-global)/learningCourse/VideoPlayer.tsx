@@ -1,24 +1,27 @@
 import ReactPlayer from 'react-player/youtube';
 import { useRef, useState, useEffect } from "react";
+import useCookie from '@app/(user-global)/component/hook/useCookie';
+
 import styles from '@public/styles/Learning/Video.module.css'
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 interface VideoProp {
+    course_id: string | null;
+    document_id: string | null;
     urlVideo: string;
     onProgressChange: (playedSeconds: number) => void;
-    onPause?: () => void;
+    isPlaying: boolean;
 }
 
-const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause }) => {
-
-    const [type, setType] = useState<string | null>(null);
-    const lastValidTimeRef = useRef<number>(0);
+const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying }) => {
+    const token = useCookie('token');
     const playerRef = useRef<any>(null);
+    const lastValidTimeRef = useRef<number>(0);
     const [videoDuration, setVideoDuration] = useState<number>(0);
     const [playedSeconds, setPlayedSeconds] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(true);
     const isWarningShown = useRef(false);
+    const [type, setType] = useState<string | null>(null);
     const [isNoti, setNoti] = useState(false);
     const [isContent, setContent] = useState(true);
     const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
@@ -36,7 +39,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause 
             } else {
                 // Quay về thời gian hợp lệ trước đó
                 if (playerRef.current) {
-                    playerRef.current.seekTo(lastValidTimeRef.current);
+                    // playerRef.current.seekTo(lastValidTimeRef.current);
                 }
             }
         } else {
@@ -49,16 +52,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause 
         }
 
     };
-    // hàm dừng video
-    const pauseVideo = () => {
-        setIsPlaying(false);
-        if (onPause) pauseVideo();
-    };
-    const nextVideo = (url: string) => {
-        // TODO: Lấy tài liệu tiếp theo
-        //...
-        // setUrlVideo(url);
-    }
+
     const handleDuration = (duration: number) => {
         setVideoDuration(duration); // Save the video duration
         const minutes = Math.floor(duration / 60); // Calculate minutes
@@ -66,22 +60,81 @@ const VideoPlayer: React.FC<VideoProp> = ({ urlVideo, onProgressChange, onPause 
         console.log(`Thời gian kết thúc video: ${minutes} phút ${seconds} giây`);
         isWarningShown.current = false;
     };
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            // Ngăn hành động thoát trình duyệt và hiển thị hộp thoại xác nhận (chỉ một số trình duyệt hỗ trợ)
+            event.preventDefault();
+            event.returnValue = '';  // Cần trả về chuỗi rỗng để kích hoạt hành động thoát
+
+            const url = "/api/upStatusDoc";
+            const data = JSON.stringify({
+                course_id: course_id,
+                status_doc: false,
+                cache_time_video: videoDuration,
+                document_id: document_id,
+            });
+
+            console.log(data); // Gửi dữ liệu khi trang được tải lại
+            navigator.sendBeacon(url, data); // Gửi dữ liệu mà không ảnh hưởng đến việc thoát trang
+        };
+
+        // Thêm sự kiện `beforeunload` khi component mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Xóa sự kiện khi component unmount
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []); // Thêm các phụ thuộc để đảm bảo các giá trị cập nhật
+    const formatTime = (seconds: number | string): number | string => {
+        if (typeof seconds === 'string') {
+            return seconds;
+        }
+        return Math.floor(seconds); // Trả về phần nguyên của số giây
+    };
+
+    const updataStatus = async () => {
+        // console.log(JSON.stringify(payload, null, 2));
+        try {
+            const data = {
+                course_id: course_id,
+                status_doc: true,
+                cache_time_video: formatTime(playedSeconds),
+                document_id: document_id,
+            };
+
+            const response = await fetch(`/api/upStatusDoc`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) throw new Error('Đã xảy ra lỗi khi kiểm tra câu trả lời');
+            const datas = await response.json();
+            console.log('Cập nhật trạng thái thàng công', datas);
+        } catch (error) {
+            console.error('Lỗi khi kiểm tra câu trả lời:', error);
+        }
+    };
 
     useEffect(() => {
 
-        if (playedSeconds >= videoDuration - 30 && playedSeconds < videoDuration) {
-
+        if (playedSeconds >= videoDuration - 60 && playedSeconds < videoDuration) {
+            updataStatus();
             console.log("Video đã kết thúc");
         }
 
-    }, [playedSeconds, videoDuration])
+    }, [])
 
     const handleEnded = () => { //hàm sử lý khi video kết thúc
-
-        alert("Video đã kết thúc");
+        updataStatus();
         setmessageNoti("Video sắp hết!");
         setTypeNoti('error');
         setNoti(true);
+        alert("Video đã kết thúc");
     }
     return (
         <div className={styles.Video}>

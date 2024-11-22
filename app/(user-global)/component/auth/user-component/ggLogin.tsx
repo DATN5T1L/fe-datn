@@ -1,15 +1,18 @@
 'use client'
 
 import { signIn, useSession } from 'next-auth/react';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@public/styles/login/LoginBtn.module.css';
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/slices/userSlice';
 
 const GgLogin = () => {
     const { data: session, status } = useSession();
     const router = useRouter();
+    const dispatch = useDispatch()
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (status === "authenticated" && session) {
 
             // Gọi API sau khi đã xác thực
@@ -31,6 +34,17 @@ const GgLogin = () => {
                     const data = await res.json();
                     if (res.ok) {
                         console.log("User session data:", session);
+                        if (session.user.image) {
+                            dispatch(login({
+                                fullname: session.user.name,
+                                email: session.user.email,
+                                avatar: session.user.image,
+                                ...data,
+                            }));
+                            router.push("/info-user");
+                        } else {
+                            console.error("Ảnh đại diện chưa sẵn sàng");
+                        }
                         document.cookie = `token=${data.access_token}; path=/; SameSite=Strict`;
                         router.push("/info-user");
                         console.log('Đăng nhập thành công:', data);
@@ -42,9 +56,9 @@ const GgLogin = () => {
                 }
             };
 
-            loginGoogle();
+            setTimeout(loginGoogle, 100);
         }
-    }, [status, session, router]);
+    }, [status, session, router, dispatch]);
 
     const handleLogin = async () => {
         if (status !== "authenticated") {

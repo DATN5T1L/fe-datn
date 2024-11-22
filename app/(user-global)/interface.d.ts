@@ -12,7 +12,7 @@ interface Document {
     document_id: string;
     name_document: string;
     type_document: "code" | "quiz" | "video";
-    status_doc: boolean;
+    status_document: boolean;
     discription_document: string;
     url_video: string;
     updated_at: string;
@@ -40,6 +40,7 @@ interface Note {
 interface CodesDocument extends Document {
     type_document: "code";
     codes: {
+        id: string;
         answer_code: string;
         correct_answer: string;
         question_code: string;
@@ -52,6 +53,7 @@ interface QuestionsDocument extends Document {
     questions: Question[] | null;
 }
 interface Question {
+    id: string;
     content_question: string;
     correct_answer: string;
     type_question: string;
@@ -69,6 +71,15 @@ type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
 interface QuestionAnswer {
     question: string;
     answers: string[];
+}
+
+interface QuestionsProps {
+    course_id: string;
+    documents_id: string | null;
+    timedocument: string;
+    nameDocument: string;
+    questions: QuestionsDocument['questions'];
+
 }
 
 // code
@@ -193,8 +204,7 @@ interface CardPosts {
 }
 
 interface FaqProps {
-    course_Id: string;
-    course: Chapter[]; // Mảng các chương
+    course_Id: string; // Mảng các chương
     onClose: () => void; // Hàm để đóng popup
 
 }
@@ -274,7 +284,4 @@ interface StatusData {
     del_flag: boolean;
     created_at: string;
     updated_at: string;
-}
-interface ApiResponseStatus {
-    data: StatusData[];  // Mảng các đối tượng VideoData
 }

@@ -141,6 +141,8 @@ const nextConfig = {
         source: '/api/createStatusDoc/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/create-statusDoc/:path*',
       },
+      // Truyền vào 
+      // 'status_doc', 'cache_time_video' 'document_id''course_id'
       {
         source: '/api/upStatusDoc',
         destination: 'https://tto-production-db77.up.railway.app/api/client/update-statusDoc',
