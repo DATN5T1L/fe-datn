@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import h from "./articel.module.css";
 import Article from "./article";
+import { usePathname } from "next/navigation";
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
 interface Post {
   post_id: number;
@@ -28,14 +30,9 @@ interface PostProps {
 
 export const HeaderArticle: React.FC = () => {
 
-  const getCookie = (name: string) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-    return null;
-  };
-
-  const token = getCookie('token');
+  const pathname = usePathname()
+  const isMarketing = pathname === '/Marketing'
+  const token = useCookie('token');
 
   const [postData, setPostData] = useState<ApiResponse<Post> | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string>('');
@@ -70,7 +67,7 @@ export const HeaderArticle: React.FC = () => {
   };
 
   const handleReset = () => {
-    // setSelectedStatus('')
+    setSelectedStatus('')
     setSelectedViews('')
   }
 
@@ -81,7 +78,9 @@ export const HeaderArticle: React.FC = () => {
           className={`d-flex justify-content-between align-items-center my-4 flex-wrap`}
         >
           <div className="col-12 col-md-6">
-            <h2 className={h.heading}>Bài viết</h2>
+            {isMarketing ? ('') : (
+              <h2 className={h.heading}>Bài viết</h2>
+            )}
           </div>
         </div>
         <div className="d-flex align-items-center justify-content-between mx-3">
@@ -99,7 +98,7 @@ export const HeaderArticle: React.FC = () => {
               </select>
             </div>
             <div className="bg-white border-end p-4">
-              <select aria-label="Trạng thái" className={`${h.formSelect} bg-transparent`}>
+              <select aria-label="Trạng thái" className={`${h.formSelect} bg-transparent`} value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
                 <option>Trạng thái</option>
                 <option value="1">Active</option>
                 <option value="2">Inactive</option>

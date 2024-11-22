@@ -84,6 +84,7 @@ const nextConfig = {
         source: '/api/changeImg/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/update-avatar/:path*',
       },
+
       // Client API rewrites
       {
         source: '/api/routes/:path*',
@@ -188,6 +189,10 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/client/progress',
       },
       {
+        source: '/api/getProgress/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/progress/:path*',
+      },
+      {
         source: '/api/getnoteByCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-course/:path*',
       },
@@ -229,12 +234,62 @@ const nextConfig = {
       },
       // search
       {
-        source: '/api/search/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/search/:path*',
+        source: '/api/courseForUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-course-admin-by-user/:path*',
+      },
+      {
+        source: '/api/courseChapters/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/chapters/:path*',
+      },
+      {
+        source: '/api/courseDocumnets/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
       },
       {
         source: '/api/hiddenUser/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/toggle-visibility-user-admin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-user/:path*',
+      },
+      {
+        source: '/api/getAllFpt/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-mail-fpt/:path*',
+      },
+      {
+        source: '/api/updateRoleFpt/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-role-admin/:path*',
+      },
+      {
+        source: '/api/getAllHistory/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-history/:path*',
+      },
+
+      // statistical
+
+      {
+        source: '/api/statistical_admin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/statistical-admin/:path*',
+      },
+      {
+        source: '/api/statistical_post/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/statistical-post-by-user/:path*',
+      },
+      {
+        source: '/api/statistical_revenue_mouth/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/statistical-revenue-mouth/:path*',
+      },
+      {
+        source: '/api/statistical_detail_user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-statistical-detail-user-admin/:path*',
+      },
+      {
+        source: '/api/statistical_complete/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
+      },
+
+      //instructor
+
+      {
+        source: '/api/coures_rating/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
       },
     ];
 

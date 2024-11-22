@@ -105,10 +105,10 @@ const ModalChangePhone: React.FC<ModalChangePhoneProps> = ({ show, onClose }) =>
                         </fieldset>
                         <Form.Group className={styles.formControlChangeName} controlId="validationPhoneNumber">
                             <Form.Label className={styles.formControlChangeName__label}>
-                                Họ và tên
+                                Số điện thoại
                             </Form.Label>
                             <Form.Control
-                                type="number"
+                                type="tel"
                                 required
                                 placeholder="Nhập số điện thoại"
                                 className={styles.formControlChangeName__input}

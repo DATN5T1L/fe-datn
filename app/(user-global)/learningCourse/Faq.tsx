@@ -9,10 +9,6 @@ import CKEditorComponent from "../component/globalControl/ckedditor";
 
 
 const Faq: React.FC<FaqProps> = ({ course_Id, onClose }) => {
-    // useEffect(() => {
-    //     console.log('course', course);
-    // }, [course])
-
     const [noteContent, setNoteContent] = useState<string>('');
     const popupRef = useRef<HTMLDivElement | null>(null);
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);

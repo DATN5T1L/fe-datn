@@ -3,7 +3,7 @@
 import ProfileDispatch from '@/app/(user-global)/component/auth/user-component/profileDispatch';
 import ScrollToTop from '@/app/(user-global)/component/globalControl/scrollToTop';
 import { useEffect, useState } from "react";
-import Header from '../Header/header';
+import Header from '@/app/admin/component/Header/header';
 import { Col, Row, Spinner } from 'react-bootstrap';
 import Sidebar from '../Sidebar/sidebar';
 import styles from "../../layout.module.css";
@@ -23,7 +23,7 @@ const Body: React.FC<BodyProps> = ({ children }) => {
     const router = useRouter()
 
     useEffect(() => {
-        if (userState?.role === 'admin') {
+        if (userState?.role === 'admin' || userState?.role === 'marketing') {
             setLoading(false)
         } else {
             router.push('/home');

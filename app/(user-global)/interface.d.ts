@@ -1,7 +1,7 @@
 
 interface Progress {
     progress_percentage: number;
-    course_name: string;
+    name_course: string;
     course_id: string;
 }
 
@@ -37,6 +37,21 @@ interface Note {
     cache_time_note: number;
 }
 
+
+interface Question {
+    id: string;
+    content_question: string;
+    correct_answer: string;
+    type_question: string;
+}
+
+
+type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
+interface QuestionsDocument extends Document {
+    type_document: "quiz";
+    questions: Question[] | null;
+}
+
 interface CodesDocument extends Document {
     type_document: "code";
     codes: {
@@ -48,23 +63,9 @@ interface CodesDocument extends Document {
         updated_at: string;
     }[];
 }
-
-interface QuestionsDocument extends Document {
-    type_document: "quiz";
-    questions: Question[] | null;
-}
-interface Question {
-    id: string;
-    content_question: string;
-    correct_answer: string;
-    type_question: string;
-}
 interface VideoDocument extends Document {
     type_document: "video";
 }
-
-type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
-
 // Interface for the API response
 
 

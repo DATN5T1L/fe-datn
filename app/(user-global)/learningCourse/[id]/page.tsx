@@ -95,6 +95,10 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const showNoteList = () => setisNoteList(true);
     const hideNoteList = () => setisNoteList(false);
 
+
+
+
+
     const toggleNote = () => {
         setIsNote(prev => !prev);
         setIsPlaying(prev => !prev);
@@ -163,9 +167,26 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             setError(err.message);
         }
     };
+    const fetchProgress = async () => {
+        try {
+            const response = await fetch(`/api/getProgress/${course_Id}`, {
+                method: "GET",
+                headers: {
+                    Authorization: ` ${token}`,
+                },
+            });
 
+            if (!response.ok) {
+                throw new Error("Failed to fetch course");
+            }
 
-    // tạo mới trạng thái || đã tồn tại return về Status
+            const dataProgress = await response.json();
+            setprogress(dataProgress[0])
+        } catch (err: any) {
+            setError(err.message);
+        }
+    };
+
     const fetchCreatStatus = async () => {
         try {
             const response = await fetch(`/api/createStatusDoc/${doc_id}/${course_Id}`, {
@@ -184,18 +205,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     };
 
-    console.log(JSON.stringify(course))
-
-    const filteredDocuments = course?.flatMap((item) =>
-        item.documents.filter((doc) => doc.status_document)
-    );
-
-    console.log(filteredDocuments)
-
-    // bài này đã học chưa
-    // bạn cần học bài trước
 
     useEffect(() => {
+        fetchProgress()
         fetchDocuments()
         fetchNotes();
     }, [course_Id]);
@@ -231,13 +243,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     const handleExport = (data: { html: string, css: string, js: string }) => {
-        // console.log('HTML:', data.html);
-        // console.log('CSS:', data.css);
-        // console.log('JS:', data.js);
         setHtml(data.html)
         setCss(data.css)
         setJs(data.js)
-        // Ở đây bạn có thể thực hiện các hành động khác với dữ liệu, như lưu trữ, hiển thị, v.v.
     };
 
     const handleProgressChange = (playedSeconds: number) => {
@@ -264,24 +272,41 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
                 if (initialDoc) {
                     setdoc_id(initialDoc.document_id);
-                    setUrlVideo(initialDoc.url_video);
-                    setnameDocument(initialDoc.name_document);
-                    settypeDoc(initialDoc.type_document);
-                    if (initialDoc.type_document === 'quiz' && initialDoc.questions) {
-                        setQuestion(initialDoc.questions);
-                        setContent(false);
-                    } else if (initialDoc.type_document === 'code' && initialDoc.codes) {
-                        console.log(initialDoc.type_document)
-                        setCode(initialDoc.codes);
-                        setContent(false);
-                    } else if (initialDoc.type_document === 'video') {
-                        setUrlVideo(initialDoc.url_video);
-                        setContent(true);
-                    }
+                    handleClickDoc(initialDoc)
                 }
             }
         }
     }, [course]);
+
+
+    const handleClickDoc = (doc: CombinedDocument) => {
+        setnameDocument(doc.name_document);
+        settypeDoc(doc.type_document);
+        setIdDocument(doc.document_id);
+        settimedocument(formatDateTime(doc.updated_at));
+        setdoc_id(doc.document_id);
+        setdescdocument(doc.discription_document);
+        switch (doc.type_document) {
+            case "quiz":
+                if (doc.questions) {
+                    setQuestion(doc.questions);
+                    setContent(false);
+                }
+                break;
+            case "code":
+                if (doc.codes) {
+                    setCode(doc.codes);
+                    setContent(false);
+                }
+                break;
+            case "video":
+                setUrlVideo((doc as VideoDocument).url_video);
+                setContent(true);
+                break;
+            default:
+                console.error("Không xác định loại tài liệu:");
+        }
+    };
 
     const renderContent = () => {
         if (typeDoc === 'video') {
@@ -307,8 +332,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 />
             );
         } else if (typeDoc === 'code') {
-            console.log("Rendering Code Section");
-            console.log(code)
+
             return (
                 <div className={styles.wapperCode}>
                     {code?.map((codeItem, index) => (
@@ -334,8 +358,24 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             );
         }
     };
+    const [activeIndex, setActiveIndex] = useState<number>(0); // Quản lý bài hiện tại
+    const [activeDocIndexs, setActiveDocIndexs] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
 
+    const goToPreviousDoc = () => {
+        if (course && activeIndex !== undefined && activeDocIndexs > 0) {
+            setActiveIndex(activeDocIndexs - 1);
+        }
+    };
+
+    const goToNextDoc = () => {
+        if (course && activeIndex !== undefined && activeDocIndexs < course[activeIndex]?.documents.length - 1) {
+            setActiveIndex(activeDocIndexs + 1);
+        }
+    };
     const renderChapterDocument = () => {
+        // Trạng thái lưu chỉ số phần tử đã chọn
+
         return (
             tippyVisible && isVisible ? (
                 <motion.div
@@ -366,84 +406,87 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                         height="24"
                                         viewBox="0 0 24 24"
                                         fill="none"
-                                        className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}>
+                                        className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}
+                                    >
                                         <path
                                             d="M18 15L12 9L6 15"
                                             stroke="#B3B3B3"
                                             strokeWidth="2"
                                             strokeLinecap="round"
-                                            strokeLinejoin="round" />
+                                            strokeLinejoin="round"
+                                        />
                                     </svg>
                                 </div>
                                 {openIndexes.includes(index) && (
-                                    <ul className={styles.listItem__docs}>
+                                    <ul className={styles.listItem__docs} key={index}>
+                                        {item.documents.map((doc, subIndex) => {
+                                            // Kiểm tra xem bài học trước đã hoàn thành chưa
+                                            const isPreviousDocumentCompleted = subIndex > 0 && item.documents[subIndex - 1]?.status_document;
+                                            const isCurrentDocumentBlocked =
+                                                subIndex > 0 && !isPreviousDocumentCompleted;
 
-                                        {item.documents.map((doc, subIndex) => (
+                                            const lastLesson = course[index - 1]?.documents[course[index].documents.length - 1].status_document;
 
-                                            <li key={subIndex} className={`${styles.listItem__doc}`}
-                                                style={{
-                                                    backgroundColor: activeDocIndex === subIndex ? "#f0f0f0" : "#fff",
-                                                }}
+                                            return (
+                                                <li
+                                                    key={subIndex}
+                                                    className={`${styles.listItem__doc}`}
+                                                    style={{
+                                                        backgroundColor:
+                                                            selectedIndex === `${index}-${subIndex}` ? "rgba(230, 240, 254, 1)" : "transparent",
+                                                    }}
+                                                    onClick={() => {
+                                                        // Nếu tài liệu bị khóa thì không cho bấm
+                                                        if (index === 0) {
 
-                                                onClick={() => {
+                                                        } else if (lastLesson === false) {
+                                                            alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                                                            return;
+                                                        } else if (isCurrentDocumentBlocked) {
+                                                            alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                                                            return;
+                                                        }
 
-                                                    if (doc.status_document !== true) return;
-                                                    setActiveDocIndex(subIndex);
-                                                    setnameDocument(doc.name_document);
-                                                    settypeDoc(doc.type_document);
-                                                    setIdDocument(doc.document_id)
-                                                    settimedocument(formatDateTime(doc.updated_at));
-                                                    setdoc_id(doc.document_id)
-                                                    setdescdocument(doc.discription_document)
-                                                    if (doc.type_document === 'quiz' && doc.questions) {
-                                                        setQuestion(doc.questions);
-                                                        setContent(false);
-                                                    } else if (doc.type_document === 'code' && doc.codes) {
-                                                        console.log(doc.type_document)
-                                                        setCode(doc.codes);
-                                                        setContent(false);
-                                                    } else if (doc.type_document === 'video') {
-                                                        setUrlVideo(doc.url_video);
-                                                        setContent(true);
-                                                    }
-                                                }}>
-                                                <div className={styles.doc_title} >
-                                                    {doc.type_document === "video" ? (
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <g clipPath="url(#clip0_4106_3787)">
-                                                                <circle cx="9.99935" cy="9.99999" r="8.33333" stroke="#B3B3B3" strokeWidth="1.5" />
+                                                        setSelectedIndex(`${index}-${subIndex}`);
+                                                        handleClickDoc(doc);
+                                                    }}
+                                                >
+                                                    <div className={styles.doc_title}>
+                                                        {doc.type_document === "video" ? (
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                <g clipPath="url(#clip0_4106_3787)">
+                                                                    <circle cx="9.99935" cy="9.99999" r="8.33333" stroke="#B3B3B3" strokeWidth="1.5" />
+                                                                    <path
+                                                                        d="M12.8447 9.11752C13.4962 9.50215 13.4962 10.4978 12.8447 10.8825L8.91124 13.2048C8.27809 13.5786 7.5 13.0921 7.5 12.3224L7.5 7.67762C7.5 6.90788 8.27809 6.42133 8.91124 6.79515L12.8447 9.11752Z"
+                                                                        stroke="#B3B3B3"
+                                                                        strokeWidth="1.5"
+                                                                    />
+                                                                </g>
+                                                                <defs>
+                                                                    <clipPath id="clip0_4106_3787">
+                                                                        <rect width="20" height="20" fill="white" />
+                                                                    </clipPath>
+                                                                </defs>
+                                                            </svg>
+                                                        ) : (
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                <path opacity="0.5" d="M3.33398 18.3335H16.6673" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
                                                                 <path
-                                                                    d="M12.8447 9.11752C13.4962 9.50215 13.4962 10.4978 12.8447 10.8825L8.91124 13.2048C8.27809 13.5786 7.5 13.0921 7.5 12.3224L7.5 7.67762C7.5 6.90788 8.27809 6.42133 8.91124 6.79515L12.8447 9.11752Z"
+                                                                    d="M12.1919 2.43436L11.574 3.05228L5.8932 8.7331C5.50843 9.11788 5.31604 9.31027 5.15058 9.52239C4.95541 9.77263 4.78807 10.0434 4.65155 10.3299C4.53581 10.5727 4.44977 10.8308 4.27769 11.3471L3.54852 13.5346L3.37028 14.0693C3.2856 14.3233 3.35172 14.6034 3.54107 14.7927C3.73042 14.9821 4.0105 15.0482 4.26455 14.9635L4.79926 14.7853L6.98677 14.0561L6.9868 14.0561C7.50301 13.884 7.76112 13.798 8.00397 13.6823C8.29045 13.5457 8.5612 13.3784 8.81143 13.1832C9.02355 13.0178 9.21594 12.8254 9.60071 12.4406L9.60072 12.4406L15.2815 6.75979L15.8995 6.14187C16.9233 5.11807 16.9233 3.45816 15.8995 2.43436C14.8757 1.41055 13.2157 1.41055 12.1919 2.43436Z"
                                                                     stroke="#B3B3B3"
-                                                                    strokeWidth="1.5" />
-                                                            </g>
-                                                            <defs>
-                                                                <clipPath id="clip0_4106_3787">
-                                                                    <rect width="20" height="20" fill="white" />
-                                                                </clipPath>
-                                                            </defs>
-                                                        </svg>
-                                                    ) : (
-                                                        // Icon tài liệu
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                            <path opacity="0.5" d="M3.33398 18.3335H16.6673" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                                            <path d="M12.1919 2.43436L11.574 3.05228L5.8932 8.7331C5.50843 9.11788 5.31604 9.31027 5.15058 9.52239C4.95541 9.77263 4.78807 10.0434 4.65155 10.3299C4.53581 10.5727 4.44977 10.8308 4.27769 11.3471L3.54852 13.5346L3.37028 14.0693C3.2856 14.3233 3.35172 14.6034 3.54107 14.7927C3.73042 14.9821 4.0105 15.0482 4.26455 14.9635L4.79926 14.7853L6.98677 14.0561L6.9868 14.0561C7.50301 13.884 7.76112 13.798 8.00397 13.6823C8.29045 13.5457 8.5612 13.3784 8.81143 13.1832C9.02355 13.0178 9.21594 12.8254 9.60071 12.4406L9.60072 12.4406L15.2815 6.75979L15.8995 6.14187C16.9233 5.11807 16.9233 3.45816 15.8995 2.43436C14.8757 1.41055 13.2157 1.41055 12.1919 2.43436Z" stroke="#B3B3B3" stroke-width="1.5" />
-                                                            <path opacity="0.5" d="M11.5724 3.05273C11.5724 3.05273 11.6496 4.36581 12.8082 5.52441C13.9668 6.68301 15.2799 6.76025 15.2799 6.76025M4.79762 14.7858L3.54688 13.535" stroke="#B3B3B3" stroke-width="1.5" />
-                                                        </svg>
-                                                    )}
-                                                    <div className={styles.listItem__docTitle}
-                                                    >
-                                                        <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}  </span>
-                                                        {/* {doc.document_id} */}
-                                                        <span className={styles.listItem__docName}> {doc.name_document} </span>
+                                                                    strokeWidth="1.5"
+                                                                />
+                                                            </svg>
+                                                        )}
+                                                        <div className={styles.listItem__docTitle}>
+                                                            <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}  </span>
+                                                            <span className={styles.listItem__docName}> {doc.name_document} </span>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                {
                                                     <DocumentStatus status_document={doc.status_document} />
-                                                }
-
-                                            </li>
-                                        ))}
+                                                </li>
+                                            );
+                                        })}
                                     </ul>
                                 )}
                             </div>
@@ -557,13 +600,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const avatar: string = user?.avatar ?? '';
 
     // Lấy dữ liệu từ localStorage
-    useEffect(() => {
-        const storedData = localStorage.getItem('progress_percentages');
-        if (storedData) {
-            const parsedData = JSON.parse(storedData);
-            setprogress(parsedData || null);
-        }
-    }, [id]);
+
 
     // lấy ra tất cả note của người dùng
 
@@ -577,7 +614,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     <Link href="/" className={stylesNav.brandHeader}>
                         <Image src="/img/logo.svg" alt="logo" className={stylesNav.imgBrandHeader} width={54} height={56} />
                     </Link>
-                    <h4 className={stylesNav.heading}>{progress?.course_name}</h4>
+                    <h4 className={stylesNav.heading}>{progress?.name_course}</h4>
                     <ProgressCircle progress={progress?.progress_percentage ?? 0} />
                 </div>
                 <div className={stylesNav.cta}>
@@ -722,11 +759,12 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     <IconWhat />
                 </div>
                 <div className={styles.ctaNextPev}>
-                    <button className={styles.nextPrevCourse}>
+                    <button className={styles.nextPrevCourse} onClick={goToPreviousDoc} >
                         <Arrow deg="-180" />
                         <p className={styles.titleNextPrev}>Bài trước</p>
                     </button>
-                    <button className={styles.nextPrevCourse}>
+                    <button className={styles.nextPrevCourse} onClick={goToNextDoc}
+                    >
                         <p className={styles.titleNextPrev}>Bài tiếp theo</p>
                         <Arrow deg="0" />
                     </button>

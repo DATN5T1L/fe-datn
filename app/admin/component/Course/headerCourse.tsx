@@ -11,7 +11,7 @@ import h from "./course.module.css";
 import Course from "./course";
 
 interface Courses {
-  course_id: number;
+  id: string;
   name_course: string;
   views_course: number;
   discount_price_course: number;
@@ -143,9 +143,9 @@ export const HeaderCourse: React.FC = () => {
         </Row>
       </div>
       {loading ? (
-        <Course courseData={array} loading={true}/>
+        <Course courseData={array} loading={true} />
       ) : (
-        <Course courseData={array} loading={false}/>
+        <Course courseData={array} loading={false} />
       )}
     </>
   );

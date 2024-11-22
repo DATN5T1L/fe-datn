@@ -43,7 +43,7 @@ const CourseFor: React.FC = () => {
     );
     if (error) <div>Chờ TTO chút nhé! </div>;
     const courses = Array.isArray(data?.data) ? data.data : [];
-
+    console.log(courses)
     const handleClick = (course: CourseCardProps) => {
 
         const newProgress = {
@@ -52,7 +52,7 @@ const CourseFor: React.FC = () => {
             progress_percentage: course.progress_percentage,
         };
         // Lưu thông tin khóa học vào localStorage dưới dạng object
-        localStorage.setItem(`progress_percentages`, JSON.stringify(newProgress));
+        localStorage.setItem(`progress`, JSON.stringify(newProgress));
     };
 
     return (
