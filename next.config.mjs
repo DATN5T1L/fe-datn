@@ -291,6 +291,10 @@ const nextConfig = {
         source: '/api/coures_rating/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
       },
+      {
+        source: '/api/search/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/search/:path*',
+      }
     ];
 
   },
