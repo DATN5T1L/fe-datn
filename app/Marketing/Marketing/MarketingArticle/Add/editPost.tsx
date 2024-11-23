@@ -98,10 +98,10 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
           const post = data.data;
           if (post) {
             setInitialValues({
-              title_post: post.title_post,
-              content_post: post.content_post,
-              category_id: post.category_id,
-              img_post: post.img_post,
+              title_post: post.title_post || "",
+              content_post: post.content_post || "",
+              category_id: post.category_id || "",
+              img_post: post.img_post || null,
             });
           }
           if (post.img_post) {
@@ -116,7 +116,7 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues,
+    initialValues: initialValues,
     validationSchema: Yup.object({
       title_post: Yup.string()
         .required("Tiêu đề không được để trống")
@@ -133,27 +133,32 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
     }),
     onSubmit: async (values) => {
       const formData = new FormData();
-      if (values.title_post) {
-        formData.append("title_post", values.title_post);
-      }
-      if (values.content_post) {
-        formData.append("content_post", values.content_post);
-      }
-      if (values.category_id) {
-        formData.append("category_id", values.category_id);
-      }
 
-      if (values.img_post && values.img_post instanceof File) {
+      formData.append("title_post", values.title_post || "");
+      formData.append("content_post", values.content_post || "");
+      formData.append("category_id", values.category_id || "");
+
+      if (values.img_post instanceof File) {
         formData.append("img_post", values.img_post);
-      } else if (data && data.data.img_post) {
+      } else if (data?.data?.img_post) {
         formData.append("img_post", data.data.img_post);
       }
 
+      // Log các giá trị trong FormData
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+      console.log('Formik values:', formik.values);
       try {
-        if (token) {
+
+        if (token && formData) {
           if (confirm('Bạn muốn cập nhật bài viết này không')) {
+            console.log("FormData trước khi gửi:");
+            for (let pair of formData.entries()) {
+              console.log(`hello ${pair[0]}: ${pair[1]}`);
+            }
             const response = await fetch(`/api/allPost/${id}`, {
-              method: "PATCH",
+              method: "PUT",
               headers: {
                 Authorization: `Bearer ${token}`,
 
@@ -197,7 +202,10 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
     <div
       className={`${postMod.postContainer} d-flex flex-column gap-4 m-4 m-xs-2 m-sm-3 p-4 bg-white`}
     >
-      <Form onSubmit={formik.handleSubmit}>
+      <Form
+        onSubmit={formik.handleSubmit}
+        encType="multipart/form-data"
+      >
         <div
           className={`${postMod.dragAndDrop} border-dark-subtle d-flex flex-column gap-2 w-100 justify-content-center align-items-center`}
         >
@@ -275,7 +283,10 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
             type="text"
             name="title_post"
             value={formik.values.title_post}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              console.log("Title Change:", e.target.value);
+              formik.handleChange(e);
+            }}
             onBlur={formik.handleBlur}
             className={`${postMod.form} text-muted py-2`}
             placeholder="Nhập vào tiêu đề"

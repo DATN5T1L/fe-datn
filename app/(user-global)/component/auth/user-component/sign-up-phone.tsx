@@ -78,8 +78,7 @@ const RegisterPhone: React.FC = () => {
                         phonenumber: values.phonenumber,
                         password: values.password,
                         confirm_password: values.confirm_password,
-                        verify: values.check,
-                        email: `hellotto.${year}${month}${date}${hours}${minute}${second}${milliseconds}@gmail.com`
+                        verify: values.check
                     }),
                 });
 
@@ -87,6 +86,7 @@ const RegisterPhone: React.FC = () => {
                     const errorData = await res.json();
                     console.log(errorData);
                     console.log("Status:", res.status);
+                    alert(errorData.messenge)
                     if (res.status === 422) {
                         if (errorData.errors && errorData.errors.phonenumber) {
                             alert(errorData.errors.phonenumber);
@@ -145,16 +145,10 @@ const RegisterPhone: React.FC = () => {
                 alert('Mã xác nhận đã được gửi đến số điện thoại của bạn');
                 setIsButtonDisabled(true);
                 setCountdown(120);
-            } else if (res.status === 429) {
-                alert('vui lòng chờ cho lượt gửi tiếp theo')
+            } else if (!res.ok) {
+                alert(data.message)
                 setIsButtonDisabled(true);
                 setCountdown(120);
-            }
-            else {
-                alert('Gửi mã thất bại. Vui lòng thử lại');
-                formik.setFieldValue('check', '')
-                console.log(await res.json());
-
             }
         } catch (error) {
             console.error('Lỗi khi gửi mã xác nhận:', error);

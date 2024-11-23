@@ -95,7 +95,7 @@ const AddMarketingPost = () => {
 
         const result = await response.json();
         console.log(result);
-        if (result.ok) {
+        if (result.status === 'success') {
           alert('Thêm thành công!!!')
           router.replace('/Marketing/MarketingPosts/')
         }

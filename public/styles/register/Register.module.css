@@ -71,37 +71,94 @@
     color: var(--text-100);
 }
 
-.linkLogin {
+.link__group {
+    display: flex;
     width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.linkLogin {
+    width: auto;
     display: flex;
     color: var(--text-50);
     text-decoration: none;
-    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     height: 28px;
     padding: 2px;
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: normal;
+    cursor: pointer;
+}
+
+
+.link__bdi1 {
+    padding: 0;
+    margin: 0;
+    color: var(--text-75);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+    display: inline-block;
+}
+
+.linkLogin:hover>.link__bdi1 {
+    color: var(--gray-70);
+    text-decoration: underline;
 }
 
 .link__bdi {
     padding: 0;
     margin: 0;
-    padding-left: 10px;
     color: var(--text-25);
     font-size: 16px;
-    font-style: normal;
     font-weight: 400;
     line-height: normal;
+    transition: color 0.3s ease-in-out;
+    position: relative;
+    display: inline-block;
 }
 
-.linkLogin:hover>.link__bdi {
-    color: var(--gray-70);
-    text-decoration: underline;
+.active_1 {
+    color: var(--text-100);
+    font-weight: 600;
+}
+
+.check__form {
+    transform: scaleX(0);
+    transform-origin: left;
+    max-width: 0;
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out, overflow 0.5s ease-in-out, transform-origin 0.5s ease-in-out;
+}
+
+.check__form1 {
+    transform: scaleX(1);
+    transform-origin: left;
+    max-width: 100%;
+    overflow: visible;
+    transition: transform 0.5s ease-in-out, overflow 0.5s ease-in-out, transform-origin 0.5s ease-in-out;
+}
+
+.check__form2 {
+    transform: scaleX(0);
+    transform-origin: right;
+    max-width: 0;
+    overflow: hidden;
+    transition: transform 0.5s ease-in-out, overflow 0.5s ease-in-out, transform-origin 0.5s ease-in-out;
+}
+
+.check__form3 {
+    transform: scaleX(1);
+    transform-origin: right;
+    max-width: 100%;
+    overflow: visible;
+    transition: transform 0.5s ease-in-out, overflow 0.5s ease-in-out, transform-origin 0.5s ease-in-out;
 }
 
 .formControlRegister__input::-webkit-outer-spin-button,
@@ -111,7 +168,8 @@
 }
 
 .formControlRegister__input {
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
+    /* Firefox */
 }
 
 .bodyRegister {

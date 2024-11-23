@@ -31,9 +31,9 @@ const Register: React.FC = () => {
         }
     }, []);
 
-    const handleChangeRegister = () => {
-        const newCheckRegister = !checkRegister;
-        setCheckRegister(newCheckRegister);
+    const handleChangeRegister = (check: boolean) => {
+        const newCheckRegister = check;
+        setCheckRegister(check);
         localStorage.setItem('register', newCheckRegister ? 'phone' : 'email');
     };
     return (
@@ -47,14 +47,28 @@ const Register: React.FC = () => {
                         <Card className={styles.form}>
                             <Card.Header className={styles.headerRegister}>
                                 <Card.Title className={styles.headerRegister__title}>Đăng ký tài khoản</Card.Title>
-                                <Link href="/login" className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi}> Đăng nhập</bdi></Link>
-                                <div className={styles.linkLogin} onClick={() => handleChangeRegister()}>
-                                    <div className={styles.link__bdi}>
-                                        {checkRegister ? 'đăng nhập bằng email' : 'đăng nhập bằng số điện thoại'}
+                                <Link href="/login" className={styles.linkLogin}>Bạn đã có tài khoản? <bdi className={styles.link__bdi1}> Đăng nhập</bdi></Link>
+                                <div className={styles.link__group}>
+                                    <div className={styles.linkLogin} onClick={() => handleChangeRegister(false)}>
+                                        <div className={`${styles.link__bdi} ${checkRegister ? '' : styles.active_1}`}>
+                                            Đăng nhập bằng email
+                                        </div>
+                                    </div>
+                                    <div className={styles.linkLogin} onClick={() => handleChangeRegister(true)}>
+                                        <div className={`${styles.link__bdi} ${checkRegister ? styles.active_1 : ''}`}>
+                                            Đăng nhập bằng số điện thoại
+                                        </div>
                                     </div>
                                 </div>
                             </Card.Header>
-                            {checkRegister ? <RegisterPhone></RegisterPhone> : <RegisterEmail></RegisterEmail>}
+                            <div>
+                                <div className={`${styles.check__form} ${checkRegister ? styles.check__form1 : ''}`}>
+                                    {checkRegister && <RegisterPhone />}
+                                </div>
+                                <div className={`${styles.check__form2} ${!checkRegister ? styles.check__form3 : ''}`}>
+                                    {!checkRegister && <RegisterEmail />}
+                                </div>
+                            </div>
                             <Card.Footer className={styles.withRegister}>
                                 <Card.Subtitle className={styles.headWithRegister}>
                                     Tiếp tục với

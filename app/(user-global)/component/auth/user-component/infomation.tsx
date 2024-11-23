@@ -14,6 +14,7 @@ const ModalChangeImg = dynamic(() => import("./modalChangeImg"), { ssr: false })
 const ModalChangeName = dynamic(() => import("./modalChangeName"), { ssr: false });
 const ModalChangeInfo = dynamic(() => import("./modalChangeInfo"), { ssr: false });
 const ModalChangePhone = dynamic(() => import("./modalChangePhone"), { ssr: false });
+const ModalChangeEmail = dynamic(() => import("./modalChangeEmail"), { ssr: false });
 
 const Infomation: React.FC = () => {
     const router = useRouter()
@@ -37,11 +38,13 @@ const Infomation: React.FC = () => {
     const [showChangeName, setShowChangeName] = useState(false);
     const [showChangeInfo, setShowChangeInfo] = useState(false);
     const [showChangePhone, setShowChangePhone] = useState(false);
+    const [showChangeEmail, setShowChangeEmail] = useState(false);
 
     const handleChangeImg = () => setShowChangeImg(true);
     const handleChangeName = () => setShowChangeName(true);
     const handleChangeInfo = () => setShowChangeInfo(true);
     const handleChangePhone = () => setShowChangePhone(true);
+    const handleChangeEmail = () => setShowChangeEmail(true);
 
     const handleToAdmin = () => {
         router.push('/admin')
@@ -83,6 +86,13 @@ const Infomation: React.FC = () => {
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>
+                        <Col className={styles.change__more} onClick={handleChangeEmail}>
+                            <div className={styles.change__more__group}>
+                                <h4 className={styles.change__more__group__title}>Email</h4>
+                                <h3 className={styles.change__more__group__subTitle}>{userState?.user?.email || 'Chưa có số điện thoại'}</h3>
+                            </div>
+                            <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                        </Col>
                         <Col className={styles.change__more} onClick={handleChangeInfo}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Giới thiệu</h4>
@@ -117,6 +127,10 @@ const Infomation: React.FC = () => {
             <ModalChangePhone
                 show={showChangePhone}
                 onClose={() => setShowChangePhone(false)}
+            />
+            <ModalChangeEmail
+                show={showChangeEmail}
+                onClose={() => setShowChangeEmail(false)}
             />
         </>
     );
