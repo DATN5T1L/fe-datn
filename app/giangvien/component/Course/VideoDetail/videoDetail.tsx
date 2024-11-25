@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import videoMod from "./course-video.module.css";
 import courseMod from "./course.module.css";
 import { Button, Stack } from "react-bootstrap";
@@ -11,50 +12,238 @@ import {
 } from "react-bootstrap-icons";
 import Accordion from "react-bootstrap/Accordion";
 
-const VideoDetail = () => (
-  <>
-    <div className={`${videoMod.content} d-flex flex-column flex-lg-row`}>
-      {/*Video + bài viết*/}
-      <div
-        className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
-      >
-        <video controls>
-          <source src="/video/html-in-5-mins.mp4" type="video/mp4" />
-        </video>
-        <div className="d-flex flex-row p-3 gap-2">
-          <div className="d-flex flex-column flex-grow-1">
-            <span className={`${videoMod.date} text-muted`}>
-              Cập nhật ngày <time dateTime="07-10-2024">07-10-2024</time>
-            </span>
-            <h3>HTML và CSS là gì?</h3>
-            <p>
-              HTML CSS (HyperText Markup Language Cascading Style Sheets) Nội
-              dung bổ sung: https://www.w3schools.com/css/css_pseudo_classes.asp
-              
-            </p>
+const VideoDetail: React.FC = () => {
+  const [close, setClose] = useState(false)
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const handleClose = () => {
+    setClose(!close)
+  }
+
+  return (
+    <>
+      <div className={`${videoMod.content} d-flex flex-column flex-lg-row`}>
+        <div className={`${videoMod.FAQ__container} ${close ? videoMod.FAQ__container__not__hidden : videoMod.FAQ__container__hidden}`}>
+          <div className={videoMod.FAQ__hedding}>
+            <div className={videoMod.FAQ__title}>
+              Hỏi đáp
+            </div>
+            <div className={videoMod.FAQ__btn} onClick={() => handleClose()}>
+              <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
+            </div>
           </div>
-          <div
-            className={`${courseMod.actions} d-flex flex-column flex-shrink-0`}
-          >
-            <Button className={`${courseMod.btnCTA}`}>Duyệt video</Button>
-            <Button
-              variant="outline-primary"
-              className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline}`}
-            >
-              Từ chối video
-            </Button>
+          <div className={videoMod.FAQ__subtitle}>
+            Danh sách bài học
+            <hr className={videoMod.FAQ__subtitle__hr} />
+          </div>
+          <div className={videoMod.FAQ__body}>
+            <Accordion defaultActiveKey={["0"]} alwaysOpen>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>
+                  <div className="d-flex flex-column">
+                    <span className="fw-bold">1. Bắt đầu</span>
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="p-0">
+                  <Stack gap={2}>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>1.1 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>1.2 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>1.3 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                  </Stack>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>
+                  <div className="d-flex flex-column">
+                    <span className="fw-bold">1. Bắt đầu</span>
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="p-0">
+                  <Stack gap={2}>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>2.1 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>2.2 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>2.3 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                  </Stack>
+                </Accordion.Body>
+              </Accordion.Item>
+              <Accordion.Item eventKey="2">
+                <Accordion.Header>
+                  <div className="d-flex flex-column">
+                    <span className="fw-bold">1. Bắt đầu</span>
+                  </div>
+                </Accordion.Header>
+                <Accordion.Body className="p-0">
+                  <Stack gap={2}>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>1.1 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>1.1 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                    <Button variant="outline" className={`${videoMod.chapterBtn}`}>
+                      <div className="d-flex align-items-center gap-2">
+                        <PlayCircle size={17} className="text-muted" />
+                        <div
+                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                        >
+                          <span>1.1 Bắt đầu</span>
+                        </div>
+                      </div>
+                    </Button>
+                  </Stack>
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
           </div>
         </div>
+        <div
+          className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
+        >
+          <video controls>
+            <source src="/video/html-in-5-mins.mp4" type="video/mp4" />
+          </video>
+          <div className="d-flex flex-row p-3 gap-2">
+            <div className="d-flex flex-column flex-grow-1">
+              <span className={`${videoMod.date} text-muted`}>
+                Cập nhật ngày <time dateTime="07-10-2024">07-10-2024</time>
+              </span>
+              <h3>HTML và CSS là gì?</h3>
+              <p>
+                HTML CSS (HyperText Markup Language Cascading Style Sheets) Nội
+                dung bổ sung: https://www.w3schools.com/css/css_pseudo_classes.asp
+
+              </p>
+            </div>
+            <div
+              className={`${courseMod.actions} d-flex flex-column flex-shrink-0`}
+            >
+              <Button className={`${courseMod.btnCTA}`}>Duyệt video</Button>
+              <Button
+                variant="outline-primary"
+                className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline}`}
+              >
+                Từ chối video
+              </Button>
+            </div>
+          </div>
+        </div>
+        {/*Accordion gồm chương và dấu thời gian*/}
+        <div className={`${videoMod.chapters} flex-md-shrink-1 flex-grow-1 p-2`}>
+          <ChapterSearchBar />
+          <ChapterAccordion />
+        </div>
       </div>
-      {/*Accordion gồm chương và dấu thời gian*/}
-      <div className={`${videoMod.chapters} flex-md-shrink-1 flex-grow-1 p-2`}>
-        <ChapterSearchBar />
-        <ChapterAccordion />
-      </div>
-    </div>
-    <ContentFooter />
-  </>
-);
+      <footer
+        className={`${videoMod.contentFooter} d-flex align-items-center justify-content-between px-3`}
+      >
+        {close ? (
+          <div className="" aria-disabled={true}>
+            <QuestionCircle size={32} className="text-primary" />
+          </div>
+        ) : (
+          <div className="">
+            <QuestionCircle size={32} className="text-primary" onClick={() => handleClose()} />
+          </div>
+        )}
+        <div className="d-inline-flex gap-2">
+          <Button
+            variant="outline-primary"
+            className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline} d-flex align-items-center gap-2`}
+          >
+            <ChevronLeft />
+            Bài trước
+          </Button>
+          <Button
+            variant="outline-primary"
+            className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline} d-flex align-items-center gap-2`}
+          >
+            Bài kế tiếp
+            <ChevronRight />
+          </Button>
+        </div>
+        <div className="d-inline-flex align-items-center gap-2">
+          <span className={`${videoMod.footerChapter} text-muted`}>
+            Chương 1: Bắt đầu
+          </span>
+          <Button
+            variant="light"
+            className={`${videoMod.footerBtnStart} rounded-circle p-1`}
+          >
+            <SkipStart size={24} />
+          </Button>
+        </div>
+      </footer>
+    </>
+  )
+};
 
 export default VideoDetail;
 
@@ -102,7 +291,7 @@ const ChapterSearchBar = () => {
   );
 };
 
-const ChapterAccordion = () => {
+const ChapterAccordion: React.FC = () => {
   return (
     <Accordion defaultActiveKey={["0"]} alwaysOpen>
       <Accordion.Item eventKey="0">
@@ -391,42 +580,3 @@ const ChapterAccordion = () => {
   );
 };
 
-const ContentFooter = () => {
-  return (
-    <footer
-      className={`${videoMod.contentFooter} d-flex align-items-center justify-content-between px-3`}
-    >
-      <a href="/" className="">
-        <QuestionCircle size={32} className="text-primary" />
-      </a>
-
-      <div className="d-inline-flex gap-2">
-        <Button
-          variant="outline-primary"
-          className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline} d-flex align-items-center gap-2`}
-        >
-          <ChevronLeft />
-          Bài trước
-        </Button>
-        <Button
-          variant="outline-primary"
-          className={`${courseMod.btnCTA} ${courseMod.btnCTAOutline} d-flex align-items-center gap-2`}
-        >
-          Bài kế tiếp
-          <ChevronRight />
-        </Button>
-      </div>
-      <div className="d-inline-flex align-items-center gap-2">
-        <span className={`${videoMod.footerChapter} text-muted`}>
-          Chương 1: Bắt đầu
-        </span>
-        <Button
-          variant="light"
-          className={`${videoMod.footerBtnStart} rounded-circle p-1`}
-        >
-          <SkipStart size={24} />
-        </Button>
-      </div>
-    </footer>
-  );
-};

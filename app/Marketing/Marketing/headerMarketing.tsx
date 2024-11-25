@@ -29,14 +29,14 @@ export const HeaderMarketing = () => {
             Thêm danh mục bài viết
           </Button>
           <Link href="/Marketing/MarketingPosts/AddPost">
-          <Button
-            className={`${h.btnCTA}`}
-            onClick={() => {
-              router.push("MarketingPosts/AddPost");
-            }}
-          >
-            Thêm bài viết
-          </Button>
+            <Button
+              className={`${h.btnCTA}`}
+              onClick={() => {
+                router.replace("/Marketing/MarketingPosts/AddPost");
+              }}
+            >
+              Thêm bài viết
+            </Button>
           </Link>
         </div>
       </div>

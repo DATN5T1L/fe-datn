@@ -6,7 +6,7 @@ import { Course } from "@app/(user-global)/model/course";
 import Link from "next/link";
 
 interface CourseForProps {
-    id: number|string;
+    id: string;
 }
 
 const CourseForNext: React.FC<CourseForProps> = ({ id }) => {

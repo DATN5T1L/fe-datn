@@ -2,6 +2,7 @@
 import useSWR from 'swr';
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import useCookie from "@app/(user-global)/component/hook/useCookie"
 import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
 import 'aos/dist/aos.css';
 import AOS from 'aos';
@@ -21,8 +22,8 @@ interface ChapterData {
 }
 
 interface FeedbackData {
-    course_id: number|string;
-    user_id: number|string;
+    course_id: string;
+    user_id: string;
     fullname: string;
     avatar: string;
     rating_course: number;
@@ -40,9 +41,10 @@ interface ApiResponse<T> {
     data: T;
 }
 
-const CourseDetail: React.FC<{ params: { id: number|string } }> = ({ params }) => {
+
+const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const router = useRouter();
-    const token = localStorage.getItem('token')
+    const token = useCookie('token')
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [isGetCourse, setIsGetCourse] = useState<boolean | null>(null)
@@ -93,6 +95,8 @@ const CourseDetail: React.FC<{ params: { id: number|string } }> = ({ params }) =
         `/api/getNameChapterCourse/${id}`,
         fetcher
     );
+
+    console.log(chapterData)
 
     const { data: feedbackData, error: feedbackError } = useSWR<ApiResponse<FeedbackData[]>>(
         `/api/getFeedBackCourse/${id}/4/4/`,
@@ -428,7 +432,7 @@ const CourseDetail: React.FC<{ params: { id: number|string } }> = ({ params }) =
             <section className={`${styles.callHelp}`} >
                 <Container className={`${styles.container} ${styles.containerCallHelp}`}>
                     <Row className={`${styles.row} ${styles.rowCallhelp}  `}>
-                        <h3 className={styles.titleCallHelp}>Đăng ký tư vấn lộ trình học
+                        <h3 className={styles.titleCallHelp}>Đăng ký tư vấn lộ trình học
                             hoàn toàn miễn phí!</h3>
                         <p className={styles.descCallHelp}>Tư vấn viên sẽ liên hệ và giải đáp mọi thắc mắc của bạn về lộ trình học để trở thành nhà phát triển chuyên nghiệp</p>
                     </Row>

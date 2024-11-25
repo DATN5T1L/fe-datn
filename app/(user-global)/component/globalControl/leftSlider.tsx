@@ -18,7 +18,7 @@ const LeftSlider: React.FC = () => {
 
     useEffect(() => {
         // Cập nhật URL sau khi client đã có trạng thái user
-        setClientHref(userState?.user ? `/coursefor/${userState.user.id}` : '/login');
+        setClientHref(userState?.user ? `/coursefor` : '/login');
     }, [userState]);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ const LeftSlider: React.FC = () => {
                     };
 
                     const observer = new ResizeObserver(setHeight);
-                    observer.observe(header);   
+                    observer.observe(header);
                     setHeight();
 
                     const handleScroll = () => {
@@ -102,7 +102,7 @@ const LeftSlider: React.FC = () => {
                 >
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
                     <Link
-                        href={clientHref}
+                        href={`${userState.user ? `/coursefor` : `/login`}`}
                         className={`btn-slide-bar-mini`}
                     >
                         <div className={`btn-e`}>Khóa học của bạn</div>

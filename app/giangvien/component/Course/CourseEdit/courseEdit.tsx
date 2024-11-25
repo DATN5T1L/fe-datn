@@ -57,6 +57,13 @@ const CourseEdit = () => {
                   placeholder="Nhập số lượng video"
                 />
               </div>
+              <div className={h.bentrong}>
+                <div>Số lượng chương</div>
+                <input
+                  className={h.inputne}
+                  placeholder="Nhập số lượng chương"
+                />
+              </div>
             </div>
             <div className={h.chonutragiua}>
               <Button className={h.btnthemvao}>Thêm vào</Button>

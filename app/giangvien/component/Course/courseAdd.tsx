@@ -13,6 +13,7 @@ const CourseAdd = () => {
               <div className={h.thatep1}>
                 <img src="/img_admin/may.svg" alt="" />
                 <div className={h.phangiua}>
+                  <div className={h.chon1tep}>Ảnh bìa khóa học</div>
                   <div className={h.chon1tep}>Chọn một tệp</div>
                   <div className={h.ghichuhinh}>
                     JPG, PNG or PDF, Kích thức file không lớn hơn 10MB
@@ -58,6 +59,13 @@ const CourseAdd = () => {
                 <input
                   className={h.inputne}
                   placeholder="Nhập số lượng video"
+                />
+              </div>
+              <div className={h.bentrong}>
+                <div>Số lượng chương</div>
+                <input
+                  className={h.inputne}
+                  placeholder="Nhập số lượng chương"
                 />
               </div>
             </div>

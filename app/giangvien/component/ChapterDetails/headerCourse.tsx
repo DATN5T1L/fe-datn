@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import h from "./course.module.css";
 import Link from "next/link";
+import Course from "./course";
 
 export const HeaderCourse = () => {
   return (
@@ -12,17 +13,17 @@ export const HeaderCourse = () => {
             className={`d-flex justify-content-between align-items-center my-4 flex-wrap`}
           >
             <div className="col-12 col-md-6">
-              <h2 className={h.heading}>Quản lý khóa học </h2>
+              <h2 className={h.heading}>Quản lý khóa học</h2>
             </div>
             <div className={`${h.actions} d-flex`}>
               <Button
                 variant="outline-primary"
                 className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
               >
-                Thêm chapter
+                Thêm chương
               </Button>
               <Link href="/giangvien/CoursePage/CourseAdd">
-              <Button className={`${h.btnCTA}`}>Thêm khóa học</Button>
+                <Button className={`${h.btnCTA}`}>Thêm khóa học</Button>
               </Link>
             </div>
           </div>
@@ -66,7 +67,7 @@ export const HeaderCourse = () => {
             </div>
             <div className="bg-white p-4 d-inline-flex align-items-center ">
               <img src="/img_admin/restart.svg" alt="Reset" />
-              <span className="text-danger">  Cài lại</span>
+              <span className="text-danger">Cài lại</span>
             </div>
           </div>
           <div>
@@ -88,6 +89,7 @@ export const HeaderCourse = () => {
           </div>
         </div>
       </div>
+      <Course />
     </>
   );
 };

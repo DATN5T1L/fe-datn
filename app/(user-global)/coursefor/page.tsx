@@ -1,7 +1,4 @@
-'use client';
-import useSWR from 'swr';
-import 'aos/dist/aos.css';
-import AOS from 'aos';
+'use client'
 import Body from "@app/(user-global)/component/globalControl/body";
 import CourseFor from "@app/(user-global)/component/course/courseFor";
 import CourseForNext from "@app/(user-global)/component/course/CourseForNext";
@@ -12,22 +9,15 @@ import LearningPathSection from "@app/(user-global)/component/router/learningPat
 
 import { Course } from "@app/(user-global)/model/course";
 
-interface ApiResponse<T> {
-    status: string;
-    message: string;
-    data: T;
-}
+
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-const CourseForYou: React.FC<{ params: { id: number|string } }> = ({ params }) => {
-    const { id } = params;
-
-
+const CourseForYou: React.FC = () => {
 
     return (
         <Body>
             <CourseFor />
-            <CourseForNext id={id} />
+            <CourseForNext id="1" />
             <LearningPathSection
                 title='UI/UX Design'
                 contentTitle='Thiết kế UI/UX luôn là một lĩnh vực hấp dẫn và thời thượng.

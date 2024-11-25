@@ -51,8 +51,6 @@ const Users: React.FC = () => {
   const usersPerPage = 5;
   const totalPages = Math.ceil((userData?.data.length || 0) / usersPerPage);
 
-  console.log(userData);
-
   useEffect(() => {
     setIsloading(true)
     fetch(`/api/allUser/client`, { cache: 'no-cache' })
@@ -174,7 +172,7 @@ const Users: React.FC = () => {
               </tbody>
             ) : (
               <tbody>
-                {currentUsers.map((item,index) => (
+                {currentUsers.map((item, index) => (
                   <tr key={index}>
                     <td>{item.fullname}</td>
                     <td>

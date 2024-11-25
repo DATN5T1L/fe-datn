@@ -4,16 +4,16 @@ import h from "./chapterAdd.module.css";
 const ChapterAdd = () => {
   return (
     <div>
-      <div className={h.header_add}>Thêm chapter</div>
+      <div className={h.header_add}>Thêm chương</div>
       <div className={h.body_add}>
         <div className={h.wapper}>
           <div className={h.formnhap}>
             <div className={h.bentrong}>
               <div>Tên</div>
-              <input className={h.inputne} placeholder="Nhập tiêu đề chapter" />
+              <input className={h.inputne} placeholder="Nhập tiêu đề chương" />
             </div>
             <div className={h.bentrong}>
-              
+
               <div>Khóa học</div>
               <div className={h.selectne}>
                 <select className={h.inputne}>
@@ -22,7 +22,7 @@ const ChapterAdd = () => {
                   <option value="typescript">TypeScript</option>
                   <option value="nextjs">Next.js</option>
                 </select>
-                <img src="/img_admin/down.svg" />
+                <img src="/img/chevronGray-04.svg" />
               </div>
             </div>
           </div>
