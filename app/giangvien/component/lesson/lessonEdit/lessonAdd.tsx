@@ -4,9 +4,8 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import h from "./lessonAdd.module.css";
 import { type } from "os";
-import CkediterCustomFill from "../../globalControll/custom-editor-fill";
 
-const LessonAdd = () => {
+const LessonEdit: React.FC = () => {
   const [showForm, setShowForm] = useState(true);
   const [activeButton, setActiveButton] = useState("lesson");
   const [typeCourseValue, setTypeCourseValue] = useState("video");
@@ -19,7 +18,7 @@ const LessonAdd = () => {
   return (
     <div>
       <div className={h.header}>
-        <div className={h.header_add}>Thêm bài học</div>
+        <div className={h.header_add}>Sửa bài học</div>
         <div className={h.nutheader}>
           <Button
             className={activeButton === "lesson" ? h.btnbaihoc : h.btnbaitap}
@@ -185,19 +184,12 @@ const LessonAdd = () => {
                     />
                   </div>
                   <div className={h.bentrong}>
-                    <div className={h.bentrong_container}>
-                      <div className={h.quest}>Câu hỏi</div>
-                      <div className={h.input__100}>
-                      </div>
-                      <div className={h.ckeditor}>
-                        <CkediterCustomFill></CkediterCustomFill>
-                      </div>
-                    </div>
-                    {/* <textarea
+                    <div>Câu hỏi</div>
+                    <textarea
                       rows={4}
                       className={h.inputne1}
                       placeholder="Nhập câu hỏi vào đây"
-                    /> */}
+                    />
                   </div>
                 </div>
                 <div className={h.formnhap}>
@@ -223,4 +215,4 @@ const LessonAdd = () => {
   );
 };
 
-export default LessonAdd;
+export default LessonEdit;

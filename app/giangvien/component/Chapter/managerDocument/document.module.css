@@ -1,12 +1,14 @@
-.main {
+.container {
+  width: 100%;
   padding: 32px 40px;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--background-bg-admin, #f5f6fa);
+  gap: 24px;
 }
 
-.mainheader {
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 32px;
-
+.main {
+  padding: 32px 40px;
 }
 
 .header {
@@ -15,17 +17,56 @@
   align-items: center;
   align-self: stretch;
   background: var(--background-bg-admin, #f5f6fa);
-  padding: 25px 32px;
+  padding: 25px 0px;
 }
 
-.header1 {
+.left_right {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  align-self: stretch;
-  background: var(--background-bg-admin, #f5f6fa);
-  padding: 0px 40px;
+  /* Đẩy .left và .right về hai đầu */
+  justify-items: center;
+  text-align: center;
+  width: 100%;
 }
+
+.left {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  left: -2%;
+}
+
+.left span {
+  color: #1E6AD2;
+}
+
+.right {
+  justify-content: end;
+  width: 250px;
+  height: auto;
+}
+
+
+.searchInputGroup {
+  display: flex;
+
+  width: 250px;
+  height: 32px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.searchIconWrapper {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c3c3c3;
+  cursor: pointer;
+}
+
 
 .heading {
   color: var(--text-100);
@@ -33,14 +74,7 @@
   font-weight: 500;
   line-height: 42px;
   letter-spacing: -0.68px;
-}
-
-.heading__link {
-  text-decoration: none;
-}
-
-.filter_bar {
-  padding-top: 32px;
+  left: 0px;
 }
 
 .actions {
@@ -88,29 +122,24 @@
 
 .searchInputGroup {
   display: flex;
-  width: 250px;
+  width: 100%;
+  max-width: 250px;
   height: 32px;
   border-radius: 30px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  margin-top: 42px;
 }
 
 .searchInput {
-  border: none;
+  width: 250px;
+  height: 32px;
+  padding: 8px 12px;
+  border: 1px solid #c3c3c3;
+  border-radius: 40px !important;
   outline: none;
-  border-radius: 30px;
-  padding-left: 12px;
-}
-
-.searchIconWrapper {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #c3c3c3;
-  cursor: pointer;
+  transition: border-color 0.2s ease;
+  font-size: 14px;
 }
 
 .searchInput:focus {
@@ -126,8 +155,11 @@
   cursor: pointer;
 }
 
+
+
 .table thead tr {
   border: none;
+
 }
 
 .table thead tr td {
@@ -135,47 +167,54 @@
   background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
-
 }
 
 .table thead tr td:nth-child(6) {
   text-align: center;
 }
 
-.table thead tr td:nth-child(1) {
-  width: 174px;
-}
+.table thead tr td:nth-child(4) {
+  text-align: left;
 
+}
 
 .table td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 200px;
+  width: 284px;
+  text-align: left;
+}
 
+.table td:nth-child(1) {
+  width: 284px;
 }
 
 .table td:nth-child(2) {
-  max-width: 150px;
+  width: 284px;
 }
+
+.table td:nth-child(3) {
+  width: 284px;
+}
+
 
 .table tbody tr td {
-  padding: 24px 12px;
+  padding: 16px 12px;
+  line-height: 24px !important;
+  font-size: 14px;
+  font-weight: 500px;
   border: none;
+  color: #333333;
   border-bottom: 1.5px solid #b3b3b3;
-  vertical-align: middle;
-
-}
-
-.table tbody tr td:nth-child(6) {
-  text-align: center;
 }
 
 .table thead td {
   white-space: nowrap;
+
 }
 
-.active_text {
+.active_text1 {
   color: #24a148;
   background-color: #24a14826;
   padding: 5px 30px;
@@ -184,6 +223,7 @@
 
 .option_button {
   display: flex;
+  /* max-width: 185px; */
   justify-content: space-between;
   align-items: center;
   background-color: #fafafa;
@@ -196,8 +236,7 @@
   justify-content: center;
   align-items: center;
   padding: 5px 10px;
-  width: 63px;
-  height: 38px;
+
   margin: 0;
 }
 
@@ -212,7 +251,9 @@
 }
 
 .option_button_group {
-  padding: 16px 20px;
+  /* display: flex; */
+  /* height: 108px; */
+
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -220,10 +261,6 @@
   border-radius: 0px 8px 8px 0px;
 }
 
-.option_button_group a {
-  text-align: center;
-  padding: 0px 15px;
-}
 
 /*  Actions */
 .btnCTA {
@@ -233,25 +270,8 @@
   padding: 8px 12px;
   border-radius: 12px;
   border: 1px solid var(--blue-60);
-}
-
-.btnCTA1 {
-  color: var(--text-0);
-  width: 184px;
-  height: 56px;
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--blue-60);
-}
-
-.btnCTA2 {
-  color: #1958AD;
-  width: 184px;
-  height: 56px;
-  background-color: #FFFF;
-  padding: 8px 12px;
-  border-radius: 12px;
-  border: 1px solid var(--blue-60);
+  background: #438FF7 !important;
+  font-size: 16px !important;
 }
 
 .btnCTAOutline {
@@ -320,54 +340,9 @@
   border-radius: 50%;
 }
 
-.headerContent {
-  background: linear-gradient(107.66deg, #063B42 2.8%, #0F96A8 98%),
-    linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%);
-  width: 150px !important;
-  height: 72px !important;
-  box-sizing: border-box !important;
-  padding: 8px !important;
-  border-radius: 16px !important;
-  position: relative !important;
-}
-
-.headerContent__text {
-  width: 135px !important;
-  height: 104px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 4px !important;
-}
-
-.text__hedding2 {
-  width: 100px !important;
-  height: auto !important;
-  font-weight: 700 !important;
-  font-size: 9px !important;
-  color: white !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  white-space: normal !important;
-}
-
-.text__hedding3 {
-  width: 145px !important;
-  font-weight: 500 !important;
-  font-size: 8px !important;
-  color: var(--gray-80) !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.text__img {
-  width: 13px !important;
-  height: 13px !important;
-}
-
-.headerContent__avt {
-  position: absolute !important;
-  bottom: 0 !important;
-  right: 0 !important;
-  width: 66px !important;
-  height: 62px !important;
+.active_text {
+  color: #24a148;
+  background-color: #24a14826;
+  padding: 5px 30px;
+  border-radius: 5px;
 }

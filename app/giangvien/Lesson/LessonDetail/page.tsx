@@ -9,7 +9,6 @@ import LessonDetail from "@/app/giangvien/component/lesson/lessonDetail/lessionD
 const LessonVideoDetail = () => {
   return (
     <div>
- 
       <LessonDetail />
     </div>
   );

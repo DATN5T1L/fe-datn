@@ -14,10 +14,10 @@ export const HeaderCourseList = () => {
             <div className="col-12 col-md-6">
               <h2 className={h.heading}>Danh sách khóa học </h2>
             </div>
-            <Link href="/giangvien/Lesson/LessonAdd">
-            <div className={`${h.actions} d-flex`}>
-              <Button className={`${h.btnCTA}`}>Thêm bài học</Button>
-            </div>
+            <Link className={h.heading__link} href="/giangvien/Lesson/LessonAdd">
+              <div className={`${h.actions} d-flex`}>
+                <Button className={`${h.btnCTA}`}>Thêm bài học</Button>
+              </div>
             </Link>
           </div>
         </div>
@@ -38,8 +38,8 @@ export const HeaderCourseList = () => {
                 <option value="2">Inactive</option>
               </select>
             </div>
-      
-        
+
+
             <div className="bg-white p-4 d-inline-flex align-items-center ">
               <img src="/img_admin/restart.svg" alt="Reset" />
               <span className="text-danger">  Cài lại</span>

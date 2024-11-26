@@ -7,7 +7,7 @@ import mod from "../../marketing.module.css";
 import postMod from "./post.module.css";
 import { useEffect, useRef, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
-import CkediterCustom from "./custom-editor";
+import CkediterCustom from "../../../component/globalControl/custom-editor";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";

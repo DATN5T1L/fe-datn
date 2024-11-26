@@ -119,7 +119,7 @@ const Course: React.FC<{}> = () => {
                       <Link href="/giangvien/ChapterPage/ManagerChapter" className="w-50 border-end">
                         <img src="/img_admin/vitien.svg" alt="Edit" />
                       </Link>
-                      <Link href="/giangvien/Lesson/LessonEdit" className="w-50">
+                      <Link href="/giangvien/CoursePage/CourseEdit" className="w-50">
                         <img src="/img_admin/action2.svg" alt="Edit" />
                       </Link>
                     </div>

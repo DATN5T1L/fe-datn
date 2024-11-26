@@ -7,13 +7,14 @@ import {
   InputGroup,
   Table,
   Pagination,
+  Container,
 } from "react-bootstrap";
-import h from "./fqa.module.css";
+import h from "./document.module.css";
 import Link from "next/link";
-import "./fqa.css";
+import "./document.css";
 import { useRouter } from "next/navigation";
 
-const FQA: React.FC<{}> = () => {
+const ManagerDocumnet: React.FC<{}> = () => {
   const router = useRouter()
   const totalPages = 10;
   const currentPage = 1;
@@ -48,35 +49,33 @@ const FQA: React.FC<{}> = () => {
       </>
     );
   };
+
   const handlePushAdd = () => {
-    router.replace('/giangvien/CoursePage/CourseFQA/add')
+    router.replace('/giangvien/Lesson/LessonAdd')
   }
+
   return (
-    <div className={`${h.main} d-flex flex-column `}>
+    <div
+      className={`${h.main} d-flex flex-column `}
+    >
       <div
         className={`${h.header} d-flex justify-content-between align-items-center`}
       >
-        <h2 className={h.heading}>FQA Khóa học</h2>
+        <h2 className={h.heading}>Quản lý bài học</h2>
 
         <div className={`${h.actions} d-flex`}>
-          <Button
-            variant="outline-primary"
-            className={`${h.btnCTA1} ${h.btnCTAOutline1} me-2`}
-          >
-            Demo
-          </Button>
-          <Button className={`${h.btnCTA}`} onClick={() => handlePushAdd()}>Thêm câu hỏi</Button>
+          <Button className={`${h.btnCTA}`} onClick={handlePushAdd}>Thêm bài học</Button>
         </div>
       </div>
       <div className={`${h.left_right}`}>
         <div className={h.left}>
-          Khóa học: <span>Website Design UI/UX</span>
+          Chương: <span>Giới thiệu về reactJS</span>
         </div>
         <div className={`${h.right} `}>
           <InputGroup className={h.searchInputGroup}>
             <Form.Control
               type="text"
-              placeholder="Tìm kiếm chapter"
+              placeholder="Tìm kiếm bài học"
               className={h.searchInput}
             />
             <div className={h.searchIconWrapper}>
@@ -90,48 +89,65 @@ const FQA: React.FC<{}> = () => {
           </InputGroup>
         </div>
       </div>
-
-      {/* Post List */}
       <div
         className={`${h.bodytable}d-flex overflow-auto w-100`}
         style={{ whiteSpace: "nowrap" }}
       >
         <Table bordered hover className={`${h.table}`}>
-          <thead >
-            <tr >
-              <td className="text-lg-center">Số thứ tự</td>
-              <td className="w-25">Câu hỏi</td>
-              <td className="w-25">Câu trả lời</td>
-              <td className="w-25">Ngày thêm</td>
-              <td className="text-lg-center">Hành động</td>
+          <thead>
+            <tr>
+              <td className='text-lg-center w-auto'>Số thứ tự</td>
+              <td className='text-lg-center'>Tên bài học</td>
+              <td className='text-lg-center'>Dạng bài học</td>
+              <td className='text-lg-center'>Ngày thêm</td>
+              <td className='text-lg-center'>Ngày cập nhật</td>
+              <td className='text-lg-center'>Hành động</td>
             </tr>
           </thead>
           <tbody>
             {Array(5)
               .fill(null)
               .map((_, idx) => (
-                <tr key={idx} >
-                  <td className='text-lg-center'>{idx + 1}</td>
-                  <td>Giới thiệu về reactJS</td>
-                  <td>Khóa học reactJS</td>
-                  <td>01/01/2024</td>
-
-                  <td className={`${h.option_button_group} text-lg-center`}>
+                <tr key={idx}>
+                  <td className="text-lg-center w-auto">
+                    {idx + 1}
+                  </td>
+                  <td className="text-lg-center">Giới thiệu về reactJS</td>
+                  <td className="text-center">
+                    <span className={`text-lg-center ${h.active_text1}`}>Trắc nghiệm</span>
+                  </td>
+                  <td className="text-lg-center">01/01/2024</td>
+                  <td className="text-lg-center">02/01/2024</td>
+                  <td className={h.option_button_group}>
                     <div
-                      className={`w-50 justify-content-between border d-flex py-2 rounded row mx-1`}
+                      className={` w-51 justify-content-between border d-flex py-2 rounded row mx-1`}
                     >
                       <Link
-                        href="/#!"
-                        className="w-50 border-end justify-content-center align-item-center d-flex col-6"
+                        href="/giangvien/ChapterPage/ChapterDetail"
+                        className="w border-end justify-content-center align-item-center d-flex col-4"
                       >
-                        <img src="/img_admin/eyes.svg" alt="Edit" />
+                        <img src="/img/actionDetail.svg" alt="Edit" />
                       </Link>
                       <Link
-                        href={`/giangvien/CoursePage/CourseFQA/edit`}
-                        as={`/giangvien/CoursePage/CourseFQA/edit`}
-                        className="w-50 border-end justify-content-center align-item-center d-flex col-6"
+                        href={`ChapterPage?id=${1}`}
+                        as={`ChapterPage/${1}`}
+                        className="w border-end justify-content-center align-item-center d-flex col-4"
                       >
                         <img src="/img_admin/action2.svg" alt="Delete" />
+                      </Link>
+                      {/* <Link
+                        href={`ChapterPage?id=${1}`}
+                        as={`ChapterPage/${1}`}
+                        className="w border-end justify-content-center align-item-center d-flex col-3"
+                      >
+                        <img src="/img_admin/vitien.svg" alt="Delete" />
+                      </Link> */}
+                      <Link
+                        href={`ChapterPage?id=${1}`}
+                        as={`ChapterPage/${1}`}
+                        className="w border-end justify-content-center align-item-center d-flex col-4"
+                      >
+                        <img src="/img/action.svg" alt="Delete" />
                       </Link>
                     </div>
                   </td>
@@ -166,4 +182,4 @@ const FQA: React.FC<{}> = () => {
   );
 };
 
-export default FQA;
+export default ManagerDocumnet;

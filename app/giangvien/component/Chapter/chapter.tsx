@@ -55,11 +55,11 @@ const Chapter: React.FC<{}> = () => {
         className={`${h.header} d-flex justify-content-between align-items-center`}
       >
         <h2 className={h.heading}>Danh sách chapter</h2>
-      <Link href="/giangvien/ChapterPage/ChapterAdd">
-        <div className={`${h.actions} d-flex`}>
-          <Button className={`${h.btnCTA}`}>Thêm chapter</Button>
-        </div>
-      </Link>
+        <Link className={h.heading__link} href="/giangvien/ChapterPage/ChapterAdd">
+          <div className={`${h.actions} d-flex`}>
+            <Button className={`${h.btnCTA}`}>Thêm chapter</Button>
+          </div>
+        </Link>
       </div>
 
       {/* Post List */}
@@ -70,11 +70,12 @@ const Chapter: React.FC<{}> = () => {
         <Table bordered hover className={`${h.table}`}>
           <thead>
             <tr>
-              <td>Tên chapter</td>
-              <td>Tên Khóa học</td>
-
-              <td>Ngày thêm</td>
-              <td>Hành động</td>
+              <td className={`text-lg-center ${h.td__stt}`}>Số thứ tự</td>
+              <td className="">Tên chapter</td>
+              <td className="">Tên Khóa học</td>
+              <td className="text-lg-center">Ngày thêm</td>
+              <td className="text-lg-center w-1">Ngày cập nhật</td>
+              <td className="text-lg-center">Hành động</td>
             </tr>
           </thead>
           <tbody>
@@ -82,25 +83,38 @@ const Chapter: React.FC<{}> = () => {
               .fill(null)
               .map((_, idx) => (
                 <tr key={idx}>
-                  <td>Giới thiệu về reactJS</td>
-                  <td>Giới thiệu về reactJS</td>
-                  <td>01/01/2024</td>
-
+                  <td className="text-lg-center">{idx + 1}</td>
+                  <td className="">Giới thiệu về reactJS</td>
+                  <td className="">Giới thiệu về reactJS</td>
+                  <td className="text-lg-center">01/01/2024</td>
+                  <td className="text-lg-center">02/01/2024</td>
                   <td className={h.option_button_group}>
                     <div
-                      className={`w-50 justify-content-between  border d-flex py-2 rounded row mx-1`}
+                      className={`justify-content-space-between border d-flex py-2 rounded row mx-1`}
                     >
                       <Link
                         href="/giangvien/ChapterPage/ChapterDetail"
-                        className="w-50 border-end justify-content-center   d-flex col-6"
+                        className="w-33 border-end justify-content-center d-flex col-3"
                       >
-                        <img src="/img_admin/action1.svg" alt="Edit" />
+                        <img src="/img/actionDetail.svg" alt="Edit" />
                       </Link>
                       <Link
                         href={`/giangvien/ChapterPage/ChapterEdit`}
-                        className="w border-end justify-content-center   d-flex col-6"
+                        className="w-33 border-end justify-content-center d-flex col-3"
                       >
                         <img src="/img_admin/action2.svg" alt="Delete" />
+                      </Link>
+                      <Link
+                        href={`/giangvien/ChapterPage/ManagerDocument`}
+                        className="w-33 border-end justify-content-center d-flex col-3"
+                      >
+                        <img src="/img_admin/vitien.svg" alt="Delete" />
+                      </Link>
+                      <Link
+                        href={`/giangvien/ChapterPage/ChapterEdit`}
+                        className="w-33 border-end justify-content-center d-flex col-3"
+                      >
+                        <img src="/img/action.svg" alt="active" />
                       </Link>
                     </div>
                   </td>

@@ -21,7 +21,7 @@ const ChapterEdit = () => {
                   <option value="typescript">TypeScript</option>
                   <option value="nextjs">Next.js</option>
                 </select>
-                <img src="/img_admin/down.svg" />
+                <img src="/img/chevronGray-04.svg" />
               </div>
             </div>
           </div>
