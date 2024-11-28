@@ -298,6 +298,36 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
       },
 
+      //course
+
+      {
+        source: '/api/allCourseAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/courses/:path*',
+      },
+
+      //chapter
+
+      {
+        source: '/api/allChapterAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/chapters-by-course/:path*',
+      },
+      {
+        source: '/api/allChapterNotCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/chapters/:path*',
+      },
+
+
+      //document
+
+      {
+        source: '/api/allDocumentAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/documents-by-chapter/:path*',
+      },
+      {
+        source: '/api/documentId/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/documents/:path*',
+      },
+
       //marketing
 
       {

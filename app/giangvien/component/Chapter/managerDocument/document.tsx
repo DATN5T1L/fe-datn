@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import {
   Button,
   Form,
@@ -12,48 +12,145 @@ import {
 import h from "./document.module.css";
 import Link from "next/link";
 import "./document.css";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
+import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 
-const ManagerDocumnet: React.FC<{}> = () => {
+interface Document {
+  id: string;
+  name_document: string;
+  serial_document: number;
+  type_document: string;
+  updated_at: string;
+}
+
+interface ApiResponse<T> {
+  status: string;
+  message: string;
+  data: T[];
+}
+
+const ManagerDocumnet: React.FC = () => {
   const router = useRouter()
-  const totalPages = 10;
-  const currentPage = 1;
-  const onPageChange = (page: number) => {
-    console.log("Chuyển tới trang:", page);
-  };
+  const [documentData, setDocumnetData] = useState<ApiResponse<Document> | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const token = useCookie('token');
+  const searchParams = useSearchParams()
+  const id = searchParams.get('id')
+  const nameChapter = searchParams.get('name')
+  const [currentPage, setCurrentPage] = useState(1)
+  const catePerPage = 5;
 
-  const renderPaginationItems = () => {
-    if (totalPages <= 7) {
-      return Array.from({ length: totalPages }, (_, idx) => (
-        <Pagination.Item
-          key={idx}
-          active={currentPage === idx + 1}
-          onClick={() => onPageChange(idx + 1)}
-        >
-          {idx + 1}
-        </Pagination.Item>
-      ));
+  console.log(id);
+
+
+  useEffect(() => {
+    if (token && id) {
+      setLoading(true);
+      fetch(`/api/allDocumentAdmin/${id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          setDocumnetData(data)
+          setLoading(false)
+          console.log(data);
+        })
+        .catch(err => {
+          console.log(err)
+          setLoading(false);
+        });
     }
-    return (
-      <>
-        {Array.from({ length: 7 }, (_, idx) => (
+  }, [token]);
+
+  console.log(documentData);
+
+  const totalPages = Math.ceil((documentData?.data.length || 0) / catePerPage)
+  const indexOfLastCate = currentPage * catePerPage;
+  const indexOfFirstCate = indexOfLastCate - catePerPage;
+  const currentData =
+    documentData?.data && Array.isArray(documentData.data)
+      ? documentData.data.slice(indexOfFirstCate, indexOfLastCate)
+      : [];
+
+  const handleNextPage = useCallback(() => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  }, [currentPage, totalPages]);
+
+  const handlePrevPage = useCallback(() => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  }, [currentPage]);
+
+  useLayoutEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage, setCurrentPage]);
+
+  const renderPaginationItems = useMemo(() => {
+    const pageNumbers = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(
           <Pagination.Item
-            key={idx}
-            active={currentPage === idx + 1}
-            onClick={() => onPageChange(idx + 1)}
+            key={i}
+            active={i === currentPage}
+            onClick={() => setCurrentPage(i)}
           >
-            {idx + 1}
+            {i}
           </Pagination.Item>
-        ))}
-        <Pagination.Ellipsis disabled />
-      </>
-    );
-  };
+        );
+      }
+    } else {
+      pageNumbers.push(
+        <Pagination.Item
+          key={1}
+          active={1 === currentPage}
+          onClick={() => setCurrentPage(1)}
+        >
+          1
+        </Pagination.Item>
+      );
+
+      if (currentPage > 3) {
+        pageNumbers.push(<Pagination.Ellipsis key="start-ellipsis" />);
+      }
+
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        pageNumbers.push(
+          <Pagination.Item
+            key={i}
+            active={i === currentPage}
+            onClick={() => setCurrentPage(i)}
+          >
+            {i}
+          </Pagination.Item>
+        );
+      }
+
+      if (currentPage < totalPages - 2) {
+        pageNumbers.push(<Pagination.Ellipsis key="end-ellipsis" />);
+      }
+
+      pageNumbers.push(
+        <Pagination.Item
+          key={totalPages}
+          active={totalPages === currentPage}
+          onClick={() => setCurrentPage(totalPages)}
+        >
+          {totalPages}
+        </Pagination.Item>
+      );
+    }
+    return pageNumbers;
+  }, [totalPages, currentPage]);
 
   const handlePushAdd = () => {
     router.replace('/giangvien/Lesson/LessonAdd')
   }
-
   return (
     <div
       className={`${h.main} d-flex flex-column `}
@@ -69,7 +166,7 @@ const ManagerDocumnet: React.FC<{}> = () => {
       </div>
       <div className={`${h.left_right}`}>
         <div className={h.left}>
-          Chương: <span>Giới thiệu về reactJS</span>
+          Chương: <span>{nameChapter}</span>
         </div>
         <div className={`${h.right} `}>
           <InputGroup className={h.searchInputGroup}>
@@ -99,83 +196,64 @@ const ManagerDocumnet: React.FC<{}> = () => {
               <td className='text-lg-center w-auto'>Số thứ tự</td>
               <td className='text-lg-center'>Tên bài học</td>
               <td className='text-lg-center'>Dạng bài học</td>
-              <td className='text-lg-center'>Ngày thêm</td>
               <td className='text-lg-center'>Ngày cập nhật</td>
               <td className='text-lg-center'>Hành động</td>
             </tr>
           </thead>
           <tbody>
-            {Array(5)
-              .fill(null)
-              .map((_, idx) => (
-                <tr key={idx}>
-                  <td className="text-lg-center w-auto">
-                    {idx + 1}
-                  </td>
-                  <td className="text-lg-center">Giới thiệu về reactJS</td>
-                  <td className="text-center">
-                    <span className={`text-lg-center ${h.active_text1}`}>Trắc nghiệm</span>
-                  </td>
-                  <td className="text-lg-center">01/01/2024</td>
-                  <td className="text-lg-center">02/01/2024</td>
-                  <td className={h.option_button_group}>
-                    <div
-                      className={` w-51 justify-content-between border d-flex py-2 rounded row mx-1`}
+            {currentData.map((item, index) => (
+              <tr key={index}>
+                <td className="text-lg-center w-auto">
+                  {index + 1}
+                </td>
+                <td className="text-lg-center">{item.name_document}</td>
+                <td className="text-center">
+                  <span className={`text-lg-center ${h.active_text1}`}>{item.type_document}</span>
+                </td>
+                <td className="text-lg-center">{useFormatDate(item.updated_at)}</td>
+                <td className={h.option_button_group}>
+                  <div
+                    className={` w-51 justify-content-between border d-flex py-2 rounded row mx-1`}
+                  >
+                    <Link
+                      href="/giangvien/ChapterPage/ChapterDetail"
+                      className="w border-end justify-content-center align-item-center d-flex col-4"
                     >
-                      <Link
-                        href="/giangvien/ChapterPage/ChapterDetail"
-                        className="w border-end justify-content-center align-item-center d-flex col-4"
-                      >
-                        <img src="/img/actionDetail.svg" alt="Edit" />
-                      </Link>
-                      <Link
-                        href={`ChapterPage?id=${1}`}
-                        as={`ChapterPage/${1}`}
-                        className="w border-end justify-content-center align-item-center d-flex col-4"
-                      >
-                        <img src="/img_admin/action2.svg" alt="Delete" />
-                      </Link>
-                      {/* <Link
+                      <img src="/img/actionDetail.svg" alt="Edit" />
+                    </Link>
+                    <Link
+                      href={`ChapterPage?id=${1}`}
+                      as={`ChapterPage/${1}`}
+                      className="w border-end justify-content-center align-item-center d-flex col-4"
+                    >
+                      <img src="/img_admin/action2.svg" alt="Delete" />
+                    </Link>
+                    {/* <Link
                         href={`ChapterPage?id=${1}`}
                         as={`ChapterPage/${1}`}
                         className="w border-end justify-content-center align-item-center d-flex col-3"
                       >
                         <img src="/img_admin/vitien.svg" alt="Delete" />
                       </Link> */}
-                      <Link
-                        href={`ChapterPage?id=${1}`}
-                        as={`ChapterPage/${1}`}
-                        className="w border-end justify-content-center align-item-center d-flex col-4"
-                      >
-                        <img src="/img/action.svg" alt="Delete" />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    <Link
+                      href={`ChapterPage?id=${1}`}
+                      as={`ChapterPage/${1}`}
+                      className="w border-end justify-content-center align-item-center d-flex col-4"
+                    >
+                      <img src="/img/action.svg" alt="Delete" />
+                    </Link>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>
-
-      {/* Pagination */}
       <div className="paginationWrapper">
-        <Pagination className="pagination">
-          <Pagination.Prev
-            onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
-          >
-            <img
-              src="/img_admin/prep.svg"
-              alt="Previous"
-              width="8"
-              height="16"
-            />
-          </Pagination.Prev>
-          {renderPaginationItems()}
-          <Pagination.Next
-            onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
-          >
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
-          </Pagination.Next>
+        <Pagination>
+          <Pagination.Prev onClick={handlePrevPage} />
+          {renderPaginationItems}
+          <Pagination.Next onClick={handleNextPage} />
         </Pagination>
       </div>
     </div>

@@ -6,7 +6,7 @@ import h from "./lessonAdd.module.css";
 import { type } from "os";
 import CkediterCustomFill from "../../globalControll/custom-editor-fill";
 
-const LessonAdd = () => {
+const LessonAdd: React.FC = () => {
   const [showForm, setShowForm] = useState(true);
   const [activeButton, setActiveButton] = useState("lesson");
   const [typeCourseValue, setTypeCourseValue] = useState("video");
@@ -42,8 +42,8 @@ const LessonAdd = () => {
                   >
                     <option value="video">Video</option>
                     <option value="dientu">Điền từ</option>
-                    <option value="dungsai">Đúng sai</option>
-                    <option value="tracnghiem">Trắc nghiệm</option>
+                    <option value="dungsai">Trắc nghiệm đúng sai</option>
+                    <option value="tracnghiem">Trắc nghiệm nhiều câu hỏi</option>
                     <option value="code">Code</option>
                   </select>
                   <img src="/img/chevronGray-04.svg" />
@@ -198,6 +198,106 @@ const LessonAdd = () => {
                       className={h.inputne1}
                       placeholder="Nhập câu hỏi vào đây"
                     /> */}
+                  </div>
+                </div>
+                <div className={h.formnhap}>
+                  <div className={h.bentrong}>
+                    <div>Câu trả lời</div>
+                    <textarea
+                      rows={4}
+                      className={h.inputne1}
+                      placeholder="Nhập trả lời vào đây"
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+            {typeCourseValue === 'tracnghiem' && (
+              <>
+                <div className={h.formnhap}>
+                  <div className={h.bentrong}>
+                    <div>Tên bài tập</div>
+                    <input
+                      className={h.inputne}
+                      placeholder="Nhập tên bài tập"
+                    />
+                  </div>
+                  <div className={h.bentrong}>
+                    <div>Số thứ tự</div>
+                    <input
+                      className={h.inputne}
+                      placeholder="Số thứ tự của bài học"
+                    />
+                  </div>
+                </div>
+                <div className={h.formnhap}>
+                  <div className={h.bentrong}>
+                    <div>Mô tả bài học</div>
+                    <textarea
+                      rows={3}
+                      className={h.inputne1}
+                      placeholder="Nhập mô tả vào đây"
+                    />
+                  </div>
+                  <div className={h.bentrong}>
+                    <div className={h.bentrong_container}>
+                      <div className={h.quest}>Câu hỏi</div>
+                      <textarea
+                        rows={3}
+                        className={h.inputne1}
+                        placeholder="Nhập mô tả vào đây"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className={h.formnhap}>
+                  <div className={h.bentrong}>
+                    <div>Câu trả lời</div>
+                    <textarea
+                      rows={4}
+                      className={h.inputne1}
+                      placeholder="Nhập trả lời vào đây"
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+            {typeCourseValue === 'dungsai' && (
+              <>
+                <div className={h.formnhap}>
+                  <div className={h.bentrong}>
+                    <div>Tên bài tập</div>
+                    <input
+                      className={h.inputne}
+                      placeholder="Nhập tên bài tập"
+                    />
+                  </div>
+                  <div className={h.bentrong}>
+                    <div>Số thứ tự</div>
+                    <input
+                      className={h.inputne}
+                      placeholder="Số thứ tự của bài học"
+                    />
+                  </div>
+                </div>
+                <div className={h.formnhap}>
+                  <div className={h.bentrong}>
+                    <div>Mô tả bài học</div>
+                    <textarea
+                      rows={3}
+                      className={h.inputne1}
+                      placeholder="Nhập mô tả vào đây"
+                    />
+                  </div>
+                  <div className={h.bentrong}>
+                    <div className={h.bentrong_container}>
+                      <div className={h.quest}>Câu hỏi</div>
+                      <textarea
+                        rows={3}
+                        className={h.inputne1}
+                        placeholder="Nhập mô tả vào đây"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className={h.formnhap}>
