@@ -10,7 +10,7 @@ import { Row, Col, Nav, Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // thêm component
 import CodeDev from "../codeDev";
@@ -18,11 +18,12 @@ import CodeDevLearning from "../CodeDevLearning";
 import ProgressCircle from '@app/(user-global)/component/course/ProgressCircle';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
 import Faq from "../Faq";
+import NoteContent from "../NoteContent";
 import NoteCourse from "../NoteCourse";
 import Questions from '../Questions';
 import VideoPlayer from '../VideoPlayer';
 
-import { Arrow, IconWhat } from "@/app/(user-global)/component/icon/icons";
+import { Arrow, IconWhat, IconDoc, IconVideo, IconSun, IconNote, IconBell, IconSetting, IconLogout } from "@/app/(user-global)/component/icon/icons";
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { formatDateTime, formatTime } from "@/app/(user-global)/component/globalControl/commonC";
@@ -42,6 +43,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const course_Id = id;
     const userState = useSelector((state: RootState) => state.user);
     const user = userState?.user;
+    const avatar: string = user?.avatar ?? '';
     const { handleLogout } = useLogout();
 
     const [isNoti, setNoti] = useState(false);
@@ -62,15 +64,14 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [error, setError] = useState<string | null>(null);
 
     const [doc_id, setdoc_id] = useState<string | null>(null);
-    const [statusDoc, setStatusDoc] = useState(false);
+
 
     const [urlVideo, setUrlVideo] = useState('');
     const [type, setType] = useState<string | null>(null);
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
 
-    const [isActiveDoc, setIsActiveDoc] = useState(false);
-    const [activeDocIndex, setActiveDocIndex] = useState<number | null>(null);
+
 
     const [html, setHtml] = useState<string>('');
     const [css, setCss] = useState<string>('');
@@ -79,21 +80,22 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     const [visible, setVisible] = useState(false);
-    const [isNoteList, setisNoteList] = useState(false);
+
     const [isNote, setIsNote] = useState(false);
     const [isActive, setIsActive] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [tippyVisible, setTippyVisible] = useState(false);
     const [isFAQ, setFAQ] = useState(false);
+    const [isNoteContent, setIsNoteContent] = useState(false);
 
+    console.log(isNoteContent)
     const toggleSwitch = () => {
         setIsActive(!isActive);
         setTippyVisible(prev => !prev);
     };
     const show = () => setVisible(true);
     const hide = () => setVisible(false);
-    const showNoteList = () => setisNoteList(true);
-    const hideNoteList = () => setisNoteList(false);
+
 
 
 
@@ -106,6 +108,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     const toggleFaq = () => {
         setFAQ(prev => !prev);
+    };
+    const toggleNoteList = () => {
+        setIsNoteContent(prev => !prev);
     };
 
     const toggleVisibility = () => {
@@ -167,6 +172,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             setError(err.message);
         }
     };
+
     const fetchProgress = async () => {
         try {
             const response = await fetch(`/api/getProgress/${course_Id}`, {
@@ -217,7 +223,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     useEffect(() => {
         if (doc_id !== null) {
-
             fetchCreatStatus();
         }
     }, [doc_id]);
@@ -252,8 +257,10 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         // console.log("Thời gian đã xem:", playedSeconds, "giây");
         setPlayedSeconds(playedSeconds)
     };
+
     useEffect(() => {
         if (course && Array.isArray(course)) {
+
             const findInactiveDocumentId = (course: Chapter[]): string | null => {
                 for (const chapter of course) {
                     const inactiveDoc = chapter.documents.find(doc => doc.status_document === false);
@@ -273,9 +280,16 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 if (initialDoc) {
                     setdoc_id(initialDoc.document_id);
                     handleClickDoc(initialDoc)
+                    setSelectedIndex(
+                        course.findIndex(chapter => chapter.documents.includes(initialDoc)) +
+                        "-" +
+                        course[course.findIndex(chapter => chapter.documents.includes(initialDoc))].documents.indexOf(initialDoc)
+                    );
+                    toggleItem(course.findIndex(chapter => chapter.documents.includes(initialDoc)))
                 }
             }
         }
+
     }, [course]);
 
 
@@ -289,6 +303,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         switch (doc.type_document) {
             case "quiz":
                 if (doc.questions) {
+                    console.log(doc.questions)
                     setQuestion(doc.questions);
                     setContent(false);
                 }
@@ -335,20 +350,20 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
             return (
                 <div className={styles.wapperCode}>
-                    {code?.map((codeItem, index) => (
+                    {code && (
                         <CodeDevLearning
-                            key={index}
+                            key={code.id}
                             onExport={handleExport}
-                            answer_code={codeItem.answer_code}
-                            correct_answer={codeItem.correct_answer}
-                            question_code={codeItem.question_code}
-                            tutorial_code={codeItem.tutorial_code}
+                            answer_code={code.answer_code}
+                            correct_answer={code.correct_answer}
+                            question_code={code.question_code}
+                            tutorial_code={code.tutorial_code}
                             name_document={nameDocument}
-                            updated_at={codeItem.updated_at}
+                            updated_at={code.updated_at}
                             course_id={course_Id}
                             documents_id={doc_id}
                         />
-                    ))}
+                    )}
                 </div>
             );
         } else {
@@ -358,143 +373,203 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             );
         }
     };
-    const [activeIndex, setActiveIndex] = useState<number>(0); // Quản lý bài hiện tại
-    const [activeDocIndexs, setActiveDocIndexs] = useState(0);
+
     const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
 
-    const goToPreviousDoc = () => {
-        if (course && activeIndex !== undefined && activeDocIndexs > 0) {
-            setActiveIndex(activeDocIndexs - 1);
+
+    const handlePreviousLesson = ({
+        course,
+        selectedIndex,
+        setSelectedIndex,
+    }: {
+        course: Chapter[];
+        selectedIndex: string | null;
+        setSelectedIndex: (index: string) => void;
+    }) => {
+        if (!selectedIndex) return;
+
+        const [currentChapterIndex, currentDocIndex] = selectedIndex.split('-').map(Number);
+
+        // Nếu không phải bài đầu tiên trong chapter
+        if (currentDocIndex > 0) {
+            setSelectedIndex(`${currentChapterIndex}-${currentDocIndex - 1}`);
+            handleClickDoc(course[currentChapterIndex].documents[currentDocIndex - 1]);
+        }
+        // Nếu là bài đầu tiên, chuyển về chapter trước (nếu có)
+        else if (currentChapterIndex > 0) {
+            const previousChapter = course[currentChapterIndex - 1];
+            const lastDocIndex = previousChapter.documents.length - 1;
+
+            // Kiểm tra trạng thái bài cuối cùng của chapter trước
+            if (!previousChapter.documents[lastDocIndex]?.status_document) {
+                alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                return;
+            }
+
+            toggleItem(currentChapterIndex - 1)
+            setSelectedIndex(`${currentChapterIndex - 1}-${lastDocIndex}`);
+            handleClickDoc(previousChapter.documents[lastDocIndex]);
+        } else {
+            alert('Không có bài học trước.');
         }
     };
 
-    const goToNextDoc = () => {
-        if (course && activeIndex !== undefined && activeDocIndexs < course[activeIndex]?.documents.length - 1) {
-            setActiveIndex(activeDocIndexs + 1);
+    const handleNextLesson = ({
+        course,
+        selectedIndex,
+        setSelectedIndex,
+    }: {
+        course: Chapter[];
+        selectedIndex: string | null;
+        setSelectedIndex: (index: string) => void;
+    }) => {
+        if (!selectedIndex) return;
+
+        const [currentChapterIndex, currentDocIndex] = selectedIndex.split('-').map(Number);
+
+        const currentChapter = course[currentChapterIndex];
+
+        // Nếu không phải bài cuối cùng trong chapter
+        if (currentDocIndex < currentChapter.documents.length - 1) {
+            // Kiểm tra trạng thái bài hiện tại
+            if (!currentChapter.documents[currentDocIndex]?.status_document) {
+                alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                return;
+            }
+
+            setSelectedIndex(`${currentChapterIndex}-${currentDocIndex + 1}`);
+            handleClickDoc(currentChapter.documents[currentDocIndex + 1]);
+        }
+        // Nếu là bài cuối cùng, chuyển sang chapter tiếp theo (nếu có)
+        else if (currentChapterIndex < course.length - 1) {
+            const nextChapter = course[currentChapterIndex + 1];
+
+            // Kiểm tra trạng thái bài đầu tiên của chapter tiếp theo
+            if (!nextChapter.documents[0]?.status_document) {
+                alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                return;
+            }
+
+            toggleItem(currentChapterIndex + 1)
+            setSelectedIndex(`${currentChapterIndex + 1}-0`);
+            handleClickDoc(nextChapter.documents[0]);
+        } else {
+            alert('Không có bài học tiếp theo.');
         }
     };
+
     const renderChapterDocument = () => {
         // Trạng thái lưu chỉ số phần tử đã chọn
+        if (course) {
 
-        return (
-            tippyVisible && isVisible ? (
-                <motion.div
-                    initial={{ x: '100%' }}
-                    animate={{ x: 2 }}
-                    exit={{ x: '-100%' }}
-                    transition={{ duration: 0.5 }}
-                >
-                    <CodeDev />
-                </motion.div>
-            ) : (
-                isVisible && (
-                    <div className={`${styles.fixed} ${styles.listCourse}`}>
-                        <div className={styles.searchContainer}>
-                            <input
-                                className={styles.inputSearch}
-                                type="text"
-                                placeholder="Tìm kiếm bài học"
-                            />
-                        </div>
-                        {course?.map((item, index) => (
-                            <div key={index} className={styles.listItem}>
-                                <div className={styles.listItem__title} onClick={() => toggleItem(index)}>
-                                    <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}
-                                    >
-                                        <path
-                                            d="M18 15L12 9L6 15"
-                                            stroke="#B3B3B3"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                </div>
-                                {openIndexes.includes(index) && (
-                                    <ul className={styles.listItem__docs} key={index}>
-                                        {item.documents.map((doc, subIndex) => {
-                                            // Kiểm tra xem bài học trước đã hoàn thành chưa
-                                            const isPreviousDocumentCompleted = subIndex > 0 && item.documents[subIndex - 1]?.status_document;
-                                            const isCurrentDocumentBlocked =
-                                                subIndex > 0 && !isPreviousDocumentCompleted;
-
-                                            const lastLesson = course[index - 1]?.documents[course[index].documents.length - 1].status_document;
-
-                                            return (
-                                                <li
-                                                    key={subIndex}
-                                                    className={`${styles.listItem__doc}`}
-                                                    style={{
-                                                        backgroundColor:
-                                                            selectedIndex === `${index}-${subIndex}` ? "rgba(230, 240, 254, 1)" : "transparent",
-                                                    }}
-                                                    onClick={() => {
-                                                        // Nếu tài liệu bị khóa thì không cho bấm
-                                                        if (index === 0) {
-
-                                                        } else if (lastLesson === false) {
-                                                            alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                                                            return;
-                                                        } else if (isCurrentDocumentBlocked) {
-                                                            alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                                                            return;
-                                                        }
-
-                                                        setSelectedIndex(`${index}-${subIndex}`);
-                                                        handleClickDoc(doc);
-                                                    }}
-                                                >
-                                                    <div className={styles.doc_title}>
-                                                        {doc.type_document === "video" ? (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                                <g clipPath="url(#clip0_4106_3787)">
-                                                                    <circle cx="9.99935" cy="9.99999" r="8.33333" stroke="#B3B3B3" strokeWidth="1.5" />
-                                                                    <path
-                                                                        d="M12.8447 9.11752C13.4962 9.50215 13.4962 10.4978 12.8447 10.8825L8.91124 13.2048C8.27809 13.5786 7.5 13.0921 7.5 12.3224L7.5 7.67762C7.5 6.90788 8.27809 6.42133 8.91124 6.79515L12.8447 9.11752Z"
-                                                                        stroke="#B3B3B3"
-                                                                        strokeWidth="1.5"
-                                                                    />
-                                                                </g>
-                                                                <defs>
-                                                                    <clipPath id="clip0_4106_3787">
-                                                                        <rect width="20" height="20" fill="white" />
-                                                                    </clipPath>
-                                                                </defs>
-                                                            </svg>
-                                                        ) : (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                                                <path opacity="0.5" d="M3.33398 18.3335H16.6673" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
-                                                                <path
-                                                                    d="M12.1919 2.43436L11.574 3.05228L5.8932 8.7331C5.50843 9.11788 5.31604 9.31027 5.15058 9.52239C4.95541 9.77263 4.78807 10.0434 4.65155 10.3299C4.53581 10.5727 4.44977 10.8308 4.27769 11.3471L3.54852 13.5346L3.37028 14.0693C3.2856 14.3233 3.35172 14.6034 3.54107 14.7927C3.73042 14.9821 4.0105 15.0482 4.26455 14.9635L4.79926 14.7853L6.98677 14.0561L6.9868 14.0561C7.50301 13.884 7.76112 13.798 8.00397 13.6823C8.29045 13.5457 8.5612 13.3784 8.81143 13.1832C9.02355 13.0178 9.21594 12.8254 9.60071 12.4406L9.60072 12.4406L15.2815 6.75979L15.8995 6.14187C16.9233 5.11807 16.9233 3.45816 15.8995 2.43436C14.8757 1.41055 13.2157 1.41055 12.1919 2.43436Z"
-                                                                    stroke="#B3B3B3"
-                                                                    strokeWidth="1.5"
-                                                                />
-                                                            </svg>
-                                                        )}
-                                                        <div className={styles.listItem__docTitle}>
-                                                            <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}  </span>
-                                                            <span className={styles.listItem__docName}> {doc.name_document} </span>
-                                                        </div>
-                                                    </div>
-                                                    <DocumentStatus status_document={doc.status_document} />
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                )}
+            return (
+                tippyVisible && isVisible ? (
+                    <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: 2 }}
+                        exit={{ x: '-100%' }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <CodeDev />
+                    </motion.div>
+                ) : (
+                    isVisible && (
+                        <div className={`${styles.fixed} ${styles.listCourse}`}>
+                            <div className={styles.searchContainer}>
+                                <input
+                                    className={styles.inputSearch}
+                                    type="text"
+                                    placeholder="Tìm kiếm bài học"
+                                />
                             </div>
-                        ))}
-                    </div>
-                ))
-        )
+                            <div className={styles.coursesContent}>
+                                {course?.map((item, index) => (
+                                    <div key={index} className={styles.listItem}>
+                                        <div className={styles.listItem__title} onClick={() => toggleItem(index)}>
+                                            <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}
+                                            >
+                                                <path
+                                                    d="M18 15L12 9L6 15"
+                                                    stroke="rgba(35, 125, 247, 1)"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
+                                        </div>
+                                        {openIndexes.includes(index) && (
+                                            <ul className={styles.listItem__docs} key={index}>
+                                                {item.documents.map((doc, subIndex) => {
+                                                    // Kiểm tra xem bài học trước đã hoàn thành chưa
+
+
+                                                    return (
+                                                        <li
+                                                            key={subIndex}
+                                                            className={`${styles.listItem__doc}`}
+                                                            style={{
+                                                                backgroundColor:
+                                                                    selectedIndex === `${index}-${subIndex}` ? "rgba(230, 240, 254, 1)" : "transparent",
+                                                            }}
+                                                            onClick={() => {
+                                                                const isPreviousDocumentCompleted =
+                                                                    subIndex > 0 && item.documents[subIndex - 1]?.status_document === true;
+
+                                                                const isCurrentDocumentBlocked =
+                                                                    subIndex > 0 && !isPreviousDocumentCompleted;
+
+                                                                const lastCourse = course[index - 1];
+                                                                const lastLesson =
+                                                                    lastCourse?.documents?.[lastCourse.documents.length - 1]?.status_document;
+
+                                                                // Kiểm tra điều kiện tài liệu bị khóa
+                                                                if (lastLesson === false) {
+                                                                    alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                                                                    return;
+                                                                } else if (isCurrentDocumentBlocked) {
+                                                                    alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                                                                    return;
+                                                                }
+                                                                setSelectedIndex(`${index}-${subIndex}`);
+                                                                handleClickDoc(doc);
+                                                            }}
+                                                        >
+                                                            <div className={styles.doc_title}>
+                                                                {doc.type_document === "video" ? (
+                                                                    <IconVideo />
+                                                                ) : (
+                                                                    <IconDoc />
+                                                                )}
+                                                                <div className={styles.listItem__docTitle}>
+                                                                    <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}  </span>
+                                                                    <span className={styles.listItem__docName}> {doc.name_document} </span>
+                                                                </div>
+                                                            </div>
+                                                            <DocumentStatus status_document={doc.status_document} />
+                                                        </li>
+                                                    );
+                                                })}
+                                            </ul>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+
+                        </div>
+                    ))
+            )
+        }
+
+
     }
+
 
 
     const ContentBody = () => {
@@ -557,18 +632,21 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const HandleFaq = () => {
         return (
             isFAQ && (
-                <motion.div
-                    initial={{ x: '-100%' }}
-                    animate={{ x: 0 }}
-                    exit={{ x: '-100%' }}
-                    transition={{ duration: 0.5 }}
-                    className={styles.FAQ}
-                >
-                    <Faq course_Id={course_Id} onClose={toggleFaq} />
-                </motion.div>
+                <AnimatePresence>
+                    <motion.div
+                        initial={{ x: '-100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '-100%' }}
+                        transition={{ duration: 0.5 }}
+                        className={styles.FAQ}
+                    >
+                        <Faq course_Id={course_Id} userImage={avatar} onClose={toggleFaq} />
+                    </motion.div>
+                </AnimatePresence>
             )
         )
     }
+
 
 
     const mappedCourseNew = useMemo(() => {
@@ -579,25 +657,27 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         const contentBody = ContentBody();
         const Faq = HandleFaq();
         return (
-            <div className={`${styles.row}`}>
-                <div className={`${styles.flexGrow} ${styles.videoContainer}`}>
-                    {contentLearning}
+            <div className={styles.container}>
+                <div className={`${styles.row}`}>
+                    <div className={`${styles.flexGrow} ${styles.videoContainer}`}>
+                        {contentLearning}
 
-                    {contentBody}
+                        {contentBody}
+                        {Faq}
 
-                    {Faq}
+                    </div>
+
+                    {contentChapterDocument}
                 </div>
 
-                {contentChapterDocument}
             </div>
-
         );
     }, [course, isNote, isFAQ, tippyVisible, isVisible, openIndexes, playedSeconds, urlVideo, nameDocument, typeDoc]);
 
 
 
     // user
-    const avatar: string = user?.avatar ?? '';
+
 
     // Lấy dữ liệu từ localStorage
 
@@ -641,98 +721,46 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     </label>
 
                     <div className={stylesNav.iconNotifition}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 11.094 21.8795 10.2162 21.6537 9.38161C21.5684 9.06633 21.1987 8.94083 20.9028 9.0791C20.3248 9.34916 19.68 9.5 19 9.5C16.5147 9.5 14.5 7.48528 14.5 5C14.5 4.31996 14.6508 3.67516 14.9209 3.09722C15.0592 2.80131 14.9337 2.4316 14.6184 2.3463C13.7838 2.12048 12.906 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" fill="#808080" />
-                            <circle cx="19" cy="5" r="3" fill="#24A148" />
-                        </svg>
+                        <IconBell />
                     </div>
-                    <Tippy visible={isNoteList} onClickOutside={hideNoteList} interactive={true} render={attrs => (
-                        <div className={stylesNav.Note} tabIndex={-1} {...attrs}>
-                            {note === null ? (
-                                <p className={stylesNav.noNotes}>Chưa có ghi chú nào</p> // Hiển thị thông báo nếu không có ghi chú
-                            ) : (
-                                <>
-                                    <div className={stylesNav.noteTitle}>Ghi chú của bạn</div> {/* Tiêu đề hiển thị một lần */}
-                                    {note?.map((note, index) => (
-                                        <div key={note.note_id || index} className={stylesNav.noteItem}> {/* Sử dụng note.id nếu có */}
-                                            <div className={stylesNav.noteHeader}>
-                                                <p className={stylesNav.noteItemName}>Tên bài học</p>
-                                                <p className={stylesNav.noteItem__title}>{note.title_note}</p>
-                                            </div>
-                                            <div className={stylesNav.noteBody}>
-                                                <p className={stylesNav.noteItem__content}>{note.content_note}</p>
-                                                <p className={stylesNav.noteItem__content}>{note.cache_time_note}</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </>
-                            )}
+
+                    {/* <Tippy
+                        visible={isNoteContent}
+                        onClickOutside={toggleNoteList}
+                        interactive={true}
+                        placement="top-start" 
+                        render={(attrs) => (
+                            <div className={styles.tippyNoteList} tabIndex={-1} {...attrs}>
+                                <div className={styles.NoteList}>
+                                    Nọi dung cần được note
+                                </div>
+                            </div>
+                        )}
+                    >
+                        <div className={stylesNav.iconNotifition} onClick={toggleNoteList}>
+                            <IconNote />
                         </div>
-                    )}>
-                        <div className={stylesNav.iconNotifition} onClick={isNoteList ? hideNoteList : showNoteList}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.81 0H13.191C16.28 0 18 1.78 18
-                                 4.83V15.16C18 18.26 16.28 20 13.191 20H4.81C1.77 20 0 18.26 0 15.16V4.83C0 1.78 1.77
-                                  0 4.81 0ZM5.08 4.66V4.65H8.069C8.5 4.65 8.85 5 8.85
-                                 5.429C8.85 5.87 8.5 6.22 8.069 6.22H5.08C4.649 6.22 4.3 5.87 4.3 5.44C4.3 5.01 4.649
-                                  4.66 5.08 4.66ZM5.08 10.74H12.92C13.35 10.74 13.7 10.39 13.7 9.96C13.7 9.53 13.35
-                                   9.179 12.92 9.179H5.08C4.649 9.179 4.3 9.53 4.3 9.96C4.3 10.39 4.649 10.74 5.08 
-                                   10.74ZM5.08 15.31H12.92C13.319 15.27 13.62 14.929 13.62 14.53C13.62 14.12 13.319 
-                                   13.78 12.92 13.74H5.08C4.78 13.71 4.49 13.85 4.33 14.11C4.17 14.36 4.17 14.69 4.33 
-                                   14.95C4.49 15.2 4.78 15.35 5.08 15.31Z" fill="#808080" />
-                            </svg>
-                        </div>
-                    </Tippy>
+                    </Tippy> */}
+                    <div className={stylesNav.iconNotifition} onClick={toggleNoteList}>
+                        <IconNote />
+                    </div>
+
+
 
                     <Tippy visible={visible} onClickOutside={hide} interactive={true} render={attrs => (
                         <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
                             <div className={stylesNav.menuContent}>
                                 <p className={stylesNav.menuTitle}>Tùy chọn</p>
                                 <Link href="#!" className={stylesNav.menuLink}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614
-                                     17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M12 2V4" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M12 20V22" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M4 12L2 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M22 12L20 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    </svg> Bật giao diện tối
+                                    <IconSun /> Bật giao diện tối
                                 </Link>
                                 <p className={stylesNav.menuTitle}>Cài đặt</p>
                                 <Link href="#!" className={stylesNav.menuLink}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.4023 11.5801C18.76 11.7701 19.036 12.0701 
-                                        19.2301 12.3701C19.6083 12.9901 19.5776 13.7501 19.2097 14.4201L18.4943 15.6201C18.1162 16.2601
-                                         17.411 16.6601 16.6855 16.6601C16.3278 16.6601 15.9292 16.5601 15.6022 16.3601C15.3365 16.1901 
-                                         15.0299 16.1301 14.7029 16.1301C13.6911 16.1301 12.8429 16.9601 12.8122 17.9501C12.8122 19.1001
-                                          11.872 20.0001 10.6968 20.0001H9.30692C8.12145 20.0001 7.18125 19.1001 7.18125 17.9501C7.16081
-                                           16.9601 6.31259 16.1301 5.30085 16.1301C4.96361 16.1301 4.65702 16.1901 4.40153 16.3601C4.0745
-                                            16.5601 3.66572 16.6601 3.31825 16.6601C2.58245 16.6601 1.87729 16.2601 1.49917 15.6201L0.79402
-                                             14.4201C0.415896 13.7701 0.395456 12.9901 0.773581 12.3701C0.937094 12.0701 1.24368 11.7701
-                                              1.59115 11.5801C1.87729 11.4401 2.06125 11.2101 2.23498 10.9401C2.74596 10.0801 2.43937
-                                               8.95012 1.57071 8.44012C0.55897 7.87012 0.231943 6.60012 0.814459 5.61012L1.49917
-                                                4.43012C2.09191 3.44012 3.35913 3.09012 4.38109 3.67012C5.27019 4.15012 6.425 3.83012
-                                                 6.9462 2.98012C7.10972 2.70012 7.20169 2.40012 7.18125 2.10012C7.16081 1.71012 7.27323
-                                                  1.34012 7.4674 1.04012C7.84553 0.420122 8.53024 0.0201221 9.27627 0.00012207H10.7172C11.4735
-                                                   0.00012207 12.1582 0.420122 12.5363 1.04012C12.7203 1.34012 12.8429 1.71012 12.8122
-                                                    2.10012C12.7918 2.40012 12.8838 2.70012 13.0473 2.98012C13.5685 3.83012 14.7233 4.15012 
-                                                    15.6226 3.67012C16.6344 3.09012 17.9118 3.44012 18.4943 4.43012L19.179 5.61012C19.7718 
-                                                    6.60012 19.4447 7.87012 18.4228 8.44012C17.5541 8.95012 17.2475 10.0801 17.7687
-                                                     10.9401C17.9322 11.2101 18.1162 11.4401 18.4023 11.5801ZM7.10972 10.0101C7.10972
-                                                      11.5801 8.4076 12.8301 10.0121 12.8301C11.6165 12.8301 12.8838 11.5801 12.8838
-                                                       10.0101C12.8838 8.44012 11.6165 7.18012 10.0121 7.18012C8.4076 7.18012
-                                                        7.10972 8.44012 7.10972 10.0101Z" fill="#B3B3B3" />
-                                    </svg>
+                                    <IconSetting />
                                     Cài đặt
                                 </Link>
                                 <Link href="#!" className={stylesNav.menuLink} onClick={handleLogout}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.89535 9.23C7.45785 9.23 7.11192 9.57 7.11192 10C7.11192 10.42 7.45785 10.77 7.89535 10.77H14V15.55C14 18 11.9753 20 9.47238 20H4.51744C2.02471 20 0 18.01 0 15.56V4.45C0 1.99 2.03488 0 4.52762 0H9.49273C11.9753 0 14 1.99 14 4.44V9.23H7.89535ZM17.6302 6.5402L20.5502 9.4502C20.7002 9.6002 20.7802 9.7902 20.7802 10.0002C20.7802 10.2002 20.7002 10.4002 20.5502 10.5402L17.6302 13.4502C17.4802 13.6002 17.2802 13.6802 17.0902 13.6802C16.8902 13.6802 16.6902 13.6002 16.5402 13.4502C16.2402 13.1502 16.2402 12.6602 16.5402 12.3602L18.1402 10.7702H14.0002V9.2302H18.1402L16.5402 7.6402C16.2402 7.3402 16.2402 6.8502 16.5402 6.5502C16.8402 6.2402 17.3302 6.2402 17.6302 6.5402Z" fill="#B3B3B3" />
-                                    </svg>
+                                    <IconLogout />
                                     Đăng xuất
                                 </Link>
 
@@ -742,32 +770,49 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <div className={stylesNav.menuOptions} onClick={visible ? hide : show}>
                             <Image src={avatar} alt="logo" className={stylesNav.userImage} width={34} height={80} />
                             <h4 className={stylesNav.titleName}>{user?.fullname}</h4>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M6 9L12 15L18 9" stroke="#237DF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
+                            <Arrow deg="-180" />
                         </div>
                     </Tippy>
+
                 </div>
             </Navbar >
 
-            <div className={styles.container}>
-                {/* Video */}
-                {mappedCourseNew}
-            </div>
+
+            {/* Video */}
+            {mappedCourseNew}
             <div className={`${styles.actionBar}`}>
-                <div className={styles.faq} onClick={toggleFaq}>
+                <div className={styles.faq} onClick={
+                    () => {
+                        toggleFaq();
+                        handelIsPlaying();
+                    }
+                }>
                     <IconWhat />
                 </div>
                 <div className={styles.ctaNextPev}>
-                    <button className={styles.nextPrevCourse} onClick={goToPreviousDoc} >
+                    <button
+                        className={styles.nextPrevCourse}
+                        onClick={() => {
+                            if (course) {
+                                handlePreviousLesson({ course, selectedIndex, setSelectedIndex });
+                            }
+                        }}
+                    >
                         <Arrow deg="-180" />
                         <p className={styles.titleNextPrev}>Bài trước</p>
                     </button>
-                    <button className={styles.nextPrevCourse} onClick={goToNextDoc}
+                    <button
+                        className={styles.nextPrevCourse}
+                        onClick={() => {
+                            if (course) {
+                                handleNextLesson({ course, selectedIndex, setSelectedIndex });
+                            }
+                        }}
                     >
                         <p className={styles.titleNextPrev}>Bài tiếp theo</p>
                         <Arrow deg="0" />
                     </button>
+
                 </div>
                 <div className={styles.cateSec}>
                     <span>Chương 1: Bắt đầu</span>
@@ -777,8 +822,21 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         </svg>
                     </div>
                 </div>
-
+                {isNoteContent && (
+                    <AnimatePresence>
+                        <motion.div
+                            initial={{ y: '100%' }}
+                            animate={{ y: 0 }}
+                            exit={{ y: '100%' }}
+                            transition={{ duration: 0.5 }}
+                            className={styles.NoteList}
+                        >
+                            <NoteContent course_Id={course_Id} userImage={avatar} onClose={toggleFaq} />
+                        </motion.div>
+                    </AnimatePresence>
+                )}
             </div>
+
         </main>
     );
 }

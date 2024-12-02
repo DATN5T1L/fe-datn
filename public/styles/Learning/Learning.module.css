@@ -1,15 +1,15 @@
 .main {
-    max-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .container {
+    padding: 74px 0px 60px;
     display: flex;
-    height: calc(100vh - 72px);
+    height: 100%;
     flex-direction: row;
-    padding-bottom: 4px;
-    overflow-x: hidden;
 }
 
 .row {
@@ -17,17 +17,14 @@
     width: 100%;
     height: 100%;
     flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .fixed {
     padding-top: 50px;
     width: 21.67%;
     min-width: 400px;
-    height: 100vh;
-    overflow-y: auto;
-    flex-shrink: 0;
+    height: 100%;
+    /* flex-shrink: 0; */
 }
 
 .flexGrow {
@@ -85,12 +82,15 @@
 
 .FAQ {
     position: absolute;
-    padding: 12PX 40px;
-    width: 720px;
-    background-color: var(--gray-100);
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
     height: 100%;
-
 }
+
+
+
+
 
 .timeUpdate {
     color: var(--text-50);
@@ -114,14 +114,16 @@
 }
 
 .actionBar {
-    height: auto;
+    height: 60px;
     width: 100%;
     background-color: var(--gray-100);
     padding: 0px 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000000;
+    z-index: 1000;
+    position: fixed;
+    bottom: 0;
 }
 
 .faq {
@@ -137,11 +139,13 @@
 }
 
 .ctaNextPev {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
     gap: 12px;
+
 }
 
 .nextPrevCourse {
@@ -174,6 +178,14 @@
     gap: 12px;
 }
 
+.coursesContent {
+    max-height: 100%;
+    overflow-y: auto;
+    padding-top: 32px;
+
+
+}
+
 .listCourse {
     height: 100%;
     padding: 12px 0px;
@@ -183,10 +195,12 @@
     cursor: pointer;
     position: relative;
     background-color: var(--gray-100);
-
 }
 
 .searchContainer {
+    position: fixed;
+    top: 10%;
+    z-index: 100;
     margin: 0 12px;
     padding: 8px;
     border-radius: 12px;
@@ -216,17 +230,21 @@
 
 }
 
+.listCourse {
+    background-color: var(--gray-100);
+}
 
 
 .listItem__title {
     position: sticky;
-    top: 0;
+    top: 4px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 12px;
     background-color: var(--gray-100);
+    z-index: 2;
 
     &:hover {
         background-color: var(--blue-95);
@@ -235,9 +253,9 @@
 
 .listItem__titleText {
     color: var(--text-100);
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 500;
-    margin-bottom: 4px;
+    line-height: 24px;
     white-space: nowrap;
     display: -webkit-box;
     -webkit-line-clamp: var(--line-clamp, 1);
@@ -262,6 +280,10 @@
     display: inline;
 }
 
+.listItem {
+    background-color: var(--gray-100);
+}
+
 .listItem__docName {
     display: inline-block;
     width: 90%;
@@ -277,6 +299,7 @@
 
 
 .listItem__docs {
+    background-color: var(--gray-100);
     padding: 8px 0px;
 }
 
@@ -462,4 +485,31 @@
     width: 100%;
     background-color: var(--gray-95);
     height: 100%;
+}
+
+/* tippyNoteList */
+
+.tippyNoteList {
+    min-width: 720px;
+    position: absolute !important;
+    right: 0;
+    top: auto;
+    margin-right: 0 !important;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    height: 100vh;
+
+}
+
+.NoteList {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-top: 74px;
+    width: 100%;
+    max-width: 720px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    height: 100vh;
 }

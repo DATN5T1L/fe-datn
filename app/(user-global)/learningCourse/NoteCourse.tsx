@@ -2,14 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import Button from '../component/globalControl/btnComponent';
 import styles from "@public/styles/Learning/NoteCourse.module.css";
 import CKEditorComponent from "../component/globalControl/ckedditor";
-
 import useCookie from '@app/(user-global)/component/hook/useCookie';
-
-
+import Notification from "@app/(user-global)/component/globalControl/Notification";
+import { motion } from 'framer-motion';
 const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => {
     const token = useCookie('token');
     const [noteContent, setNoteContent] = useState<string>(''); // State để lưu nội dung ghi chú
     const popupRef = useRef<HTMLDivElement | null>(null);
+    // show thông báo
+    const [showNotification, setShowNotification] = useState(false);
+    const [type, setType] = useState<NotiType>("complete");
+    const [message, setMessage] = useState<string>("");
     const formatTime = (seconds: number | string): string => {
         if (typeof seconds === 'string') {
             return seconds;
@@ -39,13 +42,23 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
                 body: JSON.stringify(noteData),
             });
 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
-            }
+            const responseData = await response.json();
 
-            // const responseData = await response.json();
-            // console.log('Note saved successfully:', responseData);
-            onClose(); // Đóng popup sau khi lưu thành công
+            if (!responseData.ok) {
+                setType("fail")
+                setMessage(responseData.message);
+                setShowNotification(true);
+
+            } else {
+                setType("success")
+                setMessage(responseData.message);
+                setShowNotification(true);
+
+            }
+            setTimeout(() => {
+                onClose();
+            }, 3000);
+            // Đóng popup sau khi lưu thành công
         } catch (error) {
             console.error('Failed to save note:', error);
         }
@@ -74,7 +87,7 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
         <div className={styles.popupNoteCourse} ref={popupRef}>
             <div className={styles.container}>
                 <div className={styles.heading}>
-                    <h4 className={styles.title}>Thêm ghi chú</h4>
+                    <h4 className={styles.title}>Thêm ghi chú 2</h4>
                     <p className={styles.time}>{formatTime(time)}</p>
                 </div>
 
@@ -108,6 +121,17 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
                     </Button>
                 </div>
             </div>
+            {showNotification && (
+                <motion.div
+                    initial={{ x: '-100%' }} // Bắt đầu từ bên ngoài màn hình (trái)
+                    animate={{ x: 0 }}       // Chạy vào giữa màn hình
+                    exit={{ x: '-100%' }}    // Chạy ra khỏi màn hình (trái)
+                    transition={{ duration: 1 }} // Thời gian chuyển đổi 0.5 giây
+                    className={styles.noteTap}
+                >
+                    <Notification type={type} message={message} position='bottom-left' />
+                </motion.div>
+            )}
         </div>
     );
 };

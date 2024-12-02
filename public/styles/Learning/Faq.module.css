@@ -1,3 +1,11 @@
+.ContainerFaq {
+    max-width: 720px;
+    padding: 0px 24px;
+    height: 100%;
+    overflow-y: hidden;
+    background-color: var(--gray-100);
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -7,7 +15,7 @@
 }
 
 .title {
-    color: var(--text-50);
+    color: var(--text-100);
     font-size: 1.25rem;
     font-weight: 600;
     line-height: 32px;
@@ -31,6 +39,7 @@
     margin-top: 12px;
     height: 100%;
     overflow-y: auto;
+    padding-bottom: 50px;
 }
 
 .listItem__title {
@@ -64,7 +73,8 @@
 }
 
 .listItem__contentCount,
-.listItem__totalDuration {
+.listItem__totalDuration,
+.contentTitle {
     color: var(--text-75);
     font-size: .875rem;
     font-weight: 400;
@@ -81,9 +91,7 @@
 }
 
 .listItem__doc {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
     padding: 0px 12px;
 
     &:hover {
@@ -98,16 +106,34 @@
     padding: 8px 0px;
 }
 
-.listItem__docTitle {
-    width: 100%;
-    display: flex;
-    align-items: start;
-    flex-direction: column;
-    gap: 4px;
-}
+
 
 .listItem__docIndex {
     margin-bottom: 4px;
+}
+
+.listItem__docNameType {
+    font-size: .625rem;
+    line-height: 16px;
+    border-radius: 2px;
+    background-color: var(--gray-95);
+    padding: 3px;
+}
+
+.listItem__docCommentCount {
+    background-color: var(--blue-50);
+    color: var(--text-0);
+    font-size: .75rem;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.doc_title {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
 }
 
 /* cta */
@@ -120,6 +146,10 @@
 }
 
 /* Form đặt câu hỏi */
+
+.form {
+    margin-top: 24px;
+}
 
 .inputtTitle {
 
@@ -191,4 +221,209 @@
     align-items: center;
     gap: 12px;
 
+}
+
+
+/* nội dung câu hỏi */
+
+
+.wapperFaq {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.ContainerTitle {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0px;
+}
+
+
+
+.repliesCount {
+    padding: 6px;
+    background-color: var(--blue-50);
+    color: var(--text-0);
+    border-radius: 4px;
+}
+
+.repliesW {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--text-100);
+    padding: 8px;
+}
+
+/* page nội dung câu hỏi */
+.titleComtent {
+    color: var(--text-75);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.48px;
+}
+
+.headerContentComment {
+    display: flex;
+    justify-content: space-between;
+    align-self: stretch;
+    align-items: center;
+}
+
+.user {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.LeftContentUser {
+    display: flex;
+    gap: 12px;
+}
+
+.ImageUser {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid transparent;
+}
+
+.UserName {
+    color: var(--text-75);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+    background-color: var(--blue-50);
+    color: var(--text-0);
+    border-radius: 50%;
+}
+
+.nameUser,
+.resComment {
+    color: var(--blue-50);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.repliesW {
+    color: var(--text-100);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    display: flex;
+    gap: 12px;
+}
+
+.form {
+    width: 100%;
+}
+
+.formComent {
+    max-width: 100%;
+    display: flex;
+}
+
+.nameAndTime {
+    display: flex;
+    flex-direction: column;
+}
+
+.timeAgo {
+    color: var(--text-75);
+    font-size: .825rem;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.totalComment {
+    margin-top: 24px;
+    color: var(--text-100);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.inputShowCta {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 909px;
+    outline: none;
+    border: 1px solid transparent;
+    background: var(--gray-95);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.15);
+}
+
+.showCta {
+    display: flex;
+    align-items: center;
+}
+
+.buttonReply {
+    outline: none;
+    border: none;
+    color: var(--gray-60);
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 24px;
+    background-color: transparent;
+
+    &:hover {
+        color: var(--blue-50);
+    }
+}
+
+/* .contentRep {
+    height: 80vh;
+    padding-bottom: 20px;
+} */
+
+
+/* replyWapper */
+
+.replyWapper {
+    margin-left: 32px;
+    border-left: 1px solid var(--blue-50);
+}
+
+.ctaEditComment {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.commentContent {
+    padding: 24px;
+}
+
+.tippyBox {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    outline: 1px solid var(--blue-05);
+    background: var(--gray-95);
+}
+
+.tippyButton {
+    padding: 6px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--blue-05);
+    border: none;
+    outline: none;
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.icon {
+    cursor: pointer;
 }

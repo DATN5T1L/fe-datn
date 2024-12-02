@@ -1,0 +1,61 @@
+.ContainerNote {
+    max-width: 800px;
+    padding: 12px 40px;
+    height: 100%;
+    overflow-y: hidden;
+    background-color: var(--gray-100);
+}
+
+.select,
+.selectArr {
+    min-width: 180px;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 24px;
+    border-radius: 12px;
+    border: 1px solid var(---blue-50, #237DF7);
+    background: var(--gray-100gray-100, #FFF);
+    box-shadow: 0px 0px 6px 0px var(--blue-50, #237DF7) inset;
+
+    &:active {
+        opacity: .8;
+    }
+}
+
+.selectArr {
+    min-width: 133px;
+}
+
+/* header */
+.headerNote {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.title {
+    color: var(--text-100);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.48px;
+}
+
+.cta {
+    display: flex;
+    gap: 32px;
+}
+
+.atcs {
+    gap: 12px;
+    display: flex;
+}
+
+.select span {
+    color: var(--text-50);
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 24px;
+}

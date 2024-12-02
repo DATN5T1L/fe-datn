@@ -61,7 +61,7 @@ interface CodesDocument extends Document {
         question_code: string;
         tutorial_code: string;
         updated_at: string;
-    }[];
+    };
 }
 interface VideoDocument extends Document {
     type_document: "video";
@@ -221,11 +221,40 @@ interface CardPosts {
 
 }
 
+interface DocumentFaq {
+    document_id: string;
+    name_document: string;
+    type_document: "code" | "quiz" | "video";
+    comment_count: number
+}
+
+interface ChapterFaq {
+    chapter_id: string;
+    chapter_name: string;
+    documents: DocumentFaq[];
+}
+
+interface CourseFaq {
+    course_id: string;
+    data: ChapterFaq[];
+}
 interface FaqProps {
-    course_Id: string; // Mảng các chương
-    onClose: () => void; // Hàm để đóng popup
+    course_Id: string;
+    userImage: string
+    onClose: () => void;
 
 }
+
+
+
+interface NoteProps {
+    course_Id: string;
+    userImage: string;
+    onClose: () => void;
+}
+
+
+
 interface ListItem {
     title: string;
     content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
@@ -252,7 +281,10 @@ interface NoteCourseProps {
 interface NotificationProps {
     type: 'success' | 'error' | 'fail' | 'complete';
     message: string;
+    position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
+
+type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 interface Route {
     route_id: string;
@@ -302,4 +334,42 @@ interface StatusData {
     del_flag: boolean;
     created_at: string;
     updated_at: string;
+}
+
+
+// comment course 
+interface Comment {
+    id: string;
+    comment_title: string;
+    comment_text: string;
+    created_at: string;
+    updated_at: string;
+    fullname: string;
+    avatar: string;
+    user_id: string;
+    comment_to: string | null;
+    replies: Comment[];
+}
+
+
+type Reply = Comment;
+
+type CommentProps = Comment;
+
+
+interface CommentData {
+    document_id: string;
+    comment: CommentProps;
+}
+
+
+interface CommentTitleProps {
+    id: string;
+    title: string;
+    replies_count: number;
+}
+
+interface CommentTitleData {
+    document_id: string;
+    comments: Record<string, CommentTitleProps>;
 }

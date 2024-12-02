@@ -56,4 +56,36 @@ const cleaned = (content: string) => {
 };
 
 
-export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned };
+const calculateTimeAgo = (createdAt: string): string => {
+    const currentDate = new Date();
+    const commentDate = new Date(createdAt);
+    const differenceInMilliseconds = currentDate.getTime() - commentDate.getTime();
+
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+    if (differenceInDays > 0) {
+        return `${differenceInDays} ngày${differenceInDays > 1 ? "" : ""} trước`;
+    }
+
+    const differenceInHours = Math.floor(differenceInMilliseconds / (1000 * 60 * 60));
+    if (differenceInHours > 0) {
+        return `${differenceInHours} giờ${differenceInHours > 1 ? "" : ""} trước`;
+    }
+
+    const differenceInMinutes = Math.floor(differenceInMilliseconds / (1000 * 60));
+    if (differenceInMinutes > 0) {
+        return `${differenceInMinutes} phút${differenceInMinutes > 1 ? "" : ""} trước`;
+    }
+
+    return "Just now";
+};
+
+const scrollToElementBottom = (element: HTMLElement | null) => {
+    if (element) {
+        element.scrollTo({
+            top: element.scrollHeight,
+            behavior: 'smooth', // Cuộn mượt mà
+        });
+    }
+};
+
+export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom };

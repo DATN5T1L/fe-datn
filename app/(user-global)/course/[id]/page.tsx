@@ -81,6 +81,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     const { id } = params;
 
+
     const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
         `/api/courseDetail/${id}`,
         fetcher
@@ -96,12 +97,13 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
         fetcher
     );
 
-    console.log(chapterData)
+
 
     const { data: feedbackData, error: feedbackError } = useSWR<ApiResponse<FeedbackData[]>>(
         `/api/getFeedBackCourse/${id}/4/4/`,
         fetcher
     );
+
 
     const instructorId = courseData?.data?.instructor_id;
     const { data: userData, error: userError } = useSWR<ApiResponse<User>>(

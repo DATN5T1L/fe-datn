@@ -196,6 +196,44 @@ const nextConfig = {
         source: '/api/getnoteByCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-course/:path*',
       },
+
+      // lấy ra danh sách câu hỏi của bài học
+      {
+        source: '/api/getDocComent/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-total-comment-doc/:path*',
+      },
+      {
+        source: '/api/getFaqDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-comment-doc/:path*',
+      },
+      // Lấy ra từng title
+      {
+        source: '/api/getFaqTitle/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-title-comment-doc/:path*',
+      },
+      // lấy ra chi tiết comment
+      {
+        source: '/api/getDetailComent/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-detail-comment-doc/:path*',
+      },
+      // thêm commment truyền id đầu tiên là doc_id nếu có id thứ 2 comment_id thì sẽ là comment_To
+      {
+        source: '/api/addComentFaq/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/comment-doc/:path*',
+      },
+      // sửa comment bài học
+      {
+        source: '/api/editComment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/comment-update/:path*',
+      },
+
+      // Xóa comment
+      {
+        source: '/api/deleteComment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/comment-delete/:path*',
+      },
+
+
       // checkmail
       {
         source: '/api/checkTokenNewUser/:path*',
@@ -220,6 +258,13 @@ const nextConfig = {
         source: '/api/paymentmomo/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/MOMO/:path*',
       },
+
+
+      // admin
+      {
+        source: '/api/allUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/users/:path*',
+      },
       {
         source: '/api/allCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/courses/:path*',
@@ -231,6 +276,40 @@ const nextConfig = {
       {
         source: '/api/allRole/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/users-role/:path*',
+      },
+
+      // lấy categories
+      {
+        source: '/api/post_categories/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/post_categories/:path*',
+      },
+      {
+        source: '/api/comment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-comment-post/:path*',
+      },
+      {
+        source: '/api/commentPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-post/:path*',
+      },
+      {
+        source: '/api/deleteCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/delete-comment-post/:path*',
+      },
+      {
+        source: '/api/hiddenCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-comment-post/:path*',
+      },
+      {
+        source: '/api/changeCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-comment-post/:path*',
+      },
+      {
+        source: '/api/uploadImgPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
+      },
+      {
+        source: '/api/hiddenPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
       },
       // search
       {

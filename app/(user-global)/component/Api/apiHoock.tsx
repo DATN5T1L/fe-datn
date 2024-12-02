@@ -59,4 +59,41 @@ const UpdateStatusComponent: React.FC<UpdateStatusComponentProps> = ({
     );
 };
 
-export { UpdateStatusComponent };
+const updateStatus = async (
+    courseId: string | null,
+    documentId: string | null,
+    token: string | null,
+    cacheTimeVideo: number | null
+): Promise<any> => {
+    try {
+        const data = {
+            course_id: courseId,
+            status_doc: true,
+            cache_time_video: cacheTimeVideo,
+            document_id: documentId,
+        };
+
+        const response = await fetch(`/api/upStatusDoc`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) throw new Error('Đã xảy ra lỗi khi kiểm tra câu trả lời');
+
+        const responseData = await response.json();
+        console.log('Cập nhật trạng thái thành công', responseData);
+
+        return responseData; // Trả về kết quả
+    } catch (error) {
+        console.error('Lỗi khi kiểm tra câu trả lời:', error);
+        throw error; // Ném lỗi để xử lý ở nơi gọi hàm
+    }
+};
+
+
+
+export { UpdateStatusComponent, updateStatus };

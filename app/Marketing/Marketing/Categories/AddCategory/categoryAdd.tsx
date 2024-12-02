@@ -33,7 +33,7 @@ const CategoryAdd = () => {
           (value) => {
             if (!value) return false;
             const tags = value.split(/\s+/);
-            return tags.every(tag => /^#[a-z]+$/.test(tag));
+            return tags.every(tag => /^#[a-z0-9]+$/i.test(tag));
           }
         )
     }),
@@ -50,7 +50,7 @@ const CategoryAdd = () => {
             },
             body: JSON.stringify({
               name_category: values.name_category,
-              tag: values.tag
+              tags: values.tag
             }),
           })
 
