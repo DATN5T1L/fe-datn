@@ -29,13 +29,32 @@ interface CourseData {
     course_name: string;
     data: Chapter[];
 }
-
 interface Note {
     note_id: string;
+    document_id: string;
+    chapter_name: string;
     title_note: string;
     content_note: string;
     cache_time_note: number;
 }
+
+interface NoteProps {
+    data: Note[];
+}
+
+interface NoteItemProps {
+    note: {
+        note_id: string;
+        document_id: string;
+        chapter_name: string;
+        title_note: string;
+        content_note: string;
+        cache_time_note: number;
+    };
+    onEdit: (replyData: { document_id: string; note_id: string; cache_time: number; title_note: string; content_note: string; }) => void;
+    onDelete: (id: string) => void;
+}
+
 
 
 interface Question {
@@ -247,8 +266,10 @@ interface FaqProps {
 
 
 
-interface NoteProps {
+interface NoteContentProps {
     course_Id: string;
+    chapter_Id: string;
+    doc_id: string;
     userImage: string;
     onClose: () => void;
 }
@@ -372,4 +393,13 @@ interface CommentTitleProps {
 interface CommentTitleData {
     document_id: string;
     comments: Record<string, CommentTitleProps>;
+}
+interface CommentItemProps {
+    comment: CommentProps;
+    userImage: string;
+    currentUserId: string | number;
+    onSave: (replyData: { id: string; replyText: string }) => void; // Hàm callback từ cha
+    onEdit: (replyData: { id: string; replyText: string }) => void; // Hàm callback từ cha
+    onDelete: (id: string) => void; // Hàm callback từ cha
+    onClose: () => void; // Hàm callback từ cha
 }

@@ -8,31 +8,35 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { Container, Button, Nav, Navbar, Form, Image, Row, Col } from 'react-bootstrap';
+import { IconForm, IconEmail, IconPhoneBlu } from "../icon/icons"
 import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-import Search from "./Search"
-
+import Search from "./Search";
+import Feaback from "./FeedBack";
+import { motion, AnimatePresence } from 'framer-motion';
 import c from "@public/styles/globalControl/header.module.css"
 
 const Header: React.FC = () => {
+    const menuRef = useRef<HTMLDivElement>(null)
     const userState = useSelector((state: RootState) => state.user);
     const router = useRouter();
     const pathname = usePathname();
 
     const [isClient, setIsClient] = useState(false)
+    const [showSearch, setShowSearch] = useState(false);
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScroll, setLastScroll] = useState(0);
+    const [isOpenSubMenu, setIsOpenSubMenu] = useState(false);
+    const [isShowForm, setIsShowForm] = useState<boolean>(false)
 
+
+    const tongleShowForm = () => {
+        setIsShowForm(prev => !prev)
+    }
     useEffect(() => {
         setIsClient(true)
     }, [])
-    const [showSearch, setShowSearch] = useState(false);
-
-    const [showHeader, setShowHeader] = useState(true);
-    const [lastScroll, setLastScroll] = useState(0);
-
-
-    const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
-    const menuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -174,23 +178,26 @@ const Header: React.FC = () => {
                         </Row>
                         <Row md={12} className={`${c.CtaHeader} btn-header-btn-group`}>
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <Button className='btn-header-btn-group-main'>
-                                    <Image src="/img/chatBlue.svg" alt="chat" className='btn-header-btn-group-main-img' />
+                                <Button className='btn-header-btn-group-main' onClick={tongleShowForm}>
+                                    <IconForm />
                                     <div className='btn-header-btn-group-main-content'>
                                         Để lại thông tin nhận hỗ trợ
                                     </div>
                                 </Button>
                             </Col>
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <Button className='btn-header-btn-group-main'>
-                                    <Image src="/img/phoneBlue.svg" alt="" className='btn-header-btn-group-main-img' />
-
+                                <Button className='btn-header-btn-group-main' href='tel:+0907578881'>
+                                    <IconPhoneBlu />
                                 </Button>
                             </Col>
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <Button className='btn-header-btn-group-main'>
-                                    <Image src="/img/mailBlue.svg" alt="" className='btn-header-btn-group-main-img' />
-
+                                <Button
+                                    className='btn-header-btn-group-main'
+                                    href='https://mail.google.com/mail/?view=cm&fs=1&to=ht24430@gmail.com&su=Gặp lỗi&body=Hello,%20I%20need%20help'
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                >
+                                    <IconEmail />
                                 </Button>
                             </Col>
 
@@ -207,6 +214,22 @@ const Header: React.FC = () => {
                     <Search />
                 </Nav>
             </Navbar >
+            {isShowForm && (
+                <AnimatePresence>
+                    <motion.div
+                        initial={{ y: '100%' }}
+                        animate={{ y: 0 }}
+                        exit={{ y: '-110%' }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <Container>
+                            <Feaback />
+                        </Container>
+
+                    </motion.div>
+                </AnimatePresence>
+
+            )}
         </>
     );
 };

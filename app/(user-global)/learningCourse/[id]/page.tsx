@@ -63,7 +63,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [note, setNote] = useState<Note[] | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    const [doc_id, setdoc_id] = useState<string | null>(null);
+    const [doc_id, setdoc_id] = useState<string>("");
+    const [chapter_id, setChapter_id] = useState<string>("");
 
 
     const [urlVideo, setUrlVideo] = useState('');
@@ -258,39 +259,85 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         setPlayedSeconds(playedSeconds)
     };
 
+    // useEffect(() => {
+    //     if (course && Array.isArray(course)) {
+
+    //         const findInactiveDocumentId = (course: Chapter[]): string | null => {
+    //             for (const chapter of course) {
+    //                 const inactiveDoc = chapter.documents.find(doc => doc.status_document === false);
+    //                 if (inactiveDoc) {
+    //                     return inactiveDoc.document_id;
+    //                 }
+    //             }
+    //             return null;
+    //         };
+
+    //         const inactiveDocId = findInactiveDocumentId(course);
+    //         if (inactiveDocId) {
+    //             const initialDoc = course
+    //                 .flatMap(chapter => chapter.documents)
+    //                 .find(doc => doc.document_id === inactiveDocId);
+    //             const innitChappter = course
+    //                 .flatMap(chapter => chapter.documents)
+    //             if (initialDoc) {
+    //                 setdoc_id(initialDoc.document_id);
+    //                 // setChapter_id(innitChappter.)
+    //                 handleClickDoc(initialDoc)
+    //                 setSelectedIndex(
+    //                     course.findIndex(chapter => chapter.documents.includes(initialDoc)) +
+    //                     "-" +
+    //                     course[course.findIndex(chapter => chapter.documents.includes(initialDoc))].documents.indexOf(initialDoc)
+    //                 );
+    //                 toggleItem(course.findIndex(chapter => chapter.documents.includes(initialDoc)))
+    //             }
+    //         }
+    //     }
+
+    // }, [course]);
     useEffect(() => {
         if (course && Array.isArray(course)) {
-
-            const findInactiveDocumentId = (course: Chapter[]): string | null => {
+            const findInactiveDocument = (course: Chapter[]): { document_id: string; chapter_id: string } | null => {
                 for (const chapter of course) {
-                    const inactiveDoc = chapter.documents.find(doc => doc.status_document === false);
+                    const inactiveDoc = chapter.documents.find(doc => !doc.status_document);
                     if (inactiveDoc) {
-                        return inactiveDoc.document_id;
+                        return {
+                            document_id: inactiveDoc.document_id,
+                            chapter_id: chapter.chapter_id,
+                        };
                     }
                 }
                 return null;
             };
 
-            const inactiveDocId = findInactiveDocumentId(course);
-            if (inactiveDocId) {
+            const inactiveDoc = findInactiveDocument(course);
+
+            if (inactiveDoc) {
+                const { document_id, chapter_id } = inactiveDoc;
+
+                // Tìm tài liệu không hoạt động dựa trên document_id
                 const initialDoc = course
-                    .flatMap(chapter => chapter.documents)
-                    .find(doc => doc.document_id === inactiveDocId);
+                    .find(chapter => chapter.chapter_id === chapter_id)
+                    ?.documents.find(doc => doc.document_id === document_id);
 
                 if (initialDoc) {
-                    setdoc_id(initialDoc.document_id);
-                    handleClickDoc(initialDoc)
-                    setSelectedIndex(
-                        course.findIndex(chapter => chapter.documents.includes(initialDoc)) +
-                        "-" +
-                        course[course.findIndex(chapter => chapter.documents.includes(initialDoc))].documents.indexOf(initialDoc)
-                    );
-                    toggleItem(course.findIndex(chapter => chapter.documents.includes(initialDoc)))
+                    // Đặt trạng thái và gọi các hàm cần thiết
+                    setdoc_id(initialDoc.document_id); // Gán document_id
+                    setChapter_id(chapter_id); // Gán chapter_id
+                    handleClickDoc(initialDoc);
+
+                    // Tìm chỉ số của tài liệu và chương để đặt selectedIndex
+                    const chapterIndex = course.findIndex(chapter => chapter.chapter_id === chapter_id);
+                    const docIndex = course[chapterIndex]?.documents.findIndex(doc => doc.document_id === document_id);
+
+                    if (chapterIndex >= 0 && docIndex >= 0) {
+                        setSelectedIndex(`${chapterIndex}-${docIndex}`);
+                        toggleItem(chapterIndex);
+                    }
                 }
             }
         }
-
     }, [course]);
+
 
 
     const handleClickDoc = (doc: CombinedDocument) => {
@@ -408,6 +455,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
             toggleItem(currentChapterIndex - 1)
             setSelectedIndex(`${currentChapterIndex - 1}-${lastDocIndex}`);
+            setdoc_id(previousChapter.documents[lastDocIndex].document_id);
             handleClickDoc(previousChapter.documents[lastDocIndex]);
         } else {
             alert('Không có bài học trước.');
@@ -464,14 +512,16 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
             return (
                 tippyVisible && isVisible ? (
-                    <motion.div
-                        initial={{ x: '100%' }}
-                        animate={{ x: 2 }}
-                        exit={{ x: '-100%' }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <CodeDev />
-                    </motion.div>
+                    <AnimatePresence>
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 2 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <CodeDev />
+                        </motion.div>
+                    </AnimatePresence>
                 ) : (
                     isVisible && (
                         <div className={`${styles.fixed} ${styles.listCourse}`}>
@@ -612,15 +662,17 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             </div>
                         </>
                     ) : (
-                        <motion.div
-                            initial={{ y: '100%' }}
-                            animate={{ y: 0 }}
-                            exit={{ y: '-100%' }}
-                            transition={{ duration: 0.5 }}
-                            className={styles.noteTap}
-                        >
-                            <NoteCourse id={idDocument} title={nameDocument} time={playedSeconds} onClose={toggleNote} />
-                        </motion.div>
+                        <AnimatePresence>
+                            <motion.div
+                                initial={{ y: '100%' }}
+                                animate={{ y: 0 }}
+                                exit={{ y: '-100%' }}
+                                transition={{ duration: 0.5 }}
+                                className={styles.noteTap}
+                            >
+                                <NoteCourse id={idDocument} title={nameDocument} time={playedSeconds} onClose={toggleNote} />
+                            </motion.div>
+                        </AnimatePresence>
                     )}
                 </div>
             ) : (
@@ -827,11 +879,11 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <motion.div
                             initial={{ y: '100%' }}
                             animate={{ y: 0 }}
-                            exit={{ y: '100%' }}
+                            exit={{ y: '-110%' }}
                             transition={{ duration: 0.5 }}
                             className={styles.NoteList}
                         >
-                            <NoteContent course_Id={course_Id} userImage={avatar} onClose={toggleFaq} />
+                            <NoteContent course_Id={course_Id} chapter_Id={chapter_id} doc_id={doc_id} userImage={avatar} onClose={toggleNoteList} />
                         </motion.div>
                     </AnimatePresence>
                 )}

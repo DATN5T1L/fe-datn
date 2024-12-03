@@ -6,15 +6,7 @@ import Button from "../component/globalControl/btnComponent";
 import { IconDot } from "@/app/(user-global)/component/icon/icons";
 import Tippy from "@tippyjs/react/headless";
 
-interface CommentItemProps {
-    comment: CommentProps;
-    userImage: string;
-    currentUserId: string | number;
-    onSave: (replyData: { id: string; replyText: string }) => void; // Hàm callback từ cha
-    onEdit: (replyData: { id: string; replyText: string }) => void; // Hàm callback từ cha
-    onDelete: (id: string) => void; // Hàm callback từ cha
-    onClose: () => void; // Hàm callback từ cha
-}
+
 const CommentItem: React.FC<CommentItemProps> = ({
     comment,
     userImage,

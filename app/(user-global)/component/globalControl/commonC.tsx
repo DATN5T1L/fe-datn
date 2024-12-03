@@ -1,4 +1,5 @@
 //hàm chuyển đỏi ngày giờ
+import { useEffect } from "react";
 const formatDateTime = (datetimeStr: string): string => {
     const date = new Date(datetimeStr);
     // Lấy các thành phần ngày, tháng, năm, giờ, phút
@@ -88,4 +89,22 @@ const scrollToElementBottom = (element: HTMLElement | null) => {
     }
 };
 
-export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom };
+const useEscapeKey = (onEsc: () => void): void => {
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent): void => {
+            if (event.key === "Escape") { // Kiểm tra phím Escape
+                onEsc();
+            }
+        };
+
+        // Thêm sự kiện lắng nghe
+        window.addEventListener("keydown", handleKeyDown);
+
+        // Cleanup khi unmount
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [onEsc]); // Chỉ re-run effect khi `onEsc` thay đổi
+};
+
+export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey };

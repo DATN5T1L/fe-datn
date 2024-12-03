@@ -503,13 +503,14 @@
 }
 
 .NoteList {
+    display: flex;
+    justify-content: end;
     position: absolute;
     bottom: 0;
     right: 0;
-    padding-top: 74px;
+    padding-top: 56px;
     width: 100%;
-    max-width: 720px;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(4px);
+    background-color: rgba(205, 205, 205, .5);
+    backdrop-filter: blur(10px);
     height: 100vh;
 }

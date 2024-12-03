@@ -10,7 +10,8 @@ import { IconVideo, IconDoc, IconX, IconWhat32, IconDot } from "@/app/(user-glob
 import CkediterCustom from "@app/custom-editor";
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { motion } from 'framer-motion';
-import { calculateTimeAgo, scrollToElementBottom } from "@app/(user-global)/component/globalControl/commonC"
+import { calculateTimeAgo, scrollToElementBottom, useEscapeKey } from "@app/(user-global)/component/globalControl/commonC";
+
 import Tippy from "@tippyjs/react/headless";
 const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
 
@@ -41,16 +42,18 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
     const [visibleTippyId, setVisibleTippyId] = useState<string | null>(null);
     const [isEditing, setIsEditing] = useState<string | null>(null); // Theo dõi id đang sửa
     const [editContent, setEditContent] = useState<string>(""); // Nội dung sửa
+
     const toggleTippy = (id: string) => {
         setVisibleTippyId((prevId) => (prevId === id ? null : id));
     };
+
     const handleClickOutside = (event: MouseEvent) => {
         if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
             onClose();
             setActiveTab('hoidap'); // Đóng popup khi click ra ngoài
         }
     };
-
+    useEscapeKey(onClose)
     // console.log(commentsDetail);
     // Lắng nghe sự kiện click ngoài popup
 

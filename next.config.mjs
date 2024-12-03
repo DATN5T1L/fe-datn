@@ -163,10 +163,35 @@ const nextConfig = {
         source: '/api/addNote/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/post-note/:path*',
       },
-      // lấy ghi chú của học viên cho cả khóa học
+      // lấy ghi chú của học viên 
       {
-        source: '/api/getNote/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-doc/:path*',
+        source: '/api/getNoteUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-user/:path*',
+      },
+      // lấy ra ghi chú của chương hiện tại
+      {
+        source: '/api/getNoteChapter/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-chapter/:path*',
+      },
+      // Lấy ra ghi chú của khóa học
+      {
+        source: '/api/getNoteCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-course/:path*',
+      },
+      // lấy ra ghi chú của bài học
+      {
+        source: '/api/getNoteDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-note-by-doc/:path*',
+      },
+      // sửa ghi chú
+      {
+        source: '/api/updateNote/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/update-note/:path*',
+      },
+      // Xóa ghi chú
+      {
+        source: '/api/deleteNote/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/delete-note/:path*',
       },
       // Lấy ra số lượng phản hồi của người dùng cho từng tập tin
       {
@@ -373,7 +398,13 @@ const nextConfig = {
       {
         source: '/api/search/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/search/:path*',
-      }
+      },
+      // thêm phần để lại câu hỏi
+      {
+        source: '/api/addGoogleSheet/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/google-sheets/add/:path*',
+      },
+
     ];
 
   },

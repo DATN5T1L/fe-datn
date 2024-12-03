@@ -1,12 +1,13 @@
 import { Container, Col, Row } from 'react-bootstrap'
-
-import { Hero, Form } from './Content';
+import c from '@public/styles/Contact/contact.module.css'
+import { Hero, Form, Map } from './Content';
 import { Main } from 'next/document';
 const Contact = () => {
     return (
-        <main>
+        <main className={c.main}>
             <Hero />
             <Form />
+            <Map />
         </main>
     )
 }
