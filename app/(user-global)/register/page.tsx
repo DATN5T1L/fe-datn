@@ -9,9 +9,11 @@ import { useForm } from 'react-hook-form';
 import FbLogin from '../component/auth/user-component/fbLogin';
 import GgLogin from '../component/auth/user-component/ggLogin';
 import { useFormik } from 'formik';
+
 import { useRouter } from 'next/navigation';
 import RegisterPhone from '@app/(user-global)/component/auth/user-component/sign-up-phone';
 import RegisterEmail from '@app/(user-global)/component/auth/user-component/sign-up-email';
+
 interface RegisterFormData {
     userName: string;
     email: string;

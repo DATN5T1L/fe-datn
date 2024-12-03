@@ -27,7 +27,6 @@ const CoursePro: React.FC = () => {
             revalidateIfStale: false
         }
     );
-
     useEffect(() => {
         if (data?.data && !cache[routerId]) {
             setCache(prevCache => ({ ...prevCache, [routerId]: data.data }));
@@ -41,23 +40,25 @@ const CoursePro: React.FC = () => {
         }
     }, [routerId, cache]);
 
-    const handleCountAll = useCallback((count: number | string) => {
-        if (count !== routerId) {
-            setRouterId(count);
-            setCourses(cache[count] || []);
-            setIsCount(true);
-        }
-        else if (isCount) {
-            setCourses(cache[8] || []);
-            setIsCount(false);
-        }
-        else {
-            setCourses(cache[count] || []);
-            setIsCount(true);
-        }
-    }, [routerId, cache, isCount]);
+    const handleCountAll = useCallback(() => {
+        setIsCount(prevState => {
+            const newState = !prevState;
+            if (newState) {
+                setRouterId('');
+                const allCourses = Object.values(cache).flat();
+                setCourses(allCourses);
+            } else {
+                setRouterId(8);
+                setCourses(cache[8]?.slice(0, 4) || []);
+            }
+            return newState;
+        });
+    }, [cache]);
+
 
     useEffect(() => {
+        console.log('Cache:', cache[routerId]);
+        console.log('Data from API:', data?.data);
         if (cache[routerId]) {
             setCourses(cache[routerId]);
         } else if (data?.data) {
@@ -100,7 +101,7 @@ const CoursePro: React.FC = () => {
                     <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40} onClick={() => handleCount(4)}>Khóa học lộ trình Designer</Button>
                 </Col>
                 <Col className={styles.nav__btn__single}>
-                    <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={isCount ? 3 : 4} width={145} height={40} onClick={() => handleCountAll(20)}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
+                    <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={isCount ? 3 : 4} width={145} height={40} onClick={() => handleCountAll()}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
                 </Col>
             </Row>
 

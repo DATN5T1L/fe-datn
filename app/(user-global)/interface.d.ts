@@ -1,7 +1,7 @@
 
 interface Progress {
     progress_percentage: number;
-    course_name: string;
+    name_course: string;
     course_id: string;
 }
 
@@ -29,12 +29,46 @@ interface CourseData {
     course_name: string;
     data: Chapter[];
 }
-
 interface Note {
     note_id: string;
+    document_id: string;
+    chapter_name: string;
     title_note: string;
     content_note: string;
     cache_time_note: number;
+}
+
+interface NoteProps {
+    data: Note[];
+}
+
+interface NoteItemProps {
+    note: {
+        note_id: string;
+        document_id: string;
+        chapter_name: string;
+        title_note: string;
+        content_note: string;
+        cache_time_note: number;
+    };
+    onEdit: (replyData: { document_id: string; note_id: string; cache_time: number; title_note: string; content_note: string; }) => void;
+    onDelete: (id: string) => void;
+}
+
+
+
+interface Question {
+    id: string;
+    content_question: string;
+    correct_answer: string;
+    type_question: string;
+}
+
+
+type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
+interface QuestionsDocument extends Document {
+    type_document: "quiz";
+    questions: Question[] | null;
 }
 
 interface CodesDocument extends Document {
@@ -45,25 +79,12 @@ interface CodesDocument extends Document {
         correct_answer: string;
         question_code: string;
         tutorial_code: string;
-    }[];
-}
-
-interface QuestionsDocument extends Document {
-    type_document: "quiz";
-    questions: Question[] | null;
-}
-interface Question {
-    id: string;
-    content_question: string;
-    correct_answer: string;
-    type_question: string;
+        updated_at: string;
+    };
 }
 interface VideoDocument extends Document {
     type_document: "video";
 }
-
-type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
-
 // Interface for the API response
 
 
@@ -71,6 +92,10 @@ type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
 interface QuestionAnswer {
     question: string;
     answers: string[];
+}
+interface codeAnswer {
+    question: string;
+    content: string;
 }
 
 interface QuestionsProps {
@@ -90,6 +115,18 @@ interface CodeDevProps {
     correct_answer: string;
     question_code: string;
     tutorial_code: string;
+    updated_at: string;
+    name_document: string;
+    course_id: string;
+    documents_id: string | null;
+}
+
+interface UpdateStatusComponentProps {
+    course_id: string | null;
+    documents_id: string | null;
+    token: string | null;
+    onSuccess?: (data: any) => void;
+    onError?: (error: Error) => void;
 }
 // Payments
 
@@ -203,11 +240,42 @@ interface CardPosts {
 
 }
 
+interface DocumentFaq {
+    document_id: string;
+    name_document: string;
+    type_document: "code" | "quiz" | "video";
+    comment_count: number
+}
+
+interface ChapterFaq {
+    chapter_id: string;
+    chapter_name: string;
+    documents: DocumentFaq[];
+}
+
+interface CourseFaq {
+    course_id: string;
+    data: ChapterFaq[];
+}
 interface FaqProps {
-    course_Id: string; // Mảng các chương
-    onClose: () => void; // Hàm để đóng popup
+    course_Id: string;
+    userImage: string
+    onClose: () => void;
 
 }
+
+
+
+interface NoteContentProps {
+    course_Id: string;
+    chapter_Id: string;
+    doc_id: string;
+    userImage: string;
+    onClose: () => void;
+}
+
+
+
 interface ListItem {
     title: string;
     content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
@@ -234,7 +302,10 @@ interface NoteCourseProps {
 interface NotificationProps {
     type: 'success' | 'error' | 'fail' | 'complete';
     message: string;
+    position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
+
+type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 interface Route {
     route_id: string;
@@ -284,4 +355,51 @@ interface StatusData {
     del_flag: boolean;
     created_at: string;
     updated_at: string;
+}
+
+
+// comment course 
+interface Comment {
+    id: string;
+    comment_title: string;
+    comment_text: string;
+    created_at: string;
+    updated_at: string;
+    fullname: string;
+    avatar: string;
+    user_id: string;
+    comment_to: string | null;
+    replies: Comment[];
+}
+
+
+type Reply = Comment;
+
+type CommentProps = Comment;
+
+
+interface CommentData {
+    document_id: string;
+    comment: CommentProps;
+}
+
+
+interface CommentTitleProps {
+    id: string;
+    title: string;
+    replies_count: number;
+}
+
+interface CommentTitleData {
+    document_id: string;
+    comments: Record<string, CommentTitleProps>;
+}
+interface CommentItemProps {
+    comment: CommentProps;
+    userImage: string;
+    currentUserId: string | number;
+    onSave: (replyData: { id: string; replyText: string }) => void; // Hàm callback từ cha
+    onEdit: (replyData: { id: string; replyText: string }) => void; // Hàm callback từ cha
+    onDelete: (id: string) => void; // Hàm callback từ cha
+    onClose: () => void; // Hàm callback từ cha
 }

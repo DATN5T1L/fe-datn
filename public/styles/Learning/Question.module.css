@@ -117,3 +117,19 @@
     display: flex;
     gap: 24px;
 }
+
+/* fill */
+
+
+
+.fiilContainer {
+    display: flex;
+    min-height: 120px;
+    padding: 16px 24px;
+    align-items: flex-start;
+    gap: 28px;
+    align-self: stretch;
+    border-radius: 12px;
+    background: var(--Gray-gray-100, #FFF);
+    box-shadow: -6px 0px 3px 0px rgba(35, 125, 247, 0.30) inset;
+}

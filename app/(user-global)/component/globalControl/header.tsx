@@ -3,34 +3,40 @@
 
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { useSession } from 'next-auth/react';
+
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { Container, Button, Nav, Navbar, Form, Image, Row, Col } from 'react-bootstrap';
+import { IconForm, IconEmail, IconPhoneBlu } from "../icon/icons"
 import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-import Search from "./Search"
+import Search from "./Search";
+import Feaback from "./FeedBack";
+import { motion, AnimatePresence } from 'framer-motion';
+import c from "@public/styles/globalControl/header.module.css"
 
 const Header: React.FC = () => {
+    const menuRef = useRef<HTMLDivElement>(null)
     const userState = useSelector((state: RootState) => state.user);
     const router = useRouter();
     const pathname = usePathname();
 
     const [isClient, setIsClient] = useState(false)
+    const [showSearch, setShowSearch] = useState(false);
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScroll, setLastScroll] = useState(0);
+    const [isOpenSubMenu, setIsOpenSubMenu] = useState(false);
+    const [isShowForm, setIsShowForm] = useState<boolean>(false)
 
+
+    const tongleShowForm = () => {
+        setIsShowForm(prev => !prev)
+    }
     useEffect(() => {
         setIsClient(true)
     }, [])
-    const [showSearch, setShowSearch] = useState(false);
-
-    const [showHeader, setShowHeader] = useState(true);
-    const [lastScroll, setLastScroll] = useState(0);
-
-
-    const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
-    const menuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -97,7 +103,7 @@ const Header: React.FC = () => {
                             <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' />
                         </Link>
                     </Tippy>
-                    <Nav className="btn-header">
+                    <Nav className={`  btn-header`}>
                         <Row md={12} className='btn-header-container'>
                             <Col md={4} className='btn-header-container-element'>
                                 <Link href='/' className='btn-header-container-element-link'>
@@ -116,7 +122,6 @@ const Header: React.FC = () => {
                                     <section className='user-group'>
                                         <div className='user-notification'>
                                             <Image src="/img/Bell.svg" alt="" className='icon-notification' />
-                                            <Image src="/img/ChatTick.svg" alt="" className='icon-notification' />
                                         </div>
                                         <div className='user' onClick={handleOpenSubMenu} ref={menuRef}>
                                             {userState?.user?.avatar ? (
@@ -144,13 +149,7 @@ const Header: React.FC = () => {
                                                             Thông tin cá nhân
                                                         </div>
                                                     </Link>
-                                                    <Link href={'/wallet-user'} className={`subMenu-body-link ${isUser2 ? 'subMenu-body-link-blue' : ''}`} autoFocus={false} >
-                                                        <Image src='/img/infoPay-black.svg' className={`subMenu-body-img-black ${isUser2 ? 'subMenu-body-img-black-none' : ''}`} />
-                                                        <Image src='/img/infoPay-white.svg' className={`subMenu-body-img-white ${isUser2 ? 'subMenu-body-img-white-block' : ''}`} />
-                                                        <div className={`subMenu-body-link-title ${isUser2 ? 'subMenu-body-link-title-white' : ''}`}>
-                                                            Ví
-                                                        </div>
-                                                    </Link>
+
                                                     <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
                                                         <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
                                                         <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
@@ -177,31 +176,31 @@ const Header: React.FC = () => {
                                 </Col>
                             )}
                         </Row>
-                        <Row md={12} className='btn-header-btn-group'>
+                        <Row md={12} className={`${c.CtaHeader} btn-header-btn-group`}>
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <Button className='btn-header-btn-group-main'>
-                                    <Image src="/img/phoneBlue.svg" alt="" className='btn-header-btn-group-main-img' />
-                                    <div className='btn-header-btn-group-main-content'>
-                                        Liên hệ với chúng tôi
-                                    </div>
-                                </Button>
-                            </Col>
-                            <Col md={3} className='btn-header-btn-group-element'>
-                                <Button className='btn-header-btn-group-main'>
-                                    <Image src="/img/mailBlue.svg" alt="" className='btn-header-btn-group-main-img' />
-                                    <div className='btn-header-btn-group-main-content'>
-                                        Email hỗ trợ
-                                    </div>
-                                </Button>
-                            </Col>
-                            <Col md={3} className='btn-header-btn-group-element'>
-                                <Button className='btn-header-btn-group-main'>
-                                    <Image src="/img/chatBlue.svg" alt="chat" className='btn-header-btn-group-main-img' />
+                                <Button className='btn-header-btn-group-main' onClick={tongleShowForm}>
+                                    <IconForm />
                                     <div className='btn-header-btn-group-main-content'>
                                         Để lại thông tin nhận hỗ trợ
                                     </div>
                                 </Button>
                             </Col>
+                            <Col md={3} className='btn-header-btn-group-element'>
+                                <Button className='btn-header-btn-group-main' href='tel:+0907578881'>
+                                    <IconPhoneBlu />
+                                </Button>
+                            </Col>
+                            <Col md={3} className='btn-header-btn-group-element'>
+                                <Button
+                                    className='btn-header-btn-group-main'
+                                    href='https://mail.google.com/mail/?view=cm&fs=1&to=ht24430@gmail.com&su=Gặp lỗi&body=Hello,%20I%20need%20help'
+                                    target='_blank'
+                                    rel='noopener noreferrer'
+                                >
+                                    <IconEmail />
+                                </Button>
+                            </Col>
+
                             <Col md={3} className='btn-header-btn-group-element'>
                                 <Button onClick={handleShowSearch} className='btn-header-btn-group-main2'>
                                     <Image src={`${showSearch ? '/img/Canxel.svg' : '/img/searchBlue.svg'}`} alt="" className={`btn-header-btn-group-main-img1`} />
@@ -215,6 +214,22 @@ const Header: React.FC = () => {
                     <Search />
                 </Nav>
             </Navbar >
+            {isShowForm && (
+                <AnimatePresence>
+                    <motion.div
+                        initial={{ y: '100%' }}
+                        animate={{ y: 0 }}
+                        exit={{ y: '-110%' }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <Container>
+                            <Feaback />
+                        </Container>
+
+                    </motion.div>
+                </AnimatePresence>
+
+            )}
         </>
     );
 };

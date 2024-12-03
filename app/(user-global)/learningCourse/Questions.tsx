@@ -4,6 +4,8 @@ import styles from '@public/styles/Learning/Question.module.css';
 import { useWindowSize } from 'react-use';
 import Confetti from 'react-confetti';
 
+import { parseQues, parseFill } from "@/app/(user-global)/component/globalControl/commonC";
+
 const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocument, nameDocument, questions }) => {
     const token = useCookie('token');
     const [answers, setAnswers] = useState<Record<number, string[]>>({});
@@ -11,13 +13,8 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
     const [showConfetti, setShowConfetti] = useState(false);
     const questionId: string | undefined = questions?.find((question) => question.id)?.id;
     // Hàm phân tích câu hỏi và câu trả lời
-    const parseQues = (input: string): QuestionAnswer | null => {
-        const [questionPart, answerPart] = input.split('?');
-        if (!questionPart || !answerPart) return null;
-        const answers = answerPart.split('/').map((str) => str.trim());
-        return { question: questionPart.trim(), answers };
-    };
 
+    console.log(questions)
     ///Hàm xử lý sự kiện khi người dùng chọn câu trả lời
     const handleAnswerChange = (questionIndex: number, selectedAnswer: string, type: string) => {
         setAnswers((prevAnswers) => {
@@ -33,6 +30,9 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                 } else {
                     updatedAnswers[questionIndex] = [...selectedAnswers, selectedAnswer];
                 }
+            } else if (type === 'fill') {
+                // Câu hỏi điền vào chỗ trống: chỉ lưu một câu trả lời duy nhất (dạng text)
+                updatedAnswers[questionIndex] = [selectedAnswer];
             }
             return updatedAnswers;
         });
@@ -79,8 +79,6 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
 
 
     const updataStatus = async () => {
-
-
         // console.log(JSON.stringify(payload, null, 2));
 
         try {
@@ -146,45 +144,73 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                 </div>
 
                 {questions?.map((question, index) => {
-                    const parsedQuestion = parseQues(question.content_question);
+                    if (question.type_question === "multiple_choice") {
+                        const parsedQuestion = parseQues(question.content_question);
+                        console.log(parsedQuestion)
+                        return (
+                            <div key={index} className={styles.questionItem}>
+                                {parsedQuestion ? (
+                                    <>
+                                        <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion.question}</p>
+                                        <ul className={styles.listQuestion}>
+                                            {parsedQuestion.answers.map((answer, idx) => {
+                                                return (
+                                                    <li key={`${index}-${idx}`} className={styles.itemQuestion}>
+                                                        <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
+                                                            <input
+                                                                type={question.type_question === 'true_false' ? 'radio' : 'checkbox'}
+                                                                name={`question_${index}`}
+                                                                id={`submit${idx}`}
+                                                                value={answer}
+                                                                checked={answers[index]?.includes(answer) || false}
+                                                                onChange={() => handleAnswerChange(index, answer, question.type_question)} // Đảm bảo bạn truyền đúng tham số vào hàm xử lý
+                                                            />
+                                                            {answer}
+                                                        </label>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                        <div className={styles.ctaQuestion}>
+                                            <button className={styles.btnAnswer}>Hủy</button>
+                                            <button
+                                                className={`${styles.btnAnswer} ${styles.btnAnswerActive}`}
+                                                onClick={checkAnswers}
+                                            >Trả lời</button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <p>Nội dung câu hỏi không hợp lệ.</p>
+                                )}
+                            </div>
+                        );
+                    } else {
+                        const parsedQuestion = parseFill(question.content_question);
+                        console.log(parsedQuestion)
+                        return (
+                            <div className={styles.fillQuestion}>
+                                <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion?.question}</p>
+                                <p className={styles.titleQuestion}>Điền vào phần còn trống</p>
+                                <div className={styles.fiilContainer}>
+                                    <label htmlFor={`fill_${index}`} className={styles.labelFill}>
+                                        {parsedQuestion?.answers[0]}
+                                    </label>
+                                    <input
+                                        placeholder='nhập câu trả lời'
+                                        type="text"
+                                        id={`fill_${index}`}
+                                        className={styles.inputFill}
+                                        value={answers[index]?.[0] || ''}
+                                        onChange={(e) => handleAnswerChange(index, e.target.value, 'fill')}
+                                    />
+                                    <p className={styles.labelFill}>
+                                        {parsedQuestion?.answers[1]}
+                                    </p>
+                                </div>
+                            </div>
+                        )
+                    }
 
-                    return (
-                        <div key={index} className={styles.questionItem}>
-                            {parsedQuestion ? (
-                                <>
-                                    <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion.question}</p>
-                                    <ul className={styles.listQuestion}>
-                                        {parsedQuestion.answers.map((answer, idx) => {
-                                            return (
-                                                <li key={`${index}-${idx}`} className={styles.itemQuestion}>
-                                                    <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
-                                                        <input
-                                                            type={question.type_question === 'true_false' ? 'radio' : 'checkbox'}
-                                                            name={`question_${index}`}
-                                                            id={`submit${idx}`}
-                                                            value={answer}
-                                                            checked={answers[index]?.includes(answer) || false}
-                                                            onChange={() => handleAnswerChange(index, answer, question.type_question)} // Đảm bảo bạn truyền đúng tham số vào hàm xử lý
-                                                        />
-                                                        {answer}
-                                                    </label>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                    <div className={styles.ctaQuestion}>
-                                        <button className={styles.btnAnswer}>Hủy</button>
-                                        <button
-                                            className={`${styles.btnAnswer} ${styles.btnAnswerActive}`}
-                                            onClick={checkAnswers}
-                                        >Trả lời</button>
-                                    </div>
-                                </>
-                            ) : (
-                                <p>Nội dung câu hỏi không hợp lệ.</p>
-                            )}
-                        </div>
-                    );
                 })}
                 <>{result}</>
             </div>

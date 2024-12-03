@@ -171,12 +171,16 @@
 }
 
 .codeMain {
+    padding: 12px;
     height: 100%;
 }
 
 .boxContent {
+    margin-top: 12px;
     height: 100%;
-    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .CodeFrame {
@@ -186,4 +190,30 @@
 .itemNavContent {
     width: 100%;
     text-align: center;
+}
+
+.timeUpdate {
+    color: var(--text-50);
+    font-size: 0.875rem;
+    font-weight: 400;
+    margin-top: 4px;
+}
+
+.titleCourse {
+    margin-top: 8px;
+    color: var(--text-100);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.contentQues,
+.contentQuess {
+    color: var(--text-50);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 32px;
+}
+
+.contentQuess {
+    font-size: 1rem;
 }

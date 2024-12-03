@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styles from '@public/styles/globalControl/FeedBack.module.css';
+import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
-
+import { motion } from 'framer-motion';
 const FeedBack: React.FC = () => {
-    const [userName, setUserName] = useState('');
+    const [name, setUserName] = useState('');
     const [email, setEmail] = useState('');
-    const [quest, setQuest] = useState('');
+    const [content, setQuest] = useState('');
     const [validated, setValidated] = useState(false);
-
+    const [type, setType] = useState<NotiType>("complete");
+    const [message, setMessage] = useState<string>("");
+    const [showNotification, setShowNotification] = useState(false);
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const form = event.currentTarget;
@@ -18,14 +21,13 @@ const FeedBack: React.FC = () => {
 
         // Tạo đối tượng dữ liệu từ form
         const formData = {
-            userName,
+            name,
             email,
-            quest
+            content,
+            name_course: ""
         };
-
-        // Gửi dữ liệu lên Google Sheets qua Web App URL
         try {
-            const response = await fetch('https://script.google.com/macros/s/AKfycbxnWhPBuuRJN9FY0EV-q6Rt6un9K07xy-fV84042wq6KtfarmmoWBMzmGUh0cWLSxAkGg/exec', {
+            const response = await fetch('/api/addGoogleSheet/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -34,11 +36,16 @@ const FeedBack: React.FC = () => {
             });
 
             const result = await response.json();
-            if (result.status === "success") {
-                alert('Thông tin đã được gửi thành công!');
+            if (!response.ok) {
+                setType("fail");
+                setMessage(result.message || "Có lỗi xảy ra");
             } else {
-                alert('Có lỗi xảy ra khi gửi thông tin.');
+                setType("success");
+                setMessage("Thông tin đã được gửi bạn sẽ nhận được email phản hồi từ TTO.SH");
             }
+
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 3000);
         } catch (error) {
             alert('Có lỗi xảy ra khi kết nối với server.');
         }
@@ -68,7 +75,7 @@ const FeedBack: React.FC = () => {
                                         type="text"
                                         required
                                         className={styles.formControlRegister__input}
-                                        value={userName}
+                                        value={name}
                                         onChange={(e) => setUserName(e.target.value)}
                                     />
                                     <Form.Control.Feedback type="invalid" className={styles.feedBack}>
@@ -99,7 +106,7 @@ const FeedBack: React.FC = () => {
                                         rows={4}
                                         required
                                         className={styles.formControlRegister__input__text}
-                                        value={quest}
+                                        value={content}
                                         onChange={(e) => setQuest(e.target.value)}
                                     />
                                     <Form.Control.Feedback type="invalid" className={styles.feedBack}>
@@ -116,6 +123,19 @@ const FeedBack: React.FC = () => {
                     </Form>
                 </Col>
             </Row>
+            {
+                showNotification && (
+                    <motion.div
+                        initial={{ x: '-100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '-100%' }}
+                        transition={{ duration: 1 }}
+                        className={styles.noteTap}
+                    >
+                        <Notification type={type} message={message} position="bottom-left" />
+                    </motion.div>
+                )
+            }
         </Container>
     );
 };

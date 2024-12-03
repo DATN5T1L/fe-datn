@@ -5,6 +5,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 0px 32px;
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    background-color: var(--gray-100);
 }
 
 .brandHeader {
@@ -230,4 +234,8 @@
     padding: 8px;
     border-radius: 12px;
     background-color: var(--gray-90);
+}
+
+.menuOptions {
+    color: var(--blue-50);
 }

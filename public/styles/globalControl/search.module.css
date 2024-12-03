@@ -96,7 +96,11 @@
     margin-left: 12px;
 }
 
-.listItem {}
+
+
+.listItem {
+    width: 100%;
+}
 
 .loading {
     margin-left: 12px;

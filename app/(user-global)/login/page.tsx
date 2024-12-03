@@ -14,7 +14,7 @@ import GgLogin from '../component/auth/user-component/ggLogin';
 import FbLogin from '../component/auth/user-component/fbLogin';
 
 interface LoginFormInputs {
-    email_or_phone: string;
+    email: string;
     password: string;
     general?: string;
 }

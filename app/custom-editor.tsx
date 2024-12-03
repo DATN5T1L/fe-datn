@@ -22,7 +22,6 @@ import {
     FontSize,
     FullPage,
     GeneralHtmlSupport,
-    Heading,
     Highlight,
     HtmlComment,
     HtmlEmbed,
@@ -73,7 +72,6 @@ import {
     TableToolbar,
     TextPartLanguage,
     TextTransformation,
-    Title,
     TodoList,
     Underline,
     Undo,
@@ -82,7 +80,7 @@ import {
     Image,
     Alignment
 } from 'ckeditor5';
-import { AIAssistant, ExportPdf, ExportWord, ImportWord, OpenAITextAdapter } from 'ckeditor5-premium-features';
+import { ExportPdf, ExportWord, ImportWord } from 'ckeditor5-premium-features';
 
 import translations from 'ckeditor5/translations/vi.js';
 import premiumFeaturesTranslations from 'ckeditor5-premium-features/translations/vi.js';
@@ -130,36 +128,23 @@ const CkediterCustom: React.FC<CkEditorCustomProps> = ({ initialData = '', onCha
                 plugins: [
                     AccessibilityHelp, Autoformat, AutoImage, Autosave, BlockQuote, Bold, CKBox, CKBoxImageEdit,
                     CloudServices, Code, Essentials, FindAndReplace, FontBackgroundColor, FontColor, FontFamily,
-                    FontSize, FullPage, GeneralHtmlSupport, Heading, Highlight, HtmlComment, HtmlEmbed, ImageBlock,
+                    FontSize, FullPage, GeneralHtmlSupport, Highlight, HtmlComment, HtmlEmbed, ImageBlock,
                     ImageCaption, ImageInline, ImageInsert, ImageInsertViaUrl, ImageResize, ImageStyle, ImageTextAlternative,
                     ImageToolbar, ImageUpload, Indent, IndentBlock, Italic, Link, LinkImage, List, ListProperties, Markdown,
                     MediaEmbed, Mention, PageBreak, Paragraph, PasteFromMarkdownExperimental, PasteFromOffice, PictureEditing,
                     RemoveFormat, SelectAll, ShowBlocks, SourceEditing, SpecialCharacters, SpecialCharactersArrows,
                     SpecialCharactersCurrency, SpecialCharactersEssentials, SpecialCharactersLatin, SpecialCharactersMathematical,
                     SpecialCharactersText, Strikethrough, Subscript, Superscript, Table, TableCaption, TableCellProperties,
-                    TableColumnResize, TableProperties, TableToolbar, TextPartLanguage, TextTransformation, Title, TodoList,
+                    TableColumnResize, TableProperties, TableToolbar, TextPartLanguage, TextTransformation, TodoList,
                     Underline, Undo, ExportPdf, ExportWord, ImportWord, SimpleUploadAdapter, EasyImage, Image, Alignment,
                 ],
+                placeholder: 'Nhập câu hỏi vào đây dưới dạng code',
                 toolbar: [
-                    "undo", "redo",
-                    "|",
-                    "heading",
-                    "|",
                     "bold", "italic", "underline", "strikethrough",
-                    "|",
-                    "fontFamily", "fontSize", "fontColor", "fontBackgroundColor",
                     "|",
                     "link", "imageUpload", "insertTable", "mediaEmbed",
                     "|",
-                    "alignment:left", "alignment:center", "alignment:right", "alignment:justify",
-                    "|",
-                    "highlight", "blockQuote", "code", "sourceEditing", "showBlocks",
-                    "|",
-                    "bulletedList", "numberedList", "todoList",
-                    "|",
-                    "pageBreak", "specialCharacters", "findAndReplace",
-                    "|",
-                    "exportPdf", "exportWord", "importWord",
+                    "bulletedList",
                 ],
                 alignment: {
                     options: ["left", "center", "right", "justify"],
