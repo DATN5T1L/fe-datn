@@ -94,12 +94,12 @@ const CourseFree: React.FC = () => {
                 <Row className={styles.nav}>
                     <Col className={styles.nav__btn__muti}>
                         <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("FE")}>Khóa học lộ trình FE</Button>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("FE")}>Khóa học lộ trình BE</Button>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} onClick={() => handlePathChange("FE")}>Khóa học lộ trình Tester</Button>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} onClick={() => handlePathChange("FE")}>Khóa học lộ trình Designer</Button>
+                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("BE")}>Khóa học lộ trình BE</Button>
+                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} onClick={() => handlePathChange("DE")}>Khóa học lộ trình Tester</Button>
+                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} onClick={() => handlePathChange("TE")}>Khóa học lộ trình Designer</Button>
                     </Col>
                     <Col className={styles.nav__btn__single}>
-                        <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={isCount ? 3 : 4} width={145} height={40} onClick={handleCountAll}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
+                        <Button type="secondery" status="hover" size="S" chevron={4} leftIcon={false} rightIcon={true} width={145} height={40} onClick={handleCountAll}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
                     </Col>
                 </Row>
                 <Row md={12} className={styles.main__course}>

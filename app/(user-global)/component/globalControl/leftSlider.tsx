@@ -136,7 +136,7 @@ const LeftSlider: React.FC = () => {
                         <div className={`btn-e`}>Khóa học yêu thích</div>
                     </Link>
                     <Link
-                        href="/course/1"
+                        href="/Reminder"
                         className={`btn-slide-bar-mini`}
                     >
                         <div className={`btn-e`}>Nhắc nhở học tập</div>

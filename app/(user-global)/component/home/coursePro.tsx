@@ -122,6 +122,7 @@ const CoursePro: React.FC = () => {
                         rightIcon={true}
                         width={145}
                         height={40}
+                        chevron={4}
                         onClick={handleCountAll}
                     >
                         {isCount ? 'Ẩn bớt' : 'Xem thêm'}

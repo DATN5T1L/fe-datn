@@ -333,6 +333,14 @@ const IconElip2 = () => {
         </svg>
     )
 }
+const IconDetai = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <circle cx="11.5" cy="11.5" r="9.5" stroke="#1E6AD2" stroke-width="1.5" />
+            <path d="M9 11.5H11.5M11.5 11.5H14M11.5 11.5V14M11.5 11.5V9" stroke="#1E6AD2" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+    )
+}
 const IconFeedback = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="90" height="67" viewBox="0 0 90 67" fill="none">
@@ -357,5 +365,5 @@ export {
     IconFb, IconTiktok, IconIntagarm, IconWhat32, IconDot, IconSun,
     IconNote, IconBell, IconSetting, IconLogout, IconPush, IconForm,
     IconBG1, IconEmail, IconPhoneBlu, IconMapBlu, IconElip, IconElip1,
-    IconElip2, IconFeedback, IconXNoneFill
+    IconElip2, IconFeedback, IconXNoneFill, IconDetai
 }

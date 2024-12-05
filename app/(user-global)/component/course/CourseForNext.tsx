@@ -4,13 +4,44 @@ import styles from '@public/styles/home/CoursePro.module.css';
 import styleFor from "@public/styles/course/coursefor.module.css";
 import { Course } from "@app/(user-global)/model/course";
 import Link from "next/link";
-
+import useCookie from '@app/(user-global)/component/hook/useCookie';
+import { useEffect } from "react";
 interface CourseForProps {
     id: string[];
 }
 
 const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
     console.log(id);
+    const token = useCookie("token");
+    const handleSaveRepplayComment = async () => {
+        const noteData = {
+            course_id: id[1]// Sử dụng noteContent ở đây
+        };
+        console.log(noteData); // In ra console để kiểm tra
+        try {
+            const response = await fetch(`/api/courseNext/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(noteData),
+            })
+
+            const responseData = await response.json() as Course[];
+            console.log(responseData)
+            if (!response.ok) {
+
+            }
+        } catch (error) {
+            console.error('Failed to save note:', error);
+        }
+    };
+
+    useEffect(() => {
+        handleSaveRepplayComment()
+    }, [id])
+
     return (
         <Container className={styleFor.containerNext}>
             <svg width="100%" height="714" viewBox="0 0 1440 714" fill="none"
@@ -58,6 +89,7 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
             </section>
             <section>
                 <Row className={styleFor.mainCard}>
+
                 </Row>
             </section>
         </Container>

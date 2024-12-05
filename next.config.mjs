@@ -410,6 +410,11 @@ const nextConfig = {
         source: '/api/favoriteCourses/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/favorite-courses/:path*',
       },
+      // gợi ý khóa học kế tiếp
+      {
+        source: '/api/courseNext/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/course-next/:path*',
+      },
 
 
     ];
