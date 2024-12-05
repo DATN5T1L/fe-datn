@@ -90,8 +90,8 @@ const LearningPath: React.FC = () => {
                     onMouseUp={handleMouseLeaveOrUp}
                     onMouseMove={handleMouseMove}
                 >
-                    {routes.map(route => (
-                        <Card className={styles.box} key={route.route_id}>
+                    {routes.map((route, index) => (
+                        <Card className={styles.box} key={index}>
                             <Card.Img src={route.img_route} className={styles.box__img} alt="Hình Router" />
                             <Card.Body className={styles.box__body}>
                                 <Card.Title className={styles.box__body__title}>{route.name_route}</Card.Title>
