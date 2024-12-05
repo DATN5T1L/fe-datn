@@ -1,6 +1,5 @@
 'use client'
 
-import '@app/(user-global)/global.css';
 import { useEffect, useState } from "react";
 
 interface BodyProps {

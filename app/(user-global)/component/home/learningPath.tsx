@@ -81,13 +81,6 @@ const LearningPath: React.FC = () => {
                             <div className={styles.header__box__grayBlue}></div>
                         </div>
                     </section>
-                    <section className={styles.btn__group}>
-                        <Link href="/createLearningPath">
-                            <ButtonComponet status={'hover'} hover={true} hoverType={'default'} rightIcon={false} width={264} height={40} widthText="201px">
-                                Tạo lộ trình của riêng bạn
-                            </ButtonComponet>
-                        </Link>
-                    </section>
                 </Col>
                 <Col
                     className={styles.container__main}

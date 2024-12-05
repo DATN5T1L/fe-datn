@@ -9,46 +9,26 @@ import AOS from 'aos';
 import { Course } from "@/app/(user-global)/model/course";
 import { User } from "@/app/(user-global)/model/user";
 import styles from "@public/styles/course/coursedetail.module.css";
-
 import Link from "next/link"
 import Image from 'next/image';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
 import Body from '../../component/globalControl/body';
+import { motion } from 'framer-motion';
+import Notification from "@app/(user-global)/component/globalControl/Notification";
+import { IconFeedback } from '@app/(user-global)/component/icon/icons';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
-
-interface ChapterData {
-    name_chapters: string[];
-}
-
-interface FeedbackData {
-    course_id: string;
-    user_id: string;
-    fullname: string;
-    avatar: string;
-    rating_course: number;
-    feedback_text: string;
-}
-
-interface FaqCourse {
-    question_faq: string;
-    answer_faq: string;
-}
-
-interface ApiResponse<T> {
-    status: string;
-    message: string;
-    data: T;
-}
-
 
 const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const router = useRouter();
     const token = useCookie('token')
     const pathname = usePathname();
-    const searchParams = useSearchParams();
     const [isGetCourse, setIsGetCourse] = useState<boolean | null>(null)
-
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const { id } = params;
+    const [type, setType] = useState<NotiType>("complete");
+    const [message, setMessage] = useState<string>("");
+    const [showNotification, setShowNotification] = useState(false);
     useEffect(() => {
         AOS.init({
             duration: 1200,
@@ -56,7 +36,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     }, []);
 
     useEffect(() => {
-        console.log(id);
         if (token) {
             fetch(`/api/checkEnrollment/${id}`, {
                 method: 'GET',
@@ -73,13 +52,12 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     }, [token])
 
-    const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const toggleContent = (index: number) => {
         setOpenIndex(prevIndex => (prevIndex === index ? null : index));
     };
 
-    const { id } = params;
+
 
 
     const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
@@ -100,7 +78,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     const { data: feedbackData, error: feedbackError } = useSWR<ApiResponse<FeedbackData[]>>(
-        `/api/getFeedBackCourse/${id}/4/4/`,
+        `/api/getFeedBackCourse/${id}/4/4`,
         fetcher
     );
 
@@ -112,7 +90,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     );
 
     const handleStudy = () => {
-        alert('Học bài thật vui')
         router.push(`/learningCourse/${id}`)
     }
 
@@ -150,10 +127,40 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     };
 
+    const handelAddFavoriteCourses = async (id: string) => {
+        const data = {
+            course_id: id,
 
+        };
+        try {
+            const response = await fetch('/api/favoriteCourses/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                setType("fail");
+                setMessage(result.message || "Có lỗi xảy ra");
+            } else {
+                setType("success");
+                setMessage(result.message);
+            }
+
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 3000);
+        } catch (error) {
+            alert('Có lỗi xảy ra khi kết nối với server.');
+        }
+    }
+
+    //  
     // Handle loading and error states
-    if (courseError || chapterError || userError || feedbackError || faqError) return <div>Failed to load data</div>;
-    if (!courseData || !userData || !chapterData || !feedbackData || !faqData) return <div>Loading...</div>;
+    if (courseError || chapterError || faqError || feedbackError || userError) return <div>Failed to load data</div>;
+    if (!courseData || !chapterData || !faqData || !feedbackData || !userData) return <div>Loading...</div>;
 
     const chapters = chapterData.data.name_chapters;
     const course = courseData.data;
@@ -169,22 +176,38 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                         Cách học <strong className={styles.headingStrong}> {course.name_course}</strong> dễ dàng nhất dành cho người mới bắt đầu!
                     </h2>
                     <p className={styles.headingDesc}>
-                        Thực hành qua <strong className={styles.headingStrong}>{course.num_lesson}</strong> dự án thực tế, hơn
-                        <strong className={styles.headingStrong}> {course.num_lesson}</strong>
+                        Thực hành qua <strong className={styles.headingStrong}>{course.num_chapter}</strong> dự án thực tế, hơn
+                        <strong className={styles.headingStrong}> {course.num_document} </strong>
                         bài tập và thử thách thú vị. Chỉ cần mua một lần, học trọn đời. Khóa học được thiết kế và giảng dạy bởi
                         <strong className={styles.headingStrong}> {user.fullname}</strong>.
                     </p>
                     <div className={`${styles.CTA}`}>
                         <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClickFree}>Học thử miễn phí</Button>
                         <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={isGetCourse ? handleStudy : handleButtonClick}>{isGetCourse ? 'Bắt đầu học' : 'Sở hữu khóa học'}</Button>
+                        <Button type="secondery" status="hover" size="S" leftIcon={true} rightIcon={false} width={145} height={40} onClick={() => {
+                            handelAddFavoriteCourses(course.id)
+                        }}>Thích khóa học</Button>
                     </div>
                 </Container>
+                {
+                    showNotification && (
+                        <motion.div
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ duration: 1 }}
+                            className={styles.noteTap}
+                        >
+                            <Notification type={type} message={message} position="bottom-right" />
+                        </motion.div>
+                    )
+                }
             </section>
             <section className={`${styles.Practice}`} data-aos="fade-up">
                 <Container className={`${styles.container} ${styles.containerPractice}`}>
                     <Row className={`${styles.row}`}>
                         <Col md={6} className={styles.contentPractice}>
-                            <h3 className={styles.titlePractice}>Thực hành qua <strong className={styles.headingStrong}> {course.num_lesson}</strong> dự án thực tế</h3>
+                            <h3 className={styles.titlePractice}>Thực hành qua <strong className={styles.headingStrong}> {course.num_chapter}</strong> dự án thực tế</h3>
                             <p className={styles.titlePraDesc}>Ba dự án trong khóa học không chỉ giúp bạn làm quen với các tính năng quan trọng của Excel, mà còn đưa bạn vào các tình huống thực tiễn để áp dụng kiến thức một cách hiệu quả. </p>
                             <p className={styles.titlePraDesc}>Từ việc quản lý dữ liệu, tính toán    nâng cao đến tạo báo cáo trực quan, mỗi dự án đều mang lại cơ hội để bạn thực hành các kỹ năng thiết yếu trong công việc hàng ngày.</p>
 
@@ -231,7 +254,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                 width={552}
                                 height={467}
                             />
-                            <figcaption className={styles.descImageIn}>Tai Huynh is CEO - Founder of TTO Programming Learning Community. Currently, he is still a Fullstack developer with more than 10 years of practical work experience.</figcaption>
+                            <figcaption className={styles.descImageIn}>{user.discription_user}</figcaption>
                         </Col>
                     </Row>
                 </Container>
@@ -318,7 +341,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 <Container className={`${styles.container} ${styles.containerknowledge}`}>
                     <Row className={`${styles.row}`}>
                         <h3 className={styles.titleknowledge}>Kiến thức đầy đủ chi tiết nhất</h3>
-                        <p className={styles.descknowledge}>"Với hơn<strong className={styles.headingStrong}>{course.num_lesson}</strong> bài học, bài tập và thử thách, đây sẽ là khóa học đầy đủ và chi tiết nhất mà bạn có thể tìm thấy trên Internet."</p>
+                        <p className={styles.descknowledge}>"Với hơn<strong className={styles.headingStrong}>{course.num_chapter}</strong> bài học, bài tập và thử thách, đây sẽ là khóa học đầy đủ và chi tiết nhất mà bạn có thể tìm thấy trên Internet."</p>
                     </Row>
 
                     <Row className={`${styles.container} ${styles.containerknowledgeList}`}>
@@ -340,42 +363,41 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <p className={styles.descWhy}>Những phản hồi thực tế nhất về khóa học</p>
                     </Row>
                     <Row className={`${styles.row} ${styles.rowFeedback}`}>
-                        {Array.isArray(feedbacks) ? (feedbacks.map((feedback, index) => (
-                            <Col md={6} className={styles.FeedbackItem}>
-                                <div className={styles.iconFeedback}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="67" viewBox="0 0 90 67" fill="none">
-                                        <g clipPath="url(#clip0_3776_2939)">
-                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M33.0938 31.456V30.456H35.1682V32.4235H34.1682V31.456H33.0938ZM34.1682 35.3261H35.1682V37.2612H34.1682V35.3261ZM34.1682 40.1639H35.1682V42.0989H34.1682V40.1639ZM34.1682 45.0016H35.1682V46.9367H34.1682V45.0016ZM34.1682 49.8393H35.1682V51.7744H34.1682V49.8393ZM34.1682 54.677H35.1682V56.6121H34.1682V54.677ZM34.1682 59.5147H35.1682V61.4498H34.1682V59.5147ZM34.1682 64.3524H35.1682V66.32H33.2298V65.32H34.1682V64.3524ZM2.26262 65.32H1.32422V64.3699H0.324219V66.32H2.26262V65.32ZM1.32422 33.018V32.068C1.32422 31.7401 1.32836 31.4146 1.33662 31.0917L0.336949 31.0661C0.328471 31.3977 0.324219 31.7317 0.324219 32.068V33.018H1.32422ZM1.52758 28.1902L0.533332 28.0832C0.605676 27.4115 0.696618 26.7507 0.80589 26.101L1.79204 26.2669C1.68611 26.8967 1.59785 27.5379 1.52758 28.1902ZM2.40926 23.4257L1.44354 23.1661C1.61925 22.5124 1.81516 21.8715 2.03092 21.2437L2.97663 21.5687C2.76838 22.1746 2.57913 22.7937 2.40926 23.4257ZM4.06786 18.8727L3.16274 18.4476C3.45008 17.8358 3.75829 17.2388 4.08689 16.6567L4.95772 17.1483C4.64143 17.7086 4.34466 18.2834 4.06786 18.8727ZM6.52946 14.7008L5.72024 14.1133C6.11544 13.569 6.53077 13.0406 6.96571 12.5283L7.72803 13.1755C7.30939 13.6686 6.90971 14.1771 6.52946 14.7008ZM9.73198 11.0669L9.04636 10.339C9.53291 9.88072 10.0377 9.43861 10.5601 9.01276L11.1919 9.78787C10.6877 10.1989 10.2009 10.6253 9.73198 11.0669ZM13.5382 8.06821L12.9882 7.23301C13.5425 6.86807 14.1124 6.51855 14.6975 6.18452L15.1932 7.05296C14.6262 7.37669 14.0744 7.71515 13.5382 8.06821ZM17.7816 5.7257L17.3645 4.81684C17.9638 4.5418 18.5763 4.28095 19.2015 4.03437L19.5684 4.96464C18.9597 5.20469 18.364 5.45841 17.7816 5.7257ZM22.3119 4.00226L22.0161 3.04702C22.6427 2.85299 23.2802 2.67182 23.9283 2.50359L24.1795 3.47151C23.546 3.63595 22.9234 3.8129 22.3119 4.00226ZM27.0167 2.83267L26.8278 1.85067C27.4692 1.7273 28.1197 1.61556 28.779 1.51549L28.9291 2.50417C28.2825 2.60231 27.6449 2.71184 27.0167 2.83267ZM31.8214 2.14706L31.7257 1.15166C32.3743 1.08927 33.0304 1.03742 33.694 0.99617L33.756 1.99424C33.1035 2.03481 32.4586 2.08577 31.8214 2.14706ZM1.32422 35.8682H0.324219V37.7683H1.32422V35.8682ZM1.32422 40.6185H0.324219V42.5186H1.32422V40.6185ZM1.32422 45.3688H0.324219V47.2689H1.32422V45.3688ZM1.32422 50.1191H0.324219V52.0192H1.32422V50.1191ZM1.32422 54.8693H0.324219V56.7695H1.32422V54.8693ZM1.32422 59.6196H0.324219V61.5197H1.32422V59.6196ZM5.07782 65.32V66.32H6.95462V65.32H5.07782ZM9.76982 65.32V66.32H11.6466V65.32H9.76982ZM14.4618 65.32V66.32H16.3386V65.32H14.4618ZM19.1538 65.32V66.32H21.0306V65.32H19.1538ZM23.8458 65.32V66.32H25.7226V65.32H23.8458ZM28.5378 65.32V66.32H30.4146V65.32H28.5378ZM29.8706 31.456V30.456H27.7218V31.456H29.8706ZM24.4986 31.456V30.456H22.3498V31.456H24.4986ZM19.1266 31.456V30.456H19.0522V30.232C19.0522 29.9199 19.0583 29.6115 19.0707 29.3069L18.0715 29.2665C18.0586 29.585 18.0522 29.9069 18.0522 30.232V31.456H19.1266ZM18.3866 26.3902L19.3698 26.5729C19.4826 25.9657 19.626 25.3789 19.801 24.8135L18.8456 24.5179C18.6586 25.1225 18.5061 25.7472 18.3866 26.3902ZM19.9713 21.8558L20.8461 22.3402C21.1338 21.8206 21.4582 21.3252 21.8209 20.8551L21.0292 20.2442C20.6349 20.7552 20.2829 21.2931 19.9713 21.8558ZM23.0441 18.1737L23.678 18.9471C24.1264 18.5796 24.6124 18.2344 25.1381 17.9132L24.6167 17.0598C24.0528 17.4044 23.5291 17.7762 23.0441 18.1737ZM27.2095 15.7836L27.5739 16.7149C28.1213 16.5007 28.7003 16.3058 29.3119 16.1316L29.038 15.1698C28.3973 15.3523 27.7881 15.5572 27.2095 15.7836ZM31.8642 14.5467L32.025 15.5337C32.6187 15.4369 33.2366 15.3562 33.8794 15.2924L33.7806 14.2973C33.1181 14.3631 32.4795 14.4464 31.8642 14.5467ZM36.6663 14.1266C36.9849 14.1195 37.3082 14.116 37.6362 14.116V12.892H38.6362V15.116H37.6362C37.3154 15.116 36.9995 15.1194 36.6884 15.1263L36.6663 14.1266ZM37.6362 9.21998H38.6362V6.77198H37.6362V9.21998ZM37.6362 3.09998H38.6362V0.875977H37.6362C37.3044 0.875977 36.9742 0.878437 36.6456 0.883354L36.6605 1.87598H36.6362V1.88361C36.6443 1.88349 36.6525 1.88336 36.6606 1.88324C36.8187 1.88087 36.9773 1.87909 37.1362 1.87788C37.3025 1.87661 37.4691 1.87598 37.6362 1.87598V3.09998ZM84.1074 31.456V30.456H86.1682V32.4235H85.1682V31.456H84.1074ZM85.1682 35.3261H86.1682V37.2612H85.1682V35.3261ZM85.1682 40.1639H86.1682V42.0989H85.1682V40.1639ZM85.1682 45.0016H86.1682V46.9367H85.1682V45.0016ZM85.1682 49.8393H86.1682V51.7744H85.1682V49.8393ZM85.1682 54.677H86.1682V56.6121H85.1682V54.677ZM85.1682 59.5147H86.1682V61.4498H85.1682V59.5147ZM85.1682 64.3524H86.1682V66.32H84.2298V65.32H85.1682V64.3524ZM53.2626 65.32H52.3242V64.3699H51.3242V66.32H53.2626V65.32ZM52.3242 33.018V32.068C52.3242 31.7401 52.3284 31.4146 52.3366 31.0917L51.337 31.0661C51.3285 31.3977 51.3242 31.7317 51.3242 32.068V33.018H52.3242ZM52.5276 28.1902L51.5333 28.0832C51.6057 27.4115 51.6966 26.7507 51.8059 26.101L52.792 26.2669C52.6861 26.8967 52.5979 27.5379 52.5276 28.1902ZM53.4093 23.4257L52.4435 23.1661C52.6193 22.5124 52.8152 21.8715 53.0309 21.2437L53.9766 21.5687C53.7684 22.1746 53.5791 22.7937 53.4093 23.4257ZM55.0679 18.8727L54.1627 18.4476C54.4501 17.8358 54.7583 17.2388 55.0869 16.6567L55.9577 17.1483C55.6414 17.7086 55.3447 18.2834 55.0679 18.8727ZM57.5295 14.7008L56.7202 14.1133C57.1154 13.569 57.5308 13.0406 57.9657 12.5283L58.728 13.1755C58.3094 13.6686 57.9097 14.1771 57.5295 14.7008ZM60.732 11.0669L60.0464 10.339C60.5329 9.88072 61.0377 9.43861 61.5601 9.01276L62.1919 9.78787C61.6877 10.1989 61.2009 10.6253 60.732 11.0669ZM64.5382 8.06821L63.9882 7.23301C64.5425 6.86807 65.1124 6.51855 65.6975 6.18452L66.1933 7.05296C65.6262 7.37669 65.0744 7.71515 64.5382 8.06821ZM68.7816 5.7257L68.3645 4.81684C68.9638 4.5418 69.5763 4.28095 70.2015 4.03437L70.5684 4.96464C69.9597 5.20469 69.364 5.45841 68.7816 5.7257ZM73.3119 4.00226L73.0161 3.04702C73.6427 2.85299 74.2802 2.67182 74.9283 2.50359L75.1795 3.47151C74.546 3.63595 73.9234 3.8129 73.3119 4.00226ZM78.0167 2.83267L77.8278 1.85067C78.4692 1.7273 79.1197 1.61556 79.779 1.51549L79.9291 2.50417C79.2825 2.60231 78.6449 2.71184 78.0167 2.83267ZM82.8214 2.14706L82.7257 1.15166C83.3743 1.08927 84.0304 1.03742 84.694 0.99617L84.756 1.99424C84.1035 2.03481 83.4586 2.08577 82.8214 2.14706ZM52.3242 35.8682H51.3242V37.7683H52.3242V35.8682ZM52.3242 40.6185H51.3242V42.5186H52.3242V40.6185ZM52.3242 45.3688H51.3242V47.2689H52.3242V45.3688ZM52.3242 50.1191H51.3242V52.0192H52.3242V50.1191ZM52.3242 54.8693H51.3242V56.7695H52.3242V54.8693ZM52.3242 59.6196H51.3242V61.5197H52.3242V59.6196ZM56.0778 65.32V66.32H57.9546V65.32H56.0778ZM60.7698 65.32V66.32H62.6466V65.32H60.7698ZM65.4618 65.32V66.32H67.3386V65.32H65.4618ZM70.1538 65.32V66.32H72.0306V65.32H70.1538ZM74.8458 65.32V66.32H76.7226V65.32H74.8458ZM79.5378 65.32V66.32H81.4146V65.32H79.5378ZM80.925 31.456V30.456H78.8034V31.456H80.925ZM75.621 31.456V30.456H73.4994V31.456H75.621ZM70.317 31.456V30.456H70.2562V30.232C70.2562 29.9209 70.2621 29.6135 70.2738 29.3098L69.2746 29.271C69.2623 29.5881 69.2562 29.9085 69.2562 30.232V31.456H70.317ZM69.5764 26.4068L70.5607 26.583C70.6693 25.9768 70.8074 25.3908 70.9763 24.8263L70.0183 24.5397C69.8379 25.1427 69.6911 25.7657 69.5764 26.4068ZM71.11 21.8782L71.9904 22.3523C72.271 21.8313 72.5878 21.3348 72.9427 20.8638L72.144 20.262C71.7579 20.7745 71.4139 21.3139 71.11 21.8782ZM74.1282 18.1813L74.7686 18.9493C75.211 18.5804 75.6913 18.2339 76.2118 17.9117L75.6853 17.0615C75.1261 17.4077 74.6076 17.7815 74.1282 18.1813ZM78.2604 15.7806L78.6273 16.7108C79.1704 16.4966 79.7456 16.3018 80.3541 16.1276L80.079 15.1662C79.441 15.3488 78.8352 15.5539 78.2604 15.7806ZM82.8912 14.5443L83.0522 15.5312C83.6426 15.4349 84.2575 15.3546 84.8977 15.2911L84.799 14.296C84.139 14.3614 83.5033 14.4444 82.8912 14.5443ZM87.6707 14.1265C87.9877 14.1195 88.3096 14.116 88.6362 14.116V12.892H89.6362V15.116H88.6362C88.3168 15.116 88.0023 15.1194 87.6927 15.1263L87.6707 14.1265ZM88.6362 9.21998H89.6362V6.77198H88.6362V9.21998ZM88.6362 3.09998H89.6362V0.875977H88.6362C88.3044 0.875977 87.9742 0.878437 87.6456 0.883354L87.6605 1.87598H87.6362V1.88361C87.6443 1.88349 87.6525 1.88336 87.6606 1.88324C87.8187 1.88087 87.9773 1.87909 88.1362 1.87788C88.3025 1.87661 88.4691 1.87598 88.6362 1.87598V3.09998Z" fill="url(#paint0_linear_3776_2939)" />
-                                        </g>
-                                        <defs>
-                                            <linearGradient id="paint0_linear_3776_2939" x1="0.324219" y1="0.875977" x2="53.5793" y2="3.6836" gradientUnits="userSpaceOnUse">
-                                                <stop />
-                                                <stop offset="1" stop-color="#24A148" />
-                                            </linearGradient>
-                                            <clipPath id="clip0_3776_2939">
-                                                <rect width="90" height="67" fill="white" />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </div>
-                                <div key={index} className={styles.FeedbackBody}>
-                                    <p className={styles.FeedbackDesc}>{feedback.feedback_text}</p>
-                                    <div className={styles.FeedbackUser}>
-                                        <Image
-                                            className={`${styles.userFeedback}`}
-                                            src={feedback.avatar}
-                                            alt="Hình đại diện người dùng"
-                                            width={50}
-                                            height={50}
-                                        />
-                                        <div className={styles.FeedbackContent}>
-                                            <h4 className={styles.userNameFeedback}>{feedback.fullname}</h4>
-                                            <p className={styles.userOfCourse}>Người học khóa {course.name_course}</p>
+                        {feedbacks && Array.isArray(feedbacks) && feedbacks.length > 0 ? (
+                            feedbacks.map((feedback, index) => (
+                                <Col key={index} md={6} className={styles.FeedbackItem}>
+                                    <div className={styles.iconFeedback}>
+                                        <IconFeedback />
+                                    </div>
+                                    <div className={styles.FeedbackBody}>
+                                        <p className={styles.FeedbackDesc}>
+                                            {feedback.feedback_text || "Phản hồi chưa có nội dung."}
+                                        </p>
+                                        <div className={styles.FeedbackUser}>
+                                            <Image
+                                                className={styles.userFeedback}
+                                                src={feedback.avatar || "/default-avatar.png"}
+                                                alt="Hình đại diện người dùng"
+                                                width={50}
+                                                height={50}
+                                            />
+                                            <div className={styles.FeedbackContent}>
+                                                <h4 className={styles.userNameFeedback}>
+                                                    {feedback.fullname || "Người dùng ẩn danh"}
+                                                </h4>
+                                                <p className={styles.userOfCourse}>
+                                                    Người học khóa {course?.name_course || "không xác định"}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </Col>
-                        ))) : ("")}
+                                </Col>
+                            ))
+                        ) : (
+                            <p className={styles.noFeedback}>Chưa có phản hồi nào.</p>
+                        )}
+
+
 
                     </Row>
 

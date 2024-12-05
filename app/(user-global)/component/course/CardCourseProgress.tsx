@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 // import Image from 'next/image';
-import { Card, Col, Image } from 'react-bootstrap';// Component vòng tròn tiến độ
-import styles from '@public/styles/globalControl/CourseCard.module.css'; // CSS module
+import { Card, Col, Image } from 'react-bootstrap';
+import ProgressCircle from './ProgressCircle'; // Component vòng tròn tiến độ
+import styles from '@public/styles/globalControl/CourseCard.module.css';// CSS module
 
 interface CourseCardProps {
     course: {
@@ -10,6 +11,7 @@ interface CourseCardProps {
         name_course: string;
         rating_course: number;
         views_course: number;
+        progress_percentage: number;
         instructor_avatar: string;
         num_chapter: number;
         num_document: number;
@@ -25,7 +27,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
     };
 
     return (
-        <Col xs={12} sm={6} md={4} lg={3} className={styles.mainBox} key={course.id}>
+        <Col md={3} className={styles.mainBox} key={course.id}>
             <Card className={styles.mainBox__content}>
                 <Card.Header className={styles.headerContent}>
                     <section className={styles.headerContent__text}>
@@ -41,26 +43,28 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                 </Card.Header>
                 <Card.Body className={styles.mainContent}>
                     <section className={styles.mainContent__headContent}>
-                        <div className={styles.headContent__evaluete}>
-                            <div className={styles.evaluete__main}>
-                                <div className={styles.starGroup}>
-                                    {/* Star rating */}
-                                    {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                        <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                    ))}
+                        <div className={styles.topHeader}>
+                            <div className={`${styles.headContent__evaluete} ${styles.headContent__evalueteFor}`}>
+                                <div className={styles.evaluete__main}>
+                                    <div className={styles.starGroup}>
+                                        {/* Star rating */}
+                                        {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
+                                            <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
+                                        ))}
+
+                                    </div>
+                                    <Card.Text className={styles.starNumber}>
+                                        {'('} {course.rating_course} {')'}
+                                    </Card.Text>
                                 </div>
-                                <Card.Text className={styles.starNumber}>
-                                    {'('} {course.rating_course} {')'}
-                                </Card.Text>
+                                <div className={styles.headContent__percent}>
+                                    <Card.Text className={styles.evaluete__note}>
+                                        {'('} {course.views_course} phản hồi {')'}
+                                    </Card.Text>
+                                </div>
                             </div>
                         </div>
-                        <div className={styles.headContent__percent}>
-                            <Card.Text className={styles.evaluete__note}>
-                                {'('} {course.views_course} phản hồi {')'}
-                            </Card.Text>
-                        </div>
-
-
+                        <ProgressCircle progress={course.progress_percentage} />
                     </section>
                     <section className={styles.bodyContent}>
                         <div className={styles.bodyContent__element}>

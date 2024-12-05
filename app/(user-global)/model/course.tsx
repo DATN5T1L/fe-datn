@@ -5,16 +5,14 @@ export class Course {
     img_course: string;
     price_course: number;
     discount_price_course?: number;
-    status_course: 'active' | 'inactive' | 'archived';
     views_course: number;
     rating_course: number; // Chuyển đổi thành kiểu number
-    num_lesson: number; // Thêm thuộc tính num_lesson
-    tax_rate: number; // Chuyển đổi thành kiểu number
     del_flag: boolean;
     created_at: Date;
     updated_at?: Date;
     num_chapter: number; // Thêm thuộc tính chapters_count
-    num_document: number; // Thêm thuộc tính documents_count
+    num_document: number;
+    instructor_avatar: string; // Thêm thuộc tính documents_count
     instructor_id: string;
 
     constructor(
@@ -23,15 +21,13 @@ export class Course {
         img_course: string,
         price_course: number,
         instructor_id: string,
+        instructor_avatar: string,
         discount_price_course?: number,
-        status_course: 'active' | 'inactive' | 'archived' = 'active',
         views_course: number = 0,
         rating_course: number = 0,
-        tax_rate: number = 0,
         del_flag: boolean = false,
         created_at: Date = new Date(),
         updated_at?: Date,
-        num_lesson: number = 0,
         num_chapter: number = 0,
         num_document: number = 0
     ) {
@@ -40,21 +36,18 @@ export class Course {
         this.img_course = img_course;
         this.price_course = price_course;
         this.discount_price_course = discount_price_course;
-        this.status_course = status_course;
         this.views_course = views_course;
         this.rating_course = rating_course;
-        this.tax_rate = tax_rate;
         this.del_flag = del_flag;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.instructor_id = instructor_id;
-        this.num_lesson = num_lesson; // Khởi tạo num_lesson
-        this.num_chapter = num_chapter; // Khởi tạo chapters_count
-        this.num_document = num_document; // Khởi tạo documents_count
+        this.instructor_avatar = instructor_avatar;
+        this.num_chapter = num_chapter;
+        this.num_document = num_document;
     }
 
-    // Phương thức để hiển thị thông tin khóa học
     displayInfo() {
-        return `${this.name_course} - Giá: ${this.price_course}$ - Trạng thái: ${this.status_course}`;
+        return `${this.name_course} - Giá: ${this.price_course}$ `;
     }
 }

@@ -1,13 +1,13 @@
+import { useEffect, useRef } from 'react'
 import { Card, Col, Container, Image, Row } from "react-bootstrap";
 import Button from "../globalControl/btnComponent";
-import styles from '@public/styles/home/CoursePro.module.css';
 import styleFor from "@public/styles/course/coursefor.module.css";
 import useSWR from "swr";
+import useCookie from '@app/(user-global)/component/hook/useCookie';
 import { Course } from "@app/(user-global)/model/course";
 import Link from "next/link";
 import ProgressCircle from './ProgressCircle';
-import useCookie from '@app/(user-global)/component/hook/useCookie';
-
+import CourseCard from "../course/CardCourseProgress"
 interface CourseCardProps extends Course {
     progress_percentage: number;
     watchedVideos: number;
@@ -15,7 +15,9 @@ interface CourseCardProps extends Course {
 interface ApiResponseCourse<T> {
     data: T[];
 }
-
+interface CourseForProps {
+    onCoursesLoad: (ids: string[]) => void;
+}
 
 const fetcher = (url: string, token: string | null) => {
     return fetch(url, {
@@ -31,29 +33,28 @@ const fetcher = (url: string, token: string | null) => {
     });
 };
 
-const CourseFor: React.FC = () => {
-    const token = useCookie('token');
+
+const CourseFor: React.FC<CourseForProps> = ({ onCoursesLoad }) => {
+    const token = useCookie("token");
     const { data, error } = useSWR<ApiResponseCourse<CourseCardProps>>(
-        '/api/courseFor', // Đường dẫn API
-        (url) => fetcher(url, token), // Hàm fetcher
+        "/api/courseFor",
+        (url) => fetcher(url, token),
         {
             revalidateOnFocus: false,
             revalidateOnReconnect: false,
         }
     );
-    if (error) <div>Chờ TTO chút nhé! </div>;
-    const courses = Array.isArray(data?.data) ? data.data : [];
-    console.log(courses)
-    const handleClick = (course: CourseCardProps) => {
 
-        const newProgress = {
-            course_id: course.id,
-            course_name: course.name_course,
-            progress_percentage: course.progress_percentage,
-        };
-        // Lưu thông tin khóa học vào localStorage dưới dạng object
-        localStorage.setItem(`progress`, JSON.stringify(newProgress));
-    };
+    const courses = Array.isArray(data?.data) ? data.data : [];
+    const previousCourses = useRef<string[]>([]);
+    useEffect(() => {
+        const courseIds = courses.map((course) => course.id);
+        // Chỉ gọi onCoursesLoad nếu courseIds thay đổi
+        if (courseIds.length > 0 && JSON.stringify(courseIds) !== JSON.stringify(previousCourses.current)) {
+            onCoursesLoad(courseIds);
+            previousCourses.current = courseIds; // Lưu giá trị mới của courseIds
+        }
+    }, [courses, onCoursesLoad]);
 
     return (
         <Container className={styleFor.container}>
@@ -70,75 +71,15 @@ const CourseFor: React.FC = () => {
                 </div>
                 <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Xem tất cả</Button>
             </section>
-            <section className={styleFor.listCard}>
-                <Row className={styleFor.mainCard}>
-                    {courses.map(course => (
 
-                        <Col Col md={4} className={styles.mainBox} key={course.id}>
-                            <Card className={styles.mainBox__content}>
-                                <Card.Header className={styles.headerContent}>
-                                    <section className={styles.headerContent__text}>
-                                        <Link href={`/course/${course.id}`}>
-                                            <Card.Title className={styles.text__hedding2}>
-                                                {course.name_course}
-                                            </Card.Title>
-                                        </Link>
-                                        <Card.Subtitle className={styles.text__hedding3}>
-                                            by My Team
-                                        </Card.Subtitle>
-                                        <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
-                                    </section>
-                                    <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
-                                </Card.Header>
-                                <Card.Body className={styles.mainContent}>
-                                    <section className={styles.mainContent__headContent}>
-                                        <div className={styleFor.topHeader}>
-                                            <div className={`${styles.headContent__evaluete} ${styleFor.headContent__evalueteFor}`}>
-                                                <div className={styles.evaluete__main}>
-                                                    <div className={styles.starGroup}>
-                                                        {/* Star rating */}
-                                                        {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                                            <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                                        ))}
+            <Row className={styleFor.mainCard}>
+                {courses.map((course, index) => (
 
-                                                    </div>
-                                                    <Card.Text className={styles.starNumber}>
-                                                        {'('} {course.rating_course} {')'}
-                                                    </Card.Text>
-                                                </div>
-                                                <div className={styles.headContent__percent}>
-                                                    <Card.Text className={styles.evaluete__note}>
-                                                        {'('} {course.views_course} phản hồi {')'}
-                                                    </Card.Text>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <ProgressCircle progress={course.progress_percentage} />
-                                    </section>
-                                    <section className={styles.bodyContent}>
-                                        <div className={styles.bodyContent__element}>
-                                            <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                            <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
-                                        </div>
-                                        <div className={styles.bodyContent__element}>
-                                            <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                            <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
-                                        </div>
-                                        <div className={styles.bodyContent__element} >
-                                            <Link href={`/learningCourse/${course.id}`} className={styleFor.linkCta} onClick={() => handleClick(course)}>
-                                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                                <Card.Text className={styles.element__text}>Học ngay</Card.Text>
-                                            </Link>
-                                        </div>
-                                    </section>
+                    <CourseCard course={course} key={index} showProgress={true} />
+                ))
+                }
+            </Row >
 
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))
-                    }
-                </Row >
-            </section >
         </Container >
     );
 };

@@ -104,7 +104,7 @@ const nextConfig = {
       },
       {
         source: '/api/user/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/users/:path*',
       },
       // Image rewrites
       {
@@ -404,6 +404,13 @@ const nextConfig = {
         source: '/api/addGoogleSheet/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/google-sheets/add/:path*',
       },
+
+      // Khóa học yêu thích
+      {
+        source: '/api/favoriteCourses/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/favorite-courses/:path*',
+      },
+
 
     ];
 

@@ -13,10 +13,6 @@
     position: relative;
 }
 
-/* .evaluete__main {
-    display: flex;
-    flex-direction: column;
-} */
 
 .container::before {
     content: "";
@@ -43,7 +39,6 @@
 /* test */
 .main {
     max-width: 1200px;
-    padding: 0px 32px;
     width: 100%;
     color: var(--text-text-m, #000);
     position: relative;
@@ -76,7 +71,6 @@
     margin: 0;
     gap: 16px;
     height: auto;
-    padding: 18px 32px 0px 32px;
 }
 
 .cta {
@@ -85,7 +79,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 32px;
 }
 
 .ctaLeft {
@@ -95,13 +88,7 @@
     gap: 32px;
 }
 
-.listCard {
-    border-radius: 12px;
-    background: linear-gradient(0deg, #DDF8FC 0%, #FFF 100%);
-    /* 2 */
-    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.15);
-    padding-bottom: 32px;
-}
+
 
 .bg {
     width: 1920px;
@@ -109,31 +96,6 @@
     top: 22%;
 }
 
-.progress-container {
-    text-align: center;
-    font-family: Arial, sans-serif;
-}
-
-.progress-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: conic-gradient(#2196f3 calc(40% * 3.6deg),
-            /* Màu tiến độ */
-            #ddd 0deg
-            /* Màu nền */
-        );
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
-.progress-text {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
 
 .topHeader {
     display: flex;
@@ -151,4 +113,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.mainCard {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0;
+    height: auto;
+    background: linear-gradient(189deg, #F5FEFF 6.2%, #77E4F2 93.57%);
+    box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
 }

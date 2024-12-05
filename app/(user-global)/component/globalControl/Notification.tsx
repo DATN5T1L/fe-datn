@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from '@public/styles/globalControl/Notification.module.css';
 
-import { IconX } from "@app/(user-global)/component/icon/icons"
+import { IconXNoneFill } from "@app/(user-global)/component/icon/icons"
 
 const Notification: React.FC<NotificationProps> = ({ type, message, position = 'bottom-right' }) => {
     const [visible, setVisible] = useState(true);
@@ -98,7 +98,7 @@ const Notification: React.FC<NotificationProps> = ({ type, message, position = '
                 </div>
 
                 <div className={styles.IconCancel} onClick={handleTurnOff}>
-                    <IconX />
+                    <IconXNoneFill />
                 </div>
             </div>
         ) : null

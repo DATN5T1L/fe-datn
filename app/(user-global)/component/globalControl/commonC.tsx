@@ -1,5 +1,27 @@
 //hàm chuyển đỏi ngày giờ
 import { useEffect } from "react";
+// HoverElement.tsx
+import React from 'react';
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+
+interface HoverElementProps {
+    name: string; // Tên phần tử cần hiển thị
+    children: React.ReactNode; // Phần tử con (nội dung của phần tử)
+}
+
+const ShowNameElement: React.FC<HoverElementProps> = ({ name, children }) => {
+    return (
+        <Tippy content={name} placement="top" arrow={true}>
+            <div style={{ display: 'inline-block', cursor: 'pointer' }}>
+                {children}
+            </div>
+        </Tippy>
+    );
+};
+
+
+
 const formatDateTime = (datetimeStr: string): string => {
     const date = new Date(datetimeStr);
     // Lấy các thành phần ngày, tháng, năm, giờ, phút
@@ -107,4 +129,4 @@ const useEscapeKey = (onEsc: () => void): void => {
     }, [onEsc]); // Chỉ re-run effect khi `onEsc` thay đổi
 };
 
-export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey };
+export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement };
