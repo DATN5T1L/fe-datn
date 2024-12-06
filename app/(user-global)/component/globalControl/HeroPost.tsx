@@ -1,7 +1,13 @@
 "use client";
 
 import styles from "@public/styles/post/HeroPost.module.css";
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image, Card } from 'react-bootstrap';
+import PostTTO from "../LinePostOnePostTTO";
+import ListPostTTO from "../ListPostTTO";
+import ListPostLeftTTO from "../LinePostTwoPostTTO"
+import LinePostOnePostTTO from "../LinePostOnePostTTO";
+import LinePostTwoPostTTO from "../LinePostTwoPostTTO";
+import ListSingle from "../ListSingle";
 
 const HeroPost: React.FC = () => {
     return (
@@ -34,10 +40,24 @@ const HeroPost: React.FC = () => {
                         <figcaption className={styles.descImg}><span className={styles.content}>Xu hướng công nghệ</span></figcaption>
                     </figure>
                 </Col>
-            </Row>   {/* postMain  */}
-            <h3 className={styles.title2}>
-                Cùng xem qua những bài viết nổi bật của TTO
-            </h3>
+            </Row>
+            <div>
+                <h3 className={styles.title2}>
+                    Cùng xem qua những bài viết nổi bật của TTO
+                </h3>
+                <LinePostOnePostTTO />
+                <LinePostTwoPostTTO />
+
+
+                <h3 className={styles.title2}>
+                    Danh sách bài bài viết có lượt xem cao nhất
+                </h3>
+
+                <ListSingle />
+
+                <LinePostOnePostTTO />
+            </div>
+
         </Container>
     )
 }
