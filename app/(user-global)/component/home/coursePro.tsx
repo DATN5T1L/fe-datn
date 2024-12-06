@@ -1,25 +1,22 @@
-"use client"
+'use client'
 import { Card, Col, Container, Image, Row } from "react-bootstrap";
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from "../globalControl/btnComponent";
 import styles from '@public/styles/home/CoursePro.module.css';
 import useSWR from 'swr';
 import { Course } from "@/app/(user-global)/model/course";
-import Link from "next/link";
-import ReactLoading from 'react-loading';
 import CourseCard from "../course/CardCourse";
-
+import ReactLoading from 'react-loading';
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CoursePro: React.FC = () => {
-
-    const [routerId, setRouterId] = useState<number | string>(8)
-    const [cache, setCache] = useState<Record<number | string, Course[]>>({});
-    const [courses, setCourses] = useState<Course[]>([]);
-    const [isCount, setIsCount] = useState(false)
+    const [router, setRouter] = useState<string>("FE"); // Lộ trình mặc định là FE
+    const [limit, setLimit] = useState<number>(8);
+    const [isCount, setIsCount] = useState(false);
+    const [selectedPath, setSelectedPath] = useState<string>("FE"); // Để hiển thị nút nào được chọn
 
     const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
-        `/api/coursetype/pro/${routerId}`,
+        `/api/coursetype/pro/${router}/${limit}`,
         fetcher,
         {
             revalidateOnFocus: true,
@@ -27,44 +24,18 @@ const CoursePro: React.FC = () => {
             revalidateIfStale: false
         }
     );
-    useEffect(() => {
-        if (data?.data && !cache[routerId]) {
-            setCache(prevCache => ({ ...prevCache, [routerId]: data.data }));
-        }
-    }, [data, routerId, cache]);
 
-    const handleCount = useCallback((count: number | string) => {
-        if (count !== routerId) {
-            setRouterId(count);
-            setCourses(cache[count] || []);
-        }
-    }, [routerId, cache]);
+    const courses = Array.isArray(data?.data) ? data.data : [];
 
-    const handleCountAll = useCallback(() => {
-        setIsCount(prevState => {
-            const newState = !prevState;
-            if (newState) {
-                setRouterId('');
-                const allCourses = Object.values(cache).flat();
-                setCourses(allCourses);
-            } else {
-                setRouterId(8);
-                setCourses(cache[8]?.slice(0, 4) || []);
-            }
-            return newState;
-        });
-    }, [cache]);
+    const handlePathChange = (path: string) => {
+        setRouter(path);
+        setSelectedPath(path);
+    };
 
-
-    useEffect(() => {
-        console.log('Cache:', cache[routerId]);
-        console.log('Data from API:', data?.data);
-        if (cache[routerId]) {
-            setCourses(cache[routerId]);
-        } else if (data?.data) {
-            setCourses(data.data);
-        }
-    }, [data, routerId, cache]);
+    const handleCountAll = () => {
+        setIsCount(!isCount);
+        setLimit(isCount ? 8 : 20); // Hiển thị 8 khóa học hoặc toàn bộ
+    };
 
     if (error) return <div>Error loading courses</div>;
 
@@ -95,24 +66,81 @@ const CoursePro: React.FC = () => {
 
             <Row className={styles.nav}>
                 <Col className={styles.nav__btn__muti}>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handleCount(1)}>Khóa học lộ trình FE</Button>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handleCount(2)}>Khóa học lộ trình BE</Button>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} height={40} onClick={() => handleCount(3)}>Khóa học lộ trình Tester</Button>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} height={40} onClick={() => handleCount(4)}>Khóa học lộ trình Designer</Button>
+                    <Button
+                        type={"premary"} // Đổi màu nếu nút được chọn
+                        status="hover"
+                        size="S"
+                        leftIcon={false}
+                        rightIcon={false}
+                        height={40}
+                        onClick={() => handlePathChange("FE")}
+                    >
+                        Khóa học lộ trình FE
+                    </Button>
+                    <Button
+                        type={"premary"}
+                        status="hover"
+                        size="S"
+                        leftIcon={false}
+                        rightIcon={false}
+                        height={40}
+                        onClick={() => handlePathChange("BE")}
+                    >
+                        Khóa học lộ trình BE
+                    </Button>
+                    <Button
+                        type={"premary"}
+                        status="hover"
+                        size="S"
+                        leftIcon={false}
+                        rightIcon={false}
+                        width={225}
+                        height={40}
+                        onClick={() => handlePathChange("Tester")}
+                    >
+                        Khóa học lộ trình Tester
+                    </Button>
+                    <Button
+                        type={"premary"}
+                        status="hover"
+                        size="S"
+                        leftIcon={false}
+                        rightIcon={false}
+                        width={245}
+                        height={40}
+                        onClick={() => handlePathChange("Designer")}
+                    >
+                        Khóa học lộ trình Designer
+                    </Button>
                 </Col>
                 <Col className={styles.nav__btn__single}>
-                    <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={isCount ? 3 : 4} width={145} height={40} onClick={() => handleCountAll()}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
+                    <Button
+                        type="secondery"
+                        status="hover"
+                        size="S"
+                        leftIcon={false}
+                        rightIcon={true}
+                        width={145}
+                        height={40}
+                        onClick={handleCountAll}
+                    >
+                        {isCount ? 'Ẩn bớt' : 'Xem thêm'}
+                    </Button>
                 </Col>
             </Row>
 
             <Row className={styles.main__course}>
-                {/* {isValidating && (<ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={styles.align} />)} */}
-                {courses?.map((course, index) => (
+                {isValidating && (
+                    <div className={styles.loading}>
+                        <ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={50} width={50} />
+                    </div>
+                )}
+                {courses.map((course, index) => (
                     <CourseCard course={course} key={index} showProgress={false} />
                 ))}
             </Row>
-        </Container >
+        </Container>
     );
-}
+};
 
 export default CoursePro;
