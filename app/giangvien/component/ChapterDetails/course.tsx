@@ -169,16 +169,16 @@ const Course: React.FC<CourseProps> = ({ data }) => {
                   <div
                     className={`justify-content-between border d-flex py-2 rounded`}
                   >
-                    <Link href="/giangvien/CoursePage/CourseVideoDetail" className="w-50 border-end">
+                    <Link href={`/giangvien/CoursePage/CourseVideoDetail?id=${item.id}&name=${item.name_course}`} className="w-50 border-end">
                       <img src="/img_admin/action1.svg" alt="Edit" />
                     </Link>
-                    <Link href="/giangvien/CoursePage/CourseFQA" className="w-50 border-end">
+                    <Link href={`/giangvien/CoursePage/CourseFQA?id=${item.id}`} className="w-50 border-end">
                       <img src="/img_admin/hoicham.svg" alt="Edit" />
                     </Link>
                     <Link href={`/giangvien/ChapterPage/ManagerChapter?id=${item.id}&name=${item.name_course}`} className="w-50 border-end">
                       <img src="/img_admin/vitien.svg" alt="Edit" />
                     </Link>
-                    <Link href="/giangvien/CoursePage/CourseEdit" className="w-50">
+                    <Link href={`/giangvien/CoursePage/CourseEdit?id=${item.id}`} className="w-50">
                       <img src="/img_admin/action2.svg" alt="Edit" />
                     </Link>
                   </div>

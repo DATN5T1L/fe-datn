@@ -9,8 +9,6 @@
 
 }
 
-
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -38,7 +36,6 @@
 }
 
 .filter_bar {
-
   padding-top: 32px;
 }
 

@@ -901,7 +901,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data 
                   <span>24.24</span>
                 </div>
               </div>
-            </Button>x xx
+            </Button>
           </Stack>
         </Accordion.Body>
       </Accordion.Item>

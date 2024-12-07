@@ -1,11 +1,11 @@
 "use client";
 import { Button } from "react-bootstrap";
-import h from "./chapterEdit.module.css";
+import h from "./chapterAdd.module.css";
+import { useFormik } from "formik";
+import * as Yup from 'yup'
 import { useRouter, useSearchParams } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import { useEffect, useState } from "react";
-import * as Yup from 'yup'
-import { useFormik } from "formik";
 
 interface CountCourse {
   success: boolean;
@@ -21,7 +21,7 @@ interface Chapter {
   del_flag: boolean;
   id: string;
   name_chapter: string;
-  serial_chapter: string | number;
+  serial_chapter: number;
   updated_at: string;
 }
 interface ApiResponse<T> {
@@ -31,13 +31,9 @@ interface ApiResponse<T> {
 }
 
 
-const ChapterEdit: React.FC = () => {
-
+const ChapterAddManager: React.FC = () => {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
-  const idChapter = searchParams.get('idChapter')
-  const stt = searchParams.get('stt')
-  const sttNumber = stt !== null ? parseInt(stt, 10) : null
   const token = useCookie('token')
   const [countCourse, setCountCourse] = useState<CountCourse | null>(null)
   const [sttChapter, setSttChapter] = useState<ApiResponse<Chapter> | null>(null)
@@ -62,12 +58,13 @@ const ChapterEdit: React.FC = () => {
       })
         .then(res => res.json())
         .then(data => {
+          console.log(data);
           if (data) {
             setSttChapter(data)
           }
         })
         .catch(error => {
-          console.error('có lỗi xảy ra', error);
+          console.error('có lỗi xảy ra');
         })
     }
   }, [token, id])
@@ -82,6 +79,7 @@ const ChapterEdit: React.FC = () => {
       })
         .then(res => res.json())
         .then(data => {
+          console.log(data);
           if (data) {
             setCountCourse(data)
           }
@@ -92,31 +90,6 @@ const ChapterEdit: React.FC = () => {
     }
   }, [id, token])
 
-  useEffect(() => {
-    if (token && idChapter && sttNumber && id) {
-      fetch(`/api/allChapterNotCourse/${idChapter}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log('Data chapter:', data);
-          if (data) {
-            formik.setValues({
-              name_chapter: data.data.name_chapter || "",
-              course_id: data.data.course_id || id,
-              serial_chapter: data.data.serial_chapter || 0,
-            });
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        })
-    }
-  }, [idChapter, token])
-
   const formik = useFormik({
     initialValues: {
       name_chapter: '',
@@ -125,34 +98,40 @@ const ChapterEdit: React.FC = () => {
     },
     validationSchema,
     onSubmit: async (values) => {
-      if (token && id) {
-        try {
-          if (confirm('Bạn có muốn sửa chương hay không?')) {
-            const res = await fetch(`/api/allChapterNotCourse/${idChapter}`, {
-              method: 'PUT',
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                course_id: values.course_id,
-                name_chapter: values.name_chapter,
-                serial_chapter: values.serial_chapter,
+      if (sttChapter?.data?.map((item) => item.serial_chapter).includes(values.serial_chapter)) {
+        alert('Không được trùng số thứ tự')
+        return
+      }
+      else {
+        if (token && id) {
+          try {
+            if (confirm('Bạn có muốn thêm chương hay không?')) {
+              const res = await fetch(`/api/allChapterNotCourse/`, {
+                method: 'POST',
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  course_id: values.course_id,
+                  name_chapter: values.name_chapter,
+                  serial_chapter: values.serial_chapter,
+                })
               })
-            })
-            if (!res.ok) {
-              const errorData = await res.json();
-              console.error('Server error:', errorData);
-              alert('Đã có lỗi xảy ra từ phía server. Vui lòng thử lại sau!');
-            } else {
-              const data = await res.json();
-              console.log('Response data:', data);
-              alert('Sửa chương thành công!!!');
-              router.replace(`/giangvien/CoursePage`)
+              if (!res.ok) {
+                const errorData = await res.json();
+                console.error('Server error:', errorData);
+                alert('Đã có lỗi xảy ra từ phía server. Vui lòng thử lại sau!');
+              } else {
+                const data = await res.json();
+                console.log('Response data:', data);
+                alert('Thêm chương thành công!!!');
+                router.replace(`/giangvien/CoursePage`)
+              }
             }
+          } catch (error) {
+            console.error('Có lỗi xảy ra:', error);
           }
-        } catch (error) {
-          console.error('Có lỗi xảy ra:', error);
         }
       }
     }
@@ -160,7 +139,7 @@ const ChapterEdit: React.FC = () => {
 
   return (
     <div>
-      <div className={h.header_add}>Sửa chương</div>
+      <div className={h.header_add}>Thêm chương</div>
       <div className={h.body_add}>
         <form
           onSubmit={formik.handleSubmit}
@@ -193,7 +172,7 @@ const ChapterEdit: React.FC = () => {
                 onBlur={formik.handleBlur}
               />
               {formik.errors.serial_chapter && (
-                <div style={{ color: 'red' }}>{formik.errors.serial_chapter}</div>
+                <div  style={{ color: 'red' }}>{formik.errors.serial_chapter}</div>
               )}
             </div>
           </div>
@@ -209,11 +188,11 @@ const ChapterEdit: React.FC = () => {
             <Button
               type="submit"
               className={h.btnthemvao}
-            >Sửa</Button>
+            >Thêm vào</Button>
           </div>
         </form>
       </div>
     </div>
   );
 };
-export default ChapterEdit;
+export default ChapterAddManager;

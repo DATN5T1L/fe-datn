@@ -26,7 +26,7 @@ interface Data<T> {
   data: T[];
 }
 
-const AddMarketingPost = () => {
+const AddMarketingPost: React.FC = () => {
   const token = useCookie('token')
   const [content, setContent] = useState<string>('');
   const [dataCates, setDataCates] = useState<Data<Category> | null>(null)

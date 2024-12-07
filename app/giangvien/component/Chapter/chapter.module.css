@@ -107,6 +107,7 @@
 .formSelect {
   width: fit-content;
   border: none;
+  
 }
 
 .formSelect option {
@@ -152,8 +153,6 @@
   color: #c3c3c3;
   cursor: pointer;
 }
-
-
 
 .table thead tr {
   border: none;
@@ -351,4 +350,18 @@
 .pagination-next:hover {
   background-color: #e9ecef;
   border-radius: 50%;
+}
+
+.filter_bar {
+  padding-top: 32px;
+}
+
+.filter_bar{
+  margin-bottom:20px !important;
+}
+
+.errorCheck{
+  text-align: center;
+  min-height: 10rem;
+  font-size: 32px;
 }

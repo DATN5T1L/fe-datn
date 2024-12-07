@@ -17,11 +17,15 @@ import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 
 interface Document {
-  id: string;
+  document_id: string;
   name_document: string;
   serial_document: number;
   type_document: string;
   updated_at: string;
+  del_flag: boolean;
+  quizs: [{
+    type_question: string;
+  }]
 }
 
 interface ApiResponse<T> {
@@ -68,7 +72,7 @@ const ManagerDocumnet: React.FC = () => {
 
   console.log(documentData);
 
-  const totalPages = Math.ceil((documentData?.data.length || 0) / catePerPage)
+  const totalPages = Math.ceil((documentData?.data?.length || 0) / catePerPage)
   const indexOfLastCate = currentPage * catePerPage;
   const indexOfFirstCate = indexOfLastCate - catePerPage;
   const currentData =
@@ -149,8 +153,69 @@ const ManagerDocumnet: React.FC = () => {
   }, [totalPages, currentPage]);
 
   const handlePushAdd = () => {
-    router.replace('/giangvien/Lesson/LessonAdd')
+    if (id && nameChapter) {
+      router.replace(`/giangvien/Lesson/LessonAdd?id=${id}&name=${nameChapter}`)
+    }
   }
+
+  const handleHidden = async (id: string) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn thay đổi trạng thái của khóa học không?')) {
+        try {
+          const res = await fetch(`/api/documentHidden/${id}`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          const data = await res.json()
+          console.log(data);
+          if (data.status === 'success') {
+            setDocumnetData((newData) => {
+              if (!newData) return newData;
+              return {
+                ...newData,
+                data: newData.data.map((document) =>
+                  document.document_id === id ?
+                    { ...document, del_flag: !document.del_flag }
+                    : document
+                )
+              }
+            })
+            alert('Thay đổi thành công !!!')
+          } else {
+            console.error(data.message);
+          }
+        } catch (error) {
+          console.error(error);
+
+        }
+      }
+    }
+  }
+
+  const loaiTaiLieu = (item: Document) => {
+    if (item.type_document === 'video') {
+      return 'Video';
+    }
+
+    if (item.type_document === 'code') {
+      return 'Code';
+    }
+
+    if (item.type_document === 'quiz') {
+      if (item.quizs[0].type_question === 'fill') {
+        return 'Điền từ';
+      }
+      if (item.quizs[0].type_question === 'true_false') {
+        return 'Đúng sai';
+      }
+      return 'Trắc nghiệm';
+    }
+
+    return 'Không xác định';
+  };
+
   return (
     <div
       className={`${h.main} d-flex flex-column `}
@@ -208,7 +273,9 @@ const ManagerDocumnet: React.FC = () => {
                 </td>
                 <td className="text-lg-center">{item.name_document}</td>
                 <td className="text-center">
-                  <span className={`text-lg-center ${h.active_text1}`}>{item.type_document}</span>
+                  <span className={`text-lg-center ${h.active_text1}`}>
+                    {loaiTaiLieu(item)}
+                  </span>
                 </td>
                 <td className="text-lg-center">{useFormatDate(item.updated_at)}</td>
                 <td className={h.option_button_group}>
@@ -221,27 +288,24 @@ const ManagerDocumnet: React.FC = () => {
                     >
                       <img src="/img/actionDetail.svg" alt="Edit" />
                     </Link>
-                    <Link
-                      href={`ChapterPage?id=${1}`}
-                      as={`ChapterPage/${1}`}
-                      className="w border-end justify-content-center align-item-center d-flex col-4"
-                    >
-                      <img src="/img_admin/action2.svg" alt="Delete" />
-                    </Link>
-                    {/* <Link
-                        href={`ChapterPage?id=${1}`}
-                        as={`ChapterPage/${1}`}
-                        className="w border-end justify-content-center align-item-center d-flex col-3"
+                    {id && nameChapter && (
+                      <Link
+                        href={`/giangvien/Lesson/LessonEdit?id=${id}&name=${nameChapter}&idDoc=${item.document_id}`}
+                        className="w border-end justify-content-center align-item-center d-flex col-4"
                       >
-                        <img src="/img_admin/vitien.svg" alt="Delete" />
-                      </Link> */}
-                    <Link
-                      href={`ChapterPage?id=${1}`}
-                      as={`ChapterPage/${1}`}
+                        <img src="/img_admin/action2.svg" alt="Delete" />
+                      </Link>
+                    )}
+                    <div
+                      onClick={() => handleHidden(item.document_id)}
                       className="w border-end justify-content-center align-item-center d-flex col-4"
                     >
-                      <img src="/img/action.svg" alt="Delete" />
-                    </Link>
+                      {item.del_flag ? (
+                        <img src="/img/action.svg" alt="Delete" />
+                      ) : (
+                        <img src="/img/hiddenEye.svg" alt="Delete" />
+                      )}
+                    </div>
                   </div>
                 </td>
               </tr>

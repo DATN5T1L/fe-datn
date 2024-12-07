@@ -35,7 +35,6 @@
     border-radius: 12px;
     background-color: #FFFFFF;
     color: #438FF7;
-
     margin-top: 12px;
     margin-right: 10px;
 }
@@ -43,7 +42,7 @@
 .wapper {
     background-color: #FFFFFF;
     width: 1137px;
-    height: 812px;
+    height: auto;
     display: flex;
     justify-content: center;
     padding: 32px;
@@ -64,18 +63,15 @@
     border-radius: 10px;
     justify-content: center;
     align-items: center;
-
     display: flex;
 }
 
 .thatep1 {
     display: block;
     text-align: center;
-
 }
 
 .thatep1 img {
-
     width: 48px;
     height: 48px;
 }
@@ -109,15 +105,16 @@
 }
 
 .bentrong {
-    display: block;
+    display: flex;
+    flex-direction: column;
     max-width: 49%;
+    min-width: 49%;
     position: relative;
 }
 
 .selectne {
     position: relative;
     width: 360px;
-
 }
 
 .inputne {
@@ -130,13 +127,9 @@
     margin-bottom: 12px;
     outline: none;
     padding-left: 12px;
-
     appearance: none;
-    /* ẩn mũi tên mặc định */
     -webkit-appearance: none;
-    /* ẩn mũi tên trên Safari */
     align-self: stretch;
-
 }
 
 .custom-file-upload {
@@ -165,11 +158,8 @@
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
-    /* để ảnh không gây cản trở khi bấm vào select */
     width: 16px;
-    /* điều chỉnh kích thước mũi tên */
     height: auto;
-
 }
 
 .inputne1 {
@@ -183,13 +173,8 @@
     outline: none;
     padding-top: 12px;
     padding-left: 12px;
-
     appearance: none;
-    /* ẩn mũi tên mặc định */
     -webkit-appearance: none;
-    /* ẩn mũi tên trên Safari */
-
-
 }
 
 .nutheader {
@@ -270,4 +255,45 @@
 .ckeditor {
     top: 0;
     position: absolute;
+    margin-bottom: 30px;
+}
+
+.btnCode {
+    margin-top: 20px;
+    border-right: 2px solid var(--blue-50);
+    border-top: 2px solid var(--blue-50);
+    border-left: 2px solid var(--blue-50);
+    border-bottom: 1px solid var(--gray-70);
+    padding: 4px 12px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--text-75);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.btnCodeDsb {
+    margin-top: 20px;
+    border-right: 2px solid var(--gray-70);
+    border-top: 2px solid var(--gray-70);
+    border-left: 2px solid var(--gray-70);
+    border-bottom: 1px solid var(--gray-70);
+    padding: 4px 12px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: var(--text-25);
+    background-color: var(--gray-90);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.errorText {
+    position: relative;
+    bottom: 0;
 }

@@ -13,7 +13,7 @@ import h from "./chapter.module.css";
 import Link from "next/link";
 import "./chapter.css";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 
 interface Chapter {
@@ -33,6 +33,7 @@ interface ApiResponse<T> {
 
 const ManagerChapter: React.FC = () => {
   const [chapterData, setChapterData] = useState<ApiResponse<Chapter> | null>(null);
+  const router = useRouter()
   const [loading, setLoading] = useState<boolean>(true);
   const token = useCookie('token');
   const searchParams = useSearchParams()
@@ -40,9 +41,6 @@ const ManagerChapter: React.FC = () => {
   const nameCourse = searchParams.get('name')
   const [currentPage, setCurrentPage] = useState(1)
   const catePerPage = 5;
-
-  console.log(id);
-
 
   useEffect(() => {
     if (token && id) {
@@ -149,6 +147,45 @@ const ManagerChapter: React.FC = () => {
     return pageNumbers;
   }, [totalPages, currentPage]);
 
+  const handleHidden = async (id: string) => {
+    if (token) {
+      if (confirm('Bạn có muốn ẩn chương này không?')) {
+        try {
+          const response = await fetch(`/api/hiddenChapter/${id}`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json()
+          console.log(data);
+          if (data.status === 'success') {
+            setChapterData((prev) => {
+              if (!prev) return prev;
+              return {
+                ...prev,
+                data: prev.data.map((chapter) =>
+                  chapter.id === id
+                    ? { ...chapter, del_flag: !chapter.del_flag }
+                    : chapter
+                ),
+              };
+            });
+            alert('Thay đổi thành công')
+          } else {
+            console.error(data.message);
+          }
+        } catch (error) {
+          console.error("Error updating del_flag:", error);
+        }
+      }
+    }
+  };
+
+  const handlePushAdd = () => {
+    router.replace(`/giangvien/ChapterPage/ManagerChapter/ChapterAdd?id=${id}`)
+  }
+
   return (
     <div
       className={`${h.main} d-flex flex-column `}
@@ -157,9 +194,11 @@ const ManagerChapter: React.FC = () => {
         className={`${h.header} d-flex justify-content-between align-items-center`}
       >
         <h2 className={h.heading}>Quản lý chapter</h2>
-
         <div className={`${h.actions} d-flex`}>
-          <Button className={`${h.btnCTA}`}>Thêm chapter</Button>
+          <Button
+            onClick={() => handlePushAdd()}
+            className={`${h.btnCTA}`}
+          >Thêm chapter</Button>
         </div>
       </div>
       <div className={`${h.left_right}`}>
@@ -184,8 +223,6 @@ const ManagerChapter: React.FC = () => {
           </InputGroup>
         </div>
       </div>
-
-      {/* Post List */}
       <div
         className={`${h.bodytable}d-flex overflow-auto w-100`}
         style={{ whiteSpace: "nowrap" }}
@@ -204,7 +241,7 @@ const ManagerChapter: React.FC = () => {
             {currentData.map((item, index) => (
               <tr key={index}>
                 <td className="text-lg-center w-auto">
-                  {index + 1}
+                  {item.serial_chapter}
                 </td>
                 <td className="text-lg-center">{item.name_chapter}</td>
                 <td className="text-lg-center">{useFormatDate(item.created_at)}</td>
@@ -220,8 +257,7 @@ const ManagerChapter: React.FC = () => {
                       <img src="/img/actionDetail.svg" alt="Edit" />
                     </Link>
                     <Link
-                      href={`ChapterPage?id=${1}`}
-                      as={`ChapterPage/${1}`}
+                      href={`/giangvien/ChapterPage/ChapterEdit?id=${id}&idChapter=${item.id}&stt=${item.serial_chapter}`}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
                       <img src="/img_admin/action2.svg" alt="Delete" />
@@ -232,13 +268,16 @@ const ManagerChapter: React.FC = () => {
                     >
                       <img src="/img_admin/vitien.svg" alt="Delete" />
                     </Link>
-                    <Link
-                      href={`ChapterPage?id=${1}`}
-                      as={`ChapterPage/${1}`}
+                    <div
+                      onClick={() => handleHidden(item.id)}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
-                      <img src="/img/action.svg" alt="Delete" />
-                    </Link>
+                      {item.del_flag ? (
+                        <img src="/img/action.svg" alt="Delete" />
+                      ) : (
+                        <img src="/img/hiddenEye.svg" alt="Delete" />
+                      )}
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -246,8 +285,6 @@ const ManagerChapter: React.FC = () => {
           </tbody>
         </Table>
       </div>
-
-      {/* Pagination */}
       <div className="paginationWrapper">
         <Pagination>
           <Pagination.Prev onClick={handlePrevPage} />
