@@ -35,7 +35,7 @@ import 'ckeditor5/ckeditor5.css';
 import styles from '@public/styles/globalControl/Cked.module.css';
 
 interface FaqProps {
-    course_Id: string;
+    course_Id: number|string;
     onClose: () => void;
     onSubmit: (data: string) => void; // Callback để gửi dữ liệu ra ngoài
 }

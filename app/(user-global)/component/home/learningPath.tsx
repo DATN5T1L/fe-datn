@@ -3,24 +3,8 @@ import ButtonComponet from "../globalControl/btnComponent";
 import styles from '@public/styles/home/LearningPath.module.css';
 import { useRef, useState } from "react";
 import useSWR from "swr";
+import { Route } from "@/app/(user-global)/model/router";
 import Link from "next/link";
-
-interface Route {
-    route_id: string;
-    name_route: string;
-    img_route: string;
-    discription_route: string;
-    status: 'default' | 'customize';
-    del_flag: boolean;
-    created_at: string;
-    updated_at: string;
-}
-
-interface RouteResponse {
-    status: string;
-    message: string;
-    data: Route[];
-}
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -30,10 +14,12 @@ const LearningPath: React.FC = () => {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
-    const { data, error } = useSWR<RouteResponse>('/api/routes', fetcher, {
+    const { data, error } = useSWR<{ status: string; message: string; data: Route[] }>('/api/routes', fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false,
     });
+
+    console.log(data, "đã tải thành công");
 
     const handleMouseDown = (e: React.MouseEvent) => {
         if (rightBodyRef.current) {
@@ -65,7 +51,8 @@ const LearningPath: React.FC = () => {
     if (!data) return <div>Loading...</div>; // Display loading state
 
     // Extract routes from the API response
-    const routes = data?.data
+    const routes = Array.isArray(data?.data) ? data.data.filter(route => route.status === 'default') : [];
+
     return (
         <Container className={styles.container}>
             <Row className={styles.body__container}>
@@ -81,6 +68,13 @@ const LearningPath: React.FC = () => {
                             <div className={styles.header__box__grayBlue}></div>
                         </div>
                     </section>
+                    <section className={styles.btn__group}>
+                        <Link href="/createLearningPath">
+                            <ButtonComponet status={'hover'} hover={true} hoverType={'default'} rightIcon={false} width={264} height={40} widthText="201px">
+                                Tạo lộ trình của riêng bạn
+                            </ButtonComponet>
+                        </Link>
+                    </section>
                 </Col>
                 <Col
                     className={styles.container__main}
@@ -90,8 +84,8 @@ const LearningPath: React.FC = () => {
                     onMouseUp={handleMouseLeaveOrUp}
                     onMouseMove={handleMouseMove}
                 >
-                    {routes.map((route, index) => (
-                        <Card className={styles.box} key={index}>
+                    {routes.map(route => (
+                        <Card className={styles.box} key={route.route_id}>
                             <Card.Img src={route.img_route} className={styles.box__img} alt="Hình Router" />
                             <Card.Body className={styles.box__body}>
                                 <Card.Title className={styles.box__body__title}>{route.name_route}</Card.Title>

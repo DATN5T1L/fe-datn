@@ -10,6 +10,10 @@ import * as Yup from 'yup';
 import { update } from '@/redux/slices/userSlice';
 import useCookie from '../../hook/useCookie';
 
+interface ModalChangeImgProps {
+    show: boolean;
+    onClose: () => void;
+}
 
 const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
     const userState = useSelector((state: RootState) => state.user);

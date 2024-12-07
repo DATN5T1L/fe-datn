@@ -10,6 +10,10 @@ import * as Yup from 'yup'
 import { update } from '@/redux/slices/userSlice';
 import useCookie from '../../hook/useCookie';
 
+interface ModalChangeNameProps {
+    show: boolean;
+    onClose: () => void;
+}
 
 const ModalChangeName: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
     const [isVisible, setIsVisible] = useState(false);

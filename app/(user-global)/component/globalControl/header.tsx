@@ -1,47 +1,42 @@
 'use client'
 // import { auth } from '@/app/auth';
-
-
-
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { Container, Button, Nav, Navbar, Form, Image, Row, Col } from 'react-bootstrap';
-import { IconForm, IconEmail, IconPhoneBlu } from "../icon/icons"
 import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-import Search from "./Search";
-import Feaback from "./feedBack";
-import { motion, AnimatePresence } from 'framer-motion';
-import c from "@public/styles/globalControl/header.module.css"
-import { ShowNameElement } from '@app/(user-global)/component/globalControl/commonC';
+
+
 const Header: React.FC = () => {
-    const menuRef = useRef<HTMLDivElement>(null)
     const userState = useSelector((state: RootState) => state.user);
     const router = useRouter();
     const pathname = usePathname();
 
     const [isClient, setIsClient] = useState(false)
-    const [showSearch, setShowSearch] = useState(false);
-    const [showHeader, setShowHeader] = useState(true);
-    const [lastScroll, setLastScroll] = useState(0);
-    const [isOpenSubMenu, setIsOpenSubMenu] = useState(false);
-    const [isShowForm, setIsShowForm] = useState<boolean>(false)
 
-
-    const tongleShowForm = () => {
-        setIsShowForm(prev => !prev)
-    }
     useEffect(() => {
         setIsClient(true)
     }, [])
+
+    const inputRef = useRef<HTMLInputElement>(null)
+    const [showHeader, setShowHeader] = useState(true);
+    const [lastScroll, setLastScroll] = useState(0);
+    const [showSearch, setShowSearch] = useState(false);
+    const [valueInput, setValueInput] = useState('')
+    const [isOpenSubMenu, setIsOpenSubMenu] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handleScroll = () => {
             const currentScroll = window.pageYOffset;
             setShowHeader(currentScroll <= lastScroll);
             setLastScroll(currentScroll);
+            setShowSearch(false)
             setIsOpenSubMenu(false)
         };
 
@@ -58,7 +53,11 @@ const Header: React.FC = () => {
     }, [userState]);
 
 
-
+    const onFocus = () => {
+        if (inputRef.current) {
+            inputRef.current.focus()
+        }
+    }
 
     useEffect(() => {
         const handleClick = (event: MouseEvent) => {
@@ -97,37 +96,32 @@ const Header: React.FC = () => {
         <>
             <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '0' }}>
                 <section className='header-nav-head'>
-                    <ShowNameElement name="Trang chủ">
+                    <Tippy content="Trang chủ">
                         <Link href="/" className='brand-header'>
                             <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' />
                         </Link>
-                    </ShowNameElement>
-                    <Nav className={`  btn-header`}>
+                    </Tippy>
+                    <Nav className="btn-header">
                         <Row md={12} className='btn-header-container'>
                             <Col md={4} className='btn-header-container-element'>
-                                <ShowNameElement name='Về chúng tôi'>
-                                    <Link href='/' className='btn-header-container-element-link'>
-                                        <div>Về chúng tôi</div>
-                                        <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
-                                    </Link>
-                                </ShowNameElement>
+                                <Link href='/' className='btn-header-container-element-link'>
+                                    <div>Về chúng tôi</div>
+                                    <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
+                                </Link>
                             </Col>
                             <Col md={4} className='btn-header-container-element'>
-                                <ShowNameElement name='Liên hệ'>
-                                    <Link href='/Contact' className='btn-header-container-element-link'>
-                                        <div>Liên hệ với TTO.SH</div>
-                                        <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
-                                    </Link>
-                                </ShowNameElement>
+                                <Link href='/' className='btn-header-container-element-link'>
+                                    <div>Liên hệ với TTO.SH</div>
+                                    <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
+                                </Link>
                             </Col>
                             {isClient && userState.user ? (
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
-                                        <ShowNameElement name='Thông báo'>
-                                            <div className='user-notification'>
-                                                <Image src="/img/Bell.svg" alt="" className='icon-notification' />
-                                            </div>
-                                        </ShowNameElement>
+                                        <div className='user-notification'>
+                                            <Image src="/img/Bell.svg" alt="" className='icon-notification' />
+                                            <Image src="/img/ChatTick.svg" alt="" className='icon-notification' />
+                                        </div>
                                         <div className='user' onClick={handleOpenSubMenu} ref={menuRef}>
                                             {userState?.user?.avatar ? (
                                                 <Image src={`${userState?.user?.avatar}`} alt="" className='avt' />
@@ -154,7 +148,13 @@ const Header: React.FC = () => {
                                                             Thông tin cá nhân
                                                         </div>
                                                     </Link>
-
+                                                    <Link href={'/wallet-user'} className={`subMenu-body-link ${isUser2 ? 'subMenu-body-link-blue' : ''}`} autoFocus={false} >
+                                                        <Image src='/img/infoPay-black.svg' className={`subMenu-body-img-black ${isUser2 ? 'subMenu-body-img-black-none' : ''}`} />
+                                                        <Image src='/img/infoPay-white.svg' className={`subMenu-body-img-white ${isUser2 ? 'subMenu-body-img-white-block' : ''}`} />
+                                                        <div className={`subMenu-body-link-title ${isUser2 ? 'subMenu-body-link-title-white' : ''}`}>
+                                                            Ví
+                                                        </div>
+                                                    </Link>
                                                     <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
                                                         <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
                                                         <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
@@ -170,80 +170,68 @@ const Header: React.FC = () => {
                                 </Col>
                             ) : (
                                 <Col md={4} className='btn-header-container-element'>
-                                    <ShowNameElement name="Đăng ký đăng nhập">
+                                    <Tippy content="Đăng ký đăng nhập">
                                         <Button
                                             onClick={handleLogin}
                                             className={`btn-navbar border-blue-1 ${isLogin ? 'light-check' : ''}`}
                                         >
                                             Đăng nhập
                                         </Button>
-                                    </ShowNameElement>
+                                    </Tippy>
                                 </Col>
                             )}
                         </Row>
-                        <Row md={12} className={`${c.CtaHeader} btn-header-btn-group`}>
+                        <Row md={12} className='btn-header-btn-group'>
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <ShowNameElement name='Gửi thông tin'>
-                                    <Button className='btn-header-btn-group-main' onClick={tongleShowForm}>
-                                        <IconForm />
-                                        <div className='btn-header-btn-group-main-content'>
-                                            Để lại thông tin nhận hỗ trợ
-                                        </div>
-                                    </Button>
-                                </ShowNameElement>
+                                <Button className='btn-header-btn-group-main'>
+                                    <Image src="/img/phoneBlue.svg" alt="" className='btn-header-btn-group-main-img' />
+                                    <div className='btn-header-btn-group-main-content'>
+                                        Liên hệ với chúng tôi
+                                    </div>
+                                </Button>
                             </Col>
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <ShowNameElement name='Gọi ngay'>
-                                    <Button className='btn-header-btn-group-main' href='tel:+0907578881'>
-                                        <IconPhoneBlu />
-                                    </Button>
-                                </ShowNameElement>
+                                <Button className='btn-header-btn-group-main'>
+                                    <Image src="/img/mailBlue.svg" alt="" className='btn-header-btn-group-main-img' />
+                                    <div className='btn-header-btn-group-main-content'>
+                                        Email hỗ trợ
+                                    </div>
+                                </Button>
                             </Col>
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <ShowNameElement name='Gửi email hỗ trợ'>
-                                    <Button
-                                        className='btn-header-btn-group-main'
-                                        href='https://mail.google.com/mail/?view=cm&fs=1&to=ht24430@gmail.com&su=Gặp lỗi&body=Hello,%20I%20need%20help'
-                                        target='_blank'
-                                        rel='noopener noreferrer'
-                                    >
-                                        <IconEmail />
-                                    </Button>
-                                </ShowNameElement>
+                                <Button className='btn-header-btn-group-main'>
+                                    <Image src="/img/chatBlue.svg" alt="chat" className='btn-header-btn-group-main-img' />
+                                    <div className='btn-header-btn-group-main-content'>
+                                        Để lại thông tin nhận hỗ trợ
+                                    </div>
+                                </Button>
                             </Col>
-
                             <Col md={3} className='btn-header-btn-group-element'>
-                                <ShowNameElement name='Tìm kiếm'>
-                                    <Button onClick={handleShowSearch} className='btn-header-btn-group-main2'>
-                                        <Image src={`${showSearch ? '/img/Canxel.svg' : '/img/searchBlue.svg'}`} alt="" className={`btn-header-btn-group-main-img1`} />
-                                    </Button>
-                                </ShowNameElement>
+                                <Button onClick={handleShowSearch} className='btn-header-btn-group-main2'>
+                                    <Image src={`${showSearch ? '/img/Canxel.svg' : '/img/searchBlue.svg'}`} alt="" className={`btn-header-btn-group-main-img1`} />
+                                </Button>
                             </Col>
                         </Row>
                     </Nav>
                 </section>
 
                 <Nav className={`box-search ${showSearch ? '' : 'box-search-h0'}`}>
-                    <Search />
+                    <Form className={`search-bar ${showSearch ? '' : 'opct-0'} ${valueInput ? 'has-value' : ''}`} >
+                        <Form.Control
+                            type="text"
+                            className="search"
+                            aria-label="Search"
+                            ref={inputRef}
+                            value={valueInput}
+                            onChange={(e) => setValueInput(e.target.value)}
+                        />
+                        <span className='search-span' onClick={onFocus}>Nhập thông tin cần tìm</span>
+                        <Button variant="outline-secondary" className='btn-search-icon'>
+                            <Image src="/img/searchBlue.svg" alt="" className='search-icon' />
+                        </Button>
+                    </Form>
                 </Nav>
-            </Navbar >
-            {isShowForm && (
-                <AnimatePresence>
-                    <motion.div
-                        initial={{ y: '100%' }}
-                        animate={{ y: 0 }}
-                        exit={{ y: '-110%' }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <Container>
-                            <Feaback />
-                        </Container>
-
-                    </motion.div>
-                </AnimatePresence>
-
-            )
-            }
+            </Navbar>
         </>
     );
 };

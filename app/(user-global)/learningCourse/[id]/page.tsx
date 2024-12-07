@@ -1,154 +1,668 @@
-"use client";
+"use client"
 
-
+// import VideoPlayer from "@app/(user-global)/component/videoPlayer";
+import ReactPlayer from 'react-player/youtube';
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
-import useCookie from '@app/(user-global)/component/hook/useCookie';
-import { Row, Col, Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from 'framer-motion';
-
-// thêm component
-import CodeDev from "../codeDev";
-import CodeDevLearning from "../CodeDevLearning";
+import { motion } from 'framer-motion';
+import CodeDev from "@app/(user-global)/component/globalControl/codeDev";
 import ProgressCircle from '@app/(user-global)/component/course/ProgressCircle';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
-import Faq from "../Faq";
-import NoteContent from "../NoteContent";
-import NoteCourse from "../NoteCourse";
-import Questions from '../Questions';
-import VideoPlayer from '../VideoPlayer';
+import Faq from "@app/(user-global)/component/globalControl/Faq"
+import NoteCourse from "@app/(user-global)/component/globalControl/NoteCourse"
 
-import { Arrow, IconWhat, IconDoc, IconVideo, IconSun, IconNote, IconBell, IconSetting, IconLogout } from "@/app/(user-global)/component/icon/icons";
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
-import { formatDateTime, formatTime } from "@/app/(user-global)/component/globalControl/commonC";
-
-import DocumentStatus from '../statusDoc';
 
 // thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
-import styles from "@public/styles/Learning/Learning.module.css";
+import styles from "@public/styles/globalControl/Learning.module.css";
+
+
+interface Progress {
+    progress_percentage: number;
+    course_name: string;
+    course_id: number|string;
+}
+
+// Khởi tạo trạng thái với kiểu dữ liệu
+
+
+
+
+interface Document {
+    document_id: number|string;
+    name_document: string;
+    type_document: "code" | "quiz" | "video";
+    status_video: boolean;
+    url_video: string;
+    updated_at: string;
+}
+
+interface Chapter {
+    chapter_id: number|string;
+    chapter_name: string;
+    documents: CombinedDocument[];
+}
+
+interface CourseData {
+    course_id: number|string;
+    course_name: string;
+    data: Chapter[];
+}
+
+interface Note {
+    note_id: number|string;
+    title_note: string;
+    content_note: string;
+    cache_time_note: number;
+}
+
+interface CodesDocument extends Document {
+    type_document: "code";
+    codes: {
+        answer_code: string;
+        correct_answer: string;
+        question_code: string;
+        tutorial_code: string;
+    }[];
+}
+
+interface QuestionsDocument extends Document {
+    type_document: "quiz";
+    questions: {
+        content_question: string;
+        correct_answer: string;
+        type_question: string;
+    }[];
+}
+interface VideoDocument extends Document {
+    type_document: "video";
+}
+
+type CombinedDocument = CodesDocument | QuestionsDocument | VideoDocument;
+
+// Interface for the API response
+interface ApiResponse {
+    status: string;
+    data: Note[];
+}
+
+//  interface cho quesion
+interface QuestionAnswer {
+    question: string;
+    answers: string[];
+}
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
+const Learning: React.FC<{ params: { id: number|string } }> = ({ params }) => {
 
-
-const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
-    const token = useCookie('token');
     const { id } = params;
-    const course_Id = id;
-    const userState = useSelector((state: RootState) => state.user);
-    const user = userState?.user;
-    const avatar: string = user?.avatar ?? '';
-    const { handleLogout } = useLogout();
+    const course_Id = id; // tạo biến Id thành course_id
+    const userState = useSelector((state: RootState) => state.user); // lấy thông tin user đang đăng nhập
+    const user = userState?.user;  // lấy thông tin user đang đăng nhập
+    const { handleLogout } = useLogout(); // hook đăng xuất
+    const [visible, setVisible] = useState(false); // biến để show/hide modal
+    const [isNoteList, setisNoteList] = useState(false);    //  biến để show/hide danh sách ghi chú
+    const [isNote, setIsNote] = useState(false); // biến để show/hide ghi chú
+    const [isActive, setIsActive] = useState(false); // biến để show/hide menu frofile
+    const [isVisible, setIsVisible] = useState(true);
+    const [tippyVisible, setTippyVisible] = useState(false);
+    const [isFAQ, setFAQ] = useState(false); // biến để show/hide câu hỏi thường gặp
+    const [isNoti, setNoti] = useState(false); // biến để show/hide câu hỏi thường gặp
+    const [isContent, setContent] = useState(true); // biến để show/hide câu hỏi thường gặp
+    const [typeNoti, setTypeNoti] = useState<NotiType | null>(null); // biến để show/hide câu hỏi thường gặp
+    const [messageNoti, setmessageNoti] = useState(""); // biến để show/hide câu hỏi thường gặp
 
-    const [isNoti, setNoti] = useState(false);
-    const [isContent, setContent] = useState(true);
-    const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
-    const [messageNoti, setmessageNoti] = useState("");
-
+    // danh sách các biến lưu trữ dữ liệu khóa học
+    const [progress, setprogress] = useState<Progress | null>(null); // biến lưu tiến độ người dùng
+    const [error, setError] = useState<string | null>(null);
     const [course, setCourse] = useState<Chapter[] | null>(null);
-
+    const [nameDocument, setnameDocument] = useState('');
+    const [idDocument, setIdDocument] = useState<number|string>(0);
+    const [typeDoc, settypeDoc] = useState('');
+    const [descdocument, setdescdocument] = useState('');
+    const [note, setNote] = useState<Note[] | null>(null);
     const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
     const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
-    const [progress, setprogress] = useState<Progress | null>(null);
-    const [nameDocument, setnameDocument] = useState('');
-    const [idDocument, setIdDocument] = useState('');
-    const [typeDoc, settypeDoc] = useState<string | null>(null);
-    const [descdocument, setdescdocument] = useState<string | null>(null);
-    const [note, setNote] = useState<Note[] | null>(null);
-    const [error, setError] = useState<string | null>(null);
-
-    const [doc_id, setdoc_id] = useState<string>("");
-    const [chapter_id, setChapter_id] = useState<string>("");
-
 
     const [urlVideo, setUrlVideo] = useState('');
-    const [type, setType] = useState<string | null>(null);
+    const [type, setType] = useState('');
+    const lastValidTimeRef = useRef<number>(0);
+    const playerRef = useRef<any>(null); // Tham chiếu tới video player
+    const [videoDuration, setVideoDuration] = useState<number>(0); //lưu thời gian kết thúc video
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
 
-
-
-    const [html, setHtml] = useState<string>('');
-    const [css, setCss] = useState<string>('');
-    const [js, setJs] = useState<string>('');
-
-
-
-    const [visible, setVisible] = useState(false);
-
-    const [isNote, setIsNote] = useState(false);
-    const [isActive, setIsActive] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
-    const [tippyVisible, setTippyVisible] = useState(false);
-    const [isFAQ, setFAQ] = useState(false);
-    const [isNoteContent, setIsNoteContent] = useState(false);
-
-    console.log(isNoteContent)
     const toggleSwitch = () => {
         setIsActive(!isActive);
         setTippyVisible(prev => !prev);
     };
+
     const show = () => setVisible(true);
     const hide = () => setVisible(false);
-
-
-
-
-
+    const showNoteList = () => setisNoteList(true);
+    const hideNoteList = () => setisNoteList(false);
 
     const toggleNote = () => {
         setIsNote(prev => !prev);
-        setIsPlaying(prev => !prev);
+        const parentElement = document.querySelector('.row');
+
+        if (!isNote && parentElement) {
+            // Cuộn phần tử cha đến cuối
+            parentElement.scrollTop = parentElement.scrollHeight;
+        }
     };
 
     const toggleFaq = () => {
         setFAQ(prev => !prev);
-    };
-    const toggleNoteList = () => {
-        setIsNoteContent(prev => !prev);
     };
 
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
     };
 
-    const handelIsPlaying = () => {
-        setIsPlaying(!isPlaying);
-    }
-    // láy ra khóa học
-    const fetchDocuments = async (retries = 3): Promise<CourseData | null> => {
+
+
+    const fetchDocuments = async (token: string) => {
         try {
             const response = await fetch(`/api/getdocforyou/${course_Id}`, {
-                method: 'GET',
+                method: "GET",
                 headers: {
-                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
                 },
             });
 
             if (!response.ok) {
-                if (response.status === 401 && retries > 0) {
-
-                    console.log('Lỗi 401, thử lại lần nữa...');
-                    return await fetchDocuments(retries - 1);
-                }
-                throw new Error("Không thể lấy dữ liệu");
+                throw new Error("Failed to fetch course");
             }
 
-            const result = await response.json() as CourseData;
-            setCourse(result.data)
-            return result;
+            const data = await response.json() as CourseData;
+            console.log(data)
+            if (Array.isArray(data.data)) {
+                setCourse(data.data);
+            } else {
+                console.error("data.data is not an array");
+            }
         } catch (err: any) {
             setError(err.message);
-            return null;
         }
     };
-    const fetchNotes = async () => {
+
+    const [openIndexes, setOpenIndexes] = useState<number[]>([]);
+
+    const toggleItem = useCallback((index: number) => {
+        setOpenIndexes(prev =>
+            prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
+        );
+    }, []);
+
+
+    // Cập nhật secondNew mỗi khi seconds thay đổi
+    const isWarningShown = useRef(false);
+    const handleProgress = (progress: { playedSeconds: number }) => {
+        const { playedSeconds } = progress;
+        setPlayedSeconds(playedSeconds);
+        // console.log(lastValidTimeRef.current, "giây hợp lệ trước đó");
+
+
+        // Kiểm tra nếu người dùng cố gắng tua quá 2 giây từ lastValidTime
+        if (Math.abs(playedSeconds - lastValidTimeRef.current) > 15) {
+            // Quay về thời gian hợp lệ trước đó
+            if (playedSeconds < lastValidTimeRef.current) {
+                // Người dùng đang tua ngược, chỉ cập nhật lastValidTime
+                lastValidTimeRef.current = playedSeconds;
+            } else {
+                // Quay về thời gian hợp lệ trước đó
+                if (playerRef.current) {
+                    playerRef.current.seekTo(lastValidTimeRef.current);
+                }
+            }
+        } else {
+            // Cập nhật thời gian hợp lệ cuối cùng trong ref
+            lastValidTimeRef.current = playedSeconds;
+        }
+        if (videoDuration - playedSeconds <= 30 && !isWarningShown.current) {
+
+            isWarningShown.current = true; // Đảm bảo chỉ hiện thông báo một lần
+        }
+
+    };
+    // hàm dừng video
+    const pauseVideo = () => {
+
+        setIsPlaying(false);
+    };
+    const nextVideo = (url: string) => {
+        // TODO: Lấy tài liệu tiếp theo
+        //...
+        setUrlVideo(url);
+    }
+    // console.log("playedSeconds", playedSeconds);
+
+    const handleDuration = (duration: number) => {
+        setVideoDuration(duration); // Save the video duration
+        const minutes = Math.floor(duration / 60); // Calculate minutes
+        const seconds = Math.floor(duration % 60); // Calculate remaining seconds
+        console.log(`Thời gian kết thúc video: ${minutes} phút ${seconds} giây`);
+        isWarningShown.current = false;
+    };
+
+    useEffect(() => {
+        // Check if the video has finished
+        if (playedSeconds >= videoDuration - 1 && playedSeconds < videoDuration) {
+            console.log("Video đã kết thúc");
+        }
+    }, [playedSeconds, videoDuration]);
+
+
+    // hàm định dạng thời gian
+    const formatTime = (seconds: number): string => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = Math.floor(seconds % 60);
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    };
+
+    // hàm định dạng ngày giờ
+    const [timedocument, settimedocument] = useState('');
+
+    const formatDateTime = (datetimeStr: string): string => {
+        const date = new Date(datetimeStr);
+        // Lấy các thành phần ngày, tháng, năm, giờ, phút
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        // Kết hợp các thành phần thành chuỗi ngày giờ (không bao gồm giây)
+        return `${day}-${month}-${year} ${hours}:${minutes}`;
+    };
+
+    const handleEnded = () => { //hàm sử lý khi video kết thúc
+
+        alert("Video đã kết thúc");
+        setmessageNoti("Video sắp hết!");
+        setTypeNoti('error');
+        setNoti(true);
+    }
+
+    // hàm sử lý tách nội dung câu hỏi
+    const parseQues = (input: string): QuestionAnswer | null => {
+        const [questionPart, answerPart] = input.split('?');
+
+        if (!questionPart || !answerPart) return null;
+
+        const answers = answerPart.split('/').map((str) => str.trim());
+
+        return {
+            question: questionPart.trim(),
+            answers
+        };
+    };
+
+    const mappedCourseNew = useMemo(() => {
+        if (!course || !Array.isArray(course)) return null; // Trả về null nếu không có course
+
+        const findInactiveDocument = (course: Chapter[]) => {
+            let inactiveDoc: Document | null | undefined = null;
+
+            for (const chapter of course) {
+                inactiveDoc = chapter.documents.find(doc => doc.status_video === false);
+
+                if (inactiveDoc) {
+                    break;
+                }
+            }
+
+            return inactiveDoc;
+        };
+
+        const inactiveDoc = findInactiveDocument(course);
+
+        // if (inactiveDoc) {
+        //     setUrlVideo(inactiveDoc.url_video);
+        //     setnameDocument(inactiveDoc.name_document);
+        //     settypeDoc(inactiveDoc.type_document);
+        // }
+
+
+        return (
+            <div className={`${styles.row}`}>
+                <div className={`${styles.flexGrow} ${styles.videoContainer}`}>
+
+                    {typeDoc === 'video' ? (
+                        <div className={styles.Video}>
+                            <ReactPlayer
+                                ref={playerRef}
+                                url={urlVideo}
+                                controls
+                                width="100%"
+                                height="100%"
+                                onProgress={handleProgress}
+                                onDuration={handleDuration}
+                                playing={isPlaying}
+                                autoPlay
+                                onEnded={handleEnded} // Tự động phát
+                            />
+                        </div>
+                    ) : typeDoc === 'quiz' ? (
+                        <div className={styles.wapperQuestion}>
+                            {/* Thêm nội dung của quiz ở đây */}
+                            <div className={styles.bodyTitle}>
+                                <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
+                                <h4 className={styles.titleCourse}>{nameDocument}</h4>
+                            </div>
+                            {question?.map((question, index) => {
+                                const parsedQuestion = parseQues(question.content_question);
+
+                                return (
+                                    <div key={index} className={styles.questionItem}>
+                                        {parsedQuestion ? (
+                                            <>
+                                                <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion.question}</p>
+                                                {question.type_question === 'true_false' ? (
+                                                    <div className={styles.tfQuesion}>
+                                                        <span className={styles.subtitleQuestion}>Câu hỏi đúng/sai</span>
+                                                        <ul className={styles.listQuestion}>
+                                                            {parsedQuestion.answers.map((answer, idx) => (
+                                                                <li key={idx} className={styles.itemQuestion}> <input type="checkbox" name="" id="" /> {answer}</li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                ) : question.type_question === 'multiple_choice' ? (
+                                                    <div className={styles.multipleQuesion}>
+                                                        <span className={styles.subtitleQuestion}>Chọn ít nhất 1 câu trả lời đúng</span>
+                                                        <ul className={styles.listQuestion} >
+                                                            {parsedQuestion.answers.map((answer, idx) => (
+                                                                <li key={idx} className={styles.itemQuestion}>
+                                                                    <label htmlFor={`submit${idx}`} className={styles.itemAnswer}>
+                                                                        <input type="checkbox" name="" id={`submit${idx}`} value={answer} /> {answer}
+                                                                    </label>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                ) : question.type_question === 'fill' ? (
+                                                    <div className={styles.filleQuesion} >
+                                                        <span className={styles.subtitleQuestion}>Điền vào phần còn thiếu</span>
+                                                        <ul className={styles.listQuestion}>
+                                                            {parsedQuestion.answers.map((answer, idx) => (
+                                                                <li key={idx} className={styles.itemQuestion}> <input type="checkbox" name="" id="" /> Câu trả lời: {answer}</li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                ) : null}
+                                                <div className={styles.ctaQuestion}>
+                                                    <button className={`${styles.btnAnswer} `}>Hủy</button>
+                                                    <button className={`${styles.btnAnswer} ${styles.btnAnswerActive} `}>Trả lời</button>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <p>Nội dung câu hỏi không hợp lệ.</p>
+                                        )}
+                                        {/* <p>Đáp án đúng: {question.correct_answer}</p>
+                                        <p>Loại câu hỏi: {question.type_question}</p> */}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ) : typeDoc === 'code' ? (
+                        <div className={styles.wapperCode}>
+                            {/* Thêm nội dung của code ở đây */}
+                            <div className={styles.bodyTitle}>
+                                <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
+                                <h4 className={styles.titleCourse}>{nameDocument}</h4>
+                            </div>
+                            {code?.map((code, index) => (
+                                <div key={index} className={styles.codeItem}>
+                                    <p>Mã câu trả lời: {code.answer_code}</p>
+                                    <p>Đáp án đúng: {code.correct_answer}</p>
+                                    <p>Mã câu hỏi: {code.question_code}</p>
+                                    <p>Mã hướng dẫn: {code.tutorial_code}</p>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className={styles.wapperQuestion}>Không phải video, quiz hoặc code</div>
+                    )}
+
+                    {isContent ? (
+                        <div className={styles.body}>
+                            {!isNote ? (
+                                <>
+                                    <div className={styles.bodyTop}>
+                                        <div className={styles.bodyTitle}>
+                                            <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
+                                            <h4 className={styles.titleCourse}>{nameDocument}</h4>
+                                        </div>
+                                        <Button
+                                            onClick={() => {
+                                                toggleNote();
+                                                pauseVideo();
+                                            }}
+                                            type="premary" // Đã sửa thành "primary"
+                                            status="hover"
+                                            size="S"
+                                            leftIcon={false}
+                                            rightIcon={false}
+                                            height={40}
+                                        >
+                                            Thêm ghi chú {formatTime(playedSeconds)}
+                                        </Button>
+                                    </div>
+                                    <div className={styles.bodyContent}>
+                                        <p className={styles.content}>
+                                            HTML CSS (HyperText Markup Language Cascading Style Sheets) Nội dung bổ sung:
+                                            <a
+                                                href="https://www.w3schools.com/css/css_pseudo_classes.asp"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                https://www.w3schools.com/css/css_pseudo_classes.asp
+                                            </a>
+                                        </p>
+                                    </div>
+                                </>
+                            ) : (
+                                <motion.div
+                                    initial={{ y: '100%' }}
+                                    animate={{ y: 0 }}
+                                    exit={{ y: '-100%' }}
+                                    transition={{ duration: 0.5 }}
+                                    className={styles.noteTap}
+                                >
+                                    <NoteCourse id={idDocument} title={nameDocument} time={playedSeconds} onClose={toggleNote} />
+                                </motion.div>
+                            )}
+                        </div>
+                    ) : (
+                        null
+                    )}
+
+                    {isFAQ && (
+                        <motion.div
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ duration: 0.5 }}
+                            className={styles.FAQ}
+                        >
+                            <Faq course_Id={course_Id} onClose={toggleFaq} course={course} />
+                        </motion.div>
+                    )}
+                </div>
+
+                {
+                    tippyVisible && isVisible ? (
+                        <motion.div
+                            initial={{ x: '100%' }}
+                            animate={{ x: 2 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <CodeDev />
+                        </motion.div>
+                    ) : (
+                        isVisible && (
+                            <div className={`${styles.fixed} ${styles.listCourse}`}>
+                                <div className={styles.searchContainer}>
+                                    <input
+                                        className={styles.inputSearch}
+                                        type="text"
+                                        placeholder="Tìm kiếm bài học"
+                                    />
+                                </div>
+                                {course.map((item, index) => (
+                                    <div key={index} className={styles.listItem}>
+                                        <div className={styles.listItem__title} onClick={() => toggleItem(index)}>
+                                            <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}>
+                                                <path
+                                                    d="M18 15L12 9L6 15"
+                                                    stroke="#B3B3B3"
+                                                    strokeWidth="2"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round" />
+                                            </svg>
+                                        </div>
+                                        {openIndexes.includes(index) && (
+                                            <ul className={styles.listItem__docs}>
+
+                                                {item.documents.map((doc, subIndex) => (
+                                                    <li key={subIndex} className={styles.listItem__doc}>
+                                                        <div className={styles.doc_title}>
+                                                            {doc.type_document === "video" ? (
+                                                                // Icon video
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                    <g clipPath="url(#clip0_4106_3787)">
+                                                                        <circle cx="9.99935" cy="9.99999" r="8.33333" stroke="#B3B3B3" strokeWidth="1.5" />
+                                                                        <path
+                                                                            d="M12.8447 9.11752C13.4962 9.50215 13.4962 10.4978 12.8447 10.8825L8.91124 13.2048C8.27809 13.5786 7.5 13.0921 7.5 12.3224L7.5 7.67762C7.5 6.90788 8.27809 6.42133 8.91124 6.79515L12.8447 9.11752Z"
+                                                                            stroke="#B3B3B3"
+                                                                            strokeWidth="1.5" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_4106_3787">
+                                                                            <rect width="20" height="20" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            ) : (
+                                                                // Icon tài liệu
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                                    <path opacity="0.5" d="M3.33398 18.3335H16.6673" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                                                    <path d="M12.1919 2.43436L11.574 3.05228L5.8932 8.7331C5.50843 9.11788 5.31604 9.31027 5.15058 9.52239C4.95541 9.77263 4.78807 10.0434 4.65155 10.3299C4.53581 10.5727 4.44977 10.8308 4.27769 11.3471L3.54852 13.5346L3.37028 14.0693C3.2856 14.3233 3.35172 14.6034 3.54107 14.7927C3.73042 14.9821 4.0105 15.0482 4.26455 14.9635L4.79926 14.7853L6.98677 14.0561L6.9868 14.0561C7.50301 13.884 7.76112 13.798 8.00397 13.6823C8.29045 13.5457 8.5612 13.3784 8.81143 13.1832C9.02355 13.0178 9.21594 12.8254 9.60071 12.4406L9.60072 12.4406L15.2815 6.75979L15.8995 6.14187C16.9233 5.11807 16.9233 3.45816 15.8995 2.43436C14.8757 1.41055 13.2157 1.41055 12.1919 2.43436Z" stroke="#B3B3B3" stroke-width="1.5" />
+                                                                    <path opacity="0.5" d="M11.5724 3.05273C11.5724 3.05273 11.6496 4.36581 12.8082 5.52441C13.9668 6.68301 15.2799 6.76025 15.2799 6.76025M4.79762 14.7858L3.54688 13.535" stroke="#B3B3B3" stroke-width="1.5" />
+                                                                </svg>
+                                                            )}
+                                                            <div className={styles.listItem__docTitle}
+                                                                onClick={() => {
+                                                                    // if (doc.status_video === true || doc.status_video === false) {
+                                                                    //     setUrlVideo(doc.url_video);
+                                                                    //     setnameDocument(doc.name_document);
+                                                                    //     settypeDoc(doc.type_document);
+                                                                    //     setIdDocument(doc.document_id)
+                                                                    //     settimedocument(formatDateTime(doc.updated_at));
+                                                                    // } else {
+                                                                    //     alert("Bạn cần hoàn thành các bài học khác")
+                                                                    // }
+                                                                    setnameDocument(doc.name_document);
+                                                                    settypeDoc(doc.type_document);
+                                                                    setIdDocument(doc.document_id)
+                                                                    settimedocument(formatDateTime(doc.updated_at));
+                                                                    setUrlVideo(doc.url_video);
+                                                                    if (doc.type_document === 'quiz' && doc.questions) {
+                                                                        setQuestion(doc.questions);
+                                                                        setContent(false);
+                                                                    } else if (doc.type_document === 'code' && doc.codes) {
+                                                                        setCode(doc.codes);
+                                                                        setContent(false);
+                                                                    } else if (doc.type_document === 'video') {
+                                                                        setContent(true);
+                                                                    }
+                                                                }}>
+                                                                <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`} {doc.document_id} </span>
+                                                                <span className={styles.listItem__docName}> {doc.name_document} </span>
+                                                            </div>
+                                                        </div>
+                                                        {
+                                                            doc.status_video === true && (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                                                    <g clip-path="url(#clip0_4331_7659)">
+                                                                        <circle cx="6" cy="6" r="5" stroke="#24A148" stroke-width="1.5" />
+                                                                        <path d="M4.25 6.25L5.25 7.25L7.75 4.75" stroke="#24A148" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_4331_7659">
+                                                                            <rect width="12" height="12" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            )
+                                                        }
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )
+                    )
+                }
+
+
+            </div >
+
+        );
+    }, [course, isNote, isFAQ, tippyVisible, isVisible, openIndexes, playedSeconds, urlVideo, nameDocument, typeDoc]);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    await fetchNotes(token);
+                    await fetchDocuments(token);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            } else {
+                console.error('Token is null');
+            }
+        };
+
+        fetchData();
+    }, []);
+    // user
+    const avatar: string = user?.avatar ?? '';
+
+    // Lấy dữ liệu từ localStorage
+    useEffect(() => {
+        const storedData = localStorage.getItem('progress_percentages');
+        if (storedData) {
+            const parsedData = JSON.parse(storedData);
+            setprogress(parsedData || null);
+        }
+    }, [id]);
+
+    // lấy ra tất cả note của người dùng
+    const fetchNotes = async (token: string) => {
         try {
             const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
                 method: "GET",
@@ -161,581 +675,18 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 throw new Error("Failed to fetch course");
             }
 
-            const dataNote = await response.json();
-            // console.log(dataNote)
-            if (Array.isArray(dataNote.data)) {
-                setNote(dataNote.data);
-                return dataNote
+            const data = await response.json() as ApiResponse;
+            console.log(data)
+            if (Array.isArray(data.data)) {
+                setNote(data.data);
             } else {
                 console.error("data.data is not an array");
             }
+
         } catch (err: any) {
             setError(err.message);
         }
     };
-
-    const fetchProgress = async () => {
-        try {
-            const response = await fetch(`/api/getProgress/${course_Id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: ` ${token}`,
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to fetch course");
-            }
-
-            const dataProgress = await response.json();
-            setprogress(dataProgress[0])
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
-
-    const fetchCreatStatus = async () => {
-        try {
-            const response = await fetch(`/api/createStatusDoc/${doc_id}/${course_Id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch course");
-            }
-            const data = await response.json();
-            // console.log(data, "trạng thái bài học");
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
-
-
-    useEffect(() => {
-        fetchProgress()
-        fetchDocuments()
-        fetchNotes();
-    }, [course_Id]);
-
-    // lấy ra note
-
-
-    useEffect(() => {
-        if (doc_id !== null) {
-            fetchCreatStatus();
-        }
-    }, [doc_id]);
-
-
-
-    const [openIndexes, setOpenIndexes] = useState<number[]>([]);
-
-    const toggleItem = useCallback((index: number) => {
-        setOpenIndexes(prev =>
-            prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]
-        );
-    }, []);
-
-    // hàm định dạng ngày giờ
-    const [timedocument, settimedocument] = useState('');
-
-
-
-
-
-    // hàm sử lý tách nội dung câu hỏi
-
-
-    const handleExport = (data: { html: string, css: string, js: string }) => {
-        setHtml(data.html)
-        setCss(data.css)
-        setJs(data.js)
-    };
-
-    const handleProgressChange = (playedSeconds: number) => {
-        // console.log("Thời gian đã xem:", playedSeconds, "giây");
-        setPlayedSeconds(playedSeconds)
-    };
-
-    // useEffect(() => {
-    //     if (course && Array.isArray(course)) {
-
-    //         const findInactiveDocumentId = (course: Chapter[]): string | null => {
-    //             for (const chapter of course) {
-    //                 const inactiveDoc = chapter.documents.find(doc => doc.status_document === false);
-    //                 if (inactiveDoc) {
-    //                     return inactiveDoc.document_id;
-    //                 }
-    //             }
-    //             return null;
-    //         };
-
-    //         const inactiveDocId = findInactiveDocumentId(course);
-    //         if (inactiveDocId) {
-    //             const initialDoc = course
-    //                 .flatMap(chapter => chapter.documents)
-    //                 .find(doc => doc.document_id === inactiveDocId);
-    //             const innitChappter = course
-    //                 .flatMap(chapter => chapter.documents)
-    //             if (initialDoc) {
-    //                 setdoc_id(initialDoc.document_id);
-    //                 // setChapter_id(innitChappter.)
-    //                 handleClickDoc(initialDoc)
-    //                 setSelectedIndex(
-    //                     course.findIndex(chapter => chapter.documents.includes(initialDoc)) +
-    //                     "-" +
-    //                     course[course.findIndex(chapter => chapter.documents.includes(initialDoc))].documents.indexOf(initialDoc)
-    //                 );
-    //                 toggleItem(course.findIndex(chapter => chapter.documents.includes(initialDoc)))
-    //             }
-    //         }
-    //     }
-
-    // }, [course]);
-    useEffect(() => {
-        if (course && Array.isArray(course)) {
-            const findInactiveDocument = (course: Chapter[]): { document_id: string; chapter_id: string } | null => {
-                for (const chapter of course) {
-                    const inactiveDoc = chapter.documents.find(doc => !doc.status_document);
-                    if (inactiveDoc) {
-                        return {
-                            document_id: inactiveDoc.document_id,
-                            chapter_id: chapter.chapter_id,
-                        };
-                    }
-                }
-                return null;
-            };
-
-            const inactiveDoc = findInactiveDocument(course);
-
-            if (inactiveDoc) {
-                const { document_id, chapter_id } = inactiveDoc;
-
-                // Tìm tài liệu không hoạt động dựa trên document_id
-                const initialDoc = course
-                    .find(chapter => chapter.chapter_id === chapter_id)
-                    ?.documents.find(doc => doc.document_id === document_id);
-
-                if (initialDoc) {
-                    // Đặt trạng thái và gọi các hàm cần thiết
-                    setdoc_id(initialDoc.document_id); // Gán document_id
-                    setChapter_id(chapter_id); // Gán chapter_id
-                    handleClickDoc(initialDoc);
-
-                    // Tìm chỉ số của tài liệu và chương để đặt selectedIndex
-                    const chapterIndex = course.findIndex(chapter => chapter.chapter_id === chapter_id);
-                    const docIndex = course[chapterIndex]?.documents.findIndex(doc => doc.document_id === document_id);
-
-                    if (chapterIndex >= 0 && docIndex >= 0) {
-                        setSelectedIndex(`${chapterIndex}-${docIndex}`);
-                        toggleItem(chapterIndex);
-                    }
-                }
-            }
-        }
-    }, [course]);
-
-
-
-    const handleClickDoc = (doc: CombinedDocument) => {
-        setnameDocument(doc.name_document);
-        settypeDoc(doc.type_document);
-        setIdDocument(doc.document_id);
-        settimedocument(formatDateTime(doc.updated_at));
-        setdoc_id(doc.document_id);
-        setdescdocument(doc.discription_document);
-        switch (doc.type_document) {
-            case "quiz":
-                if (doc.questions) {
-                    console.log(doc.questions)
-                    setQuestion(doc.questions);
-                    setContent(false);
-                }
-                break;
-            case "code":
-                if (doc.codes) {
-                    setCode(doc.codes);
-                    setContent(false);
-                }
-                break;
-            case "video":
-                setUrlVideo((doc as VideoDocument).url_video);
-                setContent(true);
-                break;
-            default:
-                console.error("Không xác định loại tài liệu:");
-        }
-    };
-
-    const renderContent = () => {
-        if (typeDoc === 'video') {
-            console.log("Rendering Video Player");
-            return (
-                <VideoPlayer
-                    course_id={course_Id}
-                    document_id={doc_id}
-                    urlVideo={urlVideo}
-                    onProgressChange={handleProgressChange}
-                    isPlaying={isPlaying}
-                />
-            );
-        } else if (typeDoc === 'quiz') {
-            console.log("Rendering Quiz");
-            return (
-                <Questions
-                    course_id={course_Id}
-                    documents_id={doc_id}
-                    nameDocument={nameDocument}
-                    timedocument={timedocument}
-                    questions={question}
-                />
-            );
-        } else if (typeDoc === 'code') {
-
-            return (
-                <div className={styles.wapperCode}>
-                    {code && (
-                        <CodeDevLearning
-                            key={code.id}
-                            onExport={handleExport}
-                            answer_code={code.answer_code}
-                            correct_answer={code.correct_answer}
-                            question_code={code.question_code}
-                            tutorial_code={code.tutorial_code}
-                            name_document={nameDocument}
-                            updated_at={code.updated_at}
-                            course_id={course_Id}
-                            documents_id={doc_id}
-                        />
-                    )}
-                </div>
-            );
-        } else {
-            console.log("No matching content type, rendering default message");
-            return (
-                <div className={styles.wapperQuestion}>Không phải video, quiz hoặc code</div>
-            );
-        }
-    };
-
-    const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
-
-
-    const handlePreviousLesson = ({
-        course,
-        selectedIndex,
-        setSelectedIndex,
-    }: {
-        course: Chapter[];
-        selectedIndex: string | null;
-        setSelectedIndex: (index: string) => void;
-    }) => {
-        if (!selectedIndex) return;
-
-        const [currentChapterIndex, currentDocIndex] = selectedIndex.split('-').map(Number);
-
-        // Nếu không phải bài đầu tiên trong chapter
-        if (currentDocIndex > 0) {
-            setSelectedIndex(`${currentChapterIndex}-${currentDocIndex - 1}`);
-            handleClickDoc(course[currentChapterIndex].documents[currentDocIndex - 1]);
-        }
-        // Nếu là bài đầu tiên, chuyển về chapter trước (nếu có)
-        else if (currentChapterIndex > 0) {
-            const previousChapter = course[currentChapterIndex - 1];
-            const lastDocIndex = previousChapter.documents.length - 1;
-
-            // Kiểm tra trạng thái bài cuối cùng của chapter trước
-            if (!previousChapter.documents[lastDocIndex]?.status_document) {
-                alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                return;
-            }
-
-            toggleItem(currentChapterIndex - 1)
-            setSelectedIndex(`${currentChapterIndex - 1}-${lastDocIndex}`);
-            setdoc_id(previousChapter.documents[lastDocIndex].document_id);
-            handleClickDoc(previousChapter.documents[lastDocIndex]);
-        } else {
-            alert('Không có bài học trước.');
-        }
-    };
-
-    const handleNextLesson = ({
-        course,
-        selectedIndex,
-        setSelectedIndex,
-    }: {
-        course: Chapter[];
-        selectedIndex: string | null;
-        setSelectedIndex: (index: string) => void;
-    }) => {
-        if (!selectedIndex) return;
-
-        const [currentChapterIndex, currentDocIndex] = selectedIndex.split('-').map(Number);
-
-        const currentChapter = course[currentChapterIndex];
-
-        // Nếu không phải bài cuối cùng trong chapter
-        if (currentDocIndex < currentChapter.documents.length - 1) {
-            // Kiểm tra trạng thái bài hiện tại
-            if (!currentChapter.documents[currentDocIndex]?.status_document) {
-                alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                return;
-            }
-
-            setSelectedIndex(`${currentChapterIndex}-${currentDocIndex + 1}`);
-            handleClickDoc(currentChapter.documents[currentDocIndex + 1]);
-        }
-        // Nếu là bài cuối cùng, chuyển sang chapter tiếp theo (nếu có)
-        else if (currentChapterIndex < course.length - 1) {
-            const nextChapter = course[currentChapterIndex + 1];
-
-            // Kiểm tra trạng thái bài đầu tiên của chapter tiếp theo
-            if (!nextChapter.documents[0]?.status_document) {
-                alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                return;
-            }
-
-            toggleItem(currentChapterIndex + 1)
-            setSelectedIndex(`${currentChapterIndex + 1}-0`);
-            handleClickDoc(nextChapter.documents[0]);
-        } else {
-            alert('Không có bài học tiếp theo.');
-        }
-    };
-
-    const renderChapterDocument = () => {
-        // Trạng thái lưu chỉ số phần tử đã chọn
-        if (course) {
-
-            return (
-                tippyVisible && isVisible ? (
-                    <AnimatePresence>
-                        <motion.div
-                            initial={{ x: '100%' }}
-                            animate={{ x: 2 }}
-                            exit={{ x: '-100%' }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <CodeDev />
-                        </motion.div>
-                    </AnimatePresence>
-                ) : (
-                    isVisible && (
-                        <div className={`${styles.fixed} ${styles.listCourse}`}>
-                            <div className={styles.searchContainer}>
-                                <input
-                                    className={styles.inputSearch}
-                                    type="text"
-                                    placeholder="Tìm kiếm bài học"
-                                />
-                            </div>
-                            <div className={styles.coursesContent}>
-                                {course?.map((item, index) => (
-                                    <div key={index} className={styles.listItem}>
-                                        <div className={styles.listItem__title} onClick={() => toggleItem(index)}>
-                                            <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                className={`${styles.listItem__icon} ${openIndexes.includes(index) ? styles.rotated : ''}`}
-                                            >
-                                                <path
-                                                    d="M18 15L12 9L6 15"
-                                                    stroke="rgba(35, 125, 247, 1)"
-                                                    strokeWidth="2"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                />
-                                            </svg>
-                                        </div>
-                                        {openIndexes.includes(index) && (
-                                            <ul className={styles.listItem__docs} key={index}>
-                                                {item.documents.map((doc, subIndex) => {
-                                                    // Kiểm tra xem bài học trước đã hoàn thành chưa
-
-
-                                                    return (
-                                                        <li
-                                                            key={subIndex}
-                                                            className={`${styles.listItem__doc}`}
-                                                            style={{
-                                                                backgroundColor:
-                                                                    selectedIndex === `${index}-${subIndex}` ? "rgba(230, 240, 254, 1)" : "transparent",
-                                                            }}
-                                                            onClick={() => {
-                                                                const isPreviousDocumentCompleted =
-                                                                    subIndex > 0 && item.documents[subIndex - 1]?.status_document === true;
-
-                                                                const isCurrentDocumentBlocked =
-                                                                    subIndex > 0 && !isPreviousDocumentCompleted;
-
-                                                                const lastCourse = course[index - 1];
-                                                                const lastLesson =
-                                                                    lastCourse?.documents?.[lastCourse.documents.length - 1]?.status_document;
-
-                                                                // Kiểm tra điều kiện tài liệu bị khóa
-                                                                if (lastLesson === false) {
-                                                                    alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                                                                    return;
-                                                                } else if (isCurrentDocumentBlocked) {
-                                                                    alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                                                                    return;
-                                                                }
-                                                                setSelectedIndex(`${index}-${subIndex}`);
-                                                                handleClickDoc(doc);
-                                                            }}
-                                                        >
-                                                            <div className={styles.doc_title}>
-                                                                {doc.type_document === "video" ? (
-                                                                    <IconVideo />
-                                                                ) : (
-                                                                    <IconDoc />
-                                                                )}
-                                                                <div className={styles.listItem__docTitle}>
-                                                                    <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}  </span>
-                                                                    <span className={styles.listItem__docName}> {doc.name_document} </span>
-                                                                </div>
-                                                            </div>
-                                                            <DocumentStatus status_document={doc.status_document} />
-                                                        </li>
-                                                    );
-                                                })}
-                                            </ul>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-
-                        </div>
-                    ))
-            )
-        }
-
-
-    }
-
-
-
-    const ContentBody = () => {
-        return (
-            isContent ? (
-                <div className={styles.body}>
-                    {!isNote ? (
-                        <>
-                            <div className={styles.bodyTop}>
-                                <div className={styles.bodyTitle}>
-                                    <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
-                                    <h4 className={styles.titleCourse}>{nameDocument}</h4>
-                                </div>
-                                <Button
-                                    onClick={() => {
-                                        toggleNote();
-                                        handelIsPlaying();
-                                    }}
-                                    type="premary" // Đã sửa thành "primary"
-                                    status="hover"
-                                    size="S"
-                                    leftIcon={false}
-                                    rightIcon={false}
-                                    height={40}
-                                >
-                                    Thêm ghi chú {formatTime(playedSeconds)}
-                                </Button>
-                            </div>
-                            <div className={styles.bodyContent}>
-                                <p className={styles.content}>
-                                    {descdocument}
-                                    <a
-                                        href="https://www.w3schools.com/css/css_pseudo_classes.asp"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        https://www.w3schools.com/css/css_pseudo_classes.asp
-                                    </a>
-                                </p>
-                            </div>
-                        </>
-                    ) : (
-                        <AnimatePresence>
-                            <motion.div
-                                initial={{ y: '100%' }}
-                                animate={{ y: 0 }}
-                                exit={{ y: '-100%' }}
-                                transition={{ duration: 0.5 }}
-                                className={styles.noteTap}
-                            >
-                                <NoteCourse id={idDocument} title={nameDocument} time={playedSeconds} onClose={toggleNote} />
-                            </motion.div>
-                        </AnimatePresence>
-                    )}
-                </div>
-            ) : (
-                null
-            )
-        )
-    }
-
-    const HandleFaq = () => {
-        return (
-            isFAQ && (
-                <AnimatePresence>
-                    <motion.div
-                        initial={{ x: '-100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '-100%' }}
-                        transition={{ duration: 0.5 }}
-                        className={styles.FAQ}
-                    >
-                        <Faq course_Id={course_Id} userImage={avatar} onClose={toggleFaq} />
-                    </motion.div>
-                </AnimatePresence>
-            )
-        )
-    }
-
-
-
-    const mappedCourseNew = useMemo(() => {
-        if (!course || !Array.isArray(course)) return <>Trờ TTO chút xíu nhé</>; // Trả về null nếu không có course
-
-        const contentLearning = renderContent();
-        const contentChapterDocument = renderChapterDocument();
-        const contentBody = ContentBody();
-        const Faq = HandleFaq();
-        return (
-            <div className={styles.container}>
-                <div className={`${styles.row}`}>
-                    <div className={`${styles.flexGrow} ${styles.videoContainer}`}>
-                        {contentLearning}
-
-                        {contentBody}
-                        {Faq}
-
-                    </div>
-
-                    {contentChapterDocument}
-                </div>
-
-            </div>
-        );
-    }, [course, isNote, isFAQ, tippyVisible, isVisible, openIndexes, playedSeconds, urlVideo, nameDocument, typeDoc]);
-
-
-
-    // user
-
-
-    // Lấy dữ liệu từ localStorage
-
-
-    // lấy ra tất cả note của người dùng
-
 
     return (
         <main className={styles.main}>
@@ -746,7 +697,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     <Link href="/" className={stylesNav.brandHeader}>
                         <Image src="/img/logo.svg" alt="logo" className={stylesNav.imgBrandHeader} width={54} height={56} />
                     </Link>
-                    <h4 className={stylesNav.heading}>{progress?.name_course}</h4>
+                    <h4 className={stylesNav.heading}>{progress?.course_name}</h4>
                     <ProgressCircle progress={progress?.progress_percentage ?? 0} />
                 </div>
                 <div className={stylesNav.cta}>
@@ -773,46 +724,53 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     </label>
 
                     <div className={stylesNav.iconNotifition}>
-                        <IconBell />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 11.094 21.8795 10.2162 21.6537 9.38161C21.5684 9.06633 21.1987 8.94083 20.9028 9.0791C20.3248 9.34916 19.68 9.5 19 9.5C16.5147 9.5 14.5 7.48528 14.5 5C14.5 4.31996 14.6508 3.67516 14.9209 3.09722C15.0592 2.80131 14.9337 2.4316 14.6184 2.3463C13.7838 2.12048 12.906 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" fill="#808080" />
+                            <circle cx="19" cy="5" r="3" fill="#24A148" />
+                        </svg>
                     </div>
+                    <Tippy visible={isNoteList} onClickOutside={hideNoteList} interactive={true} render={attrs => (
+                        <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
+                            <div className={stylesNav.tippyTitle}>Ghi chú của bạn</div>
+                            <div className={stylesNav.tippyList}>
 
-                    {/* <Tippy
-                        visible={isNoteContent}
-                        onClickOutside={toggleNoteList}
-                        interactive={true}
-                        placement="top-start" 
-                        render={(attrs) => (
-                            <div className={styles.tippyNoteList} tabIndex={-1} {...attrs}>
-                                <div className={styles.NoteList}>
-                                    Nọi dung cần được note
-                                </div>
+                                <div className={stylesNav.tippyItem}></div>
                             </div>
-                        )}
-                    >
-                        <div className={stylesNav.iconNotifition} onClick={toggleNoteList}>
-                            <IconNote />
                         </div>
-                    </Tippy> */}
-                    <div className={stylesNav.iconNotifition} onClick={toggleNoteList}>
-                        <IconNote />
-                    </div>
-
-
-
+                    )}>
+                        <div className={stylesNav.iconNotifition} onClick={isNoteList ? hideNoteList : showNoteList}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.81 0H13.191C16.28 0 18 1.78 18 4.83V15.16C18 18.26 16.28 20 13.191 20H4.81C1.77 20 0 18.26 0 15.16V4.83C0 1.78 1.77 0 4.81 0ZM5.08 4.66V4.65H8.069C8.5 4.65 8.85 5 8.85 5.429C8.85 5.87 8.5 6.22 8.069 6.22H5.08C4.649 6.22 4.3 5.87 4.3 5.44C4.3 5.01 4.649 4.66 5.08 4.66ZM5.08 10.74H12.92C13.35 10.74 13.7 10.39 13.7 9.96C13.7 9.53 13.35 9.179 12.92 9.179H5.08C4.649 9.179 4.3 9.53 4.3 9.96C4.3 10.39 4.649 10.74 5.08 10.74ZM5.08 15.31H12.92C13.319 15.27 13.62 14.929 13.62 14.53C13.62 14.12 13.319 13.78 12.92 13.74H5.08C4.78 13.71 4.49 13.85 4.33 14.11C4.17 14.36 4.17 14.69 4.33 14.95C4.49 15.2 4.78 15.35 5.08 15.31Z" fill="#808080" />
+                            </svg>
+                        </div>
+                    </Tippy>
                     <Tippy visible={visible} onClickOutside={hide} interactive={true} render={attrs => (
                         <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
                             <div className={stylesNav.menuContent}>
                                 <p className={stylesNav.menuTitle}>Tùy chọn</p>
-                                <Link href="#!" className={stylesNav.menuLink}>
-                                    <IconSun /> Bật giao diện tối
+                                <Link href="#!" className={stylesNav.menuLink}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M12 2V4" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M12 20V22" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M4 12L2 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M22 12L20 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                </svg> Bật giao diện tối
                                 </Link>
                                 <p className={stylesNav.menuTitle}>Cài đặt</p>
                                 <Link href="#!" className={stylesNav.menuLink}>
-                                    <IconSetting />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.4023 11.5801C18.76 11.7701 19.036 12.0701 19.2301 12.3701C19.6083 12.9901 19.5776 13.7501 19.2097 14.4201L18.4943 15.6201C18.1162 16.2601 17.411 16.6601 16.6855 16.6601C16.3278 16.6601 15.9292 16.5601 15.6022 16.3601C15.3365 16.1901 15.0299 16.1301 14.7029 16.1301C13.6911 16.1301 12.8429 16.9601 12.8122 17.9501C12.8122 19.1001 11.872 20.0001 10.6968 20.0001H9.30692C8.12145 20.0001 7.18125 19.1001 7.18125 17.9501C7.16081 16.9601 6.31259 16.1301 5.30085 16.1301C4.96361 16.1301 4.65702 16.1901 4.40153 16.3601C4.0745 16.5601 3.66572 16.6601 3.31825 16.6601C2.58245 16.6601 1.87729 16.2601 1.49917 15.6201L0.79402 14.4201C0.415896 13.7701 0.395456 12.9901 0.773581 12.3701C0.937094 12.0701 1.24368 11.7701 1.59115 11.5801C1.87729 11.4401 2.06125 11.2101 2.23498 10.9401C2.74596 10.0801 2.43937 8.95012 1.57071 8.44012C0.55897 7.87012 0.231943 6.60012 0.814459 5.61012L1.49917 4.43012C2.09191 3.44012 3.35913 3.09012 4.38109 3.67012C5.27019 4.15012 6.425 3.83012 6.9462 2.98012C7.10972 2.70012 7.20169 2.40012 7.18125 2.10012C7.16081 1.71012 7.27323 1.34012 7.4674 1.04012C7.84553 0.420122 8.53024 0.0201221 9.27627 0.00012207H10.7172C11.4735 0.00012207 12.1582 0.420122 12.5363 1.04012C12.7203 1.34012 12.8429 1.71012 12.8122 2.10012C12.7918 2.40012 12.8838 2.70012 13.0473 2.98012C13.5685 3.83012 14.7233 4.15012 15.6226 3.67012C16.6344 3.09012 17.9118 3.44012 18.4943 4.43012L19.179 5.61012C19.7718 6.60012 19.4447 7.87012 18.4228 8.44012C17.5541 8.95012 17.2475 10.0801 17.7687 10.9401C17.9322 11.2101 18.1162 11.4401 18.4023 11.5801ZM7.10972 10.0101C7.10972 11.5801 8.4076 12.8301 10.0121 12.8301C11.6165 12.8301 12.8838 11.5801 12.8838 10.0101C12.8838 8.44012 11.6165 7.18012 10.0121 7.18012C8.4076 7.18012 7.10972 8.44012 7.10972 10.0101Z" fill="#B3B3B3" />
+                                    </svg>
                                     Cài đặt
                                 </Link>
                                 <Link href="#!" className={stylesNav.menuLink} onClick={handleLogout}>
-                                    <IconLogout />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.89535 9.23C7.45785 9.23 7.11192 9.57 7.11192 10C7.11192 10.42 7.45785 10.77 7.89535 10.77H14V15.55C14 18 11.9753 20 9.47238 20H4.51744C2.02471 20 0 18.01 0 15.56V4.45C0 1.99 2.03488 0 4.52762 0H9.49273C11.9753 0 14 1.99 14 4.44V9.23H7.89535ZM17.6302 6.5402L20.5502 9.4502C20.7002 9.6002 20.7802 9.7902 20.7802 10.0002C20.7802 10.2002 20.7002 10.4002 20.5502 10.5402L17.6302 13.4502C17.4802 13.6002 17.2802 13.6802 17.0902 13.6802C16.8902 13.6802 16.6902 13.6002 16.5402 13.4502C16.2402 13.1502 16.2402 12.6602 16.5402 12.3602L18.1402 10.7702H14.0002V9.2302H18.1402L16.5402 7.6402C16.2402 7.3402 16.2402 6.8502 16.5402 6.5502C16.8402 6.2402 17.3302 6.2402 17.6302 6.5402Z" fill="#B3B3B3" />
+                                    </svg>
                                     Đăng xuất
                                 </Link>
 
@@ -822,49 +780,40 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <div className={stylesNav.menuOptions} onClick={visible ? hide : show}>
                             <Image src={avatar} alt="logo" className={stylesNav.userImage} width={34} height={80} />
                             <h4 className={stylesNav.titleName}>{user?.fullname}</h4>
-                            <Arrow deg="-180" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9L12 15L18 9" stroke="#237DF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
                         </div>
                     </Tippy>
-
                 </div>
             </Navbar >
 
+            <div className={styles.container}>
+                {/* Video */}
+                {mappedCourseNew}
 
-            {/* Video */}
-            {mappedCourseNew}
+            </div>
             <div className={`${styles.actionBar}`}>
-                <div className={styles.faq} onClick={
-                    () => {
-                        toggleFaq();
-                        handelIsPlaying();
-                    }
-                }>
-                    <IconWhat />
+                <div className={styles.faq} onClick={toggleFaq}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                        <circle cx="25.0003" cy="25" r="20.8333" stroke="#237DF7" stroke-width="1.5" />
+                        <path d="M21.0938 18.4896C21.0938 16.3322 22.8426 14.5833 25 14.5833C27.1574 14.5833 28.9062 16.3322 28.9062 18.4896C28.9062 19.9218 28.1355 21.1739 26.9862 21.8539C25.9959 22.4398 25 23.3286 25 24.4792V27.0833" stroke="#237DF7" stroke-width="1.5" stroke-linecap="round" />
+                        <circle cx="25.0003" cy="33.3333" r="2.08333" fill="#237DF7" />
+                    </svg>
                 </div>
                 <div className={styles.ctaNextPev}>
-                    <button
-                        className={styles.nextPrevCourse}
-                        onClick={() => {
-                            if (course) {
-                                handlePreviousLesson({ course, selectedIndex, setSelectedIndex });
-                            }
-                        }}
-                    >
-                        <Arrow deg="-180" />
+                    <Link href={"/#"} className={styles.nextPrevCourse}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M15 18L9 12L15 6" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
                         <p className={styles.titleNextPrev}>Bài trước</p>
-                    </button>
-                    <button
-                        className={styles.nextPrevCourse}
-                        onClick={() => {
-                            if (course) {
-                                handleNextLesson({ course, selectedIndex, setSelectedIndex });
-                            }
-                        }}
-                    >
+                    </Link>
+                    <Link href={"/#"} className={styles.nextPrevCourse}>
                         <p className={styles.titleNextPrev}>Bài tiếp theo</p>
-                        <Arrow deg="0" />
-                    </button>
-
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 18L15 12L9 6" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </Link>
                 </div>
                 <div className={styles.cateSec}>
                     <span>Chương 1: Bắt đầu</span>
@@ -874,21 +823,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         </svg>
                     </div>
                 </div>
-                {isNoteContent && (
-                    <AnimatePresence>
-                        <motion.div
-                            initial={{ y: '100%' }}
-                            animate={{ y: 0 }}
-                            exit={{ y: '-110%' }}
-                            transition={{ duration: 0.5 }}
-                            className={styles.NoteList}
-                        >
-                            <NoteContent course_Id={course_Id} chapter_Id={chapter_id} doc_id={doc_id} userImage={avatar} onClose={toggleNoteList} />
-                        </motion.div>
-                    </AnimatePresence>
-                )}
-            </div>
 
+            </div>
         </main>
     );
 }

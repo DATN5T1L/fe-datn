@@ -3,41 +3,44 @@
 import React, { useState } from 'react';
 import styles from '@public/styles/globalControl/Notification.module.css';
 
-import { IconXNoneFill } from "@app/(user-global)/component/icon/icons"
+interface NotificationProps {
+    type: 'success' | 'error' | 'fail' | 'complete';
+    message: string;
+}
 
-const Notification: React.FC<NotificationProps> = ({ type, message, position = 'bottom-right' }) => {
+const Notification: React.FC<NotificationProps> = ({ type, message }) => {
     const [visible, setVisible] = useState(true);
+
     const getNotificationStyles = () => {
         switch (type) {
             case 'success':
                 return {
-                    backgroundColor: '#D4EDDA',
-                    textColor: '#155724',
+                    backgroundColor: '#EAF6ED',
+                    textColor: '#000',
                     Icon: "/icons/success.svg",
-                    colorMain: '#28A745',
+                    colorMain: '#24A148',
                 };
             case 'error':
                 return {
-                    backgroundColor: '#F8D7DA',
-                    textColor: '#721C24',
+                    backgroundColor: '#4D4B3D',
+                    textColor: '#FFFFFF',
                     Icon: "/icons/error.svg",
-                    colorMain: '#DC3545',
+                    colorMain: '#4589FF',
                 };
             case 'fail':
                 return {
-                    backgroundColor: '#FFF3CD',
-                    textColor: '#856404',
+                    backgroundColor: '#FFFDEF',
+                    textColor: '#FFFFFF',
                     Icon: "/icons/fail.svg",
-                    colorMain: '#FFC107',
+                    colorMain: '#F9E959',
                 };
             case 'complete':
                 return {
-                    backgroundColor: '#D1ECF1',
-                    textColor: '#0C5460',
+                    backgroundColor: '#EDF4FF',
+                    textColor: '#FFFFFF',
                     Icon: '/icons/complete.svg',
-                    colorMain: '#17A2B8',
+                    colorMain: '#DA1E28',
                 };
-
             default:
                 return {
                     backgroundColor: '#000000',
@@ -47,24 +50,9 @@ const Notification: React.FC<NotificationProps> = ({ type, message, position = '
                 };
         }
     };
-    const getPositionStyles = () => {
-        switch (position) {
-            case 'top-left':
-                return { top: '100px', left: '10%' };
-            case 'top-right':
-                return { top: '100px', right: '10%' };
-            case 'bottom-left':
-                return { bottom: '100px', left: '10px' };
-            case 'bottom-right':
-                return { bottom: '100px', right: '10%' };
-            default:
-                return { bottom: '100px', right: '10%' }; // Mặc định là 'bottom-right'
-        }
-    };
-
 
     const { backgroundColor, textColor, Icon, colorMain } = getNotificationStyles();
-    const positionStyles = getPositionStyles();
+
     // Hàm tắt thông báo
     const handleTurnOff = () => {
         setVisible(false);
@@ -78,9 +66,7 @@ const Notification: React.FC<NotificationProps> = ({ type, message, position = '
                     backgroundColor,
                     color: textColor,
                     border: `1px solid ${colorMain}`,
-                    zIndex: 100,
-                    position: 'absolute',
-                    ...positionStyles,
+
                 }}
             >
                 <div className={styles.content}>
@@ -98,7 +84,9 @@ const Notification: React.FC<NotificationProps> = ({ type, message, position = '
                 </div>
 
                 <div className={styles.IconCancel} onClick={handleTurnOff}>
-                    <IconXNoneFill />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+                        <path d="M2.85612 0.490032C2.20274 -0.163344 1.14341 -0.163344 0.490032 0.490032C-0.163344 1.14341 -0.163344 2.20274 0.490032 2.85612L4.88393 7.25002L0.49008 11.6439C-0.163297 12.2973 -0.163297 13.3566 0.49008 14.01C1.14346 14.6633 2.20279 14.6633 2.85617 14.01L7.25002 9.61611L11.6438 14.0099C12.2972 14.6633 13.3565 14.6633 14.0099 14.0099C14.6633 13.3565 14.6633 12.2972 14.0099 11.6438L9.61611 7.25002L14.01 2.85616C14.6633 2.20279 14.6633 1.14346 14.01 0.490078C13.3566 -0.163299 12.2973 -0.163299 11.6439 0.490078L7.25002 4.88393L2.85612 0.490032Z" fill="#666666" />
+                    </svg>
                 </div>
             </div>
         ) : null

@@ -18,7 +18,7 @@ interface User {
     discription_user: string;
     email: string;
     fullname: string;
-    id: string;
+    id: string | number;
     phonenumber: string;
     provider_id: string;
     role: string;
@@ -75,9 +75,6 @@ const ProfileDispatch = () => {
         }
     }, [pathName, isRegister]);
 
-
-
-
     const handleLogout = async () => {
         localStorage.removeItem('token');
         localStorage.removeItem('progress_percentages');
@@ -86,7 +83,6 @@ const ProfileDispatch = () => {
         document.cookie = "authjs.session-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         document.cookie = "authjs.csrf-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         localStorage.removeItem('persist:root');
-        persistor.pause();
         dispatch(logout());
         signOut(
             { redirect: false, }
@@ -102,26 +98,27 @@ const ProfileDispatch = () => {
 
             return expiration < Math.floor(Date.now() / 1000);
         } catch (error) {
-            // console.error('Không thể phân tích token:', error);
+            console.error('Không thể phân tích token:', error);
             return true;
         }
     };
 
 
     const fetchUserInfo = async (tokenValue: string) => {
-        if (!tokenValue) return;  // Nếu không có token, không cần thực hiện gì
+        if (tokenValue && (isRegister || isLogin || isRetrievePassword)) {
+            localStorage.setItem('isLoggedIn', 'true');
+            router.push('/info-user');
+            return;
+        }
 
-        // Kiểm tra các trạng thái nếu cần
-        if (isRegister || isLogin || isRetrievePassword) {
-            if (!localStorage.getItem('isLoggedIn')) {
-                localStorage.setItem('isLoggedIn', 'true');
-                router.push('/info-user');
-            }
+        if (!tokenValue && (isInfo || isIntro || isWallet)) {
+            console.error("Token không hợp lệ hoặc không tồn tại");
+            if (isAdmin) router.push('/home');
             return;
         }
 
         if (isTokenExpired(tokenValue)) {
-            // console.error("Token đã hết hạn");
+            console.error("Token đã hết hạn");
             handleLogout()
             signOut(
                 { redirect: false, }
@@ -134,7 +131,6 @@ const ProfileDispatch = () => {
             return;
         }
 
-        // Gọi API để lấy thông tin người dùng
         try {
             const res = await fetch('/api/profile', {
                 cache: "no-cache",
@@ -144,24 +140,23 @@ const ProfileDispatch = () => {
             });
 
             if (!res.ok) {
-                // console.log(await res.json());
+                console.log(await res.json());
                 return;
             }
 
             const data = await res.json();
-            // console.log(data);
+            console.log(data);
 
             dispatch(login(data));
             setDataUser(data)
 
             localStorage.setItem('isLoggedIn', 'true');
-
-            // Chuyển hướng sau khi lấy thông tin
             if (isLogin || isRegister || isRetrievePassword) {
                 router.push('/info-user');
             }
         } catch (error) {
-            // console.error("Lỗi khi lấy thông tin người dùng:", error);
+            console.error("Lỗi khi lấy thông tin người dùng:", error);
+            // handleLogout
             if (isAdmin) {
                 router.push('/home');
             }
@@ -214,7 +209,7 @@ const ProfileDispatch = () => {
                 fetchUserInfo(token);
             }
             if (token && isTokenExpired(token)) {
-                // console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
+                console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
                 handleLogout();
                 alert('Đăng nhập lại để kiểm tra thông tin vì lý do bảo mật');
                 if (isAdmin) {
@@ -222,7 +217,7 @@ const ProfileDispatch = () => {
                 }
                 return;
             }
-            // console.log('check');
+            console.log('check');
 
         }, 30000);
         return () => clearInterval(interval);
@@ -250,7 +245,7 @@ const ProfileDispatch = () => {
         if (tokenCookie) {
             fetchUserInfo(tokenCookie);
         } else {
-            // console.error('Không tìm thấy token');
+            console.error('Không tìm thấy token');
             if (isInfo || isWallet || isIntro) {
                 handleLogout()
                 signOut(
@@ -265,7 +260,7 @@ const ProfileDispatch = () => {
             if (token) {
                 fetchUserInfo(token);
             } else {
-                // console.error("Token không hợp lệ từ sự kiện login");
+                console.error("Token không hợp lệ từ sự kiện login");
             }
         };
         const handleStorageChange = (event: StorageEvent) => {
@@ -305,7 +300,7 @@ const ProfileDispatch = () => {
             const tokenCookie = getCookie('token');
             localStorage.setItem('returnPath', pathName);
             if (!tokenCookie) {
-                // console.error('Token cookie is missing. Logging out...');
+                console.error('Token cookie is missing. Logging out...');
                 handleLogout();
                 signOut(
                     { redirect: false, }
@@ -324,7 +319,6 @@ const ProfileDispatch = () => {
     }, [dispatch, router, pathName]);
 
     return null;
-
 };
 
 export default ProfileDispatch;

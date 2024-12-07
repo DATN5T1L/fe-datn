@@ -8,7 +8,10 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-
+interface ModalChangePassProps {
+    show: boolean;
+    onClose: () => void;
+}
 
 const ModalChangePassContent: React.FC<ModalChangePassProps> = ({ show, onClose }) => {
     const searchParams = useSearchParams();

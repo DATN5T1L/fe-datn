@@ -10,7 +10,10 @@ import { RootState } from '@/redux/store';
 import { update } from '@/redux/slices/userSlice';
 import useCookie from '../../hook/useCookie';
 
-
+interface ModalChangeInfoProps {
+    show: boolean;
+    onClose: () => void;
+}
 
 const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
     const userState = useSelector((state: RootState) => state.user);

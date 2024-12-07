@@ -1,6 +1,6 @@
 
 export class Post {
-    id: string;
+    id: number|string;
     title_post: string;
     content_post: string;
     img_post: string;
@@ -11,7 +11,7 @@ export class Post {
     updated_at: Date;
 
     constructor(
-        id: string,
+        id: number|string,
         title_post: string,
         content_post: string,
         img_post: string,

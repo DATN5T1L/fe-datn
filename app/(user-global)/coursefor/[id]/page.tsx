@@ -1,30 +1,34 @@
-'use client'
-import { useState, useEffect } from "react";
+'use client';
+import useSWR from 'swr';
+import 'aos/dist/aos.css';
+import AOS from 'aos';
 import Body from "@app/(user-global)/component/globalControl/body";
 import CourseFor from "@app/(user-global)/component/course/courseFor";
 import CourseForNext from "@app/(user-global)/component/course/CourseForNext";
 import TimeLine from "@app/(user-global)/component/router/timeLine";
 import LearningPathSection from "@app/(user-global)/component/router/learningPathSection";
 
-const CourseForYou: React.FC = () => {
-    const [courseIds, setCourseIds] = useState<string[]>([]);
+// thêm model
 
-    const handleCoursesLoad = (ids: string[]) => {
-        setCourseIds(ids);
-    };
+import { Course } from "@app/(user-global)/model/course";
+
+interface ApiResponse<T> {
+    status: string;
+    message: string;
+    data: T;
+}
+const fetcher = (url: string) => fetch(url).then(res => res.json());
+
+const CourseForYou: React.FC<{ params: { id: number|string } }> = ({ params }) => {
+    const { id } = params;
+
+
 
     return (
         <Body>
-            <CourseFor onCoursesLoad={handleCoursesLoad} />
-            {/* Chỉ truyền courseIds cho CourseForNext khi có dữ liệu mới */}
-            {courseIds.length > 0 && <CourseForNext id={courseIds} />}
-        </Body>
-    );
-}
-
-export default CourseForYou;
-
-{/* <LearningPathSection
+            <CourseFor />
+            <CourseForNext id={id} />
+            <LearningPathSection
                 title='UI/UX Design'
                 contentTitle='Thiết kế UI/UX luôn là một lĩnh vực hấp dẫn và thời thượng.
                      Chỉ cần tìm kiếm từ khóa "Tuyển dụng Designer UI/UX," 
@@ -57,4 +61,9 @@ export default CourseForYou;
                 name3="Prototyping with Figma "
                 name4="MySQL"
                 name5="Usability Testing"
-            /> */}
+            />
+        </Body>
+    );
+}
+
+export default CourseForYou;

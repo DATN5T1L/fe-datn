@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Button, Image, Nav } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
-import { ShowNameElement } from '@app/(user-global)/component/globalControl/commonC';
+
 const LeftSlider: React.FC = () => {
     const pathName = usePathname();
     const [isMenu, setIsMenu] = useState(true);
@@ -15,29 +15,10 @@ const LeftSlider: React.FC = () => {
     const [isHidden, setIsHidden] = useState(false);
     const userState = useSelector((state: RootState) => state.user);
     const [clientHref, setClientHref] = useState('/login');
-    const [idCourse, setIdCourse] = useState<string | null>("");
 
-    useEffect(() => {
-        // Lấy dữ liệu từ localStorage
-        const storedProgress = localStorage.getItem('progress');
-
-        if (storedProgress) {
-            try {
-                const data = JSON.parse(storedProgress); // Chuyển JSON thành object
-                console.log(data.course_id); // Kiểm tra course_id
-                setIdCourse(`/learningCourse/${data.course_id}`); // Lưu vào state
-            } catch (error) {
-                console.error("Lỗi parse JSON:", error);
-                setIdCourse(`/#!`);
-            }
-        } else {
-            console.log("Không có dữ liệu trong localStorage với key 'progress'");
-            setIdCourse(`/#!`);
-        }
-    }, []);
     useEffect(() => {
         // Cập nhật URL sau khi client đã có trạng thái user
-        setClientHref(userState?.user ? `/coursefor` : '/login');
+        setClientHref(userState?.user ? `/coursefor/${userState.user.id}` : '/login');
     }, [userState]);
 
     useEffect(() => {
@@ -52,7 +33,7 @@ const LeftSlider: React.FC = () => {
                     };
 
                     const observer = new ResizeObserver(setHeight);
-                    observer.observe(header);
+                    observer.observe(header);   
                     setHeight();
 
                     const handleScroll = () => {
@@ -103,19 +84,16 @@ const LeftSlider: React.FC = () => {
             style={{ top: `calc(${headerHeight}px + 120px)` }}
         >
             <section className={`slide-bar-categories`}>
-                <ShowNameElement name='Trang chủ'>
-                    <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
-                        <img src='/img/home.svg' className={`img none ${isHome ? 'block-icon' : ''}`} />
-                        <div className={`btn-e ${isHome ? 'text-white-100' : ''} ${isMenu ? 'w-0px' : 'block-text'}`}>Trang chủ</div>
-                    </Link>
-                </ShowNameElement>
-                <div className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`} onClick={openCourses}>
+                <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
+                    <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
+                    <img src='/img/home.svg' className={`img none ${isHome ? 'block-icon' : ''}`} />
+                    <div className={`btn-e ${isHome ? 'text-white-100' : ''} ${isMenu ? 'w-0px' : 'block-text'}`}>Trang chủ</div>
+                </Link>
 
+                <div className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`} onClick={openCourses}>
                     <img src='/img/box-fill.svg' className='img block' />
                     <img src='/img/box.svg' className='img none' />
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Khóa học</div>
-
                 </div>
 
                 <div
@@ -124,45 +102,40 @@ const LeftSlider: React.FC = () => {
                 >
                     <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
                     <Link
-                        href={`${userState.user ? `/coursefor` : `/login`}`}
+                        href={clientHref}
                         className={`btn-slide-bar-mini`}
                     >
                         <div className={`btn-e`}>Khóa học của bạn</div>
                     </Link>
                     <Link
-                        href="/CourseFa"
+                        href="/coursefor/1"
                         className={`btn-slide-bar-mini`}
                     >
-                        <div className={`btn-e`}>Khóa học yêu thích</div>
+                        <div className={`btn-e`}>Khóa học có phí</div>
                     </Link>
                     <Link
                         href="/course/1"
                         className={`btn-slide-bar-mini`}
                     >
-                        <div className={`btn-e`}>Nhắc nhở học tập</div>
+                        <div className={`btn-e`}>Khóa học miễn phí</div>
                     </Link>
                 </div>
-                <ShowNameElement name='Học ngay'>
-                    <Link href={idCourse ? `${idCourse}` : '#'} className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/bagfill.svg' className='img block' />
-                        <img src='/img/bag.svg' className='img none' />
-                        <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Học ngay</div>
-                    </Link>
-                </ShowNameElement>
-                <ShowNameElement name='Lộ trình học tập'>
-                    <Link href="/learningPath-FE" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/roadfill.svg' className='img block' />
-                        <img src='/img/road.svg' className='img none' />
-                        <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Lộ trình</div>
-                    </Link>
-                </ShowNameElement>
-                <ShowNameElement name='Bản tin TTO.SH'>
-                    <Link href="/post" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/textnotefill.svg' className='img block' />
-                        <img src='/img/textnote.svg' className='img none' />
-                        <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Tin tức</div>
-                    </Link>
-                </ShowNameElement>
+
+                <Link href="/" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
+                    <img src='/img/bagfill.svg' className='img block' />
+                    <img src='/img/bag.svg' className='img none' />
+                    <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Học ngay</div>
+                </Link>
+                <Link href="/learningPath-FE" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
+                    <img src='/img/roadfill.svg' className='img block' />
+                    <img src='/img/road.svg' className='img none' />
+                    <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Lộ trình</div>
+                </Link>
+                <Link href="/#" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
+                    <img src='/img/textnotefill.svg' className='img block' />
+                    <img src='/img/textnote.svg' className='img none' />
+                    <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Tin tức</div>
+                </Link>
             </section>
             <Button className='menu' onClick={openMenu}>
                 {isMenu ? (

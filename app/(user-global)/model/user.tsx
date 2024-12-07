@@ -1,9 +1,8 @@
 export class User {
-    user_id: number | string;
+    user_id: number|string;
     username: string;
     password: string;
     fullname: string;
-    discription_user: string;
     age: number;
     email: string;
     avatar: string;
@@ -16,11 +15,10 @@ export class User {
     updated_at: Date;
 
     constructor(
-        user_id: number | string,
+        user_id: number|string,
         username: string,
         password: string,
         fullname: string,
-        discription_user: string,
         age: number,
         email: string,
         avatar: string,
@@ -36,7 +34,6 @@ export class User {
         this.username = username;
         this.password = password;
         this.fullname = fullname;
-        this.discription_user = discription_user;
         this.age = age;
         this.email = email;
         this.avatar = avatar;

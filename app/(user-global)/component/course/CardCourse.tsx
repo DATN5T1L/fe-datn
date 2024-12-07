@@ -1,86 +1,77 @@
 import React from 'react';
-import Link from 'next/link';
-// import Image from 'next/image';
-import { Card, Col, Image } from 'react-bootstrap';// Component vòng tròn tiến độ
-import styles from '@public/styles/globalControl/CourseCard.module.css'; // CSS module
+import { Card } from 'react-bootstrap';
+import Image from 'next/image';
+import ProgressCircle from './ProgressCircle';
+import styles from "@public/styles/course/CourseCard.module.css";
+import { Course } from "@app/(user-global)/model/course";
 
-interface CourseCardProps {
-    course: {
-        id: string;
-        name_course: string;
-        rating_course: number;
-        views_course: number;
-        instructor_avatar: string;
-        num_chapter: number;
-        num_document: number;
-    };
-    onCourseClick?: (course: any) => void;
-    showProgress?: boolean; // Prop để quyết định hiển thị ProgressCircle
+interface CourseCardProps extends Course {
+    progress: number;
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProgress = true }) => {
-
-    const handleCourseClick = () => {
-        if (onCourseClick) onCourseClick(course);
-    };
-
+const CourseCard: React.FC<CourseCardProps> = ({
+    name_course,
+    img_course,
+    price_course,
+    rating_course,
+    chapters_count,
+    documents_count,
+    num_lesson,
+    instructor_id,
+    progress,
+}) => {
     return (
-        <Col xs={12} sm={6} md={4} lg={3} className={styles.mainBox} key={course.id}>
-            <Card className={styles.mainBox__content}>
-                <Card.Header className={styles.headerContent}>
-                    <section className={styles.headerContent__text}>
-                        <Link href={`/course/${course.id}`}>
-                            <Card.Title className={styles.text__hedding2}>
-                                {course.name_course}
-                            </Card.Title>
-                        </Link>
-                        <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
-                        <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
-                    </section>
-                    <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
-                </Card.Header>
-                <Card.Body className={styles.mainContent}>
-                    <section className={styles.mainContent__headContent}>
-                        <div className={styles.headContent__evaluete}>
-                            <div className={styles.evaluete__main}>
-                                <div className={styles.starGroup}>
-                                    {/* Star rating */}
-                                    {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                        <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
-                                    ))}
-                                </div>
-                                <Card.Text className={styles.starNumber}>
-                                    {'('} {course.rating_course} {')'}
-                                </Card.Text>
+        <Card className={styles.courseCard}>
+            <Card.Header className={styles.header}>
+                <section className={styles.headerText}>
+                    <Card.Title className={styles.title}>
+                        {name_course}
+                    </Card.Title>
+                    <Card.Subtitle className={styles.subtitle}>
+                        by Team {instructor_id}
+                    </Card.Subtitle>
+                    <Card.Img src="/img/iconReact.svg" alt="Icon" className={styles.icon} />
+                </section>
+                <Card.Img src={img_course} alt="Course Image" className={styles.courseImage} />
+            </Card.Header>
+            <Card.Body className={styles.body}>
+                <section className={styles.headerContent}>
+                    <div className={styles.evaluation}>
+                        <div className={styles.evaluationMain}>
+                            <div className={styles.starGroup}>
+                                {[...Array(5)].map((_, index) => (
+                                    <Image
+                                        key={index}
+                                        src="/img/iconStar.svg"
+                                        alt="Star Icon"
+                                        className={styles.star}
+                                    />
+                                ))}
                             </div>
-                        </div>
-                        <div className={styles.headContent__percent}>
-                            <Card.Text className={styles.evaluete__note}>
-                                {'('} {course.views_course} phản hồi {')'}
+                            <Card.Text className={styles.ratingText}>
+                                {'('} {rating_course} {')'}
                             </Card.Text>
                         </div>
+                    </div>
+                    <ProgressCircle progress={progress} />
+                </section>
+                <section className={styles.bodyContent}>
+                    <div className={styles.contentElement}>
+                        <Image src="/img/bookoffgreen.svg" alt="Chapters Icon" className={styles.elementIcon} />
+                        <Card.Text className={styles.elementText}>{chapters_count} Chương</Card.Text>
+                    </div>
+                    <div className={styles.contentElement}>
+                        <Image src="/img/bookopenblue.svg" alt="Exercises Icon" className={styles.elementIcon} />
+                        <Card.Text className={styles.elementText}>{num_lesson} Bài tập</Card.Text>
+                    </div>
+                    <div className={styles.contentElement}>
+                        <Image src="/img/bookopenyellow.svg" alt="Documents Icon" className={styles.elementIcon} />
+                        <Card.Text className={styles.elementText}>{documents_count}Học ngay</Card.Text>
+                    </div>
+                </section>
+            </Card.Body>
+        </Card>
 
-
-                    </section>
-                    <section className={styles.bodyContent}>
-                        <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                            <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
-                        </div>
-                        <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                            <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
-                        </div>
-                        <div className={styles.bodyContent__element}>
-                            <Link href={`/learningCourse/${course.id}`} className={styles.linkCta} onClick={handleCourseClick}>
-                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                <Card.Text className={styles.element__text}>Học ngay</Card.Text>
-                            </Link>
-                        </div>
-                    </section>
-                </Card.Body>
-            </Card>
-        </Col>
     );
 };
 
