@@ -92,7 +92,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handleStudy = () => {
         router.push(`/learningCourse/${id}`)
     }
-
+    console.log(userData)
     const handleButtonClick = () => {
         if (token) {
             if (course && course.price_course > 0) {

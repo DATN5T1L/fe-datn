@@ -20,8 +20,6 @@ const ShowNameElement: React.FC<HoverElementProps> = ({ name, children }) => {
     );
 };
 
-
-
 const formatDateTime = (datetimeStr: string): string => {
     const date = new Date(datetimeStr);
     // Lấy các thành phần ngày, tháng, năm, giờ, phút

@@ -404,3 +404,41 @@ interface CommentItemProps {
     onDelete: (id: string) => void; // Hàm callback từ cha
     onClose: () => void; // Hàm callback từ cha
 }
+
+
+
+interface Reminder {
+    reminder_id: string;
+    day_of_week: string;
+    time: string;
+    enrollment_id: string;
+    del_flag: boolean;
+    created_at: string | null;
+    updated_at: string | null;
+}
+
+interface Course {
+    id: string;
+    name_course: string;
+    img_course: string;
+    price_course: number;
+    discription_course: string;
+    status_course: string;
+    discount_price_course: number | null;
+    views_course: number;
+    rating_course: number;
+    tax_rate: string;
+    del_flag: boolean;
+    instructor_id: string;
+    created_at: string;
+    updated_at: string;
+    num_chapter: number;
+    num_document: number;
+    name_documents: string;
+    watchedVideos: string;
+    progress_percentage: number;
+}
+
+interface CourseReminders extends Course {
+    has_reminders: boolean;
+}

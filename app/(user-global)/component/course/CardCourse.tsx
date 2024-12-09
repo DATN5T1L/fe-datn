@@ -3,7 +3,7 @@ import Link from 'next/link';
 // import Image from 'next/image';
 import { Card, Col, Image } from 'react-bootstrap';// Component vòng tròn tiến độ
 import styles from '@public/styles/globalControl/CourseCard.module.css'; // CSS module
-
+import { IconStar } from "@app/(user-global)/component/icon/icons"
 interface CourseCardProps {
     course: {
         id: string;
@@ -44,9 +44,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                         <div className={styles.headContent__evaluete}>
                             <div className={styles.evaluete__main}>
                                 <div className={styles.starGroup}>
-                                    {/* Star rating */}
                                     {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                        <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
+                                        <IconStar />
                                     ))}
                                 </div>
                                 <Card.Text className={styles.starNumber}>
@@ -56,7 +55,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                         </div>
                         <div className={styles.headContent__percent}>
                             <Card.Text className={styles.evaluete__note}>
-                                {'('} {course.views_course} phản hồi {')'}
+                                {'('} {course.views_course} lượt xem {')'}
                             </Card.Text>
                         </div>
 

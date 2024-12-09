@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card, Col, Container, Image, Row } from "react-bootstrap";
 import Button from "../globalControl/btnComponent";
 import styles from '@public/styles/home/CoursePro.module.css';
@@ -5,7 +6,7 @@ import styleFor from "@public/styles/course/coursefor.module.css";
 import { Course } from "@app/(user-global)/model/course";
 import Link from "next/link";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
-import { useEffect } from "react";
+import CardCourse from "@app/(user-global)/component/course/CardCourse";
 interface CourseForProps {
     id: string[];
 }
@@ -13,9 +14,10 @@ interface CourseForProps {
 const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
     console.log(id);
     const token = useCookie("token");
+    const [courses, setCourse] = useState<Course[]>([]);
     const handleSaveRepplayComment = async () => {
         const noteData = {
-            course_id: id[1]// Sử dụng noteContent ở đây
+            course_id: id// Sử dụng noteContent ở đây
         };
         console.log(noteData); // In ra console để kiểm tra
         try {
@@ -28,8 +30,9 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
                 body: JSON.stringify(noteData),
             })
 
-            const responseData = await response.json() as Course[];
-            console.log(responseData)
+            const responseData = await response.json();
+
+            setCourse(responseData.data)
             if (!response.ok) {
 
             }
@@ -87,11 +90,13 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
                 </div>
                 <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Xem thêm</Button>
             </section>
-            <section>
-                <Row className={styleFor.mainCard}>
 
-                </Row>
-            </section>
+            <Row className={styleFor.mainCardNext}>
+                {courses?.map((course, index) => (
+                    <CardCourse course={course} key={index} showProgress={false} />
+                ))}
+            </Row>
+
         </Container>
 
     )

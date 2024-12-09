@@ -283,6 +283,11 @@ const nextConfig = {
         source: '/api/paymentmomo/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/MOMO/:path*',
       },
+      // thanh toán VNPAY
+      {
+        source: '/api/paymentvnp/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/VNPay/:path*',
+      },
 
 
       // admin
@@ -414,6 +419,30 @@ const nextConfig = {
       {
         source: '/api/courseNext/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/course-next/:path*',
+      },
+      // Nhắc nhở học tập lấy ra các khóa học
+      {
+        source: '/api/reminder/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-reminders-course/:path*',
+      },
+      // Lấy ra chi tiết reminder của khóa học
+      {
+        source: '/api/reminders/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-reminders/:path*',
+      },
+      // thêm nhắc nhở
+      {
+        source: '/api/addReminder/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/post-reminders/:path*',
+      },
+      // sửa nhắc nhỏ
+      {
+        source: '/api/editReminder/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/update-reminders/:path*',
+      },
+      {
+        source: '/api/deleteReminder/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/reminders/:path*',
       },
 
 
