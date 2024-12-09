@@ -15,6 +15,7 @@ import Link from "next/link";
 import "./course.css";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
+import { useRouter } from "next/navigation";
 
 interface Apidata<T> {
   status: string;
@@ -37,9 +38,9 @@ interface Chapter {
 }
 interface Document {
   status: string;
-  data: [
+  data: Array<
     {
-      del_flag: string;
+      del_flag: boolean;
       document_id: string;
       name_document: string;
       serial_document: number;
@@ -47,11 +48,12 @@ interface Document {
       type_document: string;
       updated_at: string;
     }
-  ]
+  >
 }
 
 const CourseList: React.FC<{}> = () => {
   const token = useCookie('token')
+  const router = useRouter()
   const [dataCourse, setDataCourse] = useState<Apidata<Course> | null>(null)
   const [dataChapter, setDataChapter] = useState<Chapter | null>(null)
   const [dataDoc, setDataDoc] = useState<Document | null>(null)
@@ -210,6 +212,52 @@ const CourseList: React.FC<{}> = () => {
   }, [totalPages, currentPage]);
   console.log(currentData);
 
+  const handlePushAdd = () => {
+    if (idChapter) {
+      const data = dataChapter?.data.find(item => item.id === idChapter)
+      const nameChapter = data?.name_chapter;
+      router.replace(`/giangvien/Lesson/LessonAdd?id=${idChapter}&name=${nameChapter}`)
+    } else {
+      alert('Vui lòng chọn khóa học và chapter')
+    }
+  }
+
+  const handleHidden = async (id: string) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn thay đổi trạng thái của khóa học không?')) {
+        try {
+          const res = await fetch(`/api/documentHidden/${id}`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          const data = await res.json()
+          console.log(data);
+          if (data.status === 'success') {
+            setDataDoc((newData) => {
+              if (!newData) return newData;
+              return {
+                ...newData,
+                data: newData.data.map((document) =>
+                  document.document_id === id ?
+                    { ...document, del_flag: !document.del_flag }
+                    : document
+                )
+              }
+            })
+            alert('Thay đổi thành công !!!')
+          } else {
+            console.error(data.message);
+          }
+        } catch (error) {
+          console.error(error);
+
+        }
+      }
+    }
+  }
+
   return (
     <>
       <div className={`${h.mainheader} d-flex flex-column `}>
@@ -220,11 +268,14 @@ const CourseList: React.FC<{}> = () => {
             <div className="col-12 col-md-6">
               <h2 className={h.heading}>Danh sách khóa học </h2>
             </div>
-            <Link className={h.heading__link} href="/giangvien/Lesson/LessonAdd">
+            <div className={h.heading__link}>
               <div className={`${h.actions} d-flex`}>
-                <Button className={`${h.btnCTA}`}>Thêm bài học</Button>
+                <Button
+                  className={`${h.btnCTA}`}
+                  onClick={() => handlePushAdd()}
+                >Thêm bài học</Button>
               </div>
-            </Link>
+            </div>
           </div>
         </div>
         <div className={`${h.filter_bar} d-flex justify-content-between `}>
@@ -254,10 +305,16 @@ const CourseList: React.FC<{}> = () => {
               >
                 {idCourse ? (
                   <>
-                    <option value="">Mời chọn chapter</option>
-                    {dataChapter?.data?.map((item, index) => (
-                      <option key={index} value={`${item.id}`}>{item.name_chapter}</option>
-                    ))}
+                    {dataChapter?.data !== null ? (<>
+                      <option value="">Mời chọn chapter</option>
+                      {dataChapter?.data?.map((item, index) => (
+                        <option key={index} value={`${item.id}`}>{item.name_chapter}</option>
+                      ))}
+                    </>) : (
+                      <>
+                        <option value="">Không có chapter</option>
+                      </>
+                    )}
                   </>
                 ) : (
                   <option value="">Mời chọn chapter</option>
@@ -348,14 +405,18 @@ const CourseList: React.FC<{}> = () => {
                           <div
                             className={`justify-content-between border d-flex py-2 rounded`}
                           >
-                            <Link href="/giangvien/Lesson/LessonDetail" className="w-50 border-end">
-                              <img src="/img_admin/action1.svg" alt="Edit" />
-                            </Link>
+                            <div className="d-flex justify-content-center w-50 border-end" onClick={() => handleHidden(item.document_id)  }>
+                              {item.del_flag ? (
+                                <img src="/img/action.svg" alt="Delete" />
+                              ) : (
+                                <img src="/img/hiddenEye.svg" alt="Delete" />
+                              )}
+                            </div>
                             <Link href="/#!" className="w-50 border-end">
                               <img src="/img_admin/dautick.png" alt="Edit" />
                             </Link>
 
-                            <Link href="/giangvien/Lesson/LessonEdit" className="w-50">
+                            <Link href={`/giangvien/Lesson/LessonEdit?id=${idChapter}&name=${nameTeacher}&idDoc=${item.document_id}`} className="w-50">
                               <img src="/img_admin/action2.svg" alt="Edit" />
                             </Link>
                           </div>
@@ -369,9 +430,11 @@ const CourseList: React.FC<{}> = () => {
                   <td colSpan={7} style={{ padding: '100px', width: '100%', minHeight: '100%', textAlign: 'center', fontSize: '32px', fontWeight: '600', color: 'var(--gray-70)' }}>
                     {!idCourse
                       ? "Vui lòng chọn khóa học"
-                      : !idChapter
-                        ? "Vui lòng chọn chapter"
-                        : "Loading..."}
+                      : idCourse && dataChapter && dataChapter.data === null
+                        ? "Không có chapter"
+                        : !idChapter
+                          ? "Vui lòng chọn chapter"
+                          : "Loading..."}
                   </td>
                 </tr>
               )

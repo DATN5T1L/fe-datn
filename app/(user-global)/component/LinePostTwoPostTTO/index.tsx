@@ -64,7 +64,7 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = (props) => {
                                                     {item.title_post}
                                                 </Card.Title>
                                                 <Card.Text className="text-black fs-6 lh-base fw-medium">
-                                                    {item.content_post}
+                                                    <div dangerouslySetInnerHTML={{ __html: item.content_post }}></div>
                                                 </Card.Text>
                                             </Card.Body>
                                             <Row className="text-muted align-items-center" style={{ fontSize: '0.8rem' }}>

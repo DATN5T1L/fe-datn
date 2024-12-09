@@ -14,6 +14,7 @@ import Link from "next/link";
 import "./chapter.css";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
+import { useRouter } from "next/navigation";
 
 interface Apidata<T> {
   status: string;
@@ -26,7 +27,7 @@ interface Course {
 }
 interface Chapter {
   status: string;
-  data: [
+  data: Array<
     {
       course_id: string;
       created_at: string;
@@ -36,11 +37,12 @@ interface Chapter {
       serial_chapter: number;
       updated_at: string;
     }
-  ]
+  >
 }
 
 const Chapter: React.FC<{}> = () => {
   const token = useCookie('token')
+  const router = useRouter()
   const [dataCourse, setDataCourse] = useState<Apidata<Course> | null>(null)
   const [dataChapter, setDataChapter] = useState<Chapter | null>(null)
   const [idCourse, setIdCourse] = useState<string>("")
@@ -171,6 +173,50 @@ const Chapter: React.FC<{}> = () => {
     }
     return pageNumbers;
   }, [totalPages, currentPage]);
+
+  const handlePushAdd = () => {
+    if (idCourse) {
+      router.replace(`/giangvien/ChapterPage/ManagerChapter/ChapterAdd?id=${idCourse}`)
+    } else {
+      alert('Vui lòng chọn khóa học')
+    }
+  }
+
+  const handleHidden = async (id: string) => {
+    if (token) {
+      if (confirm('Bạn có muốn ẩn chương này không?')) {
+        try {
+          const response = await fetch(`/api/hiddenChapter/${id}`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json()
+          console.log(data);
+          if (data.status === 'success') {
+            setDataChapter((prev) => {
+              if (!prev) return prev;
+              return {
+                ...prev,
+                data: prev.data.map((chapter) =>
+                  chapter.id === id
+                    ? { ...chapter, del_flag: !chapter.del_flag }
+                    : chapter
+                ),
+              };
+            });
+            alert('Thay đổi thành công')
+          } else {
+            console.error(data.message);
+          }
+        } catch (error) {
+          console.error("Error updating del_flag:", error);
+        }
+      }
+    }
+  };
+
   return (
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
@@ -179,11 +225,11 @@ const Chapter: React.FC<{}> = () => {
         className={`${h.header} d-flex justify-content-between align-items-center`}
       >
         <h2 className={h.heading}>Danh sách chapter</h2>
-        <Link className={h.heading__link} href="/giangvien/ChapterPage/ChapterAdd">
+        <div className={h.heading__link}>
           <div className={`${h.actions} d-flex`}>
-            <Button className={`${h.btnCTA}`}>Thêm chapter</Button>
+            <Button className={`${h.btnCTA}`} onClick={() => handlePushAdd()}>Thêm chapter</Button>
           </div>
-        </Link>
+        </div>
       </div>
       <div className={`${h.filter_bar} d-flex justify-content-between `}>
         <div className="d-flex">
@@ -226,9 +272,9 @@ const Chapter: React.FC<{}> = () => {
             </tr>
           </thead>
           <tbody>
-            {currentData && currentData.length !== 0 ? (
+            {currentData ? (
               <>
-                {
+                {currentData.length !== 0 ? (<>{
                   currentData.map((item, index) => (
                     <tr key={index}>
                       <td className="text-lg-center">{item.serial_chapter}</td>
@@ -258,16 +304,28 @@ const Chapter: React.FC<{}> = () => {
                           >
                             <img src="/img_admin/vitien.svg" alt="Delete" />
                           </Link>
-                          <Link
-                            href={`/giangvien/ChapterPage/ChapterEdit`}
+                          <div
+                          onClick={()=>handleHidden(item.id)}
                             className="w-33 border-end justify-content-center d-flex col-3"
                           >
-                            <img src="/img/action.svg" alt="active" />
-                          </Link>
+                            {item.del_flag ? (
+                              <img src="/img/action.svg" alt="Delete" />
+                            ) : (
+                              <img src="/img/hiddenEye.svg" alt="Delete" />
+                            )}
+                          </div>
                         </div>
                       </td>
                     </tr>
                   ))
+                }</>) : (
+                  <>
+                    <tr style={{ minHeight: '50vh' }}>
+                      <td colSpan={6} style={{ padding: '100px', width: '100%', minHeight: '100%', textAlign: 'center', fontSize: '32px', fontWeight: '600', color: 'var(--gray-70)' }}>Khóa học này không có chapter nào</td>
+                    </tr>
+                  </>
+                )
+
                 }
               </>
             ) : (

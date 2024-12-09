@@ -365,17 +365,25 @@ const LessonAdd: React.FC = () => {
             .trim()
         )
         .test(
-          "question_code",
-          "Câu hỏi phải chứa ít nhất một dấu / để nhận biết là từng câu hỏi khác nhau",
-          (value) => value?.includes("/")
+          "has-question-part",
+          "Câu hỏi phải có phần câu hỏi trước dấu '?' và phải có ít nhất 5 ký tự",
+          (value) => {
+            if (!value) return false;
+            const questionPart = value.split('?')[0];
+            return questionPart?.length >= 5;
+          }
         )
         .test(
-          "valid-slash-content",
-          "Sau mỗi dấu / phải có ít nhất một ký tự",
+          "valid-question-format",
+          "Dấu '?' phải nằm trước các dấu '/' và sau mỗi dấu '/' phải có ít nhất một ký tự",
           (value) => {
-            const regex = /\/[^/]+/;
-            if (value)
-              return regex.test(value);
+            if (!value) return false;
+            const [questionPart, answersPart] = value.split('?');
+            if (!answersPart) return false;
+            if (!questionPart || questionPart.includes('/')) return false;
+            if (value.includes('?/')) return false;
+            const isValidSlashContent = answersPart.split('/').every((part) => part.trim().length > 0);
+            return isValidSlashContent && !questionPart.includes('/');
           }
         )
         .required("Câu hỏi là bắt buộc")
@@ -395,16 +403,18 @@ const LessonAdd: React.FC = () => {
           "Tất cả các đáp án phải nằm trong các câu hỏi",
           function (value) {
             const { question_code } = this.parent;
-            if (!question_code) return false;
-            const questions = question_code
+            if (!question_code || !value) return false;
+            const [questionPart, answerOptionsPart] = question_code.split("?");
+            if (!answerOptionsPart) return false;
+            const answerOptions = answerOptionsPart
               .split("/")
-              .map((q: string) => q.trim().toLowerCase());
+              .map((option: string) => option.trim().toLowerCase());
             const answers = value
-              ?.split("/")
-              .map((a: string) => a.trim().toLowerCase()) || [];
-            return answers.every((answer) => questions.includes(answer));
+              .split("/")
+              .map((a: string) => a.trim().toLowerCase());
+            return answers.every((answer) => answerOptions.includes(answer));
           }
-        ),
+        )
     }),
     onSubmit: async (values) => {
       console.log("Form values:", values);
@@ -478,17 +488,25 @@ const LessonAdd: React.FC = () => {
             .trim()
         )
         .test(
-          "question_code",
-          "Câu hỏi phải chứa ít nhất một dấu / để nhận biết là từng câu hỏi khác nhau",
-          (value) => value?.includes("/")
+          "has-question-part",
+          "Câu hỏi phải có phần câu hỏi trước dấu '?' và phải có ít nhất 5 ký tự",
+          (value) => {
+            if (!value) return false;
+            const questionPart = value.split('?')[0];
+            return questionPart?.length >= 5;
+          }
         )
         .test(
-          "valid-slash-content",
-          "Sau mỗi dấu / phải có ít nhất một ký tự",
+          "valid-question-format",
+          "Dấu '?' phải nằm trước các dấu '/' và sau mỗi dấu '/' phải có ít nhất một ký tự",
           (value) => {
-            const regex = /\/[^/]+/;
-            if (value)
-              return regex.test(value);
+            if (!value) return false;
+            const [questionPart, answersPart] = value.split('?');
+            if (!answersPart) return false;
+            if (!questionPart || questionPart.includes('/')) return false;
+            if (value.includes('?/')) return false;
+            const isValidSlashContent = answersPart.split('/').every((part) => part.trim().length > 0);
+            return isValidSlashContent && !questionPart.includes('/');
           }
         )
         .required("Câu hỏi là bắt buộc")

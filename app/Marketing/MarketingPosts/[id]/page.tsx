@@ -461,18 +461,11 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
               <div className="my-4">
                 <span className="fs-5 fs-sm-2 fs-lg-1">{useFormatDate(data.data.created_at)}</span>
               </div>
-              {data.data.content_post.length >= 1000 ? (
                 <div
                   dangerouslySetInnerHTML={{ __html: data.data.content_post }}
                   className="fs-5 fs-sm-2 fs-lg-1">
 
                 </div>
-              ) : (
-                <span className="fs-5 fs-sm-2 fs-lg-1">
-                  {data.data.content_post}
-                </span>
-              )}
-
               <div
                 className="my-5 w-100 d-flex justify-content-center align-items-center"
                 style={{ flexDirection: "column" }}

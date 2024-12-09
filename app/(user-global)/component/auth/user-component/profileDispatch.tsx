@@ -46,12 +46,8 @@ const ProfileDispatch = () => {
     const isInfo = pathName === '/info-user'
     const isIntro = pathName === '/intro-user'
     const isWallet = pathName === '/wallet-user'
-    const isHome = pathName === '/home'
-    const isPokemon = pathName === '/pokemon'
-    const isCreateLearningPath = pathName === '/createLearningPath'
-    const isCourse = pathName === '/course'
-    const isCourseFor = pathName === '/coursefor'
     const isAdmin = /^\/(admin)(\/.*)?$/.test(pathName);
+    const isInstructor = /^\/(giangvien)(\/.*)?$/.test(pathName);
     const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
     const [dataUser, setDataUser] = useState<User | null>(null)
     const [hasLoggedOut, setHasLoggedOut] = useState(false);
@@ -113,7 +109,7 @@ const ProfileDispatch = () => {
 
         if (!tokenValue && (isInfo || isIntro || isWallet)) {
             console.error("Token không hợp lệ hoặc không tồn tại");
-            if (isAdmin) router.push('/home');
+            if (isAdmin || isInstructor) router.push('/home');
             return;
         }
 
@@ -125,7 +121,7 @@ const ProfileDispatch = () => {
             );
             if (isInfo || isIntro || isWallet) {
                 router.push('/login');
-            } else if (isAdmin) {
+            } else if (isAdmin || isInstructor) {
                 router.push('/home');
             }
             return;
@@ -157,7 +153,7 @@ const ProfileDispatch = () => {
         } catch (error) {
             console.error("Lỗi khi lấy thông tin người dùng:", error);
             // handleLogout
-            if (isAdmin) {
+            if (isAdmin || isInstructor) {
                 router.push('/home');
             }
         }
@@ -212,7 +208,7 @@ const ProfileDispatch = () => {
                 console.error("Token đã hết hạn trong quá trình kiểm tra định kỳ");
                 handleLogout();
                 alert('Đăng nhập lại để kiểm tra thông tin vì lý do bảo mật');
-                if (isAdmin) {
+                if (isAdmin || isInstructor) {
                     router.push('/home');
                 }
                 return;
@@ -221,7 +217,7 @@ const ProfileDispatch = () => {
 
         }, 30000);
         return () => clearInterval(interval);
-    }, [isAdmin, router]);
+    }, [isAdmin, isInstructor, router]);
 
     useEffect(() => {
         if (dataUser) {
@@ -272,7 +268,7 @@ const ProfileDispatch = () => {
                     signOut(
                         { redirect: false, }
                     );
-                    if (isAdmin) {
+                    if (isAdmin || isInstructor) {
                         router.push('/home');
                     }
                 } else if (isLoggedIn === 'true') {
@@ -291,7 +287,7 @@ const ProfileDispatch = () => {
             window.removeEventListener('login', handleLogin);
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [isLogin, isAdmin]);
+    }, [isLogin, isAdmin, isInstructor]);
 
 
 
@@ -309,7 +305,7 @@ const ProfileDispatch = () => {
                     localStorage.setItem('returnPath', '');
                     router.push('login')
                 }
-                else if (isAdmin) { router.push('/home') }
+                else if (isAdmin || isInstructor) { router.push('/home') }
             }
         };
 
