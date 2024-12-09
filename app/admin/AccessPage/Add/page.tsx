@@ -62,7 +62,6 @@ const AddAccessPage = () => {
             </div>
           </div>
 
-          {/* Tài khoản */}
           <div className="row d-flex align-items-center justify-content-center mb-4" style={{ width: '100%' }}>
             <div className="col-12 col-md-6 col-lg-6">
               <label htmlFor="account" className="form-label">Tài khoản</label>
@@ -71,19 +70,18 @@ const AddAccessPage = () => {
                 onChange={handleChange}
                 placeholder="Nhập tài khoản của bạn"
                 type="text"
-                name="account" // Sửa từ "acount" thành "account"
+                name="account"
               />
             </div>
 
-            {/* Vai trò */}
             <div className="col-12 col-md-6 col-lg-6">
               <label htmlFor="role" className="form-label">Vai trò</label>
               <select
                 aria-label="Lựa chọn vai trò"
                 className="form-control"
-                name="role" // Thêm name cho select
-                value={formData.role} // Đặt giá trị cho select
-                onChange={handleChange} // Gọi handleChange khi chọn vai trò
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
                 style={{ height: 50, backgroundColor: '#f5f6fa', borderColor: '#f5f6fa', borderRadius: 10 }}
               >
                 <option value="">Chọn vai trò</option>
@@ -93,7 +91,6 @@ const AddAccessPage = () => {
             </div>
           </div>
 
-          {/* Mã xác nhận */}
           <div className="row d-flex align-items-center justify-content-center my-4" style={{ width: '100%' }}>
             <div className="col-12 col-md-6 col-lg-6">
               <label htmlFor="confirmation" className="form-label">Mã xác nhận</label>
@@ -113,7 +110,6 @@ const AddAccessPage = () => {
             <div className="col-12 col-md-6 col-lg-6" />
           </div>
 
-          {/* Nút gửi */}
           <button type="submit" className="btn btn-primary my-4" style={{ width: 200, height: 50 }}>
             Thêm vào
           </button>

@@ -5,15 +5,17 @@ import mod from "../../marketing.module.css";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
+import { useRouter } from "next/navigation";
 
 interface category {
   name_category: string;
   tag: string;
 }
 
-const CategoryAdd = () => {
+const CategoryAdd: React.FC = () => {
 
   const token = useCookie('token')
+  const router = useRouter()
 
   const formik = useFormik({
     initialValues: {
@@ -33,7 +35,7 @@ const CategoryAdd = () => {
           (value) => {
             if (!value) return false;
             const tags = value.split(/\s+/);
-            return tags.every(tag => /^#[a-z0-9]+$/i.test(tag));
+            return tags.every(tag => /^#[\p{L}\p{N}]+$/u.test(tag))
           }
         )
     }),
@@ -53,9 +55,13 @@ const CategoryAdd = () => {
               tags: values.tag
             }),
           })
-
           const data = await res.json();
-          console.log(data);
+          if (data.status === 'success') {
+            alert('Thêm danh mục thành công!!!')
+            router.replace(`/Marketing/MarketingCategories/`)
+          } else {
+            alert('Thêm danh mục thất bại')
+          }
         }
       } catch (error) {
         console.error('Lỗi khi gửi dữ liệu:', error);

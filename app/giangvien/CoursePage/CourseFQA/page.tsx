@@ -6,9 +6,9 @@ import FQA from "@/app/giangvien/component/Course/CourseFQA/fqa";
 
 const CourseFQA = () => {
   return (
-    <div>
-      <FQA />
-    </div>
+
+    <FQA />
+
   );
 };
 

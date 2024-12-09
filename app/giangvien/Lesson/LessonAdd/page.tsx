@@ -5,9 +5,8 @@ import LessonAdd from "@/app/giangvien/component/lesson/lessonAdd/lessonAdd";
 
 const LessonAddvip = () => {
   return (
-    <div>
-      <LessonAdd />
-    </div>
+    <LessonAdd />
+
   );
 };
 

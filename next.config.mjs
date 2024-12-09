@@ -446,6 +446,129 @@ const nextConfig = {
       },
 
 
+      //course
+      {
+        source: '/api/allCourseAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/courses/:path*',
+      },
+      {
+        source: '/api/docByCourseAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/doc-by-course-admin/:path*',
+      },
+      {
+        source: '/api/countByCourseAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/getCountChapterAndDoc/:path*',
+      },
+
+      //chapter
+
+      {
+        source: '/api/allChapterAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/chapters-by-course/:path*',
+      },
+      {
+        source: '/api/allChapterNotCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/chapters/:path*',
+      },
+      {
+        source: '/api/hiddenChapter/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-chapter/:path*',
+      },
+
+
+      //document
+
+      {
+        source: '/api/allDocumentAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/documents-by-chapter/:path*',
+      },
+      {
+        source: '/api/documentId/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/documents/:path*',
+      },
+      {
+        source: '/api/documentHidden/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-document/:path*',
+      },
+      {
+        source: '/api/addVideo/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/store-video-document/:path*',
+      },
+      {
+        source: '/api/addCode/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/store-code-document/:path*',
+      },
+      {
+        source: '/api/addQuiz/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/store-quiz-document/:path*',
+      },
+      {
+        source: '/api/editVideo/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-video-document/:path*',
+      },
+      {
+        source: '/api/editCode/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-code-document/:path*',
+      },
+      {
+        source: '/api/editQuiz/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-quiz-document/:path*',
+      },
+
+      //faq
+
+      {
+        source: '/api/faqCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/faq-by-course/:path*',
+      },
+      {
+        source: '/api/statusFaqCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-faq_course/:path*',
+      },
+      {
+        source: '/api/idFaqCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/faq_courses/:path*',
+      },
+
+
+      //marketing
+
+      {
+        source: '/api/post_categories/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/post_categories/:path*',
+      },
+      {
+        source: '/api/hiddenCategoriesPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-category-post/:path*',
+      },
+      {
+        source: '/api/comment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-comment-post/:path*',
+      },
+      {
+        source: '/api/commentPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-post/:path*',
+      },
+      {
+        source: '/api/deleteCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/delete-comment-post/:path*',
+      },
+      {
+        source: '/api/hiddenCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-comment-post/:path*',
+      },
+      {
+        source: '/api/changeCmtPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-comment-post/:path*',
+      },
+      {
+        source: '/api/uploadImgPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
+      },
+      {
+        source: '/api/hiddenPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
+      },
     ];
   },
   images: {
