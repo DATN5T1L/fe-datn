@@ -115,7 +115,7 @@ const ListSingle: React.FC<ApiPostProps> = (props) => {
                                 <>
                                     <Col xs={12} lg={8}>
                                         <Card.Text className="text-black fs-6 lh-base fw-medium">
-                                            {item.content_post}
+                                            <div dangerouslySetInnerHTML={{ __html: item.content_post }}></div>
                                         </Card.Text>
                                     </Col>
                                     <Col xs={12} lg={4} className="mb-4 mb-lg-0">

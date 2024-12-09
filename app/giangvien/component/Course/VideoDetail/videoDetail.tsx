@@ -18,6 +18,7 @@ import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 import ReactPlayer from "react-player";
 import ReactLoading from 'react-loading';
+import ChatCmt from "../../chatDocument/chatCmt";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
@@ -119,7 +120,7 @@ const VideoDetail: React.FC = () => {
   }, [id, token])
 
   const documents = chapterData
-    ? chapterData.data.flatMap((chapter) => chapter.documents)
+    ? chapterData?.data?.flatMap((chapter) => chapter.documents)
     : [];
 
 
@@ -320,155 +321,9 @@ const VideoDetail: React.FC = () => {
                   <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
                 </div>
               </div>
-              <div className={videoMod.box__chat__container}>
-                <div className={videoMod.cmt__container}>
-                  <div className={videoMod.cmt__container__header}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.cmt__container__avt} />
-                    <div className={videoMod.cmt__container__header__groupTitle}>
-                      <div className={videoMod.cmt__container__header__title}>
-                        Thảo Thảo
-                      </div>
-                      <div className={videoMod.cmt__container__header__subtitle}>
-                        2 tháng trước
-                      </div>
-                    </div>
-                  </div>
-                  <div className={videoMod.cmt__container__content}>
-                    Domain rồi còn subdomain dùng sao hả thầy. Em có sài domain và deploy được rồi.
-                  </div>
-                  <div className={videoMod.cmt__container__setting}>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                  </div>
-                </div>
-                <div className={videoMod.repCmt__container}>
-                  <div className={videoMod.repCmt__avt__ctn}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.repCmt__avt} />
-                  </div>
-                  <div className={videoMod.repCmt__form}>
-                    <CkediterCustom></CkediterCustom>
-                    <div className={videoMod.repCmt__form__sevice}>
-                      <button className={videoMod.repCmt__form__sevice__active}>Hủy</button>
-                      <button className={videoMod.repCmt__form__sevice__active}>Trả lời</button>
-                    </div>
-                  </div>
-                </div>
-                <div className={videoMod.cmt__container}>
-                  <div className={videoMod.cmt__container__header}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.cmt__container__avt} />
-                    <div className={videoMod.cmt__container__header__groupTitle}>
-                      <div className={videoMod.cmt__container__header__title}>
-                        Thảo Thảo
-                      </div>
-                      <div className={videoMod.cmt__container__header__subtitle}>
-                        2 tháng trước
-                      </div>
-                    </div>
-                  </div>
-                  <div className={videoMod.cmt__container__content}>
-                    Domain rồi còn subdomain dùng sao hả thầy. Em có sài domain và deploy được rồi.
-                  </div>
-                  <div className={videoMod.cmt__container__setting}>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                  </div>
-                </div>
-                <div className={videoMod.cmt__container}>
-                  <div className={videoMod.cmt__container__header}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.cmt__container__avt} />
-                    <div className={videoMod.cmt__container__header__groupTitle}>
-                      <div className={videoMod.cmt__container__header__title}>
-                        Thảo Thảo
-                      </div>
-                      <div className={videoMod.cmt__container__header__subtitle}>
-                        2 tháng trước
-                      </div>
-                    </div>
-                  </div>
-                  <div className={videoMod.cmt__container__content}>
-                    Domain rồi còn subdomain dùng sao hả thầy. Em có sài domain và deploy được rồi.
-                  </div>
-                  <div className={videoMod.cmt__container__setting}>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                  </div>
-                </div>
-                <div className={videoMod.cmt__container}>
-                  <div className={videoMod.cmt__container__header}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.cmt__container__avt} />
-                    <div className={videoMod.cmt__container__header__groupTitle}>
-                      <div className={videoMod.cmt__container__header__title}>
-                        Thảo Thảo
-                      </div>
-                      <div className={videoMod.cmt__container__header__subtitle}>
-                        2 tháng trước
-                      </div>
-                    </div>
-                  </div>
-                  <div className={videoMod.cmt__container__content}>
-                    Domain rồi còn subdomain dùng sao hả thầy. Em có sài domain và deploy được rồi.
-                  </div>
-                  <div className={videoMod.cmt__container__setting}>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                  </div>
-                </div>
-                <div className={videoMod.cmt__container}>
-                  <div className={videoMod.cmt__container__header}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.cmt__container__avt} />
-                    <div className={videoMod.cmt__container__header__groupTitle}>
-                      <div className={videoMod.cmt__container__header__title}>
-                        Thảo Thảo
-                      </div>
-                      <div className={videoMod.cmt__container__header__subtitle}>
-                        2 tháng trước
-                      </div>
-                    </div>
-                  </div>
-                  <div className={videoMod.cmt__container__content}>
-                    Domain rồi còn subdomain dùng sao hả thầy. Em có sài domain và deploy được rồi.
-                  </div>
-                  <div className={videoMod.cmt__container__setting}>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                    <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {id && (
+                <ChatCmt id={typeDocument}></ChatCmt>
+              )}
             </>
           )}
         </div>
@@ -509,7 +364,7 @@ const VideoDetail: React.FC = () => {
             variant="outline-primary"
             className={`d-flex align-items-center gap-2`}
             onClick={handlePrevious}
-            disabled={!documents.length || documents.findIndex(doc => doc.document_id === typeDocument) === 0}
+            disabled={!documents || documents.findIndex(doc => doc.document_id === typeDocument) === 0}
           >
             <ChevronLeft />
             Bài trước
@@ -518,7 +373,7 @@ const VideoDetail: React.FC = () => {
             variant="outline-primary"
             className={`d-flex align-items-center gap-2`}
             onClick={handleNext}
-            disabled={!documents.length || documents.findIndex(doc => doc.document_id === typeDocument) === documents.length - 1}
+            disabled={!documents || documents.findIndex(doc => doc.document_id === typeDocument) === documents.length - 1}
           >
             Bài kế tiếp
             <ChevronRight />
@@ -549,6 +404,8 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
   const [tfValue, setTfValue] = useState('')
   const [selectedMuti, setSelectedMuti] = useState<string[]>([]);
   const [mutiValue, setMutiValue] = useState('');
+  const [answer, setAnswer] = useState<string[]>([])
+  const [question, setQuestion] = useState('')
 
   const handleCheckFill = () => {
     if (dataDoc && dataDoc.data.type_document === 'quiz' && dataDoc.data.quizs[0] && dataDoc.data.quizs[0].type_question === "fill") {
@@ -609,7 +466,19 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
     }
   }
 
-  console.log(mutiValue);
+  const handleCheckCode = () => {
+    if (dataDoc && dataDoc.data.type_document === 'code' && dataDoc.data.codes[0] && dataDoc.data.codes[0].answer_code) {
+      const answer = dataDoc?.data.codes[0].answer_code;
+      const codeValue = [htmlCode, cssCode, jsCode].join('|')
+      if (answer === codeValue) {
+        alert('Đáp án đúng!!')
+      } else {
+        alert('Đáp án sai!!!')
+      }
+    }
+  }
+
+  console.log('mutiValue', mutiValue);
 
   const handleHtmlChange = (value: string | undefined) => {
     setHtmlCode(value || "");
@@ -664,7 +533,19 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
     }
   }, [idDoc, token])
 
+  const cutQuestionAndAnswer = (item: string) => {
+    const [question, answers] = item.split('?');
+    setQuestion(question?.trim() || '');
+    setAnswer(answers?.split('/').map((ans) => ans.trim()) || []);
+  };
 
+  useEffect(() => {
+    if (dataDoc?.data && dataDoc?.data?.quizs?.[0]?.content_question) {
+      cutQuestionAndAnswer(dataDoc.data.quizs[0]?.content_question);
+    }
+  }, [dataDoc]);
+
+  console.log(answer);
 
   return (
     <>
@@ -716,10 +597,12 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
             </div>
             <div style={{ gap: '4px' }}>
               <div className={videoMod.documentHedding__content}>
-                Câu hỏi: {dataDoc.data.codes[0].question_code}
+                Câu hỏi:
+                <div dangerouslySetInnerHTML={{ __html: dataDoc.data.codes[0]?.question_code }}>
+                </div>
               </div>
               <div className={videoMod.documentHedding__subtitle}>
-                {dataDoc.data.codes[0].tutorial_code}
+                {dataDoc.data.codes[0]?.tutorial_code}
               </div>
             </div>
           </div>
@@ -772,12 +655,16 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
             </div>
           </div>
           <div className={videoMod.btn__group}>
-            <button className={videoMod.btn__group_item}>Hủy</button>
-            <button className={videoMod.btn__group_item}>Trả  lời</button>
+            <button className={videoMod.btn__group_item} onClick={() => {
+              setHtmlCode('');
+              setCssCode('');
+              setJsCode('');
+            }}  >Hủy</button>
+            <button className={videoMod.btn__group_item} onClick={() => handleCheckCode()}>Trả  lời</button>
           </div>
         </div >
       ) : dataDoc?.data?.type_document === 'quiz' &&
-        dataDoc.data.quizs[0].type_question === 'multiple_choice' ? (
+        dataDoc.data.quizs[0]?.type_question === 'multiple_choice' ? (
         <>
           <div
             className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
@@ -792,7 +679,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
               </div>
               <div style={{ gap: '4px' }}>
                 <div className={videoMod.documentHedding__content}>
-                  Câu hỏi: {dataDoc.data.discription_document}
+                  Câu hỏi: {question}
                 </div>
                 <div className={videoMod.documentHedding__subtitle}>
                   {dataDoc.data.discription_document}
@@ -800,7 +687,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
               </div>
             </div>
             <div className={videoMod.document__container__checkbox}>
-              {dataDoc.data.quizs[0].content_question.split('/').map((item) => (
+              {answer.map((item) => (
                 <div key={item} className={videoMod.document__container__checkbox__item}>
                   <label className={videoMod.document__container__checkbox__label}>
                     <input
@@ -885,7 +772,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
               </div>
               <div style={{ gap: '4px' }}>
                 <div className={videoMod.documentHedding__content}>
-                  Câu hỏi: {dataDoc.data.name_document}
+                  Câu hỏi: {question}
                 </div>
                 <div className={videoMod.documentHedding__subtitle}>
                   {dataDoc.data.discription_document}
@@ -893,22 +780,21 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
               </div>
             </div>
             <div className={videoMod.document__container__checkbox}>
-              {dataDoc.data.quizs[0].content_question.split('/')
-                .map((item) => (
-                  <div key={item} className={videoMod.document__container__checkbox__item}>
-                    <label className={videoMod.document__container__checkbox__label}>
-                      <input
-                        type="radio"
-                        name={`check`}
-                        onChange={(e) => setTfValue(e.target.value)}
-                        checked={tfValue.includes(item)}
-                        value={`${[item]}`}
-                        className={videoMod.document__container__checkbox__input}
-                      />
-                      {[item]}
-                    </label>
-                  </div>
-                ))
+              {answer?.map((item) => (
+                <div key={item} className={videoMod.document__container__checkbox__item}>
+                  <label className={videoMod.document__container__checkbox__label}>
+                    <input
+                      type="radio"
+                      name={`check`}
+                      onChange={(e) => setTfValue(e.target.value)}
+                      checked={tfValue.includes(item)}
+                      value={`${[item]}`}
+                      className={videoMod.document__container__checkbox__input}
+                    />
+                    {[item]}
+                  </label>
+                </div>
+              ))
               }
             </div>
             <div className={videoMod.btn__group}>
@@ -983,7 +869,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data 
   return (
     <>
       <Accordion defaultActiveKey={["0"]} alwaysOpen>
-        {data && data.data.map((item, index) => (
+        {data && data.data?.map((item, index) => (
           <Accordion.Item key={index} eventKey={`${index}`}>
             <Accordion.Header>
               <div className="d-flex flex-column">

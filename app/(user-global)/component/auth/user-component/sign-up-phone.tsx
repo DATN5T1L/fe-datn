@@ -261,9 +261,7 @@ const RegisterPhone: React.FC = () => {
                                 onBlur={formik.handleBlur}
                                 autoComplete="new-password"
                             />
-                            <div className={styles.noteRegister}>
-                                Sử dụng 8 ký tự trở lên kết hợp chữ cái, số và ký hiệu
-                            </div>
+
                             {formik.touched.password && formik.errors.password && (
                                 <div className={styles.feedBack}>{formik.errors.password}</div>
                             )}

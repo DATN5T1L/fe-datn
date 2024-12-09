@@ -60,7 +60,7 @@ const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
                                         {data[0].title_post}
                                     </Card.Title>
                                     <Card.Text className="fs-6 lh-base">
-                                        {data[0].content_post}
+                                        <div dangerouslySetInnerHTML={{ __html: data[0].content_post }}></div>
                                     </Card.Text>
                                 </Card.Body>
                             </>

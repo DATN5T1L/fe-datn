@@ -515,6 +515,17 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/update-quiz-document/:path*',
       },
 
+      // cmt document
+
+      {
+        source: '/api/cmtByDocument/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-comment-doc/:path*',
+      },
+      {
+        source: '/api/repCmt/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-doc/:path*',
+      },
+
       //faq
 
       {

@@ -42,21 +42,29 @@ const Users: React.FC = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
-  const totalPages = Math.ceil((userData?.data.length || 0) / usersPerPage);
+  const totalPages = Math.ceil((userData?.data?.length || 0) / usersPerPage);
 
   useEffect(() => {
     setIsloading(true)
-    fetch(`/api/allUser/client`, { cache: 'no-cache' })
-      .then(res => res.json())
-      .then(data => {
-        setUserData(data)
-        setIsloading(false)
+    if (token) {
+      fetch(`/api/allUser/client`, {
+        cache: 'no-cache',
+        headers: {
+          Authorization: ` Bearer ${token}`
+        }
       })
-      .catch(error => {
-        setIsloading(false)
-        console.log(error);
+        .then(res => res.json())
+        .then(data => {
+          setUserData(data)
+          setIsloading(false)
+        })
+        .catch(error => {
+          setIsloading(false)
+          console.log(error);
 
-      })
+        })
+    }
+
   }, [token])
 
 
