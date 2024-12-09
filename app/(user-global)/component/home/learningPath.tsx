@@ -81,13 +81,6 @@ const LearningPath: React.FC = () => {
                             <div className={styles.header__box__grayBlue}></div>
                         </div>
                     </section>
-                    <section className={styles.btn__group}>
-                        <Link href="/createLearningPath">
-                            <ButtonComponet status={'hover'} hover={true} hoverType={'default'} rightIcon={false} width={264} height={40} widthText="201px">
-                                Tạo lộ trình của riêng bạn
-                            </ButtonComponet>
-                        </Link>
-                    </section>
                 </Col>
                 <Col
                     className={styles.container__main}
@@ -97,8 +90,8 @@ const LearningPath: React.FC = () => {
                     onMouseUp={handleMouseLeaveOrUp}
                     onMouseMove={handleMouseMove}
                 >
-                    {routes.map(route => (
-                        <Card className={styles.box} key={route.route_id}>
+                    {routes.map((route, index) => (
+                        <Card className={styles.box} key={index}>
                             <Card.Img src={route.img_route} className={styles.box__img} alt="Hình Router" />
                             <Card.Body className={styles.box__body}>
                                 <Card.Title className={styles.box__body__title}>{route.name_route}</Card.Title>

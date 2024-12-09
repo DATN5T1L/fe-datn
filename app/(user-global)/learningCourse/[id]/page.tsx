@@ -6,7 +6,7 @@ import { RootState } from "@/redux/store";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useLogout } from '@app/(user-global)/component/auth/user-component/useLogout';
 import useCookie from '@app/(user-global)/component/hook/useCookie';
-import { Row, Col, Nav, Navbar } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
 import Tippy from '@tippyjs/react/headless';
 import Link from "next/link";
 import Image from "next/image";
@@ -23,7 +23,7 @@ import NoteCourse from "../NoteCourse";
 import Questions from '../Questions';
 import VideoPlayer from '../VideoPlayer';
 
-import { Arrow, IconWhat, IconDoc, IconVideo, IconSun, IconNote, IconBell, IconSetting, IconLogout } from "@/app/(user-global)/component/icon/icons";
+import { Arrow, IconWhat, IconDoc, IconVideo, IconSun, IconNote, IconBell, IconSetting, IconLogout, IconCode } from "@/app/(user-global)/component/icon/icons";
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { formatDateTime, formatTime } from "@/app/(user-global)/component/globalControl/commonC";
@@ -651,13 +651,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             <div className={styles.bodyContent}>
                                 <p className={styles.content}>
                                     {descdocument}
-                                    <a
-                                        href="https://www.w3schools.com/css/css_pseudo_classes.asp"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        https://www.w3schools.com/css/css_pseudo_classes.asp
-                                    </a>
                                 </p>
                             </div>
                         </>
@@ -752,53 +745,15 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 <div className={stylesNav.cta}>
                     <label className={stylesNav.switch} onClick={toggleSwitch}>
                         <span className={`${stylesNav.slider} ${isActive ? stylesNav.active : ''}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <g filter="url(#filter0_i_4106_6840)">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M1.46447 1.46447C0 2.92893 0 5.28595 0 10C0 14.714 0 17.0711 1.46447 18.5355C2.92893 20 5.28595 20 10 20C14.714 20 17.0711 20 18.5355 18.5355C20 17.0711 20 14.714 20 10C20 5.28595 20 2.92893 18.5355 1.46447C17.0711 0 14.714 0 10 0C5.28595 0 2.92893 0 1.46447 1.46447ZM11.4881 4.44591C11.8882 4.55311 12.1256 4.96437 12.0184 5.36447L9.4302 15.0237C9.32299 15.4238 8.91174 15.6613 8.51164 15.5541C8.11154 15.4468 7.8741 15.0356 7.98131 14.6355L10.5695 4.97624C10.6767 4.57614 11.088 4.3387 11.4881 4.44591ZM12.9697 6.46967C13.2626 6.17678 13.7374 6.17678 14.0303 6.46967L14.2387 6.67801C14.874 7.3133 15.4038 7.84308 15.7678 8.32019C16.1521 8.82379 16.4216 9.35587 16.4216 10C16.4216 10.6441 16.1521 11.1762 15.7678 11.6798C15.4038 12.1569 14.874 12.6867 14.2387 13.322L14.0303 13.5303C13.7374 13.8232 13.2626 13.8232 12.9697 13.5303C12.6768 13.2374 12.6768 12.7626 12.9697 12.4697L13.1412 12.2981C13.8229 11.6164 14.2797 11.1574 14.5753 10.7699C14.8577 10.3998 14.9216 10.1843 14.9216 10C14.9216 9.81571 14.8577 9.60024 14.5753 9.23007C14.2797 8.84258 13.8229 8.38356 13.1412 7.70191L12.9697 7.53033C12.6768 7.23744 12.6768 6.76257 12.9697 6.46967ZM5.96986 6.46967C6.26275 6.17678 6.73762 6.17678 7.03052 6.46967C7.32341 6.76257 7.32341 7.23744 7.03052 7.53033L6.85894 7.70191C6.17729 8.38356 5.72052 8.84258 5.42488 9.23007C5.14245 9.60024 5.07861 9.81571 5.07861 10C5.07861 10.1843 5.14245 10.3998 5.42488 10.7699C5.72052 11.1574 6.17729 11.6164 6.85894 12.2981L7.03052 12.4697C7.32341 12.7626 7.32341 13.2374 7.03052 13.5303C6.73762 13.8232 6.26275 13.8232 5.96986 13.5303L5.76151 13.322C5.12617 12.6867 4.59638 12.1569 4.23235 11.6798C3.84811 11.1762 3.57861 10.6441 3.57861 10C3.57861 9.35587 3.84811 8.82379 4.23235 8.32019C4.59638 7.84308 5.12617 7.31331 5.76151 6.67801L5.96986 6.46967Z" />
-                                </g>
-                                <defs>
-                                    <filter id="filter0_i_4106_6840" x="0" y="0" width="20" height="22" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-                                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                                        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                                        <feOffset dy="2" />
-                                        <feGaussianBlur stdDeviation="2" />
-                                        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                                        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_4106_6840" />
-                                    </filter>
-                                </defs>
-                            </svg>
+                            <IconCode />
                         </span>
                     </label>
-
                     <div className={stylesNav.iconNotifition}>
                         <IconBell />
                     </div>
-
-                    {/* <Tippy
-                        visible={isNoteContent}
-                        onClickOutside={toggleNoteList}
-                        interactive={true}
-                        placement="top-start" 
-                        render={(attrs) => (
-                            <div className={styles.tippyNoteList} tabIndex={-1} {...attrs}>
-                                <div className={styles.NoteList}>
-                                    Nọi dung cần được note
-                                </div>
-                            </div>
-                        )}
-                    >
-                        <div className={stylesNav.iconNotifition} onClick={toggleNoteList}>
-                            <IconNote />
-                        </div>
-                    </Tippy> */}
                     <div className={stylesNav.iconNotifition} onClick={toggleNoteList}>
                         <IconNote />
                     </div>
-
-
-
                     <Tippy visible={visible} onClickOutside={hide} interactive={true} render={attrs => (
                         <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
                             <div className={stylesNav.menuContent}>
@@ -815,7 +770,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                     <IconLogout />
                                     Đăng xuất
                                 </Link>
-
                             </div>
                         </div>
                     )}>
@@ -825,12 +779,8 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             <Arrow deg="-180" />
                         </div>
                     </Tippy>
-
                 </div>
             </Navbar >
-
-
-            {/* Video */}
             {mappedCourseNew}
             <div className={`${styles.actionBar}`}>
                 <div className={styles.faq} onClick={
@@ -864,7 +814,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <p className={styles.titleNextPrev}>Bài tiếp theo</p>
                         <Arrow deg="0" />
                     </button>
-
                 </div>
                 <div className={styles.cateSec}>
                     <span>Chương 1: Bắt đầu</span>
@@ -888,7 +837,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     </AnimatePresence>
                 )}
             </div>
-
         </main>
     );
 }

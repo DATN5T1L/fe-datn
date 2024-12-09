@@ -1,7 +1,6 @@
 'use client'
 
 import { Container } from "react-bootstrap";
-import '@app/global.css';
 import { useEffect, useState } from "react";
 
 interface BodyProps {

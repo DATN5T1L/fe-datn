@@ -1,0 +1,359 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 !important;
+    display: flex;
+    padding: 80px 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    background: var(--Cyan-90, #F0FCFE);
+}
+
+.container::after {
+    content: "";
+    display: block;
+    background-image: url(/01.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 190px;
+    height: 197px;
+    position: absolute;
+    right: 10%;
+    top: 0%;
+    z-index: 1;
+}
+
+/* test */
+.main {
+    max-width: 1200px;
+    width: 100%;
+    color: var(--text-text-m, #000);
+    position: relative;
+
+}
+
+
+
+.main__title {
+    color: inherit;
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 56px;
+    letter-spacing: -0.96px;
+}
+
+.main__subTitle {
+    color: inherit;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 24px;
+    max-width: 630px;
+}
+
+.mainCard {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0;
+    /* gap: 16px; */
+    height: auto;
+    margin-top: 32px;
+}
+
+
+.mainBox {
+    display: flex;
+    gap: 32px;
+
+}
+
+.Reminders {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 12px;
+}
+
+.mainBox__content {
+    width: 272px;
+}
+
+.TimeDetail {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.time {
+    height: fit-content;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 1.5px dashed var(--blue-50);
+    padding: 4px;
+}
+
+.ContentReminders {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.listTime {
+    width: 100%;
+    max-height: 300px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+
+.highlightedDay {
+    opacity: .7;
+}
+
+.ContentTime {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 12px;
+
+    &:hover {
+        opacity: .7;
+        background-color: var(--cyan-80);
+    }
+
+}
+
+.docFor {
+    color: var(--text-50);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 24px
+}
+
+.docContent {
+    color: var(--blue-40);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+
+.docNoContent {
+    color: var(--text-0);
+}
+
+.popUpSetting {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 100px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.2);
+
+}
+
+.settingTime {
+    width: 593px;
+    display: inline-flex;
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+    border-radius: 12px;
+    background: var(--Cyan-20, #0C707D)
+}
+
+
+.ctaTimes {
+    width: 100%;
+    height: 150px;
+    overflow-y: auto;
+}
+
+.nav {
+    display: flex;
+    gap: 32px;
+}
+
+.navBtn {
+    outline: none;
+    border: none;
+    border: .6 solid var(--blue-50);
+    padding: 4px;
+    border-radius: 4px;
+    background: var(--cyan-80);
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.tippy {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
+.btnAddTime,
+.ctaButton {
+    padding: 16px 12px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ccc;
+    min-width: 142px;
+    color: var(--text-text-m, #999);
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 32px;
+    background-color: transparent;
+
+
+    &:hover {
+        cursor: pointer;
+        opacity: .8;
+        color: var(--text-0);
+    }
+}
+
+.ctaSubmit {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 12px;
+}
+
+.headingString {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.headingSTime {
+    margin-bottom: 12px;
+    color: var(--cyan-70);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: -0.48px;
+}
+
+.descSTime {
+    display: flex;
+    font-size: 1rem;
+    color: var(--cyan-80);
+}
+
+.daysOfWeek {
+    width: 100%;
+    height: 150px;
+    overflow-y: auto;
+}
+
+.daysW {
+    width: 100%;
+    cursor: pointer;
+}
+
+.days {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: inherit;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 32px;
+}
+
+.noteTap {
+    position: absolute;
+    bottom: 0;
+    z-index: 10000;
+}
+
+.Canxel {
+    cursor: pointer;
+}
+
+
+.itemTime {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    height: fit-content;
+}
+
+.FormIdit {
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    background-color: var(--gray-100);
+    color: var(--text-100);
+    margin-bottom: 12px;
+}
+
+.daysOfWeekEdit {
+    height: 150px;
+    overflow-y: auto;
+    color: inherit;
+}
+
+.inputEditTime {
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: var(--text-100);
+    background-color: #f9f9f9;
+    outline: none;
+    margin-bottom: 12px;
+}
+
+.inputEditTime:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background-color: #fff;
+}
+
+
+.FormControl {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+}
+
+.ctaReminItem {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+}

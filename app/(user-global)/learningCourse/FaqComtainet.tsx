@@ -155,8 +155,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
                                     className={styles.commentContent}
                                 />
                             )}
-
-                            {/* Nút Phản hồi */}
                             <div className={styles.ctaEditComment}>
                                 <button
                                     className={styles.buttonReply}
@@ -182,8 +180,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
                                     </button>
                                 )}
                             </div>
-
-                            {/* Hiển thị form nếu activeReply khớp với reply.id */}
                             {activeReply === reply.id && (
                                 <div className={styles.form}>
                                     <CkediterCustom
