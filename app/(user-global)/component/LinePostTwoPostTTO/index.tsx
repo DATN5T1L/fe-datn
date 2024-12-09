@@ -5,6 +5,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 import ListPostTTO from '../ListPostTTO';
 import useFormatDate from '../globalControl/useFormatDate';
 
+import Link from 'next/link';
 interface Post {
     id: string;
     title_post: string;
@@ -50,9 +51,7 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                                         </Col>
                                         <Col xs={12} className="d-flex flex-column justify-content-between">
                                             <Card.Body className="p-0">
-                                                <Card.Title className="h6 fw-semibold">
-                                                    {item.title_post}
-                                                </Card.Title>
+                                              <Link href={`/post/${item.id}`}>  <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                                 <Card.Text
                                                     className="text-black fs-6 lh-base fw-medium"
                                                     style={{
@@ -63,9 +62,8 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                                                         textOverflow: "ellipsis",
                                                         maxHeight: "6rem",
                                                     }}
-                                                >
-                                                    {item.content_post}
-                                                </Card.Text>
+                                                    dangerouslySetInnerHTML={{ __html: item.content_post }}                                             
+                                                />
                                             </Card.Body>
                                             <Row className="text-muted align-items-center" style={{ fontSize: '0.8rem' }}>
                                                 <Col xs="auto">{useFormatDate(item.updated_at)}</Col>

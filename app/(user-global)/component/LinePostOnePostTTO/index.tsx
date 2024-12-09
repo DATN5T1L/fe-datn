@@ -4,7 +4,7 @@ import React from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import ListPostTTO from '../ListPostTTO'
 import { Dispatch, SetStateAction } from 'react';
-
+import Link from "next/link"
 interface PostCmt {
     id: string;
     title_post: string;
@@ -31,7 +31,7 @@ interface PostView {
     updated_at: string;
 }
 interface ApiPostProps {
-    step: string;
+    // step: string;
     data: PostCmt[] | PostView[];
 }
 interface TypeProps {
@@ -44,11 +44,11 @@ const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
     const arr = data.slice(1);
 
     console.log(`data nè: `, data);
-    const listCount = props.step === "1" ? 2 : 3;
+    // const listCount = props.step === "1" ? 2 : 3;
 
     return (
         <Container className="m-0"  >
-           <Row style={{ padding: "80px 55px" }}>
+            <Row style={{ padding: "80px 55px" }}>
                 {/* Left section */}
                 <Col xs={12} lg={6} className="mb-4 mb-lg-0">
                     <Card className="border-0 position-relative w-100" style={{ height: "480px" }}>
@@ -62,12 +62,8 @@ const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
                                     style={{ objectFit: 'cover', width: '632px', height: '480px', borderRadius: "10px" }}
                                 />
                                 <Card.Body className="position-absolute bottom-0 px-4 text-white">
-                                    <Card.Title className="fw-bold fs-2 fs-md-1">
-                                        {data[0].title_post}
-                                    </Card.Title>
-                                    <Card.Text className="fs-6 lh-base">
-                                        {data[0].content_post}
-                                    </Card.Text>
+                                    <Link href={`/post/${data[0].id}`}><Card.Title className="fw-bold fs-2 fs-md-1" dangerouslySetInnerHTML={{ __html: data[0].title_post }} /></Link>
+                                    <Card.Text className="fs-6 lh-base" dangerouslySetInnerHTML={{ __html: data[0].content_post }} />
                                 </Card.Body>
                             </>
                         )}

@@ -217,9 +217,6 @@ const nextConfig = {
         source: '/api/paymentvn/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/VNPay/:path*',
       },
-
-      //post
-
       {
         source: '/api/clientCatePost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-categories/:path*',
@@ -228,11 +225,18 @@ const nextConfig = {
         source: '/api/postByCmt/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-posts-highest-comment/:path*',
       },
+      
       {
         source: '/api/postByView/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/post-highest-view/:path*',
       },
-
+      // Lấy ra chi tiết bài viết
+      {
+        source: '/api/post/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/posts/:path*',
+      },
+      
+      
       // Admin 
 
       {

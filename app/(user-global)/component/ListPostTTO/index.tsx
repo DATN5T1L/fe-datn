@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { Col, Card, Row } from 'react-bootstrap';
 import useFormatDate from '../globalControl/useFormatDate';
-
+import Link from 'next/link';
 interface Post {
     id: string;
     title_post: string;
@@ -39,13 +39,10 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
                                 alt={item.title_post}
                             />
                         </Col>
-
                         {/* Right column with text */}
                         <Col xs={6} className="d-flex flex-column justify-content-between">
                             <Card.Body className="p-0" style={{ margin: "0 12px", flex: 1 }}>
-                                <Card.Title className="h6 fw-semibold">
-                                    {item.title_post}
-                                </Card.Title>
+                               <Link href={`post/${item.id}`}> <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                 <Card.Text
                                     className="text-black fs-6 lh-base fw-medium"
                                     style={{
@@ -56,9 +53,9 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
                                         textOverflow: "ellipsis",
                                         maxHeight: "6rem",
                                     }}
-                                >
-                                    {item.content_post}
-                                </Card.Text>
+                                    dangerouslySetInnerHTML={{ __html: item.content_post }}
+                                />
+
                             </Card.Body>
                             <Row
                                 className="text-muted align-items-center"

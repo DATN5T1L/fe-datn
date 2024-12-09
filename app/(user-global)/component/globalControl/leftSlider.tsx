@@ -131,7 +131,7 @@ const LeftSlider: React.FC = () => {
                     <img src='/img/road.svg' className='img none' />
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Lộ trình</div>
                 </Link>
-                <Link href="/#" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
+                <Link href="/post" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
                     <img src='/img/textnotefill.svg' className='img block' />
                     <img src='/img/textnote.svg' className='img none' />
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Tin tức</div>

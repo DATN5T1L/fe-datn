@@ -1,10 +1,10 @@
 "use client";
 
 import styles from "@public/styles/post/HeroPost.module.css";
-import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import PostTTO from "../LinePostOnePostTTO";
-import ListPostTTO from "../ListPostTTO";
-import ListPostLeftTTO from "../LinePostTwoPostTTO"
+import { Container, Row, Col, Image } from 'react-bootstrap';
+// import PostTTO from "../LinePostOnePostTTO";
+// import ListPostTTO from "../ListPostTTO";
+// import ListPostLeftTTO from "../LinePostTwoPostTTO"
 import LinePostOnePostTTO from "../LinePostOnePostTTO";
 import LinePostTwoPostTTO from "../LinePostTwoPostTTO";
 import ListSingle from "../ListSingle";
@@ -86,7 +86,7 @@ const HeroPost: React.FC = () => {
             .catch(error => {
                 console.error('Có lỗi xảy ra: ', error);
             })
-    }, [])
+    }, [])     
 
     useEffect(() => {
         fetch(`/api/postByView/4`)

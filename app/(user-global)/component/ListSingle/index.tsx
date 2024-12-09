@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Card, Row, Container } from 'react-bootstrap';
 import useFormatDate from '../globalControl/useFormatDate';
 
+import Link from 'next/link';
 interface CatePost {
     created_at: string;
     del_flag: boolean;
@@ -75,12 +76,13 @@ const ListSingle: React.FC<ApiPostProps> = ({ data }) => {
                                             marginRight: "10px",
                                         }}
                                     ></span>
+                                    <Link href={`/post/${item.id}`}>
                                     <span
                                         className="fw-bold fs-5 text-black"
                                         style={{ color: "#88e8f4", marginRight: "10px" }}
-                                    >
-                                        {item.title_post}
-                                    </span>
+                                        dangerouslySetInnerHTML={{ __html: item.title_post }}
+                                    /></Link>
+
                                     <span style={{ color: "#88e8f4", marginRight: "10px" }}>
                                         {useFormatDate(item.updated_at)}
                                     </span>
@@ -113,18 +115,14 @@ const ListSingle: React.FC<ApiPostProps> = ({ data }) => {
 
                                     {/* Content on the right */}
                                     <Col xs={12} lg={8}>
-                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0">
-                                            {item.content_post}
-                                        </Card.Text>
+                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0" dangerouslySetInnerHTML={{ __html: item.content_post }} />
                                     </Col>
                                 </>
                             ) : (
                                 <>
                                     {/* Content on the left */}
                                     <Col xs={12} lg={8}>
-                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0">
-                                            {item.content_post}
-                                        </Card.Text>
+                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0" dangerouslySetInnerHTML={{ __html: item.content_post }} />
                                     </Col>
 
                                     {/* Image on the right */}
