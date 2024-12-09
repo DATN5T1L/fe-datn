@@ -55,17 +55,24 @@ const Users: React.FC = () => {
 
   useEffect(() => {
     setIsloading(true)
-    fetch(`/api/allUser/client`, { cache: 'no-cache' })
-      .then(res => res.json())
-      .then(data => {
-        setUserData(data)
-        setIsloading(false)
+    if (token) {
+      fetch(`/api/allUser/client`, {
+        cache: 'no-cache',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .catch(error => {
-        setIsloading(false)
-        console.log(error);
+        .then(res => res.json())
+        .then(data => {
+          setUserData(data)
+          setIsloading(false)
+        })
+        .catch(error => {
+          setIsloading(false)
+          console.log(error);
 
-      })
+        })
+    }
   }, [token])
 
 
