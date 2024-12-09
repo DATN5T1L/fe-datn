@@ -50,7 +50,7 @@ const Users: React.FC = () => {
       fetch(`/api/allUser/client`, {
         cache: 'no-cache',
         headers: {
-          Authorization: ` Bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
       })
         .then(res => res.json())
@@ -64,7 +64,6 @@ const Users: React.FC = () => {
 
         })
     }
-
   }, [token])
 
 

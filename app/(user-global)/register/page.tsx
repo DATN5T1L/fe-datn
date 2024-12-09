@@ -131,12 +131,12 @@ const Register: React.FC = () => {
                                 <div className={styles.link__group}>
                                     <div className={styles.linkLogin} onClick={() => handleChangeRegister(false)}>
                                         <div className={`${styles.link__bdi} ${checkRegister ? '' : styles.active_1}`}>
-                                            Đăng nhập bằng email
+                                            Đăng ký bằng email
                                         </div>
                                     </div>
                                     <div className={styles.linkLogin} onClick={() => handleChangeRegister(true)}>
                                         <div className={`${styles.link__bdi} ${checkRegister ? styles.active_1 : ''}`}>
-                                            Đăng nhập bằng số điện thoại
+                                            Đăng ký bằng số điện thoại
                                         </div>
                                     </div>
                                 </div>
