@@ -2,9 +2,9 @@ import React from "react";
 import type { Metadata } from "next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Row } from "react-bootstrap";
-import "./globals.css";
+import "../globals.css";
 
-import styles from "./layout.module.css";
+import styles from "../layout.module.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from "../admin/component/Header/header";
