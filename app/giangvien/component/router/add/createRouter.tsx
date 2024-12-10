@@ -159,7 +159,7 @@ const CreateRouter: React.FC = () => {
                                             <Form.Control
                                                 type="text"
                                                 placeholder="Nhập tên lộ trình"
-                                                aria-describedby="inputGroupPrepend"
+                                                aria-describedby="inputGroupPrepend" 
                                                 required
                                                 className={styles.form__control__top}
                                                 ref={inputRef1}
