@@ -12,7 +12,7 @@ import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import Search from "./Search";
-import Feaback from "./FeedBack";
+import Feaback from "@app/(user-global)/component/globalControl/FeedBack";
 import { motion, AnimatePresence } from 'framer-motion';
 import c from "@public/styles/globalControl/header.module.css"
 import { ShowNameElement } from '@app/(user-global)/component/globalControl/commonC';
