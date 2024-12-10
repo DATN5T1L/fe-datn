@@ -405,7 +405,7 @@ const CourseList: React.FC<{}> = () => {
                           <div
                             className={`justify-content-between border d-flex py-2 rounded`}
                           >
-                            <div className="d-flex justify-content-center w-50 border-end" onClick={() => handleHidden(item.document_id)  }>
+                            <div className="d-flex justify-content-center w-50 border-end" onClick={() => handleHidden(item.document_id)}>
                               {item.del_flag ? (
                                 <img src="/img/action.svg" alt="Delete" />
                               ) : (

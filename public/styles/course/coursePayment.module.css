@@ -9,7 +9,7 @@
 .content {
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     width: 100%;
 }
 
@@ -99,7 +99,7 @@
 .tablePrice {
     padding: 24px 32px;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     flex-direction: column;
     gap: 32px;
     border-radius: 12px;
@@ -124,7 +124,7 @@
 
 .priceControl {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     gap: 32px;
 
 }

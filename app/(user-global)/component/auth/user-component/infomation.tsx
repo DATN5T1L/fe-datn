@@ -5,9 +5,7 @@ import styles from '@public/styles/user-component/Infomation.module.css';
 import { useState, useEffect } from "react";
 import { RootState } from '../../../../../redux/store';
 import { useSelector } from "react-redux";
-import Button from "../../globalControl/btnComponent";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 // Dùng dynamic import để tắt SSR cho component này
 const ModalChangeImg = dynamic(() => import("./modalChangeImg"), { ssr: false });
@@ -17,7 +15,6 @@ const ModalChangePhone = dynamic(() => import("./modalChangePhone"), { ssr: fals
 const ModalChangeEmail = dynamic(() => import("./modalChangeEmail"), { ssr: false });
 
 const Infomation: React.FC = () => {
-    const router = useRouter()
     const [isRole, setIsRole] = useState(false)
     const userState = useSelector((state: RootState) => state.user);
     useEffect(() => {
@@ -45,11 +42,6 @@ const Infomation: React.FC = () => {
     const handleChangeInfo = () => setShowChangeInfo(true);
     const handleChangePhone = () => setShowChangePhone(true);
     const handleChangeEmail = () => setShowChangeEmail(true);
-
-    const handleToAdmin = () => {
-        router.push('/admin')
-    }
-
     return (
         <>
             <Container className={styles.container}>
@@ -101,13 +93,15 @@ const Infomation: React.FC = () => {
                             <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
                         </Col>
                         {userState?.user?.role === 'admin' ? (
-                            <Col className={styles.change__more} onClick={handleToAdmin}>
-                                <div className={styles.change__more__group}>
-                                    <h4 className={styles.change__more__group__title}>Quyền</h4>
-                                    <h3 className={styles.change__more__group__subTitle}>{userState?.user?.role}</h3>
-                                </div>
-                                <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
-                            </Col>
+                            <Link href="/admin">
+                                <Col className={styles.change__more} >
+                                    <div className={styles.change__more__group}>
+                                        <h4 className={styles.change__more__group__title}>Quyền</h4>
+                                        <h3 className={styles.change__more__group__subTitle}>{userState?.user?.role}</h3>
+                                    </div>
+                                    <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                                </Col>
+                            </Link>
                         ) : ''}
                     </Row>
                 ) : null}

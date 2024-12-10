@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef, useState } from "react";
 import videoMod from "./course-video.module.css";
 import courseMod from "./course.module.css";
@@ -20,9 +21,9 @@ const LessonDetail = () => (
       <div className={`d-flex justify-content-between align-items-center my-4`}>
         <h2 className={courseMod.heading}>Chi tiết bài học</h2>
         <Link href="/giangvien/Lesson/LessonVideoDetail">
-        <div className={`${courseMod.actions} d-flex`}>
-          <Button className={`${courseMod.btnCTA1}`}>Thêm video</Button>
-        </div>
+          <div className={`${courseMod.actions} d-flex`}>
+            <Button className={`${courseMod.btnCTA1}`}>Thêm video</Button>
+          </div>
         </Link>
       </div>
     </div>

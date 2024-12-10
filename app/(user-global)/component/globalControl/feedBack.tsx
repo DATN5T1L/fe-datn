@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import styles from '@public/styles/globalControl/FeedBack.module.css';
 import Notification from "@app/(user-global)/component/globalControl/Notification";

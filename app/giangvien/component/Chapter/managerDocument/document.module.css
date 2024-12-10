@@ -41,7 +41,7 @@
 }
 
 .right {
-  justify-content: end;
+  justify-content: flex-end;
   width: 250px;
   height: auto;
 }

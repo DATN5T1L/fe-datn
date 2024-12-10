@@ -1,7 +1,5 @@
-'use client'
-
 import Body from "../component/globalControl/body"
-import FeedBack from "../component/globalControl/feedBack"
+import FeedBack from "../component/globalControl/FeedBack"
 import CategoriesLearningPath from "../component/router/categoriesLearningPath"
 import ForWhom from "../component/router/forWhom"
 import HeaderLearning from "../component/router/headerLearning"

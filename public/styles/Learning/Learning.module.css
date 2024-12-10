@@ -56,8 +56,8 @@
 
 .body {
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
     padding: 24px 64px;
     gap: 24px;
@@ -70,7 +70,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .noteTap {
@@ -439,7 +439,7 @@
 
 .ctaQuestion {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 24px;
 }
@@ -504,7 +504,7 @@
 
 .NoteList {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     position: absolute;
     bottom: 0;
     right: 0;

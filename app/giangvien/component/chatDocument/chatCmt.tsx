@@ -474,7 +474,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id }) => {
                                                     onClick={() => {
                                                         if (rely.user_id === userState?.id) {
                                                             handleDeleteCmt(id, rely.id)
-                                                        } else {git 
+                                                        } else {
                                                             handleHiddenCmt(id, rely.id)
                                                         }
                                                     }}

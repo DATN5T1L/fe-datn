@@ -1,7 +1,5 @@
-'use client'
-
 import Body from "../component/globalControl/body"
-import FeedBack from "../component/globalControl/feedBack"
+import FeedBack from "../component/globalControl/FeedBack"
 import CategoriesLearningPath from "../component/router/categoriesLearningPath"
 import ForWhom from "../component/router/forWhom"
 import HeaderLearning from "../component/router/headerLearning"
@@ -59,7 +57,7 @@ const LearningPath__FE: React.FC = () => {
                     content4=" Xây dựng ứng dụng website động"
                     content5="Thiết kế giao diện website"
                 />
-                <FeedBack></FeedBack>
+                <FeedBack />
             </Body>
         </>
     )

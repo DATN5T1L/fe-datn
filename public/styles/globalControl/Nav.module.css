@@ -129,7 +129,7 @@
 .menuContent {
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
     gap: 8px;
     padding: 12px 0px;

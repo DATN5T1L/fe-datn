@@ -6,9 +6,9 @@ import LessonEdit from "../../component/lesson/lessonEdit/lessonAdd";
 
 const LessonEditvip = () => {
   return (
-    <div>
-      <LessonEdit />
-    </div>
+
+    <LessonEdit />
+
   );
 };
 

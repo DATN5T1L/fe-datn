@@ -37,7 +37,7 @@ interface DataCourse {
             updated_at: string;
         }
     ];
-    
+
 }
 
 interface ChapterAccordionProps {
@@ -158,7 +158,7 @@ const ParentComponent: React.FC<CourseDetailProps> = ({ params }) => {
             <div className={`${videoMod.content} d-flex flex-column flex-lg-row`}>
                 {/*Video + bài viết*/}
                 {loading ? (
-                    <ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'40%'} width={'40%'} delay={10} className={videoMod.align} />
+                    <ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'40%'} width={'40%'} className={videoMod.align} />
                 ) : (
                     <>
                         <div style={{ minHeight: '400px' }} className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}>

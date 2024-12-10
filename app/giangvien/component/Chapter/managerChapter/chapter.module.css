@@ -6,9 +6,11 @@
   background: var(--background-bg-admin, #f5f6fa);
   gap: 24px;
 }
-.main{
+
+.main {
   padding: 32px 40px;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -18,24 +20,28 @@
   padding: 25px 0px;
 }
 
-.left_right{
+.left_right {
   display: flex;
-  justify-content: space-between; /* Đẩy .left và .right về hai đầu */
+  justify-content: space-between;
+  /* Đẩy .left và .right về hai đầu */
   justify-items: center;
   text-align: center;
   width: 100%;
 }
-.left{
+
+.left {
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 32px;
   left: -2%;
 }
-.left span{
+
+.left span {
   color: #1E6AD2;
 }
-.right{
-  justify-content: end;
+
+.right {
+  justify-content: flex-end;
   width: 250px;
   height: auto;
 }
@@ -43,7 +49,7 @@
 
 .searchInputGroup {
   display: flex;
- 
+
   width: 250px;
   height: 32px;
   border-radius: 30px;
@@ -51,6 +57,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
+
 .searchIconWrapper {
   position: absolute;
   right: 12px;
@@ -152,20 +159,23 @@
 
 .table thead tr {
   border: none;
-  
+
 }
+
 .table thead tr td {
   padding: 20px 10px;
   background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
+
 .table thead tr td:nth-child(6) {
   text-align: center;
 }
+
 .table thead tr td:nth-child(4) {
   text-align: left;
- 
+
 }
 
 .table td {
@@ -179,9 +189,11 @@
 .table td:nth-child(1) {
   width: 284px;
 }
+
 .table td:nth-child(2) {
   width: 284px;
 }
+
 .table td:nth-child(3) {
   width: 284px;
 }
@@ -191,7 +203,7 @@
   padding: 16px 12px;
   line-height: 24px !important;
   font-size: 0.875rem;
-  font-weight: 500px; 
+  font-weight: 500px;
   border: none;
   color: #333333;
   border-bottom: 1.5px solid #b3b3b3;
@@ -199,7 +211,7 @@
 
 .table thead td {
   white-space: nowrap;
-  
+
 }
 
 .active_text {
@@ -227,18 +239,21 @@
 
   margin: 0;
 }
+
 .option_button a:nth-child(2) {
   border-left: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
 }
+
 .option_button a img {
   width: 24px;
   height: 24px;
 }
+
 .option_button_group {
   /* display: flex; */
   /* height: 108px; */
- 
+
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -271,6 +286,7 @@
   margin-top: 20px;
   width: 100%;
 }
+
 .pagination {
   display: flex;
   align-items: center;

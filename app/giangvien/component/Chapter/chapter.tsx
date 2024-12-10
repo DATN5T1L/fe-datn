@@ -14,7 +14,7 @@ import Link from "next/link";
 import "./chapter.css";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
-import { useRouter } from "next/navigation";
+
 
 interface Apidata<T> {
   status: string;
@@ -42,7 +42,6 @@ interface Chapter {
 
 const Chapter: React.FC<{}> = () => {
   const token = useCookie('token')
-  const router = useRouter()
   const [dataCourse, setDataCourse] = useState<Apidata<Course> | null>(null)
   const [dataChapter, setDataChapter] = useState<Chapter | null>(null)
   const [idCourse, setIdCourse] = useState<string>("")
@@ -174,14 +173,6 @@ const Chapter: React.FC<{}> = () => {
     return pageNumbers;
   }, [totalPages, currentPage]);
 
-  const handlePushAdd = () => {
-    if (idCourse) {
-      router.replace(`/giangvien/ChapterPage/ManagerChapter/ChapterAdd?id=${idCourse}`)
-    } else {
-      alert('Vui lòng chọn khóa học')
-    }
-  }
-
   const handleHidden = async (id: string) => {
     if (token) {
       if (confirm('Bạn có muốn ẩn chương này không?')) {
@@ -226,9 +217,12 @@ const Chapter: React.FC<{}> = () => {
       >
         <h2 className={h.heading}>Danh sách chapter</h2>
         <div className={h.heading__link}>
-          <div className={`${h.actions} d-flex`}>
-            <Button className={`${h.btnCTA}`} onClick={() => handlePushAdd()}>Thêm chapter</Button>
-          </div>
+          <Link href={`/giangvien/ChapterPage/ManagerChapter/ChapterAdd?id=${idCourse}`}>
+
+            <div className={`${h.actions} d-flex`}>
+              <Button className={`${h.btnCTA}`}>Thêm chapter</Button>
+            </div>
+          </Link>
         </div>
       </div>
       <div className={`${h.filter_bar} d-flex justify-content-between `}>
