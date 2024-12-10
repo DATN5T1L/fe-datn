@@ -1,13 +1,10 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./globals.css";
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReduxRender from "@/redux/provider"
 import { SessionProvider } from "next-auth/react"
 import Body from "./component/globalController/body";
-import './globals.css'
 import styles from './layout.module.css'
-
 
 export default function RootLayout({
   children,
