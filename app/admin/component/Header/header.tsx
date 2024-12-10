@@ -75,7 +75,7 @@ const Header: React.FC = () => {
         expand="lg"
         className={`${h.nav} d-flex justify-content-between align-items-center`}
       >
-        <Navbar.Brand href={`${isAdmin ? '/home' : isMarketing ? '/admin' : '/'}`}>
+        <Navbar.Brand href={`${isAdmin ? '/admin' : isMarketing ? '/admin' : '/'}`}>
           <img
             src="/img/logoPage.jpg"
             className="d-inline-block align-top"
@@ -102,7 +102,7 @@ const Header: React.FC = () => {
             ) : (
               <img
                 src={`${userState?.avatar}`}
-                alt="User"
+                alt="tto.sh"
                 className="d-none d-xl-block"
               />
             )}

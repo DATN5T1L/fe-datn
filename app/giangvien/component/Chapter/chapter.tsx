@@ -255,7 +255,6 @@ const Chapter: React.FC<{}> = () => {
           </div>
         </div>
       </div>
-      {/* Post List */}
       <div
         className={`${h.bodytable}d-flex overflow-auto w-100`}
         style={{ whiteSpace: "nowrap" }}
@@ -305,7 +304,7 @@ const Chapter: React.FC<{}> = () => {
                             <img src="/img_admin/vitien.svg" alt="Delete" />
                           </Link>
                           <div
-                          onClick={()=>handleHidden(item.id)}
+                            onClick={() => handleHidden(item.id)}
                             className="w-33 border-end justify-content-center d-flex col-3"
                           >
                             {item.del_flag ? (

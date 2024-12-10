@@ -1,0 +1,64 @@
+.Menu {
+    width: 100%;
+}
+
+.btn,
+.item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px;
+    border: none;
+    outline: none;
+    color: var(--text-100);
+    background-color: transparent;
+    font-size: .875rem;
+    line-height: 24px;
+    font-weight: 600;
+    transition: all cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+    &:hover {
+        border-radius: 8px;
+        color: var(--text-0);
+        background: var(--blue-50);
+    }
+}
+
+.btnContent {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.btn :hover svg {
+    stroke: var(--text-0);
+    fill: var(--text-0);
+}
+
+.Lists {
+    padding-left: 0px;
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item {
+    list-style: none;
+    color: var(--text-100);
+    width: 100%;
+    padding: 8px 10px;
+
+    &:hover {
+        color: var(--text-0);
+    }
+}
+
+.content {
+    width: 100%;
+    color: inherit;
+
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 // import Image from 'next/image';
-import { Card, Col, Image } from 'react-bootstrap';// Component vòng tròn tiến độ
-import styles from '@public/styles/globalControl/CourseCard.module.css'; // CSS module
+import { Card, Col, Image } from 'react-bootstrap';
+import styles from '@public/styles/globalControl/CourseCard.module.css';
 import { IconStar } from "@app/(user-global)/component/icon/icons"
 interface CourseCardProps {
     course: {

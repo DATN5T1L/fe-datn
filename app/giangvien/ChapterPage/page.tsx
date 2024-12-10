@@ -4,9 +4,9 @@ import Chaptergiangvien from "@/app/giangvien/component/Chapter/chapter";
 
 const Chapter = () => {
   return (
-    <div>
-      <Chaptergiangvien />
-    </div>
+
+    <Chaptergiangvien />
+
   );
 };
 

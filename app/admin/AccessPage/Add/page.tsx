@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Access from "../../component/Access/access";
 import { HeaderAddAccess } from "../../component/Access/Add/HeaderAdd";
 import InputComponents from "../../component/InputComponent";

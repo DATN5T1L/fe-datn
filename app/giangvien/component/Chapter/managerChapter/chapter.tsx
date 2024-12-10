@@ -78,7 +78,6 @@ const ManagerChapter: React.FC = () => {
   const handleNextPage = useCallback(() => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   }, [currentPage, totalPages]);
-
   const handlePrevPage = useCallback(() => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   }, [currentPage]);
@@ -211,7 +210,7 @@ const ManagerChapter: React.FC = () => {
           <InputGroup className={h.searchInputGroup}>
             <Form.Control
               type="text"
-              placeholder="Tìm kiếm bài viết"
+              placeholder="Tìm kiếm Chapter"
               className={h.searchInput}
             />
             <div className={h.searchIconWrapper}>

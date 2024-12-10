@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { HeaderUpdateAccess } from "../../component/Access/Update/HeaderUpdate";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";

@@ -7,13 +7,14 @@ import useSWR from 'swr';
 import { Course } from "@/app/(user-global)/model/course";
 import CourseCard from "../course/CardCourse";
 import ReactLoading from 'react-loading';
+import Link from 'next/link'
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CoursePro: React.FC = () => {
-    const [router, setRouter] = useState<string>("FE"); // Lộ trình mặc định là FE
+    const [router, setRouter] = useState<string>("Lộ trình học Front-end"); // Lộ trình mặc định là FE
     const [limit, setLimit] = useState<number>(8);
     const [isCount, setIsCount] = useState(false);
-    const [selectedPath, setSelectedPath] = useState<string>("FE"); // Để hiển thị nút nào được chọn
+    const [selectedPath, setSelectedPath] = useState<string>("Lộ trình học Front-end"); // Để hiển thị nút nào được chọn
 
     const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
         `/api/coursetype/pro/${router}/${limit}`,
@@ -73,7 +74,7 @@ const CoursePro: React.FC = () => {
                         leftIcon={false}
                         rightIcon={false}
                         height={40}
-                        onClick={() => handlePathChange("FE")}
+                        onClick={() => handlePathChange("Lộ trình học Front-end")}
                     >
                         Khóa học lộ trình FE
                     </Button>
@@ -132,12 +133,12 @@ const CoursePro: React.FC = () => {
 
             <Row md={12} className={styles.main__course}>
                 {isValidating && (<ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={styles.align} />)}
-                {courses?.map((course,index) => (
+                {courses?.map((course, index) => (
                     <Col md={4} className={styles.mainBox} key={index}>
                         <Card className={styles.mainBox__content}>
                             <Card.Header className={styles.headerContent}>
                                 <section className={styles.headerContent__text}>
-                                    <Link href={`/course/${course.course_id}`}>
+                                    <Link href={`/course/${course.id}`}>
                                         <Card.Title className={styles.text__hedding2}>
                                             {course.name_course}
                                         </Card.Title>
@@ -153,11 +154,11 @@ const CoursePro: React.FC = () => {
                                 <section className={styles.bodyContent}>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>{course.num_lesson} Chương</Card.Text>
+                                        <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
                                     </div>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
-                                        <Card.Text className={styles.element__text}>{course.documents_count} Bài tập</Card.Text>
+                                        <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                                     </div>
                                     <div className={styles.bodyContent__element}>
                                         <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />

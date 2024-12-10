@@ -62,9 +62,9 @@ const HeaderCourse: React.FC = () => {
     }
   }, [token]);
 
-  console.log(courseData);
 
-  const filteredCourses = courseData?.data.filter(course => {
+
+  const filteredCourses = courseData?.data?.filter(course => {
     if (statusFilter && course.status_course !== statusFilter) {
       return false;
     }

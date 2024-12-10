@@ -116,7 +116,7 @@ const nextConfig = {
       },
       {
         source: '/api/courseDetail/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/courses/:path*',
       },
       {
         source: '/api/user/:path*',
@@ -629,6 +629,39 @@ const nextConfig = {
         source: '/api/hiddenPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
       },
+      // Thống kê
+      // Tông người dùng khóa học
+      {
+        source: '/api/accountant/totalUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-user/:path*',
+      },
+      // Tông người đăng ký
+      {
+        source: '/api/accountant/totalEnroll/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-enrollment/:path*',
+      },
+      // Tông người đăng ký
+      {
+        source: '/api/accountant/totalprofits/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-profits/:path*',
+      },
+      // Tổng doanh thu hôm nay
+      {
+        source: '/api/accountant/enrollmentToday/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-enrollment-today/:path*',
+      },
+      // Khóa học có doanh thu cao nhất
+      {
+        source: '/api/accountant/highestRevenueCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/highest-revenue-course/:path*',
+      },
+      // Khóa học được yêu thích nhất
+      {
+        source: '/api/accountant/mostFavoriteCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/most-favorite-course/:path*',
+      },
+
+
     ];
   },
   images: {

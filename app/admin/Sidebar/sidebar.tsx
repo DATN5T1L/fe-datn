@@ -25,7 +25,6 @@ const Sidebar: React.FC = () => {
               fill="#4D4D4D"
             />
           </svg>
-
           <span className={h.itemTitle}>Dashboard</span>
         </Nav.Item>
       </Link>

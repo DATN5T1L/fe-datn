@@ -1,0 +1,5 @@
+.post {
+    &:hover {
+        fill: var(--blue-50);
+    }
+}
