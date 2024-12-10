@@ -108,7 +108,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     <span>
                         <p>Đang học</p>
                         {loading ? (
-                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                         ) : (
                             <h3>{dataCourse?.courseInprogress}</h3>
                         )}
@@ -124,7 +124,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     <span>
                         <p>Đã hoàn thành</p>
                         {loading ? (
-                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}  />
                         ) : (
                             <h3>{dataCourse?.courseCompleted}</h3>
                         )}
@@ -140,7 +140,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     <span>
                         <p>Tổng tiền học</p>
                         {loading ? (
-                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}  />
                         ) : (
                             <h3>{numberValue(dataCourse?.totalCoursePurchaser)} VND</h3>
                         )}
@@ -156,7 +156,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     <span>
                         <p>Đánh giá khóa học</p>
                         {loading ? (
-                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} delay={10} />
+                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}  />
                         ) : (
                             <h3>{numberValue(dataCourse?.ratingCourses)}</h3>
                         )}
@@ -173,7 +173,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                 <div className={styles.body_avatar}>
                     <Figure>
                         {loading ? (
-                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'100%'} width={'100%'} delay={10} />
+                            <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'100%'} width={'100%'}  />
                         ) : (
                             <>
                                 <Figure.Image
@@ -196,7 +196,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                         {
 
                             loading ? (
-                                <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'100%'} width={'100%'} delay={10} />
+                                <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'100%'} width={'100%'}  />
                             ) : (
                                 dataCoursezForUser?.courses?.map((item) => (
                                     <Col md={4} className={styles.mainBox}>
