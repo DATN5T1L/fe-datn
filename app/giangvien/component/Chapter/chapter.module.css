@@ -26,7 +26,7 @@
 }
 
 .left {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 32px;
   left: -2%;
@@ -138,7 +138,7 @@
   border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .searchInput:focus {
@@ -211,7 +211,7 @@
 .table tbody tr td {
   padding: 16px 12px;
   line-height: 24px !important;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500px;
   border: none;
   color: #333333;
@@ -282,7 +282,7 @@
   border-radius: 12px;
   border: 1px solid var(--blue-60);
   background: #438FF7 !important;
-  font-size: 16px !important;
+  font-size: 1rem !important;
   text-decoration: none !important;
 }
 
@@ -316,7 +316,7 @@
 
 .pagination .page-item .page-link {
   color: #6c757d;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 10px 15px;
   border-radius: 50%;
   background-color: transparent;
@@ -340,7 +340,7 @@
 
 .pagination-prev,
 .pagination-next {
-  font-size: 18px;
+  font-size: 1.125rem;
   padding: 10px;
   color: #6c757d;
   cursor: pointer;
@@ -363,5 +363,5 @@
 .errorCheck{
   text-align: center;
   min-height: 10rem;
-  font-size: 32px;
+  font-size: 2rem;
 }

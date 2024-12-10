@@ -5,7 +5,7 @@
 .content h3,
 .quizTitle,
 .quizDesc {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .quizOption {
@@ -35,11 +35,11 @@
 .date,
 .accordionHeaderInfo,
 .accordionChapter {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 .footerChapter {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .footerBtnStart {

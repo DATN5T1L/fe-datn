@@ -1,6 +1,6 @@
 .header-add {
   padding: 25px 32px;
-  font-size: 34px;
+  font-size: 2.125rem;
   font-weight: 500;
   line-height: 42px;
   left: -2%;
@@ -14,11 +14,11 @@
 }
 .form {
   background-color: var(--gray-90);
-  font-size: 14px;
+  font-size: 0.875rem;
   width: 360px;
 }
 .btnAdd {
   height: 64px;
   width: 275px;
-  font-size: 20px;
+  font-size: 1.25rem;
 }

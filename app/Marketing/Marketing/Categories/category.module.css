@@ -93,7 +93,7 @@
   border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .searchInput:focus {
@@ -237,7 +237,7 @@
 
 .pagination .page-item .page-link {
   color: #6c757d;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 10px 15px;
   border-radius: 50%;
   background-color: transparent;
@@ -261,7 +261,7 @@
 
 .pagination-prev,
 .pagination-next {
-  font-size: 18px;
+  font-size: 1.125rem;
   padding: 10px;
   color: #6c757d;
   cursor: pointer;
@@ -276,5 +276,5 @@
 .btnApprove {
   min-width: 270px;
   min-height: 56px;
-  font-size: 20px;
+  font-size: 1.25rem;
 }

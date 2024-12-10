@@ -7,7 +7,7 @@
 
 .header_add {
     padding: 25px 32px;
-    font-size: 34px;
+    font-size: 2.125rem;
     font-weight: 500;
     line-height: 42px;
     left: -2%;
@@ -23,7 +23,7 @@
     border-radius: 12px;
     background-color: #438FF7;
     border: none;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
     margin-right: 4.5rem;
@@ -81,12 +81,12 @@
 }
 
 .chon1tep {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
 }
 
 .ghichuhinh {
-    font-size: 10px;
+    font-size: 0.625rem;
     font-weight: 400;
     color: #999999;
 }
@@ -186,7 +186,7 @@
     display: inline-block;
     padding: 10px 15px;
     color: black;
-    font-size: 16px;
+    font-size: 1rem;
     pointer-events: none;
 }
 
@@ -267,7 +267,7 @@
     padding: 4px 12px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     line-height: 24px;
     color: var(--text-75);
@@ -284,7 +284,7 @@
     padding: 4px 12px;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     line-height: 24px;
     color: var(--text-25);

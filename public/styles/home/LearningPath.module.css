@@ -87,7 +87,7 @@
     max-width: 328.08px;
     margin: 0;
     padding: 0;
-    font-size: 34px;
+    font-size: 2.125rem;
     font-style: normal;
     font-weight: 600;
     line-height: 42px;
@@ -181,7 +181,7 @@
     padding: 0 !important;
     width: auto;
     max-width: 100%;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
@@ -203,7 +203,7 @@
     gap: 4px;
     flex-shrink: 0;
     align-self: stretch;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;

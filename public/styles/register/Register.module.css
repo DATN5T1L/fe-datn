@@ -60,7 +60,7 @@
     height: auto;
     margin: 0;
     padding: 0;
-    font-size: 34px;
+    font-size: 2.125rem;
     font-style: normal;
     font-weight: 600;
     line-height: 42px;
@@ -88,7 +88,7 @@
     justify-content: center;
     height: 28px;
     padding: 2px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: normal;
     cursor: pointer;
@@ -99,7 +99,7 @@
     padding: 0;
     margin: 0;
     color: var(--text-75);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: normal;
     transition: color 0.3s ease-in-out;
@@ -116,7 +116,7 @@
     padding: 0;
     margin: 0;
     color: var(--text-25);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: normal;
     transition: color 0.3s ease-in-out;
@@ -212,7 +212,7 @@
     align-items: center;
     font: Poppins;
     color: var(--text-50);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     height: 24px;
     margin: 0;
@@ -229,7 +229,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     font-weight: 500;
     outline: none;
@@ -251,7 +251,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--gray-40);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
 }
 
@@ -282,7 +282,7 @@
 .checkPass__text {
     height: 27px;
     color: var(--text-50);
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 400;
     text-align: right;
     line-height: 27px;
@@ -296,7 +296,7 @@
     height: 24px;
     width: 100%;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     color: var(--text-50);
 }
@@ -308,7 +308,7 @@
     display: flex;
     flex-direction: row;
     gap: 8px;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     border: 0;
     background-color: white;
@@ -327,7 +327,7 @@
 
 .rememberRegister__div {
     height: 48px;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -346,7 +346,7 @@
     padding: 16px 0px;
     border: 0;
     background-color: var(--blue-50);
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 500;
     line-height: 32px;
@@ -394,7 +394,7 @@
     flex-direction: row;
     gap: 16px;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     line-height: 24px;
     color: var(--text-50);
@@ -431,7 +431,7 @@
 }
 
 .RegisterMedia__title {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -468,7 +468,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--text-50);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
     margin: 0;
@@ -485,7 +485,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;

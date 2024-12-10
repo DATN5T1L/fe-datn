@@ -13,7 +13,7 @@
 }
 
 .dragAndDrop span {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 .seperator {
@@ -21,7 +21,7 @@
 }
 
 .addBtn {
-  font-size: 20px;
+  font-size: 1.25rem;
   min-width: 275px;
   min-height: 65px;
   margin: 0 auto;
@@ -29,5 +29,5 @@
 
 .form {
   background-color: var(--gray-90);
-  font-size: 14px;
+  font-size: 0.875rem;
 }

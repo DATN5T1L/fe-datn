@@ -15,7 +15,7 @@
   padding-top: 10px;
   padding-bottom: 12px;
   color: #000000;
-  font-size: 14;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 .customCloseButton {
@@ -77,12 +77,12 @@
 }
 
 .text1 {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   color: #333333;
 }
 .text2 {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   color: #666666;
 }
@@ -107,7 +107,7 @@
   
 }
 .tieude1{
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 24px;
   font-weight: 500px;
   
@@ -115,9 +115,9 @@
  .custom_select {
     width: 163px;
     height: 24px;
-    font-size: 16px;
+    font-size: 1rem;
     border: none;
-    font-size: 16px;
+    font-size: 1rem;
     outline: none;
     position: relative;
    
@@ -133,7 +133,7 @@
   }
   .custom_select-wrapper::after {
     content: "▼";
-    font-size: 12px;
+    font-size: 0.75rem;
     position: absolute;
     top: 50%;
     right: 10px;
@@ -144,7 +144,7 @@
 
 
   .soluonghocvien{
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: 500;
     line-height: 42px;
     color: #1958AD;
@@ -152,7 +152,7 @@
     
   }
   .soluongonline{
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
     color: #666666;

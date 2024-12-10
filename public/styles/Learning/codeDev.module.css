@@ -30,7 +30,7 @@
 
 .itemNav {
     color: var(--text-75);
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: 500;
     padding: 0px 12px;
     line-height: 24px;
@@ -74,7 +74,7 @@
 
 .lines span {
     color: var(--text-25);
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: 500;
     margin-left: 4px;
 }

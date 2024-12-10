@@ -94,7 +94,7 @@
   border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .searchInput:focus {
@@ -232,7 +232,7 @@
 
 .pagination .page-item .page-link {
   color: #6c757d;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 10px 15px;
   border-radius: 50%;
   background-color: transparent;
@@ -256,7 +256,7 @@
 
 .pagination-prev,
 .pagination-next {
-  font-size: 18px;
+  font-size: 1.125rem;
   padding: 10px;
   color: #6c757d;
   cursor: pointer;
@@ -296,7 +296,7 @@
   height: 48px;
   font-weight: 700;
   line-height: 24px;
-  font-size: 16px;
+  font-size: 1rem;
   color: white;
   padding: 0;
   margin: 0;
@@ -307,7 +307,7 @@
   height: 24px;
   font-weight: 500;
   line-height: 24px;
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--gray-80);
   padding: 0;
   margin: 0;
@@ -331,7 +331,7 @@
 }
 
 .textInput {
-  font-size: 10px;
+  font-size: 0.625rem;
   background-color: var(--gray-80);
 }
 .iconInput {

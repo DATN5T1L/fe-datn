@@ -63,7 +63,7 @@
   border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .searchInput:focus {

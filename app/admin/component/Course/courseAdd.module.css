@@ -1,6 +1,6 @@
 .header_add {
   padding: 25px 32px;
-  font-size: 34px;
+  font-size: 2.125rem;
   font-weight: 500;
   line-height: 42px;
   left: -2%;
@@ -43,11 +43,11 @@
   margin: 24px;
 }
 .chon1tep {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 .ghichuhinh {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 400;
   color: #999999;
 }

@@ -64,7 +64,7 @@
     position: relative;
     margin: 0;
     padding: 0;
-    font-size: 60px;
+    font-size: 3.75rem;
     font-style: normal;
     font-weight: 600;
     line-height: 72px;
@@ -110,7 +110,7 @@
     justify-content: center;
     flex-wrap: wrap;
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
