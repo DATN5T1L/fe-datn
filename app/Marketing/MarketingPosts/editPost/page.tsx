@@ -3,6 +3,7 @@
 import HeaderEditMarketingPost from "../../Marketing/MarketingArticle/Add/headerEditPost";
 import EditMarketingPost from "../../Marketing/MarketingArticle/Add/editPost";
 import { useSearchParams } from "next/navigation";
+import React from "react";
 
 const EditPost: React.FC = () => {
   const searchParams = useSearchParams();
@@ -12,7 +13,7 @@ const EditPost: React.FC = () => {
   return (
     <>
       <HeaderEditMarketingPost />
-      <EditMarketingPost id={`${id}`} />
+      <EditMarketingPost id={`${id || ''}`} />
     </>
   );
 };
