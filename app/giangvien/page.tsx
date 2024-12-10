@@ -9,7 +9,7 @@ import LineChart from "@/app/accountant/chart/LineChart";
 import DoughnutChart from "@/app/accountant/chart/DoughnutChart";
 import h from "./test.module.css";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -78,7 +78,7 @@ const Dashboard = () => {
                 <h6>Người hoàn thành khóa học</h6>
                 <div className={h.chart}>
                   <div>
-                    <DoughnutChart />
+                    {/* <DoughnutChart /> */}
                   </div>
                 </div>
                 <div className={h.info_course}>
