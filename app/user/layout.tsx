@@ -2,17 +2,17 @@ import React from "react";
 import type { Metadata } from "next";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Row } from "react-bootstrap";
-import "../globals.css";
+// import "@app/(user-global)/globals.css"
 
-import styles from "../layout.module.css";
+// import styles from "@app/(user-global)/layout.module.css";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from "../admin/component/Header/header";
-import Sidebar from "../Marketing/component/Sidebar/sidebar";
-import ReduxRender from "@/redux/provider"
-import { SessionProvider } from "next-auth/react"
-import ScrollToTop from "../(user-global)/component/globalControl/scrollToTop"
-import ProfileDispatch from "../(user-global)/component/auth/user-component/profileDispatch"
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import Header from "../admin/component/Header/header";
+// import Sidebar from "../Marketing/component/Sidebar/sidebar";
+// import ReduxRender from "@/redux/provider"
+// import { SessionProvider } from "next-auth/react"
+// import ScrollToTop from "../(user-global)/component/globalControl/scrollToTop"
+// import ProfileDispatch from "../(user-global)/component/auth/user-component/profileDispatch"
 
 export default function RootLayout({
   children,
@@ -21,7 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi">
-      <body className={styles.container}>
+      <body>
+
+      </body>
+      {/* <body className={styles.container}>
       <ReduxRender>
           <SessionProvider>
             <ScrollToTop />
@@ -37,7 +40,7 @@ export default function RootLayout({
             </Row>
             </SessionProvider>
         </ReduxRender>
-      </body>
+      </body> */}
     </html>
   );
 }
