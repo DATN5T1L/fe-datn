@@ -253,7 +253,7 @@
 
 .listItem__titleText {
     color: var(--text-100);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     line-height: 24px;
     white-space: nowrap;
@@ -275,7 +275,7 @@
 .listItem__contentCount,
 .listItem__totalDuration {
     color: var(--text-75);
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: 400;
     display: inline;
 }

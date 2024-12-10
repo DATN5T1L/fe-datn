@@ -41,7 +41,7 @@
 }
 
 .FAQ__title {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 32px;
   letter-spacing: -0.02em;
@@ -53,7 +53,7 @@
   flex-direction: column;
   gap: 12px;
   color: var(--text-50);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 24px;
 }
@@ -76,7 +76,7 @@
 }
 
 .CMT__title {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 32px;
   letter-spacing: -0.02em;
@@ -166,21 +166,21 @@
 }
 
 .cmt__container__header__title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 24px;
   color: var(--text-75);
 }
 
 .cmt__container__header__subtitle {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 400;
   line-height: 16px;
   color: var(--text-50);
 }
 
 .cmt__container__content {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 24px;
   color: var(--text-75);
@@ -292,7 +292,7 @@
 }
 
 .content h3 {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .contentFooter {
@@ -327,11 +327,11 @@
 .date,
 .accordionHeaderInfo,
 .accordionChapter {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 .footerChapter {
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .footerBtnStart {
@@ -366,28 +366,28 @@
 }
 
 .documentHedding__title {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
   line-height: 32px;
   color: var(--text-100);
 }
 
 .documentHedding__date {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 400;
   line-height: 16px;
   color: var(--text-50);
 }
 
 .documentHedding__content {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
   line-height: 32px;
   color: var(--text-50);
 }
 
 .documentHedding__subtitle {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 24px;
   color: var(--text-50);
@@ -417,7 +417,7 @@
   padding: 4px 12px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 24px;
   color: var(--text-75);
@@ -429,7 +429,7 @@
   padding: 4px 12px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 24px;
   color: var(--text-25);
@@ -493,7 +493,7 @@
   background-color: white;
   border: 1px solid var(--blue-50);
   padding: 8px 16px;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 24px;
   border-radius: 12px;
@@ -529,7 +529,7 @@
   gap: 28px;
   align-items: center;
   justify-content: flex-start;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 24px;
   color: var(--text-75);

@@ -37,7 +37,7 @@
     height: auto;
     display: flex;
     flex-direction: row;
-    font-size: 34px;
+    font-size: 2.125rem;
     font-style: normal;
     font-weight: 600;
     line-height: 42px;
@@ -50,7 +50,7 @@
     padding: 0;
     width: auto;
     max-width: 800px;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -113,7 +113,7 @@
     padding: 0;
     margin: 0;
     display: flex;
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -175,7 +175,7 @@
     border: 0;
     outline: none;
     box-shadow: none !important;
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-style: normal !important;
     font-weight: 400 !important;
     line-height: 24px !important;
@@ -183,7 +183,7 @@
 }
 
 .form__control__top::placeholder {
-    font-size: 16px !important;
+    font-size: 1rem !important;
     font-style: normal !important;
     font-weight: 400 !important;
     line-height: 24px !important;
@@ -222,7 +222,7 @@
 }
 
 .formGroup__bottom__title {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -312,7 +312,7 @@
 
 
 .formGroup__bottom__title {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -343,7 +343,7 @@
 }
 
 .btn__bottom__content {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;

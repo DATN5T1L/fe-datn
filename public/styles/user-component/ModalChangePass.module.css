@@ -92,7 +92,7 @@
 }
 
 .modalBody__title {
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 500;
     line-height: 32px;
@@ -108,7 +108,7 @@
 }
 
 .modalBody__subTitle {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -140,7 +140,7 @@
 }
 
 .formControlChangePass__label {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -164,7 +164,7 @@
 }
 
 .link {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;

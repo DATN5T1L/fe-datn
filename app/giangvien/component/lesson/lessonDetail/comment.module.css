@@ -27,7 +27,7 @@
     
 }
 .title{
-    font-size: 24px;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 .filterBar {
@@ -63,14 +63,14 @@
     padding-left: 4px;
 }
 .name{
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     line-height: 24px;
     
     
 }
 .ngaygio{
-    font-size: 10px;
+    font-size: 0.625rem;
     color: #666666;
     font-weight: 400;
     line-height: 16px;
@@ -126,7 +126,7 @@
 }
 .noidung{
      padding: 8px 12px;
-    font-size: 16px;
+    font-size: 1rem;
     color: #666666;
     line-height: 24px;
     font-weight: 400;

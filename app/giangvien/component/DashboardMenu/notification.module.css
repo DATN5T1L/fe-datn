@@ -11,7 +11,7 @@
   background-color: #438FF7;
   color: white;
   padding: 10px;
-  font-size: 16px;
+  font-size: 1rem;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
  
@@ -62,7 +62,7 @@
 }
 .message {
   margin: 0;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: #555;
 }
 .option_button_group{

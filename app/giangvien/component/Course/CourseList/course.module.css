@@ -284,7 +284,7 @@
 
 .pagination .page-item .page-link {
   color: #6c757d;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 10px 15px;
   border-radius: 50%;
   background-color: transparent;
@@ -308,7 +308,7 @@
 
 .pagination-prev,
 .pagination-next {
-  font-size: 18px;
+  font-size: 1.125rem;
   padding: 10px;
   color: #6c757d;
   cursor: pointer;
@@ -343,7 +343,7 @@
   width: 100px !important;
   height: auto !important;
   font-weight: 700 !important;
-  font-size: 9px !important;
+  font-size: 0.5625rem !important;
   color: white !important;
   padding: 0 !important;
   margin: 0 !important;
@@ -353,7 +353,7 @@
 .text__hedding3 {
   width: 145px !important;
   font-weight: 500 !important;
-  font-size: 8px !important;
+  font-size: 0.5rem !important;
   color: var(--gray-80) !important;
   padding: 0 !important;
   margin: 0 !important;
