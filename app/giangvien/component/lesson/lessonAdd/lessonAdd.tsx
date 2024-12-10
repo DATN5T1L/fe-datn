@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import h from "./lessonAdd.module.css";
 import { type } from "os";
 import CkediterCustomFill from "../../globalControll/custom-editor-fill";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import { ErrorMessage, useFormik } from "formik";
 import * as Yup from 'yup'
@@ -67,34 +67,36 @@ const LessonAdd: React.FC = () => {
   const searchParam = useSearchParams()
   const id = searchParam.get('id')
   const nameChapter = searchParam.get('name');
+  const idCourse = searchParam.get('idCourse');
+  const nameCourse = searchParam.get('nameCourse');
+  const router = useRouter()
   const [formHtml, setFormHtml] = useState(true);
   const [formCss, setFormCss] = useState(false);
   const [formJs, setFormJs] = useState(false);
 
-  const handleButtonClick = (buttonType: SetStateAction<string>) => {
-    setShowForm(buttonType === "lesson");
-    setActiveButton(buttonType);
-  };
+  const handleReload = () => {
+    setLoading(true);
+    fetch(`/api/allDocumentAdmin/${id}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        setDocumnetData(data)
+        setLoading(false)
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err)
+        setLoading(false);
+      });
+  }
 
   useEffect(() => {
     if (token && id) {
-      setLoading(true);
-      fetch(`/api/allDocumentAdmin/${id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          setDocumnetData(data)
-          setLoading(false)
-          console.log(data);
-        })
-        .catch(err => {
-          console.log(err)
-          setLoading(false);
-        });
+      handleReload()
     }
   }, [token, id]);
 
@@ -122,7 +124,7 @@ const LessonAdd: React.FC = () => {
     }),
     onSubmit: async (values) => {
       console.log("Form values:", values);
-      if (token) {
+      if (token && id) {
         const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
         console.log("User confirmed:", userConfirmed);
 
@@ -145,7 +147,11 @@ const LessonAdd: React.FC = () => {
             });
             const data = await res.json();
             if (data.status === 'success') {
+              handleReload()
               alert('Thêm bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Thêm bài học thất bại')
             }
@@ -210,7 +216,7 @@ const LessonAdd: React.FC = () => {
       const codeValues = `${values.html || ''}|${values.css || ''}|${values.js || ''}`;
       console.log(codeValues);
 
-      if (token && typeCourseValue) {
+      if (token && typeCourseValue && id) {
         const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
         console.log("User confirmed:", userConfirmed);
 
@@ -236,7 +242,11 @@ const LessonAdd: React.FC = () => {
             });
             const data = await res.json();
             if (data.status === 'success') {
+              handleReload()
               alert('Thêm bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Thêm bài học thất bại')
             }
@@ -296,7 +306,7 @@ const LessonAdd: React.FC = () => {
     onSubmit: async (values) => {
       console.log("Form values:", values);
 
-      if (token && typeCourseValue) {
+      if (token && typeCourseValue && id) {
         const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
         console.log("User confirmed:", userConfirmed);
 
@@ -322,7 +332,11 @@ const LessonAdd: React.FC = () => {
             });
             const data = await res.json();
             if (data.status === 'success') {
+              handleReload()
               alert('Thêm bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Thêm bài học thất bại')
             }
@@ -419,7 +433,7 @@ const LessonAdd: React.FC = () => {
     onSubmit: async (values) => {
       console.log("Form values:", values);
 
-      if (token && typeCourseValue) {
+      if (token && typeCourseValue && id) {
         const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
         console.log("User confirmed:", userConfirmed);
 
@@ -445,7 +459,11 @@ const LessonAdd: React.FC = () => {
             });
             const data = await res.json();
             if (data.status === 'success') {
+              handleReload()
               alert('Thêm bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Thêm bài học thất bại')
             }
@@ -527,18 +545,20 @@ const LessonAdd: React.FC = () => {
           function (value) {
             const { question_code } = this.parent;
             if (!question_code) return false;
-            const questions = question_code
+            const [, answersPart] = question_code.split("?");
+            if (!answersPart) return false;
+            const answers = answersPart
               .split("/")
-              .map((q: string) => q.trim().toLowerCase());
+              .map((answer: string) => answer.trim().toLowerCase());
             const answer = value?.trim().toLowerCase();
-            return questions.includes(answer || "");
+            return answers.includes(answer || "");
           }
         ),
     }),
     onSubmit: async (values) => {
       console.log("Form values:", values);
 
-      if (token && typeCourseValue) {
+      if (token && typeCourseValue && id) {
         const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
         console.log("User confirmed:", userConfirmed);
 
@@ -564,7 +584,11 @@ const LessonAdd: React.FC = () => {
             });
             const data = await res.json();
             if (data.status === 'success') {
+              handleReload()
               alert('Thêm bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Thêm bài học thất bại')
             }
@@ -597,6 +621,10 @@ const LessonAdd: React.FC = () => {
     setFormJs(true);
   };
 
+  const handleDemo = () => {
+    router.replace(`/giangvien/CoursePage/CourseVideoDetail?id=${idCourse}&name=${nameCourse}`)
+  }
+
   return (
     <div>
       <div className={h.header}>
@@ -604,7 +632,7 @@ const LessonAdd: React.FC = () => {
         <div className={h.nutheader}>
           <Button
             className={activeButton === "lesson" ? h.btnbaihoc : h.btnbaitap}
-            onClick={() => handleButtonClick("lesson")}
+            onClick={() => handleDemo()}
           >
             Demo
           </Button>

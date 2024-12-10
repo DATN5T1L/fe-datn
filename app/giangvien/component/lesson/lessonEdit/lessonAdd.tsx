@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import h from "./lessonAdd.module.css";
 import { type } from "os";
 import CkediterCustomFill from "../../globalControll/custom-editor-fill";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import { ErrorMessage, useFormik } from "formik";
 import * as Yup from 'yup'
@@ -64,18 +64,16 @@ const LessonEdit: React.FC = () => {
   const [documentData, setDocumnetData] = useState<ApiResponse<Document> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const token = useCookie('token');
+  const router = useRouter()
   const searchParam = useSearchParams()
-  const id = searchParam.get('id')
-  const nameChapter = searchParam.get('name');
+  const id = searchParam.get('idChapter')
+  const nameChapter = searchParam.get('nameChapter');
   const idDoc = searchParam.get('idDoc');
+  const idCourse = searchParam.get('idCourse')
+  const nameCourse = searchParam.get('nameCourse')
   const [formHtml, setFormHtml] = useState(true);
   const [formCss, setFormCss] = useState(false);
   const [formJs, setFormJs] = useState(false);
-
-  const handleButtonClick = (buttonType: SetStateAction<string>) => {
-    setShowForm(buttonType === "lesson");
-    setActiveButton(buttonType);
-  };
 
   useEffect(() => {
     if (token && idDoc) {
@@ -211,7 +209,7 @@ const LessonEdit: React.FC = () => {
     onSubmit: async (values) => {
       console.log("Form values:", values);
       if (token) {
-        const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
+        const userConfirmed = confirm('Bạn có muốn sửa bài học này không?');
         console.log("User confirmed:", userConfirmed);
 
         if (userConfirmed) {
@@ -234,6 +232,9 @@ const LessonEdit: React.FC = () => {
             const data = await res.json();
             if (data.status === 'success') {
               alert('Sửa bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Sửa bài học thất bại')
             }
@@ -299,7 +300,7 @@ const LessonEdit: React.FC = () => {
       console.log(codeValues);
 
       if (token && typeCourseValue) {
-        const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
+        const userConfirmed = confirm('Bạn có muốn sửa bài học này không?');
         console.log("User confirmed:", userConfirmed);
 
         if (userConfirmed) {
@@ -325,6 +326,9 @@ const LessonEdit: React.FC = () => {
             const data = await res.json();
             if (data.status === 'success') {
               alert('Sửa bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Sửa bài học thất bại')
             }
@@ -385,7 +389,7 @@ const LessonEdit: React.FC = () => {
       console.log("Form values:", values);
 
       if (token && typeCourseValue) {
-        const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
+        const userConfirmed = confirm('Bạn có muốn sửa bài học này không?');
         console.log("User confirmed:", userConfirmed);
 
         if (userConfirmed) {
@@ -411,6 +415,9 @@ const LessonEdit: React.FC = () => {
             const data = await res.json();
             if (data.status === 'success') {
               alert('Sửa bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Sửa bài học thất bại')
             }
@@ -508,7 +515,7 @@ const LessonEdit: React.FC = () => {
       console.log("Form values:", values);
 
       if (token && typeCourseValue) {
-        const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
+        const userConfirmed = confirm('Bạn có muốn sửa bài học này không?');
         console.log("User confirmed:", userConfirmed);
 
         if (userConfirmed) {
@@ -534,6 +541,9 @@ const LessonEdit: React.FC = () => {
             const data = await res.json();
             if (data.status === 'success') {
               alert('Sửa bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Sửa bài học thất bại')
             }
@@ -613,7 +623,7 @@ const LessonEdit: React.FC = () => {
           "answer_code",
           "Câu trả lời chỉ có một đáp án có trong danh sách câu hỏi",
           function (value) {
-            const { question_code } = this.parent;
+            const { question_code } = this.parent as quiz;
             if (!question_code) return false;
             const questions = question_code
               .split("/")
@@ -627,7 +637,7 @@ const LessonEdit: React.FC = () => {
       console.log("Form values:", values);
 
       if (token && typeCourseValue) {
-        const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
+        const userConfirmed = confirm('Bạn có muốn sửa bài học này không?');
         console.log("User confirmed:", userConfirmed);
 
         if (userConfirmed) {
@@ -653,6 +663,9 @@ const LessonEdit: React.FC = () => {
             const data = await res.json();
             if (data.status === 'success') {
               alert('Sửa bài học thành công!!!')
+              if (id && nameChapter) {
+                router.replace(`/giangvien/ChapterPage/ManagerDocument?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
+              }
             } else {
               alert('Sửa bài học thất bại')
             }
@@ -685,6 +698,9 @@ const LessonEdit: React.FC = () => {
     setFormJs(true);
   };
 
+  const handleDemo = () => {
+    router.replace(`/giangvien/CoursePage/CourseVideoDetail?id=${idCourse}&name=${nameCourse}`)
+  }
 
   return (
     <div>
@@ -693,7 +709,7 @@ const LessonEdit: React.FC = () => {
         <div className={h.nutheader}>
           <Button
             className={activeButton === "lesson" ? h.btnbaihoc : h.btnbaitap}
-            onClick={() => handleButtonClick("lesson")}
+            onClick={() => handleDemo()}
           >
             Demo
           </Button>

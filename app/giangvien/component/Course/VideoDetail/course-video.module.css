@@ -17,8 +17,6 @@
   height: auto;
   min-height: 100%;
   max-height: 100%;
-  overflow-x: auto;
-  z-index: 1;
 }
 
 .FAQ__container__not__hidden {
@@ -89,8 +87,10 @@
   height: auto;
   display: flex;
   flex-direction: column;
+  max-height: 600px;
   width: 100%;
   gap: 16px;
+  overflow-x: auto;
 }
 
 .cmt__container {
@@ -116,8 +116,9 @@
 }
 
 .left__line__c2 {
+  padding-top: 16px;
   gap: 12px;
-  margin-left: 144px;
+  margin-left: 72px;
   border-left: 2px solid var(--blue-70);
 }
 
@@ -202,6 +203,22 @@
 
 .cmt__container__sevice {
   padding: 7px 19.5px;
+}
+
+.repCmt__container__boss {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  margin: 0 auto;
+  height: auto;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-right: 40px;
+  height: auto;
+  max-height: 139px;
+  opacity: 1;
+  transition: max-height 0.5s ease-in-out;
 }
 
 .repCmt__container {

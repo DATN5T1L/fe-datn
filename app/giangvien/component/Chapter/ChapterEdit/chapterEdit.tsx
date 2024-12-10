@@ -37,6 +37,7 @@ const ChapterEdit: React.FC = () => {
   const id = searchParams.get('id')
   const idChapter = searchParams.get('idChapter')
   const stt = searchParams.get('stt')
+  const nameCourse = searchParams.get('nameCourse')
   const sttNumber = stt !== null ? parseInt(stt, 10) : null
   const token = useCookie('token')
   const [countCourse, setCountCourse] = useState<CountCourse | null>(null)
@@ -148,7 +149,7 @@ const ChapterEdit: React.FC = () => {
               const data = await res.json();
               console.log('Response data:', data);
               alert('Sửa chương thành công!!!');
-              router.replace(`/giangvien/CoursePage`)
+              router.replace(`/giangvien/ChapterPage/ManagerChapter?id=${id}&name=${nameCourse}`)
             }
           }
         } catch (error) {

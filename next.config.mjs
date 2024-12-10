@@ -18,6 +18,10 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/auth/login/:path*',
       },
       {
+        source: '/api/login-google/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/login-google/:path*',
+      },
+      {
         source: '/api/loginGg',
         destination: 'https://tto-production-db77.up.railway.app/api/auth/login-google',
       },
@@ -31,7 +35,11 @@ const nextConfig = {
       },
       {
         source: '/api/newUser/:path*',
-        destination: 'https://be-datn-production-f680.up.railway.app/api/auth/register/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/auth/register/:path*',
+      },
+      {
+        source: '/api/checkTokenNewUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-mail-register/:path*',
       },
       {
         source: '/api/logout/:path*',
@@ -84,6 +92,14 @@ const nextConfig = {
         source: '/api/changeImg/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/update-avatar/:path*',
       },
+      {
+        source: '/api/checkPhone/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-update-phone/:path*',
+      },
+      {
+        source: '/api/verifyPhone/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-phone/:path*',
+      },
 
       // Client API rewrites
       {
@@ -100,11 +116,11 @@ const nextConfig = {
       },
       {
         source: '/api/courseDetail/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/courses/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/course/:path*',
       },
       {
         source: '/api/user/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/users/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/user/:path*',
       },
       // Image rewrites
       {
@@ -289,8 +305,23 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/client/VNPay/:path*',
       },
 
+      //post
 
-      // admin
+      {
+        source: '/api/clientCatePost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-categories/:path*',
+      },
+      {
+        source: '/api/postByCmt/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-posts-highest-comment/:path*',
+      },
+      {
+        source: '/api/postByView/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/post-highest-view/:path*',
+      },
+
+      // Admin 
+
       {
         source: '/api/allUser/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/users/:path*',
@@ -307,8 +338,10 @@ const nextConfig = {
         source: '/api/allRole/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/users-role/:path*',
       },
-
-      // lấy categories
+      {
+        source: '/api/courseEnrollments/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/enrollments/:path*',
+      },
       {
         source: '/api/post_categories/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/post_categories/:path*',
@@ -352,7 +385,7 @@ const nextConfig = {
       },
       {
         source: '/api/courseDocumnets/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/doc-course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/doc-course/:path*',
       },
       {
         source: '/api/hiddenUser/:path*',
@@ -452,12 +485,20 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/courses/:path*',
       },
       {
+        source: '/api/updateImgCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-images-course/:path*',
+      },
+      {
         source: '/api/docByCourseAdmin/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/doc-by-course-admin/:path*',
       },
       {
         source: '/api/countByCourseAdmin/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/getCountChapterAndDoc/:path*',
+      },
+      {
+        source: '/api/censorCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/censor-course/:path*',
       },
 
       //chapter
@@ -524,6 +565,14 @@ const nextConfig = {
       {
         source: '/api/repCmt/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-doc/:path*',
+      },
+      {
+        source: '/api/deleteCmtDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-delete/:path*',
+      },
+      {
+        source: '/api/hiddenCmtDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-comment-doc/:path*',
       },
 
       //faq
@@ -599,6 +648,12 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com/',
         port: '',
         pathname: '/**',
       },

@@ -88,7 +88,7 @@ import premiumFeaturesTranslations from 'ckeditor5-premium-features/translations
 import 'ckeditor5/ckeditor5.css';
 import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
 import useCookie from '@/app/(user-global)/component/hook/useCookie';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 interface CkEditorCustomProps {
@@ -101,18 +101,26 @@ const CkediterCustom: React.FC<CkEditorCustomProps> = ({ initialData = '', onCha
     const token = useCookie('token')
     const [editorData, setEditorData] = useState<string>(initialData);
     const tokenImg = process.env.NEXT_PUBLIC_TOKEN_IMAGE
+    const prevDataRef = useRef<string>(initialData);
+
+    useEffect(() => {
+        if (prevDataRef.current !== initialData) {
+            prevDataRef.current = initialData;
+            setEditorData(initialData);
+        }
+    }, [initialData]);
 
     const handleEditorChange = (_: any, editor: any) => {
         const data = editor.getData();
-        setEditorData(data);
-        if (onChange) {
-            onChange(data);
+        if (data !== prevDataRef.current) {
+            prevDataRef.current = data;
+            setEditorData(data);
+            if (onChange) {
+                onChange(data);
+            }
         }
     };
 
-    useEffect(() => {
-        setEditorData(initialData);
-    }, [initialData]);
     return (
         <CKEditor
             editor={ClassicEditor}

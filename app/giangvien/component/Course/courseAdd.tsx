@@ -16,8 +16,7 @@ const CourseAdd: React.FC = () => {
       .required("Tên khóa học là bắt buộc")
       .min(3, "Tên khóa học phải có ít nhất 3 ký tự"),
     price_course: Yup.number()
-      .required("Giá khóa học là bắt buộc")
-      .positive("Giá phải là số dương"),
+      .required("Giá khóa học là bắt buộc"),
     discount_price_course: Yup.number()
       .required("Giảm giá là bắt buộc")
       .min(0, "Giảm giá phải từ 0% trở lên")
@@ -27,7 +26,6 @@ const CourseAdd: React.FC = () => {
       .max(500, "Mô tả không được vượt quá 500 ký tự"),
     tax_rate: Yup.number()
       .required("Thuế là bắt buộc")
-      .positive("Thuế phải là số dương")
       .max(10, "Thuế không được vượt quá 10%"),
   });
 
@@ -106,11 +104,7 @@ const CourseAdd: React.FC = () => {
   return (
     <div>
       <div className={h.header_add}>Thêm Khóa học</div>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        console.log("Form submitted");
-        formik.handleSubmit(e);
-      }}>
+      <form onSubmit={formik.handleSubmit}>
         <div className={h.body_add}>
           <div className={h.wapper}>
             <div className={h.wapper_body}>
@@ -256,7 +250,7 @@ const CourseAdd: React.FC = () => {
           </div>
         </div>
       </form>
-    </div>
+    </div >
   );
 };
 export default CourseAdd;

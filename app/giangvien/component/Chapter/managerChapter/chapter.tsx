@@ -183,7 +183,9 @@ const ManagerChapter: React.FC = () => {
   };
 
   const handlePushAdd = () => {
-    router.replace(`/giangvien/ChapterPage/ManagerChapter/ChapterAdd?id=${id}`)
+    if (id && nameCourse) {
+      router.replace(`/giangvien/ChapterPage/ManagerChapter/ChapterAdd?id=${id}&name=${nameCourse}`)
+    }
   }
 
   return (
@@ -257,13 +259,13 @@ const ManagerChapter: React.FC = () => {
                       <img src="/img/actionDetail.svg" alt="Edit" />
                     </Link>
                     <Link
-                      href={`/giangvien/ChapterPage/ChapterEdit?id=${id}&idChapter=${item.id}&stt=${item.serial_chapter}`}
+                      href={`/giangvien/ChapterPage/ChapterEdit?id=${id}&idChapter=${item.id}&stt=${item.serial_chapter}&nameCourse=${nameCourse}`}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
                       <img src="/img_admin/action2.svg" alt="Delete" />
                     </Link>
                     <Link
-                      href={`/giangvien/ChapterPage/ManagerDocument?id=${item.id}&name=${item.name_chapter}`}
+                      href={`/giangvien/ChapterPage/ManagerDocument?id=${item.id}&name=${item.name_chapter}&idCourse=${id}&nameCourse=${nameCourse}`}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
                       <img src="/img_admin/vitien.svg" alt="Delete" />

@@ -42,6 +42,8 @@ const ManagerDocumnet: React.FC = () => {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
   const nameChapter = searchParams.get('name')
+  const nameCourse = searchParams.get('nameCourse')
+  const idCourse = searchParams.get('idCourse')
   const [currentPage, setCurrentPage] = useState(1)
   const catePerPage = 5;
 
@@ -154,7 +156,7 @@ const ManagerDocumnet: React.FC = () => {
 
   const handlePushAdd = () => {
     if (id && nameChapter) {
-      router.replace(`/giangvien/Lesson/LessonAdd?id=${id}&name=${nameChapter}`)
+      router.replace(`/giangvien/Lesson/LessonAdd?id=${id}&name=${nameChapter}&idCourse=${idCourse}&nameCourse=${nameCourse}`)
     }
   }
 
@@ -290,7 +292,7 @@ const ManagerDocumnet: React.FC = () => {
                     </Link>
                     {id && nameChapter && (
                       <Link
-                        href={`/giangvien/Lesson/LessonEdit?id=${id}&name=${nameChapter}&idDoc=${item.document_id}`}
+                        href={`/giangvien/Lesson/LessonEdit?idChapter=${id}&nameChapter=${nameChapter}&idDoc=${item.document_id}&nameCourse=${nameCourse}&idCourse=${idCourse}`}
                         className="w border-end justify-content-center align-item-center d-flex col-4"
                       >
                         <img src="/img_admin/action2.svg" alt="Delete" />

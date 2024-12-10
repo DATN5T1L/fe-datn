@@ -82,11 +82,6 @@ const CourseEdit: React.FC = () => {
         if (userConfirmed) {
           console.log('Form data is being submitted');
           const formData = new FormData();
-          formData.append("name_course", values.name_course);
-          formData.append("discription_course", values.discription_course);
-          formData.append("price_course", values.price_course);
-          formData.append("discount_price_course", values.discount_price_course);
-          formData.append("tax_rate", values.tax_rate);
           if (values.img_course) {
             formData.append("img_course", values.img_course);
           }
@@ -98,8 +93,15 @@ const CourseEdit: React.FC = () => {
               method: 'PUT',
               headers: {
                 Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
               },
-              body: formData,
+              body: JSON.stringify({
+                name_course: values.name_course,
+                price_course: values.price_course,
+                discount_price_course: values.discount_price_course,
+                tax_rate: values.tax_rate,
+                discription_course: values.discription_course
+              }),
             });
             const data = await res.json();
             console.log(data);
@@ -110,6 +112,20 @@ const CourseEdit: React.FC = () => {
               alert('Sửa khóa học thất bại')
             }
             console.log(data);
+
+            const resImg = await fetch(`/api/updateImgCourse/${id}`, {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${token}`
+              },
+              body: formData
+            })
+
+            const dataImg = await resImg.json()
+
+            console.log(dataImg);
+            
+
           } catch (error) {
             console.error("Error during form submission:", error);
           }
@@ -220,6 +236,9 @@ const CourseEdit: React.FC = () => {
                   <div className={h.error}>{formik.errors.img_course}</div>
                 )}
               </div>
+              <form >
+
+              </form>
               <div className={h.formnhap}>
                 <div className={h.bentrong}>
                   <label htmlFor="name_course">Tên</label>

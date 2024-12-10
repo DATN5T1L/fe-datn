@@ -13,6 +13,7 @@ import Table from "react-bootstrap/Table";
 import h from "./course.module.css";
 import Link from "next/link";
 import "./course.css";
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
 interface CourseData {
   created_at: string;
@@ -35,6 +36,7 @@ interface CourseProps {
 }
 
 const Course: React.FC<CourseProps> = ({ data }) => {
+  const token = useCookie('token')
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
@@ -112,6 +114,17 @@ const Course: React.FC<CourseProps> = ({ data }) => {
     setCurrentPage(1);
   }, [data]);
 
+  const handleCensorCourse = (id: string) => {
+    if (token && id) {
+      fetch(`/api/censorCourse/${id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    }
+  }
+
   return (
     <div
       className={`${h.main} d-flex flex-column  align-items-start `}
@@ -127,9 +140,10 @@ const Course: React.FC<CourseProps> = ({ data }) => {
               <td>Tên khóa học</td>
               <td>Giá</td>
               <td>Giá giảm</td>
+              <td>Thuế</td>
               <td>Lượt xem</td>
               <td>Trạng thái</td>
-              <td>Hành động</td>
+              <td className="text-lg-center">Hành động</td>
             </tr>
           </thead>
           <tbody>
@@ -158,8 +172,9 @@ const Course: React.FC<CourseProps> = ({ data }) => {
                   </Card.Header>
                 </td>
                 <td>{item.name_course}</td>
-                <td>{item.price_course.toLocaleString('vi-VN')}</td>
-                <td>{item.discount_price_course === null ? 0 : item.discount_price_course?.toLocaleString('vi-VN')}</td>
+                <td>{item.price_course.toLocaleString('vi-VN')} đ</td>
+                <td>{item.discount_price_course === null ? 0 : item.discount_price_course?.toLocaleString('vi-VN')} %</td>
+                <td>{item.tax_rate === null ? 0 : item.tax_rate} %</td>
                 <td>{item.views_course}</td>
 
                 <td>

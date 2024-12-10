@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import useCookie from '../../hook/useCookie';
 
 
 
@@ -15,7 +16,7 @@ const ModalChangePassContent: React.FC<ModalChangePassProps> = ({ show, onClose 
     const pathName = usePathname();
     const [isVisible, setIsVisible] = useState(false);
     const showModal = searchParams.get('showModal');
-    const token = localStorage.getItem('token');
+    const token = useCookie('token');
 
     const isUser1 = pathName === '/info-user';
     const isUser2 = pathName === '/intro-user';
@@ -75,29 +76,31 @@ const ModalChangePassContent: React.FC<ModalChangePassProps> = ({ show, onClose 
         onSubmit: async (values) => {
             setLoading(true);
             try {
-                const res = await fetch('/api/changePassword/', {
-                    method: 'PATCH',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        old_password: values.nowPassword,
-                        new_password: values.newPassword,
-                        new_confirm_password: values.newPasswordConfirm,
-                    }),
-                });
+                if (token) {
+                    const res = await fetch('/api/changePassword/', {
+                        method: 'PATCH',
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            old_password: values.nowPassword,
+                            new_password: values.newPassword,
+                            new_confirm_password: values.newPasswordConfirm,
+                        }),
+                    });
 
-                if (res.ok) {
-                    alert('Thay đổi mật khẩu thành công');
-                    formik.resetForm();
-                    onClose();
-                } else if (res.status === 400 || 422) {
-                    alert('Sai mật khẩu cũ vui lòng thử lại');
-                    formik.resetForm();
-                } else {
-                    alert('Có lỗi xảy ra vui lòng thử lại')
-                    formik.resetForm();
+                    if (res.ok) {
+                        alert('Thay đổi mật khẩu thành công');
+                        formik.resetForm();
+                        onClose();
+                    } else if (res.status === 400 || 422) {
+                        alert('Sai mật khẩu cũ vui lòng thử lại');
+                        formik.resetForm();
+                    } else {
+                        alert('Có lỗi xảy ra vui lòng thử lại')
+                        formik.resetForm();
+                    }
                 }
             } catch (error) {
                 console.error('Error:', error);

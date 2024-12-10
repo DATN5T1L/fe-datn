@@ -34,6 +34,7 @@ interface ApiResponse<T> {
 const ChapterAddManager: React.FC = () => {
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
+  const nameCourse = searchParams.get('name')
   const token = useCookie('token')
   const [countCourse, setCountCourse] = useState<CountCourse | null>(null)
   const [sttChapter, setSttChapter] = useState<ApiResponse<Chapter> | null>(null)
@@ -103,7 +104,7 @@ const ChapterAddManager: React.FC = () => {
         return
       }
       else {
-        if (token && id) {
+        if (token && id && nameCourse) {
           try {
             if (confirm('Bạn có muốn thêm chương hay không?')) {
               const res = await fetch(`/api/allChapterNotCourse/`, {
@@ -126,7 +127,7 @@ const ChapterAddManager: React.FC = () => {
                 const data = await res.json();
                 console.log('Response data:', data);
                 alert('Thêm chương thành công!!!');
-                router.replace(`/giangvien/CoursePage`)
+                router.replace(`/giangvien/ChapterPage/ManagerChapter?id=${id}&name=${nameCourse}`)
               }
             }
           } catch (error) {
@@ -172,11 +173,11 @@ const ChapterAddManager: React.FC = () => {
                 onBlur={formik.handleBlur}
               />
               {formik.errors.serial_chapter && (
-                <div  style={{ color: 'red' }}>{formik.errors.serial_chapter}</div>
+                <div style={{ color: 'red' }}>{formik.errors.serial_chapter}</div>
               )}
             </div>
           </div>
-          <div className="text-lg-center">Số chapter hiện tại trong khóa học là {countCourse?.data.count_chapter}
+          <div className="text-lg-center">Số chapter hiện tại trong khóa học là {countCourse?.data?.count_chapter === null ? 0 : countCourse?.data?.count_chapter}
             {countCourse && countCourse?.data?.count_chapter > 0 && (
               <>
                 {' '}bao gồm chapter: {sttChapter?.data.map((item) => item.serial_chapter).join(', ')}

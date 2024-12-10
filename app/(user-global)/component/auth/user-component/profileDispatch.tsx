@@ -82,7 +82,6 @@ const ProfileDispatch = () => {
         document.cookie = "authjs.session-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         document.cookie = "authjs.csrf-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
         localStorage.removeItem('persist:root');
-        persistor.pause();
         dispatch(logout());
         signOut(
             { redirect: false, }
