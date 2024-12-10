@@ -1,5 +1,5 @@
 import Body from "../component/globalControl/body"
-import FeedBack from "@app/(user-global)/component/globalControl/FeedBack"
+// import FeedBack from "@app/(user-global)/component/globalControl/FeedBack"
 import CategoriesLearningPath from "../component/router/categoriesLearningPath"
 import ForWhom from "../component/router/forWhom"
 import HeaderLearning from "../component/router/headerLearning"
@@ -59,7 +59,7 @@ const LearningPath__BE: React.FC = () => {
                     content4="Phát triển các ứng dụng web động với logic server"
                     content5="Tối ưu hóa hiệu suất và bảo mật hệ thống"
                 />
-                <FeedBack></FeedBack>
+                {/* <FeedBack></FeedBack> */}
             </Body>
         </>
     )
