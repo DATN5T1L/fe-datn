@@ -293,7 +293,7 @@ const Chapter: React.FC<{}> = () => {
                             <img src="/img/actionDetail.svg" alt="Edit" />
                           </Link>
                           <Link
-                            href={`/giangvien/ChapterPage/ChapterEdit`}
+                            href={`/giangvien/ChapterPage/ChapterEdit`} 
                             className="w-33 border-end justify-content-center d-flex col-3"
                           >
                             <img src="/img_admin/action2.svg" alt="Delete" />

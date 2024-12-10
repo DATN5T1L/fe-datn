@@ -89,6 +89,10 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-phone-user/:path*',
       },
       {
+        source: '/api/changeMailByPhone/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-phone-user/:path*',
+      },
+      {
         source: '/api/changeImg/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/update-avatar/:path*',
       },
