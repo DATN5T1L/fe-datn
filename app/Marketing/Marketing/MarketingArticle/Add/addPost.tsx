@@ -82,7 +82,7 @@ const AddMarketingPost: React.FC = () => {
       formData.append("content_post", values.content_post);
       formData.append("category_id", values.category_id);
       if (values.img_post) {
-        formData.append("img_post", values.img_post);
+        formData.append("img_post[]", values.img_post);
       }
 
       try {
@@ -237,7 +237,7 @@ const AddMarketingPost: React.FC = () => {
             onBlur={formik.handleBlur}
           >
             <option value="">Chọn danh mục</option>
-            {dataCates?.data.map((item, index) => (
+            {dataCates?.data?.map((item, index) => (
               <option key={index} value={item.id}>
                 {item.name_category}
               </option>

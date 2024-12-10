@@ -28,7 +28,14 @@ const Sidebar: React.FC = () => {
 
           <span className={h.itemTitle}>Dashboard</span>
         </Nav.Item>
-        </Link>
+      </Link>
+      <Link href={"/giangvien/router"}>
+        <Nav.Item className={`${h.navItem} mb-3`}>
+          <img src="/img/roadBlack.svg" alt="" className={h.routerHover1} />
+          <img src="/img/road.svg" alt="" className={h.routerHover2} />
+          <span className={h.itemTitle}>Lộ trình</span>
+        </Nav.Item>
+      </Link>
       <Link href={"/giangvien/CoursePage"}>
         <Nav.Item className={`${h.navItem} mb-3`}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

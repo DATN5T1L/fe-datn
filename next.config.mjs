@@ -594,6 +594,13 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/faq_courses/:path*',
       },
 
+      //Router
+
+      {
+        source: '/api/allRouterAdmin/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/routes/:path*',
+      },
+
 
       //marketing
 

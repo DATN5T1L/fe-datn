@@ -86,7 +86,11 @@ const VideoDetail: React.FC = () => {
   const [chapterData, setChapterData] = useState<CourseData | null>(null)
   const id = searchParams.get('id')
   const nameParams = searchParams.get('name')
-  console.log(id);
+  const [totalComments, setTotalComments] = useState<number>(0);
+
+  const handleUpdateTotalComments = (count: number) => {
+    setTotalComments(count);
+  };
 
 
   const [typeDocument, setTypeDocument] = useState<string>("");
@@ -315,14 +319,14 @@ const VideoDetail: React.FC = () => {
             <>
               <div className={videoMod.CMT__hedding}>
                 <div className={videoMod.CMT__title}>
-                  108 Bình luận
+                  {totalComments ? totalComments : 0} Bình luận
                 </div>
                 <div className={videoMod.FAQ__btn} onClick={() => handleCloseCmt()}>
                   <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
                 </div>
               </div>
               {id && (
-                <ChatCmt id={typeDocument}></ChatCmt>
+                <ChatCmt id={typeDocument} onUpdateTotalComments={handleUpdateTotalComments}></ChatCmt>
               )}
             </>
           )}

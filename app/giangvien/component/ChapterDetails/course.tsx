@@ -172,7 +172,7 @@ const Course: React.FC<CourseProps> = ({ data }) => {
                   </Card.Header>
                 </td>
                 <td>{item.name_course}</td>
-                <td>{item.price_course.toLocaleString('vi-VN')} đ</td>
+                <td>{item.price_course?.toLocaleString('vi-VN')} đ</td>
                 <td>{item.discount_price_course === null ? 0 : item.discount_price_course?.toLocaleString('vi-VN')} %</td>
                 <td>{item.tax_rate === null ? 0 : item.tax_rate} %</td>
                 <td>{item.views_course}</td>
@@ -182,18 +182,18 @@ const Course: React.FC<CourseProps> = ({ data }) => {
                 </td>
                 <td className={h.option_button_group}>
                   <div
-                    className={`justify-content-between border d-flex py-2 rounded`}
+                    className={h.option_optimai}
                   >
-                    <Link href={`/giangvien/CoursePage/CourseVideoDetail?id=${item.id}&name=${item.name_course}`} className="w-50 border-end">
+                    <Link href={`/giangvien/CoursePage/CourseVideoDetail?id=${item.id}&name=${item.name_course}`} className={h.link__item}>
                       <img src="/img_admin/action1.svg" alt="Edit" />
                     </Link>
-                    <Link href={`/giangvien/CoursePage/CourseFQA?id=${item.id}`} className="w-50 border-end">
+                    <Link href={`/giangvien/CoursePage/CourseFQA?id=${item.id}`} className={h.link__item}>
                       <img src="/img_admin/hoicham.svg" alt="Edit" />
                     </Link>
-                    <Link href={`/giangvien/ChapterPage/ManagerChapter?id=${item.id}&name=${item.name_course}`} className="w-50 border-end">
+                    <Link href={`/giangvien/ChapterPage/ManagerChapter?id=${item.id}&name=${item.name_course}`} className={h.link__item}>
                       <img src="/img_admin/vitien.svg" alt="Edit" />
                     </Link>
-                    <Link href={`/giangvien/CoursePage/CourseEdit?id=${item.id}`} className="w-50">
+                    <Link href={`/giangvien/CoursePage/CourseEdit?id=${item.id}`} className={h.link__item}>
                       <img src="/img_admin/action2.svg" alt="Edit" />
                     </Link>
                   </div>

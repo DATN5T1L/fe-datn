@@ -461,11 +461,11 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
               <div className="my-4">
                 <span className="fs-5 fs-sm-2 fs-lg-1">{useFormatDate(data.data.created_at)}</span>
               </div>
-                <div
-                  dangerouslySetInnerHTML={{ __html: data.data.content_post }}
-                  className="fs-5 fs-sm-2 fs-lg-1">
+              <div
+                dangerouslySetInnerHTML={{ __html: data.data.content_post }}
+                className="fs-5 fs-sm-2 fs-lg-1">
 
-                </div>
+              </div>
               <div
                 className="my-5 w-100 d-flex justify-content-center align-items-center"
                 style={{ flexDirection: "column" }}
@@ -643,7 +643,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                               {itemR.id === userId?.id ? (
                                 <small className="text-primary" onClick={() => handleDelete(itemR.id)}>Xóa</small>
                               ) : (
-                                <small className="text-primary">Ẩn</small>
+                                <>
+                                  {itemR.del_flag === true ? (
+                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
+                                  ) : (
+                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
+                                  )}
+                                </>
                               )}
                             </div>
                           </div>
@@ -739,7 +745,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                                   {itemRR.user_id === userId?.id ? (
                                     <small className="text-primary" onClick={() => handleDelete(itemRR.id)}>Xóa</small>
                                   ) : (
-                                    <small className="text-primary">Ẩn</small>
+                                    <>
+                                      {itemRR.del_flag === true ? (
+                                        <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
+                                      ) : (
+                                        <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
+                                      )}
+                                    </>
                                   )}
                                 </div>
                                 {activeReplyIdRR === itemRR.id && (

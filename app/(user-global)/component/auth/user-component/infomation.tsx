@@ -1,6 +1,6 @@
 'use client'
 import dynamic from "next/dynamic";
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import styles from '@public/styles/user-component/Infomation.module.css';
 import { useState, useEffect } from "react";
 import { RootState } from '../../../../../redux/store';
@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Button from "../../globalControl/btnComponent";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import useCookie from "../../hook/useCookie";
 
 // Dùng dynamic import để tắt SSR cho component này
 const ModalChangeImg = dynamic(() => import("./modalChangeImg"), { ssr: false });

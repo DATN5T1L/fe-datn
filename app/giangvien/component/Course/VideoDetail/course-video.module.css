@@ -76,7 +76,7 @@
 }
 
 .CMT__title {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 32px;
   letter-spacing: -0.02em;
@@ -91,6 +91,7 @@
   width: 100%;
   gap: 16px;
   overflow-x: auto;
+  padding-bottom: 20px;
 }
 
 .cmt__container {
@@ -99,7 +100,7 @@
   width: 100%;
   height: auto;
   padding: 4px 8px;
-  gap: 12px;
+  gap: 4px;
   position: relative;
   z-index: 1;
 }
@@ -166,21 +167,21 @@
 }
 
 .cmt__container__header__title {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 24px;
   color: var(--text-75);
 }
 
 .cmt__container__header__subtitle {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-weight: 400;
   line-height: 16px;
   color: var(--text-50);
 }
 
 .cmt__container__content {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 24px;
   color: var(--text-75);
