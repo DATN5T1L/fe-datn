@@ -28,7 +28,7 @@
 
 .time {
     color: var(--text-0, #FFF);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     line-height: 24px;
     padding: 2px 4px;
@@ -44,8 +44,8 @@
 
 .cta {
     display: flex;
-    justify-content: end;
-    align-items: end;
+    justify-content: flex-end;
+    align-items: flex-end;
     gap: 12px;
 }
 

@@ -285,6 +285,7 @@ interface ListItem {
 interface courseidProp {
     courseId: string;
 }
+
 interface ListItem {
     title: string;
     content: { name: string, duration: string, status: boolean, type: string }[];  // Thêm trường 'duration'
@@ -294,12 +295,14 @@ interface NavCourseProps {
     userId: string;
     courseId: string;
 }
+
 interface NoteCourseProps {
     id: string;
     title: string;
     time: date;
     onClose: () => void; // Thêm prop để đóng popup từ bên ngoài
 }
+
 interface NotificationProps {
     type: 'success' | 'error' | 'fail' | 'complete';
     message: string;
@@ -420,6 +423,7 @@ interface Reminder {
 interface Course {
     id: string;
     name_course: string;
+    slug: string;
     img_course: string;
     price_course: number;
     discription_course: string;
@@ -430,6 +434,7 @@ interface Course {
     tax_rate: string;
     del_flag: boolean;
     instructor_id: string;
+    instructor_avatar: string;
     created_at: string;
     updated_at: string;
     num_chapter: number;

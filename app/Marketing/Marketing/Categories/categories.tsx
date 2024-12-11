@@ -12,9 +12,11 @@ import useFormatDate from "@/app/(user-global)/component/globalControl/useFormat
 import ReactLoading from 'react-loading';
 
 interface Category {
+  id: string;
   name_category: string;
   created_at: string;
   updated_at: string;
+  tags: string;
   del_flag: boolean;
 }
 
@@ -159,6 +161,40 @@ const Categories = () => {
     setStatusCate('')
   }
 
+  const handleHiddenCate = (id: string) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn thay đổi trạng thái danh mục')) {
+        fetch(`/api/hiddenCategoriesPost/${id}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then(res => res.json())
+          .then(data => {
+            console.log(data);
+            if (data.status === 'success') {
+              setData((prev) => {
+                if (!prev) return prev;
+                return {
+                  ...prev,
+                  data: prev.data.map((cate) =>
+                    cate.id === id
+                      ? { ...cate, del_flag: !cate.del_flag }
+                      : cate
+                  ),
+                };
+              })
+              alert('Thay đổi thành công')
+            } else {
+              alert('Thay đổi thất bại')
+              console.error(data.message);
+            }
+          })
+          .catch(error => console.error(error))
+      }
+    }
+  }
+
   return (
     <>
       <div className="d-flex flex-column">
@@ -204,15 +240,17 @@ const Categories = () => {
           <thead>
             <tr>
               <td className="text-start">Tên danh mục</td>
+              <td>Tags</td>
               <td>Ngày đăng</td>
               <td>Ngày cập nhật</td>
+              <td className="text-center">Trạng thái</td>
               <td>Hành động</td>
             </tr>
           </thead>
           {loading ? (
             <tbody>
               <tr>
-                <td colSpan={4}>
+                <td colSpan={6}>
                   <ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={h.align} />
                 </td>
               </tr>
@@ -224,8 +262,12 @@ const Categories = () => {
                   key={index}
                 >
                   <td className="text-start">{item.name_category}</td>
+                  <td>{item.tags.replace(/\s+/g, ', ')}</td>
                   <td>{useFormatDate(item.created_at)}</td>
                   <td>{useFormatDate(item.updated_at)}</td>
+                  <td className="text-center">
+                    <span className={`${h.active_text}`}>{item.del_flag === true ? 'active' : 'anactive'}</span>
+                  </td>
                   <td className={`${h.category_btns}`}>
                     <div
                       className={`d-flex justify-content-evenly border py-2 rounded`}
@@ -234,7 +276,7 @@ const Categories = () => {
                         <img src="/img_admin/action1.svg" alt="Edit" />
                       </Link>
                       <div className="border-end" />
-                      <Link href={""} className="">
+                      <Link href={`/Marketing/MarketingCategories/EditCategory?id=${item.id}`} className="">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="25"
@@ -253,34 +295,13 @@ const Categories = () => {
                         </svg>
                       </Link>
                       <div className="border-end" />
-                      <Link href="/Marketing/MarketingCategories/EditCategory" className="">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="25"
-                          height="24"
-                          viewBox="0 0 25 24"
-                          fill="none"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M10.8094 2.25002H14.1908C14.4072 2.24988 14.5957 2.24976 14.7737 2.27819C15.477 2.39049 16.0856 2.82915 16.4146 3.46084C16.4978 3.62073 16.5573 3.79961 16.6256 4.00494L16.7373 4.33984C16.7562 4.39653 16.7616 4.41258 16.7661 4.42522C16.9413 4.90933 17.3953 5.23659 17.9099 5.24964C17.9235 5.24998 17.94 5.25004 18.0001 5.25004H21.0001C21.4143 5.25004 21.7501 5.58582 21.7501 6.00004C21.7501 6.41425 21.4143 6.75004 21.0001 6.75004H4C3.58579 6.75004 3.25 6.41425 3.25 6.00004C3.25 5.58582 3.58579 5.25004 4 5.25004H7.00008C7.06013 5.25004 7.0767 5.24998 7.09023 5.24964C7.60488 5.23659 8.05891 4.90936 8.23402 4.42524C8.23863 4.41251 8.24392 4.39681 8.26291 4.33984L8.37452 4.00496C8.44281 3.79964 8.50233 3.62073 8.58559 3.46084C8.91453 2.82915 9.52313 2.39049 10.2264 2.27819C10.4044 2.24976 10.593 2.24988 10.8094 2.25002ZM9.50815 5.25004C9.55966 5.14902 9.60531 5.04404 9.64458 4.93548C9.6565 4.90251 9.6682 4.86742 9.68322 4.82234L9.78302 4.52292C9.87419 4.24941 9.89519 4.19363 9.91601 4.15364C10.0257 3.94307 10.2285 3.79686 10.463 3.75942C10.5075 3.75231 10.567 3.75004 10.8553 3.75004H14.1448C14.4331 3.75004 14.4927 3.75231 14.5372 3.75942C14.7716 3.79686 14.9745 3.94307 15.0842 4.15364C15.105 4.19363 15.126 4.2494 15.2171 4.52292L15.3169 4.82216L15.3556 4.9355C15.3949 5.04405 15.4405 5.14902 15.492 5.25004H9.50815Z"
-                            fill="#DA1E28"
-                          />
-                          <path
-                            d="M6.41509 8.45015C6.38754 8.03685 6.03016 7.72415 5.61686 7.7517C5.20357 7.77925 4.89086 8.13663 4.91841 8.54993L5.38186 15.5017C5.46736 16.7844 5.53642 17.8205 5.69839 18.6336C5.86679 19.4789 6.15321 20.185 6.7448 20.7385C7.3364 21.2919 8.05995 21.5308 8.9146 21.6425C9.73662 21.7501 10.775 21.7501 12.0606 21.75H12.9395C14.2251 21.7501 15.2635 21.7501 16.0856 21.6425C16.9402 21.5308 17.6638 21.2919 18.2554 20.7385C18.847 20.185 19.1334 19.4789 19.3018 18.6336C19.4638 17.8206 19.5328 16.7844 19.6183 15.5017L20.0818 8.54993C20.1093 8.13663 19.7966 7.77925 19.3833 7.7517C18.97 7.72415 18.6126 8.03685 18.5851 8.45015L18.1251 15.3493C18.0353 16.6971 17.9713 17.6349 17.8307 18.3406C17.6943 19.025 17.504 19.3873 17.2306 19.6431C16.9572 19.8989 16.583 20.0647 15.891 20.1552C15.1776 20.2485 14.2376 20.25 12.8868 20.25H12.1134C10.7626 20.25 9.82255 20.2485 9.10915 20.1552C8.41715 20.0647 8.04299 19.8989 7.76958 19.6431C7.49617 19.3873 7.30583 19.025 7.16948 18.3406C7.02892 17.6349 6.96489 16.6971 6.87503 15.3493L6.41509 8.45015Z"
-                            fill="#DA1E28"
-                          />
-                          <path
-                            d="M9.92546 10.2538C10.3376 10.2125 10.7052 10.5133 10.7464 10.9254L11.2464 15.9254C11.2876 16.3376 10.9869 16.7051 10.5747 16.7463C10.1626 16.7875 9.79503 16.4868 9.75381 16.0747L9.25381 11.0747C9.2126 10.6625 9.51331 10.295 9.92546 10.2538Z"
-                            fill="#DA1E28"
-                          />
-                          <path
-                            d="M15.0747 10.2538C15.4869 10.295 15.7876 10.6625 15.7464 11.0747L15.2464 16.0747C15.2052 16.4868 14.8376 16.7875 14.4255 16.7463C14.0133 16.7051 13.7126 16.3376 13.7538 15.9254L14.2538 10.9254C14.295 10.5133 14.6626 10.2125 15.0747 10.2538Z"
-                            fill="#DA1E28"
-                          />
-                        </svg>
-                      </Link>
+                      <div onClick={() => handleHiddenCate(item.id)} className="">
+                        {item.del_flag ? (
+                          <img src="/img/action.svg" alt="Delete" />
+                        ) : (
+                          <img src="/img/hiddenEye.svg" alt="Delete" />
+                        )}
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -326,10 +347,10 @@ const ChapterSearchBar = () => {
             viewBox="0 0 12 12"
             fill="none"
           >
-            <g clip-path="url(#clip0_3435_8010)">
+            <g clipPath="url(#clip0_3435_8010)">
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M5.75 1.375C3.33375 1.375 1.375 3.33375 1.375 5.75C1.375 8.16625 3.33375 10.125 5.75 10.125C8.16625 10.125 10.125 8.16625 10.125 5.75C10.125 3.33375 8.16625 1.375 5.75 1.375ZM0.625 5.75C0.625 2.91954 2.91954 0.625 5.75 0.625C8.58046 0.625 10.875 2.91954 10.875 5.75C10.875 7.03026 10.4056 8.20087 9.62943 9.0991L11.2652 10.7348C11.4116 10.8813 11.4116 11.1187 11.2652 11.2652C11.1187 11.4116 10.8813 11.4116 10.7348 11.2652L9.0991 9.62943C8.20087 10.4056 7.03026 10.875 5.75 10.875C2.91954 10.875 0.625 8.58046 0.625 5.75Z"
                 fill="#999999"
               />

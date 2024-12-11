@@ -56,8 +56,8 @@
 
 .body {
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
     padding: 24px 64px;
     gap: 24px;
@@ -70,7 +70,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .noteTap {
@@ -253,7 +253,7 @@
 
 .listItem__titleText {
     color: var(--text-100);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     line-height: 24px;
     white-space: nowrap;
@@ -275,7 +275,7 @@
 .listItem__contentCount,
 .listItem__totalDuration {
     color: var(--text-75);
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: 400;
     display: inline;
 }
@@ -439,7 +439,7 @@
 
 .ctaQuestion {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 24px;
 }
@@ -504,7 +504,7 @@
 
 .NoteList {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     position: absolute;
     bottom: 0;
     right: 0;

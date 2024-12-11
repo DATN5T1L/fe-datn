@@ -71,7 +71,7 @@
     height: 42px;
     margin: 0;
     padding: 0;
-    font-size: 34px;
+    font-size: 2.125rem;
     font-weight: 500;
     line-height: 42px;
     letter-spacing: -0.68px;
@@ -92,7 +92,7 @@
     justify-content: center;
     height: 28px;
     padding: 2px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
 }
@@ -101,7 +101,7 @@
     padding: 0;
     margin: 0;
     padding-left: 10px;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text-75);
     font-weight: 400;
     line-height: 24px;
@@ -141,7 +141,7 @@
 
 .loginMedia__title {
     color: var(--text-100);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
 }
@@ -210,7 +210,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     color: var(--text-100);
     font-weight: 400;
     line-height: 24px;
@@ -238,7 +238,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--text-50);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
     margin: 0;
@@ -256,7 +256,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -286,7 +286,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--text-50);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
     margin: 0;
@@ -299,7 +299,7 @@
     display: flex;
     justify-content: space-between;
     color: rgba(102, 102, 102, 1);
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 400;
 }
 
@@ -325,7 +325,7 @@
 .checkPass__text {
     height: 27px;
     color: var(--text-50);
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 400;
     text-align: right;
     line-height: 27px;
@@ -345,7 +345,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -379,7 +379,7 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     border: 0;
     background-color: transparent;
@@ -410,7 +410,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 24px;
     text-decoration: none;
     color: var(--text-100);
@@ -428,7 +428,7 @@
     padding: 16px 0px;
     border: 0;
     background-color: var(--blue-50);
-    font-size: 24px;
+    font-size: 1.5rem;
     font-style: normal;
     font-weight: 500;
     line-height: 32px;

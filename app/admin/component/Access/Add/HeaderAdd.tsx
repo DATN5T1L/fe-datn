@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import h from "../access.module.css";
-import Link from "next/link";
 
 export const HeaderAddAccess = () => {
   return (

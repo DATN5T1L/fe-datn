@@ -37,7 +37,7 @@
     height: auto;
     margin: 0;
     padding: 0;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 600;
     line-height: 32px;
@@ -54,7 +54,7 @@
     height: auto;
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
@@ -99,7 +99,7 @@
 }
 
 .change__img__group__title {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
@@ -144,14 +144,14 @@
 }
 
 .change__more__group {
-    max-width: 200px;
+    max-width: 400px;
     height: auto;
     display: flex;
     flex-direction: column;
 }
 
 .change__more__group__title {
-    font-size: 16px;
+    font-size: 1rem;
     font-style: normal;
     font-weight: 500;
     line-height: 24px;
@@ -167,7 +167,7 @@
 }
 
 .change__more__group__subTitle {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 400;
     line-height: 24px;

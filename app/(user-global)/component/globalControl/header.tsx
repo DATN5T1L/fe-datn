@@ -12,7 +12,6 @@ import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import Search from "./Search";
-import Feaback from "./feedBack";
 import { motion, AnimatePresence } from 'framer-motion';
 import c from "@public/styles/globalControl/header.module.css"
 import { ShowNameElement } from '@app/(user-global)/component/globalControl/commonC';
@@ -227,7 +226,7 @@ const Header: React.FC = () => {
                     <Search />
                 </Nav>
             </Navbar >
-            {isShowForm && (
+            {/* {isShowForm && (
                 <AnimatePresence>
                     <motion.div
                         initial={{ y: '100%' }}
@@ -243,7 +242,7 @@ const Header: React.FC = () => {
                 </AnimatePresence>
 
             )
-            }
+            } */}
         </>
     );
 };

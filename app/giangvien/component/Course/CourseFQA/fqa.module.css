@@ -1,4 +1,4 @@
-.main{
+.main {
   padding: 32px 40px;
 }
 
@@ -17,29 +17,33 @@
   align-items: center;
   align-self: stretch;
   background: var(--background-bg-admin, #f5f6fa);
-  
+
   padding-bottom: 32px;
 }
 
-.left_right{
+.left_right {
   display: flex;
-  justify-content: space-between; /* Đẩy .left và .right về hai đầu */
+  justify-content: space-between;
+  /* Đẩy .left và .right về hai đầu */
   justify-items: center;
   text-align: center;
   width: 100%;
   padding-bottom: 20px;
 }
-.left{
-  font-size: 24px;
+
+.left {
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 32px;
   left: -2%;
 }
-.left span{
+
+.left span {
   color: #1E6AD2;
 }
-.right{
-  justify-content: end;
+
+.right {
+  justify-content: flex-end;
   width: 250px;
   height: auto;
 }
@@ -47,7 +51,7 @@
 
 .searchInputGroup {
   display: flex;
- 
+
   width: 250px;
   height: 32px;
   border-radius: 30px;
@@ -55,6 +59,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
+
 .searchIconWrapper {
   position: absolute;
   right: 12px;
@@ -136,7 +141,7 @@
   border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .searchInput:focus {
@@ -156,14 +161,15 @@
 
 .table thead tr {
   border: none;
-  
+
 }
+
 .table thead tr td {
   padding: 20px 10px;
   background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
- width: 150px;
+  width: 150px;
 
 }
 
@@ -182,18 +188,18 @@
 .table tbody tr td {
   padding: 16px 12px;
   line-height: 24px !important;
-  font-size: 14px;
-  font-weight: 500px; 
+  font-size: 0.875rem;
+  font-weight: 500px;
   border: none;
   color: #333333;
   border-bottom: 1.5px solid #b3b3b3;
-   vertical-align: middle;
-   
+  vertical-align: middle;
+
 }
 
 .table thead td {
   white-space: nowrap;
-  
+
 }
 
 .active_text {
@@ -215,34 +221,39 @@
 
 .option_button a {
   display: flex;
-  justify-content:left;
-  
+  justify-content: left;
+
   padding: 5px 10px;
   width: 63px;
   height: 38px;
   margin: 0;
 }
+
 .option_button a:nth-child(2) {
   border-left: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
 }
+
 .option_button a img {
   width: 24px;
   height: 24px;
 }
+
 .option_button_group {
   /* display: flex; */
   /* height: 108px; */
   width: 355px;
   padding: 16px 20px;
-  justify-content: left;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   align-self: stretch;
   border-radius: 0px 8px 8px 0px;
 
 
 }
+
 .option_button_group a {
   text-align: center;
   padding: 0px 15px;
@@ -258,7 +269,7 @@
   border-radius: 12px;
   border: 1px solid var(--blue-60);
   background: #438FF7 !important;
-  font-size: 16px !important;
+  font-size: 1rem !important;
 }
 
 .btnCTAOutline {
@@ -273,6 +284,7 @@
   margin-top: 20px;
   width: 100%;
 }
+
 .pagination {
   display: flex;
   align-items: center;
@@ -290,7 +302,7 @@
 
 .pagination .page-item .page-link {
   color: #6c757d;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 10px 15px;
   border-radius: 50%;
   background-color: transparent;
@@ -314,7 +326,7 @@
 
 .pagination-prev,
 .pagination-next {
-  font-size: 18px;
+  font-size: 1.125rem;
   padding: 10px;
   color: #6c757d;
   cursor: pointer;
@@ -324,4 +336,16 @@
 .pagination-next:hover {
   background-color: #e9ecef;
   border-radius: 50%;
+}
+
+.btnCTA1 {
+  color: var(--text-0);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--blue-60);
+
+}
+
+.btnCTAOutline1 {
+  color: var(--blue-60);
 }

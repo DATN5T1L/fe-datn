@@ -20,7 +20,7 @@
   line-height: 1.2em;
 }
 .footer {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 .mainContainer {
   padding-inline: 64px;
@@ -54,7 +54,7 @@
 }
 
 .articleLRInfo {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 .articleLRColorText {
   color: #45daee;

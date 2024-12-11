@@ -1,216 +1,178 @@
 "use client";
 import style from "./component/Dashboard/Chart.module.css";
-import { Image, Card } from "react-bootstrap";
-import { useState } from "react";
-import LineChartView from "./component/Dashboard/LineChartView";
-import h from "./test.module.css";
-import DoughnutChart from "./chart/DoughnutChart";
-import LineChart from "./chart/LineChart";
+import { useEffect, useState } from "react";
+import { LineChartViewYear, LineChartViewMonth, LineChartViewWeek, LineChartComparison } from "./component/Dashboard/LineChartView";
+import { IconTotalUser, IconTotalOrder, IconTotalProfit, IconTotalOrderToday } from "@app/(user-global)/component/icon/icons";
+import useCookie from '@app/(user-global)/component/hook/useCookie';
+import Button from "@app/(user-global)/component/globalControl/btnComponent";
+import Card from "@app/(user-global)/component/course/CardCourse";
 
 const Dashboard = () => {
+  const token = useCookie('token');
   const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-  return (
-    <>
-      <div className={style.mar}>
-        <section className={style.container}>
-          <div className={style.tag_notice}>
-            <div className={style.card_notice}>
-              <span>
-                <p>Tổng người dùng</p>
-                <h3>100</h3>
-              </span>
-              <Image
-                src={"/img_accountant/total_user.svg"}
-                alt="icon"
-                width={60}
-                height={60}
-              />
-            </div>
-            <div className={style.card_notice}>
-              <span>
-                <p>Tổng đơn hàng</p>
-                <h3>200</h3>
-              </span>
-              <Image
-                src={"/img_accountant/total_order.svg"}
-                alt="icon"
-                width={60}
-                height={60}
-              />
-            </div>
-            <div className={style.card_notice}>
-              <span>
-                <p>Tổng lợi nhuận</p>
-                <h3>3000</h3>
-              </span>
-              <Image
-                src={"/img_accountant/total_profit.svg"}
-                alt="icon"
-                width={60}
-                height={60}
-              />
-            </div>
-            <div className={style.card_notice}>
-              <span>
-                <p>Đơn hàng hôm nay</p>
-                <h3>230,000</h3>
-              </span>
-              <Image
-                src={"/img_accountant/order_today.svg"}
-                alt="icon"
-                width={60}
-                height={60}
-                onClick={handleShow}
-              />
-            </div>
-          </div>
-          <div className={style.chart}>
-            <LineChartView />
-          </div>
-          {/* <div className={h.card_group}>
-            <div className={h.card}>
-              <div className={h.card_content}>
-                <h6>Người hoàn thành khóa học</h6>
-                <div className={h.chart}>
-                  <div>
-                    <DoughnutChart />
-                  </div>
-                </div>
-                <div className={h.info_course}>
-                  <span>
-                    <h4>500</h4>
-                    <div>
-                      <div className={h.point}></div>Hoàn thành
-                    </div>
-                  </span>
-                  <span>
-                    <h4>900</h4>
-                    <div>
-                      <div className={h.point_light}></div>Chưa hoàn thành
-                    </div>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className={h.card}>
-              <div className={h.card_content}>
-                <h6>Khóa học nổi bật</h6>
-                <div>
-                  <Card className={h.mainBox__content}>
-                    <Card.Header className={h.headerContent}>
-                      <section className={h.headerContent__text}>
-                        <Card.Title className={h.text__hedding2}>
-                          WEBSITE DESIGN UI/UX
-                        </Card.Title>
-                        <Card.Subtitle className={h.text__hedding3}>
-                          by My Team
-                        </Card.Subtitle>
-                        <Card.Img
-                          src="/img/iconReact.svg"
-                          alt=""
-                          className={h.text__img}
-                        />
-                      </section>
-                      <Card.Img
-                        src="/img/tuan.png"
-                        alt=""
-                        className={h.headerContent__avt}
-                      />
-                    </Card.Header>
-                    <section className={h.mainContent__headContent}>
-                      <div className={h.headContent__evaluete}>
-                        <div className={h.evaluete__main}>
-                          <div className={h.starGroup}>
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                          </div>
+  const tongleShow = () => {
+    setShow(prev => !prev)
+  }
+  const [totalUser, setTotalUser] = useState<number>(0);
+  const [totalCourse, setTotalCourse] = useState<number>(0);
+  const [totalRevenue, setTotalRevenue] = useState<number>(0);
+  const [totalToday, setTotalToday] = useState<number>(0);
+  const [courseHighest, setcourseHighest] = useState<Course | null>(null);
+  const [courseFavorite, setcourseFavorite] = useState<Course | null>(null);
+  const fetchMultipleAPIs = async () => {
+    try {
+      if (token) {
+        const responses = await Promise.all([
+          fetch(`/api/accountant/totalUser`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+          fetch(`/api/accountant/totalEnroll`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+          // Tổng đơn hàng hôm nay
+          fetch(`/api/accountant/totalprofits`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+          // Tổng đơn hàng hôm nay
+          fetch(`/api/accountant/enrollmentToday`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+          // Khóa học có doanh thu cao nhất
+          fetch(`/api/accountant/highestRevenueCourse`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+          // Khóa học được yêu thích nhất
+          fetch(`/api/accountant/mostFavoriteCourse`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
 
-                          <Card.Text className={h.starNumber}>
-                            {"("} 4,5 {")"}
-                          </Card.Text>
-                        </div>
-                      </div>
-                      <div className={h.headContent__percent}>
-                        <Card.Text className={h.evaluete__note}>
-                          {"("} 504 phản hồi {")"}
-                        </Card.Text>
-                      </div>
-                    </section>
-                    <Card.Body className={h.mainContent}>
-                      <section className={h.bodyContent}>
-                        <div className={h.bodyContent__element}>
-                          <Image
-                            src="/img/bookoffgreen.svg"
-                            alt=""
-                            className={h.element__img}
-                          />
-                          <Card.Text className={h.element__text}>
-                            10 Chương
-                          </Card.Text>
-                        </div>
-                        <div className={h.bodyContent__element}>
-                          <Image
-                            src="/img/bookopenblue.svg"
-                            alt=""
-                            className={h.element__img}
-                          />
-                          <Card.Text className={h.element__text}>
-                            10 Bài tập
-                          </Card.Text>
-                        </div>
-                        <div className={h.bodyContent__element}>
-                          <Image
-                            src="/img/bookopenyellow.svg"
-                            alt=""
-                            className={h.element__img}
-                          />
-                          <Card.Text className={h.element__text}>
-                            10 Đã học
-                          </Card.Text>
-                        </div>
-                      </section>
-                    </Card.Body>
-                  </Card>
-                </div>
-              </div>
+        ]);
+        const failedResponse = responses.find((res) => !res.ok);
+        if (failedResponse) {
+          throw new Error("One or more API requests failed");
+        }
+
+        // Parse tất cả phản hồi thành JSON
+        const data = await Promise.all(responses.map((res) => res.json()));
+        console.log(data)
+        // Lấy dữ liệu từ các endpoint
+        const totalUser = data[0].data.user_count;
+        const totalCourse = data[1].data.enrollCount;
+        const totalRevenue = data[2].totalRevenue;
+        const totalTotal = data[3].enrollCountToday;
+        const courses = data[4].data;
+        const CourseFavorite = data[5].data[0];
+
+        // Khóa học
+        setcourseHighest(courses);
+        setcourseFavorite(CourseFavorite);
+        // Cập nhật state hoặc xử lý dữ liệu
+        setTotalUser(totalUser);
+        setTotalCourse(totalCourse);
+        setTotalRevenue(totalRevenue);
+        setTotalToday(totalTotal);
+      }
+    } catch (err: any) {
+      console.error("Error:", err.message);
+    }
+  };
+
+
+
+
+  useEffect(() => {
+    if (token) {
+      fetchMultipleAPIs()
+
+    }
+  }, [token])
+
+
+  return (
+    <div className={style.mar}>
+      <section className={style.container}>
+        <div className={style.tag_notice}>
+          <article className={style.card_notice}>
+            <div className={style.card_noticeContent}>
+              <p className={style.titleNotice}>Tổng người dùng</p>
+              <h6 className={style.totalNotice}>{totalUser}</h6>
             </div>
-            <div className={h.card}>
-              <div className={h.card_content}>
-                <h6>Doanh thu</h6>
-                <div>
-                  <LineChart />
-                </div>
-              </div>
+            <IconTotalUser />
+          </article>
+          <article className={style.card_notice}>
+            <div className={style.card_noticeContent}>
+              <p className={style.titleNotice}>Tổng đơn hàng</p>
+              <h6 className={style.totalNotice}>{totalCourse}</h6>
             </div>
-          </div> */}
-        </section>
+            <IconTotalOrder />
+          </article>
+          <article className={style.card_notice}>
+            <div className={style.card_noticeContent}>
+              <p className={style.titleNotice}>Tổng lợi nhuận</p>
+              <h6 className={style.totalNotice}>{totalRevenue}</h6>
+            </div>
+            <IconTotalProfit />
+          </article>
+          <article className={style.card_notice}>
+            <div className={style.card_noticeContent}>
+              <p className={style.titleNotice}>Đơn hàng hôm nay</p>
+              <h6 className={style.totalNotice}>{totalToday}</h6>
+            </div>
+            <IconTotalOrderToday />
+          </article>
+        </div>
+      </section>
+      <div className={style.coursesTotal}>
+        <h2 className={style.coursesTotal_Heading}>Khóa học</h2>
+        {/* KHÓA HỌC DOANH THU CAO NHẤT */}
+        {courseHighest && (<Card key={"1"} course={courseHighest} />)}
+        {/* kHÓA HỌC ĐƯỢC YÊU THÍCH NHẤT */}
+        {courseFavorite && (<Card key={"1"} course={courseFavorite} />)}
+        <h4>Khóa học được yêu thích nhất</h4>
+        <h4>Khóa học được yêu có doanh thu cao nhất</h4>
+        <h4>Khóa học được yêu thích nhất đánh giá 5sao nhiều nhất</h4>
+        <h4>Khóa học cần được thúc đẩy</h4>
       </div>
-    </>
+      <div className={style.actions}>
+        <Button type="premary" leftIcon={false} rightIcon={false} onClick={tongleShow}> Thống kế khóa học</Button>
+        <Button type="premary" leftIcon={false} rightIcon={false} onClick={tongleShow}> Thống kế bài viết</Button>
+      </div>
+      {show ? (
+        <div className={style.chart}>
+          <LineChartViewYear />
+          <LineChartViewMonth />
+          <LineChartViewWeek />
+          <LineChartComparison />
+        </div>
+      ) : (
+        <div className={style.chart}>
+          <LineChartViewYear />
+          <LineChartViewMonth />
+          <LineChartViewWeek />
+          <LineChartComparison />
+        </div>
+      )}
+
+    </div>
+
   );
 };
 

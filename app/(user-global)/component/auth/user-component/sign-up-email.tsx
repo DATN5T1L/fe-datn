@@ -124,7 +124,7 @@ const RegisterEmail: React.FC = () => {
                 },
                 body: JSON.stringify({ email: formik.values.email }),
             });
-
+            const data = await res.json()
             if (res.ok) {
                 alert('Mã xác nhận đã được gửi đến email của bạn');
                 setIsButtonDisabled(true);
@@ -135,10 +135,10 @@ const RegisterEmail: React.FC = () => {
                 setCountdown(120);
             }
             else {
-                alert('Gửi mã thất bại. Vui lòng thử lại');
+                alert(data.message);
                 formik.setFieldValue('check', '')
-                console.log(await res.json());
-
+                console.log(await res.json())
+                return null
             }
         } catch (error) {
             console.error('Lỗi khi gửi mã xác nhận:', error);
@@ -251,9 +251,6 @@ const RegisterEmail: React.FC = () => {
                                 onBlur={formik.handleBlur}
                                 autoComplete="new-password"
                             />
-                            <div className={styles.noteRegister}>
-                                Sử dụng 8 ký tự trở lên kết hợp chữ cái, số và ký hiệu
-                            </div>
                             {formik.touched.password && formik.errors.password && (
                                 <div className={styles.feedBack}>{formik.errors.password}</div>
                             )}

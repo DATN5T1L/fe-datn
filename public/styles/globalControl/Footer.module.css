@@ -20,12 +20,12 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .logo {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
     gap: 14px;
 
@@ -52,12 +52,12 @@
 
 .listMenu {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .listItem {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     flex-direction: column;
 }
 

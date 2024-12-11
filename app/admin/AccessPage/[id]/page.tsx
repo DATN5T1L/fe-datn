@@ -1,19 +1,16 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { HeaderAccess } from "@/app/admin/component/Access/headerAccess";
-import InputComponents from "@/app/admin/component/InputComponent";
 import { HeaderUpdateAccess } from "../../component/Access/Update/HeaderUpdate";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
-import { clear } from "@/redux/slices/userSlice";
 import { useFormik } from "formik";
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
 interface RoleProps {
   params: {
-    id: number | string;
+    id: string;
   }
 }
 

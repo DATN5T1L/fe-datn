@@ -1,15 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap"
 import ButtonCpn from "../globalControl/btnComponent"
 import styles from '@public/styles/learningPath/HeaderLearning.module.css'
-import { useRouter } from "next/navigation"
+
 
 
 const HeaderLearning: React.FC = () => {
-    const router = useRouter()
 
-    const handleCreateRouter = () => {
-        router.push('/createLearningPath')
-    }
 
     return (
         <>
@@ -36,17 +32,7 @@ const HeaderLearning: React.FC = () => {
                             kiến trúc microservices, và DevOps để sẵn sàng cho môi trường làm việc thực tế.
                         </h3>
                     </Col>
-                    <Col className={styles.btn__group}>
-                        <ButtonCpn
-                            type="secondery"
-                            width={264}
-                            size="M"
-                            rightIcon={false}
-                            status="hover"
-                            onClick={handleCreateRouter}
-                        >
-                            Tạo lộ trình của riêng bạn</ButtonCpn>
-                    </Col>
+
                 </Row>
             </Container>
         </>

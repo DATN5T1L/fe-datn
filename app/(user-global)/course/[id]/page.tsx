@@ -20,6 +20,7 @@ import { IconFeedback } from '@app/(user-global)/component/icon/icons';
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
+
     const router = useRouter();
     const token = useCookie('token')
     const pathname = usePathname();
@@ -29,6 +30,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [type, setType] = useState<NotiType>("complete");
     const [message, setMessage] = useState<string>("");
     const [showNotification, setShowNotification] = useState(false);
+
     useEffect(() => {
         AOS.init({
             duration: 1200,

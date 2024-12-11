@@ -7,7 +7,8 @@ import mod from "../../marketing.module.css";
 import postMod from "./post.module.css";
 import { useEffect, useRef, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
-import CkediterCustom from "../../../../custom-editor";
+import CkediterCustom from "../../../component/globalControl/custom-editor";
+// import CkediterCustom from "../../../../custom-editor";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
@@ -26,7 +27,7 @@ interface Data<T> {
   data: T[];
 }
 
-const AddMarketingPost = () => {
+const AddMarketingPost: React.FC = () => {
   const token = useCookie('token')
   const [content, setContent] = useState<string>('');
   const [dataCates, setDataCates] = useState<Data<Category> | null>(null)
@@ -95,7 +96,7 @@ const AddMarketingPost = () => {
 
         const result = await response.json();
         console.log(result);
-        if (result.ok) {
+        if (result.status === 'success') {
           alert('Thêm thành công!!!')
           router.replace('/Marketing/MarketingPosts/')
         }

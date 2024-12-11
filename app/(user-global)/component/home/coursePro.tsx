@@ -7,13 +7,14 @@ import useSWR from 'swr';
 import { Course } from "@/app/(user-global)/model/course";
 import CourseCard from "../course/CardCourse";
 import ReactLoading from 'react-loading';
+import Link from 'next/link'
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CoursePro: React.FC = () => {
-    const [router, setRouter] = useState<string>("FE"); // Lộ trình mặc định là FE
+    const [router, setRouter] = useState<string>("lo-trinh-font-end"); // Lộ trình mặc định là FE
     const [limit, setLimit] = useState<number>(8);
     const [isCount, setIsCount] = useState(false);
-    const [selectedPath, setSelectedPath] = useState<string>("FE"); // Để hiển thị nút nào được chọn
+    const [selectedPath, setSelectedPath] = useState<string>("lo-trinh-font-end"); // Để hiển thị nút nào được chọn
 
     const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
         `/api/coursetype/pro/${router}/${limit}`,
@@ -73,7 +74,7 @@ const CoursePro: React.FC = () => {
                         leftIcon={false}
                         rightIcon={false}
                         height={40}
-                        onClick={() => handlePathChange("FE")}
+                        onClick={() => handlePathChange("Lộ trình học Front-end")}
                     >
                         Khóa học lộ trình FE
                     </Button>
@@ -130,14 +131,10 @@ const CoursePro: React.FC = () => {
                 </Col>
             </Row>
 
-            <Row className={styles.main__course}>
-                {isValidating && (
-                    <div className={styles.loading}>
-                        <ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={50} width={50} />
-                    </div>
-                )}
-                {courses.map((course, index) => (
-                    <CourseCard course={course} key={index} showProgress={false} />
+            <Row md={12} className={styles.main__course}>
+                {isValidating && (<ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={styles.align} />)}
+                {courses?.map((course, index) => (
+                    <CourseCard key={index} course={course} />
                 ))}
             </Row>
         </Container>

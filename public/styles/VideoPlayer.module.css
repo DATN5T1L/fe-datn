@@ -31,7 +31,7 @@
 }
 
 .playPauseButton .iconPlayPauseButton {
-  font-size: 100px;
+  font-size: 6.25rem;
 }
 
 
@@ -164,7 +164,7 @@
    color: #fff;
    padding: 4px 8px;
    border-radius: 4px;
-   font-size: 12px;
+   font-size: 0.75rem;
    white-space: nowrap;
    transform: translateX(-50%);
    bottom: 15px;

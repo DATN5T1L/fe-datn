@@ -2,7 +2,6 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Image } from 'react-bootstrap';
 import Itemsearch from "../item/itemSearch";
-import debounce from 'lodash.debounce';
 import Link from 'next/link'
 
 import styles from "@/public/styles/globalControl/search.module.css";
@@ -30,9 +29,22 @@ const Search = () => {
     useEffect(() => {
         setVisible(valueInput.trim().length > 0);
     }, [valueInput]);
+    function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void {
+        let timeoutId: NodeJS.Timeout | null = null;
+
+        return (...args: Parameters<T>) => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            timeoutId = setTimeout(() => {
+                func(...args);
+            }, delay);
+        };
+    }
 
     // Hàm fetch dữ liệu tìm kiếm với debounce
-    const fetchSearchData = debounce(async (value: string) => {
+    // Sử dụng hàm debounce tự viết
+    const fetchSearchData = async (value: string) => {
         try {
             if (value.trim().length === 0) return;
 
@@ -50,8 +62,10 @@ const Search = () => {
         } finally {
             setLoading(false); // Stop loading
         }
-    }, 300);
+    };
+
     const debouncedFetchData = useCallback(debounce(fetchSearchData, 500), []);
+
 
     // Cập nhật giá trị input và gọi hàm fetch dữ liệu
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

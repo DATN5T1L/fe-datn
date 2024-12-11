@@ -8,7 +8,7 @@ import Body from "../component/globalControl/body"
 import About from "../component/home/about"
 import CourseFree from "../component/home/courseFree"
 import CoursePro from "../component/home/coursePro"
-import FeedBack from "../component/globalControl/FeedBack"
+// import FeedBack from "../component/globalControl/FeedBack"
 import LearningPath from "../component/home/learningPath"
 import Post from "../component/home/post"
 import ProductStudent from "../component/home/productStudent"
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
                 <ProductStudent />
                 <FeedBackToStudent />
                 <Post />
-                <FeedBack />
+                {/* <FeedBack /> */}
             </Body>
         </>
     )

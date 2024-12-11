@@ -36,17 +36,15 @@ const MyChartComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/statistical_revenue_mouth",{cache:'no-cache'});
+        const response = await fetch("/api/statistical_revenue_mouth", { cache: 'no-cache' });
         const result: ApiResponse = await response.json();
 
         if (result.status === "success") {
           const monthlyData = new Array(12).fill(0);
-
           result.data.forEach((item) => {
             const monthIndex = item.month - 1;
             monthlyData[monthIndex] = parseFloat(item.total_price.replace(/[^\d]/g, ""));
             console.log(monthlyData[9]);
-            
           });
 
           setChartData(monthlyData);
@@ -121,7 +119,7 @@ const MyChartComponent = () => {
                   },
                 },
                 suggestedMin: 0,
-                suggestedMax: count, 
+                suggestedMax: count,
               },
             },
           },

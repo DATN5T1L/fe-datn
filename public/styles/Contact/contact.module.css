@@ -175,14 +175,14 @@
 
 .formLabel {
     color: var(--text-75);
-    font-size: .865rem;
+    font-size: 0.865rem;
     font-weight: 600;
     line-height: 24px;
 }
 
 .formMessage {
     color: var(--error);
-    font-size: .75rem;
+    font-size: 0.75rem;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;

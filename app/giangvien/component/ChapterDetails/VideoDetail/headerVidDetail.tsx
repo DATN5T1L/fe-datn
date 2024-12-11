@@ -10,7 +10,7 @@ const HeaderVideoDetail = () => {
 
         <div className={`${h.actions} d-flex`}>
         
-          <Button className={`${h.btnCTA1}`}>Thêm video</Button>
+          <Button className={`${h.btnCTA1}`}>Thêm Chương</Button>
         </div>
       </div>
     </div>

@@ -5,16 +5,15 @@ import Link from "next/link";
 
 export const HeaderMarketingCategory = () => {
   return (
-    <>
-      <div className="d-flex flex-column">
-        <div className="mx-4 mx-xs-2 mx-sm-3">
-          <div
-            className={`d-flex justify-content-between align-items-center my-4 flex-wrap`}
-          >
-            <div className="col-12 col-md-6">
-              <h2 className={h.heading}>Danh mục</h2>
-            </div>
-            <div className={`${h.actions} d-flex`}>
+    <div className="d-flex flex-column">
+      <div className="mx-4 mx-xs-2 mx-sm-3">
+        <div
+          className={`d-flex justify-content-between align-items-center my-4 flex-wrap`}
+        >
+          <div className="col-12 col-md-6">
+            <h2 className={h.heading}>Danh mục</h2>
+          </div>
+          <div className={`${h.actions} d-flex`}>
             <Link href="/Marketing/MarketingCategories/AddCategory">
               <Button
                 variant="outline-primary"
@@ -22,15 +21,14 @@ export const HeaderMarketingCategory = () => {
               >
                 Thêm danh mục bài viết
               </Button>
-              </Link>
-              <Link href="/Marketing/MarketingPosts/AddPost">
+            </Link>
+            <Link href="/Marketing/MarketingPosts/AddPost">
               <Button className={`${h.btnCTA}`}>Thêm bài viết</Button>
-              </Link>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -5,9 +5,7 @@ import CourseAdd from "@/app/giangvien/component/Course/courseAdd";
 
 const CoursePage = () => {
   return (
-    <div>
-      <CourseAdd />
-    </div>
+    <CourseAdd />
   );
 };
 

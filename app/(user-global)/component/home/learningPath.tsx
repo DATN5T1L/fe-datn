@@ -90,15 +90,28 @@ const LearningPath: React.FC = () => {
                     onMouseUp={handleMouseLeaveOrUp}
                     onMouseMove={handleMouseMove}
                 >
-                    {routes.map((route, index) => (
-                        <Card className={styles.box} key={index}>
-                            <Card.Img src={route.img_route} className={styles.box__img} alt="Hình Router" />
-                            <Card.Body className={styles.box__body}>
-                                <Card.Title className={styles.box__body__title}>{route.name_route}</Card.Title>
-                                <Button className={styles.box__body__btn}>Xem chi tiết lộ trình</Button>
-                            </Card.Body>
-                        </Card>
-                    ))}
+                    {Array.isArray(routes) && routes.length > 0 ? (
+                        routes.map((route) => (
+                            <Card className={styles.box} key={route.route_id || route.name_route}>
+                                <Card.Img
+                                    src={route.img_route || "/placeholder.jpg"}
+                                    className={styles.box__img}
+                                    alt="Hình Router"
+                                />
+                                <Card.Body className={styles.box__body}>
+                                    <Card.Title className={styles.box__body__title}>
+                                        {route.name_route}
+                                    </Card.Title>
+                                    <Button className={styles.box__body__btn}>
+                                        Xem chi tiết lộ trình
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        ))
+                    ) : (
+                        "Chưa có lộ trình nào"
+                    )}
+
                 </Col>
                 <Button className={styles.btn__next} onClick={scrollRightHandler}>
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

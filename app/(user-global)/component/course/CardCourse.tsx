@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 // import Image from 'next/image';
-import { Card, Col, Image } from 'react-bootstrap';// Component vòng tròn tiến độ
-import styles from '@public/styles/globalControl/CourseCard.module.css'; // CSS module
+import { Card, Col, Image } from 'react-bootstrap';
+import styles from '@public/styles/globalControl/CourseCard.module.css';
 import { IconStar } from "@app/(user-global)/component/icon/icons"
 interface CourseCardProps {
     course: {
@@ -34,7 +34,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                 {course.name_course}
                             </Card.Title>
                         </Link>
-                        <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
+                        <Card.Subtitle className={styles.text__hedding3}>by Tuấn Huỳnh</Card.Subtitle>
                         <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
                     </section>
                     <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
