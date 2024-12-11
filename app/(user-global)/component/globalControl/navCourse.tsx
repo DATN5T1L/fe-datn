@@ -111,15 +111,15 @@ const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
                             <div className={stylesNav.menuContent}>
                                 <p className={stylesNav.menuTitle}>Tùy chọn</p>
                                 <Link href="/profile" className={stylesNav.menuLink}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M12 2V4" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M12 20V22" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M4 12L2 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M22 12L20 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-                                    <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+                                    <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M12 2V4" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M12 20V22" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M4 12L2 12" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M22 12L20 12" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+                                    <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
                                 </svg> Bật giao diện tối
                                 </Link>
                                 <p className={stylesNav.menuTitle}>Cài đặt</p>
@@ -143,7 +143,7 @@ const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
                             <Image src="/img/tuan.png" alt="logo" className={stylesNav.userImage} width={34} height={80} />
                             <h4 className={stylesNav.titleName}>Huỳnh Võ Hoàng Tuấn</h4>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M6 9L12 15L18 9" stroke="#237DF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M6 9L12 15L18 9" stroke="#237DF7" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" />
                             </svg>
                         </div>
                     </Tippy>

@@ -3,7 +3,7 @@ const Arrow = ({ deg }: { deg: string }) => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             style={{ transform: `rotate(${deg}deg)` }}>
-            <path d="M9 18L15 12L9 6" stroke="#237DF7" stroke-width="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M9 18L15 12L9 6" stroke="#237DF7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     )
 }
@@ -32,8 +32,8 @@ const IconCode = () => {
 const IconWhat = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-            <circle cx="25.0003" cy="25" r="20.8333" stroke="#237DF7" stroke-width="1.5" />
-            <path d="M21.0938 18.4896C21.0938 16.3322 22.8426 14.5833 25 14.5833C27.1574 14.5833 28.9062 16.3322 28.9062 18.4896C28.9062 19.9218 28.1355 21.1739 26.9862 21.8539C25.9959 22.4398 25 23.3286 25 24.4792V27.0833" stroke="#237DF7" stroke-width="1.5" strokeLinecap="round" />
+            <circle cx="25.0003" cy="25" r="20.8333" stroke="#237DF7" strokeWidth="1.5" />
+            <path d="M21.0938 18.4896C21.0938 16.3322 22.8426 14.5833 25 14.5833C27.1574 14.5833 28.9062 16.3322 28.9062 18.4896C28.9062 19.9218 28.1355 21.1739 26.9862 21.8539C25.9959 22.4398 25 23.3286 25 24.4792V27.0833" stroke="#237DF7" strokeWidth="1.5" strokeLinecap="round" />
             <circle cx="25.0003" cy="33.3333" r="2.08333" fill="#237DF7" />
         </svg>
     )
@@ -41,8 +41,8 @@ const IconWhat = () => {
 const IconWhat32 = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 50 50" fill="none">
-            <circle cx="25.0003" cy="25" r="20.8333" stroke="#237DF7" stroke-width="1.5" />
-            <path d="M21.0938 18.4896C21.0938 16.3322 22.8426 14.5833 25 14.5833C27.1574 14.5833 28.9062 16.3322 28.9062 18.4896C28.9062 19.9218 28.1355 21.1739 26.9862 21.8539C25.9959 22.4398 25 23.3286 25 24.4792V27.0833" stroke="#237DF7" stroke-width="1.5" strokeLinecap="round" />
+            <circle cx="25.0003" cy="25" r="20.8333" stroke="#237DF7" strokeWidth="1.5" />
+            <path d="M21.0938 18.4896C21.0938 16.3322 22.8426 14.5833 25 14.5833C27.1574 14.5833 28.9062 16.3322 28.9062 18.4896C28.9062 19.9218 28.1355 21.1739 26.9862 21.8539C25.9959 22.4398 25 23.3286 25 24.4792V27.0833" stroke="#237DF7" strokeWidth="1.5" strokeLinecap="round" />
             <circle cx="25.0003" cy="33.3333" r="2.08333" fill="#237DF7" />
         </svg>
     )
@@ -82,8 +82,8 @@ const IconPen = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path opacity="0.5" d="M3.33398 18.3335H16.6673" stroke="#1958AD" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M12.1919 2.43436L11.574 3.05228L5.8932 8.7331C5.50843 9.11788 5.31604 9.31027 5.15058 9.52239C4.95541 9.77263 4.78807 10.0434 4.65155 10.3299C4.53581 10.5727 4.44977 10.8308 4.27769 11.3471L3.54852 13.5346L3.37028 14.0693C3.2856 14.3233 3.35172 14.6034 3.54107 14.7927C3.73042 14.9821 4.0105 15.0482 4.26455 14.9635L4.79926 14.7853L6.98677 14.0561L6.9868 14.0561C7.50301 13.884 7.76112 13.798 8.00397 13.6823C8.29045 13.5457 8.5612 13.3784 8.81143 13.1832C9.02355 13.0178 9.21594 12.8254 9.60071 12.4406L9.60072 12.4406L15.2815 6.75979L15.8995 6.14187C16.9233 5.11807 16.9233 3.45816 15.8995 2.43436C14.8757 1.41055 13.2157 1.41055 12.1919 2.43436Z" stroke="#1958AD" stroke-width="1.5" />
-            <path opacity="0.5" d="M11.5724 3.05273C11.5724 3.05273 11.6496 4.36581 12.8082 5.52441C13.9668 6.68301 15.2799 6.76025 15.2799 6.76025M4.79762 14.7858L3.54688 13.535" stroke="#1958AD" stroke-width="1.5" />
+            <path d="M12.1919 2.43436L11.574 3.05228L5.8932 8.7331C5.50843 9.11788 5.31604 9.31027 5.15058 9.52239C4.95541 9.77263 4.78807 10.0434 4.65155 10.3299C4.53581 10.5727 4.44977 10.8308 4.27769 11.3471L3.54852 13.5346L3.37028 14.0693C3.2856 14.3233 3.35172 14.6034 3.54107 14.7927C3.73042 14.9821 4.0105 15.0482 4.26455 14.9635L4.79926 14.7853L6.98677 14.0561L6.9868 14.0561C7.50301 13.884 7.76112 13.798 8.00397 13.6823C8.29045 13.5457 8.5612 13.3784 8.81143 13.1832C9.02355 13.0178 9.21594 12.8254 9.60071 12.4406L9.60072 12.4406L15.2815 6.75979L15.8995 6.14187C16.9233 5.11807 16.9233 3.45816 15.8995 2.43436C14.8757 1.41055 13.2157 1.41055 12.1919 2.43436Z" stroke="#1958AD" strokeWidth="1.5" />
+            <path opacity="0.5" d="M11.5724 3.05273C11.5724 3.05273 11.6496 4.36581 12.8082 5.52441C13.9668 6.68301 15.2799 6.76025 15.2799 6.76025M4.79762 14.7858L3.54688 13.535" stroke="#1958AD" strokeWidth="1.5" />
         </svg>
     )
 }
@@ -272,7 +272,7 @@ const IconBG1 = () => {
                     <rect x="65.0527" y="32.0122" width="112.947" height="92.9878" rx="16" fill="url(#paint0_linear_3330_23305)" shape-rendering="crispEdges" />
                 </g>
                 <g filter="url(#filter1_d_3330_23305)">
-                    <rect x="5" y="1" width="110.947" height="90.9878" rx="15" stroke="url(#paint1_linear_3330_23305)" stroke-opacity="0.48" stroke-width="2" shape-rendering="crispEdges" />
+                    <rect x="5" y="1" width="110.947" height="90.9878" rx="15" stroke="url(#paint1_linear_3330_23305)" stroke-opacity="0.48" strokeWidth="2" shape-rendering="crispEdges" />
                 </g>
             </g>
             <defs>
@@ -384,7 +384,7 @@ const IconFeedback = () => {
 const IconPlus = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M16 7.7H10.3V2C10.3 1.28231 9.71769 0.7 9 0.7C8.28231 0.7 7.7 1.28231 7.7 2V7.7H2C1.28231 7.7 0.7 8.28231 0.7 9C0.7 9.71769 1.28231 10.3 2 10.3H7.7V16C7.7 16.7177 8.28231 17.3 9 17.3C9.71769 17.3 10.3 16.7177 10.3 16V10.3H16C16.7177 10.3 17.3 9.71769 17.3 9C17.3 8.28231 16.7177 7.7 16 7.7Z" stroke="#237DF7" stroke-width="0.6" />
+            <path d="M16 7.7H10.3V2C10.3 1.28231 9.71769 0.7 9 0.7C8.28231 0.7 7.7 1.28231 7.7 2V7.7H2C1.28231 7.7 0.7 8.28231 0.7 9C0.7 9.71769 1.28231 10.3 2 10.3H7.7V16C7.7 16.7177 8.28231 17.3 9 17.3C9.71769 17.3 10.3 16.7177 10.3 16V10.3H16C16.7177 10.3 17.3 9.71769 17.3 9C17.3 8.28231 16.7177 7.7 16 7.7Z" stroke="#237DF7" strokeWidth="0.6" />
         </svg>
     )
 }
@@ -561,6 +561,14 @@ const IconShoping = () => {
         </svg>
     )
 }
+const IconDetailPlus = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+            <circle cx="12" cy="11.5" r="9.5" stroke="#1E6AD2" strokeWidth="1.5" />
+            <path d="M9.5 11.5H12M12 11.5H14.5M12 11.5V14M12 11.5V9" stroke="#1E6AD2" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+    )
+}
 export {
     Arrow, IconWhat, IconVideo, IconDoc, IconX, IconPen, IconLinked,
     IconFb, IconTiktok, IconIntagarm, IconWhat32, IconDot, IconSun,
@@ -569,5 +577,5 @@ export {
     IconElip2, IconFeedback, IconXNoneFill, IconDetai, IconPlus, IconEdit,
     IconStar, IconCode, IconCourse, IconUser, IconPost, IconOut, IconDasd,
     IconRoll, IconTotalOrder, IconTotalUser, IconTotalProfit,
-    IconTotalOrderToday, IconPrint, IconShoping
+    IconTotalOrderToday, IconPrint, IconShoping, IconDetailPlus
 }

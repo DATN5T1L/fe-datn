@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Pagination,
@@ -12,12 +12,13 @@ import Link from "next/link";
 import "./course.css";
 import toPdf from "react-to-pdf";
 import { IconPrint } from "@app/(user-global)/component/icon/icons";
-
+import CourseAcount from "./CourseAcount"
 const Course: React.FC<{}> = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const totalPages = 10;
+  const totalPages = 4;
   const currentPage = 1;
 
+  const [courseRevenue, setCourseRevenue] = useState<CourseAcount[]>([])
   const onPageChange = (page: number) => {
     console.log("Chuyển tới trang:", page);
   };
@@ -60,6 +61,21 @@ const Course: React.FC<{}> = () => {
   };
 
 
+  const fetchWeeklyStatistics = async () => {
+    try {
+      const response = await fetch(`/api/accountant/courseEnrollmentRevenue`); // Thay thế bằng URL API thật
+      const result = await response.json();
+      setCourseRevenue(result.data)
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchWeeklyStatistics();
+  }, [])
+
   return (
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
@@ -79,12 +95,13 @@ const Course: React.FC<{}> = () => {
         <Table bordered hover className={`${h.table} table-responsive`}>
           <thead>
             <tr>
-              <td>Hình ảnh</td>
-              <td>Tên khóa học</td>
+              <td>Khóa học</td>
               <td>Giá</td>
               <td>Giá giảm</td>
               <td>Lượt xem</td>
               <td>Tổng doanh thu</td>
+              <td>Thuế</td>
+              <td>Đánh giá</td>
               <td>Giảng viên</td>
               <td>Trạng thái</td>
               <td>Hành động</td>
@@ -92,53 +109,9 @@ const Course: React.FC<{}> = () => {
           </thead>
 
           <tbody>
-            {Array(5)
-              .fill(null)
-              .map((_, idx) => (
-                <tr key={idx}>
-                  <td>
-                    <Card.Header className={h.headerContent}>
-                      <section className={h.headerContent__text}>
-                        <Card.Title className={h.text__hedding2}>
-                          WEBSITE DESIGN UI/UX
-                        </Card.Title>
-                        <Card.Subtitle className={h.text__hedding3}>
-                          by My Team
-                        </Card.Subtitle>
-                        <Card.Img
-                          src="/img/iconReact.svg"
-                          alt=""
-                          className={h.text__img}
-                        />
-                      </section>
-                      <Card.Img
-                        src="/img/tuan.png"
-                        alt=""
-                        className={h.headerContent__avt}
-                      />
-                    </Card.Header>
-                  </td>
-                  <td>WEBSITE DESIGN UI/UX</td>
-                  <td>1.000.000</td>
-                  <td>20%</td>
-                  <td>300</td>
-                  <td>300.000.000 vnđ</td>
-                  <td>Nguyễn Minh Tâm</td>
-                  <td>
-                    <span className={h.active_text}>Active</span>
-                  </td>
-                  <td className={h.option_button_group}>
-                    <div
-                      className={`justify-content-between border d-flex py-2 rounded`}
-                    >
-                      <Link href="/accountant/CoursePage/RecentPurchaseCourse" className="w-50 border-end">
-                        <img src="/img_admin/action1.svg" alt="Edit" />
-                      </Link>
-
-                    </div>
-                  </td>
-                </tr>
-              ))}
+            {courseRevenue && courseRevenue.map((item, index) => (
+              <CourseAcount key={index} data={item} />
+            ))}
           </tbody>
         </Table>
       </div>

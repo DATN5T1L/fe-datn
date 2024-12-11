@@ -696,6 +696,11 @@ const nextConfig = {
         source: '/api/accountant/weeklyStatistics/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/accountant/weekly-statistics/:path*',
       },
+      // Lấy ra các tổng doanh thu của tất cả khóa học
+      {
+        source: '/api/accountant/courseEnrollmentRevenue/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/course-enrollment-revenue/:path*',
+      },
 
     ];
   },

@@ -1,7 +1,7 @@
 <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g id="chevron" filter="url(#filter0_dd_1280_2011)">
 <rect x="2" y="2" width="24" height="24" rx="12" fill="white"/>
-<path id="Vector" d="M11 20L17 14L11 8" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector" d="M11 20L17 14L11 8" stroke="#999999" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round"/>
 </g>
 <defs>
 <filter id="filter0_dd_1280_2011" x="0" y="0.5" width="28" height="28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">

@@ -136,4 +136,7 @@ const getMonthlyProfits = (profitsByMonth: ProfitsByMonth): number[] => {
     return profits;
 };
 
-export { getMonthlyProfits, parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement };
+const formatCurrency = (amount: number): string => {
+    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+}
+export { getMonthlyProfits, parseQues, formatTime, formatDateTime, formatCurrency, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement };
