@@ -660,7 +660,16 @@ const nextConfig = {
         source: '/api/accountant/mostFavoriteCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/accountant/most-favorite-course/:path*',
       },
-
+      // KHÓA HỌC 5 SAO
+      {
+        source: '/api/accountant/mostRatedFiveStarCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/most-rated-five-star-course/:path*',
+      },
+      // KHÓA HỌC LƯỢT MUA THẤP NHẤT
+      {
+        source: '/api/accountant/lowestRevenueCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/lowest-revenue-course/:path*',
+      },
 
     ];
   },

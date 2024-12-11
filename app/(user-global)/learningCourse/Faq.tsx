@@ -7,7 +7,7 @@ import { RootState } from "@/redux/store";
 import FaqTitle from './FaqTitle';
 import CommentItem from './FaqComtainet';
 import { IconVideo, IconDoc, IconX, IconWhat32, IconDot } from "@/app/(user-global)/component/icon/icons";
-import CkediterCustom from "@app/custom-editor";
+import Tinymce from '@app/Tinymce'
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { motion } from 'framer-motion';
 import { calculateTimeAgo, scrollToElementBottom, useEscapeKey } from "@app/(user-global)/component/globalControl/commonC";
@@ -348,6 +348,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
 
     const handleGetData = (data: string) => {
         // Xử lý dữ liệu tại đây
+        console.log(data, 'dữ liệu lấy về')
         setNoteContent(data);
     };
     const handleSaveReply = (replyData: { id: string; replyText: string }) => {
@@ -486,7 +487,6 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
                         )}
                     </div>
                 ))}
-
             </main>
             <main className={styles.main}
                 style={{
@@ -535,7 +535,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
                 <div className={styles.editorWrapper}>
                     <h4 className={styles.title}>Đặt câu hỏi</h4>
                     <input type="text" className={styles.inputtTitle} placeholder='Nhập tiêu đề câu hỏi' value={titleContentFaq} onChange={(e) => setTitleContentFaq(e.target.value)} />
-                    <CkediterCustom initialData='Mời bạn nhập nội dung câu hỏi' onChange={handleGetData} />
+                    <Tinymce onChange={handleGetData} initialData='Nội dung câu hỏi' />
                 </div>
 
                 <div className={styles.cta}>
@@ -637,7 +637,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
                                 <div className={styles.form} >
                                     {showCkediterCustom ? (
                                         <>
-                                            <CkediterCustom initialData='Mời bạn nhập nội dung câu hỏi' onChange={handleGetData} />
+                                            <Tinymce initialData='Mời bạn nhập nội dung câu hỏi' onChange={handleGetData} />
                                             <div className={styles.cta}>
                                                 <img
                                                     src={userImage} // Avatar mặc định nếu null
@@ -688,7 +688,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
 
                                     {isEditing === commentsDetail.comment.id ? (
                                         <div className={styles.form}>
-                                            <CkediterCustom
+                                            <Tinymce
                                                 initialData={editContent}
                                                 onChange={(data) => handleGetData(data)}
                                             />

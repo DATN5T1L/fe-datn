@@ -11,6 +11,7 @@ interface CourseCardProps {
         rating_course: number;
         views_course: number;
         instructor_avatar: string;
+        instructor_name: string;
         num_chapter: number;
         num_document: number;
     };
@@ -34,7 +35,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                 {course.name_course}
                             </Card.Title>
                         </Link>
-                        <Card.Subtitle className={styles.text__hedding3}>by Tuấn Huỳnh</Card.Subtitle>
+                        <Card.Subtitle className={styles.text__hedding3}>by {course.instructor_name}</Card.Subtitle>
                         <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
                     </section>
                     <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />

@@ -1,6 +1,7 @@
 "use client";
 import style from "./component/Dashboard/Chart.module.css";
 import { useEffect, useState } from "react";
+import { Row, Col } from 'react-bootstrap'
 import { LineChartViewYear, LineChartViewMonth, LineChartViewWeek, LineChartComparison } from "./component/Dashboard/LineChartView";
 import { IconTotalUser, IconTotalOrder, IconTotalProfit, IconTotalOrderToday } from "@app/(user-global)/component/icon/icons";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
@@ -19,6 +20,8 @@ const Dashboard = () => {
   const [totalToday, setTotalToday] = useState<number>(0);
   const [courseHighest, setcourseHighest] = useState<Course | null>(null);
   const [courseFavorite, setcourseFavorite] = useState<Course | null>(null);
+  const [courseFiveStar, setcourseFiveStar] = useState<Course | null>(null);
+  const [courseLowest, setcourseLowest] = useState<Course | null>(null);
   const fetchMultipleAPIs = async () => {
     try {
       if (token) {
@@ -63,6 +66,20 @@ const Dashboard = () => {
               Authorization: `Barser ${token}`,
             },
           }),
+          // Khóa học có lượt đánh giá 5sao nhiều nhất
+          fetch(`/api/accountant/mostRatedFiveStarCourse`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+          // Khóa học có lượt mua thấp nhất
+          fetch(`/api/accountant/lowestRevenueCourse`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
 
         ]);
         const failedResponse = responses.find((res) => !res.ok);
@@ -81,9 +98,11 @@ const Dashboard = () => {
         const courses = data[4].data;
         const CourseFavorite = data[5].data[0];
 
+        const CourseLowest = data[7].data;
         // Khóa học
         setcourseHighest(courses);
         setcourseFavorite(CourseFavorite);
+        setcourseLowest(CourseLowest)
         // Cập nhật state hoặc xử lý dữ liệu
         setTotalUser(totalUser);
         setTotalCourse(totalCourse);
@@ -141,13 +160,20 @@ const Dashboard = () => {
         </div>
       </section>
       <div className={style.coursesTotal}>
-        <h2 className={style.coursesTotal_Heading}>Khóa học</h2>
-        {/* KHÓA HỌC DOANH THU CAO NHẤT */}
-        {courseHighest && (<Card key={"1"} course={courseHighest} />)}
+        <h2 className={style.coursesTotal_Heading}>Các khóa học nổi bật</h2>
+        <Row>
+
+          {/* KHÓA HỌC DOANH THU CAO NHẤT */}
+          {courseHighest && (<Card key={"1"} course={courseHighest} />)}
+
+          {courseFavorite && (<Card key={"1"} course={courseFavorite} />)}
+          {courseLowest && (<Card key={"1"} course={courseLowest} />)}
+        </Row>
+
         {/* kHÓA HỌC ĐƯỢC YÊU THÍCH NHẤT */}
-        {courseFavorite && (<Card key={"1"} course={courseFavorite} />)}
-        <h4>Khóa học được yêu thích nhất</h4>
-        <h4>Khóa học được yêu có doanh thu cao nhất</h4>
+
+
+
         <h4>Khóa học được yêu thích nhất đánh giá 5sao nhiều nhất</h4>
         <h4>Khóa học cần được thúc đẩy</h4>
       </div>

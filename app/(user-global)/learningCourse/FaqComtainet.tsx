@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styles from "@public/styles/Learning/Faq.module.css";
 import { calculateTimeAgo } from "@app/(user-global)/component/globalControl/commonC";
-import CkediterCustom from "@app/custom-editor";
 import Button from "../component/globalControl/btnComponent";
 import { IconDot } from "@/app/(user-global)/component/icon/icons";
 import Tippy from "@tippyjs/react/headless";
-
+import Tinymce from '@app/Tinymce';
 
 const CommentItem: React.FC<CommentItemProps> = ({
     comment,
@@ -120,7 +119,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
 
                             {isEditing === reply.id ? (
                                 <div className={styles.form}>
-                                    <CkediterCustom
+                                    <Tinymce
                                         initialData={editContent}
                                         onChange={(data) => setEditContent(data)}
                                     />
@@ -182,7 +181,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
                             </div>
                             {activeReply === reply.id && (
                                 <div className={styles.form}>
-                                    <CkediterCustom
+                                    <Tinymce
                                         initialData="Mời bạn nhập nội dung câu hỏi"
                                         onChange={handleCommentData}
                                     />
@@ -217,8 +216,6 @@ const CommentItem: React.FC<CommentItemProps> = ({
                                     </div>
                                 </div>
                             )}
-
-                            {/* Gọi đệ quy cho các bình luận con */}
                             {expandedReply === reply.id && (
                                 <div className={styles.replyWapper}>
                                     <CommentItem

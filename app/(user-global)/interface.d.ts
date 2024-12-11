@@ -435,6 +435,7 @@ interface Course {
     del_flag: boolean;
     instructor_id: string;
     instructor_avatar: string;
+    instructor_name: string;
     created_at: string;
     updated_at: string;
     num_chapter: number;
