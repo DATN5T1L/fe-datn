@@ -17,7 +17,7 @@ const EditPost: React.FC = () => {
   return (
     <>
       <HeaderEditMarketingPost />
-      {/* <EditMarketingPost id={`${id}`} /> */}
+      <EditMarketingPost id={`${id}`} />
     </>
   );
 };
