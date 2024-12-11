@@ -6,16 +6,23 @@ import HeaderUser from "../component/auth/user-global/headerUser";
 import Main from "../component/auth/user-global/main";
 import MenuSetting from "../component/auth/user-global/menuSetting";
 import { useEffect, useState } from "react";
+import useCookie from "../component/hook/useCookie";
+import { Spinner } from "react-bootstrap";
 
 
 const InfoUser: React.FC = () => {
     const [isClient, setIsClient] = useState(false);
+    const token = useCookie('token')
 
     useEffect(() => {
-        setIsClient(true);
-    }, []);
+        if (token) {
+            setIsClient(true);
+        } else {
+            setIsClient(false)
+        }
+    }, [token]);
     if (!isClient) {
-        return <div>Loading...</div>;
+        return <Spinner></Spinner>;
     }
 
     return (

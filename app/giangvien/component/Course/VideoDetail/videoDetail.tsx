@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from "react";
 import videoMod from "./course-video.module.css";
 import courseMod from "./course.module.css";
@@ -11,7 +13,6 @@ import {
   SkipStart,
 } from "react-bootstrap-icons";
 import Accordion from "react-bootstrap/Accordion";
-import CkediterCustom from "../../globalControll/custom-editor";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
@@ -21,6 +22,7 @@ import ReactLoading from 'react-loading';
 import ChatCmt from "../../chatDocument/chatCmt";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
+// const CkediterCustom = dynamic(() => import('../../globalControll/custom-editor'), { ssr: false });
 
 interface DocumentDetailProps {
   idDoc: string
@@ -86,7 +88,11 @@ const VideoDetail: React.FC = () => {
   const [chapterData, setChapterData] = useState<CourseData | null>(null)
   const id = searchParams.get('id')
   const nameParams = searchParams.get('name')
-  console.log(id);
+  const [totalComments, setTotalComments] = useState<number>(0);
+
+  const handleUpdateTotalComments = (count: number) => {
+    setTotalComments(count);
+  };
 
 
   const [typeDocument, setTypeDocument] = useState<string>("");
@@ -315,14 +321,14 @@ const VideoDetail: React.FC = () => {
             <>
               <div className={videoMod.CMT__hedding}>
                 <div className={videoMod.CMT__title}>
-                  108 Bình luận
+                  {totalComments ? totalComments : 0} Bình luận
                 </div>
                 <div className={videoMod.FAQ__btn} onClick={() => handleCloseCmt()}>
                   <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
                 </div>
               </div>
               {id && (
-                <ChatCmt id={typeDocument}></ChatCmt>
+                <ChatCmt id={typeDocument} onUpdateTotalComments={handleUpdateTotalComments}></ChatCmt>
               )}
             </>
           )}

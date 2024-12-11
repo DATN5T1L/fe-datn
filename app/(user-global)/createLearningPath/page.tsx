@@ -1,5 +1,5 @@
 import Body from "../component/globalControl/body"
-import CreateRouter from "../component/router/createRouter"
+import CreateRouter from "../../giangvien/component/router/add/createRouter"
 
 
 const CreateLearningPath: React.FC = () => {

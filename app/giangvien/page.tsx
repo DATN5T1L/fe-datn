@@ -9,7 +9,7 @@ import LineChart from "@/app/accountant/chart/LineChart";
 import DoughnutChart from "@/app/accountant/chart/DoughnutChart";
 import h from "./test.module.css";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -42,43 +42,28 @@ const Dashboard = () => {
               height={60}
             />
           </div>
-          <div className={style.card_notice}>
-            <span>
-              <p>Đánh giá giảng viên</p>
-              <h3>4.5</h3>
-            </span>
-            <Image
-              src={"/img_admin/comment.svg"}
-              alt="icon"
-              width={60}
-              height={60}
-            />
-          </div>
-          <div className={style.card_notice}>
-            <span>
-              <p>Tổng lượt xem</p>
-              <h3>400</h3>
-            </span>
-            <Image
-              src={"/img_admin/total_view.svg"}
-              alt="icon"
-              width={60}
-              height={60}
-              onClick={handleShow}
-            />
-          </div>
-          <OffcanvasComponent show={show} handleClose={handleClose} />
-        </div>
-        <div className={style.chart}>
-          <ViewBarCharts />
-        </div>
-        <div className={h.card_group}>
-          <div className={h.card}>
-            <div className={h.card_content}>
-              <h6>Người hoàn thành khóa học</h6>
-              <div className={h.chart}>
-                <div>
-                  {/* <DoughnutChart /> */}
+          <div className={h.card_group}>
+            <div className={h.card}>
+              <div className={h.card_content}>
+                <h6>Người hoàn thành khóa học</h6>
+                <div className={h.chart}>
+                  <div>
+                    {/* <DoughnutChart /> */}
+                  </div>
+                </div>
+                <div className={h.info_course}>
+                  <span>
+                    <h4>500</h4>
+                    <div>
+                      <div className={h.point}></div>Hoàn thành
+                    </div>
+                  </span>
+                  <span>
+                    <h4>900</h4>
+                    <div>
+                      <div className={h.point_light}></div>Chưa hoàn thành
+                    </div>
+                  </span>
                 </div>
               </div>
               <div className={h.info_course}>

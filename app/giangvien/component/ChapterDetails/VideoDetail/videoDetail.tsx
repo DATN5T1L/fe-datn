@@ -11,12 +11,12 @@ import {
   SkipStart,
 } from "react-bootstrap-icons";
 import Accordion from "react-bootstrap/Accordion";
-import CkediterCustom from "../../globalControll/custom-editor";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
+const CkediterCustom = dynamic(() => import('../../globalControll/custom-editor'), { ssr: false });
 
 interface DocumentDetailProps {
   type: string

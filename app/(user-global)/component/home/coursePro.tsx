@@ -26,7 +26,7 @@ const CoursePro: React.FC = () => {
         }
     );
 
-    const courses = Array.isArray(data?.data) ? data.data : [];
+    const courses = Array.isArray(data?.data) ? data?.data : [];
 
     const handlePathChange = (path: string) => {
         setRouter(path);

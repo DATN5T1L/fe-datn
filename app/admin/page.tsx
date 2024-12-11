@@ -132,7 +132,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Tổng khóa học</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
                 ) : (
                   <h3>{data?.totalCourse}</h3>
                 )}
@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Đơn hôm nay</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
                 ) : (
                   <h3>{data?.totalCourseNow}</h3>
                 )}
@@ -164,7 +164,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Tổng nhân viên</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
                 ) : (
                   <h3>{data?.totalCourseLecturer}</h3>
                 )}
@@ -180,7 +180,7 @@ const Dashboard: React.FC = () => {
               <span id="tippy">
                 <p>Tổng doanh thu</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
                 ) : (
                   <Tippy
                     content={`${parseFloat(typeof data?.totalCourseRevenue === 'string' ? data.totalCourseRevenue.replace(/[^\d]/g, "") : '').toLocaleString('vi-VN')}đ`}

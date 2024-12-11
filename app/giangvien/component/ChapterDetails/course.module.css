@@ -220,14 +220,36 @@
   gap: 10px;
   align-self: stretch;
   border-radius: 0px 8px 8px 0px;
-
-
 }
 
-.option_button_group a {
+.option_optimai {
+  border: 0.5px solid var(--gray-80);
+  display: flex;
+  border-radius: 10px;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.link__item {
+  padding: 8px 12px;
+  border-left: 0.5px solid var(--gray-80);
+  border-right: 0.5px solid var(--gray-80);
+}
+
+.link__item:hover {
+  background-color: var(--gray-80);
+}
+
+.link__item:active,
+.link__item:focus {
+  background-color: var(--gray-70);
+}
+
+/* .option_button_group a {
   text-align: center;
   padding: 0px 15px;
-}
+} */
 
 /*  Actions */
 .btnCTA {

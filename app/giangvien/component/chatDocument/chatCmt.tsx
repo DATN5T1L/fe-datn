@@ -1,6 +1,5 @@
 'use client'
 
-import CkediterCustom from "../globalControll/custom-editor";
 import videoMod from "../Course/VideoDetail/course-video.module.css";
 import { useEffect, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
@@ -9,9 +8,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import * as Yup from 'yup'
 import { useFormik } from "formik";
+import dynamic from 'next/dynamic';
+
+const CkediterCustom = dynamic(() => import('../globalControll/custom-editor'), { ssr: false });
 
 interface IdCourse {
     id: string;
+    onUpdateTotalComments: (count: number) => void;
 }
 
 interface Comment {
@@ -48,7 +51,7 @@ interface ApiCmt<T> {
     comments: Record<string, T>;
 }
 
-const ChatCmt: React.FC<IdCourse> = ({ id }) => {
+const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
     const userState = useSelector((state: RootState) => state.user.user)
     const [dataCmt, setDataCmt] = useState<ApiCmt<Comment> | null>(null)
     const [activeReplyIdBoss, setActiveReplyIdBoss] = useState<string | null>(null);
@@ -74,10 +77,6 @@ const ChatCmt: React.FC<IdCourse> = ({ id }) => {
         }, 0);
     };
 
-    const validationSchema = Yup.object({
-        comment_title: Yup.string()
-    })
-
     const handleGetTime = () => {
         const now = new Date();
         const options: Intl.DateTimeFormatOptions = {
@@ -102,6 +101,8 @@ const ChatCmt: React.FC<IdCourse> = ({ id }) => {
                     console.log(data);
                     if (data) {
                         setDataCmt(data)
+                        const total = countTotalComments(Object.values(data.comments || {}));
+                        onUpdateTotalComments(total);
                     }
                 })
                 .catch(error => {
@@ -305,7 +306,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id }) => {
 
     const handleHiddenCmt = (id: string, cmtId: string) => {
         if (token && id && cmtId) {
-            if ((confirm('Bạn có muốn ẩn bình luận này không?'))) {
+            if ((confirm('Bạn có muốn thay đổi trạng thái của bình luận này không?'))) {
                 fetch(`/api/hiddenCmtDoc/${id}/${cmtId}`, {
                     method: 'GET',
                     headers: {
@@ -364,7 +365,13 @@ const ChatCmt: React.FC<IdCourse> = ({ id }) => {
                                     {item.user_id === userState?.id ? (
                                         <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
                                     ) : (
-                                        <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                        <>
+                                            {item.del_flag ? (
+                                                <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                            ) : (
+                                                <img src="/img/hiddenEye.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                            )}
+                                        </>
                                     )}
                                 </div>
                                 <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt(item.id)}>
@@ -424,7 +431,13 @@ const ChatCmt: React.FC<IdCourse> = ({ id }) => {
                                             {rep.user_id === userState?.id ? (
                                                 <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
                                             ) : (
-                                                <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                <>
+                                                    {rep.del_flag ? (
+                                                        <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                    ) : (
+                                                        <img src="/img/hiddenEye.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                    )}
+                                                </>
                                             )}
                                         </div>
                                         <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt__c1(rep.id)}>
@@ -483,7 +496,13 @@ const ChatCmt: React.FC<IdCourse> = ({ id }) => {
                                                     {rely.user_id === userState?.id ? (
                                                         <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
                                                     ) : (
-                                                        <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                        <>
+                                                            {rely.del_flag ? (
+                                                                <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                            ) : (
+                                                                <img src="/img/hiddenEye.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                            )}
+                                                        </>
                                                     )}
                                                 </div>
                                                 <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt__c2(rely.id)}>
