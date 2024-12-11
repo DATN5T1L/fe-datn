@@ -1,19 +1,17 @@
 "use client";
 import style from "./component/Dashboard/Chart.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { Row, Col } from 'react-bootstrap'
-import { LineChartViewYear, LineChartViewMonth, LineChartViewWeek, LineChartComparison } from "./component/Dashboard/LineChartView";
+import { LineChartViewYear, LineChartViewWeek, LineChartComparison } from "./component/Dashboard/LineChartView";
 import { IconTotalUser, IconTotalOrder, IconTotalProfit, IconTotalOrderToday } from "@app/(user-global)/component/icon/icons";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
 import Card from "@app/(user-global)/component/course/CardCourse";
+import { getMonthlyProfits } from "@app/(user-global)/component/globalControl/commonC"
 
 const Dashboard = () => {
   const token = useCookie('token');
-  const [show, setShow] = useState(false);
-  const tongleShow = () => {
-    setShow(prev => !prev)
-  }
+
   const [totalUser, setTotalUser] = useState<number>(0);
   const [totalCourse, setTotalCourse] = useState<number>(0);
   const [totalRevenue, setTotalRevenue] = useState<number>(0);
@@ -22,6 +20,24 @@ const Dashboard = () => {
   const [courseFavorite, setcourseFavorite] = useState<Course | null>(null);
   const [courseFiveStar, setcourseFiveStar] = useState<Course | null>(null);
   const [courseLowest, setcourseLowest] = useState<Course | null>(null);
+
+  // thực hiện đổ data các biểu đồ
+
+  const years = [2024, 2025];
+  const [selectedWeek, setSelectedWeek] = useState<number>(0);
+  const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
+  const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
+  const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
+  const [dataByWeek, setDataByWeek] = useState<Record<number, number[]>>({});
+  useEffect(() => {
+    const update2024 = getMonthlyProfits(profitsByMonth1);
+    const update2025 = getMonthlyProfits(profitsByMonth2);
+    setCombinedData({
+      [years[0]]: update2024,
+      [years[1]]: update2025,
+    });
+  }, [profitsByMonth1, profitsByMonth2]);
+
   const fetchMultipleAPIs = async () => {
     try {
       if (token) {
@@ -53,28 +69,19 @@ const Dashboard = () => {
             },
           }),
           // Khóa học có doanh thu cao nhất
-          fetch(`/api/accountant/highestRevenueCourse`, {
+          fetch(`/api/accountant/getaccountantStatistics`, {
             method: "GET",
             headers: {
               Authorization: `Barser ${token}`,
             },
           }),
-          // Khóa học được yêu thích nhất
-          fetch(`/api/accountant/mostFavoriteCourse`, {
+          fetch(`/api/accountant/statisticalProfitsByMonths/2024`, {
             method: "GET",
             headers: {
               Authorization: `Barser ${token}`,
             },
           }),
-          // Khóa học có lượt đánh giá 5sao nhiều nhất
-          fetch(`/api/accountant/mostRatedFiveStarCourse`, {
-            method: "GET",
-            headers: {
-              Authorization: `Barser ${token}`,
-            },
-          }),
-          // Khóa học có lượt mua thấp nhất
-          fetch(`/api/accountant/lowestRevenueCourse`, {
+          fetch(`/api/accountant/statisticalProfitsByMonths/2025`, {
             method: "GET",
             headers: {
               Authorization: `Barser ${token}`,
@@ -95,29 +102,55 @@ const Dashboard = () => {
         const totalCourse = data[1].data.enrollCount;
         const totalRevenue = data[2].totalRevenue;
         const totalTotal = data[3].enrollCountToday;
-        const courses = data[4].data;
-        const CourseFavorite = data[5].data[0];
-        const CourseFiveStar = data[6].data
-        const CourseLowest = data[7].data;
+        const courses = data[4].data.high_revenue_course.data;
+        const CourseFavorite = data[4].data.most_favorites_by_course[0];
+        const CourseFiveStar = data[4].data.most_rater_five_star_course[0];
+        const CourseLowest = data[4].data.low_revenue_course.data;
+        const statisticalYear2024 = data[5]
+        const statisticalYear2025 = data[6]
+
+        setprofitsByMonth1(statisticalYear2024.profitsByMonth)
+        setprofitsByMonth2(statisticalYear2025.profitsByMonth)
         // Khóa học
         setcourseHighest(courses);
         setcourseFavorite(CourseFavorite);
         setcourseLowest(CourseLowest)
+        setcourseFiveStar(CourseFiveStar)
         // Cập nhật state hoặc xử lý dữ liệu
         setTotalUser(totalUser);
         setTotalCourse(totalCourse);
         setTotalRevenue(totalRevenue);
         setTotalToday(totalTotal);
+        console.log(courses, CourseFavorite, CourseFiveStar, CourseLowest)
       }
     } catch (err: any) {
       console.error("Error:", err.message);
     }
   };
 
+  const fetchWeeklyStatistics = async () => {
+    try {
+      const response = await fetch(`/api/accountant/weeklyStatistics/2024/${selectedWeek}`); // Thay thế bằng URL API thật
+      const result = await response.json();
+      console.log(result)
+      // Giả sử API trả về dữ liệu có cấu trúc phù hợp
 
-
+      const data = getMonthlyProfits(result.profitsByDay)
+      setDataByWeek((prev) => ({
+        ...prev,
+        [selectedWeek]: data,
+      }));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
+    fetchWeeklyStatistics();
+  }, [selectedWeek]);
+
+
+  useLayoutEffect(() => {
     if (token) {
       fetchMultipleAPIs()
 
@@ -162,40 +195,71 @@ const Dashboard = () => {
       <div className={style.coursesTotal}>
         <h2 className={style.coursesTotal_Heading}>Các khóa học nổi bật</h2>
         <Row>
-
-          {/* KHÓA HỌC DOANH THU CAO NHẤT */}
-          {courseHighest && (<Card key={"1"} course={courseHighest} />)}
-
-          {courseFavorite && (<Card key={"1"} course={courseFavorite} />)}
-          {courseLowest && (<Card key={"1"} course={courseLowest} />)}
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Khóa học có doanh thu cao nhất</h4>
+          </Col>
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Khóa học được yêu thích nhất</h4>
+          </Col>
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Khóa học 5 sao</h4>
+          </Col>
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Khóa học cần được thúc đẩy</h4>
+          </Col>
         </Row>
-
-        {/* kHÓA HỌC ĐƯỢC YÊU THÍCH NHẤT */}
-
-
-
-        <h4>Khóa học được yêu thích nhất đánh giá 5sao nhiều nhất</h4>
-        <h4>Khóa học cần được thúc đẩy</h4>
+        <Row>
+          {/* KHÓA HỌC DOANH THU CAO NHẤT */}
+          {courseHighest && (<Card key={"1"} course={courseHighest} titleAction={2} />)}
+          {courseFavorite && (<Card key={"2"} course={courseFavorite} titleAction={2} />)}
+          {courseFiveStar && (<Card key={"4"} course={courseFiveStar} titleAction={2} />)}
+          {courseLowest && (<Card key={"3"} course={courseLowest} titleAction={2} />)}
+        </Row>
+        <h2 className={style.coursesTotal_Heading}>Các bài viết nổi bật</h2>
+        <Row>
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Bài viết có nhiều lượt tương tác nhất</h4>
+          </Col>
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Bài viết có lượt xem nhiều nhất</h4>
+          </Col>
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Bài viết mới</h4>
+          </Col>
+          <Col xs={3}>
+            <h4 className={style.titleCourseTotal}>Bài viết ít lượt quan tâm</h4>
+          </Col>
+        </Row>
+        <Row>
+          {/* KHÓA HỌC DOANH THU CAO NHẤT */}
+          {courseHighest && (<Card key={"1"} course={courseHighest} titleAction={2} />)}
+          {courseFavorite && (<Card key={"2"} course={courseFavorite} titleAction={2} />)}
+          {courseFiveStar && (<Card key={"4"} course={courseFiveStar} titleAction={2} />)}
+          {courseLowest && (<Card key={"3"} course={courseLowest} titleAction={2} />)}
+        </Row>
       </div>
-      <div className={style.actions}>
-        <Button type="premary" leftIcon={false} rightIcon={false} onClick={tongleShow}> Thống kế khóa học</Button>
-        <Button type="premary" leftIcon={false} rightIcon={false} onClick={tongleShow}> Thống kế bài viết</Button>
+
+
+      <div className={style.chart}>
+        <h2>Thống kê doanh thu theo năm</h2>
+        <LineChartViewYear years={years} key={"6"} dataByYear={combinedData} />
+        <div>
+          <div>
+            <label>Chọn tuần:</label>
+            <input
+              type="number"
+              value={selectedWeek}
+              onChange={(e) => setSelectedWeek(Number(e.target.value))}
+              min={1}
+              max={52}
+            />
+          </div>
+          <LineChartViewWeek selectedWeek={selectedWeek} dataByWeek={dataByWeek} />
+        </div>
+
+        <LineChartComparison years={years} key={"8"} dataByYear={combinedData} />
       </div>
-      {show ? (
-        <div className={style.chart}>
-          <LineChartViewYear />
-          <LineChartViewMonth />
-          <LineChartViewWeek />
-          <LineChartComparison />
-        </div>
-      ) : (
-        <div className={style.chart}>
-          <LineChartViewYear />
-          <LineChartViewMonth />
-          <LineChartViewWeek />
-          <LineChartComparison />
-        </div>
-      )}
+
 
     </div>
 

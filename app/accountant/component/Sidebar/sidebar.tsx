@@ -21,14 +21,6 @@ const Sidebar: React.FC = () => {
           <span className={h.itemTitle}>Thống kê Khóa học</span>
         </Nav.Item>
       </Link>
-
-      <Link href={"/accountant/MaketingPage"}>
-        <Nav.Item className={`${h.navItem} mb-3`}>
-          <IconPost />
-          <span className={h.itemTitle}>Thống kê Bài viết</span>
-        </Nav.Item>
-      </Link>
-
       <Link href={"/accountant/MaketingPage"}>
         <Nav.Item className={`${h.navItem} mb-3`}>
           <IconShoping />

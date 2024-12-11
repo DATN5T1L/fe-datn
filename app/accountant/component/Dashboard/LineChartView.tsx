@@ -11,24 +11,24 @@ import {
   PointElement,
   BarController,
   BarElement,
+  ChartDataset,
   PieController,
   ArcElement,
 } from "chart.js/auto";
+
 import style from "./Chart.module.css";
 
-const LineChartViewYear = () => {
+interface LineChartViewYearProps {
+  years: number[];
+  dataByYear: Record<number, number[]>;
+}
+
+const LineChartViewYear: React.FC<LineChartViewYearProps> = ({ years, dataByYear }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number>(2024);
+  const [selectedYear, setSelectedYear] = useState<number>(years[0]);
   const [chartType, setChartType] = useState<"line" | "bar">("line");
 
-  // Dữ liệu theo năm
-  const dataByYear: Record<number, number[]> = {
-    2024: [1500, 3800, 2500, 3750, 1000, 4000, 400, 800, 100, 2000, 4200, 500],
-    2025: [2000, 3400, 3000, 4000, 1500, 4500, 800, 900, 120, 2100, 4300, 700],
-  };
-
-  // Đăng ký các thành phần cần thiết cho biểu đồ
   Chart.register(
     LineController,
     LineElement,
@@ -158,175 +158,28 @@ const LineChartViewYear = () => {
 
 
 
-const LineChartViewMonth = () => {
+
+
+interface LineChartViewWeekProps {
+  selectedWeek: number; // Tuần được chọn
+  dataByWeek: Record<number, number[]>; // Dữ liệu theo tuần
+}
+
+const LineChartViewWeek: React.FC<LineChartViewWeekProps> = ({
+  selectedWeek,
+  dataByWeek,
+}) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
-  const [selectedMonth, setSelectedMonth] = useState<number>(1);
-  const [chartType, setChartType] = useState<"line" | "bar">("line");
+
+  const [chartType, setChartType] = useState<"line" | "bar" | "both">("both");
 
   // Đăng ký các thành phần cần thiết cho biểu đồ
   Chart.register(
     LineController,
-    LineElement,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    Tooltip,
-    Legend,
     BarController,
-    BarElement
-  );
-
-  useEffect(() => {
-    if (chartRef.current) {
-      const ctx = chartRef.current.getContext("2d");
-
-      // Hủy biểu đồ cũ nếu có
-      if (myChartRef.current) {
-        myChartRef.current.destroy();
-      }
-
-      if (ctx) {
-        const dataForSelectedMonth = getDataForMonth(selectedMonth);
-        myChartRef.current = new Chart(ctx, {
-          type: chartType,
-          data: {
-            labels: dataForSelectedMonth.labels,
-            datasets: [
-              {
-                label: "Lượt xem(nghìn lượt)",
-                data: dataForSelectedMonth.data,
-                fill: true,
-                backgroundColor:
-                  chartType === "bar"
-                    ? "rgba(67, 121, 238, 0.5)"
-                    : (context: any) => {
-                      const ctx = context.chart.ctx;
-                      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                      gradient.addColorStop(0.5, "rgba(67, 121, 238, 0.16)");
-                      gradient.addColorStop(1, "rgba(255, 255, 255, 0.176942)");
-                      return gradient;
-                    },
-                pointBackgroundColor: "#1E6AD2",
-                pointBorderColor: "#1E6AD2",
-                borderColor: "#1E6AD2",
-                tension: 0.4,
-                borderWidth: 1,
-                pointRadius: 3,
-                showLine: true,
-              },
-            ],
-          },
-          options: {
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            scales: {
-              x: {
-                grid: {
-                  display: false,
-                },
-              },
-              y: {
-                grid: {
-                  display: false,
-                },
-                ticks: {
-                  callback: function (value) {
-                    if (
-                      value === 1000 ||
-                      value === 2000 ||
-                      value === 3000 ||
-                      value === 4000 ||
-                      value === 5000
-                    ) {
-                      return value;
-                    }
-                    return null;
-                  },
-                },
-                suggestedMin: 0,
-                suggestedMax: 5000,
-              },
-            },
-          },
-        });
-      }
-    }
-
-    return () => {
-      if (myChartRef.current) {
-        myChartRef.current.destroy();
-      }
-    };
-  }, [selectedMonth, chartType]);
-
-  // Hàm xử lý dữ liệu cho từng tháng
-  const getDataForMonth = (month: number) => {
-    const labels = ["Week 1", "Week 2", "Week 3", "Week 4"];
-    const data = Array.from({ length: 4 }, () =>
-      Math.floor(Math.random() * 5000 + 500)
-    );
-    return { labels, data };
-  };
-
-  return (
-    <div className={style.bg_chart}>
-      <div className={style.chart_title}>
-        <h3>Thống kê theo tháng</h3>
-        <div>
-          <select
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(Number(e.target.value))}
-          >
-            <option value={1}>January</option>
-            <option value={2}>February</option>
-            <option value={3}>March</option>
-            <option value={4}>April</option>
-            <option value={5}>May</option>
-            <option value={6}>June</option>
-            <option value={7}>July</option>
-            <option value={8}>August</option>
-            <option value={9}>September</option>
-            <option value={10}>October</option>
-            <option value={11}>November</option>
-            <option value={12}>December</option>
-          </select>
-
-          <select
-            value={chartType}
-            onChange={(e) => setChartType(e.target.value as "line" | "bar")}
-          >
-            <option value="line">Biểu đồ đường</option>
-            <option value="bar">Biểu đồ cột</option>
-          </select>
-        </div>
-      </div>
-      <canvas ref={chartRef}></canvas>
-    </div>
-  );
-};
-
-const LineChartViewWeek = () => {
-  const chartRef = useRef<HTMLCanvasElement | null>(null);
-  const myChartRef = useRef<Chart | null>(null);
-  const [selectedWeek, setSelectedWeek] = useState<number>(1);
-
-  // Dữ liệu theo tuần
-  const dataByWeek: Record<number, number[]> = {
-    1: [200, 300, 250, 400, 350, 450, 500], // Tuần 1
-    2: [300, 400, 350, 500, 450, 550, 600], // Tuần 2
-    3: [250, 350, 300, 450, 400, 500, 550], // Tuần 3
-    4: [400, 500, 450, 600, 550, 650, 700], // Tuần 4
-  };
-
-  // Đăng ký các thành phần cần thiết cho biểu đồ line
-  Chart.register(
-    LineController,
     LineElement,
+    BarElement,
     CategoryScale,
     LinearScale,
     PointElement,
@@ -344,31 +197,51 @@ const LineChartViewWeek = () => {
       }
 
       if (ctx) {
+        const datasets: ChartDataset<'line' | 'bar'>[] = [];
+
+        if (chartType === "line" || chartType === "both") {
+          datasets.push({
+            type: "line",
+            label: `Doanh thu tuần ${selectedWeek} (VNĐ)`,
+            data: dataByWeek[selectedWeek] || [],
+            fill: true,
+            backgroundColor:
+              chartType === "line"
+                ? "rgba(67, 121, 238, 0.5)"
+                : "rgba(67, 121, 238, 0.16)",
+            pointBackgroundColor: "#1E6AD2",
+            pointBorderColor: "#1E6AD2",
+            borderColor: "#1E6AD2",
+            tension: 0.3,
+            borderWidth: 2,
+            pointRadius: 4,
+          });
+        }
+
+        if (chartType === "bar" || chartType === "both") {
+          datasets.push({
+            type: "bar",
+            label: `Số lượng sản phẩm bán tuần ${selectedWeek}`,
+            data: dataByWeek[selectedWeek] || [],
+            backgroundColor: "rgba(255, 99, 132, 0.6)",
+            borderColor: "rgba(255, 99, 132, 1)",
+            borderWidth: 1,
+          });
+        }
+
         myChartRef.current = new Chart(ctx, {
-          type: "line",
+          type: "bar",
           data: {
-            labels: ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"],
-            datasets: [
-              {
-                label: `Doanh thu tuần ${selectedWeek} (VNĐ)`,
-                data: dataByWeek[selectedWeek],
-                fill: true,
-                backgroundColor: (context) => {
-                  const ctx = context.chart.ctx;
-                  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                  gradient.addColorStop(0.5, "rgba(67, 121, 238, 0.16)");
-                  gradient.addColorStop(1, "rgba(255, 255, 255, 0.176942)");
-                  return gradient;
-                },
-                pointBackgroundColor: "#1E6AD2",
-                pointBorderColor: "#1E6AD2",
-                borderColor: "#1E6AD2",
-                tension: 0.3,
-                borderWidth: 2,
-                pointRadius: 4,
-                showLine: true,
-              },
+            labels: [
+              "Thứ 2",
+              "Thứ 3",
+              "Thứ 4",
+              "Thứ 5",
+              "Thứ 6",
+              "Thứ 7",
+              "Chủ nhật",
             ],
+            datasets: datasets,
           },
           options: {
             responsive: true,
@@ -392,7 +265,8 @@ const LineChartViewWeek = () => {
                   callback: (value) => `${value} VNĐ`, // Thêm đơn vị VNĐ
                 },
                 suggestedMin: 0,
-                suggestedMax: 700,
+                suggestedMax:
+                  Math.max(...(dataByWeek[selectedWeek] || [])) + 100,
               },
             },
           },
@@ -405,27 +279,38 @@ const LineChartViewWeek = () => {
         myChartRef.current.destroy();
       }
     };
-  }, [selectedWeek]); // Thêm selectedWeek để cập nhật khi tuần thay đổi
+  }, [selectedWeek, dataByWeek, chartType]);
 
   return (
-    <div className={style.bg_chart}>
-      <div className={style.chart_title}>
-        <h3>Thống kê tuần</h3>
+    <div>
+      <div style={{ marginBottom: "20px" }}>
         <select
-          value={selectedWeek}
-          onChange={(e) => setSelectedWeek(Number(e.target.value))}
+          value={chartType}
+          onChange={(e) => setChartType(e.target.value as "line" | "bar" | "both")}
+          style={{
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+            backgroundColor: "#f9f9f9",
+            fontSize: "14px",
+            color: "#333",
+            outline: "none",
+          }}
         >
-          <option value={1}>Tuần 1</option>
-          <option value={2}>Tuần 2</option>
-          <option value={3}>Tuần 3</option>
-          <option value={4}>Tuần 4</option>
+          <option value="">Chọn biểu đồ</option>
+          <option value="bar">Biểu đồ cột</option>
+          <option value="line">Biểu đồ đường</option>
+          <option value="both">Cả hai</option>
         </select>
+
       </div>
       <canvas ref={chartRef}></canvas>
     </div>
   );
 };
-const LineChartComparison = () => {
+
+
+const LineChartComparison: React.FC<LineChartViewYearProps> = ({ years, dataByYear }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
 
@@ -454,43 +339,19 @@ const LineChartComparison = () => {
           type: "line",
           data: {
             labels: [
-              "01",
-              "02",
-              "03",
-              "04",
-              "05",
-              "06",
-              "07",
-              "08",
-              "09",
-              "10",
-              "11",
-              "12",
+              "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
             ],
-            datasets: [
-              {
-                label: "2024 - Doanh thu (VNĐ)",
-                data: [1500, 3800, 2500, 3750, 1000, 4000, 400, 800, 100, 2000, 4200, 500],
-                borderColor: "#1E6AD2",
-                backgroundColor: "rgba(30, 106, 210, 0.1)",
-                pointBackgroundColor: "#1E6AD2",
-                pointBorderColor: "#1E6AD2",
-                tension: 0.3,
-                borderWidth: 2,
-                pointRadius: 4,
-              },
-              {
-                label: "2025 - Doanh thu (VNĐ)",
-                data: [2000, 3500, 3000, 4000, 1500, 3800, 600, 900, 200, 2500, 4500, 800],
-                borderColor: "#FF6B6B",
-                backgroundColor: "rgba(255, 107, 107, 0.1)",
-                pointBackgroundColor: "#FF6B6B",
-                pointBorderColor: "#FF6B6B",
-                tension: 0.3,
-                borderWidth: 2,
-                pointRadius: 4,
-              },
-            ],
+            datasets: years.map((year, index) => ({
+              label: `${year} - Doanh thu (VNĐ)`,
+              data: dataByYear[year] || [],
+              borderColor: index === 0 ? "#1E6AD2" : "#FF6B6B",
+              backgroundColor: index === 0 ? "rgba(30, 106, 210, 0.1)" : "rgba(255, 107, 107, 0.1)",
+              pointBackgroundColor: index === 0 ? "#1E6AD2" : "#FF6B6B",
+              pointBorderColor: index === 0 ? "#1E6AD2" : "#FF6B6B",
+              tension: 0.3,
+              borderWidth: 2,
+              pointRadius: 4,
+            })),
           },
           options: {
             responsive: true,
@@ -516,7 +377,6 @@ const LineChartComparison = () => {
               y: {
                 grid: {
                   display: true,
-
                 },
                 ticks: {
                   callback: (value) => `${value} VNĐ`, // Thêm đơn vị VNĐ
@@ -535,16 +395,16 @@ const LineChartComparison = () => {
         myChartRef.current.destroy();
       }
     };
-  }, []);
+  }, [years, dataByYear]); // Thêm years và dataByYear vào dependencies
 
   return (
     <div className={style.bg_chart}>
       <div className={style.chart_title}>
-        <h3>So sánh doanh thu: 2024 vs 2025</h3>
+        <h3>So sánh doanh thu: {years.join(" vs ")}</h3>
       </div>
       <canvas ref={chartRef}></canvas>
     </div>
   );
 };
 
-export { LineChartViewMonth, LineChartViewYear, LineChartViewWeek, LineChartComparison };
+export { LineChartViewYear, LineChartViewWeek, LineChartComparison };

@@ -21,6 +21,12 @@
   font-weight: 600;
 }
 
+.titleCourseTotal {
+  padding: 32px 0px 12px 0px;
+  font-size: 1.25rem;
+  font-family: 600;
+}
+
 .coursesTotal {
   margin: 32px 0px;
 }

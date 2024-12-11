@@ -681,6 +681,21 @@ const nextConfig = {
         source: '/api/accountant/lowestRevenueCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/accountant/lowest-revenue-course/:path*',
       },
+      // Thống kê doanh thu 1 năm
+      {
+        source: '/api/accountant/statisticalProfitsByMonths/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-profits-by-months/:path*',
+      },
+      // Lấy ra 4 khóa học thống kê
+      {
+        source: '/api/accountant/getaccountantStatistics/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/getaccountantStatistics/:path*',
+      },
+      // Lấy ra 4 khóa học thống kê
+      {
+        source: '/api/accountant/weeklyStatistics/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/weekly-statistics/:path*',
+      },
 
     ];
   },

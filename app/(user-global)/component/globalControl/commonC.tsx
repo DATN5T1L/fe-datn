@@ -127,4 +127,13 @@ const useEscapeKey = (onEsc: () => void): void => {
     }, [onEsc]); // Chỉ re-run effect khi `onEsc` thay đổi
 };
 
-export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement };
+// hàm tách 
+const getMonthlyProfits = (profitsByMonth: ProfitsByMonth): number[] => {
+    const profits: number[] = [];
+    for (let month in profitsByMonth) {
+        profits.push(profitsByMonth[month]);
+    }
+    return profits;
+};
+
+export { getMonthlyProfits, parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement };

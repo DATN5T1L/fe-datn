@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-// import Image from 'next/image';
+
 import { Card, Col, Image } from 'react-bootstrap';
 import styles from '@public/styles/globalControl/CourseCard.module.css';
 import { IconStar } from "@app/(user-global)/component/icon/icons"
@@ -15,15 +15,33 @@ interface CourseCardProps {
         num_chapter: number;
         num_document: number;
     };
+    titleAction: number;
     onCourseClick?: (course: any) => void;
     showProgress?: boolean; // Prop để quyết định hiển thị ProgressCircle
 }
 
-const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProgress = true }) => {
+const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProgress = true, titleAction }) => {
 
     const handleCourseClick = () => {
         if (onCourseClick) onCourseClick(course);
     };
+    const [title, setTitle] = useState<string>("")
+
+    useEffect(() => {
+        if (titleAction) {
+            switch (titleAction) {
+                case 1:
+                    setTitle("Học ngay");
+                    break;
+                case 2:
+                    setTitle("Xem chi tiết");
+                    break;
+                default:
+                    setTitle("");
+            }
+        }
+
+    }, [titleAction])
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} className={styles.mainBox} key={course.id}>
@@ -74,7 +92,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                         <div className={styles.bodyContent__element}>
                             <Link href={`/learningCourse/${course.id}`} className={styles.linkCta} onClick={handleCourseClick}>
                                 <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                <Card.Text className={styles.element__text}>Học ngay</Card.Text>
+                                <Card.Text className={styles.element__text}>{title}</Card.Text>
                             </Link>
                         </div>
                     </section>

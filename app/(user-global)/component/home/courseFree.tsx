@@ -109,7 +109,7 @@ const CourseFree: React.FC = () => {
                         </div>
                     )}
                     {courses?.map((course, index) => (
-                        <CourseCard course={course} key={index} showProgress={false} />
+                        <CourseCard course={course} key={index} showProgress={false} titleAction={2} />
                     ))}
                 </Row>
             </Container>
