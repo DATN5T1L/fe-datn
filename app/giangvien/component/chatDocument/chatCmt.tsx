@@ -1,6 +1,5 @@
 'use client'
 
-import CkediterCustom from "../globalControll/custom-editor";
 import videoMod from "../Course/VideoDetail/course-video.module.css";
 import { useEffect, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
@@ -9,6 +8,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import * as Yup from 'yup'
 import { useFormik } from "formik";
+import dynamic from 'next/dynamic';
+
+const CkediterCustom = dynamic(() => import('../globalControll/custom-editor'), { ssr: false });
 
 interface IdCourse {
     id: string;

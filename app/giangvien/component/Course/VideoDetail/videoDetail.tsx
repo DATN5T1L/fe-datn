@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from "react";
 import videoMod from "./course-video.module.css";
 import courseMod from "./course.module.css";
@@ -20,7 +22,7 @@ import ReactLoading from 'react-loading';
 import ChatCmt from "../../chatDocument/chatCmt";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
-const CkediterCustom = dynamic(() => import('../../globalControll/custom-editor'), { ssr: false });
+// const CkediterCustom = dynamic(() => import('../../globalControll/custom-editor'), { ssr: false });
 
 interface DocumentDetailProps {
   idDoc: string
