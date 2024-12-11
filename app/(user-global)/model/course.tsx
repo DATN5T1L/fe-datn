@@ -2,6 +2,7 @@
 export class Course {
     id: string;
     name_course: string;
+    slug: string;
     img_course: string;
     price_course: number;
     discount_price_course?: number;
@@ -18,6 +19,7 @@ export class Course {
     constructor(
         id: string,
         name_course: string,
+        slug: string,
         img_course: string,
         price_course: number,
         instructor_id: string,
@@ -33,6 +35,7 @@ export class Course {
     ) {
         this.id = id;
         this.name_course = name_course;
+        this.slug = slug;
         this.img_course = img_course;
         this.price_course = price_course;
         this.discount_price_course = discount_price_course;

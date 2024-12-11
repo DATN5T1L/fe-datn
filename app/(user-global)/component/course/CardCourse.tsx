@@ -34,7 +34,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                 {course.name_course}
                             </Card.Title>
                         </Link>
-                        <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
+                        <Card.Subtitle className={styles.text__hedding3}>by Tuấn Huỳnh</Card.Subtitle>
                         <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
                     </section>
                     <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
