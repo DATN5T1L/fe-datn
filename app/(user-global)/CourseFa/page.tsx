@@ -60,7 +60,7 @@ const CoursePro: React.FC = () => {
                     </div>
                     <Row className={styles.main__course}>
                         {courses?.map((course, index) => (
-                            <CourseCard course={course} key={index} showProgress={false} />
+                            <CourseCard course={course} key={index} showProgress={false} titleAction={1} />
                         ))}
                     </Row>
                 </Container>

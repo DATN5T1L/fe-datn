@@ -93,7 +93,7 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
 
             <Row className={styleFor.mainCardNext}>
                 {courses?.map((course, index) => (
-                    <CardCourse course={course} key={index} showProgress={false} />
+                    <CardCourse course={course} key={index} showProgress={false} titleAction={1} />
                 ))}
             </Row>
 
