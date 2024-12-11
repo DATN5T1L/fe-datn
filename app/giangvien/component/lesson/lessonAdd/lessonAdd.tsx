@@ -4,13 +4,13 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import h from "./lessonAdd.module.css";
 import { type } from "os";
-import CkediterCustomFill from "../../globalControll/custom-editor-fill";
 import { useRouter, useSearchParams } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import { ErrorMessage, useFormik } from "formik";
 import * as Yup from 'yup'
 import dynamic from "next/dynamic";
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
+const CkediterCustomFill = dynamic(() => import("../../globalControll/custom-editor-fill"), { ssr: false });
 
 interface Document {
   id: string;
