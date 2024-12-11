@@ -124,7 +124,7 @@ const nextConfig = {
       },
       {
         source: '/api/user/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/users/:path*',
       },
       // Image rewrites
       {

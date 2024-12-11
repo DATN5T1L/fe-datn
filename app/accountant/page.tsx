@@ -97,7 +97,7 @@ const Dashboard = () => {
         const totalTotal = data[3].enrollCountToday;
         const courses = data[4].data;
         const CourseFavorite = data[5].data[0];
-
+        const CourseFiveStar = data[6].data
         const CourseLowest = data[7].data;
         // Khóa học
         setcourseHighest(courses);

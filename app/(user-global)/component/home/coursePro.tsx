@@ -11,10 +11,10 @@ import Link from 'next/link'
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CoursePro: React.FC = () => {
-    const [router, setRouter] = useState<string>("lo-trinh-font-end"); // Lộ trình mặc định là FE
+    const [router, setRouter] = useState<string>("lo-trinh-front-end"); // Lộ trình mặc định là FE
     const [limit, setLimit] = useState<number>(8);
     const [isCount, setIsCount] = useState(false);
-    const [selectedPath, setSelectedPath] = useState<string>("lo-trinh-font-end"); // Để hiển thị nút nào được chọn
+    // const [selectedPath, setSelectedPath] = useState<string>("lo-trinh-front-end"); // Để hiển thị nút nào được chọn
 
     const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
         `/api/coursetype/pro/${router}/${limit}`,
@@ -30,7 +30,7 @@ const CoursePro: React.FC = () => {
 
     const handlePathChange = (path: string) => {
         setRouter(path);
-        setSelectedPath(path);
+        // setSelectedPath(path);
     };
 
     const handleCountAll = () => {
@@ -74,7 +74,7 @@ const CoursePro: React.FC = () => {
                         leftIcon={false}
                         rightIcon={false}
                         height={40}
-                        onClick={() => handlePathChange("Lộ trình học Front-end")}
+                        onClick={() => handlePathChange("lo-trinh-front-end")}
                     >
                         Khóa học lộ trình FE
                     </Button>
@@ -85,7 +85,7 @@ const CoursePro: React.FC = () => {
                         leftIcon={false}
                         rightIcon={false}
                         height={40}
-                        onClick={() => handlePathChange("BE")}
+                        onClick={() => handlePathChange("lo-trinh-hoc-back-end")}
                     >
                         Khóa học lộ trình BE
                     </Button>
