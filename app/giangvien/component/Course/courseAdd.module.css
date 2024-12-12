@@ -1,3 +1,7 @@
+.containerFull {
+    position: relative;
+}
+
 .header_add {
     padding: 25px 32px;
     font-size: 34px;
@@ -8,9 +12,6 @@
 
 .body_add {
     padding: 25px 32px;
-
-
-
 }
 
 .wapper {
