@@ -99,14 +99,12 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
         const documentId = document_id || 'default_document_id'; // Giá trị mặc định nếu null// Chuyển đổi number thành string
         const cacheTimeVideo = Math.floor(videoDuration);
         try {
-            const response = await updateStatus(
-                courseId, // courseId
-                documentId, // documentId
+            await updateStatus(
+                courseId,
+                documentId,
                 token,
-                cacheTimeVideo// token
-                // cacheTimeVideo
+                cacheTimeVideo
             );
-            console.log('Kết quả trả về:', response);
         } catch (error) {
             console.error('Cập nhật thất bại:', error);
         }

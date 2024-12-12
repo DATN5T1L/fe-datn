@@ -39,7 +39,7 @@
     flex-direction: column;
     gap: 16px;
     box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32);
-    background-color: #FFF;
+    background-color: var(--gray-100);
     margin: 0;
 }
 
@@ -265,7 +265,7 @@
     padding: 0;
     margin: 0;
     border: 0;
-    background-color: white;
+    background-color: var(--gray-100);
 }
 
 .checkPass__btn:hover,
@@ -311,7 +311,7 @@
     font-size: 1rem;
     line-height: 24px;
     border: 0;
-    background-color: white;
+    background-color: var(--gray-100);
 }
 
 .rememberRegister:hover,

@@ -61,7 +61,7 @@
   border: 0.6px solid var(--Gray-gray-80, rgba(219, 219, 219, 1));
   margin-right: 10px;
   width: 48px;
-  background-color: #fff;
+  background-color: var(--gray-100);
   border-radius: 5px;
   width: 60px;
 }
@@ -75,7 +75,7 @@
   font-weight: bold;
 }
 .content {
-  background-color: #fff;
+  background-color: var(--gray-100);
 }
 .generalInfo {
   padding: 20px;

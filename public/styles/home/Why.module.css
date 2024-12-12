@@ -187,7 +187,7 @@
     min-height: 147px;
     overflow: hidden;
     border-radius: 50%;
-    background-color: #ffffff;
+    background-color: var(--gray-100);
     display: flex;
     justify-content: center;
     align-items: center;

@@ -442,6 +442,91 @@ const nextConfig = {
         source: '/api/hiddenPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
       },
+      // Thống kê
+      // Tông người dùng khóa học
+      {
+        source: '/api/accountant/totalUser/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-user/:path*',
+      },
+      // Tông người đăng ký
+      {
+        source: '/api/accountant/totalEnroll/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-enrollment/:path*',
+      },
+      // Tông người đăng ký
+      {
+        source: '/api/accountant/totalprofits/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-profits/:path*',
+      },
+      // Tổng doanh thu hôm nay
+      {
+        source: '/api/accountant/enrollmentToday/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-enrollment-today/:path*',
+      },
+      // Khóa học có doanh thu cao nhất
+      {
+        source: '/api/accountant/highestRevenueCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/highest-revenue-course/:path*',
+      },
+      // Khóa học được yêu thích nhất
+      {
+        source: '/api/accountant/mostFavoriteCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/most-favorite-course/:path*',
+      },
+      // KHÓA HỌC 5 SAO
+      {
+        source: '/api/accountant/mostRatedFiveStarCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/most-rated-five-star-course/:path*',
+      },
+      // KHÓA HỌC LƯỢT MUA THẤP NHẤT
+      {
+        source: '/api/accountant/lowestRevenueCourse/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/lowest-revenue-course/:path*',
+      },
+      // Thống kê doanh thu 1 năm
+      {
+        source: '/api/accountant/statisticalProfitsByMonths/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/statistical-profits-by-months/:path*',
+      },
+      // Lấy ra 4 khóa học thống kê
+      {
+        source: '/api/accountant/getaccountantStatistics/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/getaccountantStatistics/:path*',
+      },
+      // Lấy ra 4 khóa học thống kê
+      {
+        source: '/api/accountant/weeklyStatistics/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/weekly-statistics/:path*',
+      },
+      // Lấy ra các tổng doanh thu của tất cả khóa học
+      {
+        source: '/api/accountant/courseEnrollmentRevenue/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/course-enrollment-revenue/:path*',
+      },
+      // Lấy ra các tổng doanh thu của tất cả khóa học
+      {
+        source: '/api/accountant/coursesByTransactions/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/courses-by-transactions/:path*',
+      },
+      // Lấy ra các đơn hàng 
+      // transtion-statistics-request/{filterBy}/{status} 
+      // filterBy: truyền vào:: day, week, month, year
+      // status: truyền vào:: completed, pending, canceled, failed, all(là lấy hết)
+      {
+        source: '/api/accountant/transtionStatisticsRequest/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/transtion-statistics-request/:path*',
+      },
+      // Thấy ra khóa học của chi tiết thanh toán
+      {
+        source: '/api/accountant/getDetailTranstion/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/get-detail-transtion/:path*',
+      },
+      // Lấy ra tất tả thanh toán của người dùng
+      {
+        source: '/api/accountant/userByTranstion/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/user-by-transtion/:path*',
+      },
+
     ];
   },
   images: {
