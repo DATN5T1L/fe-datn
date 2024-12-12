@@ -190,7 +190,7 @@
 //                             <Image src={avatar} alt="logo" className={stylesNav.userImage} width={34} height={80} />
 //                             <h4 className={stylesNav.titleName}>{user?.fullname}</h4>
 //                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-//                                 <path d="M6 9L12 15L18 9" stroke="#237DF7" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" />
+//                                 <path d="M6 9L12 15L18 9" stroke="#237DF7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 //                             </svg>
 //                         </div>
 //                     </Tippy>
