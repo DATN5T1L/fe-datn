@@ -92,8 +92,8 @@
   padding: 16px 24px 24px 24px;
   width: 374px;
   height: 328px;
-  background-color: #FFFFFF;
-  border: 1px solid #F1F1F1;
+  background-color: var(--gray-100);
+  border: 1px solid var(--gray-100);
   display: block;
   
   

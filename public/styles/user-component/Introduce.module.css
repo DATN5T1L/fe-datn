@@ -248,7 +248,7 @@
     padding: 0;
     margin: 0;
     border: none;
-    background-color: white;
+    background-color: var(--gray-100);
 }
 
 .card__body__title {
