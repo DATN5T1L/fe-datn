@@ -14,6 +14,7 @@ interface CourseCardProps {
         instructor_name: string;
         num_chapter: number;
         num_document: number;
+        slug_course: string;
     };
     titleAction: number;
     onCourseClick?: (course: any) => void;
@@ -48,7 +49,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
             <Card className={styles.mainBox__content}>
                 <Card.Header className={styles.headerContent}>
                     <section className={styles.headerContent__text}>
-                        <Link href={`/course/${course.id}`}>
+                        <Link href={`/course/${course.slug_course}`}>
                             <Card.Title className={styles.text__hedding2}>
                                 {course.name_course}
                             </Card.Title>

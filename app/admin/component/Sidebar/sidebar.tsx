@@ -15,19 +15,16 @@ const Sidebar: React.FC = () => {
 
   const dropdownUser = [
     { href: "/admin/UsersPage", label: "Học viên" },
-    { href: "/admin/ArticlePage", label: "Quảng trị viên" }
+    { href: "/admin/ArticlePage", label: "Quản trị viên" }
   ];
 
   const dropdownPost = [
-    { href: "/admin/ArticlePage", label: "Học viên" },
-    { href: "/admin/ArticlePage", label: "Quảng trị viên" },
+    { href: "/admin/ArticlePage", label: "Bài viết" },
     { href: "/admin/ArticlePage", label: "Bình luận" },
   ];
 
   const dropdownRoll = [
     { href: "/admin/AccessPage", label: "Danh sách quyền truy cập" },
-    { href: "/admin/CreateAccess", label: "Tạo mới quyền truy cập" },
-    { href: "/admin", label: "Admin" },
     { href: "/accountant", label: "Kế toán" },
     { href: "/Marketing", label: "Marketing" },
     { href: "/giangvien", label: "Giảng viên" },

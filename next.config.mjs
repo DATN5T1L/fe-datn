@@ -124,13 +124,20 @@ const nextConfig = {
         source: '/api/posthighest/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/post-highest-view/:path*',
       },
+      // Lấy ra id của các bảng Course, Router, Post
+
+      {
+        source: '/api/slugById/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/slug-by-id/:path*',
+      },
+
       {
         source: '/api/courseDetail/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/courses/:path*',
       },
       {
         source: '/api/user/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/users/:path*',
       },
       // Image rewrites
       {
@@ -225,7 +232,7 @@ const nextConfig = {
         source: '/api/postByCmt/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-posts-highest-comment/:path*',
       },
-      
+
       {
         source: '/api/postByView/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/post-highest-view/:path*',
@@ -235,8 +242,8 @@ const nextConfig = {
         source: '/api/post/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/posts/:path*',
       },
-      
-      
+
+
       // Admin 
 
       {
@@ -511,7 +518,6 @@ const nextConfig = {
       // Lấy ra các đơn hàng 
       // transtion-statistics-request/{filterBy}/{status} 
       // filterBy: truyền vào:: day, week, month, year
-      // status: truyền vào:: completed, pending, canceled, failed, all(là lấy hết)
       {
         source: '/api/accountant/transtionStatisticsRequest/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/accountant/transtion-statistics-request/:path*',
