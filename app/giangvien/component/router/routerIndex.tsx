@@ -33,13 +33,14 @@ interface RouterProps {
 const RouterIndex: React.FC<RouterProps> = ({ data }) => {
     const token = useCookie('token')
     const [currentPage, setCurrentPage] = useState(1);
+    const [dataState, setDataState] = useState(data);
     const itemsPerPage = 5;
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const totalPages = Math.ceil(dataState.length / itemsPerPage);
     const currentData = useMemo(() => {
         const startIndex = (currentPage - 1) * itemsPerPage;
-        return data.slice(startIndex, startIndex + itemsPerPage);
-    }, [currentPage, data]);
+        return dataState.slice(startIndex, startIndex + itemsPerPage);
+    }, [currentPage, dataState]);
 
     const handlePageChange = (page: number) => {
         if (page >= 1 && page <= totalPages) {
@@ -104,6 +105,36 @@ const RouterIndex: React.FC<RouterProps> = ({ data }) => {
 
         return pages;
     }, [currentPage, totalPages]);
+
+    const handleHidden = (id: string) => {
+        if (token && id) {
+            if (confirm('Bạn có muốn thay đổi trạng thái của lộ trình này không?')) {
+                fetch(`/api/hiddenRoute/${id}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(dataH => {
+                        const updatedData = dataState.map(item =>
+                            item.id === id ? { ...item, del_flag: !item.del_flag } : item
+                        );
+                        setDataState(updatedData);
+                        if (dataH.status === 'success') {
+                            alert('Thay đổi trạng thái thành công.')
+                        } else {
+                            alert('Thay đổi trạng thái thất bại')
+                        }
+                        console.log(dataH);
+                    })
+                    .catch(error => {
+                        console.error(`Có lỗi xảy ra: `, error);
+
+                    })
+            }
+        }
+    }
 
     useEffect(() => {
         setCurrentPage(1);
@@ -178,14 +209,14 @@ const RouterIndex: React.FC<RouterProps> = ({ data }) => {
                                         <Link href={`/giangvien/CoursePage/CourseVideoDetail`} className={h.link__item}>
                                             <img src="/img_admin/vitien.svg" alt="Edit" />
                                         </Link>
-                                        <Link href={`/giangvien/ChapterPage/ManagerChapter`} className={h.link__item}>
+                                        <div className={h.link__item} onClick={() => handleHidden(item.id)}>
                                             {item.del_flag ? (
                                                 <img src="/img/action.svg" alt="Edit" />
                                             ) : (
                                                 <img src="/img/hiddenEye.svg" alt="Edit" />
                                             )}
-                                        </Link>
-                                        <Link href={`/giangvien/CoursePage/CourseEdit?id=${item.id}`} className={h.link__item}>
+                                        </div>
+                                        <Link href={`/giangvien/router/edit?id=${item.id}`} className={h.link__item}>
                                             <img src="/img_admin/action2.svg" alt="Edit" />
                                         </Link>
                                     </div>

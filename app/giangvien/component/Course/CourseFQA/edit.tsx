@@ -70,7 +70,7 @@ const CourseFQAEEdit: React.FC = () => {
                         })
                         const data = await res.json()
                         console.log(data);
-                        
+
                         if (data.status === 'success') {
                             alert('Thay đổi thành công!!!')
                             router.replace(`/giangvien/CoursePage/CourseFQA?id=${courseId}`)
@@ -93,8 +93,9 @@ const CourseFQAEEdit: React.FC = () => {
                     <div className={h.formnhap}>
                         <div className={h.bentrong}>
                             <div>Câu hỏi FAQ</div>
-                            <input
-                                className={h.inputne}
+                            <textarea
+                                rows={4}
+                                className={h.inputne1}
                                 placeholder="Nhập câu hỏi"
                                 name={'question'}
                                 value={formik.values.question}
@@ -107,8 +108,9 @@ const CourseFQAEEdit: React.FC = () => {
                         </div>
                         <div className={h.bentrong}>
                             <div>Câu trả lời FAQ</div>
-                            <input
-                                className={h.inputne}
+                            <textarea
+                                rows={4}
+                                className={h.inputne1}
                                 placeholder="Nhập câu trả lời"
                                 name={'answer'}
                                 value={formik.values.answer}

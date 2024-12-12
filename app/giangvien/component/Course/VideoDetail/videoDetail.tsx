@@ -20,6 +20,7 @@ import useFormatDate from "@/app/(user-global)/component/globalControl/useFormat
 import ReactPlayer from "react-player";
 import ReactLoading from 'react-loading';
 import ChatCmt from "../../chatDocument/chatCmt";
+import FaqList from "../../faqCourse/faqList";
 
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 // const CkediterCustom = dynamic(() => import('../../globalControll/custom-editor'), { ssr: false });
@@ -76,6 +77,7 @@ interface Apidata<T> {
 interface ChapterAccordionProps {
   onChangeType: (idDoc: string) => void;
   data: CourseData;
+  activeDocumentId: string;
 }
 
 const VideoDetail: React.FC = () => {
@@ -149,24 +151,48 @@ const VideoDetail: React.FC = () => {
   }
 
   const handlePrevious = () => {
-    const currentIndex = documents.findIndex(
-      (doc) => doc.document_id === typeDocument
+    if (!chapterData) return;
+
+    const currentChapterIndex = chapterData.data.findIndex(chapter =>
+      chapter.documents.some(doc => doc.document_id === typeDocument)
     );
-    if (currentIndex > 0) {
-      setTypeDocument(documents[currentIndex - 1].document_id);
-    } else {
-      alert("Đây là bài đầu tiên!");
+
+    if (currentChapterIndex === -1) return;
+
+    const currentDocumentIndex = chapterData.data[currentChapterIndex].documents.findIndex(
+      doc => doc.document_id === typeDocument
+    );
+
+    if (currentDocumentIndex > 0) {
+      setTypeDocument(chapterData.data[currentChapterIndex].documents[currentDocumentIndex - 1].document_id);
+    } else if (currentChapterIndex > 0) {
+      const previousChapter = chapterData.data[currentChapterIndex - 1];
+      if (previousChapter.documents.length > 0) {
+        setTypeDocument(previousChapter.documents[previousChapter.documents.length - 1].document_id);
+      }
     }
   };
 
   const handleNext = () => {
-    const currentIndex = documents.findIndex(
-      (doc) => doc.document_id === typeDocument
+    if (!chapterData) return;
+
+    const currentChapterIndex = chapterData.data.findIndex(chapter =>
+      chapter.documents.some(doc => doc.document_id === typeDocument)
     );
-    if (currentIndex < documents.length - 1) {
-      setTypeDocument(documents[currentIndex + 1].document_id);
-    } else {
-      alert("Đây là bài cuối cùng!");
+
+    if (currentChapterIndex === -1) return;
+
+    const currentDocumentIndex = chapterData.data[currentChapterIndex].documents.findIndex(
+      doc => doc.document_id === typeDocument
+    );
+
+    if (currentDocumentIndex < chapterData.data[currentChapterIndex].documents.length - 1) {
+      setTypeDocument(chapterData.data[currentChapterIndex].documents[currentDocumentIndex + 1].document_id);
+    } else if (currentChapterIndex < chapterData.data.length - 1) {
+      const nextChapter = chapterData.data[currentChapterIndex + 1];
+      if (nextChapter.documents.length > 0) {
+        setTypeDocument(nextChapter.documents[0].document_id);
+      }
     }
   };
 
@@ -185,136 +211,12 @@ const VideoDetail: React.FC = () => {
                 </div>
               </div>
               <div className={videoMod.FAQ__subtitle}>
-                Danh sách bài học
+                Danh sách câu hỏi
                 <hr className={videoMod.FAQ__subtitle__hr} />
               </div>
-              <div className={videoMod.FAQ__body}>
-                <Accordion defaultActiveKey={["0"]} alwaysOpen>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                      <div className="d-flex flex-column">
-                        <span className="fw-bold">1. Bắt đầu</span>
-                      </div>
-                    </Accordion.Header>
-                    <Accordion.Body className="p-0">
-                      <Stack gap={2}>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>1.1 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>1.2 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>1.3 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                      </Stack>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                  <Accordion.Item eventKey="1">
-                    <Accordion.Header>
-                      <div className="d-flex flex-column">
-                        <span className="fw-bold">1. Bắt đầu</span>
-                      </div>
-                    </Accordion.Header>
-                    <Accordion.Body className="p-0">
-                      <Stack gap={2}>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>2.1 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>2.2 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>2.3 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                      </Stack>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                  <Accordion.Item eventKey="2">
-                    <Accordion.Header>
-                      <div className="d-flex flex-column">
-                        <span className="fw-bold">1. Bắt đầu</span>
-                      </div>
-                    </Accordion.Header>
-                    <Accordion.Body className="p-0">
-                      <Stack gap={2}>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>1.1 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>1.1 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                        <Button variant="outline" className={`${videoMod.chapterBtn}`}>
-                          <div className="d-flex align-items-center gap-2">
-                            <PlayCircle size={17} className="text-muted" />
-                            <div
-                              className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                            >
-                              <span>1.1 Bắt đầu</span>
-                            </div>
-                          </div>
-                        </Button>
-                      </Stack>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
-              </div>
+              {id && (
+                <FaqList id={id}></FaqList>
+              )}
             </>
           )}
           {closeCmt && (
@@ -337,9 +239,11 @@ const VideoDetail: React.FC = () => {
         {/*Accordion gồm chương và dấu thời gian*/}
         <div className={`${videoMod.chapters} flex-md-shrink-1 flex-grow-1 p-2`}>
           <ChapterSearchBar />
-          {chapterData && (
-            <ChapterAccordion onChangeType={handleChangeType} data={chapterData} />
-          )}
+          <div className={videoMod.documentList}>
+            {chapterData && (
+              <ChapterAccordion onChangeType={handleChangeType} data={chapterData} activeDocumentId={typeDocument} />
+            )}
+          </div>
         </div>
       </div>
       <footer
@@ -562,8 +466,8 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
         >
           <ReactPlayer
             url={`${dataDoc.data.url_video}`}
-            width="100%"
-            height="70%"
+            width="60vw"
+            height="500px"
             controls={true}
           />
           <div className="d-flex flex-row p-3 gap-2">
@@ -868,54 +772,83 @@ const ChapterSearchBar: React.FC = () => {
   );
 };
 
-const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data }) => {
-  const searchParams = useSearchParams()
+const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data, activeDocumentId }) => {
   if (!data) return null;
+  const [activeKeys, setActiveKeys] = useState<string[]>([]);
 
+  // Tìm chapter chứa bài học hiện tại
+  const activeChapterIndex = data.data.findIndex(chapter =>
+    chapter.documents.some(doc => doc.document_id === activeDocumentId)
+  );
+
+  // Khi bài học thay đổi, tự động mở chapter chứa bài học đó
+  useEffect(() => {
+    if (activeChapterIndex !== -1) {
+      const key = `${activeChapterIndex}`;
+      setActiveKeys(prevKeys => (prevKeys.includes(key) ? prevKeys : [...prevKeys, key]));
+    }
+  }, [activeChapterIndex]);
+
+  // Hàm toggle chapter khi người dùng nhấn tiêu đề
+  const handleToggleChapter = (key: string) => {
+    setActiveKeys(prevKeys =>
+      prevKeys.includes(key) ? prevKeys.filter(k => k !== key) : [...prevKeys, key]
+    );
+  };
   return (
     <>
-      <Accordion defaultActiveKey={["0"]} alwaysOpen>
-        {data && data.data?.map((item, index) => (
-          <Accordion.Item key={index} eventKey={`${index}`}>
-            <Accordion.Header>
-              <div className="d-flex flex-column">
-                <span className="fw-bold">{index + 1}. {item.chapter_name}</span>
-                <div className={`${videoMod.accordionHeaderInfo} d-flex gap-2`}>
-                  <span>{item?.documents?.length}</span>|<span>24.24</span>
+      <Accordion activeKey={activeKeys} alwaysOpen>
+        {data.data.map((item, index) => {
+          const chapterKey = `${index}`;
+          return (
+            <Accordion.Item key={index} eventKey={chapterKey}>
+              <Accordion.Header onClick={() => handleToggleChapter(chapterKey)}>
+                <div className="d-flex flex-column">
+                  <span className="fw-bold">
+                    {index + 1}. {item.chapter_name}
+                  </span>
+                  <div className={`${videoMod.accordionHeaderInfo} d-flex gap-2`}>
+                    <span>{item?.documents?.length}</span>|<span>24.24</span>
+                  </div>
                 </div>
-              </div>
-            </Accordion.Header>
-            <Accordion.Body className="p-0">
-              <Stack gap={2}>
-                {item?.documents?.sort((a, b) => a.serial_document - b.serial_document)
-                  .map((doc) => (
-                    <Button
-                      key={doc.serial_document}
-                      variant="outline"
-                      className={`${videoMod.chapterBtn}`}
-                      onClick={() => {
-                        onChangeType(`${doc.document_id}`)
-                      }}
-                    >
-                      <div className="d-flex align-items-center gap-2">
-                        {doc.type_document === 'video' ? (
-                          <PlayCircle size={17} className="text-muted" />
-                        ) : (
-                          <img src="/img/pencil.svg" alt="icon-document" className={videoMod.icon__document} />
-                        )}
-                        <div
-                          className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
-                        >
-                          <span>{doc.serial_document}. {doc.name_document}</span>
-                          <span>24.24</span>
+              </Accordion.Header>
+              <Accordion.Body className="p-0">
+                <Stack gap={2}>
+                  {item.documents
+                    .sort((a, b) => a.serial_document - b.serial_document)
+                    .map(doc => (
+                      <Button
+                        key={doc.serial_document}
+                        variant={doc.document_id === activeDocumentId ? 'info' : 'outline'}
+                        className={`${videoMod.chapterBtn}`}
+                        onClick={() => onChangeType(doc.document_id)}
+                      >
+                        <div className="d-flex align-items-center gap-2">
+                          {doc.type_document === 'video' ? (
+                            <PlayCircle size={17} className="text-muted" />
+                          ) : (
+                            <img
+                              src="/img/pencil.svg"
+                              alt="icon-document"
+                              className={videoMod.icon__document}
+                            />
+                          )}
+                          <div
+                            className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
+                          >
+                            <span>
+                              {doc.serial_document}. {doc.name_document}
+                            </span>
+                            <span>24.24</span>
+                          </div>
                         </div>
-                      </div>
-                    </Button>
-                  ))}
-              </Stack>
-            </Accordion.Body>
-          </Accordion.Item>
-        ))}
+                      </Button>
+                    ))}
+                </Stack>
+              </Accordion.Body>
+            </Accordion.Item>
+          );
+        })}
       </Accordion>
     </>
   );
