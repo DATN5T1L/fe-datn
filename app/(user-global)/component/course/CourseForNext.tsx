@@ -12,7 +12,6 @@ interface CourseForProps {
 }
 
 const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
-    console.log(id);
     const token = useCookie("token");
     const [courses, setCourse] = useState<Course[]>([]);
     const handleSaveRepplayComment = async () => {
@@ -25,7 +24,6 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(noteData),
             })

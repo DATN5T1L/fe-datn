@@ -1,9 +1,12 @@
-'use client';
-import { useState, useEffect } from "react";
-import h from "../component/Course/course.module.css";
+"use client"
+import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
-import Card from './CardTransition';
-const Transion = () => {
+import h from "../../component/Course/course.module.css";
+import Card from '../../Order/CardTransition';
+const CourseTotalDetail: React.FC<{ params: { slug: string } }> = ({ params }) => {
+
+    const { slug } = params;
+
     const [year, setYear] = useState<string>("year");
     const [type, setType] = useState<string>("all");
     const [arrange, setArrange] = useState<string>("desc");
@@ -15,7 +18,7 @@ const Transion = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(`/api/accountant/transtionStatisticsRequest/${year}/${type}/${arrange}`);
+            const response = await fetch(`/api/accountant/coursesByTransactions/${slug}/${year}/${type}/${arrange}`);
             if (!response.ok) {
                 throw new Error(`API error: ${response.status}`);
             }
@@ -35,7 +38,7 @@ const Transion = () => {
 
     return (
         <main>
-            <h2 className={h.heading}>Lịch sử thanh toán của người dùng</h2>
+            <h2 className={h.heading}>Chi tiết thống kê của khóa học</h2>
 
             {/* Bộ lọc */}
             <div className={h.filters}>
@@ -102,6 +105,6 @@ const Transion = () => {
             </Table>
         </main>
     );
-};
+}
 
-export default Transion;
+export default CourseTotalDetail;

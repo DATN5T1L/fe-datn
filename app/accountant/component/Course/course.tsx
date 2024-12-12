@@ -17,12 +17,11 @@ const Course: React.FC<{}> = () => {
   const ref = useRef<HTMLDivElement>(null);
   const totalPages = 4;
   const currentPage = 1;
-
-  const [courseRevenue, setCourseRevenue] = useState<CourseAcount[]>([])
+  const [courseRevenue, setCourseRevenue] = useState<CourseAcount[]>([]);
   const onPageChange = (page: number) => {
     console.log("Chuyển tới trang:", page);
   };
-
+  console.log(courseRevenue)
   const renderPaginationItems = () => {
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, idx) => (
@@ -63,10 +62,10 @@ const Course: React.FC<{}> = () => {
 
   const fetchWeeklyStatistics = async () => {
     try {
-      const response = await fetch(`/api/accountant/courseEnrollmentRevenue`); // Thay thế bằng URL API thật
+      const response = await fetch(`/api/accountant/courseEnrollmentRevenue`);
       const result = await response.json();
       setCourseRevenue(result.data)
-
+      console.log(result)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -107,11 +106,11 @@ const Course: React.FC<{}> = () => {
               <td>Hành động</td>
             </tr>
           </thead>
-
           <tbody>
-            {courseRevenue && courseRevenue.map((item, index) => (
-              <CourseAcount key={index} data={item} />
-            ))}
+            {Array.isArray(courseRevenue) && courseRevenue.length > 0 ?
+              (courseRevenue.map((item, index) => (<CourseAcount key={index} data={item} />)))
+              : (<p>No course revenue data available.</p>)}
+
           </tbody>
         </Table>
       </div>

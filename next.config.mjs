@@ -701,6 +701,24 @@ const nextConfig = {
         source: '/api/accountant/courseEnrollmentRevenue/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/accountant/course-enrollment-revenue/:path*',
       },
+      // Lấy ra các tổng doanh thu của tất cả khóa học
+      {
+        source: '/api/accountant/coursesByTransactions/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/courses-by-transactions/:path*',
+      },
+      // Lấy ra các đơn hàng 
+      // transtion-statistics-request/{filterBy}/{status} 
+      // filterBy: truyền vào:: day, week, month, year
+      // status: truyền vào:: completed, pending, canceled, failed, all(là lấy hết)
+      {
+        source: '/api/accountant/transtionStatisticsRequest/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/transtion-statistics-request/:path*',
+      },
+      // Thấy ra khóa học của chi tiết thanh toán
+      {
+        source: '/api/accountant/getDetailTranstion/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/get-detail-transtion/:path*',
+      },
 
     ];
   },
