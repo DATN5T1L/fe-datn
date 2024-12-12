@@ -423,7 +423,7 @@ interface Reminder {
 interface Course {
     id: string;
     name_course: string;
-    slug: string;
+    slug_course: string;
     img_course: string;
     price_course: number;
     discription_course: string;
