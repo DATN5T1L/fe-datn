@@ -2,12 +2,12 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Course from "../component/Course/course";
-import { HeaderCourse } from "../component/Course/headerCourse";
+import TotalHeader from "../component/TotalHeader";
 
 const CoursePage = () => {
   return (
     <div>
-      <HeaderCourse />
+      <TotalHeader />
       <Course />
     </div>
   );

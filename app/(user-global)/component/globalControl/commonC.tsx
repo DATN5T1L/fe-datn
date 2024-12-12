@@ -127,4 +127,39 @@ const useEscapeKey = (onEsc: () => void): void => {
     }, [onEsc]); // Chỉ re-run effect khi `onEsc` thay đổi
 };
 
-export { parseQues, formatTime, formatDateTime, parseCode, parseFill, cleaneds, cleaned, calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement };
+// hàm tách 
+const getMonthlyProfits = (profitsByMonth: ProfitsByMonth): number[] => {
+    const profits: number[] = [];
+    for (let month in profitsByMonth) {
+        profits.push(profitsByMonth[month]);
+    }
+    return profits;
+};
+
+const formatCurrency = (amount: number): string => {
+    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+}
+const formatParamString = (input: string): string => {
+    return decodeURIComponent(input);
+}
+const decodeAndFormatDateTime = (encodedDateTime: string) => {
+    // Giải mã chuỗi (decodeURIComponent để chuyển %3A thành :)
+    const decodedDateTime = decodeURIComponent(encodedDateTime);
+
+    // Chuyển chuỗi ISO thành đối tượng Date
+    const dateObject = new Date(decodedDateTime);
+
+    // Kiểm tra nếu đối tượng Date không hợp lệ
+    if (isNaN(dateObject.getTime())) {
+        return "Invalid date";
+    }
+
+    // Định dạng ngày giờ theo khu vực Việt Nam
+    return dateObject.toLocaleString("vi-VN", { timeZone: "UTC" });
+}
+export {
+    getMonthlyProfits, parseQues, formatTime, formatDateTime,
+    formatCurrency, parseCode, parseFill, cleaneds, cleaned,
+    calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement,
+    formatParamString, decodeAndFormatDateTime
+};

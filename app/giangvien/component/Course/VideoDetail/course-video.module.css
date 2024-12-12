@@ -84,6 +84,7 @@
 }
 
 .box__chat__container {
+  position: relative;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -188,11 +189,25 @@
 }
 
 .cmt__container__setting {
-  width: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  min-width: 132px;
   max-width: 198px;
   height: auto;
   border-radius: 8px;
+  flex-direction: row;
+  border: 0.6px solid var(--gray-80);
+}
+
+.cmt__container__setting1 {
   display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  width: 132px;
+  max-width: 198px;
+  height: auto;
+  border-radius: 8px;
   flex-direction: row;
   border: 0.6px solid var(--gray-80);
 }
@@ -202,11 +217,30 @@
   border-right: 0.6px solid var(--gray-80);
 }
 
+.cmt__container__setting1 .cmt__container__sevice:nth-child(2) {
+  border-left: 0.6px solid var(--gray-80);
+}
+
 .cmt__container__sevice {
   padding: 7px 19.5px;
 }
 
 .repCmt__container__boss {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  margin: 0 auto;
+  height: auto;
+  justify-content: flex-end;
+  margin-right: 40px;
+  height: auto;
+  max-height: 139px;
+  opacity: 1;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.repCmt__container__boss__1 {
   margin-top: auto;
   display: flex;
   flex-direction: row;
@@ -221,6 +255,18 @@
   opacity: 1;
   transition: max-height 0.5s ease-in-out;
 }
+
+.repCmt__container__boss__1__hidden {
+  overflow: hidden;
+  width: 0;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  max-height: 0;
+  opacity: 1;
+  transition: max-height 0.5s ease-in-out;
+}
+
 
 .repCmt__container {
   display: flex;
@@ -286,6 +332,32 @@
   transition: all 0.5s ease-in-out;
 }
 
+.repCmt__form__sevice__active__1 {
+  width: auto;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 24px;
+  border-radius: 6px;
+  border: 1px solid var(--blue-60);
+  background-color: white;
+  color: var(--blue-60);
+  transition: all 0.5s ease-in-out;
+}
+
+.repCmt__form__sevice__active__2 {
+  width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
 .repCmt__form__sevice__active:hover {
   background-color: var(--blue-60);
   color: var(--text-0);
@@ -323,6 +395,15 @@
 
 .chapters {
   min-width: 260px;
+  max-height: 90vh;
+}
+
+.documentList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 90%;
+  overflow-x: auto;
 }
 
 .date,
@@ -541,6 +622,14 @@
 
 .align {
   margin: 0 auto;
+}
+
+.textFaqList {
+  font-size: 1rem;
+  color: var(--text-100);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 /*end document checkbox*/

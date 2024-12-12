@@ -118,7 +118,7 @@
 //                     )}>
 //                         <div className={stylesNav.iconNotifition} onClick={isNoteList ? hideNoteList : showNoteList}>
 //                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20" fill="none">
-//                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M4.81 0H13.191C16.28 0 18 1.78 18
+//                                 <path fillRule="evenodd" clipRule="evenodd" d="M4.81 0H13.191C16.28 0 18 1.78 18
 //                                  4.83V15.16C18 18.26 16.28 20 13.191 20H4.81C1.77 20 0 18.26 0 15.16V4.83C0 1.78 1.77
 //                                   0 4.81 0ZM5.08 4.66V4.65H8.069C8.5 4.65 8.85 5 8.85
 //                                  5.429C8.85 5.87 8.5 6.22 8.069 6.22H5.08C4.649 6.22 4.3 5.87 4.3 5.44C4.3 5.01 4.649
@@ -138,21 +138,21 @@
 //                                 <Link href="#!" className={stylesNav.menuLink}>
 //                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 //                                         <path d="M7.28451 10.3333C7.10026 10.8546 7 11.4156 7 12C7 14.7614 9.23858 17 12 17C14.7614
-//                                      17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M12 2V4" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M12 20V22" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M4 12L2 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M22 12L20 12" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
-//                                         <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" stroke-width="1.5" stroke-linecap="round" />
+//                                      17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C11.4156 7 10.8546 7.10026 10.3333 7.28451" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M12 2V4" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M12 20V22" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M4 12L2 12" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M22 12L20 12" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M19.7773 4.22217L17.5553 6.25375" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M4.22266 4.22217L6.44467 6.25375" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M6.44531 17.5557L4.22309 19.7779" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
+//                                         <path d="M19.7773 19.7778L17.5553 17.5555" stroke="#B3B3B3" strokeWidth="1.5" strokeLinecap="round" />
 //                                     </svg> Bật giao diện tối
 //                                 </Link>
 //                                 <p className={stylesNav.menuTitle}>Cài đặt</p>
 //                                 <Link href="#!" className={stylesNav.menuLink}>
 //                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-//                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M18.4023 11.5801C18.76 11.7701 19.036 12.0701
+//                                         <path fillRule="evenodd" clipRule="evenodd" d="M18.4023 11.5801C18.76 11.7701 19.036 12.0701
 //                                         19.2301 12.3701C19.6083 12.9901 19.5776 13.7501 19.2097 14.4201L18.4943 15.6201C18.1162 16.2601
 //                                          17.411 16.6601 16.6855 16.6601C16.3278 16.6601 15.9292 16.5601 15.6022 16.3601C15.3365 16.1901
 //                                          15.0299 16.1301 14.7029 16.1301C13.6911 16.1301 12.8429 16.9601 12.8122 17.9501C12.8122 19.1001
@@ -178,7 +178,7 @@
 //                                 </Link>
 //                                 <Link href="#!" className={stylesNav.menuLink} onClick={handleLogout}>
 //                                     <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
-//                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M7.89535 9.23C7.45785 9.23 7.11192 9.57 7.11192 10C7.11192 10.42 7.45785 10.77 7.89535 10.77H14V15.55C14 18 11.9753 20 9.47238 20H4.51744C2.02471 20 0 18.01 0 15.56V4.45C0 1.99 2.03488 0 4.52762 0H9.49273C11.9753 0 14 1.99 14 4.44V9.23H7.89535ZM17.6302 6.5402L20.5502 9.4502C20.7002 9.6002 20.7802 9.7902 20.7802 10.0002C20.7802 10.2002 20.7002 10.4002 20.5502 10.5402L17.6302 13.4502C17.4802 13.6002 17.2802 13.6802 17.0902 13.6802C16.8902 13.6802 16.6902 13.6002 16.5402 13.4502C16.2402 13.1502 16.2402 12.6602 16.5402 12.3602L18.1402 10.7702H14.0002V9.2302H18.1402L16.5402 7.6402C16.2402 7.3402 16.2402 6.8502 16.5402 6.5502C16.8402 6.2402 17.3302 6.2402 17.6302 6.5402Z" fill="#B3B3B3" />
+//                                         <path fillRule="evenodd" clipRule="evenodd" d="M7.89535 9.23C7.45785 9.23 7.11192 9.57 7.11192 10C7.11192 10.42 7.45785 10.77 7.89535 10.77H14V15.55C14 18 11.9753 20 9.47238 20H4.51744C2.02471 20 0 18.01 0 15.56V4.45C0 1.99 2.03488 0 4.52762 0H9.49273C11.9753 0 14 1.99 14 4.44V9.23H7.89535ZM17.6302 6.5402L20.5502 9.4502C20.7002 9.6002 20.7802 9.7902 20.7802 10.0002C20.7802 10.2002 20.7002 10.4002 20.5502 10.5402L17.6302 13.4502C17.4802 13.6002 17.2802 13.6802 17.0902 13.6802C16.8902 13.6802 16.6902 13.6002 16.5402 13.4502C16.2402 13.1502 16.2402 12.6602 16.5402 12.3602L18.1402 10.7702H14.0002V9.2302H18.1402L16.5402 7.6402C16.2402 7.3402 16.2402 6.8502 16.5402 6.5502C16.8402 6.2402 17.3302 6.2402 17.6302 6.5402Z" fill="#B3B3B3" />
 //                                     </svg>
 //                                     Đăng xuất
 //                                 </Link>
@@ -190,7 +190,7 @@
 //                             <Image src={avatar} alt="logo" className={stylesNav.userImage} width={34} height={80} />
 //                             <h4 className={stylesNav.titleName}>{user?.fullname}</h4>
 //                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-//                                 <path d="M6 9L12 15L18 9" stroke="#237DF7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+//                                 <path d="M6 9L12 15L18 9" stroke="#237DF7" strokeWidth="2" strokeLinecap="round" stroke-linejoin="round" />
 //                             </svg>
 //                         </div>
 //                     </Tippy>

@@ -448,3 +448,8 @@ interface Course {
 interface CourseReminders extends Course {
     has_reminders: boolean;
 }
+
+
+interface ProfitsByMonth {
+    [key: number]: number;
+}

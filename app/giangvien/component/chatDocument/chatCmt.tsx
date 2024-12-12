@@ -1,7 +1,7 @@
 'use client'
 
 import videoMod from "../Course/VideoDetail/course-video.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 import { useSelector } from "react-redux";
@@ -9,6 +9,8 @@ import { RootState } from "@/redux/store";
 import * as Yup from 'yup'
 import { useFormik } from "formik";
 import dynamic from 'next/dynamic';
+import Notification from "@/app/(user-global)/component/globalControl/Notification";
+import { type } from "os";
 
 const CkediterCustom = dynamic(() => import('../globalControll/custom-editor'), { ssr: false });
 
@@ -54,7 +56,7 @@ interface ApiCmt<T> {
 const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
     const userState = useSelector((state: RootState) => state.user.user)
     const [dataCmt, setDataCmt] = useState<ApiCmt<Comment> | null>(null)
-    const [activeReplyIdBoss, setActiveReplyIdBoss] = useState<string | null>(null);
+    const [activeReplyIdBoss, setActiveReplyIdBoss] = useState<boolean>(false);
     const [activeReplyId, setActiveReplyId] = useState<string | null>(null);
     const [activeReplyId__c1, setActiveReplyId__c1] = useState<string | null>(null);
     const [activeReplyId__c2, setActiveReplyId__c2] = useState<string | null>(null);
@@ -63,19 +65,32 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
     const [valueCmt__c1, setValueCmt__c1] = useState<string>('')
     const [valueCmt__c2, setValueCmt__c2] = useState<string>('')
     const [currentTime, setCurrentTime] = useState<string>('')
+    const [editCmt, setEditCmt] = useState(false)
+    const [editCmt__c1, setEditCmt__c1] = useState(false)
+    const [editCmt__c2, setEditCmt__c2] = useState(false)
+    const [idCmtChange, setIdCmtChange] = useState<string>("")
     const token = useCookie('token')
+    const [notification, setNotification] = useState<{
+        status: 'error' | 'success' | 'fail' | 'complete';
+        message: string;
+        type: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    } | null>(null);
+
     const [isCmt, setIsCmt] = useState(false)
 
-    const countTotalComments = (comments: Comment[]): number => {
-        const countReplies = (replies: Reply[]): number => {
-            return replies.reduce((acc, reply) => {
-                return acc + 1 + countReplies(reply.replies);
-            }, 0);
-        };
-        return comments.reduce((acc, comment) => {
-            return acc + 1 + countReplies(comment.replies);
-        }, 0);
+    const countTotalComments = (comments: Comment[] | undefined): number => {
+        if (!comments || comments.length === 0) return 0;
+        const countReplies = (replies: Reply[] | undefined): number =>
+            (replies || []).reduce(
+                (acc, reply) => acc + 1 + countReplies(reply.replies || []),
+                0
+            );
+        return comments.reduce(
+            (acc, comment) => acc + 1 + countReplies(comment.replies || []),
+            0
+        );
     };
+
 
     const handleGetTime = () => {
         const now = new Date();
@@ -101,7 +116,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                     console.log(data);
                     if (data) {
                         setDataCmt(data)
-                        const total = countTotalComments(Object.values(data.comments || {}));
+                        const total = countTotalComments(Object.values(data.comments));
                         onUpdateTotalComments(total);
                     }
                 })
@@ -117,6 +132,22 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
         }
     }, [id, token])
 
+    const handleRepCmtBoss = () => {
+        setActiveReplyIdBoss(true)
+        if (activeReplyId) {
+            setActiveReplyId(null);
+            setValueCmt('')
+        }
+        if (activeReplyId__c1) {
+            setActiveReplyId__c1(null);
+            setValueCmt__c1('')
+        }
+        if (activeReplyId__c2) {
+            setActiveReplyId__c2(null);
+            setValueCmt__c2('')
+        }
+    }
+
     const handleRepCmt = (id: string) => {
         setActiveReplyId(prevId => (prevId === id ? null : id));
         if (activeReplyId__c1) {
@@ -126,6 +157,10 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
         if (activeReplyId__c2) {
             setActiveReplyId__c2(prevId => (prevId === id ? id : null));
             setValueCmt__c2('')
+        }
+        if (activeReplyIdBoss) {
+            setActiveReplyIdBoss(false);
+            setValueCmtBoss('')
         }
     }
 
@@ -139,6 +174,10 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
             setActiveReplyId__c2(prevId => (prevId === id ? id : null));
             setValueCmt__c2('')
         }
+        if (activeReplyIdBoss) {
+            setActiveReplyIdBoss(false);
+            setValueCmtBoss('')
+        }
     }
 
     const handleRepCmt__c2 = (id: string) => {
@@ -150,6 +189,10 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
         if (activeReplyId) {
             setValueCmt('')
             setActiveReplyId(prevId => (prevId === id ? id : null));
+        }
+        if (activeReplyIdBoss) {
+            setActiveReplyIdBoss(false);
+            setValueCmtBoss('')
         }
     }
 
@@ -171,13 +214,29 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                     .then(data => {
                         console.log(data);
                         setValueCmtBoss('')
+                        setActiveReplyIdBoss(false)
                         if (data.message === 'Bình luận đã được thêm thành công.') {
-                            alert('Đã thêm bình luận thành công')
+                            setNotification({
+                                status: 'success',
+                                message: data.message,
+                                type: 'bottom-right',
+                            });
+                            setTimeout(() => {
+                                setNotification(null);
+                            }, 3000);
                         }
                         reloadDataCmt()
                     })
                     .catch(error => {
                         console.error('Có lỗi xảy ra: ', error);
+                        setNotification({
+                            status: 'error',
+                            message: error.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                     })
             }
         }
@@ -206,12 +265,27 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                         setValueCmt('')
                         setActiveReplyId(null)
                         if (data.message === 'Bình luận đã được thêm thành công.') {
-                            alert('Đã thêm bình luận thành công')
+                            setNotification({
+                                status: 'success',
+                                message: data.message,
+                                type: 'bottom-right',
+                            });
+                            setTimeout(() => {
+                                setNotification(null);
+                            }, 3000);
                         }
                         reloadDataCmt()
                     })
                     .catch(error => {
                         console.error('Có lỗi xảy ra: ', error);
+                        setNotification({
+                            status: 'error',
+                            message: error.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                     })
             }
         }
@@ -239,12 +313,27 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                         setValueCmt__c1('')
                         setActiveReplyId__c1(null)
                         if (data.message === 'Bình luận đã được thêm thành công.') {
-                            alert('Đã thêm bình luận thành công')
+                            setNotification({
+                                status: 'success',
+                                message: data.message,
+                                type: 'bottom-right',
+                            });
+                            setTimeout(() => {
+                                setNotification(null);
+                            }, 3000);
                         }
                         reloadDataCmt()
                     })
                     .catch(error => {
                         console.error('Có lỗi xảy ra: ', error);
+                        setNotification({
+                            status: 'error',
+                            message: error.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                     })
             }
         }
@@ -272,12 +361,27 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                         setValueCmt__c2('')
                         setActiveReplyId__c2(null)
                         if (data.message === 'Bình luận đã được thêm thành công.') {
-                            alert('Đã thêm bình luận thành công')
+                            setNotification({
+                                status: 'success',
+                                message: data.message,
+                                type: 'bottom-right',
+                            });
+                            setTimeout(() => {
+                                setNotification(null);
+                            }, 3000);
                         }
                         reloadDataCmt()
                     })
                     .catch(error => {
                         console.error('Có lỗi xảy ra: ', error);
+                        setNotification({
+                            status: 'error',
+                            message: error.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                     })
             }
         }
@@ -295,10 +399,26 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
+                        setNotification({
+                            status: 'success',
+                            message: data.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                         reloadDataCmt()
                     })
                     .catch(error => {
                         console.error('có lỗi xảy ra: ', error);
+                        setNotification({
+                            status: 'error',
+                            message: error.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                     })
             }
         }
@@ -316,18 +436,157 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
+                        setNotification({
+                            status: 'success',
+                            message: data.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                         reloadDataCmt()
                     })
                     .catch(error => {
+                        setNotification({
+                            status: 'error',
+                            message: error.message,
+                            type: 'bottom-right',
+                        });
+                        setTimeout(() => {
+                            setNotification(null);
+                        }, 3000);
                         console.error('có lỗi xảy ra: ', error);
                     })
             }
         }
     }
 
+    const handleChangeCmt = (id: string) => {
+        if (token && id && dataCmt && dataCmt.comments && editCmt) {
+            const cmtEdit = Object.values(dataCmt.comments).find(item => item.id === id)
+            if (cmtEdit) {
+                setValueCmt(cmtEdit?.comment_text || '')
+                setActiveReplyId(id)
+                setActiveReplyIdBoss(false)
+                setValueCmtBoss('')
+                setActiveReplyId__c1(null)
+                setActiveReplyId__c2(null)
+                setValueCmt__c1('')
+                setValueCmt__c2('')
+            }
+        }
+        if (token && id && dataCmt && dataCmt.comments && editCmt__c1) {
+            const cmtEdit__c1 = Object.values(dataCmt.comments)
+                .map(item => item.replies)
+                .flat()
+                .find(item => item.id === id)
+            if (cmtEdit__c1) {
+                setValueCmt__c1(cmtEdit__c1?.comment_text || '')
+                setActiveReplyId__c1(id)
+                setActiveReplyIdBoss(false)
+                setValueCmtBoss('')
+                setActiveReplyId(null)
+                setActiveReplyId__c2(null)
+                setValueCmt('')
+                setValueCmt__c2('')
+            }
+        }
+        if (token && id && dataCmt && dataCmt.comments && editCmt__c2) {
+            const cmtEdit__c2 = Object.values(dataCmt.comments)
+                .map(item => item.replies)
+                .flat()
+                .map(item__c1 => item__c1.replies)
+                .flat()
+                .find(item => item.id === id)
+
+            if (cmtEdit__c2) {
+                setValueCmt__c2(cmtEdit__c2?.comment_text || '')
+                setActiveReplyId__c2(id)
+                setActiveReplyIdBoss(false)
+                setValueCmtBoss('')
+                setActiveReplyId(null)
+                setActiveReplyId__c1(null)
+                setValueCmt('')
+                setValueCmt__c1('')
+            }
+        }
+    }
+
+    const handleFetchChangeCmt = (idCmt: string) => {
+        if (id && token && idCmt) {
+            if (editCmt || editCmt__c1 || editCmt__c2) {
+                if (confirm('Bạn có muốn thay đổi bình luận này không'))
+                    fetch(`/api/updateCmtDoc/${id}/${idCmt}`, {
+                        method: 'PATCH',
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            comment_title: `Câu hỏi lúc ${currentTime}`,
+                            comment_text: editCmt ? valueCmt : editCmt__c1 ? valueCmt__c1 : valueCmt__c2
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            setActiveReplyId(null)
+                            setActiveReplyId__c1(null)
+                            setActiveReplyId__c2(null)
+                            setValueCmt('')
+                            setValueCmt__c1('')
+                            setValueCmt__c2('')
+                            setEditCmt(false)
+                            setEditCmt__c1(false)
+                            setEditCmt__c2(false)
+                            setIdCmtChange('')
+                            reloadDataCmt()
+                            setNotification({
+                                status: 'success',
+                                message: data.message,
+                                type: 'bottom-right',
+                            });
+                            setTimeout(() => {
+                                setNotification(null);
+                            }, 3000);
+                        })
+                        .catch(error => {
+                            setNotification({
+                                status: 'error',
+                                message: error.message,
+                                type: 'bottom-right',
+                            });
+                            setTimeout(() => {
+                                setNotification(null);
+                            }, 3000);
+                        })
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (idCmtChange) {
+            handleChangeCmt(idCmtChange)
+        }
+    }, [idCmtChange])
+
+    const renderNotification = useMemo(() => {
+        const notify = []
+        if (notification) {
+            notify.push(
+                <Notification
+                    type={notification.status}
+                    message={notification.message}
+                    position={notification.type}
+                />
+            )
+        }
+        return notify
+    }, [notification])
+
     return (
         <>
-
+            {renderNotification}
             <div className={videoMod.box__chat__container}>
                 {dataCmt && dataCmt.comments && Object.values(dataCmt.comments).map((item, index) => (
                     <div key={index} className={videoMod.left__line}>
@@ -348,10 +607,23 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                     dangerouslySetInnerHTML={{ __html: item.comment_text }}
                                 ></div>
                             </div>
-                            <div className={videoMod.cmt__container__setting}>
-                                <div className={videoMod.cmt__container__sevice}>
-                                    <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                                </div>
+                            <div className={`${item.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
+                                {item.user_id === userState?.id ? (
+                                    <div
+                                        className={videoMod.cmt__container__sevice}
+                                        onClick={() => {
+                                            setEditCmt(true)
+                                            if (editCmt__c1) {
+                                                setEditCmt__c1(false)
+                                            }
+                                            if (editCmt__c2) {
+                                                setEditCmt__c2(false)
+                                            }
+                                            setIdCmtChange(item.id)
+                                        }}>
+                                        <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                    </div>
+                                ) : (<></>)}
                                 <div
                                     onClick={() => {
                                         if (item.user_id === userState?.id) {
@@ -390,7 +662,15 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                 ></CkediterCustom>
                                 <div className={videoMod.repCmt__form__sevice}>
                                     <button className={videoMod.repCmt__form__sevice__active}>Hủy</button>
-                                    <button className={videoMod.repCmt__form__sevice__active} onClick={() => handleFetchCmt(item.id)}>Trả lời</button>
+                                    <button
+                                        className={videoMod.repCmt__form__sevice__active}
+                                        onClick={() => {
+                                            if (editCmt) {
+                                                handleFetchChangeCmt(item.id)
+                                            } else {
+                                                handleFetchCmt(item.id)
+                                            }
+                                        }}>Trả lời</button>
                                 </div>
                             </div>
                         </div>
@@ -414,10 +694,21 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                             dangerouslySetInnerHTML={{ __html: rep.comment_text }}
                                         ></div>
                                     </div>
-                                    <div className={videoMod.cmt__container__setting}>
-                                        <div className={videoMod.cmt__container__sevice}>
-                                            <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                                        </div>
+                                    <div className={`${rep.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
+                                        {rep.user_id === userState?.id ? (
+                                            <div className={videoMod.cmt__container__sevice} onClick={() => {
+                                                setIdCmtChange(rep.id)
+                                                setEditCmt__c1(true)
+                                                if (editCmt) {
+                                                    setEditCmt(false)
+                                                }
+                                                if (editCmt__c2) {
+                                                    setEditCmt__c2(false)
+                                                }
+                                            }}>
+                                                <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                            </div>
+                                        ) : (<></>)}
                                         <div
                                             onClick={() => {
                                                 if (rep.user_id === userState?.id) {
@@ -440,7 +731,11 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                 </>
                                             )}
                                         </div>
-                                        <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt__c1(rep.id)}>
+                                        <div
+                                            className={videoMod.cmt__container__sevice}
+                                            onClick={() => {
+                                                handleRepCmt__c1(rep.id)
+                                            }}>
                                             <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
                                         </div>
                                     </div>
@@ -456,7 +751,15 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                         ></CkediterCustom>
                                         <div className={videoMod.repCmt__form__sevice}>
                                             <button className={videoMod.repCmt__form__sevice__active}>Hủy</button>
-                                            <button className={videoMod.repCmt__form__sevice__active} onClick={() => handleFetchCmt__c1(rep.id)}>Trả lời</button>
+                                            <button
+                                                className={videoMod.repCmt__form__sevice__active}
+                                                onClick={() => {
+                                                    if (editCmt__c1) {
+                                                        handleFetchChangeCmt(rep.id)
+                                                    } else {
+                                                        handleFetchCmt__c1(rep.id)
+                                                    }
+                                                }}>Trả lời</button>
                                         </div>
                                     </div>
                                 </div>
@@ -479,10 +782,25 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                     dangerouslySetInnerHTML={{ __html: rely.comment_text }}
                                                 ></div>
                                             </div>
-                                            <div className={videoMod.cmt__container__setting}>
-                                                <div className={videoMod.cmt__container__sevice}>
-                                                    <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                                                </div>
+                                            <div className={`${rely.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
+                                                {rely.user_id === userState?.id ? (
+                                                    <div
+                                                        className={videoMod.cmt__container__sevice}
+                                                        onClick={() => {
+                                                            setIdCmtChange(rely.id)
+                                                            setEditCmt__c2(true)
+                                                            if (editCmt) {
+                                                                setEditCmt(false)
+                                                            }
+                                                            if (editCmt__c1) {
+                                                                setEditCmt__c1(false)
+                                                            }
+                                                        }}>
+                                                        <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                    </div>
+                                                ) : (
+                                                    <></>
+                                                )}
                                                 <div
                                                     onClick={() => {
                                                         if (rely.user_id === userState?.id) {
@@ -521,7 +839,13 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                 ></CkediterCustom>
                                                 <div className={videoMod.repCmt__form__sevice}>
                                                     <button className={videoMod.repCmt__form__sevice__active}>Hủy</button>
-                                                    <button className={videoMod.repCmt__form__sevice__active} onClick={() => { handleFetchCmt__c2(rely.id) }}>Trả lời</button>
+                                                    <button className={videoMod.repCmt__form__sevice__active} onClick={() => {
+                                                        if (editCmt__c2) {
+                                                            handleFetchChangeCmt(rely.id)
+                                                        } else {
+                                                            handleFetchCmt__c2(rely.id)
+                                                        }
+                                                    }}>Trả lời</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -533,19 +857,30 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                 ))}
             </div >
             <div className={`${videoMod.repCmt__container__boss}`}>
-                <div className={videoMod.repCmt__avt__ctn}>
-                    <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
-                </div>
-                <div className={videoMod.repCmt__form}>
-                    <CkediterCustom
-                        initialData={valueCmtBoss}
-                        onChange={(e) => setValueCmtBoss(e)}
-                    ></CkediterCustom>
-                    <div className={videoMod.repCmt__form__sevice}>
-                        <button className={videoMod.repCmt__form__sevice__active} onClick={() => setValueCmtBoss('')}>Hủy</button>
-                        <button className={videoMod.repCmt__form__sevice__active} onClick={() => handleFetchCmtBoss()}>Trả lời</button>
+                <div className={`${activeReplyIdBoss ? videoMod.repCmt__container__boss__1 : videoMod.repCmt__container__boss__1__hidden}`}>
+                    <div className={videoMod.repCmt__avt__ctn}>
+                        <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                    </div>
+                    <div className={videoMod.repCmt__form}>
+                        <CkediterCustom
+                            initialData={valueCmtBoss}
+                            onChange={(e) => setValueCmtBoss(e)}
+                        ></CkediterCustom>
+                        <div className={videoMod.repCmt__form__sevice}>
+                            <button
+                                className={videoMod.repCmt__form__sevice__active}
+                                onClick={() => {
+                                    if (activeReplyIdBoss) {
+                                        setActiveReplyIdBoss(false)
+                                    }
+                                    setValueCmtBoss('')
+                                }}
+                            >Hủy</button>
+                            <button className={videoMod.repCmt__form__sevice__active} onClick={() => handleFetchCmtBoss()}>Trả lời</button>
+                        </div>
                     </div>
                 </div>
+                <button className={`${activeReplyIdBoss ? videoMod.repCmt__form__sevice__active__2 : videoMod.repCmt__form__sevice__active__1}`} onClick={() => handleRepCmtBoss()}>Bình luận</button>
             </div>
         </>
     )

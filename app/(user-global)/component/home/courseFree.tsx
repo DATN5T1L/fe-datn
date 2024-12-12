@@ -13,10 +13,10 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseFree: React.FC = () => {
 
-    const [router, setRouter] = useState<string>("FE"); // Lộ trình mặc định là FE
+    const [router, setRouter] = useState<string>("lo-trinh-front-end"); // Lộ trình mặc định là FE
     const [limit, setLimit] = useState<number>(8);
     const [isCount, setIsCount] = useState(false);
-    const [selectedPath, setSelectedPath] = useState<string>("FE"); // Để hiển thị nút nào được chọn
+    const [selectedPath, setSelectedPath] = useState<string>("lo-trinh-front-end"); // Để hiển thị nút nào được chọn
 
     const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
         `/api/coursetype/free/${router}/${limit}`,
@@ -93,8 +93,8 @@ const CourseFree: React.FC = () => {
                 </Row>
                 <Row className={styles.nav}>
                     <Col className={styles.nav__btn__muti}>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("FE")}>Khóa học lộ trình FE</Button>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("BE")}>Khóa học lộ trình BE</Button>
+                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("lo-trinh-front-end")}>Khóa học lộ trình FE</Button>
+                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("lo-trinh-hoc-back-end")}>Khóa học lộ trình BE</Button>
                         <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} onClick={() => handlePathChange("DE")}>Khóa học lộ trình Tester</Button>
                         <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} onClick={() => handlePathChange("TE")}>Khóa học lộ trình Designer</Button>
                     </Col>
@@ -109,7 +109,7 @@ const CourseFree: React.FC = () => {
                         </div>
                     )}
                     {courses?.map((course, index) => (
-                        <CourseCard course={course} key={index} showProgress={false} />
+                        <CourseCard course={course} key={index} showProgress={false} titleAction={2} />
                     ))}
                 </Row>
             </Container>
