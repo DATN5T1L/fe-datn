@@ -1,0 +1,19 @@
+.heaing {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--blue-50);
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--blue-20);
+}
+
+.content {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-75);
+    margin-top: 12px;
+}

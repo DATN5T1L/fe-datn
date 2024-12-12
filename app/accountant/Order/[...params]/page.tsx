@@ -77,17 +77,17 @@ const TransionDetail = () => {
 
                     <Col xs={9}>
                         <Row>
-                            <Col xs={6}>
-                                <h4>Thông tin người dùng</h4>
-                                <p className={c.userName}>{user?.fullname}</p>
-                                <p className={c.userName}>{user?.email}</p>
+                            <Col xs={6} >
+                                <h4 className={c.title}>Thông tin người dùng</h4>
+                                <p className={c.content}>Tên người dùng: {user?.fullname}</p>
+                                <p className={c.content}>Email: {user?.email}</p>
                             </Col>
                             <Col xs={6}>
-                                <h4>Thông tin thanh toán</h4>
-                                <p className={c.userName}>{formatCurrency(amountNumber)}</p>
-                                <p className={c.userName}>{status}</p>
-                                <p className={c.userName}>{decodeAndFormatDateTime(created_at)}</p>
-                                <p className={c.userName}>{formatParamString(payment_discription)}</p>
+                                <h4 className={c.title}>Thông tin thanh toán</h4>
+                                <p className={c.content}>Tổng tiền: {formatCurrency(amountNumber)}</p>
+                                <p className={c.content}>Trạng thái: {status}</p>
+                                <p className={c.content}>Thời gian: {decodeAndFormatDateTime(created_at)}</p>
+                                <p className={c.content}>Chi tiết: {formatParamString(payment_discription)}</p>
                             </Col>
 
                         </Row>

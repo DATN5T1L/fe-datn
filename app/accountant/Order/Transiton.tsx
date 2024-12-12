@@ -78,6 +78,7 @@ const Transion = () => {
                 <thead>
                     <tr>
                         <th>Số thứ tự</th>
+                        <th>Phương thức thanh toán</th>
                         <th>Giá</th>
                         <th>Ghi chú</th>
                         <th>Trạng thái</th>
@@ -95,7 +96,7 @@ const Transion = () => {
                     ) : (
 
                         transion.map((item, index) => (
-                            <Card key={index} data={item} />
+                            <Card key={index} data={item} index={index + 1} />
                         ))
                     )}
                 </tbody>

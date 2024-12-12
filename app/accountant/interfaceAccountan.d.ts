@@ -50,4 +50,5 @@ interface ApiRepon<T> {
 interface UserBasic {
     email: string;
     fullname: string;
+    phonenumber: number;
 }
