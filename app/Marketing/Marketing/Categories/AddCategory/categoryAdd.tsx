@@ -34,8 +34,9 @@ const CategoryAdd: React.FC = () => {
           'Tag không hợp lệ. Các tag phải bắt đầu bằng #, chỉ chứa chữ cái thường và cách nhau bằng khoảng trắng.',
           (value) => {
             if (!value) return false;
-            const tags = value.split(/\s+/);
-            return tags.every(tag => /^#[\p{L}\p{N}]+$/u.test(tag))
+            const tags = value.trim().split(/\s+/);
+            return tags.every(tag => /^#[\p{L}\p{N}]+$/u.test(tag)) &&
+              value.trim() === tags.join(' '); 
           }
         )
     }),

@@ -31,10 +31,17 @@ interface ApiResponse<T> {
   message: string;
   data: T[];
 }
-
+interface Route {
+  id: string;
+  name_route: string;
+}
+interface ApiRes<T> {
+  routes: T[]
+}
 
 const CourseEdit: React.FC = () => {
 
+  const [dataRoute, setDataRoute] = useState<ApiRes<Route> | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const token = useCookie('token')
@@ -60,6 +67,8 @@ const CourseEdit: React.FC = () => {
       .required("Thuế là bắt buộc")
       .positive("Thuế phải là số dương")
       .max(10, "Thuế không được vượt quá 10%"),
+    route_id: Yup.string()
+      .required("Lộ trình là bắt buộc"),
   });
 
   const formik = useFormik({
@@ -70,6 +79,7 @@ const CourseEdit: React.FC = () => {
       price_course: "",
       discount_price_course: "",
       tax_rate: "",
+      route_id: ""
     },
     enableReinitialize: true,
     validationSchema,
@@ -100,7 +110,8 @@ const CourseEdit: React.FC = () => {
                 price_course: values.price_course,
                 discount_price_course: values.discount_price_course,
                 tax_rate: values.tax_rate,
-                discription_course: values.discription_course
+                discription_course: values.discription_course,
+                route_id: values.route_id
               }),
             });
             const data = await res.json();
@@ -124,7 +135,7 @@ const CourseEdit: React.FC = () => {
             const dataImg = await resImg.json()
 
             console.log(dataImg);
-            
+
 
           } catch (error) {
             console.error("Error during form submission:", error);
@@ -146,6 +157,8 @@ const CourseEdit: React.FC = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
+          
           if (data?.data) {
             formik.setValues({
               name_course: data.data.name_course || "",
@@ -155,6 +168,7 @@ const CourseEdit: React.FC = () => {
                 data.data.discount_price_course.toString() || "",
               tax_rate: data.data.tax_rate.toString() || "",
               img_course: null,
+              route_id: data.data.route_id || ''
             });
             if (data.data.img_course) {
               setPreviewImage(data.data.img_course);
@@ -166,6 +180,24 @@ const CourseEdit: React.FC = () => {
         });
     }
   }, [token, id]);
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/allRouterAdmin/`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data) {
+            setDataRoute(data)
+          }
+          console.log(data);
+        })
+    }
+  }, [token])
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -315,21 +347,43 @@ const CourseEdit: React.FC = () => {
 
               <div className={h.formnhap}>
                 <div className={h.bentrong}>
-                  <div className={h.bentrong__room}>
-                    <label htmlFor="tax_rate">Thuế (%)</label>
-                    <input
-                      id="tax_rate"
-                      name="tax_rate"
-                      className={h.inputne}
-                      placeholder="Nhập thuế của khóa học"
-                      value={formik.values.tax_rate}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.tax_rate && formik.errors.tax_rate && (
-                      <div className={h.error}>{formik.errors.tax_rate}</div>
+                  {/* <div className={h.bentrong__room}> */}
+                  <label htmlFor="tax_rate">Thuế (%)</label>
+                  <input
+                    id="tax_rate"
+                    name="tax_rate"
+                    className={h.inputne}
+                    placeholder="Nhập thuế của khóa học"
+                    value={formik.values.tax_rate}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.tax_rate && formik.errors.tax_rate && (
+                    <div className={h.error}>{formik.errors.tax_rate}</div>
+                  )}
+                  {/* </div> */}
+                </div>
+                <div className={h.bentrong}>
+                  <label htmlFor="route_id">Lộ trình</label>
+                  <select
+                    id="route_id"
+                    name="route_id"
+                    className={h.inputne}
+                    value={formik.values.route_id}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Chọn lộ trình</option>
+                    {dataRoute && dataRoute?.routes?.map((item, index) => (
+                      <option key={index} value={`${item.id}`}>{item.name_route}</option>
+                    ))}
+                  </select>
+                  {formik.touched.route_id &&
+                    formik.errors.route_id && (
+                      <div className={h.error}>
+                        {formik.errors.route_id}
+                      </div>
                     )}
-                  </div>
                 </div>
               </div>
 

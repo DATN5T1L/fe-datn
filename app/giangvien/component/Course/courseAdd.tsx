@@ -4,11 +4,31 @@ import { Button } from "react-bootstrap";
 import h from "./courseAdd.module.css";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
+import Notification from "@/app/(user-global)/component/globalControl/Notification";
+import { useRouter } from "next/navigation";
+
+interface Route {
+  id: string;
+  name_route: string;
+}
+
+interface ApiRes<T> {
+  routes: T[]
+}
+
 const CourseAdd: React.FC = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [dataRoute, setDataRoute] = useState<ApiRes<Route> | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter()
+
+  const [notification, setNotification] = useState<{
+    status: 'error' | 'success' | 'fail' | 'complete';
+    message: string;
+    type: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+  } | null>(null);
   const token = useCookie('token')
 
   const validationSchema = Yup.object({
@@ -27,6 +47,8 @@ const CourseAdd: React.FC = () => {
     tax_rate: Yup.number()
       .required("Thuế là bắt buộc")
       .max(10, "Thuế không được vượt quá 10%"),
+    route_id: Yup.string()
+      .required("Lộ trình là bắt buộc")
   });
 
   const formik = useFormik({
@@ -37,6 +59,7 @@ const CourseAdd: React.FC = () => {
       price_course: "",
       discount_price_course: "",
       tax_rate: "",
+      route_id: ""
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -53,6 +76,7 @@ const CourseAdd: React.FC = () => {
           formData.append("price_course", values.price_course);
           formData.append("discount_price_course", values.discount_price_course);
           formData.append("tax_rate", values.tax_rate);
+          formData.append("route_id", values.route_id);
           if (values.img_course) {
             formData.append("img_course", values.img_course);
           }
@@ -66,17 +90,46 @@ const CourseAdd: React.FC = () => {
             });
             const data = await res.json();
             if (data.status === 'success') {
-              alert('Thêm khóa học thành công!!!')
+              setNotification({
+                status: 'success',
+                message: data.message,
+                type: 'bottom-right',
+              });
+              setTimeout(() => {
+                setNotification(null);
+              }, 3000);
+              router.replace(`/giangvien/CoursePage/`)
             } else {
-              alert('Thêm khóa học thất bại')
+              setNotification({
+                status: 'fail',
+                message: data.message,
+                type: 'bottom-right',
+              });
+              setTimeout(() => {
+                setNotification(null);
+              }, 3000);
             }
             console.log(data);
           } catch (error) {
-            console.error("Error during form submission:", error);
+            setNotification({
+              status: 'error',
+              message: 'Có lỗi xảy ra',
+              type: 'bottom-right',
+            });
+            setTimeout(() => {
+              setNotification(null);
+            }, 3000);
           }
         }
       } else {
-        alert("Vui lòng đăng nhập trước khi thêm khóa học.");
+        setNotification({
+          status: 'error',
+          message: 'Vui lòng đăng nhập trước khi thêm khóa học',
+          type: 'bottom-right',
+        });
+        setTimeout(() => {
+          setNotification(null);
+        }, 3000);
       }
     },
   });
@@ -101,8 +154,41 @@ const CourseAdd: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/allRouterAdmin/`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data) {
+            setDataRoute(data)
+          }
+          console.log(data);
+        })
+    }
+  }, [token])
+
+  const renderNotification = useMemo(() => {
+    const notify = []
+    if (notification) {
+      notify.push(
+        <Notification
+          type={notification.status}
+          message={notification.message}
+          position={notification.type}
+        />
+      )
+    }
+    return notify
+  }, [notification])
+
   return (
-    <div>
+    <div className={h.containerFull}>
+      {renderNotification}
       <div className={h.header_add}>Thêm Khóa học</div>
       <form onSubmit={formik.handleSubmit}>
         <div className={h.body_add}>
@@ -223,21 +309,43 @@ const CourseAdd: React.FC = () => {
 
               <div className={h.formnhap}>
                 <div className={h.bentrong}>
-                  <div className={h.bentrong__room}>
-                    <label htmlFor="tax_rate">Thuế (%)</label>
-                    <input
-                      id="tax_rate"
-                      name="tax_rate"
-                      className={h.inputne}
-                      placeholder="Nhập thuế của khóa học"
-                      value={formik.values.tax_rate}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.tax_rate && formik.errors.tax_rate && (
-                      <div className={h.error}>{formik.errors.tax_rate}</div>
+                  {/* <div className={h.bentrong__room}> */}
+                  <label htmlFor="tax_rate">Thuế (%)</label>
+                  <input
+                    id="tax_rate"
+                    name="tax_rate"
+                    className={h.inputne}
+                    placeholder="Nhập thuế của khóa học"
+                    value={formik.values.tax_rate}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.tax_rate && formik.errors.tax_rate && (
+                    <div className={h.error}>{formik.errors.tax_rate}</div>
+                  )}
+                  {/* </div> */}
+                </div>
+                <div className={h.bentrong}>
+                  <label htmlFor="route_id">Lộ trình</label>
+                  <select
+                    id="route_id"
+                    name="route_id"
+                    className={h.inputne}
+                    value={formik.values.route_id}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <option value="">Chọn lộ trình</option>
+                    {dataRoute && dataRoute?.routes?.map((item, index) => (
+                      <option key={index} value={`${item.id}`}>{item.name_route}</option>
+                    ))}
+                  </select>
+                  {formik.touched.route_id &&
+                    formik.errors.route_id && (
+                      <div className={h.error}>
+                        {formik.errors.route_id}
+                      </div>
                     )}
-                  </div>
                 </div>
               </div>
 
