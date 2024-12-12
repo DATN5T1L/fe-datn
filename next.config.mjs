@@ -731,6 +731,11 @@ const nextConfig = {
         source: '/api/accountant/getDetailTranstion/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/accountant/get-detail-transtion/:path*',
       },
+      // Lấy ra tất tả thanh toán của người dùng
+      {
+        source: '/api/accountant/userByTranstion/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/accountant/user-by-transtion/:path*',
+      },
 
     ];
   },

@@ -33,6 +33,7 @@ interface Payment {
     del_flag: boolean;
     created_at: string;
     updated_at: string;
+
 }
 
 interface PaymentData {
@@ -51,4 +52,8 @@ interface UserBasic {
     email: string;
     fullname: string;
     phonenumber: number;
+}
+
+interface PaymentDetail extends Payment {
+    course: string;
 }
