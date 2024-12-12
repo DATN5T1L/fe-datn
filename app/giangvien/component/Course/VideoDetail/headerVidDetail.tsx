@@ -15,7 +15,7 @@ const HeaderVideoDetail = () => {
           >
             Từ chối khoá học
           </Button>
-          <Button className={`${h.btnCTA}`}>Đăng khoa học</Button>
+          <Button className={`${h.btnCTA}`}>Đăng khóa học</Button>
         </div>
       </div>
     </div>

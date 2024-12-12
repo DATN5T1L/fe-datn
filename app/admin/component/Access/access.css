@@ -12,7 +12,7 @@
   gap: 24px; /* Khoảng cách giữa các số trang */
   padding: 10px 24px;
   border-radius: 50px;
-  background-color: #f2f4f8;
+  background-color: var(--gray-100);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -35,7 +35,7 @@
 }
 
 .pagination .page-link:hover {
-  background-color: #e9ecef;
+  background-color: var(--gray-100);
 }
 
 .pagination .page-item.active .page-link {
@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center; /* Căn giữa số */
-  background-color: #458eff;
+  background-color: var(---blue-50);
   color: white;
   border: none;
 }
@@ -64,26 +64,26 @@
 
 .pagination-prev:hover,
 .pagination-next:hover {
-  background-color: #e9ecef;
+  background-color: var(--gray-100);
   border-radius: 50%;
 }
 
 
 .custom-input {
-  background-color: #f8f9fa; /* Màu nền nhạt */
+  background-color: var(--gray-100); /* Màu nền nhạt */
   border-radius: 10px; /* Bo góc cho input */
-  border: 1px solid #e9ecef; /* Viền nhạt */
+  border: 1px solid var(--gray-100); /* Viền nhạt */
   padding: 10px 15px; /* Khoảng cách trong input */
   font-size: 1rem;
   color: #495057; /* Màu chữ */
 }
 
 .custom-input::placeholder {
-  color: #adb5bd; /* Màu placeholder nhạt */
+  color: var(--text-25); /* Màu placeholder nhạt */
   font-style: italic; /* Kiểu chữ nghiêng cho placeholder */
 }
 
 .custom-input:focus {
-  border-color: #ced4da; /* Viền khi input được chọn */
+  border-color: var(--text-25); /* Viền khi input được chọn */
   box-shadow: none; /* Loại bỏ shadow mặc định của Bootstrap */
 }

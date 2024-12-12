@@ -146,7 +146,7 @@
 .btn__post {
     width: 36px;
     height: 36px;
-    background-color: white;
+    background-color: var(--gray-100);
     padding: 0 !important;
     margin: 0 !important;
     border: 0;
@@ -157,7 +157,7 @@
 .btn__post:hover,
 .btn__post:active,
 .btn__post:focus {
-    background-color: white;
+    background-color: var(--gray-100);
 }
 
 .bgBottom {
@@ -187,7 +187,7 @@
 .btn__next {
     width: 50px;
     height: 50px;
-    background-color: white;
+    background-color: var(--gray-100);
     padding: 0 !important;
     margin: 0 !important;
     border: 0;
@@ -197,13 +197,13 @@
 .btn__prev:hover,
 .btn__prev:active,
 .btn__prev:focus {
-    background-color: white;
+    background-color: var(--gray-100);
 }
 
 .btn__next:hover,
 .btn__next:active,
 .btn__next:focus {
-    background-color: white;
+    background-color: var(--gray-100);
 }
 
 .btn__prev {}

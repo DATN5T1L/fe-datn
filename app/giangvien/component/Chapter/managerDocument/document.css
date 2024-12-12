@@ -12,7 +12,7 @@
   gap: 24px; /* Khoảng cách giữa các số trang */
   padding: 10px 24px;
   border-radius: 50px;
-  background-color: #f2f4f8;
+  background-color: var(--gray-100);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -35,7 +35,7 @@
 }
 
 .pagination .page-link:hover {
-  background-color: #e9ecef;
+  background-color: var(--gray-100);
 }
 
 .pagination .page-item.active .page-link {
@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center; /* Căn giữa số */
-  background-color: #458eff;
+  background-color: var(--blue-50);
   color: white;
   border: none;
 }
@@ -64,6 +64,6 @@
 
 .pagination-prev:hover,
 .pagination-next:hover {
-  background-color: #e9ecef;
+  background-color: var(--gray-100);
   border-radius: 50%;
 }

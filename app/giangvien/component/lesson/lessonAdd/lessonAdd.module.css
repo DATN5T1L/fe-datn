@@ -21,7 +21,7 @@
     width: 94px;
     height: 40px;
     border-radius: 12px;
-    background-color: #438FF7;
+    background-color: var(--blue-50);
     border: none;
     font-size: 1rem;
     font-weight: 400;
@@ -33,14 +33,14 @@
     width: 274px;
     height: 64px;
     border-radius: 12px;
-    background-color: #FFFFFF;
+    background-color: var(--gray-100);
     color: #438FF7;
     margin-top: 12px;
     margin-right: 10px;
 }
 
 .wapper {
-    background-color: #FFFFFF;
+    background-color: var(--gray-100);
     width: 1137px;
     height: auto;
     display: flex;
@@ -94,7 +94,7 @@
 .bnthem {
     height: 48px;
     width: 76px;
-    background-color: #FFFFFF;
+    background-color: var(--gray-100);
     color: #1958AD;
 }
 
@@ -222,7 +222,7 @@
     width: 84px;
     height: 48px;
     border-radius: 12px;
-    background-color: #438FF7;
+    background-color: var(--blue-50);
     border: none;
     margin-top: 12px;
     padding: 8px 24px;
@@ -238,7 +238,7 @@
 .input__100 {
     width: 350px;
     height: 40px;
-    background-color: white;
+    background-color: var(--gray-100);
     position: absolute;
     z-index: 10;
     border-bottom: 0.2px solid gray;

@@ -9,7 +9,7 @@
   padding: 25px 32px;
 }
 .wapper {
-  background-color: #ffffff;
+  background-color: var(--gray-100);
   width: 1137px;
   height: 812px;
   display: flex;
@@ -54,7 +54,7 @@
 .bnthem {
   height: 48px;
   width: 76px;
-  background-color: #ffffff;
+  background-color: var(--gray-100);
   color: #1958ad;
 }
 
@@ -81,7 +81,7 @@
   width: 274px;
   height: 64px;
   border-radius: 12px;
-  background-color: #438ff7;
+  background-color: var(--blue-50);
   border: none;
   margin-top: 12px;
 }

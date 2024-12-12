@@ -54,7 +54,7 @@
 
 .btnSearch {
   padding: 0px 12px !important;
-  background-color: white !important;
+  background-color: var(--gray-100) !important;
   background-color: transparent;
   border: none !important;
 
