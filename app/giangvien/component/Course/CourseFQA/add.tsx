@@ -69,7 +69,7 @@ const CourseFQAEAdd: React.FC = () => {
                         <div className={h.bentrong}>
                             <div>Câu hỏi FAQ</div>
                             <input
-                                className={h.inputne}
+                                className={h.inputne1}
                                 placeholder="Nhập câu hỏi"
                                 name={'question'}
                                 value={formik.values.question}
@@ -83,7 +83,7 @@ const CourseFQAEAdd: React.FC = () => {
                         <div className={h.bentrong}>
                             <div>Câu trả lời FAQ</div>
                             <input
-                                className={h.inputne}
+                                className={h.inputne1}
                                 placeholder="Nhập câu trả lời"
                                 name={'answer'}
                                 value={formik.values.answer}

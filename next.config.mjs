@@ -578,6 +578,10 @@ const nextConfig = {
         source: '/api/hiddenCmtDoc/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-comment-doc/:path*',
       },
+      {
+        source: '/api/updateCmtDoc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-update/:path*',
+      },
 
       //faq
 
@@ -599,6 +603,14 @@ const nextConfig = {
       {
         source: '/api/allRouterAdmin/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/routes/:path*',
+      },
+      {
+        source: '/api/updateImgRoute/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-images-route/:path*',
+      },
+      {
+        source: '/api/hiddenRoute/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/status-route/:path*',
       },
 
 

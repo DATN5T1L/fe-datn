@@ -180,7 +180,7 @@
     font-style: normal !important;
     font-weight: 400 !important;
     line-height: 24px !important;
-    color: var(--text-25) !important;
+    color: var(--text-50) !important;
 }
 
 .form__control__top::placeholder {
@@ -188,7 +188,7 @@
     font-style: normal !important;
     font-weight: 400 !important;
     line-height: 24px !important;
-    color: var(--text-25) !important;
+    color: var(--text-50) !important;
 }
 
 .form__container__bottom {

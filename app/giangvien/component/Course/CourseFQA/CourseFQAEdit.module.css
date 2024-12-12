@@ -55,6 +55,21 @@
   -webkit-appearance: none;
 }
 
+.inputne1 {
+  margin-top: 10px;
+  width: 360px;
+  height: auto;
+  border: none;
+  border-radius: 8px;
+  background: #F2F2F2;
+  margin-bottom: 12px;
+  outline: none;
+  padding-left: 12px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 .selectne img {
   position: absolute;
   right: 10px;
@@ -89,7 +104,7 @@
   width: 40%;
 }
 
-.opacity{
+.opacity {
   opacity: 0;
   cursor: none;
   pointer-events: none;
