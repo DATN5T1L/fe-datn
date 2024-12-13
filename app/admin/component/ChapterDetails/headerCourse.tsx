@@ -29,7 +29,7 @@ export const HeaderCourse = () => {
             <img
               src="/img_admin/action.svg"
               className="bg-white border-end p-4 "
-              alt="Action"
+              alt="Lập trình backend với ExpressJS từ TTO"
             />
             <div className="bg-white border-end p-4">
               <select
@@ -62,7 +62,7 @@ export const HeaderCourse = () => {
               </select>
             </div>
             <div className="bg-white p-4 d-inline-flex align-items-center ">
-              <img src="/img_admin/restart.svg" alt="Reset" />
+              <img src="/img_admin/restart.svg" alt="Lập trình backend với ExpressJS từ TTO" />
               <span className="text-danger">  Cài lại</span>
             </div>
           </div>
@@ -76,7 +76,7 @@ export const HeaderCourse = () => {
               <div className={h.searchIconWrapper}>
                 <img
                   src="/img_admin/search.svg"
-                  alt="Search"
+                  alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                   width={"24px"}
                   height={"24px"}
                 />

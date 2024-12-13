@@ -64,7 +64,7 @@ const Header: React.FC = () => {
           <img
             src="/img/logoPage.jpg"
             className="d-inline-block align-top"
-            alt="Logo"
+            alt="HTML5 và CSS3 tto.sh"
           />
         </Navbar.Brand>
         <SearchBar />

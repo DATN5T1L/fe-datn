@@ -87,13 +87,13 @@ const Course: React.FC<{}> = () => {
                         </Card.Subtitle>
                         <Card.Img
                           src="/img/iconReact.svg"
-                          alt=""
+                          alt="Cách học hiệu quả trên tto.SH"
                           className={h.text__img}
                         />
                       </section>
                       <Card.Img
                         src="/img/tuan.png"
-                        alt=""
+                        alt="Cách học hiệu quả trên tto.SH"
                         className={h.headerContent__avt}
                       />
                     </Card.Header>
@@ -111,16 +111,16 @@ const Course: React.FC<{}> = () => {
                       className={`justify-content-between border d-flex py-2 rounded`}
                     >
                       <Link href="/#!" className="w-50 border-end">
-                        <img src="/img_admin/action1.svg" alt="Edit" />
+                        <img src="/img_admin/action1.svg" alt="Đánh giá khóa học JavaScript tại TTO" />
                       </Link>
                       <Link href="/#!" className="w-50 border-end">
-                        <img src="/img_admin/hoicham.svg" alt="Edit" />
+                        <img src="/img_admin/hoicham.svg" alt="Đánh giá khóa học JavaScript tại TTO" />
                       </Link>
                       <Link href="/#!" className="w-50 border-end">
-                        <img src="/img_admin/vitien.svg" alt="Edit" />
+                        <img src="/img_admin/vitien.svg" alt="Đánh giá khóa học JavaScript tại TTO" />
                       </Link>
                       <Link href="UsersPage/DetailUser/" className="w-50">
-                        <img src="/img_admin/action2.svg" alt="Edit" />
+                        <img src="/img_admin/action2.svg" alt="Đánh giá khóa học JavaScript tại TTO" />
                       </Link>
                     </div>
                   </td>
@@ -138,7 +138,7 @@ const Course: React.FC<{}> = () => {
           >
             <img
               src="/img_admin/prep.svg"
-              alt="Previous"
+              alt="Khóa học Node.js cơ bản tại TTO.sh"
               width="8"
               height="16"
             />
@@ -147,7 +147,7 @@ const Course: React.FC<{}> = () => {
           <Pagination.Next
             onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
           >
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
+            <img src="/img_admin/prep2.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" width="8" height="16" />
           </Pagination.Next>
         </Pagination>
       </div>

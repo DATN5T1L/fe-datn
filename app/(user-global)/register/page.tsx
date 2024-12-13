@@ -123,7 +123,7 @@ const Register: React.FC = () => {
             <Body>
                 <Container className={styles.main}>
                     <div className={styles.main__container}>
-                        <Image src="/img/pandaRegister.svg" alt="logo register" className={styles.logoRegister} />
+                        <Image src="/img/pandaRegister.svg" alt="Xây dựng ứng dụng chat real-time trên TTO.SH" className={styles.logoRegister} />
                         <Card className={styles.form}>
                             <Card.Header className={styles.headerRegister}>
                                 <Card.Title className={styles.headerRegister__title}>Đăng ký tài khoản</Card.Title>

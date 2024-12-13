@@ -45,9 +45,9 @@ const Introduce: React.FC = () => {
                                             <Card.Subtitle className={styles.text__hedding3}>
                                                 by My Team
                                             </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                                            <Card.Img src="/img/iconReact.svg" alt="Học phí ưu đãi TTO.SH" className={styles.text__img} />
                                         </section>
-                                        <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                                        <Card.Img src="/img/tuan.png" alt="Học với chuyên gia tto.sh" className={styles.headerContent__avt} />
                                     </Card.Header>
                                 </Col>
                                 <Col className={styles.main__box__container__right}>
@@ -73,9 +73,9 @@ const Introduce: React.FC = () => {
                                             <Card.Subtitle className={styles.text__hedding3}>
                                                 by My Team
                                             </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                                            <Card.Img src="/img/iconReact.svg" alt="Hỗ trợ học viên tto.sh" className={styles.text__img} />
                                         </section>
-                                        <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                                        <Card.Img src="/img/tuan.png" alt="Tăng cường kỹ năng nhanh chóng TTO.SH" className={styles.headerContent__avt} />
                                     </Card.Header>
                                 </Col>
                                 <Col className={styles.main__box__container__right}>
@@ -101,9 +101,9 @@ const Introduce: React.FC = () => {
                                             <Card.Subtitle className={styles.text__hedding3}>
                                                 by My Team
                                             </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                                            <Card.Img src="/img/iconReact.svg" alt="Khóa học trực tuyến tto.sh" className={styles.text__img} />
                                         </section>
-                                        <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                                        <Card.Img src="/img/tuan.png" alt="Học trực tuyến mọi lúc mọi nơi tto" className={styles.headerContent__avt} />
                                     </Card.Header>
                                 </Col>
                                 <Col className={styles.main__box__container__right}>
@@ -129,9 +129,9 @@ const Introduce: React.FC = () => {
                                             <Card.Subtitle className={styles.text__hedding3}>
                                                 by My Team
                                             </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                                            <Card.Img src="/img/iconReact.svg" alt="Tăng cường kỹ năng nhanh chóng tto.sh" className={styles.text__img} />
                                         </section>
-                                        <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                                        <Card.Img src="/img/tuan.png" alt="Hỗ trợ học viên TTO" className={styles.headerContent__avt} />
                                     </Card.Header>
                                 </Col>
                                 <Col className={styles.main__box__container__right}>
@@ -157,9 +157,9 @@ const Introduce: React.FC = () => {
                                             <Card.Subtitle className={styles.text__hedding3}>
                                                 by My Team
                                             </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                                            <Card.Img src="/img/iconReact.svg" alt="Tăng cường kỹ năng nhanh chóng TTO.SH" className={styles.text__img} />
                                         </section>
-                                        <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                                        <Card.Img src="/img/tuan.png" alt="Chương trình học toàn diện tto.sh" className={styles.headerContent__avt} />
                                     </Card.Header>
                                 </Col>
                                 <Col className={styles.main__box__container__right}>

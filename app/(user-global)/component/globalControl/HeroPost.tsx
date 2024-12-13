@@ -111,7 +111,7 @@ const HeroPost: React.FC = () => {
                 {dataCatePost && dataCatePost.data.map((item, index) => (
                     <Col key={index} xs={6} md={3}>
                         <figure className={styles.itemList}>
-                            <Image className={styles.image} src="https://images.unsplash.com/photo-1719937206341-38a6392dfdef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8" alt="Post hero" />
+                            <Image className={styles.image} src="https://images.unsplash.com/photo-1719937206341-38a6392dfdef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8" alt="Học MongoDB và Node.js tại TTO.SH" />
                             <figcaption className={styles.descImg}><span className={styles.content}>{item.name_category}</span></figcaption>
                         </figure>
                     </Col>

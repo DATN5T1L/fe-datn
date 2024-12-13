@@ -24,9 +24,9 @@ const HeaderUser: React.FC = () => {
                         {userState.user ? (
                             <>
                                 {userState?.user?.avatar ? (
-                                    <Image src={userState.user.avatar} alt="" className={styles.img} />
+                                    <Image src={userState.user.avatar} alt="Bán khóa học online" className={styles.img} />
                                 ) : (
-                                    <Image src="/img/avtDefault.jpg" alt="" className={styles.img} />
+                                    <Image src="/img/avtDefault.jpg" alt="Đào tạo trực tuyến chất lượng cao" className={styles.img} />
                                 )}
 
                                 <div className={styles.content__main}>

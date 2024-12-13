@@ -22,13 +22,13 @@ const CourseDetail = () => {
                 </Card.Subtitle>
                 <Card.Img
                   src="/img/iconReact.svg"
-                  alt=""
+                  alt="Bán khóa học online"
                   className={style.text__img}
                 />
               </section>
               <Card.Img
                 src="/img/tuan.png"
-                alt=""
+                alt="Bán khóa học online"
                 className={style.headerContent__avt}
               />
             </Card.Header>

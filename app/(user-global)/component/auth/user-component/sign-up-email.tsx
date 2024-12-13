@@ -230,12 +230,12 @@ const RegisterEmail: React.FC = () => {
                                 >
                                     {isCheckPass ? (
                                         <>
-                                            <Image src="/img/eyeHidden.svg" alt="Ẩn mật khẩu" className={styles.checkPass__img} />
+                                            <Image src="/img/eyeHidden.svg" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" className={styles.checkPass__img} />
                                             <div className={styles.checkPass__text}>ẩn</div>
                                         </>
                                     ) : (
                                         <>
-                                            <Image src="/img/eye.svg" alt="Hiện mật khẩu" className={styles.checkPass__img} />
+                                            <Image src="/img/eye.svg" alt="Học SCSS và CSS nâng cao trên tto.SH" className={styles.checkPass__img} />
                                             <div className={styles.checkPass__text}>hiện</div>
                                         </>
                                     )}
@@ -300,7 +300,7 @@ const RegisterEmail: React.FC = () => {
                         className={styles.rememberRegister}
                         onClick={handleRememberRegister}
                     >
-                        <Image src={isRememberRegister ? "/img/checkBoxFalse.svg" : "/img/checkBoxTrue.svg"} alt="" className={styles.rememberRegister__img} />
+                        <Image src={isRememberRegister ? "/img/checkBoxFalse.svg" : "/img/checkBoxTrue.svg"} alt="Học SCSS và CSS nâng cao trên tto.SH" className={styles.rememberRegister__img} />
                         <div className={styles.rememberRegister__div}>Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư.</div>
                     </Button>
                     <Button type="submit" className={styles.btnSubmit} disabled={formik.isSubmitting}>Đăng ký</Button>

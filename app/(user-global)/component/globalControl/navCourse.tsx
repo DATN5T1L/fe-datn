@@ -37,10 +37,10 @@ const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
             <Navbar className={stylesNav.nav} >
                 <div className={stylesNav.brandProgress}>
                     <Link href="/" className={stylesNav.brandHeader}>
-                        <Image src="/img/logo.svg" alt="logo" className={stylesNav.imgBrandHeader} width={54} height={56} />
+                        <Image src="/img/logo.svg" alt="Làm chủ kỹ thuật backend tại TTO.sh" className={stylesNav.imgBrandHeader} width={54} height={56} />
                     </Link>
                     <h4 className={stylesNav.heading}>HTML CSS PRO</h4>
-                    <ProgressCircle progress={10} />  {/* Khi nào có api truyền truyền tham số vào */}
+                    <ProgressCircle progress={10} /> 
                 </div>
                 <div className={stylesNav.cta}>
 
@@ -140,7 +140,7 @@ const NavCourse: React.FC<NavCourseProps> = ({ userId, courseId }) => {
                         </div>
                     )}>
                         <div className={stylesNav.menuOptions} onClick={visible ? hide : show}>
-                            <Image src="/img/tuan.png" alt="logo" className={stylesNav.userImage} width={34} height={80} />
+                            <Image src="/img/tuan.png" alt="Lộ trình học tto.sh" className={stylesNav.userImage} width={34} height={80} />
                             <h4 className={stylesNav.titleName}>Huỳnh Võ Hoàng Tuấn</h4>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M6 9L12 15L18 9" stroke="#237DF7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

@@ -14,7 +14,7 @@ const HeaderCourseDetail: React.FC = () => {
                         <img
                             src="/img/Logoambantto.png"
                             className="d-inline-block align-top"
-                            alt="Logo"
+                            alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                         />
                     </Navbar.Brand>
                 </section>
@@ -25,7 +25,7 @@ const HeaderCourseDetail: React.FC = () => {
                             <img
                                 src="/img/Logoambantto.png"
                                 className="d-inline-block align-top"
-                                alt="Logo"
+                                alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                             />
                         </Navbar.Brand>
                         <Nav className={`${styles.menu}`}>

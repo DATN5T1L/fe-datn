@@ -196,7 +196,7 @@ const Search = () => {
                         </div>
                     )}
                     <span className={styles.SearchBtn}>
-                        <Image src="/img/searchBlue.svg" alt="Search icon" />
+                        <Image src="/img/searchBlue.svg" alt="Lộ trình học Backend từ cơ bản đến nâng cao tại tto.sh" />
                     </span>
                 </div>
 

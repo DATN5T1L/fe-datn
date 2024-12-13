@@ -39,13 +39,13 @@ const CourseAcount: React.FC<Data<CourseAcount>> = ({ data
                         </Card.Subtitle>
                         <Card.Img
                             src="/img/iconReact.svg"
-                            alt=""
+                            alt="Hoàn thiện dự án e-commerce cùng TTo"
                             className={h.text__img}
                         />
                     </section>
                     <Card.Img
                         src="/img/tuan.png"
-                        alt=""
+                        alt="Hoàn thiện dự án e-commerce cùng TTo"
                         className={h.headerContent__avt}
                     />
                 </Card.Header>

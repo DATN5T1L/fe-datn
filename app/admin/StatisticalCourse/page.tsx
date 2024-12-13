@@ -40,7 +40,7 @@ const StatisticalCourse = () => {
           </span>
           <Image
             src={"/img_admin/boxvippro.png"}
-            alt="icon"
+            alt="Khóa học HTML CSS miễn phí từ tto"
             width={60}
             height={60}
           />

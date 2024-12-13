@@ -592,7 +592,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                     <div key={index} className={videoMod.left__line}>
                         <div className={videoMod.cmt__container}>
                             <div className={videoMod.cmt__container__header}>
-                                <img src={`${item.avatar}`} alt="icon-user" className={videoMod.cmt__container__avt} />
+                                <img src={`${item.avatar}`} alt="Lộ trình học Backend từ cơ bản đến nâng cao tại tto.sh" className={videoMod.cmt__container__avt} />
                                 <div className={videoMod.cmt__container__header__groupTitle}>
                                     <div className={videoMod.cmt__container__header__title}>
                                         {item.fullname}
@@ -621,7 +621,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                             }
                                             setIdCmtChange(item.id)
                                         }}>
-                                        <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                        <img src="/img_admin/action2.svg" alt="Tự học lập trình Fullstack tại TTo" className={videoMod.cmt__container__sevice__icon} />
                                     </div>
                                 ) : (<></>)}
                                 <div
@@ -635,25 +635,25 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                     className={videoMod.cmt__container__sevice}
                                 >
                                     {item.user_id === userState?.id ? (
-                                        <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                        <img src="/img/deleteMessage.svg" alt="Học lập trình bài bản với TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                     ) : (
                                         <>
                                             {item.del_flag ? (
-                                                <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                <img src="/img/action.svg" alt="Học lập trình bài bản với TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                             ) : (
-                                                <img src="/img/hiddenEye.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                <img src="/img/hiddenEye.svg" alt="Học lập trình bài bản với TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                             )}
                                         </>
                                     )}
                                 </div>
                                 <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt(item.id)}>
-                                    <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                    <img src="/img/replyCmt.svg" alt="Chọn lộ trình học Frontend tại tto.SH" className={videoMod.cmt__container__sevice__icon} />
                                 </div>
                             </div>
                         </div>
                         <div className={`${activeReplyId === item.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
                             <div className={videoMod.repCmt__avt__ctn}>
-                                <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                                <img src={`${userState?.avatar}`} alt="Chọn lộ trình học Frontend tại tto.SH" className={videoMod.repCmt__avt} />
                             </div>
                             <div className={videoMod.repCmt__form}>
                                 <CkediterCustom
@@ -679,7 +679,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                             <div key={indexRep} className={videoMod.left__line__c1}>
                                 <div className={videoMod.cmt__container__c1}>
                                     <div className={videoMod.cmt__container__header}>
-                                        <img src={`${rep.avatar}`} alt="icon-user" className={videoMod.cmt__container__avt} />
+                                        <img src={`${rep.avatar}`} alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__avt} />
                                         <div className={videoMod.cmt__container__header__groupTitle}>
                                             <div className={videoMod.cmt__container__header__title}>
                                                 {rep.fullname}
@@ -706,7 +706,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                     setEditCmt__c2(false)
                                                 }
                                             }}>
-                                                <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                <img src="/img_admin/action2.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                             </div>
                                         ) : (<></>)}
                                         <div
@@ -720,13 +720,13 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                             className={videoMod.cmt__container__sevice}
                                         >
                                             {rep.user_id === userState?.id ? (
-                                                <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                <img src="/img/deleteMessage.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                             ) : (
                                                 <>
                                                     {rep.del_flag ? (
-                                                        <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                        <img src="/img/action.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                                     ) : (
-                                                        <img src="/img/hiddenEye.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                        <img src="/img/hiddenEye.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                                     )}
                                                 </>
                                             )}
@@ -736,13 +736,13 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                             onClick={() => {
                                                 handleRepCmt__c1(rep.id)
                                             }}>
-                                            <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                            <img src="/img/replyCmt.svg" alt="Lập trình backend với ExpressJS từ TTO" className={videoMod.cmt__container__sevice__icon} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className={`${activeReplyId__c1 === rep.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
                                     <div className={videoMod.repCmt__avt__ctn}>
-                                        <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                                        <img src={`${userState?.avatar}`} alt="Lập trình backend với ExpressJS từ TTO" className={videoMod.repCmt__avt} />
                                     </div>
                                     <div className={videoMod.repCmt__form}>
                                         <CkediterCustom
@@ -767,7 +767,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                     <div key={indexRely} className={videoMod.left__line__c2}>
                                         <div className={videoMod.cmt__container__c2}>
                                             <div className={videoMod.cmt__container__header}>
-                                                <img src={`${rely.avatar}`} alt="icon-user" className={videoMod.cmt__container__avt} />
+                                                <img src={`${rely.avatar}`} alt="Lập trình backend với ExpressJS từ TTO" className={videoMod.cmt__container__avt} />
                                                 <div className={videoMod.cmt__container__header__groupTitle}>
                                                     <div className={videoMod.cmt__container__header__title}>
                                                         {rely.fullname}
@@ -812,25 +812,25 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                     className={videoMod.cmt__container__sevice}
                                                 >
                                                     {rely.user_id === userState?.id ? (
-                                                        <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                        <img src="/img/deleteMessage.svg" alt="Học tập từ xa" className={videoMod.cmt__container__sevice__icon} />
                                                     ) : (
                                                         <>
                                                             {rely.del_flag ? (
-                                                                <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                                <img src="/img/action.svg" alt="Đào tạo tương tác" className={videoMod.cmt__container__sevice__icon} />
                                                             ) : (
-                                                                <img src="/img/hiddenEye.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                                <img src="/img/hiddenEye.svg" alt="Đào tạo tương tác" className={videoMod.cmt__container__sevice__icon} />
                                                             )}
                                                         </>
                                                     )}
                                                 </div>
                                                 <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt__c2(rely.id)}>
-                                                    <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                    <img src="/img/replyCmt.svg" alt="Học với chuyên gia" className={videoMod.cmt__container__sevice__icon} />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className={`${activeReplyId__c2 === rely.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
                                             <div className={videoMod.repCmt__avt__ctn}>
-                                                <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                                                <img src={`${userState?.avatar}`} alt="Học với chuyên gia" className={videoMod.repCmt__avt} />
                                             </div>
                                             <div className={videoMod.repCmt__form}>
                                                 <CkediterCustom
@@ -859,7 +859,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
             <div className={`${videoMod.repCmt__container__boss}`}>
                 <div className={`${activeReplyIdBoss ? videoMod.repCmt__container__boss__1 : videoMod.repCmt__container__boss__1__hidden}`}>
                     <div className={videoMod.repCmt__avt__ctn}>
-                        <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                        <img src={`${userState?.avatar}`} alt="Lập trình JavaScript cơ bản tại TTO" className={videoMod.repCmt__avt} /> 
                     </div>
                     <div className={videoMod.repCmt__form}>
                         <CkediterCustom

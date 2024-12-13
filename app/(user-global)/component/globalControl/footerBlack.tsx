@@ -22,13 +22,13 @@ const FooterBlack: React.FC = () => {
                     <Row className={styles.footerContent}>
                         <Col md={3} >
                             <section className={styles.logo}  >
-                                <Image src="/img/logoambantto.png" alt="Logo" className={styles.logoFooter} />
+                                <Image src="/img/logoambantto.png" alt="Các khóa học xu hướng hiện nay tto.shsh" className={styles.logoFooter} />
                                 <span>"Khám phá, học hỏi, vươn xa"</span>
                             </section>
                             <section className={styles.contact}>
-                                <div className={styles.contactItem}><Image src="/img/phone.svg" alt="" /> <span className={styles.contactItem}>090 7578 881</span></div>
-                                <div className={styles.contactItem}><Image src="/img/mail.svg" alt="" /> <span className={styles.contactItem}>contact@tto.edu.vn</span></div>
-                                <div className={styles.contactItem}><Image src="/img/map.svg" alt="" /> <span className={styles.contactItem}>720A Điện Biên Phủ, Vinhomes Tân Cảng, Bình Thạnh, Hồ Chí Minh 72300 </span></div>
+                                <div className={styles.contactItem}><Image src="/img/phone.svg" alt="Ngôn ngữ lập trình phổ biển hiện nay" /> <span className={styles.contactItem}>090 7578 881</span></div>
+                                <div className={styles.contactItem}><Image src="/img/mail.svg" alt="Ngôn ngữ lập trình phổ biển hiện nay" /> <span className={styles.contactItem}>contact@tto.edu.vn</span></div>
+                                <div className={styles.contactItem}><Image src="/img/map.svg" alt="Ngôn ngữ lập trình phổ biển hiện nay" /> <span className={styles.contactItem}>720A Điện Biên Phủ, Vinhomes Tân Cảng, Bình Thạnh, Hồ Chí Minh 72300 </span></div>
                             </section>
                         </Col>
                         <Col md={9}>

@@ -473,7 +473,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                         <Image
                                             className={styles.imageMap}
                                             src={openIndex === index ? "/img/iconadd2.svg" : "/img/iconadd.svg"}
-                                            alt="icon toggle"
+                                            alt="Thực hiện dự án clone Facebook tại tto"
                                             width={32}
                                             height={32}
                                         />

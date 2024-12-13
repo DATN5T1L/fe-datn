@@ -44,7 +44,7 @@ const CoursePro: React.FC = () => {
         <Container className={styles.container}>
             <Row className={styles.header}>
                 <Col className={styles.header__content}>
-                    <Image src="/img/GroupLeft.svg" alt="group left" className={styles.header__content__leftIcon} />
+                    <Image src="/img/GroupLeft.svg" alt="Học lập trình bài bản với TTO.sh" className={styles.header__content__leftIcon} />
                     <section className={styles.main}>
                         <div className={styles.main__title}>
                             <div className={styles.main__title__strokeLeft}>
@@ -61,7 +61,7 @@ const CoursePro: React.FC = () => {
                             bạn chắc chắn sẽ tìm thấy khóa học phù hợp với mục tiêu của mình.
                         </div>
                     </section>
-                    <Image src="/img/GroupRight.svg" alt="group right" className={styles.header__content__rightIcon} />
+                    <Image src="/img/GroupRight.svg" alt="Chọn lộ trình học Frontend tại tto.SH" className={styles.header__content__rightIcon} />
                 </Col>
             </Row>
 

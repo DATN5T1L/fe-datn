@@ -182,13 +182,13 @@ const RouterIndex: React.FC<RouterProps> = ({ data }) => {
                                             </Card.Title>
                                             <Card.Img
                                                 src="/img/iconReact.svg"
-                                                alt=""
+                                                alt="Khóa học Node.js cơ bản tại TTO.sh"
                                                 className={h.text__img}
                                             />
                                         </section>
                                         <Card.Img
                                             src="/img/tuan.png"
-                                            alt=""
+                                            alt="Khóa học Node.js cơ bản tại TTO.sh"
                                             className={h.headerContent__avt}
                                         />
                                     </Card.Header>
@@ -207,17 +207,17 @@ const RouterIndex: React.FC<RouterProps> = ({ data }) => {
                                         className={h.option_optimai}
                                     >
                                         <Link href={`/giangvien/CoursePage/CourseVideoDetail`} className={h.link__item}>
-                                            <img src="/img_admin/vitien.svg" alt="Edit" />
+                                            <img src="/img_admin/vitien.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" />
                                         </Link>
                                         <div className={h.link__item} onClick={() => handleHidden(item.id)}>
                                             {item.del_flag ? (
-                                                <img src="/img/action.svg" alt="Edit" />
+                                                <img src="/img/action.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" />
                                             ) : (
-                                                <img src="/img/hiddenEye.svg" alt="Edit" />
+                                                <img src="/img/hiddenEye.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" />
                                             )}
                                         </div>
                                         <Link href={`/giangvien/router/edit?id=${item.id}`} className={h.link__item}>
-                                            <img src="/img_admin/action2.svg" alt="Edit" />
+                                            <img src="/img_admin/action2.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" />
                                         </Link>
                                     </div>
                                 </td>
@@ -230,11 +230,11 @@ const RouterIndex: React.FC<RouterProps> = ({ data }) => {
             <div className="paginationWrapper">
                 <Pagination className="pagination">
                     <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)}>
-                        <img src="/img_admin/prep.svg" alt="Previous" width="8" height="16" />
+                        <img src="/img_admin/prep.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" width="8" height="16" />
                     </Pagination.Prev>
                     {renderPaginationItems}
                     <Pagination.Next onClick={() => handlePageChange(currentPage + 1)}>
-                        <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
+                        <img src="/img_admin/prep2.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" width="8" height="16" />
                     </Pagination.Next>
                 </Pagination>
             </div>

@@ -116,7 +116,7 @@ const ModalChangePassContent: React.FC<ModalChangePassProps> = ({ show, onClose 
             {isVisible && (
                 <section className={`${styles.modal} ${isVisible ? styles.show : styles.hide}`} onClick={(e) => e.stopPropagation()}>
                     <Button className={styles.closeBtn} onClick={handleCloseModal}>
-                        <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
+                        <Image src="/img/closeBtn.svg" alt="Tự học lập trình JavaScript tại TTO.SH" className={styles.closeBtn__img} />
                     </Button>
                     <Form className={styles.formChangePass} onSubmit={formik.handleSubmit}>
                         <fieldset className={styles.modalBody}>

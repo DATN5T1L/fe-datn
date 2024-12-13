@@ -173,7 +173,7 @@ const AddMarketingPost: React.FC = () => {
           {previewImage ? (
             <img
               src={previewImage}
-              alt="Preview"
+              alt="Xây dựng blog cá nhân với Node.js tại TTO.SH"
               className="mb-3"
               style={{
                 maxWidth: "200px",

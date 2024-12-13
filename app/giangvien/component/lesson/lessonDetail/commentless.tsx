@@ -79,7 +79,7 @@ const CommentLesson: React.FC<CommentLessonProps> = ({ onClose }) => {
                 md={1}
                 className="d-flex flex-row justify-content-center align-items-center mb-4 mb-md-0 mb-sm-0 px-0"
               >
-                <img src="/img_admin/action.svg" alt="Action" />
+                <img src="/img_admin/action.svg" alt="HTML5 và CSS3 tto.sh" />
               </Col>
               <Col
                 xs={6}
@@ -109,7 +109,7 @@ const CommentLesson: React.FC<CommentLessonProps> = ({ onClose }) => {
 
               <Col xs={6} sm={2} md={4}>
                 <div className="d-flex flex-row justify-content-center align-items-center">
-                  <img src="/img_admin/restart.svg" alt="Reset" />
+                  <img src="/img_admin/restart.svg" alt="tto.sh" />
                   <span className="text-danger">  Cài lại</span>
                 </div>
               </Col>
@@ -136,21 +136,21 @@ const CommentLesson: React.FC<CommentLessonProps> = ({ onClose }) => {
                   href="/#!"
                   className="w border-end justify-content-center align-item-center d-flex col-4"
                 >
-                  <img src="/img_admin/vuong.svg" alt="Edit" />
+                  <img src="/img_admin/vuong.svg" alt="tto.sh" />
                 </Link>
                 <Link
                   href={`ArticlePage?id=${comment.id}`}
                   as={`ArticlePage/${comment.id}`}
                   className="w-30 border-end justify-content-center align-item-center d-flex col-4"
                 >
-                  <img src="/img_admin/eyes.svg" alt="View" />
+                  <img src="/img_admin/eyes.svg" alt="tto.sh" />
                 </Link>
                 <div
                   onClick={() => toggleCommentBox(comment.id)}
                   className="w-30 border-end justify-content-center align-item-center d-flex col-4"
                   style={{ cursor: "pointer" }}
                 >
-                  <img src="/img_admin/messenger.svg" alt="Reply" />
+                  <img src="/img_admin/messenger.svg" alt="tto.sh" />
                 </div>
               </div>
             </div>
@@ -158,7 +158,7 @@ const CommentLesson: React.FC<CommentLessonProps> = ({ onClose }) => {
             {/* Hiển thị phần bình luận khi activeCommentId trùng với comment.id */}
             {activeCommentId === comment.id && (
               <div className={h.vietcomment}>
-                <img src="/img_admin/hinhcomment.svg" alt="Comment Icon" />
+                <img src="/img_admin/hinhcomment.svg" alt="Comment tto.sh" />
                 <div className={h.khuicon}>
                   <div className={h.danicon}>
                     <img src="/img_admin/1.svg" />

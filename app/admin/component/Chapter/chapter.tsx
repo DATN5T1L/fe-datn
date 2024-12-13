@@ -93,14 +93,14 @@ const Chapter: React.FC<{}> = () => {
                         href="/#!"
                         className="w-50 border-end justify-content-center   d-flex col-6"
                       >
-                        <img src="/img_admin/action1.svg" alt="Edit" />
+                        <img src="/img_admin/action1.svg" alt="SCSS, TypeScript, và DevOps tto.sh" />
                       </Link>
                       <Link
                         href={`ChapterPage?id=${1}`}
                         as={`ChapterPage/${1}`}
                         className="w border-end justify-content-center   d-flex col-6"
                       >
-                        <img src="/img_admin/action2.svg" alt="Delete" />
+                        <img src="/img_admin/action2.svg" alt="SCSS, TypeScript, và DevOps tto.sh" />
                       </Link>
                     </div>
                   </td>
@@ -118,7 +118,7 @@ const Chapter: React.FC<{}> = () => {
           >
             <img
               src="/img_admin/prep.svg"
-              alt="Previous"
+              alt="SCSS, TypeScript, và DevOps tto.sh"
               width="8"
               height="16"
             />
@@ -127,7 +127,7 @@ const Chapter: React.FC<{}> = () => {
           <Pagination.Next
             onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
           >
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
+            <img src="/img_admin/prep2.svg" alt="SCSS, TypeScript, và DevOps tto.sh" width="8" height="16" />
           </Pagination.Next>
         </Pagination>
       </div>

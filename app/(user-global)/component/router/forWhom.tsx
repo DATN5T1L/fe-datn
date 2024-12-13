@@ -31,21 +31,21 @@ const ForWhom: React.FC<ForWhomProps> = ({
                         <Row className={styles.bodyConatiner}>
                             <Col className={styles.bodyContainer__left}>
                                 <section className={styles.menu}>
-                                    <Image src="/img/Round Alt Arrow Right.svg" alt="icon menu" className={styles.menu__icon} />
+                                    <Image src="/img/Round Alt Arrow Right.svg" alt="Nhận chứng chỉ lập trình tại TTO.SH" className={styles.menu__icon} />
                                     <div className={styles.menu__content}>
                                         <bdi className={styles.menu__content__b}>{title1} </bdi>{' '}
                                         {content1}
                                     </div>
                                 </section>
                                 <section className={styles.menu}>
-                                    <Image src="/img/Round Alt Arrow Right.svg" alt="icon menu" className={styles.menu__icon} />
+                                    <Image src="/img/Round Alt Arrow Right.svg" alt="Nhận chứng chỉ lập trình tại TTO.SH" className={styles.menu__icon} />
                                     <div className={styles.menu__content}>
                                         <bdi className={styles.menu__content__b}>{title2}</bdi>{' '}
                                         {content2}
                                     </div>
                                 </section>
                                 <section className={styles.menu}>
-                                    <Image src="/img/Round Alt Arrow Right.svg" alt="icon menu" className={styles.menu__icon} />
+                                    <Image src="/img/Round Alt Arrow Right.svg" alt="Nhận chứng chỉ lập trình tại TTO.SH" className={styles.menu__icon} />
                                     <div className={styles.menu__content}>
                                         <bdi className={styles.menu__content__b}>{title3}</bdi>{' '}
                                         {content3}
@@ -53,7 +53,7 @@ const ForWhom: React.FC<ForWhomProps> = ({
                                 </section>
                             </Col>
                             <Col className={styles.bodyContainer__right}>
-                                <Image src="/img/forWhom.png" alt="for whom" className={styles.bodyContainer__right__img} />
+                                <Image src="/img/forWhom.png" alt="Nhận chứng chỉ lập trình tại TTO.SH" className={styles.bodyContainer__right__img} />
                             </Col>
                         </Row>
                     </Col>

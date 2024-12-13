@@ -23,7 +23,7 @@ const ArticleAndComments = () => {
         >
           <img
             src="/img/html css pro.png"
-            alt=""
+            alt="Xây dựng blog cá nhân với Node.js tại TTO.SH"
             style={{
               width: "100%",
               height: "30%",
@@ -38,7 +38,7 @@ const ArticleAndComments = () => {
       </div>
       <div className={`${mod.comments} d-flex flex-column gap-3`}>
         <div className="d-flex gap-3">
-          <img src="/img_admin/commenter.png" className="align-self-baseline" />
+          <img src="/img_admin/commenter.png" alt="Đánh giá khóa học tại TTO" className="align-self-baseline" />
           <div className="d-flex flex-column">
             <span className={`${mod.name}`}>Minh Tâm</span>
             <small>Bài viết này hữu ích quá</small>

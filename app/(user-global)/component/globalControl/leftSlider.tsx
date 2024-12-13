@@ -105,15 +105,15 @@ const LeftSlider: React.FC = () => {
             <section className={`slide-bar-categories`}>
                 <ShowNameElement name='Trang chủ'>
                     <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
-                        <img src='/img/home.svg' className={`img none ${isHome ? 'block-icon' : ''}`} />
+                        <img src='/img/home-fill.svg' alt="Đánh giá khóa học tại TTO" className={`img block ${isHome ? 'none-icon' : ''}`} />
+                        <img src='/img/home.svg' alt="Đánh giá khóa học tại TTO" className={`img none ${isHome ? 'block-icon' : ''}`} />
                         <div className={`btn-e ${isHome ? 'text-white-100' : ''} ${isMenu ? 'w-0px' : 'block-text'}`}>Trang chủ</div>
                     </Link>
                 </ShowNameElement>
                 <div className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`} onClick={openCourses}>
 
-                    <img src='/img/box-fill.svg' className='img block' />
-                    <img src='/img/box.svg' className='img none' />
+                    <img src='/img/box-fill.svg' alt="" className='img block' />
+                    <img src='/img/box.svg' alt="Chương trình học toàn diện" className='img none' />
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Khóa học</div>
 
                 </div>
@@ -122,7 +122,7 @@ const LeftSlider: React.FC = () => {
                     className={`course-submenu ${isCourseOpen ? 'active' : ''} ${isMenu ? 'p-as' : ''}`}
                     onClick={offCourse}
                 >
-                    <Image src="/img/index.svg" alt="" className={`logo-mini-menu`} />
+                    <Image src="/img/index.svg" alt="Phát triển ứng dụng backend với tto" className={`logo-mini-menu`} />
                     <Link
                         href={`${userState.user ? `/coursefor` : `/login`}`}
                         className={`btn-slide-bar-mini`}
@@ -144,22 +144,22 @@ const LeftSlider: React.FC = () => {
                 </div>
                 <ShowNameElement name='Học ngay'>
                     <Link href={idCourse ? `${idCourse}` : '#'} className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/bagfill.svg' className='img block' />
-                        <img src='/img/bag.svg' className='img none' />
+                        <img src='/img/bagfill.svg' alt="Đánh giá khóa học tại TTO" className='img block' />
+                        <img src='/img/bag.svg' alt="Đánh giá khóa học tại TTO" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Học ngay</div>
                     </Link>
                 </ShowNameElement>
                 <ShowNameElement name='Lộ trình học tập'>
                     <Link href="/learningPath-FE" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/roadfill.svg' className='img block' />
-                        <img src='/img/road.svg' className='img none' />
+                        <img src='/img/roadfill.svg' alt="Đánh giá khóa học tại TTO" className='img block' />
+                        <img src='/img/road.svg' alt="Đánh giá khóa học tại TTO" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Lộ trình</div>
                     </Link>
                 </ShowNameElement>
                 <ShowNameElement name='Bản tin TTO.SH'>
                     <Link href="/post" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/textnotefill.svg' className='img block' />
-                        <img src='/img/textnote.svg' className='img none' />
+                        <img src='/img/textnotefill.svg' alt="Đánh giá khóa học tại TTO" className='img block' />
+                        <img src='/img/textnote.svg' alt="Đánh giá khóa học tại TTO" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Tin tức</div>
                     </Link>
                 </ShowNameElement>

@@ -76,13 +76,13 @@ const BodyDashboard = () => {
                     </Card.Subtitle>
                     <Card.Img
                       src="/img/iconReact.svg"
-                      alt=""
+                      alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                       className={h.text__img}
                     />
                   </section>
                   <Card.Img
                     src="/img/tuan.png"
-                    alt=""
+                    alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                     className={h.headerContent__avt}
                   />
                 </Card.Header>
@@ -92,27 +92,27 @@ const BodyDashboard = () => {
                       <div className={h.starGroup}>
                         <Image
                           src="/img/iconStar.svg"
-                          alt=""
+                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                           className={h.starElement}
                         />
                         <Image
                           src="/img/iconStar.svg"
-                          alt=""
+                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                           className={h.starElement}
                         />
                         <Image
                           src="/img/iconStar.svg"
-                          alt=""
+                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                           className={h.starElement}
                         />
                         <Image
                           src="/img/iconStar.svg"
-                          alt=""
+                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                           className={h.starElement}
                         />
                         <Image
                           src="/img/iconStar.svg"
-                          alt=""
+                          alt="Học lập trình cơ bản với TTO.SH"
                           className={h.starElement}
                         />
                       </div>
@@ -133,7 +133,7 @@ const BodyDashboard = () => {
                     <div className={h.bodyContent__element}>
                       <Image
                         src="/img/bookoffgreen.svg"
-                        alt=""
+                        alt="Học lập trình cơ bản với TTO.SH"
                         className={h.element__img}
                       />
                       <Card.Text className={h.element__text}>
@@ -143,7 +143,7 @@ const BodyDashboard = () => {
                     <div className={h.bodyContent__element}>
                       <Image
                         src="/img/bookopenblue.svg"
-                        alt=""
+                        alt="Học lập trình cơ bản với TTO.SH"
                         className={h.element__img}
                       />
                       <Card.Text className={h.element__text}>
@@ -153,7 +153,7 @@ const BodyDashboard = () => {
                     <div className={h.bodyContent__element}>
                       <Image
                         src="/img/bookopenyellow.svg"
-                        alt=""
+                        alt="Học lập trình cơ bản với TTO.SH"
                         className={h.element__img}
                       />
                       <Card.Text className={h.element__text}>

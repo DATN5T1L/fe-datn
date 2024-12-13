@@ -240,12 +240,12 @@ const RegisterPhone: React.FC = () => {
                                 >
                                     {isCheckPass ? (
                                         <>
-                                            <Image src="/img/eyeHidden.svg" alt="Ẩn mật khẩu" className={styles.checkPass__img} />
+                                            <Image src="/img/eyeHidden.svg" alt="Thực hành dự án Frontend tại TTo" className={styles.checkPass__img} />
                                             <div className={styles.checkPass__text}>ẩn</div>
                                         </>
                                     ) : (
                                         <>
-                                            <Image src="/img/eye.svg" alt="Hiện mật khẩu" className={styles.checkPass__img} />
+                                            <Image src="/img/eye.svg" alt="Học với chuyên gia" className={styles.checkPass__img} />
                                             <div className={styles.checkPass__text}>hiện</div>
                                         </>
                                     )}
@@ -311,7 +311,7 @@ const RegisterPhone: React.FC = () => {
                         className={styles.rememberRegister}
                         onClick={handleRememberRegister}
                     >
-                        <Image src={isRememberRegister ? "/img/checkBoxFalse.svg" : "/img/checkBoxTrue.svg"} alt="" className={styles.rememberRegister__img} />
+                        <Image src={isRememberRegister ? "/img/checkBoxFalse.svg" : "/img/checkBoxTrue.svg"} alt="Lộ trình học cụ thể" className={styles.rememberRegister__img} />
                         <div className={styles.rememberRegister__div}>Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản sử dụng và Chính sách quyền riêng tư.</div>
                     </Button>
                     <Button type="submit" className={styles.btnSubmit} disabled={formik.isSubmitting}>Đăng ký</Button>

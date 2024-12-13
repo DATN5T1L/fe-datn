@@ -139,7 +139,7 @@ const Dashboard: React.FC = () => {
               </span>
               <Image
                 src={"/img_admin/boxvippro.png"}
-                alt="icon"
+                alt="Chứng chỉ hoàn thành khóa học"
                 width={60}
                 height={60}
               />
@@ -155,7 +155,7 @@ const Dashboard: React.FC = () => {
               </span>
               <Image
                 src={"/img_admin/total_view.svg"}
-                alt="icon"
+                alt="Chứng chỉ hoàn thành khóa học"
                 width={60}
                 height={60}
               />
@@ -171,7 +171,7 @@ const Dashboard: React.FC = () => {
               </span>
               <Image
                 src={"/img_admin/comment.svg"}
-                alt="icon"
+                alt="Chứng chỉ hoàn thành khóa học"
                 width={60}
                 height={60}
               />
@@ -195,7 +195,7 @@ const Dashboard: React.FC = () => {
 
               <Image
                 src={"/img_admin/monneyvip.svg"}
-                alt="icon"
+                alt="Chứng chỉ hoàn thành khóa học"
                 width={60}
                 height={60}
                 onClick={handleShow}

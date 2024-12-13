@@ -98,7 +98,7 @@ const Header: React.FC = () => {
                 <section className='header-nav-head'>
                     <ShowNameElement name="Trang chủ">
                         <Link href="/" className='brand-header'>
-                            <Image src="/img/LogoPage.jpg" alt="logo" className='img-brand-header' />
+                            <Image src="/img/LogoPage.jpg" alt="Hỗ trợ học viên" className='img-brand-header' />
                         </Link>
                     </ShowNameElement>
                     <Nav className={`  btn-header`}>
@@ -107,7 +107,7 @@ const Header: React.FC = () => {
                                 <ShowNameElement name='Về chúng tôi'>
                                     <Link href='/' className='btn-header-container-element-link'>
                                         <div>Về chúng tôi</div>
-                                        <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
+                                        <Image src="/img/chervonblue-02.svg" alt="Hỗ trợ học viên" className='btn-header-container-element-img' />
                                     </Link>
                                 </ShowNameElement>
                             </Col>
@@ -115,7 +115,7 @@ const Header: React.FC = () => {
                                 <ShowNameElement name='Liên hệ'>
                                     <Link href='/Contact' className='btn-header-container-element-link'>
                                         <div>Liên hệ với TTO.SH</div>
-                                        <Image src="/img/chervonblue-02.svg" alt="" className='btn-header-container-element-img' />
+                                        <Image src="/img/chervonblue-02.svg" alt="Tăng cường kỹ năng nhanh chóng" className='btn-header-container-element-img' />
                                     </Link>
                                 </ShowNameElement>
                             </Col>
@@ -124,14 +124,14 @@ const Header: React.FC = () => {
                                     <section className='user-group'>
                                         <ShowNameElement name='Thông báo'>
                                             <div className='user-notification'>
-                                                <Image src="/img/Bell.svg" alt="" className='icon-notification' />
+                                                <Image src="/img/Bell.svg" alt="Tăng cường kỹ năng nhanh chóng  " className='icon-notification' />
                                             </div>
                                         </ShowNameElement>
                                         <div className='user' onClick={handleOpenSubMenu} ref={menuRef}>
                                             {userState?.user?.avatar ? (
-                                                <Image src={`${userState?.user?.avatar}`} alt="" className='avt' />
+                                                <Image src={`${userState?.user?.avatar}`} alt="Học lập trình cơ bản với TTO.SH" className='avt' />
                                             ) : (
-                                                <Image src="/img/avtDefault.jpg" alt="" className='avt' />
+                                                <Image src="/img/avtDefault.jpg" alt="Khóa học Node.js cơ bản tại TTO.sh" className='avt' />
                                             )}
 
                                             <section className='title-group'>
@@ -214,7 +214,7 @@ const Header: React.FC = () => {
                             <Col md={3} className='btn-header-btn-group-element'>
                                 <ShowNameElement name='Tìm kiếm'>
                                     <Button onClick={handleShowSearch} className='btn-header-btn-group-main2'>
-                                        <Image src={`${showSearch ? '/img/Canxel.svg' : '/img/searchBlue.svg'}`} alt="" className={`btn-header-btn-group-main-img1`} />
+                                        <Image src={`${showSearch ? '/img/Canxel.svg' : '/img/searchBlue.svg'}`} alt="Lập trình backend với ExpressJS từ TTO" className={`btn-header-btn-group-main-img1`} />
                                     </Button>
                                 </ShowNameElement>
                             </Col>

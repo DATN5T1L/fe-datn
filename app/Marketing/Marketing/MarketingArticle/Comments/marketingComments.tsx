@@ -56,7 +56,7 @@ const Comments: React.FC<{}> = () => {
                   }}
                 >
                   <td>
-                    <input type="checkbox" />
+                    <input type="checkbox"  />
                   </td>
                   <td>{idx + 1}</td>
                   <td>Bài viết này hay quá đi cảm ơn TTO</td>
@@ -128,7 +128,7 @@ const Comments: React.FC<{}> = () => {
           <Pagination.Prev>
             <img
               src="/img_admin/prep.svg"
-              alt="Previous"
+              alt="Chương trình học toàn diện"
               width="8"
               height="16"
             />

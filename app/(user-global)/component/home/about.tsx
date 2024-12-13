@@ -30,7 +30,7 @@ const About: React.FC = () => {
                         </div>
                     </section>
                     <section className={styles.right__container}>
-                        <Image src="/img/aboutImg.svg" alt="" className={styles.right__container__img} />
+                        <Image src="/img/aboutImg.svg" alt="Lộ trình học Backend từ cơ bản đến nâng cao tại tto.sh" className={styles.right__container__img} />
                         <div className={styles.right__container__bg}></div>
                     </section>
                 </div>

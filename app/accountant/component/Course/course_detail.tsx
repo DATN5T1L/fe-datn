@@ -49,7 +49,7 @@ const CourseDetailPage: React.FC<{}> = () => {
                     <div className={h.PrintBtn}>
                       <Image
                         src={"/img_accountant/print.svg"}
-                        alt="icon"
+                        alt="Dự án website bán hàng với ReactJS tại tto.SH"
                         width={24}
                         height={24}
                       />

@@ -217,13 +217,13 @@ const CreateRouter: React.FC = () => {
                             <Row className={styles.form__container__bottom}>
                                 <div className={styles.thatep}>
                                     <div className={styles.thatep1}>
-                                        <img src="/img_admin/may.svg" alt="" />
+                                        <img src="/img_admin/may.svg" alt="Lập trình backend với ExpressJS từ TTO" />
                                         <div className={styles.phangiua}>
                                             <div className={styles.chon1tep}>Ảnh bìa lộ trình</div>
                                             {previewImage ? (
                                                 <img
                                                     src={previewImage}
-                                                    alt="Preview"
+                                                    alt="Lập trình backend với ExpressJS từ TTO"
                                                     style={{
                                                         maxWidth: "200px",
                                                         maxHeight: "200px",

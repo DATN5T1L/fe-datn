@@ -42,13 +42,13 @@ const TeacherDetailPage: React.FC<{}> = () => {
                         </Card.Subtitle>
                         <Card.Img
                           src="/img/iconReact.svg"
-                          alt=""
+                          alt="Khóa học trực tuyến"
                           className={h.text__img}
                         />
                       </section>
                       <Card.Img
                         src="/img/tuan.png"
-                        alt=""
+                        alt="Khóa học trực tuyến"
                         className={h.headerContent__avt}
                       />
                     </Card.Header>
@@ -72,7 +72,7 @@ const TeacherDetailPage: React.FC<{}> = () => {
                     <div className={h.PrintBtn}>
                       <Image
                         src={"/img_accountant/print.svg"}
-                        alt="icon"
+                        alt="Khóa học trực tuyến"
                         width={24}
                         height={24}
                       />

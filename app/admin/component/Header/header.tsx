@@ -79,7 +79,7 @@ const Header: React.FC = () => {
           <img
             src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1733999687/fe_image/Logo.png"
             className="d-inline-block align-top"
-            alt="Logo"
+            alt="Học lập trình cơ bản với TTO.SH"
           />
         </Navbar.Brand>
         <SearchBar />
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
             className={h.iconButton1}
             onClick={toggleNotifications}
           >
-            <img src="/img/Bell.svg" alt="Notifications" />
+            <img src="/img/Bell.svg" alt="Học lập trình cơ bản với TTO.SH" />
           </Button>
 
           <Button
@@ -108,7 +108,7 @@ const Header: React.FC = () => {
             )}
           </Button>
           <Button variant="link" className={h.iconButton}>
-            <img src="/img/list.svg" alt="Menu" onClick={handleShow} />
+            <img src="/img/list.svg" alt="Học lập trình cơ bản với TTO.SH" onClick={handleShow} />
             <OffcanvasComponent show={show} handleClose={handleClose} />
           </Button>
         </ButtonGroup>

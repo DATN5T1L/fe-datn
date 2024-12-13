@@ -91,7 +91,7 @@ const Notification: React.FC<NotificationProps> = ({ type, message, position = '
                             borderRadius: '8px'
                         }}
                     >
-                        <img src={Icon} alt="icon" style={{ width: '20px', height: '20px' }} />
+                        <img src={Icon} alt="Lộ trình học Frontend miễn phí trên TTO.SH" style={{ width: '20px', height: '20px' }} />
                     </div>
 
                     <span>{message}</span>

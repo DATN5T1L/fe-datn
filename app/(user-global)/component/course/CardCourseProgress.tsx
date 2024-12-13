@@ -52,7 +52,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                     <div className={styles.starGroup}>
                                         {/* Star rating */}
                                         {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                            <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
+                                            <Image key={index} src="/img/iconStar.svg" alt="Lập trình ReactJS từ cơ bản đến nâng cao với tto" className={styles.starElement} />
                                         ))}
 
                                     </div>
@@ -71,16 +71,16 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                     </section>
                     <section className={styles.bodyContent}>
                         <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
+                            <Image src="/img/bookoffgreen.svg" alt="Xây dựng website responsive cùng tto.sh" className={styles.element__img} />
                             <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
+                            <Image src="/img/bookopenblue.svg" alt="Xây dựng website responsive cùng tto.sh" className={styles.element__img} />
                             <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
-                            <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
-                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                            <Link href={`/learningCourse/${course.id}`} className={styles.linkCta} onClick={handleCourseClick}>
+                                <Image src="/img/bookopenyellow.svg" alt="Xây dựng website responsive cùng tto.sh" className={styles.element__img} />
                                 <Card.Text className={styles.element__text}>Học ngay</Card.Text>
                             </Link>
                         </div>

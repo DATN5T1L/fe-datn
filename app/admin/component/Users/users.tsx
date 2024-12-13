@@ -189,7 +189,7 @@ const Users: React.FC = () => {
                         className={`justify-content-between border d-flex py-2`}
                       >
                         <Link href={`/admin/UsersPage/${item.id}`} className="w-50 border-end">
-                          <img src="/img_admin/action1.svg" alt="Edit" />
+                          <img src="/img_admin/action1.svg" alt="Khóa học HTML CSS miễn phí tto" />
                         </Link>
                         <Link href={`/admin/UsersPage/${item.id}`} className="w-50">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="" className="bi bi-eye" viewBox="0 0 16 16">

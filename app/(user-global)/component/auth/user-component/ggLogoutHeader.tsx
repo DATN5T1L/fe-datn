@@ -75,8 +75,8 @@ const GgLogoutHeader = () => {
 
     return (
         <button className='subMenu-body-link' onClick={handleLogout}>
-            <img src='/img/infoLogout-black.svg' className='subMenu-body-img-black' />
-            <img src='/img/infoLogout-white.svg' className='subMenu-body-img-white' />
+            <img src='/img/infoLogout-black.svg' alt="Chương trình học toàn diện" className='subMenu-body-img-black' />
+            <img src='/img/infoLogout-white.svg' alt="Chương trình học toàn diện" className='subMenu-body-img-white' />
             <div className='subMenu-body-link-title'>
                 Đăng xuất
             </div>

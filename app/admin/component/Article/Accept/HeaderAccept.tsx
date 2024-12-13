@@ -40,7 +40,7 @@ export const HeaderArticleSimple = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="SCSS, TypeScript, và DevOps tto.sh"
                 width={"24px"}
                 height={"24px"}
               />

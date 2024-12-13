@@ -49,7 +49,7 @@ export const HeaderMarketing = () => {
               md={1}
               className={`d-flex flex-row justify-content-center align-items-center  mb-4 mb-md-0 mb-sm-0 px-0`}
             >
-              <img src="/img_admin/action.svg" alt="Action" />
+              <img src="/img_admin/action.svg" alt="Đánh giá khóa học tại TTO" />
             </Col>
             <Col
               xs={6}
@@ -92,7 +92,7 @@ export const HeaderMarketing = () => {
 
             <Col xs={6} sm={2} md={3}>
               <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0">
-                <img src="/img_admin/restart.svg" alt="Reset" />
+                <img src="/img_admin/restart.svg" alt="Đánh giá khóa học tại TTO" />
                 <span className="text-danger">  Cài lại</span>
               </div>
             </Col>
@@ -115,7 +115,7 @@ export const HeaderMarketing = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="Đánh giá khóa học tại TTO"
                 width={"24px"}
                 height={"24px"}
               />
@@ -188,7 +188,7 @@ export const HeaderUsersSimple = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="Đánh giá khóa học tại TTO"
                 width={"24px"}
                 height={"24px"}
               />
