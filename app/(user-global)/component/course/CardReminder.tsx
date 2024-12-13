@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Card, Col, Image, Row } from 'react-bootstrap';
 import ProgressCircle from './ProgressCircle';
 import styles from '@public/styles/globalControl/CourseCard.module.css';
-import { IconPlus, IconX, IconEdit, IconPush } from "@app/(user-global)/component/icon/icons";
-import Tippy from '@tippyjs/react/headless';
+import { IconPlus } from "@app/(user-global)/component/icon/icons";
 import { useEscapeKey } from "@app/(user-global)/component/globalControl/commonC";
 
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
@@ -38,15 +37,13 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                     <Link href={`/course/${data.slug_course}`}>
                         <Card.Header className={styles.headerContent}>
                             <section className={styles.headerContent__text}>
-
                                 <Card.Title className={styles.text__hedding2}>
                                     {data.name_course}
                                 </Card.Title>
-
                                 <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
                                 <Card.Img src="/img/iconReact.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={styles.text__img} />
                             </section>
-                            <Card.Img src="/img/tuan.png" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" className={styles.headerContent__avt} />
+                            <Card.Img src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067208/fe_image/Hinhgau.png" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" className={styles.headerContent__avt} />
                         </Card.Header>
                     </Link>
                     <Card.Body className={styles.mainContent}>

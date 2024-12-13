@@ -4,10 +4,8 @@ import styles from '@public/styles/user/HeaderUser.module.css'
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../../redux/store';
-import { UserState } from '@/redux/slices/userSlice';
 import { useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-
+import { calculateBirthYear } from '../../globalControl/commonC';
 const HeaderUser: React.FC = () => {
     const userState = useSelector((state: RootState) => state.user);
 
@@ -33,7 +31,7 @@ const HeaderUser: React.FC = () => {
                                     <h3 className={styles.content__main__title}>
                                         {userState?.user?.fullname}
                                     </h3>
-                                    <h4 className={styles.content__main__date}>Ngày 01 tháng 11 năm 2003</h4>
+                                    <h4 className={styles.content__main__date}>Sinh năm: {calculateBirthYear(userState?.user?.age)}</h4>
                                 </div>
                             </>
                         ) : (

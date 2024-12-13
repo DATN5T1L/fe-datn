@@ -5,7 +5,8 @@ import styleFor from "@public/styles/course/coursefor.module.css";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 import { Course } from "@app/(user-global)/model/course";
 import CourseCard from "../course/CardCourseProgress";
-
+import ReactLoading from 'react-loading';
+import useSWR from 'swr';
 interface CourseCardProps extends Course {
     progress_percentage: number;
     watchedVideos: number;
@@ -23,22 +24,20 @@ const CourseFor: React.FC<CourseForProps> = ({ onCoursesLoad }) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const previousCourses = useRef<string[]>([]);
-
+    const [type, setType] = useState<string>("all");
     const fetchCourses = async () => {
         try {
             setLoading(true);
-            const response = await fetch("/api/courseFor", {
+            const response = await fetch(`/api/CourseForYou/${type}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
             });
-
             if (!response.ok) {
                 throw new Error("Failed to fetch courses");
             }
-
-            const data: ApiResponseCourse<CourseCardProps> = await response.json();
+            const data = await response.json();
             setCourses(data.data);
             setError(null);
         } catch (err: any) {
@@ -50,22 +49,23 @@ const CourseFor: React.FC<CourseForProps> = ({ onCoursesLoad }) => {
     };
     // Fetch API
     useEffect(() => {
-
-
         fetchCourses();
-    }, [token]);
+    }, [token, type]);
 
+    const handlePathChange = (path: string) => {
+        setType(path);
+    };
     // Xử lý danh sách course IDs
     useEffect(() => {
-        const courseIds = courses.map((course) => course.id);
-        if (courseIds.length > 0 && JSON.stringify(courseIds) !== JSON.stringify(previousCourses.current)) {
-            onCoursesLoad(courseIds);
-            previousCourses.current = courseIds;
+        if (courses) {
+            const courseIds = courses.map((course) => course.id);
+            if (courseIds.length > 0 && JSON.stringify(courseIds) !== JSON.stringify(previousCourses.current)) {
+                onCoursesLoad(courseIds);
+                previousCourses.current = courseIds;
+            }
         }
     }, [courses, onCoursesLoad]);
 
-    if (loading) return <div>Đang tải...</div>;
-    if (error) return <div>Có lỗi xảy ra: {error}</div>;
 
     return (
         <Container className={styleFor.container}>
@@ -77,13 +77,17 @@ const CourseFor: React.FC<CourseForProps> = ({ onCoursesLoad }) => {
             </section>
             <section className={styleFor.cta}>
                 <div className={styleFor.ctaLeft}>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học có phí</Button>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học miễn phí</Button>
+                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("pro")}>Khóa học có phí</Button>
+                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("free")}>Khóa học miễn phí</Button>
                 </div>
-                <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Xem tất cả</Button>
+                <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40} onClick={() => handlePathChange("all")}>Xem tất cả</Button>
             </section>
+            {loading && (
+                <ReactLoading type={"spin"} color={'rgba(7, 85, 192, 1)'} height={'32px'} width={'32px'} className={styleFor.align} />
+            )}
             <Row className={styleFor.mainCard}>
-                {courses.map((course, index) => (
+
+                {courses && courses.map((course, index) => (
                     <CourseCard course={course} key={index} showProgress={true} />
                 ))}
             </Row>

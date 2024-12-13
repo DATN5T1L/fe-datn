@@ -17,6 +17,7 @@ const ModalChangeName = dynamic(() => import("./modalChangeName"), { ssr: false 
 const ModalChangeInfo = dynamic(() => import("./modalChangeInfo"), { ssr: false });
 const ModalChangePhone = dynamic(() => import("./modalChangePhone"), { ssr: false });
 const ModalChangeEmail = dynamic(() => import("./modalChangeEmail"), { ssr: false });
+const ModalChangeAge = dynamic(() => import("./modalChangeAge"), { ssr: false });
 
 const Infomation: React.FC = () => {
     const [isRole, setIsRole] = useState(false)
@@ -40,12 +41,45 @@ const Infomation: React.FC = () => {
     const [showChangeInfo, setShowChangeInfo] = useState(false);
     const [showChangePhone, setShowChangePhone] = useState(false);
     const [showChangeEmail, setShowChangeEmail] = useState(false);
+    const [showChangeAge, setShowChangeAge] = useState(false);
 
     const handleChangeImg = () => setShowChangeImg(true);
     const handleChangeName = () => setShowChangeName(true);
     const handleChangeInfo = () => setShowChangeInfo(true);
     const handleChangePhone = () => setShowChangePhone(true);
     const handleChangeEmail = () => setShowChangeEmail(true);
+    const handleChangeAge = () => setShowChangeAge(true);
+
+    // hiển thị các roll
+    const roleMapping: Record<'admin' | 'account' | 'marketing' | 'instructor', { label: string; href: string }> = {
+        admin: { label: 'Quản trị viên', href: '/admin' },
+        account: { label: 'Kế toán', href: '/account' },
+        marketing: { label: 'Marketing', href: '/marketing' },
+        instructor: { label: 'Giảng viên', href: '/instructor' },
+    };
+
+    const userRole = userState?.user?.role as 'admin' | 'account' | 'marketing' | 'instructor' | undefined;
+
+    const userRoleElement = userRole && roleMapping[userRole]
+        ? (
+            <Link href={roleMapping[userRole].href} style={{ padding: "0px" }}>
+                <Col className={styles.change__more}>
+
+                    <div className={styles.change__more__group}>
+                        <h4 className={styles.change__more__group__title}>Quyền</h4>
+                        <h3 className={styles.change__more__group__subTitle}>{roleMapping[userRole].label}</h3>
+                    </div>
+                    <Image
+                        src="/img/chevronLeft-black.svg"
+                        alt="Ghi danh ngay hôm nay TTO.SH"
+                        className={styles.change__more__icon}
+                    />
+                </Col>
+            </Link>
+
+        )
+        : null;
+
     return (
         <>
             <Container className={styles.container}>
@@ -89,6 +123,13 @@ const Infomation: React.FC = () => {
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="Học với chuyên gia tto" className={styles.change__more__icon} />
                         </Col>
+                        <Col className={styles.change__more} onClick={handleChangeAge}>
+                            <div className={styles.change__more__group}>
+                                <h4 className={styles.change__more__group__title}>Tuổi</h4>
+                                <h3 className={styles.change__more__group__subTitle}>{userState?.user?.age || 'Chưa có số điện thoại'}</h3>
+                            </div>
+                            <Image src="/img/chevronLeft-black.svg" alt="Học với chuyên gia tto" className={styles.change__more__icon} />
+                        </Col>
                         <Col className={styles.change__more} onClick={handleChangeInfo}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Giới thiệu</h4>
@@ -96,17 +137,7 @@ const Infomation: React.FC = () => {
                             </div>
                             <Image src="/img/chevronLeft-black.svg" alt="Học tập từ xa tto.sh" className={styles.change__more__icon} />
                         </Col>
-                        {userState?.user?.role === 'admin' ? (
-                            <Link href="/admin">
-                                <Col className={styles.change__more} >
-                                    <div className={styles.change__more__group}>
-                                        <h4 className={styles.change__more__group__title}>Quyền</h4>
-                                        <h3 className={styles.change__more__group__subTitle}>{userState?.user?.role}</h3>
-                                    </div>
-                                    <Image src="/img/chevronLeft-black.svg" alt="Ghi danh ngay hôm nay TTO.SH" className={styles.change__more__icon} />
-                                </Col>
-                            </Link>
-                        ) : ''}
+                        {userRoleElement}
                     </Row>
                 ) : null}
             </Container>
@@ -129,6 +160,10 @@ const Infomation: React.FC = () => {
             <ModalChangeEmail
                 show={showChangeEmail}
                 onClose={() => setShowChangeEmail(false)}
+            />
+            <ModalChangeAge
+                show={showChangeAge}
+                onClose={() => setShowChangeAge(false)}
             />
         </>
     );

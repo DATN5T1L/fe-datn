@@ -92,6 +92,15 @@ const nextConfig = {
         source: '/api/changeMailByPhone/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-phone-user/:path*',
       },
+      // thay đổi email // tuan
+      {
+        source: '/api/changeMail/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-email-user/:path*',
+      },
+      {
+        source: '/api/changeAge/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-age-user/:path*',
+      },
       {
         source: '/api/changeImg/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/update-avatar/:path*',
@@ -236,8 +245,8 @@ const nextConfig = {
       },
       //lấy ra tiến độ khóa học của người dùng
       {
-        source: '/api/courseFor',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/progress',
+        source: '/api/CourseForYou/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/progresss/:path*', // Kiểm tra lại 'progress'
       },
       {
         source: '/api/getProgress/:path*',
@@ -283,14 +292,12 @@ const nextConfig = {
         source: '/api/deleteComment/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/comment-delete/:path*',
       },
-
-
       // checkmail
       {
         source: '/api/checkTokenNewUser/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/check-mail-register/:path*',
       },
-      // API Enrollment 
+      // API Enrollment
       {
         source: '/api/userRegisterCourse/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/user-register-course/:path*',

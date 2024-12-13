@@ -131,8 +131,11 @@ const CoursePro: React.FC = () => {
                 </Col>
             </Row>
 
+            {isValidating && (
+                <ReactLoading type={"spin"} color={'rgba(7, 85, 192, 1)'} height={'32px'} width={'32px'} className={styles.align} />
+            )}
+
             <Row md={12} className={styles.main__course}>
-                {isValidating && (<ReactLoading type={"bubbles"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={styles.align} />)}
                 {courses?.map((course, index) => (
                     <CourseCard key={index} course={course} titleAction={2} />
                 ))}

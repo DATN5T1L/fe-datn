@@ -73,16 +73,8 @@
 }
 
 .content__main__date {
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
+    font-size: 1.125rem;
+    font-weight: 600;
     line-height: 24px;
-    color: var(--text-100);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: auto;
-    height: auto;
-    margin: 0;
-    padding: 0;
+    color: var(--blue-20);
 }

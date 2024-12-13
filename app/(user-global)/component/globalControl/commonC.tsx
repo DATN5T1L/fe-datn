@@ -142,6 +142,11 @@ const formatCurrency = (amount: number): string => {
 const formatParamString = (input: string): string => {
     return decodeURIComponent(input);
 }
+const calculateBirthYear = (age: number): number => {
+    const currentYear: number = new Date().getFullYear();
+    return currentYear - age;
+}
+
 const decodeAndFormatDateTime = (encodedDateTime: string) => {
     // Giải mã chuỗi (decodeURIComponent để chuyển %3A thành :)
     const decodedDateTime = decodeURIComponent(encodedDateTime);
@@ -161,5 +166,5 @@ export {
     getMonthlyProfits, parseQues, formatTime, formatDateTime,
     formatCurrency, parseCode, parseFill, cleaneds, cleaned,
     calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement,
-    formatParamString, decodeAndFormatDateTime
+    formatParamString, decodeAndFormatDateTime, calculateBirthYear
 };

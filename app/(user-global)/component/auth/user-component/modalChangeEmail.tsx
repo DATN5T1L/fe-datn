@@ -57,12 +57,12 @@ const ModalChangeEmail: React.FC<ModalChangeNameProps> = ({ show, onClose }) => 
                 .required('Bắt buộc nhập email')
                 .transform((value) => value.trim()),
             check: Yup.string()
-                .required('Vui lòng nhập mã xác nhận từ số điện thoại'),
+                .required('Vui lòng nhâp mã xác nhận'),
         }),
         onSubmit: async (values) => {
             setLoading(true);
             try {
-                const res = await fetch('/api/changeFullName/', {
+                const res = await fetch('/api/changeMail/', {
                     method: 'PATCH',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -108,7 +108,7 @@ const ModalChangeEmail: React.FC<ModalChangeNameProps> = ({ show, onClose }) => 
         }
 
         try {
-            const res = await fetch('/api/verifyPhone', {
+            const res = await fetch('/api/checkTokenNewUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const ModalChangeEmail: React.FC<ModalChangeNameProps> = ({ show, onClose }) => 
 
 
             if (res.ok) {
-                alert('Mã xác nhận đã được gửi đến số điện thoại của bạn');
+                alert('Mã xác nhận đã được gửi đến email của bạn');
                 setIsButtonDisabled(true);
                 setCountdown(120);
             } else if (!res.ok) {

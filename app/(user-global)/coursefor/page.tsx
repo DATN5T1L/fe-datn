@@ -16,7 +16,6 @@ const CourseForYou: React.FC = () => {
     return (
         <Body>
             <CourseFor onCoursesLoad={handleCoursesLoad} />
-            {/* Chỉ truyền courseIds cho CourseForNext khi có dữ liệu mới */}
             {courseIds.length > 0 && <CourseForNext id={courseIds} />}
         </Body>
     );

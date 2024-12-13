@@ -151,7 +151,7 @@ const ProfileDispatch = () => {
 
             // Chuyển hướng sau khi lấy thông tin
             if (isLogin || isRegister || isRetrievePassword) {
-                router.push('/info-user');
+                // router.push('/info-user');
             }
         } catch (error) {
             console.error("Lỗi khi lấy thông tin người dùng:", error);
@@ -312,7 +312,7 @@ const ProfileDispatch = () => {
             }
         };
 
-        const interval = setInterval(checkTokenCookie, 10000);
+        const interval = setInterval(checkTokenCookie, 1000000);
 
         return () => clearInterval(interval);
     }, [dispatch, router, pathName]);

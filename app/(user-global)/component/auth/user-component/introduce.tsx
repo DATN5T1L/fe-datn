@@ -1,183 +1,82 @@
-'use client'
-
 import styles from '@public/styles/user-component/Introduce.module.css'
-import { Card, Col, Container, Row } from 'react-bootstrap'
+import { useEffect, useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap'
+import useCookie from '@app/(user-global)/component/hook/useCookie';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../../redux/store';
+import { Course } from "@app/(user-global)/model/course";
+import ReactLoading from 'react-loading';
+import CourseCardInfo from '../../course/CardCourseInfo';
+import { decodeAndFormatDateTime } from '../../globalControl/commonC';
 
+interface CourseCardProp extends Course {
+    progress_percentage: number;
+    watchedVideos: number;
+}
 const Introduce: React.FC = () => {
+    const token = useCookie("token");
+    const userState = useSelector((state: RootState) => state.user);
+    const [courses, setCourses] = useState<CourseCardProp[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const fetchCourses = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch(`/api/CourseForYou/all`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch courses");
+            }
+            const data = await response.json();
+            setCourses(data.data);
+            setError(null);
+        } catch (err: any) {
+            setError(err.message || "Unknown error occurred");
+            setCourses([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+    // Fetch API
+    useEffect(() => {
+        fetchCourses();
+    }, [token]);
     return (
-        <>
-            <Container className={styles.container}>
-                <Row className={styles.header__introduce}>
-                    <Col md={6} className={styles.header__introduce__box}>
-                        <section className={styles.title__group}>
-                            <h3 className={styles.title__group__heading}>
-                                Giới thiệu
-                            </h3>
-                            <h3 className={styles.title__group__subTitle}>
-                                Ngày gia nhập TTO.SH:{' '}<bdi className={styles.title__group__subTitle__blue}>22 tháng 10 năm 2021</bdi>
-                            </h3>
-                        </section>
-                    </Col>
-                    <Col md={6} className={styles.header__introduce__box}>
-                        <section className={styles.title__group}>
-                            <h3 className={styles.title__group__heading}>
-                                Hoạt động gần đây
-                            </h3>
-                            <h3 className={styles.title__group__subTitle}>
-                                Chưa thấy hoạt động gần nhất
-                            </h3>
-                        </section>
-                    </Col>
-                </Row>
-                <Row className={styles.body__introduct}>
-                    <Col md={12} className={styles.body__introduct__header}>
-                        <h3 className={styles.body__introduct__header__title}>Các khóa học đã tham gia</h3>
-                    </Col>
-                    <Col md={12} className={styles.body__introduct__main}>
-                        <Card className={styles.main__box}>
-                            <Row className={styles.main__box__container}>
-                                <Col className={styles.main__box__container__left}>
-                                    <Card.Header className={styles.card__header}>
-                                        <section className={styles.headerContent__text}>
-                                            <Card.Title className={styles.text__hedding2}>
-                                                WEBSITE DESIGN UI/UX
-                                            </Card.Title>
-                                            <Card.Subtitle className={styles.text__hedding3}>
-                                                by My Team
-                                            </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="Học phí ưu đãi TTO.SH" className={styles.text__img} />
-                                        </section>
-                                        <Card.Img src="/img/tuan.png" alt="Học với chuyên gia tto.sh" className={styles.headerContent__avt} />
-                                    </Card.Header>
-                                </Col>
-                                <Col className={styles.main__box__container__right}>
-                                    <Card.Body className={styles.card__body}>
-                                        <Card.Title className={styles.card__body__title}>Ui/Ux Design</Card.Title>
-                                        <Card.Text className={styles.card__body__text}>
-                                            Từ cơ bản tới chuyên sâu, thực hành 8 dự án,
-                                            hàng trăm bài tập, trang hỏi đáp riêng,
-                                            cấp chứng chỉ sau khóa học và mua một lần học mãi mãi.
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Col>
-                            </Row>
-                        </Card>
-                        <Card className={styles.main__box}>
-                            <Row className={styles.main__box__container}>
-                                <Col className={styles.main__box__container__left}>
-                                    <Card.Header className={styles.card__header}>
-                                        <section className={styles.headerContent__text}>
-                                            <Card.Title className={styles.text__hedding2}>
-                                                WEBSITE DESIGN UI/UX
-                                            </Card.Title>
-                                            <Card.Subtitle className={styles.text__hedding3}>
-                                                by My Team
-                                            </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="Hỗ trợ học viên tto.sh" className={styles.text__img} />
-                                        </section>
-                                        <Card.Img src="/img/tuan.png" alt="Tăng cường kỹ năng nhanh chóng TTO.SH" className={styles.headerContent__avt} />
-                                    </Card.Header>
-                                </Col>
-                                <Col className={styles.main__box__container__right}>
-                                    <Card.Body className={styles.card__body}>
-                                        <Card.Title className={styles.card__body__title}>Ui/Ux Design</Card.Title>
-                                        <Card.Text className={styles.card__body__text}>
-                                            Từ cơ bản tới chuyên sâu, thực hành 8 dự án,
-                                            hàng trăm bài tập, trang hỏi đáp riêng,
-                                            cấp chứng chỉ sau khóa học và mua một lần học mãi mãi.
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Col>
-                            </Row>
-                        </Card>
-                        <Card className={styles.main__box}>
-                            <Row className={styles.main__box__container}>
-                                <Col className={styles.main__box__container__left}>
-                                    <Card.Header className={styles.card__header}>
-                                        <section className={styles.headerContent__text}>
-                                            <Card.Title className={styles.text__hedding2}>
-                                                WEBSITE DESIGN UI/UX
-                                            </Card.Title>
-                                            <Card.Subtitle className={styles.text__hedding3}>
-                                                by My Team
-                                            </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="Khóa học trực tuyến tto.sh" className={styles.text__img} />
-                                        </section>
-                                        <Card.Img src="/img/tuan.png" alt="Học trực tuyến mọi lúc mọi nơi tto" className={styles.headerContent__avt} />
-                                    </Card.Header>
-                                </Col>
-                                <Col className={styles.main__box__container__right}>
-                                    <Card.Body className={styles.card__body}>
-                                        <Card.Title className={styles.card__body__title}>Ui/Ux Design</Card.Title>
-                                        <Card.Text className={styles.card__body__text}>
-                                            Từ cơ bản tới chuyên sâu, thực hành 8 dự án,
-                                            hàng trăm bài tập, trang hỏi đáp riêng,
-                                            cấp chứng chỉ sau khóa học và mua một lần học mãi mãi.
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Col>
-                            </Row>
-                        </Card>
-                        <Card className={styles.main__box}>
-                            <Row className={styles.main__box__container}>
-                                <Col className={styles.main__box__container__left}>
-                                    <Card.Header className={styles.card__header}>
-                                        <section className={styles.headerContent__text}>
-                                            <Card.Title className={styles.text__hedding2}>
-                                                WEBSITE DESIGN UI/UX
-                                            </Card.Title>
-                                            <Card.Subtitle className={styles.text__hedding3}>
-                                                by My Team
-                                            </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="Tăng cường kỹ năng nhanh chóng tto.sh" className={styles.text__img} />
-                                        </section>
-                                        <Card.Img src="/img/tuan.png" alt="Hỗ trợ học viên TTO" className={styles.headerContent__avt} />
-                                    </Card.Header>
-                                </Col>
-                                <Col className={styles.main__box__container__right}>
-                                    <Card.Body className={styles.card__body}>
-                                        <Card.Title className={styles.card__body__title}>Ui/Ux Design</Card.Title>
-                                        <Card.Text className={styles.card__body__text}>
-                                            Từ cơ bản tới chuyên sâu, thực hành 8 dự án,
-                                            hàng trăm bài tập, trang hỏi đáp riêng,
-                                            cấp chứng chỉ sau khóa học và mua một lần học mãi mãi.
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Col>
-                            </Row>
-                        </Card>
-                        <Card className={styles.main__box}>
-                            <Row className={styles.main__box__container}>
-                                <Col className={styles.main__box__container__left}>
-                                    <Card.Header className={styles.card__header}>
-                                        <section className={styles.headerContent__text}>
-                                            <Card.Title className={styles.text__hedding2}>
-                                                WEBSITE DESIGN UI/UX
-                                            </Card.Title>
-                                            <Card.Subtitle className={styles.text__hedding3}>
-                                                by My Team
-                                            </Card.Subtitle>
-                                            <Card.Img src="/img/iconReact.svg" alt="Tăng cường kỹ năng nhanh chóng TTO.SH" className={styles.text__img} />
-                                        </section>
-                                        <Card.Img src="/img/tuan.png" alt="Chương trình học toàn diện tto.sh" className={styles.headerContent__avt} />
-                                    </Card.Header>
-                                </Col>
-                                <Col className={styles.main__box__container__right}>
-                                    <Card.Body className={styles.card__body}>
-                                        <Card.Title className={styles.card__body__title}>Ui/Ux Design</Card.Title>
-                                        <Card.Text className={styles.card__body__text}>
-                                            Từ cơ bản tới chuyên sâu, thực hành 8 dự án,
-                                            hàng trăm bài tập, trang hỏi đáp riêng,
-                                            cấp chứng chỉ sau khóa học và mua một lần học mãi mãi.
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Col>
-                            </Row>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        </>
+        <Container className={styles.container}>
+            <Row className={styles.header__introduce}>
+                <Col md={12} className={styles.header__introduce__box}>
+                    <section className={styles.title__group}>
+                        <h3 className={styles.title__group__heading}>
+                            Giới thiệu: {userState.user?.discription_user}
+                        </h3>
+                        <h3 className={styles.title__group__subTitle}>
+                            Ngày gia nhập TTO.SH:<span className={styles.title__group__subTitle__blue}>
+                                {userState?.user?.created_at
+                                    ? decodeAndFormatDateTime(userState.user.created_at)
+                                    : "Chưa xác định"}
+                            </span>
+                        </h3>
+                    </section>
+                </Col>
+            </Row>
+            <Row className={styles.body__introduct}>
+                <Col md={12} className={styles.body__introduct__header}>
+                    <h3 className={styles.body__introduct__header__title}>Các khóa học đã tham gia</h3>
+                </Col>
+            </Row>
+            <Row className={styles.body__introduct__main}>
+                {loading && (
+                    <ReactLoading type={"spin"} color={'rgba(7, 85, 192, 1)'} height={'32px'} width={'32px'} className={styles.align} />
+                )}
+                {courses && courses.map((course, index) => (
+                    <CourseCardInfo course={course} key={index} />
+                ))}
+            </Row>
+        </Container>
     )
 }
 
