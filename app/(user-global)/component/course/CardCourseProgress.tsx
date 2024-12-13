@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Card, Col, Image } from 'react-bootstrap';
 import ProgressCircle from './ProgressCircle'; // Component vòng tròn tiến độ
 import styles from '@public/styles/globalControl/CourseCard.module.css';// CSS module
-
+import { IconStart } from "@app/(user-global)/component/icon/icons"
 interface CourseCardProps {
     course: {
         id: string;
@@ -57,17 +57,30 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
 
                                     </div>
                                     <Card.Text className={styles.starNumber}>
-                                        {'('} {course.rating_course} {')'}
+                                        {course.rating_course > 0 ? (
+                                            <span></span>
+                                        ) : (
+                                            <span className={styles.ratingCourse}>Chưa có đánh giá</span>
+                                        )}
                                     </Card.Text>
                                 </div>
                                 <div className={styles.headContent__percent}>
                                     <Card.Text className={styles.evaluete__note}>
-                                        {'('} {course.views_course} phản hồi {')'}
+                                        {'('} {course.views_course} lượt xem{')'}
                                     </Card.Text>
                                 </div>
                             </div>
                         </div>
-                        <ProgressCircle progress={course.progress_percentage} />
+                        {course.progress_percentage > 0 ? (
+                            <ProgressCircle progress={course.progress_percentage} />)
+                            :
+                            (
+                                <div className={styles.StartLearning}>
+                                    <IconStart />
+                                </div>
+                            )
+                        }
+
                     </section>
                     <section className={styles.bodyContent}>
                         <div className={styles.bodyContent__element}>
@@ -90,5 +103,4 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
         </Col>
     );
 };
-
 export default CourseCard;

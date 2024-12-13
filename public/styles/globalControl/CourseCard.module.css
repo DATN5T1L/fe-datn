@@ -1,6 +1,6 @@
 .mainBox {
     /* width: 100%; */
-    height: auto;
+    height: 100%;
     border-radius: 16px;
     display: flex;
     /* flex-grow: 1; */
@@ -10,7 +10,7 @@
 
 .mainBox__content {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,6 @@
     padding: 0;
     border: 0;
     cursor: pointer;
-    gap: 12px;
 }
 
 .headerContent {
@@ -81,7 +80,7 @@
 .mainContent {
     position: relative;
     width: 100%;
-    height: auto;
+    height: 100%;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -93,7 +92,7 @@
 .mainContent__headContent {
     min-width: 225px;
     width: 100%;
-    height: auto;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -114,8 +113,6 @@
 .evaluete__main {
     width: 100%;
     height: 16px;
-    display: flex;
-    flex-direction: row;
     gap: 8px;
 }
 
@@ -142,6 +139,11 @@
     line-height: 16px;
     text-align: start;
     color: var(--text-25);
+    margin-top: 4px;
+}
+
+.star {
+    display: flex;
 }
 
 .headContent__percent {
@@ -231,6 +233,21 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
+}
+
+.StartLearning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    color: var(--blue-50);
+}
+
+.ratingCourse {
+    font-size: .865rem;
+    color: var(--blue-50);
+    font-weight: 600;
 }
 
 .bodyContent__element {

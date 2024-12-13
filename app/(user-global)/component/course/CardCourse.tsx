@@ -65,19 +65,25 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                     <section className={styles.mainContent__headContent}>
                         <div className={styles.headContent__evaluete}>
                             <div className={styles.evaluete__main}>
-                                <div className={styles.starGroup}>
-                                    {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                        <IconStar />
-                                    ))}
-                                </div>
-                                <Card.Text className={styles.starNumber}>
-                                    {'('} {course.rating_course} {')'}
-                                </Card.Text>
+                                {course.rating_course > 0 ? (
+                                    <div className={styles.star}>
+                                        <div className={styles.starGroup}>
+                                            {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
+                                                <IconStar key={index} />
+                                            ))}
+                                        </div>
+                                        <Card.Text className={styles.starNumber}>
+                                            <span>{course.rating_course}</span>
+                                        </Card.Text>
+                                    </div>
+                                ) : (
+                                    <span className={styles.ratingCourse}>Chưa có đánh giá</span>
+                                )}
                             </div>
                         </div>
                         <div className={styles.headContent__percent}>
                             <Card.Text className={styles.evaluete__note}>
-                                {'('} {course.views_course} lượt xem {')'}
+                                {'('}{course.views_course} lượt xem{')'}
                             </Card.Text>
                         </div>
 
