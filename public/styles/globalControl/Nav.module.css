@@ -11,6 +11,10 @@
     cursor: pointer;
     z-index: 1000;
     box-shadow: '0px 4px 10px rgba(0, 0, 0, 0.1)';
+
+    &:hover {
+        opacity: .8;
+    }
 }
 
 .nav {
