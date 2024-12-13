@@ -24,6 +24,7 @@
     "@tippyjs/react": "^4.2.6",
     "@types/chart.js": "^2.9.41",
     "@types/codemirror": "^5.60.15",
+    "@vercel/analytics": "^1.4.1",
     "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.5",
