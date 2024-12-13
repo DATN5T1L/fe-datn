@@ -311,7 +311,7 @@ const nextConfig = {
       },
       // thanh toán VNPAY
       {
-        source: '/api/paymentvnp/:path*',
+        source: '/api/paymentvn/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/VNPay/:path*',
       },
 
