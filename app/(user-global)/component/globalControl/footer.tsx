@@ -21,13 +21,13 @@ const Footer: React.FC = () => {
                         <Row md={12} className='footer-header'>
                             <Col md={3} className="footer-profile-left">
                                 <section className='box-logo'>
-                                    <Image src="/img/LogoPage.jpg" alt="Logo" className="logo-footer" />
+                                    <Image src="/img/LogoPage.jpg" alt="Thực hành dự án Frontend tại TTo" className="logo-footer" />
                                     <p className='text-1'>"Khám phá, học hỏi, vươn xa"</p>
                                 </section>
                                 <section className='box-logo-content'>
-                                    <p className='box-logo-content-text'><Image src="/img/phone.svg" alt="" className='box-logo-content-img' /> 090 7578 881</p>
-                                    <p className='box-logo-content-text'><Image src="/img/mail.svg" alt="" className='box-logo-content-img' /> contact@tto.edu.vn</p>
-                                    <p className='box-logo-content-text'><Image src="/img/map.svg" alt="" className='box-logo-content-img' />720A Điện Biên Phủ, Vinhomes Tân Cảng, Bình Thạnh, Hồ Chí Minh 72300</p>
+                                    <p className='box-logo-content-text'><Image src="/img/phone.svg" alt="Học HTML5 và CSS3 cùng TTO.sh" className='box-logo-content-img' /> 090 7578 881</p>
+                                    <p className='box-logo-content-text'><Image src="/img/mail.svg" alt="Học HTML5 và CSS3 cùng TTO.sh" className='box-logo-content-img' /> contact@tto.edu.vn</p>
+                                    <p className='box-logo-content-text'><Image src="/img/map.svg" alt="Lập trình ReactJS từ cơ bản đến nâng cao với tto" className='box-logo-content-img' />720A Điện Biên Phủ, Vinhomes Tân Cảng, Bình Thạnh, Hồ Chí Minh 72300</p>
                                 </section>
                             </Col>
                             <Col md={7} className="footer-profile-right">
@@ -66,10 +66,10 @@ const Footer: React.FC = () => {
                             </Col >
                         </Row >
                         <Nav className='media-logo'>
-                            <Link href="/" className='media-logo-link'><Image src="/img/fb.svg" alt="" className='media-logo-img' /></Link>
-                            <Link href="/" className='media-logo-link'><Image src="/img/intagram.svg" alt="" className='media-logo-img' /></Link>
-                            <Link href="/" className='media-logo-link'><Image src="/img/IN.svg" alt="" className='media-logo-img' /></Link>
-                            <Link href="/" className='media-logo-link'><Image src="/img/X.com.svg" alt="" className='media-logo-img' /></Link>
+                            <Link href="/" className='media-logo-link'><Image src="/img/fb.svg" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" className='media-logo-img' /></Link>
+                            <Link href="/" className='media-logo-link'><Image src="/img/intagram.svg" alt="Học SCSS và CSS nâng cao trên tto.SH" className='media-logo-img' /></Link>
+                            <Link href="/" className='media-logo-link'><Image src="/img/IN.svg" alt="Tăng cường kỹ năng nhanh chóng" className='media-logo-img' /></Link>
+                            <Link href="/" className='media-logo-link'><Image src="/img/X.com.svg" alt="Khóa học dễ tiếp cận" className='media-logo-img' /></Link>
                         </Nav>
                         <section className='copyright'>
                             <div className="copyright-content">

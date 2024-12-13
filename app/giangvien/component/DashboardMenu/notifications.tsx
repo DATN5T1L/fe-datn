@@ -38,10 +38,10 @@ const Notifications = () => {
                 className={`d-block  ${styles.option_button}`}
               >
                 <Link href="/#!">
-                  <img src="/img_admin/eyes.svg" alt="Edit" />
+                  <img src="/img_admin/eyes.svg" alt="Làm quen với lập trình web trên tto.sh" />
                 </Link>
                 <Link href="/#!">
-                  <img src="/img_admin/add.svg" alt="View" />
+                  <img src="/img_admin/add.svg" alt="Làm quen với lập trình web trên tto.sh" />
                 </Link>
               </div>
             </div>

@@ -23,7 +23,7 @@ const FeedBackToStudent: React.FC = () => {
                 <Row className={styles.header}>
                     <Col className={styles.header__group}>
                         <div className={styles.left__box}>
-                            <Image src="/img/blue-green.svg" alt="" className={styles.left__box__img} />
+                            <Image src="/img/blue-green.svg" alt="Lộ trình Fullstack Development với TTO.SH" className={styles.left__box__img} />
                         </div>
                         <h3 className={styles.heading}>Phản hồi từ học viên TTO.SH</h3>
                         <div className={styles.right__box}></div>
@@ -45,7 +45,7 @@ const FeedBackToStudent: React.FC = () => {
                                                 <Image
                                                     key={starIndex}
                                                     src="/img/iconStar.svg"
-                                                    alt=""
+                                                    alt="Lộ trình Fullstack Development với TTO.SH"
                                                     className={styles.feedBack__star}
                                                 />
                                             ))}
@@ -56,7 +56,7 @@ const FeedBackToStudent: React.FC = () => {
                                     </section>
                                     <section className={styles.feedBack__tagName__group}>
                                         <div className={styles.tagName__icon}>
-                                            <Image src="/img/box-blue.svg" alt="" className={styles.tagName__img} />
+                                            <Image src="/img/box-blue.svg" alt="Lộ trình Fullstack Development với TTO.SH" className={styles.tagName__img} />
                                         </div>
                                         <div className={styles.tagName__box1}>
                                             <Link href={'/'} className={styles.tagName__content}>
@@ -68,7 +68,7 @@ const FeedBackToStudent: React.FC = () => {
                                 <Col className={styles.post__feedBack}>
                                     <section className={styles.post__feedBack__container}>
                                         <div className={styles.left__post__feedBack}>
-                                            <Image src={feedback.img_course} alt="" className={styles.left__post__feedBack__img} />
+                                            <Image src={feedback.img_course} alt="Lộ trình Fullstack Development với TTO.SH" className={styles.left__post__feedBack__img} />
                                         </div>
                                         <div className={styles.right__post__feedBack}>
                                             <div className={styles.right__post__feedBack__content}>

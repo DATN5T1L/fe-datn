@@ -96,7 +96,7 @@ const LearningPath: React.FC = () => {
                                 <Card.Img
                                     src={route.img_route || "/placeholder.jpg"}
                                     className={styles.box__img}
-                                    alt="Hình Router"
+                                    alt="Lộ trình Fullstack Development với TTO.SH"
                                 />
                                 <Card.Body className={styles.box__body}>
                                     <Card.Title className={styles.box__body__title}>

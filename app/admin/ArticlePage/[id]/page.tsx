@@ -61,7 +61,7 @@ const AccepptArticel: React.FC<AccepptArticelProps> = ({ params }) => {
           </div>
           <span className='fs-5 fs-sm-2 fs-lg-1'>{dataPost?.data.content_post}</span>
           <div className='my-5 w-100 d-flex justify-content-center align-items-center' style={{ flexDirection: 'column' }}>
-            <img src={`${dataPost?.data.img_post}`} alt="" style={{ width: '100%', height: '30%', objectFit: 'contain', borderRadius: 10 }} />
+            <img src={`${dataPost?.data.img_post}`} alt="Chương trình học toàn diện" style={{ width: '100%', height: '30%', objectFit: 'contain', borderRadius: 10 }} />
             {/* <span className='mt-2' style={{ fontStyle: 'italic' }}>Click vào màn hình để mở video nhé anh em!</span> */}
           </div>
         </div>

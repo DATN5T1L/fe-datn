@@ -737,7 +737,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             <Navbar className={stylesNav.nav} >
                 <div className={stylesNav.brandProgress}>
                     <Link href="/" className={stylesNav.brandHeader}>
-                        <Image src="/img/logo.svg" alt="logo" className={stylesNav.imgBrandHeader} width={54} height={56} />
+                        <Image src="/img/logo.svg" alt="Thực hiện dự án clone Facebook tại tto" className={stylesNav.imgBrandHeader} width={54} height={56} />
                     </Link>
                     <h4 className={stylesNav.heading}>{progress?.name_course}</h4>
                     <ProgressCircle progress={progress?.progress_percentage ?? 0} />
@@ -774,7 +774,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         </div>
                     )}>
                         <div className={stylesNav.menuOptions} onClick={visible ? hide : show}>
-                            <Image src={avatar} alt="logo" className={stylesNav.userImage} width={34} height={80} />
+                            <Image src={avatar} alt="Thực hiện dự án clone Facebook tại tto" className={stylesNav.userImage} width={34} height={80} />
                             <h4 className={stylesNav.titleName}>{user?.fullname}</h4>
                             <Arrow deg="-180" />
                         </div>

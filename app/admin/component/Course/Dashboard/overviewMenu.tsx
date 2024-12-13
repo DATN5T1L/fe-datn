@@ -26,7 +26,7 @@ const OverviewMenu: React.FC<OverviewMenuProps> = ({ show, handleClose }) => {
         <button className={styles.customCloseButton} onClick={handleClose}>
           <img
             src="/img_admin/close.svg"
-            alt="Close"
+            alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
             className={styles.closeIcon}
           />
         </button>
@@ -117,13 +117,13 @@ const OverviewMenu: React.FC<OverviewMenuProps> = ({ show, handleClose }) => {
                         className={`d-flex justify-content-between ${styles.option_button}`}
                       >
                         <Link href="/#!">
-                          <img src="/img_admin/action1.svg" alt="Edit" />
+                          <img src="/img_admin/action1.svg" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" />
                         </Link>
                         <Link href="/#!">
-                          <img src="/img_admin/action2.svg" alt="View" />
+                          <img src="/img_admin/action2.svg" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" />
                         </Link>
                         <Link href="/#!">
-                          <img src="/img_admin/action3.svg" alt="Delete" />
+                          <img src="/img_admin/action3.svg" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" />
                         </Link>
                       </div>
                     </td>

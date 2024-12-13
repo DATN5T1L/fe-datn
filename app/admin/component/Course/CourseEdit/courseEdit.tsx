@@ -11,7 +11,7 @@ const CourseEdit = () => {
           <div className={h.wapper_body}>
             <div className={h.thatep}>
               <div className={h.thatep1}>
-                <img src="/img_admin/may.svg" alt="" />
+                <img src="/img_admin/may.svg" alt="Tự học lập trình JavaScript tại TTO.SH" />
                 <div className={h.phangiua}>
                   <div className={h.chon1tep}>Chọn một tệp</div>
                   <div className={h.ghichuhinh}>

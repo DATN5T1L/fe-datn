@@ -36,7 +36,7 @@ export const HeaderArticleSimple = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="Nhận chứng chỉ lập trình tại TTO.SH"
                 width={"24px"}
                 height={"24px"}
               />

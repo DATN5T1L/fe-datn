@@ -108,7 +108,7 @@ const VideoDetail: React.FC = () => {
                   Hỏi đáp
                 </div>
                 <div className={videoMod.FAQ__btn} onClick={() => handleCloseFaq()}>
-                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
+                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="Frontend" />
                 </div>
               </div>
               <div className={videoMod.FAQ__subtitle}>
@@ -251,7 +251,7 @@ const VideoDetail: React.FC = () => {
                   108 Bình luận
                 </div>
                 <div className={videoMod.FAQ__btn} onClick={() => handleCloseCmt()}>
-                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
+                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="Frontend tto.sh" />
                 </div>
               </div>
               <div className={videoMod.box__chat__container}>
@@ -272,19 +272,19 @@ const VideoDetail: React.FC = () => {
                   </div>
                   <div className={videoMod.cmt__container__setting}>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/boxHollow.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/action.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/replyCmt.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                   </div>
                 </div>
                 <div className={videoMod.repCmt__container}>
                   <div className={videoMod.repCmt__avt__ctn}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.repCmt__avt} />
+                    <img src="/img/iconUserChatDetail.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" className={videoMod.repCmt__avt} />
                   </div>
                   <div className={videoMod.repCmt__form}>
                     <CkediterCustom></CkediterCustom>
@@ -296,7 +296,7 @@ const VideoDetail: React.FC = () => {
                 </div>
                 <div className={videoMod.cmt__container}>
                   <div className={videoMod.cmt__container__header}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.cmt__container__avt} />
+                    <img src="/img/iconUserChatDetail.svg" alt="Học MongoDB và Node.js tại TTO.SH" className={videoMod.cmt__container__avt} />
                     <div className={videoMod.cmt__container__header__groupTitle}>
                       <div className={videoMod.cmt__container__header__title}>
                         Thảo Thảo
@@ -311,19 +311,19 @@ const VideoDetail: React.FC = () => {
                   </div>
                   <div className={videoMod.cmt__container__setting}>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/boxHollow.svg" alt="Phát triển ứng dụng backend với tto" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/action.svg" alt="Phát triển ứng dụng backend với tto" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/replyCmt.svg" alt="Phát triển ứng dụng backend với tto" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                   </div>
                 </div>
                 <div className={videoMod.cmt__container}>
                   <div className={videoMod.cmt__container__header}>
-                    <img src="/img/iconUserChatDetail.svg" alt="icon-user" className={videoMod.cmt__container__avt} />
+                    <img src="/img/iconUserChatDetail.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.cmt__container__avt} />
                     <div className={videoMod.cmt__container__header__groupTitle}>
                       <div className={videoMod.cmt__container__header__title}>
                         Thảo Thảo
@@ -338,13 +338,13 @@ const VideoDetail: React.FC = () => {
                   </div>
                   <div className={videoMod.cmt__container__setting}>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/boxHollow.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/boxHollow.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/action.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/action.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                     <div className={videoMod.cmt__container__sevice}>
-                      <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                      <img src="/img/replyCmt.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.cmt__container__sevice__icon} />
                     </div>
                   </div>
                 </div>
@@ -367,20 +367,20 @@ const VideoDetail: React.FC = () => {
         <div className="d-flex gap-3">
           {closeFaq ? (
             <div className="" aria-disabled={true}>
-              <Image width={50} src="/img/Faq.svg" alt="icon-chat" className="text-primary" />
+              <Image width={50} src="/img/Faq.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className="text-primary" />
             </div>
           ) : (
             <div className="">
-              <Image width={50} src="/img/Faq.svg" className="text-primary" onClick={() => handleCloseFaq()} alt="icon-chat" />
+              <Image width={50} src="/img/Faq.svg" className="text-primary" onClick={() => handleCloseFaq()} alt="Lộ trình học Frontend miễn phí trên TTO.SH" />
             </div>
           )}
           {closeFaq ? (
             <div className="" aria-disabled={true}>
-              <Image width={50} src="/img/chatDetailVideo.svg" alt="icon-chat" className="text-primary" />
+              <Image width={50} src="/img/chatDetailVideo.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className="text-primary" />
             </div>
           ) : (
             <div className="">
-              <Image width={50} src="/img/chatDetailVideo.svg" className="text-primary" onClick={() => handleCloseCmt()} alt="icon-chat" />
+              <Image width={50} src="/img/chatDetailVideo.svg" className="text-primary" onClick={() => handleCloseCmt()} alt="Lộ trình học Frontend miễn phí trên TTO.SH" />
             </div>
           )}
         </div>
@@ -846,7 +846,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data 
                   {item.type_document === 'video' ? (
                     <PlayCircle size={17} className="text-muted" />
                   ) : (
-                    <img src="/img/pencil.svg" alt="icon-document" className={videoMod.icon__document} />
+                    <img src="/img/pencil.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.icon__document} />
                   )}
                   <div
                     className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
@@ -863,7 +863,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data 
               onClick={() => onChangeType('code')}
             >
               <div className="d-flex align-items-center gap-2">
-                <img src="/img/pencil.svg" alt="icon-document" className={videoMod.icon__document} />
+                <img src="/img/pencil.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.icon__document} />
                 <div
                   className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
                 >
@@ -878,7 +878,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data 
               onClick={() => onChangeType('dungsai')}
             >
               <div className="d-flex align-items-center gap-2">
-                <img src="/img/pencil.svg" alt="icon-document" className={videoMod.icon__document} />
+                <img src="/img/pencil.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.icon__document} />
                 <div
                   className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
                 >
@@ -893,7 +893,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data 
               onClick={() => onChangeType('tracnghiem')}
             >
               <div className="d-flex align-items-center gap-2">
-                <img src="/img/pencil.svg" alt="icon-document" className={videoMod.icon__document} />
+                <img src="/img/pencil.svg" alt="Lộ trình học Frontend miễn phí trên TTO.SH" className={videoMod.icon__document} />
                 <div
                   className={`${videoMod.accordionChapter} d-flex flex-column align-items-start text-muted`}
                 >

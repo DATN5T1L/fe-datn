@@ -72,7 +72,7 @@ const FQA: React.FC<{}> = () => {
            <div className={h.searchIconWrapper}>
              <img
                src="/img_admin/search.svg"
-               alt="Search"
+               alt="Tự học lập trình JavaScript tại TTO.SH"
                width={"24px"}
                height={"24px"}
              />
@@ -112,14 +112,14 @@ const FQA: React.FC<{}> = () => {
                        href="/#!"
                        className="w-50 border-end justify-content-center align-item-center d-flex col-6"
                      >
-                       <img src="/img_admin/eyes.svg" alt="Edit" />
+                       <img src="/img_admin/eyes.svg" alt="Tự học lập trình JavaScript tại TTO.SH" />
                      </Link>
                      <Link
                        href={`ChapterPage?id=${1}`}
                        as={`ChapterPage/${1}`}
                        className="w-50 border-end justify-content-center align-item-center d-flex col-6"
                      >
-                       <img src="/img_admin/action2.svg" alt="Delete" />
+                       <img src="/img_admin/action2.svg" alt="Tự học lập trình JavaScript tại TTO.SH" />
                      </Link>
                    </div>
                  </td>
@@ -137,7 +137,7 @@ const FQA: React.FC<{}> = () => {
          >
            <img
              src="/img_admin/prep.svg"
-             alt="Previous"
+             alt="Lập trình ReactJS"
              width="8"
              height="16"
            />
@@ -146,7 +146,7 @@ const FQA: React.FC<{}> = () => {
          <Pagination.Next
            onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
          >
-           <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
+           <img src="/img_admin/prep2.svg" alt="Lập trình ReactJS" width="8" height="16" />
          </Pagination.Next>
        </Pagination>
      </div>

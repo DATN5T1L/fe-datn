@@ -168,7 +168,7 @@ const ModalChangeEmail: React.FC<ModalChangeNameProps> = ({ show, onClose }) => 
             {isVisible && (
                 <section className={`${styles.modal} ${show ? styles.show : styles.hide}`} onClick={(e) => e.stopPropagation()}>
                     <Button className={styles.closeBtn} onClick={onClose}>
-                        <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
+                        <Image src="/img/closeBtn.svg" alt="Học lập trình cơ bản với TTO.SH" className={styles.closeBtn__img} />
                     </Button>
                     <Form className={styles.formChangeName} noValidate validated={formik.touched.email && !formik.errors.email} onSubmit={formik.handleSubmit}>
                         <fieldset className={styles.modalBody}>

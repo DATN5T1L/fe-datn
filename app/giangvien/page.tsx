@@ -25,7 +25,7 @@ const Dashboard: React.FC = () => {
             </span>
             <Image
               src={"/img_admin/boxvippro.png"}
-              alt="icon"
+              alt="Học HTML5 và CSS3 cùng TTO.sh"
               width={60}
               height={60}
             />
@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
             </span>
             <Image
               src={"/img_admin/monneyvip.svg"}
-              alt="icon"
+              alt="Học HTML5 và CSS3 cùng TTO.sh"
               width={60}
               height={60}
             />
@@ -97,13 +97,13 @@ const Dashboard: React.FC = () => {
                       </Card.Subtitle>
                       <Card.Img
                         src="/img/iconReact.svg"
-                        alt=""
+                        alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                         className={h.text__img}
                       />
                     </section>
                     <Card.Img
                       src="/img/tuan.png"
-                      alt=""
+                      alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
                       className={h.headerContent__avt}
                     />
                   </Card.Header>
@@ -113,27 +113,27 @@ const Dashboard: React.FC = () => {
                         <div className={h.starGroup}>
                           <Image
                             src="/img/iconStar.svg"
-                            alt=""
+                            alt="Xây dựng website responsive cùng tto.sh"
                             className={h.starElement}
                           />
                           <Image
                             src="/img/iconStar.svg"
-                            alt=""
+                            alt="Xây dựng website responsive cùng tto.sh"
                             className={h.starElement}
                           />
                           <Image
                             src="/img/iconStar.svg"
-                            alt=""
+                            alt="Xây dựng website responsive cùng tto.sh"
                             className={h.starElement}
                           />
                           <Image
                             src="/img/iconStar.svg"
-                            alt=""
+                            alt="Khóa học Node.js cơ bản tại TTO.sh"
                             className={h.starElement}
                           />
                           <Image
                             src="/img/iconStar.svg"
-                            alt=""
+                            alt="Khóa học Node.js cơ bản tại TTO.sh"
                             className={h.starElement}
                           />
                         </div>
@@ -154,7 +154,7 @@ const Dashboard: React.FC = () => {
                       <div className={h.bodyContent__element}>
                         <Image
                           src="/img/bookoffgreen.svg"
-                          alt=""
+                          alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                           className={h.element__img}
                         />
                         <Card.Text className={h.element__text}>
@@ -164,7 +164,7 @@ const Dashboard: React.FC = () => {
                       <div className={h.bodyContent__element}>
                         <Image
                           src="/img/bookopenblue.svg"
-                          alt=""
+                          alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                           className={h.element__img}
                         />
                         <Card.Text className={h.element__text}>
@@ -174,7 +174,7 @@ const Dashboard: React.FC = () => {
                       <div className={h.bodyContent__element}>
                         <Image
                           src="/img/bookopenyellow.svg"
-                          alt=""
+                          alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                           className={h.element__img}
                         />
                         <Card.Text className={h.element__text}>

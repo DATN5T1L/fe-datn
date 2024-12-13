@@ -283,7 +283,7 @@ const CourseList: React.FC<{}> = () => {
             <img
               src="/img_admin/action.svg"
               className="bg-white border-end p-4 "
-              alt="Action"
+              alt="tto.sh"
             />
             <div className="bg-white border-end p-4">
               <select
@@ -332,7 +332,7 @@ const CourseList: React.FC<{}> = () => {
               <div className={h.searchIconWrapper}>
                 <img
                   src="/img_admin/search.svg"
-                  alt="Search"
+                  alt="tto.sh"
                   width={"24px"}
                   height={"24px"}
                 />
@@ -379,13 +379,13 @@ const CourseList: React.FC<{}> = () => {
                               </Card.Subtitle>
                               <Card.Img
                                 src="/img/iconReact.svg"
-                                alt=""
+                                alt="tto.sh"
                                 className={h.text__img}
                               />
                             </section>
                             <Card.Img
                               src="/img/tuan.png"
-                              alt=""
+                              alt="tto.sh"
                               className={h.headerContent__avt}
                             />
                           </Card.Header>
@@ -407,17 +407,17 @@ const CourseList: React.FC<{}> = () => {
                           >
                             <div className="d-flex justify-content-center w-50 border-end" onClick={() => handleHidden(item.document_id)}>
                               {item.del_flag ? (
-                                <img src="/img/action.svg" alt="Delete" />
+                                <img src="/img/action.svg" alt="tto.sh" />
                               ) : (
-                                <img src="/img/hiddenEye.svg" alt="Delete" />
+                                <img src="/img/hiddenEye.svg" alt="tto.sh" />
                               )}
                             </div>
                             <Link href="/#!" className="w-50 border-end">
-                              <img src="/img_admin/dautick.png" alt="Edit" />
+                              <img src="/img_admin/dautick.png" alt="tto.sh" />
                             </Link>
 
                             <Link href={`/giangvien/Lesson/LessonEdit?id=${idChapter}&name=${nameTeacher}&idDoc=${item.document_id}`} className="w-50">
-                              <img src="/img_admin/action2.svg" alt="Edit" />
+                              <img src="/img_admin/action2.svg" alt="tto.sh" />
                             </Link>
                           </div>
                         </td>

@@ -5,7 +5,7 @@ const FbLogin = () => {
     return (
         <button className={styles.RegisterMedia__btn}
             onClick={() => signIn("facebook")}>
-            <img src="/img/fb.svg" alt="" className={styles.RegisterMedia__img} />
+            <img src="/img/fb.svg" alt="Tư vấn học trực tuyến tto.sh" className={styles.RegisterMedia__img} />
             <div className={styles.RegisterMedia__title}>
                 Facebook
             </div>

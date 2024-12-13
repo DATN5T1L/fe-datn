@@ -36,7 +36,7 @@ const Why: React.FC = () => {
                         <section className={styles.leftChat}>
                             <div className={styles.main__content__wrap}>
                                 <div className={styles.main__content__imgWrap}>
-                                    <Image src="/img/tesla.jpg" width="360" height="360" alt="" className={styles.main__content__imgBg} />
+                                    <Image src="/img/6.jpg" width="360" height="360" alt="Cách học hiệu quả trên tto.SH" className={styles.main__content__imgBg} />
                                 </div>
                             </div>
                             <div className={styles.leftChat__container}>
@@ -51,7 +51,7 @@ const Why: React.FC = () => {
                                             đảm bảo bạn luôn cập nhật kiến thức mới nhất.
                                         </h5>
                                     </div>
-                                    <img src="/img/bgChat.svg" alt="" className={styles.leftChat__container__content__img} />
+                                    <img src="/img/bgChat.svg" alt="Đánh giá khóa học JavaScript tại TTO" className={styles.leftChat__container__content__img} />
                                 </div>
                             </div>
                         </section>
@@ -68,19 +68,19 @@ const Why: React.FC = () => {
                                             phù hợp cho cả người mới bắt đầu lẫn những người đã có kinh nghiệm.
                                         </h5>
                                     </div>
-                                    <img src="/img/chatRight.svg" alt="" className={styles.rightChat__container__content__img} />
+                                    <img src="/img/chatRight.svg" alt="Đánh giá khóa học JavaScript tại TTO" className={styles.rightChat__container__content__img} />
                                 </div>
                             </div>
                             <div className={styles.main__content__wrap}>
                                 <div className={styles.main__content__imgWrap}>
-                                    <Image src="/img/tesla.jpg" width="360" height="360" alt="" className={styles.main__content__imgBg} />
+                                    <Image src="/img/7.jpg" width="360" height="360" alt="Đánh giá khóa học JavaScript tại TTO" className={styles.main__content__imgBg} />
                                 </div>
                             </div>
                         </section>
                         <section className={styles.leftChat}>
                             <div className={styles.main__content__wrap}>
                                 <div className={styles.main__content__imgWrap}>
-                                    <Image src="/img/tesla.jpg" width="360" height="360" alt="" className={styles.main__content__imgBg} />
+                                    <Image src="/img/8.jpg" width="360" height="360" alt="Đánh giá khóa học JavaScript tại TTO" className={styles.main__content__imgBg} />
                                 </div>
                             </div>
                             <div className={styles.leftChat__container}>
@@ -94,7 +94,7 @@ const Why: React.FC = () => {
                                             giúp bạn áp dụng kiến thức vào công việc ngay sau khi hoàn thành khóa học.
                                         </h5>
                                     </div>
-                                    <img src="/img/bgChat.svg" alt="" className={styles.leftChat__container__content__img} />
+                                    <img src="/img/bgChat.svg" alt="Đánh giá khóa học JavaScript tại TTO" className={styles.leftChat__container__content__img} />
                                 </div>
                             </div>
                         </section>
@@ -110,19 +110,19 @@ const Why: React.FC = () => {
                                             đảm bảo không bỏ lỡ bất kỳ kiến thức quan trọng nào.
                                         </h5>
                                     </div>
-                                    <img src="/img/chatRight.svg" alt="" className={styles.rightChat__container__content__img} />
+                                    <img src="/img/chatRight.svg" alt="Đánh giá khóa học JavaScript tại TTO" className={styles.rightChat__container__content__img} />
                                 </div>
                             </div>
                             <div className={styles.main__content__wrap}>
                                 <div className={styles.main__content__imgWrap}>
-                                    <Image src="/img/tesla.jpg" width="360" height="360" alt="" className={styles.main__content__imgBg} />
+                                    <Image src="/img/9.jpg" width="360" height="360" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" className={styles.main__content__imgBg} />
                                 </div>
                             </div>
                         </section>
                         <section className={styles.leftChat}>
                             <div className={styles.main__content__wrap}>
                                 <div className={styles.main__content__imgWrap}>
-                                    <Image src="/img/tesla.jpg" width="360" height="360" alt="" className={styles.main__content__imgBg} />
+                                    <Image src="/img/12.jpg" width="360" height="360" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" className={styles.main__content__imgBg} />
                                 </div>
                             </div>
                             <div className={styles.leftChat__container}>
@@ -136,7 +136,7 @@ const Why: React.FC = () => {
                                             giúp tăng cơ hội việc làm và phát triển sự nghiệp trong lĩnh vực công nghệ thông tin.
                                         </h5>
                                     </div>
-                                    <img src="/img/bgChat.svg" alt="" className={styles.leftChat__container__content__img} />
+                                    <img src="/img/bgChat.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" className={styles.leftChat__container__content__img} />
                                 </div>
                             </div>
                         </section>

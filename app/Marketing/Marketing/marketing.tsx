@@ -245,7 +245,7 @@ const Marketing: React.FC<{}> = () => {
                 md={1}
                 className={`d-flex flex-row justify-content-center align-items-center  mb-4 mb-md-0 mb-sm-0 px-0`}
               >
-                <img src="/img_admin/action.svg" alt="Action" />
+                <img src="/img_admin/action.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
               </Col>
               <Col
                 xs={6}
@@ -283,7 +283,7 @@ const Marketing: React.FC<{}> = () => {
               </Col>
               <Col xs={6} sm={2} md={3}>
                 <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0" onClick={() => handleReset()}>
-                  <img src="/img_admin/restart.svg" alt="Reset" />
+                  <img src="/img_admin/restart.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
                   <span className="text-danger">  Cài lại</span>
                 </div>
               </Col>
@@ -305,7 +305,7 @@ const Marketing: React.FC<{}> = () => {
               <div className={h.searchIconWrapper}>
                 <img
                   src="/img_admin/search.svg"
-                  alt="Search"
+                  alt="Làm thế nào để học tốt ReactJS với TTO.SH?"
                   width={"24px"}
                   height={"24px"}
                 />
@@ -366,7 +366,7 @@ const Marketing: React.FC<{}> = () => {
                     <td className={h.option_button_group}>
                       <div className="d-flex justify-content-evenly border py-2 rounded">
                         <Link href={`/Marketing/MarketingPosts/${item.id}`} className="">
-                          <img src="/img_admin/action1.svg" alt="Edit" />
+                          <img src="/img_admin/action1.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
                         </Link>
                         <div className="border-end" />
                         <Link href={`/Marketing/MarketingPosts/editPost?id=${item.id}`} className="">
@@ -390,9 +390,9 @@ const Marketing: React.FC<{}> = () => {
                         <div className="border-end" />
                         <Link href="" onClick={() => handleDelete(item.id)} className="">
                           {item.del_flag ? (
-                            <img src="/img/action.svg" alt="Delete" />
+                            <img src="/img/action.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
                           ) : (
-                            <img src="/img/hiddenEye.svg" alt="Delete" />
+                            <img src="/img/hiddenEye.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
                           )}
                         </Link>
                       </div>

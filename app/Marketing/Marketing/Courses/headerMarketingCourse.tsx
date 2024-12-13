@@ -18,7 +18,7 @@ export const HeaderMarketingCourse = () => {
           <img
             src="/img_admin/action.svg"
             className="bg-white border-end p-4 rounded-start-4"
-            alt="Action"
+            alt="Hoàn thiện dự án e-commerce cùng TTo"
           />
           <div className="bg-white border-end p-4">
             <select
@@ -41,7 +41,7 @@ export const HeaderMarketingCourse = () => {
             </select>
           </div>
           <div className="bg-white p-4 d-inline-flex align-items-center rounded-end-4">
-            <img src="/img_admin/restart.svg" alt="Reset" />
+            <img src="/img_admin/restart.svg" alt="Phát triển ứng dụng quản lý công việc trên tto.sh" />
             <span className="text-danger">Cài lại</span>
           </div>
         </div>
@@ -68,7 +68,7 @@ export const HeaderUsersSimple = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="Phát triển ứng dụng quản lý công việc trên tto.sh"
                 width={"24px"}
                 height={"24px"}
               />

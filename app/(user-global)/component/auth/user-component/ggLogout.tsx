@@ -74,8 +74,8 @@ const GgLogout = () => {
 
     return (
         <button className={styles.link} onClick={handleLogout}>
-            <img src='/img/infoLogout-black.svg' className={styles.black} />
-            <img src='/img/infoLogout-white.svg' className={styles.white} />
+            <img src='/img/infoLogout-black.svg' alt="Chương trình học toàn diện" className={styles.black} />
+            <img src='/img/infoLogout-white.svg' alt="Chương trình học toàn diện" className={styles.white} />
             <div className={styles.link__title}>Đăng xuất</div>
         </button>
     )

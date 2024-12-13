@@ -95,7 +95,7 @@ const RouterHeader: React.FC = () => {
                             <div className={h.searchIconWrapper}>
                                 <img
                                     src="/img_admin/search.svg"
-                                    alt="Search"
+                                    alt="Backend Development"
                                     width={"24px"}
                                     height={"24px"}
                                 />

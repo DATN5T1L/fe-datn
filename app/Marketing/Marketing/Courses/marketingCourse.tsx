@@ -58,13 +58,13 @@ const MarketingCourse: React.FC<{}> = () => {
                         </Card.Subtitle>
                         <Card.Img
                           src="/img/iconReact.svg"
-                          alt=""
+                          alt="Phát triển ứng dụng quản lý công việc trên tto.sh"
                           className={h.text__img}
                         />
                       </section>
                       <Card.Img
                         src="/img/tuan.png"
-                        alt=""
+                        alt="Phát triển ứng dụng quản lý công việc trên tto.sh"
                         className={h.headerContent__avt}
                       />
                     </Card.Header>
@@ -81,7 +81,7 @@ const MarketingCourse: React.FC<{}> = () => {
                       className={`justify-content-evenly border d-flex py-2 rounded`}
                     >
                       <Link href="/#!" className="">
-                        <img src="/img_admin/action1.svg" alt="Edit" />
+                        <img src="/img_admin/action1.svg" alt="Xây dựng blog cá nhân với Node.js tại TTO.SH" />
                       </Link>
                       <div className="border border-start" />
                       <Link href="UsersPage/DetailUser/" className="">
@@ -119,7 +119,7 @@ const MarketingCourse: React.FC<{}> = () => {
           <Pagination.Prev>
             <img
               src="/img_admin/prep.svg"
-              alt="Previous"
+              alt="Xây dựng blog cá nhân với Node.js tại TTO.SH"
               width="8"
               height="16"
             />

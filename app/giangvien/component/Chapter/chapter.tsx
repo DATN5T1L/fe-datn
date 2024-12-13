@@ -230,7 +230,7 @@ const Chapter: React.FC<{}> = () => {
           <img
             src="/img_admin/action.svg"
             className="bg-white border-end p-4 "
-            alt="Action"
+            alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
           />
           <div className="bg-white border-end p-4">
             <select
@@ -283,28 +283,28 @@ const Chapter: React.FC<{}> = () => {
                             href="/giangvien/ChapterPage/ChapterDetail"
                             className="w-33 border-end justify-content-center d-flex col-3"
                           >
-                            <img src="/img/actionDetail.svg" alt="Edit" />
+                            <img src="/img/actionDetail.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" />
                           </Link>
                           <Link
                             href={`/giangvien/ChapterPage/ChapterEdit`} 
                             className="w-33 border-end justify-content-center d-flex col-3"
                           >
-                            <img src="/img_admin/action2.svg" alt="Delete" />
+                            <img src="/img_admin/action2.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" />
                           </Link>
                           <Link
                             href={`/giangvien/ChapterPage/ManagerDocument`}
                             className="w-33 border-end justify-content-center d-flex col-3"
                           >
-                            <img src="/img_admin/vitien.svg" alt="Delete" />
+                            <img src="/img_admin/vitien.svg" alt="Học MongoDB và Node.js tại TTO.SH" />
                           </Link>
                           <div
                             onClick={() => handleHidden(item.id)}
                             className="w-33 border-end justify-content-center d-flex col-3"
                           >
                             {item.del_flag ? (
-                              <img src="/img/action.svg" alt="Delete" />
+                              <img src="/img/action.svg" alt="Học MongoDB và Node.js tại TTO.SH" />
                             ) : (
-                              <img src="/img/hiddenEye.svg" alt="Delete" />
+                              <img src="/img/hiddenEye.svg" alt="Học MongoDB và Node.js tại TTO.SH" />
                             )}
                           </div>
                         </div>

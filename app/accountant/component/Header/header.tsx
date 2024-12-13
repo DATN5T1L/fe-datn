@@ -61,7 +61,7 @@ const Header: React.FC = () => {
           <img
             src="/img/logoPage.jpg"
             className="d-inline-block align-top"
-            alt="Logo"
+            alt="Xây dựng blog cá nhân với Node.js tại TTO.SH"
           />
         </Navbar.Brand>
         <Form className={` ${h.formGroup} mx-auto d-none d-xl-block`}>
@@ -72,7 +72,7 @@ const Header: React.FC = () => {
             className={h.searchInput}
           />
           <Button className={h.btnSearch}>
-            <img src="/img_admin/searchheader.svg" alt="Search" />
+            <img src="/img_admin/searchheader.svg" alt="Học với chuyên gia" />
           </Button>
         </Form>
         <ButtonGroup className={`${h.CTA} d-none d-xl-block`}>
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
             className={h.iconButton}
             onClick={toggleNotifications}
           >
-            <img src="/img/Bell.svg" alt="Notifications" />
+            <img src="/img/Bell.svg" alt="Học với chuyên gia" />
           </Button>
 
           <Button
@@ -92,7 +92,7 @@ const Header: React.FC = () => {
             <img src="/img/user.svg" alt="User d-none d-xl-block" />
           </Button>
           <Button variant="link" className={h.iconButton}>
-            <img src="/img/list.svg" alt="Menu" onClick={handleShow} />
+            <img src="/img/list.svg" alt="Học với chuyên gia" onClick={handleShow} />
           </Button>
         </ButtonGroup>
       </Navbar>

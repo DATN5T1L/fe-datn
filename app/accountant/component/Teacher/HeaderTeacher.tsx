@@ -24,7 +24,7 @@ export const HeaderTeacher = () => {
             <img
               src="/img_admin/action.svg"
               className="bg-white border-end p-4 rounded-start-4"
-              alt="Action"
+              alt="Học tập từ xa"
             />
             <div className="bg-white border-end p-4">
               <select
@@ -37,7 +37,7 @@ export const HeaderTeacher = () => {
               </select>
             </div>
             <div className="bg-white p-4 d-inline-flex align-items-center rounded-end-4">
-              <img src="/img_admin/restart.svg" alt="Reset" />
+              <img src="/img_admin/restart.svg" alt="Thời gian linh hoạt cho học viên" />
               <span className="text-danger">  Cài lại</span>
             </div>
           </div>
@@ -58,7 +58,7 @@ export const HeaderTeacher = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="Thời gian linh hoạt cho học viên"
                 width={"24px"}
                 height={"24px"}
               />

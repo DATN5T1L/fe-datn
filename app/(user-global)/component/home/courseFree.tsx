@@ -75,14 +75,14 @@ const CourseFree: React.FC = () => {
             <Container className={styles.container}>
                 <Row className={styles.header}>
                     <Col className={styles.header__content__left}>
-                        <Image src="/img/GroupLeft2.svg" alt="group left" className={styles.header__content__leftIcon} />
+                        <Image src="/img/GroupLeft2.svg" alt="Tự học lập trình Fullstack tại TTo" className={styles.header__content__leftIcon} />
                         <section className={styles.main}>
                             <h2 className={styles.main__title__content}>Khóa học miễn phí</h2>
                             <h4 className={styles.main__subTitle__content}>
                                 Khóa học được xây dựng bởi đội ngũ TTO.SH
                             </h4>
                         </section>
-                        <Image src="/img/GroupRight2.svg" alt="group right" className={styles.header__content__rightIcon} />
+                        <Image src="/img/GroupRight2.svg" alt="Học lập trình bài bản với TTO.sh" className={styles.header__content__rightIcon} />
                     </Col>
                     <Col className={styles.header__content__right}>
                         <h3 className={styles.header__content__right__title}>

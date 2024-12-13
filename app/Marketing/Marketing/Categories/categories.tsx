@@ -203,7 +203,7 @@ const Categories = () => {
             <img
               src="/img_admin/action.svg"
               className="bg-white border-end p-4 rounded-start-4"
-              alt="Action"
+              alt="Hoàn thiện dự án e-commerce cùng TTo"
             />
             <div className="bg-white border-end p-4">
               <select
@@ -218,7 +218,7 @@ const Categories = () => {
               </select>
             </div>
             <div className="bg-white p-4 d-inline-flex align-items-center rounded-end-4" onClick={() => handleReset()}>
-              <img src="/img_admin/restart.svg" alt="Reset" />
+              <img src="/img_admin/restart.svg" alt="Hoàn thiện dự án e-commerce cùng TTo" />
               <span className="text-danger">Cài lại</span>
             </div>
           </div>
@@ -273,7 +273,7 @@ const Categories = () => {
                       className={`d-flex justify-content-evenly border py-2 rounded`}
                     >
                       <Link href="Marketing/MarketingCategories/EditCategory">
-                        <img src="/img_admin/action1.svg" alt="Edit" />
+                        <img src="/img_admin/action1.svg" alt="Hoàn thiện dự án e-commerce cùng TTo" />
                       </Link>
                       <div className="border-end" />
                       <Link href={`/Marketing/MarketingCategories/EditCategory?id=${item.id}`} className="">
@@ -297,9 +297,9 @@ const Categories = () => {
                       <div className="border-end" />
                       <div onClick={() => handleHiddenCate(item.id)} className="">
                         {item.del_flag ? (
-                          <img src="/img/action.svg" alt="Delete" />
+                          <img src="/img/action.svg" alt="Hoàn thiện dự án e-commerce cùng TTo" />
                         ) : (
-                          <img src="/img/hiddenEye.svg" alt="Delete" />
+                          <img src="/img/hiddenEye.svg" alt="Hoàn thiện dự án e-commerce cùng TTo" />
                         )}
                       </div>
                     </div>

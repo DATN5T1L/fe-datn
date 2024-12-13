@@ -115,7 +115,7 @@ const HeaderCourse: React.FC = () => {
             <img
               src="/img_admin/action.svg"
               className="bg-white border-end p-4 "
-              alt="Action"
+              alt="Frontend tto.sh"
             />
             <div className="bg-white border-end p-4">
               <select
@@ -169,7 +169,7 @@ const HeaderCourse: React.FC = () => {
               <div className={h.searchIconWrapper}>
                 <img
                   src="/img_admin/search.svg"
-                  alt="Search"
+                  alt="Frontend tto.sh"
                   width={"24px"}
                   height={"24px"}
                 />

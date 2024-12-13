@@ -74,7 +74,7 @@ const ManagerChapter: React.FC<{}> = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="SCSS, TypeScript, và DevOps tto.sh"
                 width={"24px"}
                 height={"24px"}
               />
@@ -114,14 +114,14 @@ const ManagerChapter: React.FC<{}> = () => {
                         href="/#!"
                         className="w border-end justify-content-center align-item-center d-flex col-6"
                       >
-                        <img src="/img_admin/action1.svg" alt="Edit" />
+                        <img src="/img_admin/action1.svg" alt="Cách học hiệu quả trên tto.SH" />
                       </Link>
                       <Link
                         href={`ChapterPage?id=${1}`}
                         as={`ChapterPage/${1}`}
                         className="w border-end justify-content-center align-item-center d-flex col-6"
                       >
-                        <img src="/img_admin/action2.svg" alt="Delete" />
+                        <img src="/img_admin/action2.svg" alt="Cách học hiệu quả trên tto.SH" />
                       </Link>
                     </div>
                   </td>
@@ -139,7 +139,7 @@ const ManagerChapter: React.FC<{}> = () => {
           >
             <img
               src="/img_admin/prep.svg"
-              alt="Previous"
+              alt="Cách học hiệu quả trên tto.SH"
               width="8"
               height="16"
             />
@@ -148,7 +148,7 @@ const ManagerChapter: React.FC<{}> = () => {
           <Pagination.Next
             onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
           >
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
+            <img src="/img_admin/prep2.svg" alt="Cách học hiệu quả trên tto.SH" width="8" height="16" />
           </Pagination.Next>
         </Pagination>
       </div>

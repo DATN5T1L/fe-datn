@@ -83,13 +83,13 @@ const CourseList: React.FC<{}> = () => {
                         </Card.Subtitle>
                         <Card.Img
                           src="/img/iconReact.svg"
-                          alt=""
+                          alt="Lập trình ReactJS"
                           className={h.text__img}
                         />
                       </section>
                       <Card.Img
                         src="/img/tuan.png"
-                        alt=""
+                        alt="tto.sh"
                         className={h.headerContent__avt}
                       />
                     </Card.Header>
@@ -109,14 +109,14 @@ const CourseList: React.FC<{}> = () => {
                       className={`justify-content-between border d-flex py-2 rounded`}
                     >
                       <Link href="/#!" className="w-50 border-end">
-                        <img src="/img_admin/action1.svg" alt="Edit" />
+                        <img src="/img_admin/action1.svg" alt="tto.sh" />
                       </Link>
                       <Link href="/#!" className="w-50 border-end">
-                        <img src="/img_admin/dautick.png" alt="Edit" />
+                        <img src="/img_admin/dautick.png" alt="tto.sh" />
                       </Link>
 
                       <Link href="UsersPage/DetailUser/" className="w-50">
-                        <img src="/img_admin/action2.svg" alt="Edit" />
+                        <img src="/img_admin/action2.svg" alt="tto.sh" />
                       </Link>
                     </div>
                   </td>
@@ -134,7 +134,7 @@ const CourseList: React.FC<{}> = () => {
           >
             <img
               src="/img_admin/prep.svg"
-              alt="Previous"
+              alt="tto.sh"
               width="8"
               height="16"
             />
@@ -143,7 +143,7 @@ const CourseList: React.FC<{}> = () => {
           <Pagination.Next
             onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
           >
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
+            <img src="/img_admin/prep2.svg" alt="tto.sh" width="8" height="16" />
           </Pagination.Next>
         </Pagination>
       </div>

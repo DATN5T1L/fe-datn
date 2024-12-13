@@ -103,7 +103,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
             {isVisible && (
                 <section className={`${styles.modal} ${show ? styles.show : styles.hide}`} onClick={(e) => e.stopPropagation()}>
                     <Button className={styles.closeBtn} onClick={onClose}>
-                        <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
+                        <Image src="/img/closeBtn.svg" alt="Khóa học HTML CSS miễn phí tto" className={styles.closeBtn__img} />
                     </Button>
                     <Formik
                         initialValues={{ avatar: null }}
@@ -136,7 +136,7 @@ const ModalChangeImg: FC<ModalChangeImgProps> = ({ show, onClose }) => {
                                             className={styles.uploadButtonContainer}
                                             onClick={() => document.getElementById('avatar')?.click()}
                                         >
-                                            <Image src="/img/upload.svg" alt="" className={styles.iconContainer} />
+                                            <Image src="/img/upload.svg" alt="Lập trình JavaScript cơ bản TTO" className={styles.iconContainer} />
                                             <p className={styles.uploadButton__title}>Tải ảnh lên</p>
                                         </section>
                                         <Image

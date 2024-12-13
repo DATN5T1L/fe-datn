@@ -41,7 +41,7 @@ const LessonCourse: React.FC<{}> = () => {
                 md={1}
                 className={`d-flex flex-row justify-content-center align-items-center  mb-4 mb-md-0 mb-sm-0 px-0`}
               >
-                <img src="/img_admin/action.svg" alt="Action" />
+                <img src="/img_admin/action.svg" alt="tto.sh" />
               </Col>
               <Col
                 xs={6}
@@ -58,7 +58,7 @@ const LessonCourse: React.FC<{}> = () => {
 
               <Col xs={6} sm={2} md={3}>
                 <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0">
-                  <img src="/img_admin/restart.svg" alt="Reset" />
+                  <img src="/img_admin/restart.svg" alt="tto.sh" />
                   <span className="text-danger">  Cài lại</span>
                 </div>
               </Col>
@@ -81,7 +81,7 @@ const LessonCourse: React.FC<{}> = () => {
               <div className={h.searchIconWrapper}>
                 <img
                   src="/img_admin/search.svg"
-                  alt="Search"
+                  alt="Học phí ưu đãi"
                   width={"24px"}
                   height={"24px"}
                 />
@@ -132,13 +132,13 @@ const LessonCourse: React.FC<{}> = () => {
                           </Card.Subtitle>
                           <Card.Img
                             src="/img/iconReact.svg"
-                            alt=""
+                            alt="Học phí ưu đãi"
                             className={h.text__img}
                           />
                         </section>
                         <Card.Img
                           src="/img/tuan.png"
-                          alt=""
+                          alt="Học phí ưu đãi"
                           className={h.headerContent__avt}
                         />
                       </Card.Header>
@@ -156,14 +156,14 @@ const LessonCourse: React.FC<{}> = () => {
                         className={`justify-content-between border d-flex py-2 rounded`}
                       >
                         <Link href="/#!" className="w-50 border-end">
-                          <img src="/img_admin/action1.svg" alt="Edit" />
+                          <img src="/img_admin/action1.svg" alt="Học phí ưu đãi" />
                         </Link>
                         <Link href="/#!" className="w-50 border-end">
-                          <img src="/img_admin/dautick.png" alt="Edit" />
+                          <img src="/img_admin/dautick.png" alt="Học phí ưu đãi" />
                         </Link>
 
                         <Link href="UsersPage/DetailUser/" className="w-50">
-                          <img src="/img_admin/action2.svg" alt="Edit" />
+                          <img src="/img_admin/action2.svg" alt="Học phí ưu đãi" />
                         </Link>
                       </div>
                     </td>
@@ -179,7 +179,7 @@ const LessonCourse: React.FC<{}> = () => {
             <Pagination.Prev>
               <img
                 src="/img_admin/prep.svg"
-                alt="Previous"
+                alt="Học tập từ xa"
                 width="8"
                 height="16"
               />
@@ -194,7 +194,7 @@ const LessonCourse: React.FC<{}> = () => {
             <Pagination.Next>
               <img
                 src="/img_admin/prep2.svg"
-                alt="Next"
+                alt="Học tập từ xa"
                 width="8"
                 height="16"
               />

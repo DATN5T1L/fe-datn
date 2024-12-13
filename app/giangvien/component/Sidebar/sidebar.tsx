@@ -31,8 +31,8 @@ const Sidebar: React.FC = () => {
       </Link>
       <Link href={"/giangvien/router"}>
         <Nav.Item className={`${h.navItem} mb-3`}>
-          <img src="/img/roadBlack.svg" alt="" className={h.routerHover1} />
-          <img src="/img/road.svg" alt="" className={h.routerHover2} />
+          <img src="/img/roadBlack.svg" alt="Thời gian linh hoạt cho học viên tto.sh" className={h.routerHover1} />
+          <img src="/img/road.svg" alt="Thời gian linh hoạt cho học viên" className={h.routerHover2} />
           <span className={h.itemTitle}>Lộ trình</span>
         </Nav.Item>
       </Link>

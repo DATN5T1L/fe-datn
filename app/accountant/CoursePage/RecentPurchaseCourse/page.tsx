@@ -22,7 +22,7 @@ const RecentPurchaseCourse = () => {
           <div className={h.searchIconWrapper}>
             <img
               src="/img_admin/search.svg"
-              alt="Search"
+              alt="Chứng chỉ hoàn thành khóa học"
               width={"24px"}
               height={"24px"}
             />
@@ -69,7 +69,7 @@ const RecentPurchaseCourse = () => {
             <Pagination.Prev>
               <img
                 src="/img_admin/prep.svg"
-                alt="Previous"
+                alt="Chứng chỉ hoàn thành khóa học"
                 width="8"
                 height="16"
               />
@@ -84,7 +84,7 @@ const RecentPurchaseCourse = () => {
             <Pagination.Next>
               <img
                 src="/img_admin/prep2.svg"
-                alt="Next"
+                alt="Chứng chỉ hoàn thành khóa học"
                 width="8"
                 height="16"
               />

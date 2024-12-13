@@ -136,7 +136,7 @@ const SliderShow: React.FC = () => {
                         <Col className={styles.main}>
                             <section className={styles.main__container}>
                                 <div className={styles.main__container__header}>
-                                    <Image src='/img/main_hero_mos.svg' alt='' className={styles.main__container__header__img} />
+                                    <Image src='/img/main_hero_mos.svg' alt="Xây dựng ứng dụng chat real-time trên TTO.SH" className={styles.main__container__header__img} />
                                     <div className={styles.main__container__header__bg}></div>
                                 </div>
                                 <div className={styles.main__container__footer}>
@@ -146,7 +146,7 @@ const SliderShow: React.FC = () => {
                         </Col>
                         <Col className={styles.under}>
                             <div className={styles.under__box}>
-                                <Image src="/img/img_cpuse_mos.svg" alt="" className={styles.under__box__img} />
+                                <Image src="/img/img_cpuse_mos.svg" alt="Xây dựng ứng dụng chat real-time trên TTO.SH" className={styles.under__box__img} />
                                 <div className={styles.under__box__bg}></div>
                             </div>
                         </Col>
@@ -177,7 +177,7 @@ const SliderShow: React.FC = () => {
                                     >
                                         <Image
                                             src={`${item.img}`}
-                                            alt="avt"
+                                            alt="Xây dựng ứng dụng chat real-time trên TTO.SH"
                                             className={`${styles.box__user__img} ${focusedId === item.id ? styles.border__cyan : ''}`}
                                         />
                                         <h3

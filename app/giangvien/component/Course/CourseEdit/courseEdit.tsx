@@ -231,13 +231,13 @@ const CourseEdit: React.FC = () => {
             <div className={h.wapper_body}>
               <div className={h.thatep}>
                 <div className={h.thatep1}>
-                  <img src="/img_admin/may.svg" alt="" />
+                  <img src="/img_admin/may.svg" alt="tto.sh" />
                   <div className={h.phangiua}>
                     <div className={h.chon1tep}>Ảnh bìa khóa học</div>
                     {previewImage ? (
                       <img
                         src={previewImage}
-                        alt="Preview"
+                        alt="tto.sh"
                         style={{
                           maxWidth: "200px",
                           maxHeight: "200px",

@@ -245,7 +245,7 @@ const ManagerDocumnet: React.FC = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="Khóa học HTML CSS miễn phí từ tto"
                 width={"24px"}
                 height={"24px"}
               />
@@ -288,14 +288,14 @@ const ManagerDocumnet: React.FC = () => {
                       href="/giangvien/ChapterPage/ChapterDetail"
                       className="w border-end justify-content-center align-item-center d-flex col-4"
                     >
-                      <img src="/img/actionDetail.svg" alt="Edit" />
+                      <img src="/img/actionDetail.svg" alt="Lập trình JavaScript cơ bản tại TTO" />
                     </Link>
                     {id && nameChapter && (
                       <Link
                         href={`/giangvien/Lesson/LessonEdit?idChapter=${id}&nameChapter=${nameChapter}&idDoc=${item.document_id}&nameCourse=${nameCourse}&idCourse=${idCourse}`}
                         className="w border-end justify-content-center align-item-center d-flex col-4"
                       >
-                        <img src="/img_admin/action2.svg" alt="Delete" />
+                        <img src="/img_admin/action2.svg" alt="Lập trình JavaScript cơ bản tại TTO" />
                       </Link>
                     )}
                     <div
@@ -303,9 +303,9 @@ const ManagerDocumnet: React.FC = () => {
                       className="w border-end justify-content-center align-item-center d-flex col-4"
                     >
                       {item.del_flag ? (
-                        <img src="/img/action.svg" alt="Delete" />
+                        <img src="/img/action.svg" alt="Lập trình JavaScript cơ bản tại TTO" />
                       ) : (
-                        <img src="/img/hiddenEye.svg" alt="Delete" />
+                        <img src="/img/hiddenEye.svg" alt="Lập trình JavaScript cơ bản tại TTO" />
                       )}
                     </div>
                   </div>

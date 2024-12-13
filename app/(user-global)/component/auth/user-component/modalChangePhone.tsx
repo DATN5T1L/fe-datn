@@ -173,7 +173,7 @@ const ModalChangePhone: React.FC<ModalChangePhoneProps> = ({ show, onClose }) =>
             {isVisible && (
                 <section className={`${styles.modal} ${show ? styles.show : styles.hide}`} onClick={(e) => e.stopPropagation()}>
                     <Button className={styles.closeBtn} onClick={onClose}>
-                        <Image src="/img/closeBtn.svg" alt="" className={styles.closeBtn__img} />
+                        <Image src="/img/closeBtn.svg" alt="Frontend Development tto.shsh" className={styles.closeBtn__img} />
                     </Button>
                     <Form className={styles.formChangeName} noValidate validated={formik.touched.phoneNumber && !formik.errors.phoneNumber} onSubmit={formik.handleSubmit}>
                         <fieldset className={styles.modalBody}>

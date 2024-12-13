@@ -27,7 +27,7 @@ const OverviewMenu: React.FC<OverviewMenuProps> = ({ show, handleClose }) => {
         <button className={styles.customCloseButton} onClick={handleClose}>
           <img
             src="/img_admin/closevip.svg"
-            alt="Close"
+            alt="Học lập trình cơ bản với TTO.SH"
             className={styles.closeIcon}
           />
         </button>

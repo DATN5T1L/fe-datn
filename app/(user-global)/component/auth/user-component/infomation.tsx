@@ -62,39 +62,39 @@ const Infomation: React.FC = () => {
                                 <h4 className={styles.change__img__group__title}>Ảnh đại diện</h4>
                                 <Image
                                     src={userState?.user?.avatar ? userState.user.avatar : "/img/avtDefault.jpg"}
-                                    alt="avt"
+                                    alt="Học phí linh hoạt TTO.SH"
                                     className={styles.change__img__group__img}
                                 />
                             </div>
-                            <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__img__icon} />
+                            <Image src="/img/chevronLeft-black.svg" alt="Hỗ trợ học viên TTO.SH" className={styles.change__img__icon} />
                         </Col>
                         <Col className={styles.change__more} onClick={handleChangeName}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Họ và tên</h4>
                                 <h3 className={styles.change__more__group__subTitle}>{userState?.user?.fullname ? userState.user.fullname : 'Không có dữ liệu'}</h3>
                             </div>
-                            <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                            <Image src="/img/chevronLeft-black.svg" alt="tto.sh" className={styles.change__more__icon} />
                         </Col>
                         <Col className={styles.change__more} onClick={handleChangePhone}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Số điện thoại</h4>
                                 <h3 className={styles.change__more__group__subTitle}>{userState?.user?.phonenumber || 'Chưa có số điện thoại'}</h3>
                             </div>
-                            <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                            <Image src="/img/chevronLeft-black.svg" alt="Khóa học trực tuyến tto.sh" className={styles.change__more__icon} />
                         </Col>
                         <Col className={styles.change__more} onClick={handleChangeEmail}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Email</h4>
                                 <h3 className={styles.change__more__group__subTitle}>{userState?.user?.email || 'Chưa có số điện thoại'}</h3>
                             </div>
-                            <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                            <Image src="/img/chevronLeft-black.svg" alt="Học với chuyên gia tto" className={styles.change__more__icon} />
                         </Col>
                         <Col className={styles.change__more} onClick={handleChangeInfo}>
                             <div className={styles.change__more__group}>
                                 <h4 className={styles.change__more__group__title}>Giới thiệu</h4>
                                 <h3 className={styles.change__more__group__subTitle}>{userState?.user?.discription_user ? userState?.user?.discription_user : 'Chưa có giới thiệu'}</h3>
                             </div>
-                            <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                            <Image src="/img/chevronLeft-black.svg" alt="Học tập từ xa tto.sh" className={styles.change__more__icon} />
                         </Col>
                         {userState?.user?.role === 'admin' ? (
                             <Link href="/admin">
@@ -103,7 +103,7 @@ const Infomation: React.FC = () => {
                                         <h4 className={styles.change__more__group__title}>Quyền</h4>
                                         <h3 className={styles.change__more__group__subTitle}>{userState?.user?.role}</h3>
                                     </div>
-                                    <Image src="/img/chevronLeft-black.svg" alt="" className={styles.change__more__icon} />
+                                    <Image src="/img/chevronLeft-black.svg" alt="Ghi danh ngay hôm nay TTO.SH" className={styles.change__more__icon} />
                                 </Col>
                             </Link>
                         ) : ''}

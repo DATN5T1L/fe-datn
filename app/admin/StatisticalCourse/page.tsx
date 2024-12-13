@@ -40,7 +40,7 @@ const StatisticalCourse = () => {
           </span>
           <Image
             src={"/img_admin/boxvippro.png"}
-            alt="icon"
+            ="Khóa học HTML CSS miễn phí từ tto"
             width={60}
             height={60}
           />
@@ -53,7 +53,7 @@ const StatisticalCourse = () => {
           </span>
           <Image
             src={"/img_admin/monneyvip.svg"}
-            alt="icon"
+            ="icon"
             width={60}
             height={60}
           />
@@ -66,7 +66,7 @@ const StatisticalCourse = () => {
           </span>
           <Image
             src={"/img_admin/comment.svg"}
-            alt="icon"
+            ="icon"
             width={60}
             height={60}
           />
@@ -79,7 +79,7 @@ const StatisticalCourse = () => {
           </span>
           <Image
             src={"/img_admin/total_view.svg"}
-            alt="icon"
+            ="icon"
             width={60}
             height={60}
           />
@@ -99,13 +99,13 @@ const StatisticalCourse = () => {
                 </Card.Subtitle>
                 <Card.Img
                   src="/img/iconReact.svg"
-                  alt=""
+                  =""
                   className={styles.text__img}
                 />
               </section>
               <Card.Img
                 src="/img/tuan.png"
-                alt=""
+                =""
                 className={styles.headerContent__avt}
               />
             </Card.Header>
@@ -114,7 +114,7 @@ const StatisticalCourse = () => {
                 <div className={style.bodyContent__element}>
                   <Image
                     src="/img/bookoffgreen.svg"
-                    alt=""
+                    =""
                     className={styles.element__img}
                   />
                   <Card.Text className={styles.element__text}>
@@ -124,7 +124,7 @@ const StatisticalCourse = () => {
                 <div className={style.bodyContent__element}>
                   <Image
                     src="/img/bookopenblue.svg"
-                    alt=""
+                    =""
                     className={styles.element__img}
                   />
                   <Card.Text className={styles.element__text}>
@@ -134,7 +134,7 @@ const StatisticalCourse = () => {
                 <div className={style.bodyContent__element}>
                   <Image
                     src="/img/bookopenyellow.svg"
-                    alt=""
+                    =""
                     className={styles.element__img}
                   />
                   <Card.Text className={styles.element__text}>
@@ -148,27 +148,27 @@ const StatisticalCourse = () => {
                     <div className={styles.starGroup}>
                       <Image
                         src="/img/iconStar.svg"
-                        alt=""
+                        =""
                         className={styles.starElement}
                       />
                       <Image
                         src="/img/iconStar.svg"
-                        alt=""
+                        =""
                         className={styles.starElement}
                       />
                       <Image
                         src="/img/iconStar.svg"
-                        alt=""
+                        =""
                         className={styles.starElement}
                       />
                       <Image
                         src="/img/iconStar.svg"
-                        alt=""
+                        =""
                         className={styles.starElement}
                       />
                       <Image
                         src="/img/iconStar.svg"
-                        alt=""
+                        =""
                         className={styles.starElement}
                       />
                     </div>
@@ -193,7 +193,7 @@ const StatisticalCourse = () => {
             </span>
             <Image
               src={"/img_admin/monneyvip.svg"}
-              alt="icon"
+              ="icon"
               width={60}
               height={60}
             />

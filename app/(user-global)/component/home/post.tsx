@@ -61,7 +61,7 @@ const Post: React.FC = () => {
     return (
         <Container className={styles.container}>
             <Row className={styles.body}>
-                <Image src="/img/postIcon.svg" alt="" className={styles.img__logo} />
+                <Image src="/img/postIcon.svg" alt="Lộ trình Fullstack Development với TTO.SH" className={styles.img__logo} />
                 <Col className={styles.left__body}>
                     <Card className={styles.left__body__card}>
                         <Card.Body className={styles.left__body__card__main}>

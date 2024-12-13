@@ -133,7 +133,7 @@ const Login: React.FC = () => {
             <Body>
                 <Container className={styles.main}>
                     <div className={styles.main__container}>
-                        <Image src="/img/pandaLogin.svg" alt="logo login" className={styles.logoLogin} />
+                        <Image src="/img/pandaLogin.svg" alt="Thực hiện dự án clone Facebook tại tto" className={styles.logoLogin} />
                         <Card className={styles.cardContainer}>
                             <Card.Header className={styles.headerLogin}>
                                 <section className={styles.titleGroup}>
@@ -175,12 +175,12 @@ const Login: React.FC = () => {
                                                 <Button type="button" onClick={handleCheckPass} className={styles.checkPass__btn}>
                                                     {isCheckPass ? (
                                                         <>
-                                                            <Image src="/img/eyeHidden.svg" alt="" className={styles.checkPass__img} />
+                                                            <Image src="/img/eyeHidden.svg" alt="Lộ trình Fullstack Development với TTO.SH" className={styles.checkPass__img} />
                                                             <div className={styles.checkPass__text}>ẩn</div>
                                                         </>
                                                     ) : (
                                                         <>
-                                                            <Image src="/img/eye.svg" alt="" className={styles.checkPass__img} />
+                                                            <Image src="/img/eye.svg" alt="Lộ trình Fullstack Development với TTO.SH" className={styles.checkPass__img} />
                                                             <div className={styles.checkPass__text}>hiện</div>
                                                         </>
                                                     )}
@@ -207,9 +207,9 @@ const Login: React.FC = () => {
                                                 onClick={handleRememberLogin}
                                             >
                                                 {isRememberLogin ? (
-                                                    <Image src="/img/checkBoxFalse.svg" alt="" className={styles.rememberLogin__img} />
+                                                    <Image src="/img/checkBoxFalse.svg" alt="Lộ trình Fullstack Development với TTO.SH" className={styles.rememberLogin__img} />
                                                 ) : (
-                                                    <Image src="/img/checkBoxTrue.svg" alt="" className={styles.rememberLogin__img} />
+                                                    <Image src="/img/checkBoxTrue.svg" alt="Lộ trình Fullstack Development với TTO.SH" className={styles.rememberLogin__img} />
                                                 )}
                                                 <div className={styles.rememberLogin__div}>Ghi nhớ đăng nhập</div>
                                             </Button>

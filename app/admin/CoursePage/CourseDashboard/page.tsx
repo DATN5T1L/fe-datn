@@ -26,7 +26,7 @@ const Dashboard = () => {
               </span>
               <Image
                 src={"/img_admin/boxvippro.png"}
-                alt="icon"
+                ="icon"
                 width={60}
                 height={60}
               />
@@ -38,7 +38,7 @@ const Dashboard = () => {
               </span>
               <Image
                 src={"/img_admin/monneyvip.svg"}
-                alt="icon"
+                ="icon"
                 width={60}
                 height={60}
               />
@@ -50,7 +50,7 @@ const Dashboard = () => {
               </span>
               <Image
                 src={"/img_admin/comment.svg"}
-                alt="icon"
+                ="icon"
                 width={60}
                 height={60}
               />
@@ -62,7 +62,7 @@ const Dashboard = () => {
               </span>
               <Image
                 src={"/img_admin/total_view.svg"}
-                alt="icon"
+                ="icon"
                 width={60}
                 height={60}
                 onClick={handleShow}
@@ -113,13 +113,13 @@ const Dashboard = () => {
                         </Card.Subtitle>
                         <Card.Img
                           src="/img/iconReact.svg"
-                          alt=""
+                          =""
                           className={h.text__img}
                         />
                       </section>
                       <Card.Img
                         src="/img/tuan.png"
-                        alt=""
+                        =""
                         className={h.headerContent__avt}
                       />
                     </Card.Header>
@@ -129,27 +129,27 @@ const Dashboard = () => {
                           <div className={h.starGroup}>
                             <Image
                               src="/img/iconStar.svg"
-                              alt=""
+                              =""
                               className={h.starElement}
                             />
                             <Image
                               src="/img/iconStar.svg"
-                              alt=""
+                              =""
                               className={h.starElement}
                             />
                             <Image
                               src="/img/iconStar.svg"
-                              alt=""
+                              =""
                               className={h.starElement}
                             />
                             <Image
                               src="/img/iconStar.svg"
-                              alt=""
+                              =""
                               className={h.starElement}
                             />
                             <Image
                               src="/img/iconStar.svg"
-                              alt=""
+                              =""
                               className={h.starElement}
                             />
                           </div>
@@ -170,7 +170,7 @@ const Dashboard = () => {
                         <div className={h.bodyContent__element}>
                           <Image
                             src="/img/bookoffgreen.svg"
-                            alt=""
+                            =""
                             className={h.element__img}
                           />
                           <Card.Text className={h.element__text}>
@@ -180,7 +180,7 @@ const Dashboard = () => {
                         <div className={h.bodyContent__element}>
                           <Image
                             src="/img/bookopenblue.svg"
-                            alt=""
+                            =""
                             className={h.element__img}
                           />
                           <Card.Text className={h.element__text}>
@@ -190,7 +190,7 @@ const Dashboard = () => {
                         <div className={h.bodyContent__element}>
                           <Image
                             src="/img/bookopenyellow.svg"
-                            alt=""
+                            =""
                             className={h.element__img}
                           />
                           <Card.Text className={h.element__text}>

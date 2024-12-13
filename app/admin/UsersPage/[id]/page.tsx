@@ -115,7 +115,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     </span>
                     <Image
                         src={"/img_admin/boxvippro.png"}
-                        alt="icon"
+                        alt="Lập trình JavaScript cơ bản tại TTO"
                         width={60}
                         height={60}
                     />
@@ -131,7 +131,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     </span>
                     <Image
                         src={"/img_admin/monneyvip.svg"}
-                        alt="icon"
+                        alt="Lập trình JavaScript cơ bản tại TTO"
                         width={60}
                         height={60}
                     />
@@ -147,7 +147,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     </span>
                     <Image
                         src={"/img_admin/comment.svg"}
-                        alt="icon"
+                        alt="Lập trình JavaScript cơ bản tại TTO"
                         width={60}
                         height={60}
                     />
@@ -163,7 +163,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                     </span>
                     <Image
                         src={"/img_admin/total_view.svg"}
-                        alt="icon"
+                        alt="Lập trình JavaScript cơ bản tại TTO"
                         width={60}
                         height={60}
                     />
@@ -179,7 +179,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                                 <Figure.Image
                                     width={110}
                                     height={110}
-                                    alt="Avatar"
+                                    alt="Làm quen với lập trình web trên tto.sh"
                                     src={`${dataCoursezForUser?.user?.avatar ? dataCoursezForUser?.user?.avatar : 'https://res.cloudinary.com/dnmc89c8b/image/upload/v1730106626/avatars/Component%2082.png'}`}
                                     roundedCircle
                                     className="mt-4"
@@ -211,13 +211,13 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                                                     </Card.Subtitle>
                                                     <Card.Img
                                                         src="/img/iconReact.svg"
-                                                        alt=""
+                                                        alt="Làm quen với lập trình web trên tto.sh"
                                                         className={styles.text__img}
                                                     />
                                                 </section>
                                                 <Card.Img
                                                     src="/img/tuan.png"
-                                                    alt=""
+                                                    alt="Làm quen với lập trình web trên tto.sh"
                                                     className={styles.headerContent__avt}
                                                 />
                                             </Card.Header>
@@ -226,7 +226,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                                                     <div className={styles.bodyContent__element}>
                                                         <Image
                                                             src="/img/bookoffgreen.svg"
-                                                            alt=""
+                                                            alt="Học HTML5 và CSS3 cùng TTO.sh"
                                                             className={styles.element__img}
                                                         />
                                                         <Card.Text className={styles.element__text}>
@@ -236,7 +236,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                                                     <div className={styles.bodyContent__element}>
                                                         <Image
                                                             src="/img/bookopenblue.svg"
-                                                            alt=""
+                                                            alt="Học HTML5 và CSS3 cùng TTO.sh"
                                                             className={styles.element__img}
                                                         />
                                                         <Card.Text className={styles.element__text}>
@@ -246,7 +246,7 @@ const UserDetail: React.FC<UserDetailProps> = ({ params }) => {
                                                     <div className={styles.bodyContent__element}>
                                                         <Image
                                                             src="/img/bookopenyellow.svg"
-                                                            alt=""
+                                                            alt="Học HTML5 và CSS3 cùng TTO.sh"
                                                             className={styles.element__img}
                                                         />
                                                         <Card.Text className={styles.element__text}>

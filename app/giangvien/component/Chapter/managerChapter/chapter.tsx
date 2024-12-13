@@ -216,7 +216,7 @@ const ManagerChapter: React.FC = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="Học MongoDB và Node.js tại TTO.SH"
                 width={"24px"}
                 height={"24px"}
               />
@@ -255,28 +255,28 @@ const ManagerChapter: React.FC = () => {
                       href={`/giangvien/ChapterPage/ChapterDetail?id=${item.id}&name=${item.name_chapter}`}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
-                      <img src="/img/actionDetail.svg" alt="Edit" />
+                      <img src="/img/actionDetail.svg" alt="Học MongoDB và Node.js tại TTO.SH" />
                     </Link>
                     <Link
                       href={`/giangvien/ChapterPage/ChapterEdit?id=${id}&idChapter=${item.id}&stt=${item.serial_chapter}&nameCourse=${nameCourse}`}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
-                      <img src="/img_admin/action2.svg" alt="Delete" />
+                      <img src="/img_admin/action2.svg" alt="Phát triển ứng dụng backend với tto" />
                     </Link>
                     <Link
                       href={`/giangvien/ChapterPage/ManagerDocument?id=${item.id}&name=${item.name_chapter}&idCourse=${id}&nameCourse=${nameCourse}`}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
-                      <img src="/img_admin/vitien.svg" alt="Delete" />
+                      <img src="/img_admin/vitien.svg" alt="Phát triển ứng dụng backend với tto" />
                     </Link>
                     <div
                       onClick={() => handleHidden(item.id)}
                       className="w border-end justify-content-center align-item-center d-flex col-3"
                     >
                       {item.del_flag ? (
-                        <img src="/img/action.svg" alt="Delete" />
+                        <img src="/img/action.svg" alt="Phát triển ứng dụng backend với tto" />
                       ) : (
-                        <img src="/img/hiddenEye.svg" alt="Delete" />
+                        <img src="/img/hiddenEye.svg" alt="Phát triển ứng dụng backend với tto" />
                       )}
                     </div>
                   </div>

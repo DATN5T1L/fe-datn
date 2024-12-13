@@ -207,7 +207,7 @@ const VideoDetail: React.FC = () => {
                   Hỏi đáp
                 </div>
                 <div className={videoMod.FAQ__btn} onClick={() => handleCloseFaq()}>
-                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
+                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="tto.sh" />
                 </div>
               </div>
               <div className={videoMod.FAQ__subtitle}>
@@ -226,7 +226,7 @@ const VideoDetail: React.FC = () => {
                   {totalComments ? totalComments : 0} Bình luận
                 </div>
                 <div className={videoMod.FAQ__btn} onClick={() => handleCloseCmt()}>
-                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="close" />
+                  <img className={videoMod.FAQ__icon} src="/img/CanxelBlack.svg" alt="tto.sh" />
                 </div>
               </div>
               {id && (
@@ -252,20 +252,20 @@ const VideoDetail: React.FC = () => {
         <div className="d-flex gap-3">
           {closeFaq ? (
             <div className="" aria-disabled={true}>
-              <Image width={50} src="/img/Faq.svg" alt="icon-chat" className="text-primary" />
+              <Image width={50} src="/img/Faq.svg" alt="tto.sh-chat" className="text-primary" />
             </div>
           ) : (
             <div className="">
-              <Image width={50} src="/img/Faq.svg" className="text-primary" onClick={() => handleCloseFaq()} alt="icon-chat" />
+              <Image width={50} src="/img/Faq.svg" className="text-primary" onClick={() => handleCloseFaq()} alt="tto.sh-chat" />
             </div>
           )}
           {closeFaq ? (
             <div className="" aria-disabled={true}>
-              <Image width={50} src="/img/chatDetailVideo.svg" alt="icon-chat" className="text-primary" />
+              <Image width={50} src="/img/chatDetailVideo.svg" alt="tto.sh-chat" className="text-primary" />
             </div>
           ) : (
             <div className="">
-              <Image width={50} src="/img/chatDetailVideo.svg" className="text-primary" onClick={() => handleCloseCmt()} alt="icon-chat" />
+              <Image width={50} src="/img/chatDetailVideo.svg" className="text-primary" onClick={() => handleCloseCmt()} alt="tto.sh-chat" />
             </div>
           )}
         </div>

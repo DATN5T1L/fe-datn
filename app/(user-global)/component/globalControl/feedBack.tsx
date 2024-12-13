@@ -60,7 +60,7 @@ const FeedBack: React.FC = () => {
                     <h4 className={styles.subTitle}>Call me</h4>
                 </Col>
                 <Col className={styles.main}>
-                    <Image src="/img/imageSup.svg" alt="" className={styles.imgLeft} />
+                    <Image src="/img/imageSup.svg" alt="Chương trình học toàn diện" className={styles.imgLeft} />
                     <Form className={styles.formRegister} noValidate validated={validated} onSubmit={handleSubmit}>
                         <fieldset className={styles.fieldsetLogin}>
                             <legend className={styles.fieldsetLogin__title}>Nhập thông tin của bạn</legend>

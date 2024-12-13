@@ -52,7 +52,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                                     {contentTitle}
                                 </h4>
                             </section>
-                            <Image src={`${imgLearningPath}`} alt='ảnh lộ trình' className={styles.imgHeader} />
+                            <Image src={`${imgLearningPath}`} alt='Tự học lập trình Fullstack tại TTo' className={styles.imgHeader} />
                         </section>
                         <section className={styles.skill__body}>
                             <section className={styles.skill__body__header}>
@@ -65,7 +65,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                             </section>
                             <section className={styles.body__main}>
                                 <Card className={styles.box}>
-                                    <Card.Img alt='icon fe' className={styles.box__icon} src={`${icon1}`} />
+                                    <Card.Img alt='Tự học lập trình Fullstack tại TTo' className={styles.box__icon} src={`${icon1}`} />
                                     <Card.Body className={styles.box__body}>
                                         <Card.Title className={styles.box__title}>
                                             {content1}
@@ -73,7 +73,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                                     </Card.Body>
                                 </Card>
                                 <Card className={styles.box}>
-                                    <Card.Img alt='icon fe' className={styles.box__icon} src={`${icon2}`} />
+                                    <Card.Img alt='Tự học lập trình Fullstack tại TTo' className={styles.box__icon} src={`${icon2}`} />
                                     <Card.Body className={styles.box__body}>
                                         <Card.Title className={styles.box__title}>
                                             {content2}
@@ -81,7 +81,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                                     </Card.Body>
                                 </Card>
                                 <Card className={styles.box}>
-                                    <Card.Img alt='icon fe' className={styles.box__icon} src={`${icon3}`} />
+                                    <Card.Img alt='Tự học lập trình Fullstack tại TTo' className={styles.box__icon} src={`${icon3}`} />
                                     <Card.Body className={styles.box__body}>
                                         <Card.Title className={styles.box__title}>
                                             {content3}
@@ -89,7 +89,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                                     </Card.Body>
                                 </Card>
                                 <Card className={styles.box}>
-                                    <Card.Img alt='icon fe' className={styles.box__icon} src={`${icon4}`} />
+                                    <Card.Img alt='Tự học lập trình Fullstack tại TTo' className={styles.box__icon} src={`${icon4}`} />
                                     <Card.Body className={styles.box__body}>
                                         <Card.Title className={styles.box__title}>
                                             {content4}
@@ -97,7 +97,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                                     </Card.Body>
                                 </Card>
                                 <Card className={styles.box}>
-                                    <Card.Img alt='icon fe' className={styles.box__icon} src={`${icon5}`} />
+                                    <Card.Img alt='Tự học lập trình Fullstack tại TTo' className={styles.box__icon} src={`${icon5}`} />
                                     <Card.Body className={styles.box__body}>
                                         <Card.Title className={styles.box__title}>
                                             {content5}
@@ -107,7 +107,7 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                             </section>
                             <section className={styles.webDemo}>
                                 <div className={styles.bg}></div>
-                                <Image src={`${webImg}`} alt='demo skill' className={styles.demoImg} />
+                                <Image src={`${webImg}`} alt='Thực hiện dự án clone Facebook tại tto' className={styles.demoImg} />
                             </section>
                         </section>
                     </Col>

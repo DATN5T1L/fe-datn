@@ -224,7 +224,7 @@ const Access: React.FC<{}> = () => {
       <Col xs={12} sm={12} md={8} className="mb-4">
         <Row className="bg-white d-flex flex-row rounded-lg justify-content-between py-3 rounded-3">
           <Col xs={6} sm={2} md={1} className={`d-flex flex-row justify-content-center align-items-center mb-4 mb-md-0 mb-sm-0 px-0`}>
-            <img src="/img_admin/action.svg" alt="Action" />
+            <img src="/img_admin/action.svg" alt="Làm quen với CI/CD trong dự án từ TTO.sh" />
           </Col>
           <Col xs={6} sm={2} md={2} className="justify-content-center align-items-center d-flex mb-4 mb-md-0 mb-sm-0">
             <select
@@ -239,7 +239,7 @@ const Access: React.FC<{}> = () => {
           </Col>
           <Col xs={6} sm={2} md={3}>
             <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0" onClick={handleReset}>
-              <img src="/img_admin/restart.svg" alt="Reset" />
+              <img src="/img_admin/restart.svg" alt="Làm quen với CI/CD trong dự án từ TTO.sh" />
               <span className="text-danger">Cài lại</span>
             </div>
           </Col>
@@ -293,7 +293,7 @@ const Access: React.FC<{}> = () => {
                         onClick={() => handleGetRole(item.id)}
                         className="w border-end justify-content-center align-item-center d-flex col-4"
                       >
-                        <img src="/img_admin/action2.svg" alt="Delete" />
+                        <img src="/img_admin/action2.svg" alt="Làm quen với CI/CD trong dự án từ TTO.sh" />
                       </Link>
                       <div onClick={() => handleHiddenUser(item.id)} className="w-30 border-end justify-content-center align-item-center d-flex col-4">
                         {item.del_flag ? (

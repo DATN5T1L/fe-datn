@@ -160,13 +160,13 @@ const Course: React.FC<CourseProps> = ({ data }) => {
                       </Card.Subtitle>
                       <Card.Img
                         src="/img/iconReact.svg"
-                        alt=""
+                        alt="Học HTML5 và CSS3 cùng TTO.sh"
                         className={h.text__img}
                       />
                     </section>
                     <Card.Img
                       src="/img/tuan.png"
-                      alt=""
+                      alt="Học HTML5 và CSS3 cùng TTO.sh"
                       className={h.headerContent__avt}
                     />
                   </Card.Header>
@@ -185,16 +185,16 @@ const Course: React.FC<CourseProps> = ({ data }) => {
                     className={h.option_optimai}
                   >
                     <Link href={`/giangvien/CoursePage/CourseVideoDetail?id=${item.id}&name=${item.name_course}`} className={h.link__item}>
-                      <img src="/img_admin/action1.svg" alt="Edit" />
+                      <img src="/img_admin/action1.svg" alt="Học HTML5 và CSS3 cùng TTO.sh" />
                     </Link>
                     <Link href={`/giangvien/CoursePage/CourseFQA?id=${item.id}`} className={h.link__item}>
-                      <img src="/img_admin/hoicham.svg" alt="Edit" />
+                      <img src="/img_admin/hoicham.svg" alt="Tự học lập trình JavaScript tại TTO.SH" />
                     </Link>
                     <Link href={`/giangvien/ChapterPage/ManagerChapter?id=${item.id}&name=${item.name_course}`} className={h.link__item}>
-                      <img src="/img_admin/vitien.svg" alt="Edit" />
+                      <img src="/img_admin/vitien.svg" alt="Tự học lập trình JavaScript tại TTO.SH" />
                     </Link>
                     <Link href={`/giangvien/CoursePage/CourseEdit?id=${item.id}`} className={h.link__item}>
-                      <img src="/img_admin/action2.svg" alt="Edit" />
+                      <img src="/img_admin/action2.svg" alt="Tự học lập trình JavaScript tại TTO.SH" />
                     </Link>
                   </div>
                 </td>

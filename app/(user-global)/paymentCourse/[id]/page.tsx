@@ -144,7 +144,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                 <h4 className={stylesP.getYou}>Bạn sẽ nhận được gì?</h4>
                                 <div className={stylesP.getYouBox}>
                                     <div className={stylesP.getYouBoxItem}>
-                                        <img src="/img/iconcheck.svg" alt="" />
+                                        <img src="/img/iconcheck.svg" alt="Thực hiện dự án clone Facebook tại tto" />
                                         <p className={stylesP.boxDesc}>Truy cập toàn bộ khóa học <span className={stylesP.boxDescStrong}>{course.name_course}</span></p>
                                     </div>
                                     <div className={stylesP.getYouBoxItem}>
@@ -237,7 +237,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                         <Image
                                             className={styles.imageMap}
                                             src={openIndex === index ? "/img/iconadd2.svg" : "/img/iconadd.svg"}
-                                            alt="icon toggle"
+                                            alt="Xây dựng ứng dụng chat real-time trên TTO.SH"
                                             width={32}
                                             height={32}
                                         />

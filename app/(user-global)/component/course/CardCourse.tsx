@@ -55,9 +55,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                             </Card.Title>
                         </Link>
                         <Card.Subtitle className={styles.text__hedding3}>by {course.instructor_name}</Card.Subtitle>
-                        <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                        <Card.Img src="/img/iconReact.svg" alt="Lộ trình học cụ thể" className={styles.text__img} />
                     </section>
-                    <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                    <Card.Img src="/img/tuan.png" alt="Ghi danh ngay hôm nay" className={styles.headerContent__avt} />
                 </Card.Header>
                 <Card.Body className={styles.mainContent}>
                     <section className={styles.mainContent__headContent}>
@@ -83,16 +83,16 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                     </section>
                     <section className={styles.bodyContent}>
                         <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
+                            <Image src="/img/bookoffgreen.svg" alt="Làm quen với lập trình web trên tto.sh" className={styles.element__img} />
                             <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
+                            <Image src="/img/bookopenblue.svg" alt="Lập trình JavaScript cơ bản tại TTO" className={styles.element__img} />
                             <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
                             <Link href={`/learningCourse/${course.id}`} className={styles.linkCta} onClick={handleCourseClick}>
-                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                <Image src="/img/bookopenyellow.svg" alt="Học lập trình cơ bản với TTO.SH" className={styles.element__img} />
                                 <Card.Text className={styles.element__text}>{title}</Card.Text>
                             </Link>
                         </div>

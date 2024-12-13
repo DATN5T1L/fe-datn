@@ -85,7 +85,7 @@ const ModalChangeInfo: React.FC<ModalChangeInfoProps> = ({ show, onClose }) => {
             {isVisible && (
                 <section className={`${styles.modal} ${show ? styles.show : styles.hide}`} onClick={(e) => e.stopPropagation()}>
                     <Button className={styles.closeBtn} onClick={onClose}>
-                        <Image src="/img/closeBtn.svg" alt="Close" className={styles.closeBtn__img} />
+                        <Image src="/img/closeBtn.svg" alt="Làm quen với lập trình web trên tto.sh" className={styles.closeBtn__img} />
                     </Button>
                     <Form className={styles.formChangeInfo} noValidate validated={formik.touched.discriptionUser && !formik.errors.discriptionUser} onSubmit={formik.handleSubmit}>
                         <fieldset className={styles.modalBody}>

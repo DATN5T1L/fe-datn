@@ -66,7 +66,7 @@ const NewPasswordPage: React.FC<UserIdProps> = (user_id) => {
             <meta name="description" content="Được tạo bởi Team TTO" />
             <Container className={styles.main}>
                 <div className={styles.main__container}>
-                    <Image src="/img/pandaRetrieve.svg" alt="logo retrieve password" className={styles.logoRetrieve} />
+                    <Image src="/img/pandaRetrieve.svg" alt="Lập trình ReactJS từ cơ bản đến nâng cao với tto" className={styles.logoRetrieve} />
 
                     <Formik
                         initialValues={{ newPassword: '', confirmPassword: '' }}

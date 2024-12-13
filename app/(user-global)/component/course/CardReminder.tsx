@@ -43,9 +43,9 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                                 </Card.Title>
                             </Link>
                             <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
-                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                            <Card.Img src="/img/iconReact.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={styles.text__img} />
                         </section>
-                        <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                        <Card.Img src="/img/tuan.png" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" className={styles.headerContent__avt} />
                     </Card.Header>
                     <Card.Body className={styles.mainContent}>
                         <section className={styles.mainContent__headContent}>
@@ -55,7 +55,7 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                                         <div className={styles.starGroup}>
 
                                             {Array.from({ length: Math.round(data.rating_course) }).map((_, index) => (
-                                                <Image key={index} src="/img/iconStar.svg" alt="" className={styles.starElement} />
+                                                <Image key={index} src="/img/iconStar.svg" alt="Học HTML5 và CSS3 cùng TTO.sh" className={styles.starElement} />
                                             ))}
 
                                         </div>
@@ -74,16 +74,16 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                         </section>
                         <section className={styles.bodyContent}>
                             <div className={styles.bodyContent__element}>
-                                <Image src="/img/bookoffgreen.svg" alt="" className={styles.element__img} />
+                                <Image src="/img/bookoffgreen.svg" alt="Chứng chỉ hoàn thành khóa học" className={styles.element__img} />
                                 <Card.Text className={styles.element__text}>{data.num_chapter} Chương</Card.Text>
                             </div>
                             <div className={styles.bodyContent__element}>
-                                <Image src="/img/bookopenblue.svg" alt="" className={styles.element__img} />
+                                <Image src="/img/bookopenblue.svg" alt="Chứng chỉ hoàn thành khóa học" className={styles.element__img} />
                                 <Card.Text className={styles.element__text}>{data.num_document} Bài tập</Card.Text>
                             </div>
                             <div className={styles.bodyContent__element}>
                                 <Link href={`/learningCourse/${data.id}`} className={styles.linkCta}>
-                                    <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                    <Image src="/img/bookopenyellow.svg" alt="Chứng chỉ hoàn thành khóa học" className={styles.element__img} />
                                     <Card.Text className={styles.element__Watched}>{data.watchedVideos} đã học</Card.Text>
                                 </Link>
                             </div>

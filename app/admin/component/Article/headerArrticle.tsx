@@ -88,7 +88,7 @@ export const HeaderArticle: React.FC = () => {
             <img
               src="/img_admin/action.svg"
               className="bg-white border-end p-4 rounded-start-4"
-              alt="Action"
+              alt="SCSS, TypeScript, và DevOps tto"
             />
             <div className="bg-white border-end p-4">
               <select aria-label="Lượt xem" className={`${h.formSelect} bg-transparent`} value={selectedViews} onChange={(e) => setSelectedViews(e.target.value)}>
@@ -106,7 +106,7 @@ export const HeaderArticle: React.FC = () => {
             </div>
 
             <div className="bg-white p-4 d-inline-flex align-items-center rounded-end-4" onClick={handleReset}>
-              <img src="/img_admin/restart.svg" alt="Reset" />
+              <img src="/img_admin/restart.svg" alt="SCSS, TypeScript, và DevOps tto.sh" />
               <span className="text-danger">Cài lại</span>
             </div>
           </div>
@@ -140,7 +140,7 @@ export const HeaderArticleSimple = () => {
             <div className={h.searchIconWrapper}>
               <img
                 src="/img_admin/search.svg"
-                alt="Search"
+                alt="SCSS, TypeScript, và DevOps tto.sh"
                 width={"24px"}
                 height={"24px"}
               />

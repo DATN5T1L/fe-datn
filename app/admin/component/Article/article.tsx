@@ -175,7 +175,7 @@ const Article: React.FC<PostProps> = ({ postData, loading }) => {
                         className={`justify-content-between border d-flex py-2 rounded row mx-1`}
                       >
                         <Link href={`ArticlePage/${item.post_id}`} className="w border-end justify-content-center align-item-center d-flex col-6">
-                          <img src="/img_admin/action1.svg" alt="Edit" />
+                          <img src="/img_admin/action1.svg" alt="SCSS, TypeScript, và DevOps tto" />
                         </Link>
                         <Link href={`ArticlePage/${item.post_id}`} className="w-30 border-end justify-content-center align-item-center d-flex col-6">
                           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="green" className="bi bi-check-circle" viewBox="0 0 16 16">

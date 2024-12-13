@@ -62,7 +62,7 @@ const ProductStudent: React.FC = () => {
     return (
         <>
             <div className={styles.container}>
-                <Image src="/img/productStudentIcon.svg" alt="" className={styles.imgIcon} />
+                <Image src="/img/productStudentIcon.svg" alt="Thực hiện dự án clone Facebook tại tto" className={styles.imgIcon} />
                 <div className={styles.bgTop}></div>
                 <Row className={styles.main}>
                     <Col className={styles.header}>

@@ -190,13 +190,13 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                           </Card.Subtitle>
                           <Card.Img
                             src="/img/iconReact.svg"
-                            alt=""
+                            alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                             className={h.text__img}
                           />
                         </section>
                         <Card.Img
                           src="/img/tuan.png"
-                          alt=""
+                          alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                           className={h.headerContent__avt}
                         />
                       </Card.Header>
@@ -214,7 +214,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                         className={`justify-content-evenly border d-flex py-2 rounded`}
                       >
                         <Link href={`/admin/CoursePage/${item.id}`} className="w-50 border-end">
-                          <img src="/img_admin/action1.svg" alt="Edit" />
+                          <img src="/img_admin/action1.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" />
                         </Link>
                         <Link href="UsersPage/DetailUser/" className="">
                           <svg

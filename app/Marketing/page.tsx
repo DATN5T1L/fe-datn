@@ -31,7 +31,7 @@ const Dashboard = () => {
             </span>
             <Image
               src={"/img_admin/total_article.svg"}
-              alt="icon"
+              alt="Review khóa học Fullstack tại TTo"
               width={60}
               height={60}
             />
@@ -43,7 +43,7 @@ const Dashboard = () => {
             </span>
             <Image
               src={"/img_admin/category.svg"}
-              alt="icon"
+              alt="Review khóa học Fullstack tại TTo"
               width={60}
               height={60}
             />
@@ -55,7 +55,7 @@ const Dashboard = () => {
             </span>
             <Image
               src={"/img_admin/comment.svg"}
-              alt="icon"
+              alt="Review khóa học Fullstack tại TTo"
               width={60}
               height={60}
             />
@@ -67,7 +67,7 @@ const Dashboard = () => {
             </span>
             <Image
               src={"/img_admin/total_view.svg"}
-              alt="icon"
+              alt="Review khóa học Fullstack tại TTo"
               width={60}
               height={60}
               onClick={handleShow}
