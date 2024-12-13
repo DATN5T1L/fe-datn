@@ -130,20 +130,20 @@ const LeftSlider: React.FC = () => {
                         <div className={`btn-e`}>Khóa học của bạn</div>
                     </Link>
                     <Link
-                        href="/CourseFa"
+                        href={`${userState.user ? `/CourseFa` : `/login`}`}
                         className={`btn-slide-bar-mini`}
                     >
                         <div className={`btn-e`}>Khóa học yêu thích</div>
                     </Link>
                     <Link
-                        href="/Reminder"
+                        href={`${userState.user ? `/Reminder` : `/login`}`}
                         className={`btn-slide-bar-mini`}
                     >
                         <div className={`btn-e`}>Nhắc nhở học tập</div>
                     </Link>
                 </div>
                 <ShowNameElement name='Học ngay'>
-                    <Link href={`/coursefor`} className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
+                    <Link href={`${userState.user ? `/coursefor` : `/login`}`} className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
                         <img src='/img/bagfill.svg' alt="Đánh giá khóa học tại TTO" className='img block' />
                         <img src='/img/bag.svg' alt="Đánh giá khóa học tại TTO" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Học ngay</div>
