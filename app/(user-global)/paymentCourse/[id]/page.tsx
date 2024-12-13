@@ -10,7 +10,7 @@ import stylesP from "@public/styles/course/coursePayment.module.css";
 import Image from 'next/image';
 import RegisterSale from '../../component/home/RegisterSale';
 import { IconChapter, IconCheck, IconEvery, IconNoteDoc, IconVocuc } from '../../component/icon/icons';
-
+import useCookie from "@app/(user-global)/component/hook/useCookie"
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 interface FaqCourse {
@@ -29,7 +29,7 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [error, setError] = useState<string | null>(null);
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const [idCourse, setIdCourse] = useState<string>("")
-
+    const token = useCookie('token')
     useEffect(() => {
         AOS.init({
             duration: 1200,
@@ -71,7 +71,6 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
         fetcher
     );
 
-    const token = localStorage.getItem('token');
     const fetchPayMentVn = async () => {
         try {
             const response = await fetch(`/api/paymentvn/${idCourse}/${totalPrices}`, {
@@ -112,7 +111,12 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
-
+                const paymentUrl = data.data;
+                if (paymentUrl) {
+                    window.location.href = paymentUrl;
+                } else {
+                    throw new Error("Payment URL is missing");
+                }
             } else if (!response.ok) {
                 throw new Error("Thanh toán thất bại");
             }
