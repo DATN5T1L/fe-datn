@@ -77,7 +77,7 @@ const Header: React.FC = () => {
       >
         <Navbar.Brand href={`${isAdmin ? '/admin' : isMarketing ? '/admin' : '/'}`}>
           <img
-            src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1733999687/fe_image/Logo.png"
+            src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734076053/fe_image/Logo.png"
             className="d-inline-block align-top"
             alt="Học lập trình cơ bản với TTO.SH"
           />

@@ -314,9 +314,7 @@ const nextConfig = {
         source: '/api/paymentvn/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/VNPay/:path*',
       },
-
       //post
-
       {
         source: '/api/clientCatePost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-categories/:path*',

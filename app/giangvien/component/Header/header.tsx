@@ -62,7 +62,7 @@ const Header: React.FC = () => {
       >
         <Navbar.Brand href="#">
           <img
-            src="/img/logoPage.jpg"
+            src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734076053/fe_image/Logo.png"
             className="d-inline-block align-top"
             alt="HTML5 và CSS3 tto.sh"
           />
