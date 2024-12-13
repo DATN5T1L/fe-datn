@@ -57,7 +57,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                         <Card.Subtitle className={styles.text__hedding3}>by {course.instructor_name}</Card.Subtitle>
                         <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
                     </section>
-                    <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                    <Card.Img src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067208/fe_image/Hinhgau.png" alt="" className={styles.headerContent__avt} />
                 </Card.Header>
                 <Card.Body className={styles.mainContent}>
                     <section className={styles.mainContent__headContent}>
@@ -91,7 +91,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                             <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
-                            <Link href={`/learningCourse/${course.id}`} className={styles.linkCta} onClick={handleCourseClick}>
+                            <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
                                 <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
                                 <Card.Text className={styles.element__text}>{title}</Card.Text>
                             </Link>

@@ -26,13 +26,13 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const router = useRouter();
     const token = useCookie('token')
     const pathname = usePathname();
-    const [isGetCourse, setIsGetCourse] = useState<boolean | null>(null)
+    const [isGetCourse, setIsGetCourse] = useState<boolean>(false)
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const [type, setType] = useState<NotiType>("complete");
     const [message, setMessage] = useState<string>("");
     const [showNotification, setShowNotification] = useState(false);
     const [idCourse, setIdCourse] = useState<string>("")
-
+    console.log(isGetCourse)
     useEffect(() => {
         if (id) {
             fetchIdCourse(id)
@@ -40,7 +40,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     }, [id]);
 
     const fetchIdCourse = async (id: string) => {
-
         try {
             const response = await fetch(`/api/slugById/${id}/Course`);
 
@@ -73,8 +72,10 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log('dữ liệu trả về:', data)
-                    setIsGetCourse(data.is_enrolled)
+                    console.log('Người dùng đã đăng ký:', data)
+                    if (data.is_enrolled) {
+                        setIsGetCourse(true)
+                    }
                 })
                 .catch(error => console.log(error))
         }
@@ -162,7 +163,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handelAddFavoriteCourses = async (id: string) => {
         const data = {
             course_id: id,
-
         };
         try {
             const response = await fetch('/api/favoriteCourses/', {
@@ -215,7 +215,13 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                     </p>
                     <div className={`${styles.CTA}`}>
                         <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClickFree}>Học thử miễn phí</Button>
-                        <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={isGetCourse ? handleStudy : handleButtonClick}>{isGetCourse ? 'Bắt đầu học' : 'Sở hữu khóa học'}</Button>
+                        {isGetCourse === true ?
+                            (<Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleStudy}>Bắt đầu học</Button>)
+                            :
+                            (
+                                <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClick}> Sở hữu khóa học</Button>
+                            )
+                        }
                         <Button type="secondery" status="hover" size="S" leftIcon={true} rightIcon={false} width={145} height={40} onClick={() => {
                             handelAddFavoriteCourses(course.id)
                         }}>Thích khóa học</Button>

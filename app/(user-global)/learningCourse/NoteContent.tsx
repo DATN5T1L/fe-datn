@@ -126,7 +126,6 @@ const NoteContent: React.FC<NoteContentProps> = ({ course_Id, doc_id, chapter_Id
                 setType("fail");
                 setMessage(responseData.message);
             }
-
             setType("success")
             setMessage(responseData.message);
             setShowNotification(true);

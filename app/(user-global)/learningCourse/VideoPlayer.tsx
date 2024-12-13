@@ -11,10 +11,11 @@ interface VideoProp {
     document_id: string | null;
     urlVideo: string;
     onProgressChange: (playedSeconds: number) => void;
+    reload: () => void;
     isPlaying: boolean;
 }
 
-const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying }) => {
+const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying, reload }) => {
     const token = useCookie('token');
     const playerRef = useRef<any>(null);
     const lastValidTimeRef = useRef<number>(0);
@@ -40,7 +41,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
             } else {
                 // Quay về thời gian hợp lệ trước đó
                 if (playerRef.current) {
-                    playerRef.current.seekTo(lastValidTimeRef.current);
+                    // playerRef.current.seekTo(lastValidTimeRef.current);
                 }
             }
         } else {
@@ -144,7 +145,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
     }, [playedSeconds, statusUpdated]);
 
     const handleEnded = () => { //hàm sử lý khi video kết thúc
-
+        reload()
     }
     return (
         <div className={styles.Video}>
@@ -158,7 +159,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
                 onDuration={handleDuration}
                 playing={isPlaying}
                 autoPlay
-                onEnded={handleEnded} // Tự động phát
+                onEnded={handleEnded}
             />
         </div>
     )

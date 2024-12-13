@@ -4,8 +4,6 @@ import Button from "../globalControl/btnComponent";
 import styleFor from "@public/styles/course/coursefor.module.css";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 import { Course } from "@app/(user-global)/model/course";
-import Link from "next/link";
-import ProgressCircle from './ProgressCircle';
 import CourseCard from "../course/CardCourseProgress";
 
 interface CourseCardProps extends Course {
@@ -24,7 +22,6 @@ const CourseFor: React.FC<CourseForProps> = ({ onCoursesLoad }) => {
     const [courses, setCourses] = useState<CourseCardProps[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-
     const previousCourses = useRef<string[]>([]);
 
     const fetchCourses = async () => {

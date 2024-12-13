@@ -15,6 +15,7 @@ interface CourseCardProps {
         instructor_avatar: string;
         num_chapter: number;
         num_document: number;
+        slug_course: string;
     };
     onCourseClick?: (course: any) => void;
     showProgress?: boolean; // Prop để quyết định hiển thị ProgressCircle
@@ -29,18 +30,20 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
     return (
         <Col md={3} className={styles.mainBox} key={course.id}>
             <Card className={styles.mainBox__content}>
-                <Card.Header className={styles.headerContent}>
-                    <section className={styles.headerContent__text}>
-                        <Link href={`/course/${course.id}`}>
+                <Link href={`/course/${course.slug_course}`}>
+                    <Card.Header className={styles.headerContent}>
+                        <section className={styles.headerContent__text}>
+
                             <Card.Title className={styles.text__hedding2}>
                                 {course.name_course}
                             </Card.Title>
-                        </Link>
-                        <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
-                        <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
-                    </section>
-                    <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
-                </Card.Header>
+
+                            <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
+                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                        </section>
+                        <Card.Img src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067691/fe_image/hinhgau2.png" alt="" className={styles.headerContent__avt} />
+                    </Card.Header>
+                </Link>
                 <Card.Body className={styles.mainContent}>
                     <section className={styles.mainContent__headContent}>
                         <div className={styles.topHeader}>
@@ -76,7 +79,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                             <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
-                            <Link href={`/learningCourse/${course.id}`} className={styles.linkCta} onClick={handleCourseClick}>
+                            <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
                                 <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
                                 <Card.Text className={styles.element__text}>Học ngay</Card.Text>
                             </Link>

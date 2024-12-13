@@ -35,18 +35,19 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                     minWidth: "272px",
                     maxWidth: "272px",
                 }}>
-                    <Card.Header className={styles.headerContent}>
-                        <section className={styles.headerContent__text}>
-                            <Link href={`/course/${data.id}`}>
+                    <Link href={`/course/${data.slug_course}`}>
+                        <Card.Header className={styles.headerContent}>
+                            <section className={styles.headerContent__text}>
+
                                 <Card.Title className={styles.text__hedding2}>
                                     {data.name_course}
                                 </Card.Title>
-                            </Link>
-                            <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
-                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
-                        </section>
-                        <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
-                    </Card.Header>
+                                <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
+                                <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                            </section>
+                            <Card.Img src="/img/tuan.png" alt="" className={styles.headerContent__avt} />
+                        </Card.Header>
+                    </Link>
                     <Card.Body className={styles.mainContent}>
                         <section className={styles.mainContent__headContent}>
                             <div className={styles.topHeader}>
@@ -126,10 +127,11 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                     </div>
                     <span className={r.time} onClick={tonggleTippy}><IconPlus /></span>
                 </div>
-            </Col>
+            </Col >
             {isTippy && (
                 <ReminderDetail course_id={data.id} name_course={data.name_course} token={token} onLose={tonggleTippy} key={data.id} />
-            )}
+            )
+            }
 
         </>
     );

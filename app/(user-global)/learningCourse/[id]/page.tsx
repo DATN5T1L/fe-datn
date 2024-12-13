@@ -1,6 +1,4 @@
 "use client";
-
-
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
@@ -11,7 +9,6 @@ import Tippy from '@tippyjs/react/headless';
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from 'framer-motion';
-
 // thêm component
 import CodeDev from "../codeDev";
 import CodeDevLearning from "../CodeDevLearning";
@@ -40,7 +37,7 @@ type NotiType = 'success' | 'error' | 'fail' | 'complete';
 const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const token = useCookie('token');
     const { id } = params;
-    const course_Id = id;
+
     const userState = useSelector((state: RootState) => state.user);
     const user = userState?.user;
     const avatar: string = user?.avatar ?? '';
@@ -55,25 +52,21 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
     const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
-    const [progress, setprogress] = useState<Progress | null>(null);
+    const [progress, setprogress] = useState<Progress>();
     const [nameDocument, setnameDocument] = useState('');
     const [idDocument, setIdDocument] = useState('');
     const [typeDoc, settypeDoc] = useState<string | null>(null);
     const [descdocument, setdescdocument] = useState<string | null>(null);
     const [note, setNote] = useState<Note[] | null>(null);
     const [error, setError] = useState<string | null>(null);
-
+    const [idCourse, setIdCourse] = useState<string>("")
     const [doc_id, setdoc_id] = useState<string>("");
     const [chapter_id, setChapter_id] = useState<string>("");
-
-
+    const course_Id = idCourse;
     const [urlVideo, setUrlVideo] = useState('');
     const [type, setType] = useState<string | null>(null);
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
-
-
-
     const [html, setHtml] = useState<string>('');
     const [css, setCss] = useState<string>('');
     const [js, setJs] = useState<string>('');
@@ -97,11 +90,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const show = () => setVisible(true);
     const hide = () => setVisible(false);
 
-
-
-
-
-
     const toggleNote = () => {
         setIsNote(prev => !prev);
         setIsPlaying(prev => !prev);
@@ -122,6 +110,26 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         setIsPlaying(!isPlaying);
     }
     // láy ra khóa học
+    const fetchIdCourse = async (id: string) => {
+        try {
+            const response = await fetch(`/api/slugById/${id}/Course`);
+
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log(result)
+            setIdCourse(result.Course);
+
+        } catch (error: any) {
+            console.error("Error fetching data:", error);
+
+        }
+    };
+    useEffect(() => {
+        if (id) fetchIdCourse(id)
+    }, [id])
+
     const fetchDocuments = async (retries = 3): Promise<CourseData | null> => {
         try {
             const response = await fetch(`/api/getdocforyou/${course_Id}`, {
@@ -148,31 +156,31 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             return null;
         }
     };
-    const fetchNotes = async () => {
-        try {
-            const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+    // const fetchNotes = async () => {
+    //     try {
+    //         const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
+    //             method: "GET",
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         });
 
-            if (!response.ok) {
-                throw new Error("Failed to fetch course");
-            }
+    //         if (!response.ok) {
+    //             throw new Error("Failed to fetch course");
+    //         }
 
-            const dataNote = await response.json();
-            // console.log(dataNote)
-            if (Array.isArray(dataNote.data)) {
-                setNote(dataNote.data);
-                return dataNote
-            } else {
-                console.error("data.data is not an array");
-            }
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
+    //         const dataNote = await response.json();
+    //         // console.log(dataNote)
+    //         if (Array.isArray(dataNote.data)) {
+    //             setNote(dataNote.data);
+    //             return dataNote
+    //         } else {
+    //             console.error("data.data is not an array");
+    //         }
+    //     } catch (err: any) {
+    //         setError(err.message);
+    //     }
+    // };
 
     const fetchProgress = async () => {
         try {
@@ -188,7 +196,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             }
 
             const dataProgress = await response.json();
-            setprogress(dataProgress[0])
+            const ProgressData = dataProgress[0][0]
+            console.log(ProgressData)
+            setprogress(ProgressData)
         } catch (err: any) {
             setError(err.message);
         }
@@ -214,13 +224,19 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     useEffect(() => {
-        fetchProgress()
-        fetchDocuments()
-        fetchNotes();
+        if (course_Id) {
+            fetchProgress()
+            fetchDocuments()
+        }
     }, [course_Id]);
 
     // lấy ra note
 
+    const handleReload = () => {
+        // window.location.reload();
+        fetchProgress()
+        fetchDocuments()
+    }
 
     useEffect(() => {
         if (doc_id !== null) {
@@ -240,14 +256,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     // hàm định dạng ngày giờ
     const [timedocument, settimedocument] = useState('');
-
-
-
-
-
     // hàm sử lý tách nội dung câu hỏi
-
-
     const handleExport = (data: { html: string, css: string, js: string }) => {
         setHtml(data.html)
         setCss(data.css)
@@ -259,41 +268,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         setPlayedSeconds(playedSeconds)
     };
 
-    // useEffect(() => {
-    //     if (course && Array.isArray(course)) {
-
-    //         const findInactiveDocumentId = (course: Chapter[]): string | null => {
-    //             for (const chapter of course) {
-    //                 const inactiveDoc = chapter.documents.find(doc => doc.status_document === false);
-    //                 if (inactiveDoc) {
-    //                     return inactiveDoc.document_id;
-    //                 }
-    //             }
-    //             return null;
-    //         };
-
-    //         const inactiveDocId = findInactiveDocumentId(course);
-    //         if (inactiveDocId) {
-    //             const initialDoc = course
-    //                 .flatMap(chapter => chapter.documents)
-    //                 .find(doc => doc.document_id === inactiveDocId);
-    //             const innitChappter = course
-    //                 .flatMap(chapter => chapter.documents)
-    //             if (initialDoc) {
-    //                 setdoc_id(initialDoc.document_id);
-    //                 // setChapter_id(innitChappter.)
-    //                 handleClickDoc(initialDoc)
-    //                 setSelectedIndex(
-    //                     course.findIndex(chapter => chapter.documents.includes(initialDoc)) +
-    //                     "-" +
-    //                     course[course.findIndex(chapter => chapter.documents.includes(initialDoc))].documents.indexOf(initialDoc)
-    //                 );
-    //                 toggleItem(course.findIndex(chapter => chapter.documents.includes(initialDoc)))
-    //             }
-    //         }
-    //     }
-
-    // }, [course]);
     useEffect(() => {
         if (course && Array.isArray(course)) {
             const findInactiveDocument = (course: Chapter[]): { document_id: string; chapter_id: string } | null => {
@@ -380,6 +354,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     urlVideo={urlVideo}
                     onProgressChange={handleProgressChange}
                     isPlaying={isPlaying}
+                    reload={handleReload}
                 />
             );
         } else if (typeDoc === 'quiz') {
@@ -739,8 +714,13 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     <Link href="/" className={stylesNav.brandHeader}>
                         <Image src="/img/logo.svg" alt="logo" className={stylesNav.imgBrandHeader} width={54} height={56} />
                     </Link>
-                    <h4 className={stylesNav.heading}>{progress?.name_course}</h4>
-                    <ProgressCircle progress={progress?.progress_percentage ?? 0} />
+                    {progress && (
+                        <>
+                            <h4 className={stylesNav.heading}>{progress.name_course}</h4>
+                            <ProgressCircle progress={progress.progress_percentage ?? 0} />
+                        </>
+                    )}
+
                 </div>
                 <div className={stylesNav.cta}>
                     <label className={stylesNav.switch} onClick={toggleSwitch}>

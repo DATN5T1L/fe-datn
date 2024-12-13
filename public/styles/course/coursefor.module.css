@@ -62,7 +62,7 @@
     max-width: 630px;
 }
 
-.mainCard {
+/* .mainCard {
     width: 100%;
     max-width: 1200px;
     display: flex;
@@ -71,7 +71,7 @@
     margin: 0;
     gap: 16px;
     height: auto;
-}
+} */
 
 .cta {
     max-width: 1200px;
