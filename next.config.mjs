@@ -330,7 +330,7 @@ const nextConfig = {
       },
 
       //course
-
+      
       {
         source: '/api/allCourseAdmin/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/courses/:path*',
@@ -343,9 +343,7 @@ const nextConfig = {
         source: '/api/countByCourseAdmin/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/getCountChapterAndDoc/:path*',
       },
-
       //chapter
-
       {
         source: '/api/allChapterAdmin/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/chapters-by-course/:path*',
