@@ -9,7 +9,7 @@ import styles from "@public/styles/course/coursedetail.module.css";
 import stylesP from "@public/styles/course/coursePayment.module.css";
 import Image from 'next/image';
 import RegisterSale from '../../component/home/RegisterSale';
-import { IconChapter, IconCheck, IconEvery, IconNoteDoc, IconVocuc } from '../../component/icon/icons';
+import { IconChapter, IconCheckPay, IconEvery, IconNoteDoc, IconVocuc } from '../../component/icon/icons';
 import useCookie from "@app/(user-global)/component/hook/useCookie"
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -175,7 +175,7 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
                                 <h4 className={stylesP.getYou}>Bạn sẽ nhận được gì?</h4>
                                 <div className={stylesP.getYouBox}>
                                     <div className={stylesP.getYouBoxItem}>
-                                        <img src="/img/iconcheck.svg" alt="Thực hiện dự án clone Facebook tại tto" />
+                                        <IconCheckPay />
                                         <p className={stylesP.boxDesc}>Truy cập toàn bộ khóa học <span className={stylesP.boxDescStrong}>{course.name_course}</span></p>
                                     </div>
                                     <div className={stylesP.getYouBoxItem}>

@@ -32,7 +32,7 @@ const RegisterSale = () => {
     }, [isShow]);
 
     return (
-        <section className={`${styles.callHelp}`}>
+        <section id="contact" className={`${styles.callHelp}`}>
             <Container className={`${styles.container} ${styles.containerCallHelp}`}>
                 <Row className={`${styles.row} ${styles.rowCallhelp}`}>
                     <h3 className={styles.titleCallHelp}>

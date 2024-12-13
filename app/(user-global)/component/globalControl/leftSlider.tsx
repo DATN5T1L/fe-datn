@@ -143,7 +143,7 @@ const LeftSlider: React.FC = () => {
                     </Link>
                 </div>
                 <ShowNameElement name='Học ngay'>
-                    <Link href={idCourse ? `${idCourse}` : '#'} className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
+                    <Link href={`/coursefor`} className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
                         <img src='/img/bagfill.svg' alt="Đánh giá khóa học tại TTO" className='img block' />
                         <img src='/img/bag.svg' alt="Đánh giá khóa học tại TTO" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Học ngay</div>

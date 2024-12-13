@@ -1,23 +1,12 @@
-'use client'
 
-import React from 'react';
-import { useEffect } from 'react';
 import { Container, Row, Col, Image, Nav } from 'react-bootstrap';
 import Link from "next/link";
 import styles from '@public/styles/globalControl/Footer.module.css';
-import 'aos/dist/aos.css';
-import AOS from 'aos';
 import Body from './body';
-
 const FooterBlack: React.FC = () => {
-    useEffect(() => {
-        AOS.init({
-            duration: 1200,
-        });
-    }, []);
     return (
         <Body>
-            <footer className={styles.footerContainer} data-aos="fade-up">
+            <footer className={styles.footerContainer} >
                 <Container className={styles.container}>
                     <Row className={styles.footerContent}>
                         <Col md={3} >

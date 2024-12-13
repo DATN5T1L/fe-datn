@@ -29,9 +29,9 @@ const HeaderCourseDetail: React.FC = () => {
                             />
                         </Navbar.Brand>
                         <Nav className={`${styles.menu}`}>
-                            <Link href="#!" className={`${styles.menuItem}`}>Nội dung</Link>
-                            <Link href="#!" className={`${styles.menuItem}`}>Liên hệ</Link>
-                            <Link href="#!" className={`${styles.menuItem}`}>Câu hỏi thường gặp</Link>
+                            <Link href="#content" className={`${styles.menuItem}`}>Nội dung</Link>
+                            <Link href="#contact" className={`${styles.menuItem}`}>Liên hệ</Link>
+                            <Link href="#fqa" className={`${styles.menuItem}`}>Câu hỏi thường gặp</Link>
                         </Nav>
                         <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40}>Học thử miễn phí</Button>
                     </section>

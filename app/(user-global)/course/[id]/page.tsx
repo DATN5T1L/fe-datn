@@ -214,7 +214,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <strong className={styles.headingStrong}> {user.fullname}</strong>.
                     </p>
                     <div className={`${styles.CTA}`}>
-                        
+
                         <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClickFree}>Học thử miễn phí</Button>
                         {!isGetCourse && (
                             <Button
@@ -386,7 +386,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
                 </Container>
             </section >
-            <section className={`${styles.knowledge}`} data-aos="fade-up">
+            <section id='content' className={`${styles.knowledge}`} data-aos="fade-up">
                 <Container className={`${styles.container} ${styles.containerknowledge}`}>
                     <Row className={`${styles.row}`}>
                         <h3 className={styles.titleknowledge}>Kiến thức đầy đủ chi tiết nhất</h3>
@@ -469,7 +469,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                     </Row>
                 </Container>
             </section >
-            <section className={`${styles.FAQ}`} data-aos="fade-up">
+            <section id='fqa' className={`${styles.FAQ}`} data-aos="fade-up">
                 <Container className={`${styles.container} ${styles.containerFeedback}`}>
                     <Row className={`${styles.row} ${styles.rowHeading}  `}>
                         <h3 className={styles.titleWhy}>Câu hỏi thường gặp </h3>

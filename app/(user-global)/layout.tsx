@@ -2,10 +2,12 @@
 import { usePathname } from 'next/navigation';
 import Layout from "@/app/(user-global)/component/layout/Layout";
 import HeadMeta from "@/app/(user-global)/component/layout/HeadMeta";
+import dynamic from 'next/dynamic';
 
 export default function RootLayout({ children }: { children: React.ReactNode; }) {
   const pathname = usePathname();
   const isNoHeaderPage = /^\/(course|paymentCourse)(\/.*)?$/.test(pathname);
+  
   return (
     <html lang="vi">
       <HeadMeta />
@@ -13,6 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
       <meta name="description" content="Được tạo bởi Team TTO" />
       <link rel="icon" href="/favicon.ico" />
       <body className={`${isNoHeaderPage ? 'body-black' : 'body-main'}`} >
+       
+
         <Layout>
           {children}
         </Layout>

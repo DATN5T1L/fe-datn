@@ -8,6 +8,7 @@ import HeaderCourseDetail from "../globalControl/headerCourseDetail";
 import Footer from "../globalControl/footer";
 import FooterBlack from "../globalControl/footerBlack";
 import GlobalComponents from "../globalControl/GlobalComponents";
+import dynamic from 'next/dynamic';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -17,7 +18,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     const pathname = usePathname();
     const isNoHeaderPage = /^\/(course|paymentCourse)(\/.*)?$/.test(pathname);
     const isLearningCoursePage = /^\/learningCourse|test(\/.*)?$/.test(pathname);
-
+    const ScrollToTopButton = dynamic(
+        () => import("@app/(user-global)/component/globalControl/SrollTotop"),
+        { ssr: false }
+    );
     return (
         <div className={`${isNoHeaderPage ? 'body-black' : 'body-main'}`}>
             <ReduxRender>
@@ -29,6 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <GlobalComponents />
                     <div className='main-global' style={isNoHeaderPage ? { minHeight: '3000px' } : {}}>
                         {children}
+                        <ScrollToTopButton />
                     </div>
                     {!isLearningCoursePage && (
                         isNoHeaderPage ? <FooterBlack /> : <Footer />
