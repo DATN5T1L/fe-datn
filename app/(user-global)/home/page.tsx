@@ -8,13 +8,13 @@ import Body from "../component/globalControl/body"
 import About from "../component/home/about"
 import CourseFree from "../component/home/courseFree"
 import CoursePro from "../component/home/coursePro"
-// import FeedBack from "../component/globalControl/FeedBack"
 import LearningPath from "../component/home/learningPath"
 import Post from "../component/home/post"
 import ProductStudent from "../component/home/productStudent"
 import SliderShow from "../component/home/sliderShow"
 import Why from "../component/home/why"
 import FeedBackToStudent from "../component/home/feedBackToStudent"
+import FeedBack from '../component/globalControl/feedBack';
 
 const Home: React.FC = () => {
     return (
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
                 <ProductStudent />
                 <FeedBackToStudent />
                 <Post />
-                {/* <FeedBack /> */}
+                <FeedBack />
             </Body>
         </>
     )

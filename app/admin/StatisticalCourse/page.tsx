@@ -10,7 +10,6 @@ const StatisticalCourse = () => {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept"],
     datasets: [
       {
-        // Để trống label thay vì gán false
         label: "",
         data: [30, 60, 90, 60, 90, 120, 100, 130, 150],
         backgroundColor: "rgba(0, 123, 255, 0.2)",
@@ -27,7 +26,6 @@ const StatisticalCourse = () => {
       },
     },
   };
-
   return (
     <div className={style.container}>
       <h2 className={style.title}>Thống kê chi tiết khóa học</h2>
@@ -58,7 +56,6 @@ const StatisticalCourse = () => {
             height={60}
           />
         </div>
-
         <div className={style.card_notice}>
           <span>
             <p>Đánh giá học viên</p>
@@ -85,7 +82,6 @@ const StatisticalCourse = () => {
           />
         </div>
       </div>
-
       <Row className={`mt-4 chartAndColContainer`}>
         <Col md={3}>
           <Card className={style.mainBox__content}>
@@ -185,7 +181,6 @@ const StatisticalCourse = () => {
               </section>
             </Card.Body>
           </Card>
-
           <div className={style.card_notice}>
             <span>
               <p>Doanh Thu</p>
@@ -203,7 +198,7 @@ const StatisticalCourse = () => {
         <Col md={8} className={`${style.chartContainer} ${style.chartMargin}`}>
           <h5>Thống kê doanh thu của khóa học</h5>
           <div className={`${style.lineChartResponsive}`}>
-            <Line height={100}  data={data} options={options} />
+            <Line height={100} data={data} options={options} />
           </div>
         </Col>
       </Row>

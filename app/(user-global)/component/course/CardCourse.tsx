@@ -93,10 +93,18 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                             <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
-                            <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
-                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                <Card.Text className={styles.element__text}>{title}</Card.Text>
-                            </Link>
+                            {titleAction === 1 ? (
+                                <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
+                                    <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                    <Card.Text className={styles.element__text}>{title}</Card.Text>
+                                </Link>
+                            ) : (
+                                <Link href={`/course/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
+                                    <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                    <Card.Text className={styles.element__text}>{title}</Card.Text>
+                                </Link>
+                            )}
+
                         </div>
                     </section>
                 </Card.Body>

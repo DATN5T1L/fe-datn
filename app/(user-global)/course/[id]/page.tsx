@@ -32,7 +32,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [message, setMessage] = useState<string>("");
     const [showNotification, setShowNotification] = useState(false);
     const [idCourse, setIdCourse] = useState<string>("")
-    console.log(isGetCourse)
+
     useEffect(() => {
         if (id) {
             fetchIdCourse(id)

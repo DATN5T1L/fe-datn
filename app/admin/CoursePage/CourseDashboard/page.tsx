@@ -170,7 +170,7 @@ const Dashboard = () => {
                         <div className={h.bodyContent__element}>
                           <Image
                             src="/img/bookoffgreen.svg"
-                            alt =""
+                            alt=""
                             className={h.element__img}
                           />
                           <Card.Text className={h.element__text}>
@@ -215,5 +215,4 @@ const Dashboard = () => {
     </>
   );
 };
-
 export default Dashboard;

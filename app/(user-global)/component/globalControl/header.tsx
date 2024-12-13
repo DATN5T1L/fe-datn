@@ -183,12 +183,12 @@ const Header: React.FC = () => {
                         <Row md={12} className={`${c.CtaHeader} btn-header-btn-group`}>
                             <Col md={3} className='btn-header-btn-group-element'>
                                 <ShowNameElement name='Gửi thông tin'>
-                                    <Button className='btn-header-btn-group-main' onClick={tongleShowForm}>
+                                    <Link href={'#Feadback'} className='btn-header-btn-group-main'>
                                         <IconForm />
                                         <div className='btn-header-btn-group-main-content'>
                                             Để lại thông tin nhận hỗ trợ
                                         </div>
-                                    </Button>
+                                    </Link>
                                 </ShowNameElement>
                             </Col>
                             <Col md={3} className='btn-header-btn-group-element'>
