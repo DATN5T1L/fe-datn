@@ -74,7 +74,7 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
     const token = localStorage.getItem('token');
     const fetchPayMentVn = async () => {
         try {
-            const response = await fetch(`/api/paymentvnp/${idCourse}/${totalPrice}`, {
+            const response = await fetch(`/api/paymentvn/${idCourse}/${totalPrices}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     const fetchPayMentMomo = async () => {
         try {
-            const response = await fetch(`/api/paymentmomo/${idCourse}/${totalPrice}`, {
+            const response = await fetch(`/api/paymentmomo/${idCourse}/${totalPrices}`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -127,13 +127,12 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     const course = courseData.data;
-    console.log(course)
     const faqs = faqData.data;
     const costDis = 100000;
     const priceString = course.price_course;
     const tax = course.tax_rate;
-    console.log(tax)
     const priceTax = tax * priceString / 100
+    const totalPrices = priceString - priceTax - costDis;
 
     const formattedPrice = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -145,8 +144,17 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
         currency: 'VND',
     }).format(costDis);
 
-    const totalPrice = (priceString - costDis) * tax;
-    console.log(totalPrice)
+    const formattedTaxRate = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    }).format(priceTax);
+
+    const formattedTotal = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    }).format(totalPrices);
+
+
     return (
         <>
 
@@ -154,7 +162,7 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
             <section className={`${styles.couserOverview}`}>
                 <Container className={`${styles.container} ${styles.hero}`}>
                     <h2 className={`${styles.heading} ${stylesP.headingPayment} text-center`}>
-                        Mua ngay với giá ưu đãI “vô cực” - Chỉ 399 slots!
+                        Mua ngay với giá ưu đãi “vô cực” - Chỉ 399 slots!
                     </h2>
 
                     <Row className={`${stylesP.content}`}>
@@ -176,7 +184,7 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
                                     </div>
                                     <div className={stylesP.getYouBoxItem}>
                                         <IconEvery />
-                                        <p className={stylesP.boxDesc}>Dược cập nhật mãi mãi</p>
+                                        <p className={stylesP.boxDesc}>Được cập nhật mãi mãi</p>
                                     </div>
                                     <div className={stylesP.getYouBoxItem}>
                                         <IconVocuc />
@@ -201,20 +209,26 @@ const Payment: React.FC<{ params: { id: string } }> = ({ params }) => {
 
                                 </div>
 
-                                <div className={stylesP.tablePrice}>
-                                    <div className={stylesP.priceControl}>
-                                        <h6 className={stylesP.titlePỉce}>Giá bán</h6>
-                                        <p className={stylesP.titlePỉce}><span className={stylesP.boxDescStrong}>{formattedPrice}</span></p>
+                                <div className={stylesP.Paymain}>
+                                    <div className={stylesP.tablePrice}>
+                                        <div className={stylesP.priceControlTitle}>
+                                            <h6 className={stylesP.titlePrice}>Giá bán</h6>
+                                            <h6 className={stylesP.titlePrice}>Đã là học viên khóa khác</h6>
+                                            <h6 className={stylesP.titlePrice}>Giảm giá</h6>
+                                        </div>
+                                        <div className={stylesP.priceControl}>
+                                            <span className={stylesP.priceMain}>{formattedPrice}</span>
+                                            <span className={stylesP.priceMain}>- {formattedcostDise}</span>
+                                            <span className={stylesP.priceMain}>- {formattedTaxRate}</span>
+                                        </div>
+
                                     </div>
-                                    <div className={stylesP.priceControl}>
-                                        <h6 className={stylesP.titlePỉce}>Đã là học viên khóa khác</h6>
-                                        <p className={stylesP.titlePỉce}>- {formattedcostDise}</p>
-                                    </div>
-                                    <div className={stylesP.priceControl}>
-                                        <h6 className={stylesP.titlePỉce}>Giảm giá</h6>
-                                        <p className={stylesP.titlePỉce}>- {priceTax}</p>
+                                    <div className={stylesP.priceControlTotal}>
+                                        <h6 className={stylesP.priceMain}>Tổng tiền</h6>
+                                        <p className={stylesP.priceMain}>{formattedTotal}</p>
                                     </div>
                                 </div>
+
                                 <button className={stylesP.btnTotal} onClick={fetchPayMentVn} name='redirect'>Thanh toán ngay bằng VNPAY</button>
                                 <button className={stylesP.btnTotal} onClick={fetchPayMentMomo} name='payUrl'>Thanh toán ngay bằng momo</button>
                             </div>
