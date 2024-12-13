@@ -7,7 +7,8 @@ export class Course {
     price_course: number;
     discount_price_course?: number;
     views_course: number;
-    rating_course: number; // Chuyển đổi thành kiểu number
+    rating_course: number;
+    tax_rate: GLfloat; // Chuyển đổi thành kiểu number
     del_flag: boolean;
     created_at: Date;
     updated_at?: Date;
@@ -21,7 +22,7 @@ export class Course {
         id: string,
         name_course: string,
         slug_course: string,
-        slug: string,
+        tax_rate: GLfloat,
         img_course: string,
         price_course: number,
         instructor_id: string,
@@ -39,6 +40,7 @@ export class Course {
         this.id = id;
         this.name_course = name_course;
         this.slug_course = slug_course;
+        this.tax_rate = tax_rate;
         this.img_course = img_course;
         this.price_course = price_course;
         this.discount_price_course = discount_price_course;

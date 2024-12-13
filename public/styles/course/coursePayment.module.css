@@ -93,47 +93,56 @@
     color: var(--blue-50);
     font-size: 1rem;
     font-weight: 600;
-    line-height: 24px;
+}
+
+.Paymain {
+    padding: 24px 32px;
+    border-radius: 12px;
+    background: var(--gray-10);
 }
 
 .tablePrice {
-    padding: 24px 32px;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 32px;
+    border-bottom: 2px solid var(--gray-70);
+    padding-bottom: 12px;
+}
+
+
+
+.priceControl,
+.priceControlTitle {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     flex-direction: column;
     gap: 32px;
-    border-radius: 12px;
-    background: var(--gray-30);
-    position: relative;
 }
 
-.tablePrice::before {
-    content: "";
-    display: block;
-    width: 95%;
-    height: 1px;
-    background-color: var(--gray-50);
-    bottom: 10px;
-    /* Đặt khoảng cách từ đáy */
-    left: 50%;
-    /* Đặt vào giữa */
-    position: absolute;
-    transform: translateX(-50%);
-    /* Dịch chuyển 50% chiều rộng để căn giữa */
-}
-
-.priceControl {
+.priceControlTotal {
     display: flex;
     justify-content: flex-end;
     gap: 32px;
-
+    padding: 24px 0px 0px 0px;
 }
 
-.titlePỉce {
+.priceControlTitle {
+    align-items: flex-end;
+}
+
+.titlePrice {
     color: var(--text-0);
     font-size: 1rem;
     font-weight: 400;
     line-height: 24px;
+}
+
+.priceMain {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--blue-50);
 }
 
 .btnTotal {

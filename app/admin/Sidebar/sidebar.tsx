@@ -101,7 +101,7 @@ const Sidebar: React.FC = () => {
             stroke="#4D4D4D"
             strokeWidth="1.5"
             strokeLinecap="round"
-            stroke-linejoin="round"
+            strokeLinejoin="round"
           />
         </svg>
         <span className={h.itemTitle}>Thoát</span>
