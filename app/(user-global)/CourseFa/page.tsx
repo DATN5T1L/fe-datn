@@ -1,5 +1,4 @@
-"use client"
-import { useRouter } from 'next/router';
+"use client";
 import { Container, Row } from "react-bootstrap";
 import { useEffect, useState } from 'react';
 import styles from '@public/styles/course/CourseFav.module.css';
@@ -11,7 +10,7 @@ import useCookie from '@app/(user-global)/component/hook/useCookie';
 
 
 const CourseFA: React.FC = () => {
-    const router = useRouter();
+
     const [courses, setCourses] = useState<Course[]>([]);
 
     const token = useCookie("token") as string | null;
@@ -38,21 +37,12 @@ const CourseFA: React.FC = () => {
             revalidateIfStale: false,
         }
     );
-    useEffect(() => {
-        if (data?.data?.length === 0 || !data?.data) {
-            router.push('/'); // Trang "home"
-        }
-    }, [data, router]);
 
     useEffect(() => {
         if (data?.data) {
             setCourses(data.data);
         }
     }, [data]);
-
-
-
-
 
     if (error) return <div>Error loading courses</div>;
 
@@ -65,12 +55,12 @@ const CourseFA: React.FC = () => {
                         Các khóa học bạn đã thêm và yêu thích
                     </div>
                     <Row className={styles.main__course}>
-                        {courses?.map((course, index) => (
+                        {courses.map((course, index) => (
                             <CourseCard course={course} key={index} showProgress={false} titleAction={1} />
                         ))}
                     </Row>
                 </Container>
-            </div >
+            </div>
         </Body>
     );
 }
