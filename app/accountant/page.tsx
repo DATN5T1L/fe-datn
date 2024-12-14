@@ -37,7 +37,7 @@ const Dashboard = () => {
     try {
       if (token) {
         const responses = await Promise.all([
-          // Khóa học có doanh thu cao nhất
+
           fetch(`/api/accountant/getaccountantStatistics`, {
             method: "GET",
             headers: {
@@ -174,8 +174,6 @@ const Dashboard = () => {
           {courseLowest && (<Card key={"3"} course={courseLowest} titleAction={2} />)}
         </Row>
       </div>
-
-
       <div className={style.chart}>
         <h2>Thống kê doanh thu theo năm</h2>
         <LineChartViewYear years={years} key={"6"} dataByYear={combinedData} />

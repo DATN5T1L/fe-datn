@@ -190,6 +190,10 @@
 .card__body__text {
     font-weight: 400;
     text-align: justify;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--line-clamp, 4);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .text__hedding3 {

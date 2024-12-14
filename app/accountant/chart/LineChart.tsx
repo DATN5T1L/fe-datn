@@ -12,17 +12,22 @@ import {
 } from "chart.js/auto";
 import style from "./Chart.module.css";
 
-const LineChart = () => {
+interface LineChartProps {
+  labels: string[]; // Nhãn trên trục x (ví dụ: các tháng)
+  data: number[]; // Dữ liệu doanh số tương ứng với từng nhãn
+}
+
+const LineChart: React.FC<LineChartProps> = ({ labels, data }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
 
-  // Đăng ký các thành phần cần thiết cho biểu đồ bar
+  // Đăng ký các thành phần cần thiết cho biểu đồ line
   Chart.register(
     LineController,
     LineElement,
     CategoryScale,
     LinearScale,
-    PointElement, // Add this line
+    PointElement,
     Tooltip,
     Legend
   );
@@ -40,17 +45,19 @@ const LineChart = () => {
         myChartRef.current = new Chart(ctx, {
           type: "line",
           data: {
-            labels: ["2015", "2016", "2017", "2018", "2019"],
+            labels: labels, // Truyền nhãn từ props
             datasets: [
               {
-                data: [10, 20, 50, 30, 70],
+                label: "Doanh số",
+                data: data, // Truyền dữ liệu từ props
                 fill: true,
-                backgroundColor: "rgba(255, 255, 255, 0)",
+                backgroundColor: "rgba(0, 182, 155, 0.2)", // Vùng bên dưới đường
                 borderColor: "rgb(0, 182, 155)",
-                tension: 0.3,
-                borderWidth: 2,
-                pointRadius: 3,
+                tension: 0.4, // Làm mượt đường
+                borderWidth: 3,
+                pointRadius: 5,
                 pointBackgroundColor: "rgb(0, 182, 155)",
+                pointHoverRadius: 7, // Tăng kích thước điểm khi hover
                 showLine: true,
               },
             ],
@@ -58,9 +65,21 @@ const LineChart = () => {
           options: {
             plugins: {
               legend: {
-                display: false,
-                position: "right",
+                display: true,
+                position: "top",
                 align: "center",
+                labels: {
+                  font: {
+                    size: 14,
+                  },
+                },
+              },
+              tooltip: {
+                callbacks: {
+                  label: function (tooltipItem) {
+                    return `Doanh số: ${tooltipItem.raw} triệu`;
+                  },
+                },
               },
             },
             scales: {
@@ -68,19 +87,27 @@ const LineChart = () => {
                 grid: {
                   display: false,
                 },
+                ticks: {
+                  font: {
+                    size: 12,
+                  },
+                },
               },
               y: {
                 grid: {
-                  display: false,
+                  color: "rgba(200, 200, 200, 0.2)",
                 },
                 ticks: {
-                  stepSize: 25, // Đặt khoảng cách giữa các ticks
+                  stepSize: 20, // Khoảng cách giữa các giá trị
                   callback: function (value) {
-                    return value; // Hiển thị tất cả các giá trị
+                    return `${value} triệu`; // Hiển thị giá trị với đơn vị
+                  },
+                  font: {
+                    size: 12,
                   },
                 },
                 suggestedMin: 0,
-                suggestedMax: 100,
+                suggestedMax: Math.max(...data) + 20, // Tự động điều chỉnh trục y
               },
             },
           },
@@ -92,7 +119,7 @@ const LineChart = () => {
         myChartRef.current.destroy();
       }
     };
-  }, []);
+  }, [labels, data]); // Theo dõi thay đổi của labels và data
 
   return (
     <div>

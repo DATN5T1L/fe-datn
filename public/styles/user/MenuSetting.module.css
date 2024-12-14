@@ -83,11 +83,9 @@
 }
 
 .link__title {
-    font-size: 0.625rem;
-    font-style: normal;
+    font-size: .875rem;
     font-weight: 400;
     line-height: 16px;
-    width: auto;
     display: flex;
     color: var(--text-75);
 }

@@ -4,6 +4,7 @@ import DoughnutChart from "@/app/accountant/chart/DoughnutChart";
 import h from "./BodyDashboard.module.css";
 import LineChart from "@/app/accountant/chart/LineChart";
 import { useEffect, useState } from "react";
+import CourseCard from "@/app/(user-global)/component/course/CardCourse";
 
 
 
@@ -18,8 +19,7 @@ const getCookie = (name: string) => {
 const BodyDashboard = () => {
   const [peopleComplete, setPeopleComlete] = useState()
   const token = getCookie('token')
-  const [loading, setLoading] = useState(false)
-
+  const [course, setCourse] = useState<Course>()
   useEffect(() => {
     fetch(`/api/statistical_complete`, {
       method: 'GET',
@@ -33,7 +33,8 @@ const BodyDashboard = () => {
 
   console.log(peopleComplete);
 
-
+  const labels = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5"];
+  const data = [20, 50, 30, 80, 60];
   return (
     <>
       <div className={h.card_group}>
@@ -42,7 +43,7 @@ const BodyDashboard = () => {
             <h6>Người hoàn thành khóa học</h6>
             <div className={h.chart}>
               <div>
-                {/* <DoughnutChart /> */}
+                <DoughnutChart dataValue={3} totalValue={30} />
               </div>
             </div>
             <div className={h.info_course}>
@@ -65,112 +66,15 @@ const BodyDashboard = () => {
           <div className={h.card_content}>
             <h6>Khóa học nổi bật</h6>
             <div>
-              <Card className={h.mainBox__content}>
-                <Card.Header className={h.headerContent}>
-                  <section className={h.headerContent__text}>
-                    <Card.Title className={h.text__hedding2}>
-                      WEBSITE DESIGN UI/UX
-                    </Card.Title>
-                    <Card.Subtitle className={h.text__hedding3}>
-                      by My Team
-                    </Card.Subtitle>
-                    <Card.Img
-                      src="/img/iconReact.svg"
-                      alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
-                      className={h.text__img}
-                    />
-                  </section>
-                  <Card.Img
-                    src="/img/tuan.png"
-                    alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
-                    className={h.headerContent__avt}
-                  />
-                </Card.Header>
-                <section className={h.mainContent__headContent}>
-                  <div className={h.headContent__evaluete}>
-                    <div className={h.evaluete__main}>
-                      <div className={h.starGroup}>
-                        <Image
-                          src="/img/iconStar.svg"
-                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
-                          className={h.starElement}
-                        />
-                        <Image
-                          src="/img/iconStar.svg"
-                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
-                          className={h.starElement}
-                        />
-                        <Image
-                          src="/img/iconStar.svg"
-                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
-                          className={h.starElement}
-                        />
-                        <Image
-                          src="/img/iconStar.svg"
-                          alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh"
-                          className={h.starElement}
-                        />
-                        <Image
-                          src="/img/iconStar.svg"
-                          alt="Học lập trình cơ bản với TTO.SH"
-                          className={h.starElement}
-                        />
-                      </div>
-
-                      <Card.Text className={h.starNumber}>
-                        {"("} 4,5 {")"}
-                      </Card.Text>
-                    </div>
-                  </div>
-                  <div className={h.headContent__percent}>
-                    <Card.Text className={h.evaluete__note}>
-                      {"("} 504 phản hồi {")"}
-                    </Card.Text>
-                  </div>
-                </section>
-                <Card.Body className={h.mainContent}>
-                  <section className={h.bodyContent}>
-                    <div className={h.bodyContent__element}>
-                      <Image
-                        src="/img/bookoffgreen.svg"
-                        alt="Học lập trình cơ bản với TTO.SH"
-                        className={h.element__img}
-                      />
-                      <Card.Text className={h.element__text}>
-                        10 Chương
-                      </Card.Text>
-                    </div>
-                    <div className={h.bodyContent__element}>
-                      <Image
-                        src="/img/bookopenblue.svg"
-                        alt="Học lập trình cơ bản với TTO.SH"
-                        className={h.element__img}
-                      />
-                      <Card.Text className={h.element__text}>
-                        10 Bài tập
-                      </Card.Text>
-                    </div>
-                    <div className={h.bodyContent__element}>
-                      <Image
-                        src="/img/bookopenyellow.svg"
-                        alt="Học lập trình cơ bản với TTO.SH"
-                        className={h.element__img}
-                      />
-                      <Card.Text className={h.element__text}>
-                        10 Đã học
-                      </Card.Text>
-                    </div>
-                  </section>
-                </Card.Body>
-              </Card>
+              {course && <CourseCard titleAction={2} course={course} />}
             </div>
           </div>
         </div>
         <div className={h.card}>
           <div className={h.card_content}>
-            <h6>Doanh thu</h6>
+            <h6>Doanh thu quý hiện tại</h6>
             <div>
-              <LineChart />
+              <LineChart data={data} labels={labels} />
             </div>
           </div>
         </div>

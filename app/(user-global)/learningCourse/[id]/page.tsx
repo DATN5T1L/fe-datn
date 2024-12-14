@@ -71,7 +71,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [css, setCss] = useState<string>('');
     const [js, setJs] = useState<string>('');
 
-
+    const [statusVideo, setStatusVideo] = useState<boolean>(false)
 
     const [visible, setVisible] = useState(false);
 
@@ -82,7 +82,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [isFAQ, setFAQ] = useState(false);
     const [isNoteContent, setIsNoteContent] = useState(false);
 
-    console.log(isNoteContent)
     const toggleSwitch = () => {
         setIsActive(!isActive);
         setTippyVisible(prev => !prev);
@@ -321,6 +320,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         settimedocument(formatDateTime(doc.updated_at));
         setdoc_id(doc.document_id);
         setdescdocument(doc.discription_document);
+        setStatusVideo(doc.status_document)
         switch (doc.type_document) {
             case "quiz":
                 if (doc.questions) {
@@ -352,6 +352,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     course_id={course_Id}
                     document_id={doc_id}
                     urlVideo={urlVideo}
+                    status_video={statusVideo}
                     onProgressChange={handleProgressChange}
                     isPlaying={isPlaying}
                     reload={handleReload}
@@ -574,7 +575,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                                             }
                                                                         }
                                                                     }
-                                                                    return true; 
+                                                                    return true;
                                                                 };
                                                                 const isPreviousDocumentCompleted =
                                                                     subIndex > 0 && item.documents[subIndex - 1]?.status_document === true;

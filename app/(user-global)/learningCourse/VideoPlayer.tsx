@@ -9,13 +9,14 @@ type NotiType = 'success' | 'error' | 'fail' | 'complete';
 interface VideoProp {
     course_id: string | null;
     document_id: string | null;
+    status_video: boolean;
     urlVideo: string;
     onProgressChange: (playedSeconds: number) => void;
     reload: () => void;
     isPlaying: boolean;
 }
 
-const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying, reload }) => {
+const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying, reload, status_video }) => {
     const token = useCookie('token');
     const playerRef = useRef<any>(null);
     const lastValidTimeRef = useRef<number>(0);
@@ -29,6 +30,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
     const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
     const [messageNoti, setmessageNoti] = useState("");
 
+    console.log(status_video)
     const handleProgress = (progress: { playedSeconds: number }) => {
         const { playedSeconds } = progress;
         setPlayedSeconds(playedSeconds);
@@ -41,7 +43,8 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
             } else {
                 // Quay về thời gian hợp lệ trước đó
                 if (playerRef.current) {
-                    // playerRef.current.seekTo(lastValidTimeRef.current);
+                    if (status_video) return
+                    playerRef.current.seekTo(lastValidTimeRef.current);
                 }
             }
         } else {

@@ -6,13 +6,12 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
-import { Container, Button, Nav, Navbar, Form, Image, Row, Col } from 'react-bootstrap';
+import { Button, Nav, Navbar, Form, Image, Row, Col } from 'react-bootstrap';
 import { IconForm, IconEmail, IconPhoneBlu } from "../icon/icons"
 import GgLogoutHeader from '../auth/user-component/ggLogoutHeader';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import Search from "./Search";
-import { motion, AnimatePresence } from 'framer-motion';
 import c from "@public/styles/globalControl/header.module.css"
 import { ShowNameElement } from '@app/(user-global)/component/globalControl/commonC';
 const Header: React.FC = () => {
@@ -138,8 +137,8 @@ const Header: React.FC = () => {
                                                 <h4 className='title-1'>Xin chào</h4>
                                                 <h4 className='title-name'>{userState?.user?.fullname}</h4>
                                             </section>
-                                            <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6 9L12 15L18 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className='right-icon-user-stroke' />
+                                            <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M6 9L12 15L18 9" stroke="rgba(35, 125, 247, 1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                             <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'}`} >
                                                 <h3 className='subMenu-title'>

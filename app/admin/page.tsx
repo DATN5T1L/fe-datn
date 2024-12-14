@@ -19,6 +19,8 @@ import BodyDashboard from "@/app/admin/component/Dashboard/BodyDashboard";
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import ReactLoading from 'react-loading';
+import { LineChartViewYear } from "../accountant/component/Dashboard/LineChartView";
+import { getMonthlyProfits } from "../(user-global)/component/globalControl/commonC";
 
 interface Statistical {
   totalCourse: number;
@@ -118,10 +120,63 @@ const Dashboard: React.FC = () => {
       alertShown.current = true;
     }
   }, [userState, router]);
-
+  const years = [2024, 2025];
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
+  const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
+  const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
+  useEffect(() => {
+    const update2024 = getMonthlyProfits(profitsByMonth1);
+    const update2025 = getMonthlyProfits(profitsByMonth2);
+    setCombinedData({
+      [years[0]]: update2024,
+      [years[1]]: update2025,
+    });
+  }, [profitsByMonth1, profitsByMonth2]);
 
+  const fetchMultipleAPIs = async () => {
+    try {
+      if (token) {
+        const responses = await Promise.all([
+          fetch(`/api/accountant/statisticalProfitsByMonths/2024`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+          fetch(`/api/accountant/statisticalProfitsByMonths/2025`, {
+            method: "GET",
+            headers: {
+              Authorization: `Barser ${token}`,
+            },
+          }),
+
+        ]);
+        const failedResponse = responses.find((res) => !res.ok);
+        if (failedResponse) {
+          throw new Error("One or more API requests failed");
+        }
+
+        // Parse tất cả phản hồi thành JSON
+        const data = await Promise.all(responses.map((res) => res.json()));
+        console.log(data)
+        // Lấy dữ liệu từ các endpoint
+        const statisticalYear2024 = data[0]
+        const statisticalYear2025 = data[1]
+
+        setprofitsByMonth1(statisticalYear2024.profitsByMonth)
+        setprofitsByMonth2(statisticalYear2025.profitsByMonth)
+
+      }
+    } catch (err: any) {
+      console.error("Error:", err.message);
+    }
+  };
+
+  useEffect(() => {
+    if (token) fetchMultipleAPIs()
+  }, [token])
 
   return (
     <>
@@ -132,7 +187,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Tổng khóa học</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <h3>{data?.totalCourse}</h3>
                 )}
@@ -148,7 +203,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Đơn hôm nay</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <h3>{data?.totalCourseNow}</h3>
                 )}
@@ -164,7 +219,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Tổng nhân viên</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <h3>{data?.totalCourseLecturer}</h3>
                 )}
@@ -180,7 +235,7 @@ const Dashboard: React.FC = () => {
               <span id="tippy">
                 <p>Tổng doanh thu</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <Tippy
                     content={`${parseFloat(typeof data?.totalCourseRevenue === 'string' ? data.totalCourseRevenue.replace(/[^\d]/g, "") : '').toLocaleString('vi-VN')}đ`}
@@ -204,7 +259,7 @@ const Dashboard: React.FC = () => {
             <OffcanvasComponent show={show} handleClose={handleClose} />
           </div>
           <div className={style.chart}>
-            <ViewBarCharts />
+            <LineChartViewYear years={years} key={"6"} dataByYear={combinedData} />
           </div>
           <BodyDashboard />
         </section>

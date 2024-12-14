@@ -1,4 +1,5 @@
 "use client"
+import { useRouter } from 'next/router';
 import { Col, Container, Image, Row } from "react-bootstrap";
 import { useEffect, useState } from 'react';
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
@@ -11,6 +12,7 @@ import useCookie from '@app/(user-global)/component/hook/useCookie';
 
 
 const CoursePro: React.FC = () => {
+    const router = useRouter();
     const [courses, setCourses] = useState<Course[]>([]);
 
     const token = useCookie("token") as string | null;
@@ -37,6 +39,11 @@ const CoursePro: React.FC = () => {
             revalidateIfStale: false,
         }
     );
+    useEffect(() => {
+        if (data?.data?.length === 0 || !data?.data) {
+            router.push('/'); // Trang "home"
+        }
+    }, [data, router]);
 
     useEffect(() => {
         if (data?.data) {

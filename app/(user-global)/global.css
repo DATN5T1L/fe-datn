@@ -800,7 +800,7 @@
   }
 
   .right-icon-user-stroke {
-    stroke: var(--gray-80);
+    stroke: var(--blue-40);
   }
 
   .subMenu {
@@ -1004,8 +1004,9 @@
     width: auto;
     height: auto;
     gap: 8px;
-    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    min-width: 246px;
   }
 
   .avt {
