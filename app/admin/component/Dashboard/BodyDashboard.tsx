@@ -17,21 +17,9 @@ const getCookie = (name: string) => {
 
 
 const BodyDashboard = () => {
-  const [peopleComplete, setPeopleComlete] = useState()
+  const [peopleComplete, setPeopleComlete] = useState();
   const token = getCookie('token')
-  const [course, setCourse] = useState<Course>()
-  // useEffect(() => {
-  //   fetch(`/api/statistical_complete`, {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     }
-  //   }).then(res => res.json())
-  //     .then(data => setPeopleComlete(data))
-  //     .catch(error => console.log(error))
-  // }, [])
-
-  console.log(peopleComplete);
+  const [course, setCourse] = useState<Course>();
 
   const labels = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5"];
   const data = [20, 50, 30, 80, 60];

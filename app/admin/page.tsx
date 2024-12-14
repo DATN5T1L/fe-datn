@@ -20,7 +20,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import ReactLoading from 'react-loading';
 import { LineChartViewYear } from "../accountant/component/Dashboard/LineChartView";
-import { getMonthlyProfits } from "../(user-global)/component/globalControl/commonC";
+import { formatToVietnameseCurrencyText, getMonthlyProfits } from "../(user-global)/component/globalControl/commonC";
 
 interface Statistical {
   totalCourse: number;
@@ -77,38 +77,6 @@ const Dashboard: React.FC = () => {
     }
   }, [token])
 
-  // useEffect(() => {
-  //   if (token) {
-  //     setIsLoading(true)
-  //     fetch(`/api/courseEnrollments/`, {
-  //       cache: 'no-cache',
-  //       method: 'GET',
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       }
-  //     })
-  //       .then(async res => {
-  //         if (!res.ok) {
-  //           const errorDetail = await res.text();
-  //           throw new Error(`HTTP error! status: ${res.status} - ${errorDetail}`);
-  //         }
-  //         return res.json();
-  //       })
-  //       .then(data => {
-  //         setIsLoading(false)
-  //         console.log(data);
-  //         setCountEnrollments(data.data.length)
-  //       })
-  //       .catch(error => {
-  //         console.log(error)
-  //         setIsLoading(false)
-  //       })
-  //   }
-  // }, [token])
-
-  // console.log('phần tử:',countEnrollments);
-
-
   useEffect(() => {
     if (!alertShown.current) {
       if (userState?.role === 'admin') {
@@ -120,6 +88,7 @@ const Dashboard: React.FC = () => {
       alertShown.current = true;
     }
   }, [userState, router]);
+
   const years = [2024, 2025];
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -237,15 +206,8 @@ const Dashboard: React.FC = () => {
                 {isLoading ? (
                   <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
-                  // <Tippy
-                  //   content={`${parseFloat(typeof data?.totalCourseRevenue === 'string' ? data.totalCourseRevenue.replace(/[^\d]/g, "") : '').toLocaleString('vi-VN')}đ`}
-                  //   animation='scale-extreme'
-                  //   theme="light"
-                  //   placement="bottom"
-                  // >
-                  //   <h3>{`${Math.floor(parseFloat(data?.totalCourseRevenue?.replace(/[^\d]/g, "") || "0") / 1_000_000)}tr VND`}</h3>
-                  // </Tippy>
-                  <></>
+                  data?.totalCourseRevenue && (
+                    <h3>{formatToVietnameseCurrencyText(Number(data.totalCourseRevenue))}</h3>)
                 )}
               </span>
 

@@ -26,12 +26,35 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const router = useRouter();
     const token = useCookie('token')
     const pathname = usePathname();
-    const [isGetCourse, setIsGetCourse] = useState<boolean>(false)
+    const [IsCourse, setIsCourse] = useState<boolean>(false)
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const [type, setType] = useState<NotiType>("complete");
     const [message, setMessage] = useState<string>("");
     const [showNotification, setShowNotification] = useState(false);
-    const [idCourse, setIdCourse] = useState<string>("")
+    const [idCourse, setIdCourse] = useState<string>("");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (id && token) {
+            setLoading(true);
+            fetch(`/api/checkEnrollment/${idCourse}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log('Người dùng đã đăng ký:', data);
+                    if (data.is_enrolled) {
+                        setIsCourse(data.is_enrolled);
+                        console.log(data.is_enrolled)
+                    }
+                })
+                .catch((error) => console.log(error))
+                .finally(() => setLoading(false));
+        }
+    }, [id, token]);
 
     useEffect(() => {
         if (id) {
@@ -52,7 +75,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
         } catch (error: any) {
             console.error("Error fetching data:", error);
-
         }
     };
 
@@ -62,62 +84,30 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
         });
     }, []);
 
-    useEffect(() => {
-        if (token) {
-            fetch(`/api/checkEnrollment/${idCourse}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log('Người dùng đã đăng ký:', data)
-                    if (data.is_enrolled) {
-                        setIsGetCourse(true)
-                    }
-                })
-                .catch(error => console.log(error))
-        }
-    }, [token])
-
-
     const toggleContent = (index: number) => {
         setOpenIndex(prevIndex => (prevIndex === index ? null : index));
     };
-
-
-
-
     const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
         idCourse ? `/api/courseDetail/${idCourse}` : null,
         fetcher
     );
-
     const { data: faqData, error: faqError } = useSWR<ApiResponse<FaqCourse[]>>(
         idCourse ? `/api/getFaqCourse/${idCourse}/10` : null,
         fetcher
     );
-
     const { data: chapterData, error: chapterError } = useSWR<ApiResponse<ChapterData>>(
         idCourse ? `/api/getNameChapterCourse/${idCourse}` : null,
         fetcher
     );
-
-
-
     const { data: feedbackData, error: feedbackError } = useSWR<ApiResponse<FeedbackData[]>>(
         idCourse ? `/api/getFeedBackCourse/${idCourse}/4/4` : null,
         fetcher
     );
-
-
     const instructorId = courseData?.data?.instructor_id;
     const { data: userData, error: userError } = useSWR<ApiResponse<User>>(
         instructorId ? `/api/user/${instructorId}` : null,
         fetcher
     );
-
     const handleStudy = () => {
         router.push(`/learningCourse/${id}`)
     }
@@ -135,7 +125,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 })
                     .then(res => {
                         if (res.ok) {
-                            setIsGetCourse(true);
                             setType("success");
                             setMessage("Bạn đã đăng ký khóa học");
                         }
@@ -216,22 +205,26 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                     <div className={`${styles.CTA}`}>
 
                         <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClickFree}>Học thử miễn phí</Button>
-                        {!isGetCourse && (
-                            <Button
-                                type="secondery"
-                                status="hover"
-                                size="S"
-                                leftIcon={false}
-                                rightIcon={false}
-                                chevron={4}
-                                width={145}
-                                height={40}
-                                onClick={handleButtonClick}
-                            >
-                                Sở hữu khóa học
-                            </Button>
-                        )}
 
+                        {loading ? (
+                            <p>Đang tải dữ liệu...</p>
+                        ) : (
+                            IsCourse === false && (
+                                <Button
+                                    type="secondery"
+                                    status="hover"
+                                    size="S"
+                                    leftIcon={false}
+                                    rightIcon={false}
+                                    chevron={4}
+                                    width={145}
+                                    height={40}
+                                    onClick={() => handleButtonClick}
+                                >
+                                    Sở hữu khóa học
+                                </Button>
+                            )
+                        )}
 
                         <Button type="secondery" status="hover" size="S" leftIcon={true} rightIcon={false} width={145} height={40} onClick={() => {
                             handelAddFavoriteCourses(course.id)
