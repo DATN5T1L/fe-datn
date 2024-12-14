@@ -1,8 +1,7 @@
 "use client"
 import { useRouter } from 'next/router';
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useEffect, useState } from 'react';
-import Button from "@app/(user-global)/component/globalControl/btnComponent";
 import styles from '@public/styles/course/CourseFav.module.css';
 import useSWR from 'swr';
 import { Course } from "@/app/(user-global)/model/course";
@@ -11,7 +10,7 @@ import Body from '@app/(user-global)/component/globalControl/body';
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 
 
-const CoursePro: React.FC = () => {
+const CourseFA: React.FC = () => {
     const router = useRouter();
     const [courses, setCourses] = useState<Course[]>([]);
 
@@ -76,4 +75,4 @@ const CoursePro: React.FC = () => {
     );
 }
 
-export default CoursePro;
+export default CourseFA;

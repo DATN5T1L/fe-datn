@@ -191,7 +191,7 @@ const Dashboard: React.FC = () => {
             <div className={h.card_content}>
               <h6>Doanh thu</h6>
               <div>
-                <LineChart />
+                {/* <LineChart /> */}
               </div>
             </div>
           </div>
