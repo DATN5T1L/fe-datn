@@ -33,9 +33,13 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [showNotification, setShowNotification] = useState(false);
     const [idCourse, setIdCourse] = useState<string>("");
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
-        if (id && token) {
+        if (id) {
+            fetchIdCourse(id)
+        }
+    }, [id]);
+    useEffect(() => {
+        if (idCourse) {
             setLoading(true);
             fetch(`/api/checkEnrollment/${idCourse}`, {
                 method: 'GET',
@@ -46,21 +50,14 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 .then((res) => res.json())
                 .then((data) => {
                     console.log('Người dùng đã đăng ký:', data);
-                    if (data.is_enrolled) {
-                        setIsCourse(data.is_enrolled);
-                        console.log(data.is_enrolled)
-                    }
+                    setIsCourse(data.is_enrolled);
                 })
                 .catch((error) => console.log(error))
                 .finally(() => setLoading(false));
         }
-    }, [id, token]);
+    }, [idCourse]);
 
-    useEffect(() => {
-        if (id) {
-            fetchIdCourse(id)
-        }
-    }, [id]);
+
 
     const fetchIdCourse = async (id: string) => {
         try {
@@ -70,7 +67,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 throw new Error(`API error: ${response.status}`);
             }
             const result = await response.json();
-            console.log(result)
+            console.log(result, "Lấy ra id")
             setIdCourse(result.Course);
 
         } catch (error: any) {
@@ -206,26 +203,23 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
                         <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClickFree}>Học thử miễn phí</Button>
 
-                        {loading ? (
+                        {loading === true ? (
                             <p>Đang tải dữ liệu...</p>
                         ) : (
-                            IsCourse === false && (
-                                <Button
-                                    type="secondery"
-                                    status="hover"
-                                    size="S"
-                                    leftIcon={false}
-                                    rightIcon={false}
-                                    chevron={4}
-                                    width={145}
-                                    height={40}
-                                    onClick={() => handleButtonClick}
-                                >
-                                    Sở hữu khóa học
-                                </Button>
-                            )
+                            <Button
+                                type="secondery"
+                                status="hover"
+                                size="S"
+                                leftIcon={false}
+                                rightIcon={false}
+                                chevron={4}
+                                width={145}
+                                height={40}
+                                onClick={!IsCourse ? handleStudy : handleButtonClick}
+                            >
+                                {!IsCourse ? "Bắt đầu học" : "Sở hữa khóa học"}
+                            </Button>
                         )}
-
                         <Button type="secondery" status="hover" size="S" leftIcon={true} rightIcon={false} width={145} height={40} onClick={() => {
                             handelAddFavoriteCourses(course.id)
                         }}>Thích khóa học</Button>
@@ -383,7 +377,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 <Container className={`${styles.container} ${styles.containerknowledge}`}>
                     <Row className={`${styles.row}`}>
                         <h3 className={styles.titleknowledge}>Kiến thức đầy đủ chi tiết nhất</h3>
-                        <p className={styles.descknowledge}>"Với hơn<strong className={styles.headingStrong}>{course.num_chapter}</strong> bài học, bài tập và thử thách, đây sẽ là khóa học đầy đủ và chi tiết nhất mà bạn có thể tìm thấy trên Internet."</p>
+                        <p className={styles.descknowledge}>"Với hơn <strong className={styles.headingStrong}>{course.num_chapter}</strong> bài học, bài tập và thử thách, đây sẽ là khóa học đầy đủ và chi tiết nhất mà bạn có thể tìm thấy trên Internet."</p>
                     </Row>
 
                     <Row className={`${styles.container} ${styles.containerknowledgeList}`}>

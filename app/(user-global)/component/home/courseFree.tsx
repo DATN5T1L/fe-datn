@@ -102,60 +102,62 @@ const CourseFree: React.FC = () => {
                     </Col>
                 </Row>
                 <Row className={styles.nav}>
-
-                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
-                        <Button
-                            type="premary"
-                            status="hover"
-                            size="S"
-                            leftIcon={false}
-                            rightIcon={false}
-                            height={40}
-                            onClick={() => handlePathChange("lo-trinh-front-end")}
-                        >
-                            Khóa học lộ trình FE
-                        </Button>
+                    <Col md={10}>
+                        <Row>
+                            <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                                <Button
+                                    type="premary"
+                                    status="hover"
+                                    size="S"
+                                    leftIcon={false}
+                                    rightIcon={false}
+                                    height={40}
+                                    onClick={() => handlePathChange("lo-trinh-front-end")}
+                                >
+                                    Khóa học  Lộ trình FE
+                                </Button>
+                            </Col>
+                            <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                                <Button
+                                    type="premary"
+                                    status="hover"
+                                    size="S"
+                                    leftIcon={false}
+                                    rightIcon={false}
+                                    height={40}
+                                    onClick={() => handlePathChange("lo-trinh-hoc-back-end")}
+                                > Khóa học Lộ trình BE
+                                </Button>
+                            </Col>
+                            <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                                <Button
+                                    type="premary"
+                                    status="hover"
+                                    size="S"
+                                    leftIcon={false}
+                                    rightIcon={false}
+                                    width={225}
+                                    onClick={() => handlePathChange("DE")}
+                                >
+                                    Khóa học  Lộ trình Tester
+                                </Button>
+                            </Col>
+                            <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                                <Button
+                                    type="premary"
+                                    status="hover"
+                                    size="S"
+                                    leftIcon={false}
+                                    rightIcon={false}
+                                    width={245}
+                                    onClick={() => handlePathChange("TE")}
+                                >
+                                    Khóa học Lộ trình Designer
+                                </Button>
+                            </Col>
+                        </Row>
                     </Col>
-                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
-                        <Button
-                            type="premary"
-                            status="hover"
-                            size="S"
-                            leftIcon={false}
-                            rightIcon={false}
-                            height={40}
-                            onClick={() => handlePathChange("lo-trinh-hoc-back-end")}
-                        >
-                            Khóa học lộ trình BE
-                        </Button>
-                    </Col>
-                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
-                        <Button
-                            type="premary"
-                            status="hover"
-                            size="S"
-                            leftIcon={false}
-                            rightIcon={false}
-                            width={225}
-                            onClick={() => handlePathChange("DE")}
-                        >
-                            Khóa học lộ trình Tester
-                        </Button>
-                    </Col>
-                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
-                        <Button
-                            type="premary"
-                            status="hover"
-                            size="S"
-                            leftIcon={false}
-                            rightIcon={false}
-                            width={245}
-                            onClick={() => handlePathChange("TE")}
-                        >
-                            Khóa học lộ trình Designer
-                        </Button>
-                    </Col>
-                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                    <Col md={2} className="mb-3">
                         <Button type="secondery" status="hover" size="S" chevron={4} leftIcon={false} rightIcon={true} width={145} height={40} onClick={handleCountAll}>{isCount ? 'Ẩn bớt' : 'Xem tất cả'}</Button>
                     </Col>
                 </Row>
