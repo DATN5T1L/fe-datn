@@ -4,6 +4,7 @@ export class Course {
     slug_course: string;
     img_course: string;
     price_course: number;
+    status_course: string;
     discount_price_course?: number;
     views_course: number;
     rating_course: number;
@@ -24,6 +25,7 @@ export class Course {
         tax_rate: number,
         img_course: string,
         price_course: number,
+        status_course: string,
         instructor_id: string,
         instructor_avatar: string,
         instructor_name: string,
@@ -43,6 +45,7 @@ export class Course {
         this.tax_rate = tax_rate;
         this.img_course = img_course;
         this.price_course = price_course;
+        this.status_course = status_course;
         this.discount_price_course = discount_price_course ?? 0;
         this.views_course = views_course;
         this.rating_course = rating_course;

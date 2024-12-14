@@ -178,12 +178,19 @@
     gap: 12px;
 }
 
+.chapterName {
+    width: 400px;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--line-clamp, 1);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .coursesContent {
     max-height: 100%;
     overflow-y: auto;
     padding-top: 32px;
-
-
+    overflow-x: hidden;
 }
 
 .listCourse {

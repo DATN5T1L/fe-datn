@@ -62,17 +62,20 @@ const ModalChangeEmail: React.FC<ModalChangeNameProps> = ({ show, onClose }) => 
         onSubmit: async (values) => {
             setLoading(true);
             try {
-                const res = await fetch('/api/changeMail/', {
-                    method: 'PATCH',
+                const res = await fetch('/api/changeMail', {
+                    method: 'POST',
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ email: values.email })
+                    body: JSON.stringify({
+                        email: values.email,
+                        token: values.check
+                    })
                 });
 
                 if (res.ok) {
-                    alert('Thay đổi thông tin thành công');
+                    alert('Bạn sẽ nhận được email xác nhận thay đổi qua Email cũ của bạn thời hạn xác thực là 5 phút');
                     onClose();
                     dispatch(update({
                         fullname: values.email
@@ -97,29 +100,24 @@ const ModalChangeEmail: React.FC<ModalChangeNameProps> = ({ show, onClose }) => 
     const handleSendCode = async () => {
         setGetTokenInput(false)
         formik.setFieldTouched('email', true);
-
         if (!formik.values.email) {
-            formik.setFieldError('email', 'Vui lòng nhập số điện thoại trước khi gửi mã');
+            formik.setFieldError('email', 'Vui lòng nhập nhập email trước khi gửi mã');
             return;
         }
-
         if (formik.errors.email) {
             return;
         }
-
         try {
-            const res = await fetch('/api/checkTokenNewUser', {
+            const res = await fetch('/api/checkChangeMail', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ email: formik.values.email }),
             });
-
+            console.log(formik.values.email)
             const data = await res.json()
             console.log(data);
-
-
             if (res.ok) {
                 alert('Mã xác nhận đã được gửi đến email của bạn');
                 setIsButtonDisabled(true);

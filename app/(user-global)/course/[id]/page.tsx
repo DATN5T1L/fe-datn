@@ -17,18 +17,45 @@ import { motion } from 'framer-motion';
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { IconFeedback } from '@app/(user-global)/component/icon/icons';
 import RegisterSale from '../../component/home/RegisterSale';
+
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
+
+    const { id } = params;
     const router = useRouter();
-    const token = useCookie('token')
+    const token = useCookie('token') as string;
     const pathname = usePathname();
     const [isGetCourse, setIsGetCourse] = useState<boolean | null>(null)
     const [openIndex, setOpenIndex] = useState<number | null>(null);
-    const { id } = params;
     const [type, setType] = useState<NotiType>("complete");
     const [message, setMessage] = useState<string>("");
     const [showNotification, setShowNotification] = useState(false);
+    const [idCourse, setIdCourse] = useState<string>("")
+
+    useEffect(() => {
+        if (id) {
+            fetchIdCourse(id)
+        }
+    }, [id]);
+
+    const fetchIdCourse = async (id: string) => {
+
+        try {
+            const response = await fetch(`/api/slugById/${id}/Course`);
+
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log(result)
+            setIdCourse(result.Course);
+
+        } catch (error: any) {
+            console.error("Error fetching data:", error);
+
+        }
+    };
 
     useEffect(() => {
         AOS.init({
@@ -37,8 +64,8 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     }, []);
 
     useEffect(() => {
-        if (token) {
-            fetch(`/api/checkEnrollment/${id}`, {
+        if (idCourse) {
+            fetch(`/api/checkEnrollment/${idCourse}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -51,7 +78,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 })
                 .catch(error => console.log(error))
         }
-    }, [token])
+    }, [idCourse])
 
 
     const toggleContent = (index: number) => {
@@ -62,24 +89,24 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
-        `/api/courseDetail/${id}`,
+        idCourse ? `/api/courseDetail/${idCourse}` : null,
         fetcher
     );
 
     const { data: faqData, error: faqError } = useSWR<ApiResponse<FaqCourse[]>>(
-        `/api/getFaqCourse/${id}/10`,
+        idCourse ? `/api/getFaqCourse/${idCourse}/10` : null,
         fetcher
     );
 
     const { data: chapterData, error: chapterError } = useSWR<ApiResponse<ChapterData>>(
-        `/api/getNameChapterCourse/${id}`,
+        idCourse ? `/api/getNameChapterCourse/${idCourse}` : null,
         fetcher
     );
 
 
 
     const { data: feedbackData, error: feedbackError } = useSWR<ApiResponse<FeedbackData[]>>(
-        `/api/getFeedBackCourse/${id}/4/4`,
+        idCourse ? `/api/getFeedBackCourse/${idCourse}/4/4` : null,
         fetcher
     );
 
@@ -93,13 +120,13 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handleStudy = () => {
         router.push(`/learningCourse/${id}`)
     }
-    console.log(userData)
+
     const handleButtonClick = () => {
         if (token) {
             if (course && course.price_course > 0) {
                 router.push(`/paymentCourse/${id}`);
             } else if (course && course.price_course === 0) {
-                fetch(`/api/userRegisterCourse/${id}`, {
+                fetch(`/api/userRegisterCourse/${idCourse}`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -107,11 +134,15 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 })
                     .then(res => {
                         if (res.ok) {
-                            alert('Đã thêm khóa học thành công')
                             setIsGetCourse(true);
+                            setType("success");
+                            setMessage("Bạn đã đăng ký khóa học");
                         }
                     })
-                    .catch(error => alert('Thêm khóa học thất bại'))
+                    .catch(error => {
+                        setType("fail");
+                        setMessage("Đăng ký khóa học thất bại")
+                    })
             }
         } else {
             localStorage.setItem('url', pathname)

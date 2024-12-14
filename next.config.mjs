@@ -92,10 +92,13 @@ const nextConfig = {
         source: '/api/changeMailByPhone/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-phone-user/:path*',
       },
-      // thay đổi email // tuan
+      {
+        source: '/api/checkChangeMail/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-mail-change/:path*',
+      },
       {
         source: '/api/changeMail/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/client/change-profile-email-user/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/check-mail-token-change/:path*',
       },
       {
         source: '/api/changeAge/:path*',

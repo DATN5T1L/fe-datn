@@ -16,6 +16,7 @@ interface CourseCardProps {
         num_chapter: number;
         num_document: number;
         slug_course: string;
+        status_course: string;
     };
     titleAction: number;
     onCourseClick?: (course: any) => void;
@@ -48,7 +49,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
     return (
         <Col xs={12} sm={6} md={4} lg={3} className={styles.mainBox} key={course.id}>
             <Card className={styles.mainBox__content}>
-                <Link href={`/course/${course.slug_course}`}>
+                <Link href={course.status_course === "success" ? `/course/${course.slug_course}` : `#!`}>
                     <Card.Header className={styles.headerContent}>
                         <section className={styles.headerContent__text}>
 
@@ -63,57 +64,61 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                     </Card.Header>
                 </Link>
                 <Card.Body className={styles.mainContent}>
-                    <section className={styles.mainContent__headContent}>
-                        <div className={styles.headContent__evaluete}>
-                            <div className={styles.evaluete__main}>
-                                {course.rating_course > 0 ? (
-                                    <div className={styles.star}>
-                                        <div className={styles.starGroup}>
-                                            {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
-                                                <IconStar key={index} />
-                                            ))}
+                    {course.status_course === "confirming" ? (<div className={styles.comingson}>Coming soon</div>) :
+                        (
+                            <>
+                                <section className={styles.mainContent__headContent}>
+                                    <div className={styles.headContent__evaluete}>
+                                        <div className={styles.evaluete__main}>
+                                            {course.rating_course > 0 ? (
+                                                <div className={styles.star}>
+                                                    <div className={styles.starGroup}>
+                                                        {Array.from({ length: Math.round(course.rating_course) }).map((_, index) => (
+                                                            <IconStar key={index} />
+                                                        ))}
+                                                    </div>
+                                                    <Card.Text className={styles.starNumber}>
+                                                        <span>{course.rating_course}</span>
+                                                    </Card.Text>
+                                                </div>
+                                            ) : (
+                                                <span className={styles.ratingCourse}>Chưa có đánh giá</span>
+                                            )}
                                         </div>
-                                        <Card.Text className={styles.starNumber}>
-                                            <span>{course.rating_course}</span>
+                                    </div>
+                                    <div className={styles.headContent__percent}>
+                                        <Card.Text className={styles.evaluete__note}>
+                                            {'('}{course.views_course} lượt xem{')'}
                                         </Card.Text>
                                     </div>
-                                ) : (
-                                    <span className={styles.ratingCourse}>Chưa có đánh giá</span>
-                                )}
-                            </div>
-                        </div>
-                        <div className={styles.headContent__percent}>
-                            <Card.Text className={styles.evaluete__note}>
-                                {'('}{course.views_course} lượt xem{')'}
-                            </Card.Text>
-                        </div>
 
 
-                    </section>
-                    <section className={styles.bodyContent}>
-                        <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookoffgreen.svg" alt="Làm quen với lập trình web trên tto.sh" className={styles.element__img} />
-                            <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
-                        </div>
-                        <div className={styles.bodyContent__element}>
-                            <Image src="/img/bookopenblue.svg" alt="Lập trình JavaScript cơ bản tại TTO" className={styles.element__img} />
-                            <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
-                        </div>
-                        <div className={styles.bodyContent__element}>
-                            {titleAction === 1 ? (
-                                <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
-                                    <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                    <Card.Text className={styles.element__text}>{title}</Card.Text>
-                                </Link>
-                            ) : (
-                                <Link href={`/course/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
-                                    <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
-                                    <Card.Text className={styles.element__text}>{title}</Card.Text>
-                                </Link>
-                            )}
+                                </section>
+                                <section className={styles.bodyContent}>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookoffgreen.svg" alt="Làm quen với lập trình web trên tto.sh" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>{course.num_chapter} Chương</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        <Image src="/img/bookopenblue.svg" alt="Lập trình JavaScript cơ bản tại TTO" className={styles.element__img} />
+                                        <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
+                                    </div>
+                                    <div className={styles.bodyContent__element}>
+                                        {titleAction === 1 ? (
+                                            <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
+                                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                                <Card.Text className={styles.element__text}>{title}</Card.Text>
+                                            </Link>
+                                        ) : (
+                                            <Link href={`/course/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
+                                                <Image src="/img/bookopenyellow.svg" alt="" className={styles.element__img} />
+                                                <Card.Text className={styles.element__text}>{title}</Card.Text>
+                                            </Link>
+                                        )}
 
-                        </div>
-                    </section>
+                                    </div>
+                                </section></>)}
+
                 </Card.Body>
             </Card>
         </Col>

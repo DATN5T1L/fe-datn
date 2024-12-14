@@ -23,7 +23,7 @@ import VideoPlayer from '../VideoPlayer';
 import { Arrow, IconWhat, IconDoc, IconVideo, IconSun, IconNote, IconBell, IconSetting, IconLogout, IconCode } from "@/app/(user-global)/component/icon/icons";
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
-import { formatDateTime, formatTime } from "@/app/(user-global)/component/globalControl/commonC";
+import { formatDateTime, formatTime, ShowNameElement } from "@/app/(user-global)/component/globalControl/commonC";
 
 import DocumentStatus from '../statusDoc';
 
@@ -62,9 +62,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [idCourse, setIdCourse] = useState<string>("")
     const [doc_id, setdoc_id] = useState<string>("");
     const [chapter_id, setChapter_id] = useState<string>("");
+    const [chapterName, setChapterName] = useState<string>("");
     const course_Id = idCourse;
     const [urlVideo, setUrlVideo] = useState('');
-    const [type, setType] = useState<string | null>(null);
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
     const [html, setHtml] = useState<string>('');
@@ -155,32 +155,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             return null;
         }
     };
-    // const fetchNotes = async () => {
-    //     try {
-    //         const response = await fetch(`/api/getnoteByCourse/${course_Id}`, {
-    //             method: "GET",
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error("Failed to fetch course");
-    //         }
-
-    //         const dataNote = await response.json();
-    //         // console.log(dataNote)
-    //         if (Array.isArray(dataNote.data)) {
-    //             setNote(dataNote.data);
-    //             return dataNote
-    //         } else {
-    //             console.error("data.data is not an array");
-    //         }
-    //     } catch (err: any) {
-    //         setError(err.message);
-    //     }
-    // };
-
     const fetchProgress = async () => {
         try {
             const response = await fetch(`/api/getProgress/${course_Id}`, {
@@ -232,13 +206,14 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     // lấy ra note
 
     const handleReload = () => {
-        // window.location.reload();
-        fetchProgress()
-        fetchDocuments()
+        fetchProgress();
+        fetchDocuments();
+        fetchCreatStatus();
     }
 
     useEffect(() => {
         if (doc_id !== null) {
+
             fetchCreatStatus();
         }
     }, [doc_id]);
@@ -269,15 +244,17 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     useEffect(() => {
         if (course && Array.isArray(course)) {
-            const findInactiveDocument = (course: Chapter[]): { document_id: string; chapter_id: string } | null => {
+            const findInactiveDocument = (course: Chapter[]): { document_id: string; chapter_id: string; chapter_name: string } | null => {
                 for (const chapter of course) {
                     const inactiveDoc = chapter.documents.find(doc => !doc.status_document);
                     if (inactiveDoc) {
                         return {
                             document_id: inactiveDoc.document_id,
                             chapter_id: chapter.chapter_id,
+                            chapter_name: chapter.chapter_name
                         };
                     }
+                    alert('Bạn đã hoàn thành khóa học')
                 }
                 return null;
             };
@@ -297,7 +274,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     setdoc_id(initialDoc.document_id); // Gán document_id
                     setChapter_id(chapter_id); // Gán chapter_id
                     handleClickDoc(initialDoc);
-
+                    setChapterName(inactiveDoc.chapter_name)
                     // Tìm chỉ số của tài liệu và chương để đặt selectedIndex
                     const chapterIndex = course.findIndex(chapter => chapter.chapter_id === chapter_id);
                     const docIndex = course[chapterIndex]?.documents.findIndex(doc => doc.document_id === document_id);
@@ -512,7 +489,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                 {course?.map((item, index) => (
                                     <div key={index} className={styles.listItem}>
                                         <div className={styles.listItem__title} onClick={() => toggleItem(index)}>
-                                            <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
+                                            <ShowNameElement name={item.chapter_name}>
+                                                <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
+                                            </ShowNameElement>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="24"
@@ -604,7 +583,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                                 )}
                                                                 <div className={styles.listItem__docTitle}>
                                                                     <span className={styles.listItem__docIndex}>{`${index + 1}.${subIndex + 1}`}  </span>
-                                                                    <span className={styles.listItem__docName}> {doc.name_document} </span>
+                                                                    <ShowNameElement name={doc.name_document}>
+                                                                        <span className={styles.listItem__docName}> {doc.name_document} </span>
+                                                                    </ShowNameElement>
                                                                 </div>
                                                             </div>
                                                             <DocumentStatus status_document={doc.status_document} />
@@ -747,22 +728,24 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     {progress && (
                         <>
                             <h4 className={stylesNav.heading}>{progress.name_course}</h4>
-                            <ProgressCircle progress={progress.progress_percentage ?? 0} />
+                            <ShowNameElement name={"Tiến độ học tập"}>
+                                <ProgressCircle progress={progress.progress_percentage ?? 0} />
+                            </ShowNameElement>
                         </>
                     )}
 
                 </div>
                 <div className={stylesNav.cta}>
+
                     <label className={stylesNav.switch} onClick={toggleSwitch}>
                         <span className={`${stylesNav.slider} ${isActive ? stylesNav.active : ''}`}>
                             <IconCode />
                         </span>
                     </label>
-                    <div className={stylesNav.iconNotifition}>
-                        <IconBell />
-                    </div>
                     <div className={stylesNav.iconNotifition} onClick={toggleNoteList}>
-                        <IconNote />
+                        <ShowNameElement name={"Ghi chú của bạn"}>
+                            <IconNote />
+                        </ShowNameElement>
                     </div>
                     <Tippy visible={visible} onClickOutside={hide} interactive={true} render={attrs => (
                         <div className={stylesNav.tippyBox} tabIndex={-1} {...attrs}>
@@ -799,7 +782,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         handelIsPlaying();
                     }
                 }>
-                    <IconWhat />
+                    <ShowNameElement name={"Hỏi đáp"}>
+                        <IconWhat />
+                    </ShowNameElement>
                 </div>
                 <div className={styles.ctaNextPev}>
                     <button
@@ -811,7 +796,9 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                         }}
                     >
                         <Arrow deg="-180" />
-                        <p className={styles.titleNextPrev}>Bài trước</p>
+                        <ShowNameElement name={"Về bài trước"}>
+                            <p className={styles.titleNextPrev}>Bài trước</p>
+                        </ShowNameElement>
                     </button>
                     <button
                         className={styles.nextPrevCourse}
@@ -821,12 +808,16 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             }
                         }}
                     >
-                        <p className={styles.titleNextPrev}>Bài tiếp theo</p>
+                        <ShowNameElement name={"Bài kế tiếp Lưu ý chỉ được chuyển bài 1 lần"}>
+                            <p className={styles.titleNextPrev}>Bài tiếp theo</p>
+                        </ShowNameElement>
                         <Arrow deg="0" />
                     </button>
                 </div>
                 <div className={styles.cateSec}>
-                    <span>Chương 1: Bắt đầu</span>
+                    <ShowNameElement name={`Chương ${chapterName}: ${nameDocument}`}>
+                        <span className={styles.chapterName}>Chương {chapterName}: {nameDocument}</span>
+                    </ShowNameElement>
                     <div className={styles.iconCatesec} onClick={toggleVisibility}>
                         <svg className={isVisible ? styles.rotated : ''} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="#234587">
                             <path fillRule="evenodd" clipRule="evenodd" d="M20.3892 0.803629C21.3558 1.46469 22 2.64499 22 4.0329V17.9671C22 19.355 21.3558 20.5353 20.3892 21.1964C19.4104 21.8658 18.1152 21.9826 16.9723 21.2446L6.18329 14.2775C5.03297 13.5346 4.5 12.2341 4.5 11C4.5 9.76587 5.03297 8.46536 6.18329 7.72253L16.9723 0.755426C18.1152 0.0173917 19.4104 0.134203 20.3892 0.803629Z" />
