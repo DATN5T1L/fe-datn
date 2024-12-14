@@ -17,63 +17,18 @@ import { motion } from 'framer-motion';
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { IconFeedback } from '@app/(user-global)/component/icon/icons';
 import RegisterSale from '../../component/home/RegisterSale';
-
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
-
-    const { id } = params;
     const router = useRouter();
     const token = useCookie('token')
     const pathname = usePathname();
-    const [IsCourse, setIsCourse] = useState<boolean>(false)
+    const [isGetCourse, setIsGetCourse] = useState<boolean | null>(null)
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const { id } = params;
     const [type, setType] = useState<NotiType>("complete");
     const [message, setMessage] = useState<string>("");
     const [showNotification, setShowNotification] = useState(false);
-    const [idCourse, setIdCourse] = useState<string>("");
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        if (id) {
-            fetchIdCourse(id)
-        }
-    }, [id]);
-    useEffect(() => {
-        if (idCourse) {
-            setLoading(true);
-            fetch(`/api/checkEnrollment/${idCourse}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log('Người dùng đã đăng ký:', data);
-                    setIsCourse(data.is_enrolled);
-                })
-                .catch((error) => console.log(error))
-                .finally(() => setLoading(false));
-        }
-    }, [idCourse]);
-
-
-
-    const fetchIdCourse = async (id: string) => {
-        try {
-            const response = await fetch(`/api/slugById/${id}/Course`);
-
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
-            }
-            const result = await response.json();
-            console.log(result, "Lấy ra id")
-            setIdCourse(result.Course);
-
-        } catch (error: any) {
-            console.error("Error fetching data:", error);
-        }
-    };
 
     useEffect(() => {
         AOS.init({
@@ -81,40 +36,70 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
         });
     }, []);
 
+    useEffect(() => {
+        if (token) {
+            fetch(`/api/checkEnrollment/${id}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log('dữ liệu trả về:', data)
+                    setIsGetCourse(data.is_enrolled)
+                })
+                .catch(error => console.log(error))
+        }
+    }, [token])
+
+
     const toggleContent = (index: number) => {
         setOpenIndex(prevIndex => (prevIndex === index ? null : index));
     };
+
+
+
+
     const { data: courseData, error: courseError } = useSWR<ApiResponse<Course>>(
-        idCourse ? `/api/courseDetail/${idCourse}` : null,
+        `/api/courseDetail/${id}`,
         fetcher
     );
+
     const { data: faqData, error: faqError } = useSWR<ApiResponse<FaqCourse[]>>(
-        idCourse ? `/api/getFaqCourse/${idCourse}/10` : null,
+        `/api/getFaqCourse/${id}/10`,
         fetcher
     );
+
     const { data: chapterData, error: chapterError } = useSWR<ApiResponse<ChapterData>>(
-        idCourse ? `/api/getNameChapterCourse/${idCourse}` : null,
+        `/api/getNameChapterCourse/${id}`,
         fetcher
     );
+
+
+
     const { data: feedbackData, error: feedbackError } = useSWR<ApiResponse<FeedbackData[]>>(
-        idCourse ? `/api/getFeedBackCourse/${idCourse}/4/4` : null,
+        `/api/getFeedBackCourse/${id}/4/4`,
         fetcher
     );
+
+
     const instructorId = courseData?.data?.instructor_id;
     const { data: userData, error: userError } = useSWR<ApiResponse<User>>(
         instructorId ? `/api/user/${instructorId}` : null,
         fetcher
     );
+
     const handleStudy = () => {
         router.push(`/learningCourse/${id}`)
     }
-
+    console.log(userData)
     const handleButtonClick = () => {
         if (token) {
             if (course && course.price_course > 0) {
                 router.push(`/paymentCourse/${id}`);
             } else if (course && course.price_course === 0) {
-                fetch(`/api/userRegisterCourse/${idCourse}`, {
+                fetch(`/api/userRegisterCourse/${id}`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -122,14 +107,11 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 })
                     .then(res => {
                         if (res.ok) {
-                            setType("success");
-                            setMessage("Bạn đã đăng ký khóa học");
+                            alert('Đã thêm khóa học thành công')
+                            setIsGetCourse(true);
                         }
                     })
-                    .catch(error => {
-                        setType("fail");
-                        setMessage("Đăng ký khóa học thất bại")
-                    })
+                    .catch(error => alert('Thêm khóa học thất bại'))
             }
         } else {
             localStorage.setItem('url', pathname)
@@ -149,6 +131,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handelAddFavoriteCourses = async (id: string) => {
         const data = {
             course_id: id,
+
         };
         try {
             const response = await fetch('/api/favoriteCourses/', {
@@ -200,26 +183,8 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <strong className={styles.headingStrong}> {user.fullname}</strong>.
                     </p>
                     <div className={`${styles.CTA}`}>
-
                         <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClickFree}>Học thử miễn phí</Button>
-
-                        {loading === true ? (
-                            <p>Đang tải dữ liệu...</p>
-                        ) : (
-                            <Button
-                                type="secondery"
-                                status="hover"
-                                size="S"
-                                leftIcon={false}
-                                rightIcon={false}
-                                chevron={4}
-                                width={145}
-                                height={40}
-                                onClick={!IsCourse ? handleStudy : handleButtonClick}
-                            >
-                                {!IsCourse ? "Bắt đầu học" : "Sở hữa khóa học"}
-                            </Button>
-                        )}
+                        <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={isGetCourse ? handleStudy : handleButtonClick}>{isGetCourse ? 'Bắt đầu học' : 'Sở hữu khóa học'}</Button>
                         <Button type="secondery" status="hover" size="S" leftIcon={true} rightIcon={false} width={145} height={40} onClick={() => {
                             handelAddFavoriteCourses(course.id)
                         }}>Thích khóa học</Button>
@@ -373,11 +338,11 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
                 </Container>
             </section >
-            <section id='content' className={`${styles.knowledge}`} data-aos="fade-up">
+            <section className={`${styles.knowledge}`} data-aos="fade-up">
                 <Container className={`${styles.container} ${styles.containerknowledge}`}>
                     <Row className={`${styles.row}`}>
                         <h3 className={styles.titleknowledge}>Kiến thức đầy đủ chi tiết nhất</h3>
-                        <p className={styles.descknowledge}>"Với hơn <strong className={styles.headingStrong}>{course.num_chapter}</strong> bài học, bài tập và thử thách, đây sẽ là khóa học đầy đủ và chi tiết nhất mà bạn có thể tìm thấy trên Internet."</p>
+                        <p className={styles.descknowledge}>"Với hơn<strong className={styles.headingStrong}>{course.num_chapter}</strong> bài học, bài tập và thử thách, đây sẽ là khóa học đầy đủ và chi tiết nhất mà bạn có thể tìm thấy trên Internet."</p>
                     </Row>
 
                     <Row className={`${styles.container} ${styles.containerknowledgeList}`}>
@@ -456,7 +421,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                     </Row>
                 </Container>
             </section >
-            <section id='fqa' className={`${styles.FAQ}`} data-aos="fade-up">
+            <section className={`${styles.FAQ}`} data-aos="fade-up">
                 <Container className={`${styles.container} ${styles.containerFeedback}`}>
                     <Row className={`${styles.row} ${styles.rowHeading}  `}>
                         <h3 className={styles.titleWhy}>Câu hỏi thường gặp </h3>
@@ -471,7 +436,7 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                         <Image
                                             className={styles.imageMap}
                                             src={openIndex === index ? "/img/iconadd2.svg" : "/img/iconadd.svg"}
-                                            alt="Thực hiện dự án clone Facebook tại tto"
+                                            alt="icon toggle"
                                             width={32}
                                             height={32}
                                         />
