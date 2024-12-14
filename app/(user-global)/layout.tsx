@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import Layout from "@/app/(user-global)/component/layout/Layout";
 import HeadMeta from "@/app/(user-global)/component/layout/HeadMeta";
 import { Analytics } from '@vercel/analytics/next';
-
+import GoogleAnalytics from './component/layout/GoogleAnalytics';
 export default function RootLayout({ children }: { children: React.ReactNode; }) {
   const pathname = usePathname();
   const isNoHeaderPage = /^\/(course|paymentCourse)(\/.*)?$/.test(pathname);
@@ -20,8 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
         <Layout>
           {children}
           <Analytics />
+          <GoogleAnalytics />
         </Layout>
       </body>
-    </html>
+    </html >
   );
 }

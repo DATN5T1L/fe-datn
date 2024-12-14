@@ -20,16 +20,16 @@ const BodyDashboard = () => {
   const [peopleComplete, setPeopleComlete] = useState()
   const token = getCookie('token')
   const [course, setCourse] = useState<Course>()
-  useEffect(() => {
-    fetch(`/api/statistical_complete`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    }).then(res => res.json())
-      .then(data => setPeopleComlete(data))
-      .catch(error => console.log(error))
-  }, [])
+  // useEffect(() => {
+  //   fetch(`/api/statistical_complete`, {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     }
+  //   }).then(res => res.json())
+  //     .then(data => setPeopleComlete(data))
+  //     .catch(error => console.log(error))
+  // }, [])
 
   console.log(peopleComplete);
 

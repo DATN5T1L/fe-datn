@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import h from "../component/Course/course.module.css";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 import { IconTotalUser, IconTotalOrder, IconTotalProfit, IconTotalOrderToday } from "@app/(user-global)/component/icon/icons";
-import { formatCurrency } from "@app/(user-global)/component/globalControl/commonC"
+import { formatCurrency, formatToVietnameseCurrencyText, ShowNameElement } from "@app/(user-global)/component/globalControl/commonC"
 import { Col, Row } from "react-bootstrap";
 const TotalHeader = () => {
     const [totalUser, setTotalUser] = useState<number>(0);
@@ -73,7 +73,6 @@ const TotalHeader = () => {
         }
     }, [token])
     return (
-
         <Row className={h.container}>
             <Col xs={3} className={h.card_notice}>
                 <div className={h.card_noticeContent}>
@@ -92,7 +91,7 @@ const TotalHeader = () => {
             <Col xs={3} className={h.card_notice}>
                 <div className={h.card_noticeContent}>
                     <p className={h.titleNotice}>Tổng lợi nhuận</p>
-                    <h6 className={h.totalNotice}>{formatCurrency(totalRevenue)}</h6>
+                    <h6 className={h.totalNotice}>{formatToVietnameseCurrencyText(totalRevenue)}</h6>
                 </div>
                 <IconTotalProfit />
             </Col>

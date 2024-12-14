@@ -25,7 +25,9 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
         };
     }, [id]); // Đảm bảo useEffect chạy lại nếu `id` thay đổi
 
-    return <>{id}</>;
+    return (
+        <></>
+    );
 };
 
 export default PostDetail;

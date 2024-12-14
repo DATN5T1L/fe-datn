@@ -13,34 +13,44 @@ const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CourseFree: React.FC = () => {
 
-    const [router, setRouter] = useState<string>("lo-trinh-front-end"); // Lộ trình mặc định là FE
-    const [limit, setLimit] = useState<number>(8);
-    const [isCount, setIsCount] = useState(false);
-    const [selectedPath, setSelectedPath] = useState<string>("lo-trinh-front-end"); // Để hiển thị nút nào được chọn
+    const [router, setRouter] = useState<string | undefined>('all'); // Mặc định là tất cả
+    const [limit, setLimit] = useState<number | undefined>(); // Không giới hạn mặc định
+    const [isCount, setIsCount] = useState(true); // Mặc định hiển thị tất cả
 
+    // Hàm tạo URL API động
+    const buildApiUrl = () => {
+        let url = `/api/coursetype/free`;
+        const params = [];
+
+        if (router) params.push(router);
+        if (limit !== undefined) params.push(limit);
+
+        if (params.length > 0) {
+            url += `/${params.join('/')}`;
+        }
+        return url;
+    };
     const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
-        `/api/coursetype/free/${router}/${limit}`,
+        buildApiUrl(),
         fetcher,
         {
             revalidateOnFocus: true,
             revalidateOnReconnect: true,
-            revalidateIfStale: false
+            revalidateIfStale: false,
         }
     );
-
-    const courses = Array.isArray(data?.data) ? data.data : [];
-
+    const courses = Array.isArray(data?.data) ? data?.data : [];
     const handlePathChange = (path: string) => {
         setRouter(path);
-        setSelectedPath(path);
+        setLimit(8);
+        setIsCount(false);
     };
 
     const handleCountAll = () => {
+        setRouter('all');
         setIsCount(!isCount);
-        setLimit(isCount ? 8 : 20); // Hiển thị 8 khóa học hoặc toàn bộ
+        setLimit(isCount ? 8 : undefined);
     };
-
-    if (error) return <div>Error loading courses</div>;
 
     return (
         <div className={styles.body}>
@@ -92,14 +102,61 @@ const CourseFree: React.FC = () => {
                     </Col>
                 </Row>
                 <Row className={styles.nav}>
-                    <Col className={styles.nav__btn__muti}>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("lo-trinh-front-end")}>Khóa học lộ trình FE</Button>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("lo-trinh-hoc-back-end")}>Khóa học lộ trình BE</Button>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={225} onClick={() => handlePathChange("DE")}>Khóa học lộ trình Tester</Button>
-                        <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} width={245} onClick={() => handlePathChange("TE")}>Khóa học lộ trình Designer</Button>
+
+                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                        <Button
+                            type="premary"
+                            status="hover"
+                            size="S"
+                            leftIcon={false}
+                            rightIcon={false}
+                            height={40}
+                            onClick={() => handlePathChange("lo-trinh-front-end")}
+                        >
+                            Khóa học lộ trình FE
+                        </Button>
                     </Col>
-                    <Col className={styles.nav__btn__single}>
-                        <Button type="secondery" status="hover" size="S" chevron={4} leftIcon={false} rightIcon={true} width={145} height={40} onClick={handleCountAll}>{isCount ? 'Ẩn bớt' : 'Xem thêm'}</Button>
+                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                        <Button
+                            type="premary"
+                            status="hover"
+                            size="S"
+                            leftIcon={false}
+                            rightIcon={false}
+                            height={40}
+                            onClick={() => handlePathChange("lo-trinh-hoc-back-end")}
+                        >
+                            Khóa học lộ trình BE
+                        </Button>
+                    </Col>
+                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                        <Button
+                            type="premary"
+                            status="hover"
+                            size="S"
+                            leftIcon={false}
+                            rightIcon={false}
+                            width={225}
+                            onClick={() => handlePathChange("DE")}
+                        >
+                            Khóa học lộ trình Tester
+                        </Button>
+                    </Col>
+                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                        <Button
+                            type="premary"
+                            status="hover"
+                            size="S"
+                            leftIcon={false}
+                            rightIcon={false}
+                            width={245}
+                            onClick={() => handlePathChange("TE")}
+                        >
+                            Khóa học lộ trình Designer
+                        </Button>
+                    </Col>
+                    <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                        <Button type="secondery" status="hover" size="S" chevron={4} leftIcon={false} rightIcon={true} width={145} height={40} onClick={handleCountAll}>{isCount ? 'Ẩn bớt' : 'Xem tất cả'}</Button>
                     </Col>
                 </Row>
                 <Row md={12} className={styles.main__course}>

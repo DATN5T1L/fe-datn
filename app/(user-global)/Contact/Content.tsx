@@ -13,6 +13,7 @@ import c from '@public/styles/Contact/contact.module.css';
 import Button from "../component/globalControl/btnComponent";
 import { motion } from 'framer-motion';
 import Notification from "@app/(user-global)/component/globalControl/Notification";
+import Link from "next/link";
 
 const Hero = () => {
     return (
@@ -30,10 +31,18 @@ const Hero = () => {
                     <div className={c.bgDecor1}>
                         <div><IconBG1 /></div>
                     </div>
-                    <IconIntagarm />
-                    <IconLinked />
-                    <IconFb />
-                    <IconTiktok />
+                    <Link href={"https://www.instagram.com/contactttosh/"}>
+                        <IconIntagarm />
+                    </Link>
+                    <Link href={"www.linkedin.com/in/tto-sh-331520341"}>
+                        <IconLinked />
+                    </Link>
+                    <Link href={"www.linkedin.com/in/tto-sh-331520341"}>
+                        <IconFb />
+                    </Link>
+                    <Link href={"https://www.tiktok.com/@ttosht5l1contact?is_from_webapp=1&sender_device=pc"}>
+                        <IconTiktok />
+                    </Link>
                 </Col>
             </Row>
         </Container >

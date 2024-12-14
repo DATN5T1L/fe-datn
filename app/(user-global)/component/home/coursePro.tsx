@@ -11,37 +11,57 @@ import Link from 'next/link'
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const CoursePro: React.FC = () => {
-    const [router, setRouter] = useState<string>("lo-trinh-front-end"); // Lộ trình mặc định là FE
-    const [limit, setLimit] = useState<number>(8);
-    const [isCount, setIsCount] = useState(false);
-    // const [selectedPath, setSelectedPath] = useState<string>("lo-trinh-front-end"); // Để hiển thị nút nào được chọn
+    const [router, setRouter] = useState<string | undefined>('all'); // Mặc định là tất cả
+    const [limit, setLimit] = useState<number | undefined>(); // Không giới hạn mặc định
+    const [isCount, setIsCount] = useState(true); // Mặc định hiển thị tất cả
 
+    // Hàm tạo URL API động
+    const buildApiUrl = () => {
+        let url = `/api/coursetype/pro`;
+        const params = [];
+
+        if (router) params.push(router);
+        if (limit !== undefined) params.push(limit);
+
+        if (params.length > 0) {
+            url += `/${params.join('/')}`;
+        }
+        return url;
+    };
+
+    const url = buildApiUrl();
+    console.log(url)
+
+    // Sử dụng SWR để gọi API
     const { data, error, isValidating } = useSWR<{ status: string; message: string; data: Course[] }>(
-        `/api/coursetype/pro/${router}/${limit}`,
+        buildApiUrl(),
         fetcher,
         {
             revalidateOnFocus: true,
             revalidateOnReconnect: true,
-            revalidateIfStale: false
+            revalidateIfStale: false,
         }
     );
 
     const courses = Array.isArray(data?.data) ? data?.data : [];
 
+    // Xử lý khi thay đổi lộ trình
     const handlePathChange = (path: string) => {
         setRouter(path);
-        // setSelectedPath(path);
+        setLimit(8); // Hiển thị 8 khóa học mặc định khi chọn lộ trình
+        setIsCount(false);
     };
 
+    // Xử lý khi chọn Ẩn bớt/Xem thêm
     const handleCountAll = () => {
-        setIsCount(!isCount);
-        setLimit(isCount ? 8 : 20); // Hiển thị 8 khóa học hoặc toàn bộ
+        setRouter('all'); // Đặt lại về lộ trình tất cả
+        setIsCount(!isCount); // Toggle trạng thái
+        setLimit(isCount ? 8 : undefined); // Giới hạn hoặc không giới hạn
     };
-
-    if (error) return <div>Error loading courses</div>;
 
     return (
         <Container className={styles.container}>
+            {/* Header */}
             <Row className={styles.header}>
                 <Col className={styles.header__content}>
                     <Image src="/img/GroupLeft.svg" alt="Học lập trình bài bản với TTO.sh" className={styles.header__content__leftIcon} />
@@ -65,10 +85,11 @@ const CoursePro: React.FC = () => {
                 </Col>
             </Row>
 
+            {/* Navigation */}
             <Row className={styles.nav}>
                 <Col className={styles.nav__btn__muti}>
                     <Button
-                        type={"premary"} // Đổi màu nếu nút được chọn
+                        type={"premary"}
                         status="hover"
                         size="S"
                         leftIcon={false}
@@ -126,15 +147,17 @@ const CoursePro: React.FC = () => {
                         chevron={4}
                         onClick={handleCountAll}
                     >
-                        {isCount ? 'Ẩn bớt' : 'Xem thêm'}
+                        {isCount ? 'Ẩn bớt' : 'Xem tất cả'}
                     </Button>
                 </Col>
             </Row>
 
+            {/* Loading */}
             {isValidating && (
                 <ReactLoading type={"spin"} color={'rgba(7, 85, 192, 1)'} height={'32px'} width={'32px'} className={styles.align} />
             )}
 
+            {/* Course List */}
             <Row md={12} className={styles.main__course}>
                 {courses?.map((course, index) => (
                     <CourseCard key={index} course={course} titleAction={2} />
@@ -143,5 +166,4 @@ const CoursePro: React.FC = () => {
         </Container>
     );
 };
-
 export default CoursePro;

@@ -45,11 +45,11 @@ const Footer: React.FC = () => {
                                     <Col md={3} className='footer-support'>
                                         <h5 className='footer-h5-title'>Hỗ trợ học viên</h5>
                                         <ul className="list-unstyled">
-                                            <Link className='text-decoration-none list-unstyled-li' href="/">Facebook</Link>
+                                            <Link className='text-decoration-none list-unstyled-li' href="https://www.facebook.com/ttosht5l1/">Facebook</Link>
                                             <Link className='text-decoration-none list-unstyled-li' href="/">Zalo</Link>
-                                            <Link className='text-decoration-none list-unstyled-li' href="/">Instagram</Link>
-                                            <Link className='text-decoration-none list-unstyled-li' href="/">TTCHAT</Link>
-                                            <Link className='text-decoration-none list-unstyled-li' href="/">Trực tuyến</Link>
+                                            <Link className='text-decoration-none list-unstyled-li' href="https://www.instagram.com/contactttosh/">Instagram</Link>
+                                            <Link className='text-decoration-none list-unstyled-li' href=" https://www.tiktok.com/@ttosht5l1contact?is_from_webapp=1&sender_device=pc">Tiktok</Link>
+                                            <Link className='text-decoration-none list-unstyled-li' href="/contact.tto.sh">Trực tuyến</Link>
                                         </ul>
                                     </Col>
                                     <Col md={4} className="footer-info">

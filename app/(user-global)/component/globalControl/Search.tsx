@@ -29,6 +29,7 @@ const Search = () => {
     useEffect(() => {
         setVisible(valueInput.trim().length > 0);
     }, [valueInput]);
+
     function debounce<T extends (...args: any[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void {
         let timeoutId: NodeJS.Timeout | null = null;
 
@@ -117,8 +118,9 @@ const Search = () => {
                                     <p className={styles.listTitleSearch}>Khóa học</p>
                                     <div className={styles.listItem}>
                                         {dataSearch.courses.map(course => (
-                                            <Link href={`/course/${course.id}`} >
+                                            <Link href={`/course/${course.slug}`} >
                                                 <Itemsearch
+                                                    slug={course.slug}
                                                     key={course.id}
                                                     id={course.id}
                                                     title={course.title}
@@ -136,8 +138,9 @@ const Search = () => {
                                     <p className={styles.listTitleSearch}>Bài viết</p>
                                     <div className={styles.listItem}>
                                         {dataSearch.posts.map(post => (
-                                            <Link href={`/course/${post.id}`} >
+                                            <Link href={`/course/${post.slug}`} >
                                                 <Itemsearch
+                                                    slug={post.slug}
                                                     key={post.id}
                                                     id={post.id}
                                                     title={post.title}
@@ -157,12 +160,13 @@ const Search = () => {
                                     <div className={styles.listItem}>
 
                                         {dataSearch.routes.map(route => (
-                                            <Link href={`/course/${route.id}`} >
+                                            <Link href={`/course/${route.slug}`} >
                                                 <Itemsearch
                                                     key={route.id}
                                                     id={route.id}
                                                     title={route.title}
                                                     image={route.image}
+                                                    slug={route.slug}
                                                 />
                                             </Link>
                                         ))}

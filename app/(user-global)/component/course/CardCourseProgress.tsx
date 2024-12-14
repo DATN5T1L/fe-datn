@@ -5,6 +5,7 @@ import { Card, Col, Image } from 'react-bootstrap';
 import ProgressCircle from './ProgressCircle'; // Component vòng tròn tiến độ
 import styles from '@public/styles/globalControl/CourseCard.module.css';// CSS module
 import { IconStart } from "@app/(user-global)/component/icon/icons"
+import { getInitials } from '../globalControl/commonC';
 interface CourseCardProps {
     course: {
         id: string;
@@ -13,6 +14,7 @@ interface CourseCardProps {
         views_course: number;
         progress_percentage: number;
         instructor_avatar: string;
+        instructor_name: string;
         num_chapter: number;
         num_document: number;
         slug_course: string;
@@ -38,7 +40,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                 {course.name_course}
                             </Card.Title>
 
-                            <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
+                            <Card.Subtitle className={styles.text__hedding3}>by {getInitials(course.instructor_name)}</Card.Subtitle>
                             <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
                         </section>
                         <Card.Img src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067691/fe_image/hinhgau2.png" alt="" className={styles.headerContent__avt} />

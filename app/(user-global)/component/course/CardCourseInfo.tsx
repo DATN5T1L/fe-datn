@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Col, Image } from 'react-bootstrap';
 import styles from '@public/styles/user-component/Introduce.module.css'
+import { getInitials } from '../globalControl/commonC';
 interface CourseCardProps {
     course: {
         id: string;
@@ -29,7 +30,7 @@ const CourseCardInfo: React.FC<CourseCardProps> = ({ course, onCourseClick }) =>
                         {course.name_course}
                     </h4>
                     <h6 className={styles.text__hedding3}>
-                        by {course.instructor_name}
+                        by {getInitials(course.instructor_name)}
                     </h6>
                     <Image src="/img/iconReact.svg" alt="Học phí ưu đãi TTO.SH" className={styles.text__img} />
                     <Image src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067691/fe_image/hinhgau2.png" alt="Học với chuyên gia tto.sh" className={styles.headerContent__avt} />

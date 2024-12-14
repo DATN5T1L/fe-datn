@@ -4,7 +4,7 @@ import { Card, Col, Image, Row } from 'react-bootstrap';
 import ProgressCircle from './ProgressCircle';
 import styles from '@public/styles/globalControl/CourseCard.module.css';
 import { IconPlus } from "@app/(user-global)/component/icon/icons";
-import { useEscapeKey } from "@app/(user-global)/component/globalControl/commonC";
+import { getInitials, useEscapeKey } from "@app/(user-global)/component/globalControl/commonC";
 
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
 import r from '@public/styles/course/Reminder.module.css';
@@ -40,7 +40,7 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                                 <Card.Title className={styles.text__hedding2}>
                                     {data.name_course}
                                 </Card.Title>
-                                <Card.Subtitle className={styles.text__hedding3}>by My Team</Card.Subtitle>
+                                <Card.Subtitle className={styles.text__hedding3}>by {getInitials(data.instructor_name)}</Card.Subtitle>
                                 <Card.Img src="/img/iconReact.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={styles.text__img} />
                             </section>
                             <Card.Img src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067208/fe_image/Hinhgau.png" alt="Xây dựng giao diện web chuyên nghiệp tại TTO.sh" className={styles.headerContent__avt} />

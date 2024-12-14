@@ -6,7 +6,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 interface HoverElementProps {
-    name: string; // Tên phần tử cần hiển thị
+    name: string | number; // Tên phần tử cần hiển thị
     children: React.ReactNode; // Phần tử con (nội dung của phần tử)
 }
 
@@ -162,9 +162,36 @@ const decodeAndFormatDateTime = (encodedDateTime: string) => {
     // Định dạng ngày giờ theo khu vực Việt Nam
     return dateObject.toLocaleString("vi-VN", { timeZone: "UTC" });
 }
+
+const formatToVietnameseCurrencyText = (amount: number): string => {
+    if (amount < 1_000_000) {
+        return amount.toLocaleString("vi-VN") + " đ";
+    }
+    const billion = Math.floor(amount / 1_000_000_000);
+    const million = Math.floor((amount % 1_000_000_000) / 1_000_000);
+    const thousand = Math.floor((amount % 1_000_000) / 1_000);
+    let result = "";
+    if (billion > 0) result += `${billion} tỷ `;
+    if (million > 0) result += `${million} triệu `;
+    if (thousand > 0) result += `${thousand} nghìn `;
+
+    return result.trim(); // Loại bỏ khoảng trắng dư
+}
+const getInitials = (name: string): string => {
+    const nameParts = name.trim().split(' '); // Loại bỏ khoảng trắng và tách tên thành các phần
+    if (nameParts.length < 2) {
+        return name; // Nếu chỉ có một từ, trả về chính từ đó
+    }
+
+    const lastName = nameParts[nameParts.length - 1]; // Lấy tên cuối cùng
+    const firstName = nameParts[0]; // Lấy họ đầu tiên
+
+    return `${lastName} ${firstName}`; // Kết hợp tên cuối và họ đầu
+};
 export {
     getMonthlyProfits, parseQues, formatTime, formatDateTime,
     formatCurrency, parseCode, parseFill, cleaneds, cleaned,
     calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement,
-    formatParamString, decodeAndFormatDateTime, calculateBirthYear
+    formatParamString, decodeAndFormatDateTime, calculateBirthYear, formatToVietnameseCurrencyText,
+    getInitials
 };

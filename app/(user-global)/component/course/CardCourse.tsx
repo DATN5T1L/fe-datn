@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Card, Col, Image } from 'react-bootstrap';
 import styles from '@public/styles/globalControl/CourseCard.module.css';
 import { IconStar } from "@app/(user-global)/component/icon/icons"
+import { getInitials } from '../globalControl/commonC';
 interface CourseCardProps {
     course: {
         id: string;
@@ -55,7 +56,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                 {course.name_course}
                             </Card.Title>
 
-                            <Card.Subtitle className={styles.text__hedding3}>by {course.instructor_name}</Card.Subtitle>
+                            <Card.Subtitle className={styles.text__hedding3}>by {getInitials(course.instructor_name)}</Card.Subtitle>
                             <Card.Img src="/img/iconReact.svg" alt="Lộ trình học cụ thể" className={styles.text__img} />
                         </section>
                         <Card.Img src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067208/fe_image/Hinhgau.png" alt="" className={styles.headerContent__avt} />
