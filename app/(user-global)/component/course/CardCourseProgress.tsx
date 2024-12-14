@@ -92,9 +92,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                             <Card.Text className={styles.element__text}>{course.num_document} Bài tập</Card.Text>
                         </div>
                         <div className={styles.bodyContent__element}>
-                            <Link href={`/learningCourse/${course.id}`} className={styles.linkCta} onClick={handleCourseClick}>
+                            <Link href={`/learningCourse/${course.slug_course}`} className={styles.linkCta} onClick={handleCourseClick}>
                                 <Image src="/img/bookopenyellow.svg" alt="Xây dựng website responsive cùng tto.sh" className={styles.element__img} />
-                                <Card.Text className={styles.element__text}>Học ngay</Card.Text>
+                                <Card.Text className={styles.element__text}>{course.progress_percentage ? "Tiếp tục học" : "Học ngay"}</Card.Text>
                             </Link>
                         </div>
                     </section>

@@ -99,7 +99,7 @@ const ModalChangeAge: React.FC<ModalChangeNameProps> = ({ show, onClose }) => {
                         </fieldset>
                         <Form.Group className={styles.formControlChangeName} controlId="validationUserName">
                             <Form.Label className={styles.formControlChangeName__label}>
-                                Họ và tên
+                                Tuổi của bạn
                             </Form.Label>
                             <Form.Control
                                 type="number"
