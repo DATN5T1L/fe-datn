@@ -15,13 +15,12 @@
   background: var(--background-bg-admin, #f5f6fa);
   padding: 25px 32px;
 }
-
 .header1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  background: var(--background-bg-admin, #f5f6fa);
+  background: var(--background-bg-admin,#f5f6fa);
   padding: 0px 40px;
 }
 
@@ -31,7 +30,7 @@
   font-weight: 500;
   line-height: 42px;
   letter-spacing: -0.68px;
-
+ 
 }
 
 .actions {
@@ -93,7 +92,7 @@
   height: 32px;
   padding: 8px 12px;
   border: 1px solid var(--text-0);
-  border-radius: 40px;
+  border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
   font-size: 0.875rem;
@@ -115,18 +114,15 @@
 .table thead tr {
   border: none;
 }
-
 .table thead tr td {
   padding: 20px 10px;
   background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
-
 .table thead tr td:nth-child(6) {
   text-align: center;
 }
-
 .table thead tr td:nth-child(4) {
   text-align: center;
 }
@@ -147,11 +143,9 @@
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
-
 .table tbody tr td:nth-child(4) {
   text-align: center;
 }
-
 .table thead td {
   white-space: nowrap;
 }
@@ -182,17 +176,14 @@
   height: 38px;
   margin: 0;
 }
-
 .option_button a:nth-child(2) {
   border-left: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
 }
-
 .option_button a img {
   width: 24px;
   height: 24px;
 }
-
 .option_button_group {
   /* display: flex; */
   /* height: 108px; */
@@ -210,9 +201,8 @@
   padding: 8px 12px;
   border-radius: 12px;
   border: 1px solid var(--blue-60);
-
+ 
 }
-
 .btnCTA1 {
   color: var(--text-0);
   padding: 8px 12px;
@@ -222,7 +212,6 @@
   height: 56px;
   background-color: var(--blue-50);
 }
-
 .btnCTA2 {
   color: var(--text-0);
   padding: 8px 12px;
@@ -237,11 +226,10 @@
 .btnCTAOutline {
   color: var(--blue-60);
 }
-
-.btnCTAOutline1 {
-  width: 184px;
-  height: 56px;
-  color: #1958AD;
+.btnCTAOutline1{
+width: 184px;
+height: 56px;
+color: #1958AD;
 }
 
 /* Pagination */
@@ -252,7 +240,6 @@
   margin-top: 20px;
   width: 100%;
 }
-
 .pagination {
   display: flex;
   align-items: center;
@@ -308,12 +295,12 @@
 
 .headerContent {
   background: linear-gradient(107.66deg, #063B42 2.8%, #0F96A8 98%),
-    linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%);
+      linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%);
   width: 100%;
   height: 115px;
   box-sizing: border-box;
   padding: 5px;
-  border-radius: 16px;
+  border-radius: 16px !important;
   position: relative;
 }
 

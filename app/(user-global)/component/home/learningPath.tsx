@@ -10,7 +10,7 @@ interface Route {
     name_route: string;
     img_route: string;
     discription_route: string;
-    status: 'default';
+    status: 'default' | 'customize';
     del_flag: boolean;
     created_at: string;
     updated_at: string;
@@ -68,20 +68,20 @@ const LearningPath: React.FC = () => {
     const routes = data?.data
     return (
         <Container className={styles.container}>
-            <div className={styles.container__header}>
-                <section className={styles.header__title}>
-                    <div className={styles.header__box__blue}>
-                        <div className={styles.header__box_pink}></div>
-                    </div>
-                    <h2 className={styles.header__title__content}>
-                        Lộ trình của TTO.SH
-                    </h2>
-                    <div className={styles.header__border__blue}>
-                        <div className={styles.header__box__grayBlue}></div>
-                    </div>
-                </section>
-            </div>
             <Row className={styles.body__container}>
+                <Col className={styles.container__header}>
+                    <section className={styles.header__title}>
+                        <div className={styles.header__box__blue}>
+                            <div className={styles.header__box_pink}></div>
+                        </div>
+                        <h2 className={styles.header__title__content}>
+                            Lộ trình của TTO.SH
+                        </h2>
+                        <div className={styles.header__border__blue}>
+                            <div className={styles.header__box__grayBlue}></div>
+                        </div>
+                    </section>
+                </Col>
                 <Col
                     className={styles.container__main}
                     ref={rightBodyRef}
@@ -94,7 +94,7 @@ const LearningPath: React.FC = () => {
                         routes.map((route) => (
                             <Card className={styles.box} key={route.route_id || route.name_route}>
                                 <Card.Img
-                                    src={route.img_route}
+                                    src={route.img_route || "/placeholder.jpg"}
                                     className={styles.box__img}
                                     alt="Lộ trình Fullstack Development với TTO.SH"
                                 />
@@ -111,6 +111,7 @@ const LearningPath: React.FC = () => {
                     ) : (
                         "Chưa có lộ trình nào"
                     )}
+
                 </Col>
                 <Button className={styles.btn__next} onClick={scrollRightHandler}>
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

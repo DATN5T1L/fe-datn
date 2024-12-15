@@ -15,7 +15,6 @@
   background: var(--background-bg-admin, #f5f6fa);
   padding: 25px 32px;
 }
-
 .header1 {
   display: flex;
   justify-content: space-between;
@@ -92,7 +91,7 @@
   height: 32px;
   padding: 8px 12px;
   border: 1px solid var(--text-0);
-  border-radius: 40px;
+  border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
   font-size: 0.875rem;
@@ -114,14 +113,12 @@
 .table thead tr {
   border: none;
 }
-
 .table thead tr td {
   padding: 20px 10px;
   background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
-
 /* .table thead tr td:nth-child(6) {
   text-align: center;
 }
@@ -145,7 +142,6 @@
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
-
 /* .table tbody tr td:nth-child(4) {
   text-align: center;
 } */
@@ -190,17 +186,14 @@
   height: 38px;
   margin: 0;
 }
-
 .option_button a:nth-child(2) {
   border-left: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
 }
-
 .option_button a img {
   width: 24px;
   height: 24px;
 }
-
 .option_button_group {
   /* display: flex; */
   /* height: 108px; */
@@ -232,7 +225,6 @@
   margin-top: 20px;
   width: 100%;
 }
-
 .pagination {
   display: flex;
   align-items: center;

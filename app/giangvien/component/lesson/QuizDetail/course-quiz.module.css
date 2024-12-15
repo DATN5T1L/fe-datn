@@ -23,15 +23,13 @@
 }
 
 .videoContainer {
-  width: 874px;
-  height: 748px;
-  /* Adjust height automatically */
+    width: 874px;
+  height: 748px; /* Adjust height automatically */
 }
 
 .videoContainer video {
   width: 874px;
-  height: 748px;
-  /* Adjust height automatically */
+  height: 748px; /* Adjust height automatically */
 }
 
 .date,
@@ -47,7 +45,7 @@
 .footerBtnStart {
   border-radius: 0%;
   color: var(--blue-60);
-  background-color: var(--blue-90);
+  background-color: var(--blue-90) !important;
 }
 
 .searchIcon {

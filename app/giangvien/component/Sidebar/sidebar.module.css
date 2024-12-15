@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 70px;
-  padding: 30px;
+  padding: 30px !important;
   background-color: var(--gray-100);
 }
 
@@ -78,23 +78,23 @@
 .routerHover1 {
   width: 24px;
   height: 24px;
-  display: block;
+  display: block !important;
 }
 
 .navItem:hover>.routerHover1 {
   width: 0;
   height: 0;
-  display: none;
+  display: none !important;
 }
 
 .routerHover2 {
   width: 0;
   height: 0;
-  display: none;
+  display: none !important;
 }
 
 .navItem:hover>.routerHover2 {
   width: 24px;
   height: 24px;
-  display: block;
+  display: block !important;
 }

@@ -4,13 +4,11 @@
   justify-content: space-between;
   flex-direction: row;
 }
-
 .card {
   margin-top: 40px;
   width: 32%;
   height: 365px;
 }
-
 .card_content {
   background-color: var(--gray-100);
   padding: 24px 16px;
@@ -20,25 +18,21 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
 .info_course {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 .info_course span {
   margin: 10px 0px;
   display: inline-block;
   width: fit-content;
 }
-
 .info_course span div {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
 .point {
   width: 5px;
   height: 5px;
@@ -46,7 +40,6 @@
   background-color: rgb(35, 125, 247);
   margin-right: 5px;
 }
-
 .point_light {
   width: 5px;
   height: 5px;
@@ -54,13 +47,11 @@
   background-color: rgb(162, 198, 247);
   margin-right: 5px;
 }
-
 .chart {
   width: 100%;
   max-height: 40%;
   padding: 10px 0px;
 }
-
 .card_content .chart {
   display: flex;
   align-items: center;
@@ -75,7 +66,7 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32);
+  box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32) !important;
   z-index: 10px;
   padding: 0;
   border: 0;
@@ -85,14 +76,16 @@
 
 .headerContent {
   background: linear-gradient(107.66deg, #063b42 2.8%, #0f96a8 98%),
-    linear-gradient(252.45deg,
+    linear-gradient(
+      252.45deg,
       rgba(0, 0, 0, 0) 2.14%,
-      rgba(6, 59, 66, 0.2) 100%);
+      rgba(6, 59, 66, 0.2) 100%
+    );
   width: 100%;
   height: 132px;
   box-sizing: border-box;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 16px !important;
   position: relative;
 }
 
@@ -214,7 +207,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .bodyContent {
   display: flex;
   gap: 10px;
@@ -222,7 +214,6 @@
   justify-content: space-evenly;
   align-items: center;
 }
-
 .bodyContent__element {
   text-align: center;
   width: 100%;
@@ -231,7 +222,6 @@
   padding: 5px;
   box-shadow: 0px 1px 2px #a6a7b6e5;
 }
-
 .linechart {
   width: 80%;
   height: 73%;

@@ -17,8 +17,7 @@
 
 .videoContainer video {
   width: 100%;
-  height: auto;
-  /* Adjust height automatically */
+  height: auto; /* Adjust height automatically */
 }
 
 .chapters {
@@ -38,7 +37,7 @@
 .footerBtnStart {
   border-radius: 0%;
   color: var(--blue-60);
-  background-color: var(--blue-90);
+  background-color: var(--blue-90) !important;
 }
 
 .searchIcon {
@@ -49,10 +48,10 @@
   background-color: var(--blue-95);
 }
 
-.chapterBtn__blue {
+.chapterBtn__blue{
   background-color: var(--blue-95);
 }
 
-.align {
+.align{
   margin: 0 auto;
 }

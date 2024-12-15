@@ -1,7 +1,6 @@
 .table thead tr {
   border: none;
 }
-
 .table thead tr td {
   padding: 10px 10px;
   background: var(--Gray-gray-95, #fafafa);
@@ -16,7 +15,6 @@
   text-overflow: ellipsis;
   max-width: 200px;
 }
-
 /* .table tbody tr {
   display: flex;
   justify-content: center;
@@ -40,7 +38,6 @@
   align-items: center;
   border-radius: 5px;
 }
-
 .option_button a button {
   width: 60px;
   margin-left: 10px;
@@ -57,7 +54,6 @@
   width: 24px;
   height: 24px;
 }
-
 .PrintBtn {
   display: flex;
   align-items: center;
@@ -69,39 +65,36 @@
   border-radius: 5px;
   width: 60px;
 }
-
 .PrintBtn img {
   margin: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .bold {
   font-weight: bold;
 }
-
 .content {
   background-color: var(--gray-100);
 }
-
 .generalInfo {
   padding: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-
 .headerContent {
   background: linear-gradient(107.66deg, #063b42 2.8%, #0f96a8 98%),
-    linear-gradient(252.45deg,
+    linear-gradient(
+      252.45deg,
       rgba(0, 0, 0, 0) 2.14%,
-      rgba(6, 59, 66, 0.2) 100%);
+      rgba(6, 59, 66, 0.2) 100%
+    );
   width: 150px;
   height: 72px;
   box-sizing: border-box;
   padding: 8px;
-  border-radius: 16px;
+  border-radius: 16px !important;
   position: relative;
 }
 

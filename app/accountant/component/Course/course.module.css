@@ -148,7 +148,7 @@
   height: 32px;
   padding: 8px 12px;
   border: 1px solid var(--text-0);
-  border-radius: 40px;
+  border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
   font-size: 0.875rem;
@@ -247,8 +247,8 @@
   /* height: 108px; */
   /* display: flex; */
   padding: 16px 20px;
-  justify-content: center;
-  align-items: center;
+  justify-content: center !important;
+  align-items: center !important;
   gap: 10px;
   /* align-self: stretch; */
   border-radius: 0px 8px 8px 0px;
@@ -341,7 +341,7 @@
   height: 72px;
   box-sizing: border-box;
   padding: 8px;
-  border-radius: 16px;
+  border-radius: 16px !important;
   position: relative;
 }
 

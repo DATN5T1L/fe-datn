@@ -68,7 +68,7 @@
   line-height: 42px;
   letter-spacing: -0.68px;
   left: 0px;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .heading__link {
@@ -107,7 +107,7 @@
 .formSelect {
   width: fit-content;
   border: none;
-
+  
 }
 
 .formSelect option {
@@ -135,7 +135,7 @@
   height: 32px;
   padding: 8px 12px;
   border: 1px solid var(--text-0);
-  border-radius: 40px;
+  border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
   font-size: 0.875rem;
@@ -210,7 +210,7 @@
 
 .table tbody tr td {
   padding: 16px 12px;
-  line-height: 24px;
+  line-height: 24px !important;
   font-size: 0.875rem;
   font-weight: 500px;
   border: none;
@@ -281,9 +281,9 @@
   padding: 8px 12px;
   border-radius: 12px;
   border: 1px solid var(--blue-60);
-  background: #438FF7;
-  font-size: 1rem;
-  text-decoration: none;
+  background: #438FF7 !important;
+  font-size: 1rem !important;
+  text-decoration: none !important;
 }
 
 .btnCTAOutline {
@@ -356,11 +356,11 @@
   padding-top: 32px;
 }
 
-.filter_bar {
-  margin-bottom: 20px;
+.filter_bar{
+  margin-bottom:20px !important;
 }
 
-.errorCheck {
+.errorCheck{
   text-align: center;
   min-height: 10rem;
   font-size: 2rem;

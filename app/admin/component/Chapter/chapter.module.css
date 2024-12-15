@@ -18,31 +18,27 @@
 
 .left_right {
   display: flex;
-  justify-content: space-between;
-  /* Đẩy .left và .right về hai đầu */
+  justify-content: space-between; /* Đẩy .left và .right về hai đầu */
   align-items: center;
-  width: 100%;
-  /* Đảm bảo nó chiếm toàn bộ chiều rộng của container cha */
+  width: 100%; /* Đảm bảo nó chiếm toàn bộ chiều rộng của container cha */
 }
 
-.left {
+.left{
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 32px;
   left: -2%;
 }
-
-.left span {
+.left span{
   color: #1E6AD2;
 }
-
-.right {
+.right{
   display: flex;
 }
 
 .searchInputGroup {
   display: flex;
-
+ 
   width: 250px;
   height: 32px;
   border-radius: 30px;
@@ -50,7 +46,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
-
 .searchIconWrapper {
   position: absolute;
   right: 12px;
@@ -129,7 +124,7 @@
   height: 32px;
   padding: 8px 12px;
   border: 1px solid var(--text-0);
-  border-radius: 40px;
+  border-radius: 40px !important;
   outline: none;
   transition: border-color 0.2s ease;
   font-size: 0.875rem;
@@ -152,23 +147,20 @@
 
 .table thead tr {
   border: none;
-
+  
 }
-
 .table thead tr td {
   padding: 20px 10px;
   background: var(--Gray-gray-95, #fafafa);
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
-
 .table thead tr td:nth-child(6) {
   text-align: center;
 }
-
 .table thead tr td:nth-child(4) {
   text-align: left;
-
+ 
 }
 
 .table td {
@@ -182,24 +174,21 @@
 .table td:nth-child(1) {
   width: 284px;
 }
-
 .table td:nth-child(2) {
   width: 284px;
 }
-
 .table td:nth-child(3) {
   width: 284px;
 }
-
 .table td:nth-child(4) {
   width: 284px;
 }
 
 .table tbody tr td {
   padding: 16px 12px;
-  line-height: 24px;
+  line-height: 24px !important;
   font-size: 0.875rem;
-  font-weight: 500px;
+  font-weight: 500px; 
   border: none;
   color: #333333;
   border-bottom: 1.5px solid #b3b3b3;
@@ -207,7 +196,7 @@
 
 .table thead td {
   white-space: nowrap;
-
+  
 }
 
 .active_text {
@@ -236,17 +225,14 @@
   height: 38px;
   margin: 0;
 }
-
 .option_button a:nth-child(2) {
   border-left: 1px solid #dbdbdb;
   border-right: 1px solid #dbdbdb;
 }
-
 .option_button a img {
   width: 24px;
   height: 24px;
 }
-
 .option_button_group {
   /* display: flex; */
   /* height: 108px; */
@@ -268,8 +254,8 @@
   padding: 8px 12px;
   border-radius: 12px;
   border: 1px solid var(--blue-60);
-  background: #438FF7;
-  font-size: 1rem;
+  background: #438FF7 !important;
+  font-size: 1rem !important;
 }
 
 .btnCTAOutline {
@@ -284,7 +270,6 @@
   margin-top: 20px;
   width: 100%;
 }
-
 .pagination {
   display: flex;
   align-items: center;
