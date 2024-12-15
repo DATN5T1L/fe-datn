@@ -359,56 +359,56 @@
 
 .headerContent {
     background: linear-gradient(107.66deg, #063B42 2.8%, #0F96A8 98%),
-        linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%) !important;
-    width: 150px !important;
-    height: 72px !important;
-    box-sizing: border-box !important;
-    padding: 8px !important;
-    border-radius: 16px !important;
-    position: relative !important;
+        linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%);
+    width: 150px;
+    height: 72px;
+    box-sizing: border-box;
+    padding: 8px;
+    border-radius: 16px;
+    position: relative;
 }
 
 .headerContent__text {
-    width: 135px !important;
-    height: 104px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 4px !important;
+    width: 135px;
+    height: 104px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .text__hedding2 {
-    width: 100px !important;
-    height: auto !important;
-    font-weight: 700 !important;
+    width: 100px;
+    height: auto;
+    font-weight: 700;
 
-    font-size: 9px !important;
-    color: white !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    font-size: 9px;
+    color: white;
+    padding: 0;
+    margin: 0;
 
-    white-space: normal !important;
+    white-space: normal;
 }
 
 .text__hedding3 {
-    width: 145px !important;
+    width: 145px;
 
-    font-weight: 500 !important;
+    font-weight: 500;
 
-    font-size: 8px !important;
-    color: var(--gray-80) !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    font-size: 8px;
+    color: var(--gray-80);
+    padding: 0;
+    margin: 0;
 }
 
 .text__img {
-    width: 13px !important;
-    height: 13px !important;
+    width: 13px;
+    height: 13px;
 }
 
 .headerContent__avt {
-    position: absolute !important;
-    bottom: 0 !important;
-    right: 0 !important;
-    width: 66px !important;
-    height: 62px !important;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 66px;
+    height: 62px;
 }

@@ -2,9 +2,10 @@
   border: 1px solid #ddd;
   background-color: var(--gray-100);
   border-radius: 8px;
-   align-items: center; /* Căn giữa theo chiều ngang */
-   
- 
+  align-items: center;
+  /* Căn giữa theo chiều ngang */
+
+
 }
 
 .header {
@@ -14,26 +15,26 @@
   font-size: 1rem;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
- 
+
 }
 
 .notificationBody {
-  max-height: 407px; 
+  max-height: 407px;
   overflow-y: auto;
 
 }
 
 .notificationBody::-webkit-scrollbar {
-    width: 10px; 
+  width: 10px;
 }
 
 .notificationBody::-webkit-scrollbar-thumb {
-    background-color: #D9D9D9; 
-    border-radius: 21px; 
+  background-color: #D9D9D9;
+  border-radius: 21px;
 }
 
 .notificationBody::-webkit-scrollbar-button {
-    display: none; 
+  display: none;
 }
 
 
@@ -42,12 +43,13 @@
   align-items: center;
   margin-bottom: 10px;
 
-  
+
 }
-.part1{
-    display: flex;
+
+.part1 {
+  display: flex;
   align-items: center;
- 
+
   padding: 12px;
 }
 
@@ -60,20 +62,23 @@
 .name {
   font-weight: bold;
 }
+
 .message {
   margin: 0;
   font-size: 0.875rem;
   color: #555;
 }
-.option_button_group{
-  display:flex;
+
+.option_button_group {
+  display: flex;
   padding: 4px;
   justify-content: center;
   align-items: center;
- 
- 
+
+
 
 }
+
 .option_button {
   display: flex;
 
@@ -88,7 +93,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-padding-left: 12px;
+  padding-left: 12px;
 
 }
 
@@ -98,19 +103,20 @@ padding-left: 12px;
 }
 
 .loadMore {
- 
-justify-content: center;
-text-align: center;
-padding: 10px;
+
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
 
 
- 
+
 }
-.buttonnoti{
+
+.buttonnoti {
   color: white;
-background: #438FF7 !important;
- width: 127px; 
-  height: 48px; 
- border: none;
+  background: #438FF7;
+  width: 127px;
+  height: 48px;
+  border: none;
   border-radius: 12px;
 }

@@ -67,7 +67,7 @@
 .closeBtn:hover,
 .closeBtn:hover,
 .closeBtn:hover {
-    background: var(--gray-80) !important;
+    background: var(--gray-80);
 }
 
 .closeBtn__img {
@@ -231,12 +231,12 @@
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
-    color: var(--text-75) !important;
+    color: var(--text-75);
 
 }
 
 .userNameRetrieve__input::placeholder {
-    color: var(--text-75) !important;
+    color: var(--text-75);
 }
 
 .userNameRetrieve__input:focus {

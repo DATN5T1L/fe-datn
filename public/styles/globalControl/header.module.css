@@ -4,3 +4,65 @@
     justify-content: flex-end;
     align-items: center;
 }
+
+.ctaContactMobile {
+    display: none;
+}
+
+.imageUser {
+    display: none;
+}
+
+.MenuMobile {
+    display: none !important;
+}
+
+@media screen and (max-width: 675px) {
+    .CtaHeader {
+        display: none !important;
+    }
+
+    .ctaContactMobile {
+        display: block;
+    }
+
+    .subMenuTitle:first-child {
+        margin-top: 8px;
+    }
+
+    .subMenuTitle {
+        padding: 8px;
+        font-size: .875rem;
+        line-height: 24px;
+        transition: color cubic-bezier(0.075, 0.82, 0.165, 1);
+        border-radius: 8px;
+
+        &:hover {
+            color: var(--text-0);
+            background-color: var(--blue-50);
+        }
+    }
+
+    .MenuMobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .imageUser {
+        display: block;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    .headerCTA {
+        display: none !important;
+    }
+
+    .MenuMobile {
+        display: block !important;
+    }
+}

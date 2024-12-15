@@ -75,7 +75,7 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32) !important;
+  box-shadow: 0px 0.5px 4px 0px rgba(96, 97, 112, 0.32);
   z-index: 10px;
   padding: 0;
   border: 0;
@@ -92,7 +92,7 @@
   height: 132px;
   box-sizing: border-box;
   padding: 16px;
-  border-radius: 16px !important;
+  border-radius: 16px;
   position: relative;
 }
 

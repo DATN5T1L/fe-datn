@@ -94,6 +94,13 @@ const IconX = () => {
         </svg>
     )
 }
+const IconXRed = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M2.85612 0.490032C2.20274 -0.163344 1.14341 -0.163344 0.490032 0.490032C-0.163344 1.14341 -0.163344 2.20274 0.490032 2.85612L4.88393 7.25002L0.49008 11.6439C-0.163297 12.2973 -0.163297 13.3566 0.49008 14.01C1.14346 14.6633 2.20279 14.6633 2.85617 14.01L7.25002 9.61611L11.6438 14.0099C12.2972 14.6633 13.3565 14.6633 14.0099 14.0099C14.6633 13.3565 14.6633 12.2972 14.0099 11.6438L9.61611 7.25002L14.01 2.85616C14.6633 2.20279 14.6633 1.14346 14.01 0.490078C13.3566 -0.163299 12.2973 -0.163299 11.6439 0.490078L7.25002 4.88393L2.85612 0.490032Z" fill="#ff0000" />
+        </svg>
+    )
+}
 const IconXNoneFill = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
@@ -660,7 +667,7 @@ export {
     IconBG1, IconEmail, IconPhoneBlu, IconMapBlu, IconElip, IconElip1,
     IconElip2, IconFeedback, IconXNoneFill, IconDetai, IconPlus, IconEdit,
     IconStar, IconCode, IconCourse, IconUser, IconPost, IconOut, IconDasd,
-    IconRoll, IconTotalOrder, IconTotalUser, IconTotalProfit,
+    IconRoll, IconTotalOrder, IconTotalUser, IconTotalProfit, IconXRed,
     IconTotalOrderToday, IconPrint, IconShoping, IconDetailPlus, IconEyes,
     IconCheck, IconNoteDoc, IconChapter, IconEvery, IconVocuc, IconStart, IconCheckPay, IconSroll
 }

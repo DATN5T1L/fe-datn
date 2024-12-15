@@ -28,5 +28,5 @@
 .RegisterMedia__btn:active,
 .RegisterMedia__btn:hover,
 .RegisterMedia__btn:focus {
-    background-color: white !important;
+    background-color: white;
 }

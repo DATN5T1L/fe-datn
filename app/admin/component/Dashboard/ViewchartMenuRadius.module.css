@@ -2,20 +2,24 @@
   margin-top: 10vh;
 } */
 .container {
-  padding: 32px 40px !important;
+  padding: 32px 40px;
   background-color: var(--gray-100);
   /* margin-top: 10vh; */
 }
+
 .chart {
   padding-top: 32px;
 }
+
 .bg_chart {
   background-color: var(--gray-100);
   padding: 20px;
 }
+
 .bg_chart span {
   font-size: 2.1875rem;
 }
+
 .tag_notice {
   margin-bottom: 32px;
   width: 100%;
@@ -23,6 +27,7 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
 .card_notice {
   background-color: var(--gray-100);
   width: 22%;
@@ -37,9 +42,10 @@
 }
 
 .chartContainer {
-  width: 100%; /* Thiết lập chiều rộng cho container */
-  height: 148px; /* Thiết lập chiều cao cho container */
-  position: relative; /* Để có thể định vị canvas chính xác */
+  width: 100%;
+  /* Thiết lập chiều rộng cho container */
+  height: 148px;
+  /* Thiết lập chiều cao cho container */
+  position: relative;
+  /* Để có thể định vị canvas chính xác */
 }
-
-

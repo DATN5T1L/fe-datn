@@ -402,8 +402,6 @@
   }
 
   .header-nav {
-    border-left: 0;
-    border-right: 0;
     position: fixed;
     top: 0;
     width: 100%;
@@ -424,8 +422,6 @@
   .header-nav-head {
     width: 100%;
     display: flex;
-    flex-direction: row;
-    height: auto;
     justify-content: space-between;
     align-items: center;
   }
@@ -458,13 +454,13 @@
   .btn-header {
     width: auto;
     display: flex;
+    flex-direction: column;
     gap: 12px;
-    flex-direction: column !important;
   }
 
   .btn-header-container {
     display: flex;
-    justify-content: flex-end !important;
+    justify-content: flex-end;
     width: auto;
     flex-direction: row;
     flex-wrap: wrap;
@@ -514,7 +510,7 @@
   .btn-navbar {
     min-width: 120px;
     height: 40px;
-    padding: 8px 16px !important;
+    padding: 8px 16px;
     background-color: white;
     color: var(--blue-50);
     border: 0px;
@@ -533,7 +529,7 @@
   }
 
   .light-check:hover {
-    background-color: var(--blue-50) !important;
+    background-color: var(--blue-50);
     color: white;
   }
 
@@ -588,12 +584,12 @@
 
   .btn-header-btn-group-main:hover,
   .btn-header-btn-group-main :active {
-    background: var(--gray-100) !important;
+    background: var(--gray-100);
   }
 
   .btn-header-btn-group-main2:hover,
   .btn-header-btn-group-main2 :active {
-    background: var(--gray-100) !important;
+    background: var(--gray-100);
   }
 
   .btn-header-btn-group-main-img {
@@ -672,12 +668,12 @@
 
   .btn-header-btn-group-main:hover,
   .btn-header-btn-group-main :active {
-    background: var(--gray-100) !important;
+    background: var(--gray-100);
   }
 
   .btn-header-btn-group-main2:hover,
   .btn-header-btn-group-main2 :active {
-    background: var(--gray-100) !important;
+    background: var(--gray-100);
   }
 
   .btn-header-btn-group-main-img {
@@ -815,9 +811,9 @@
     z-index: 100;
     height: auto;
     max-height: 225px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     gap: 12px;
     padding: 8px 12px;
     border-radius: 8px;
@@ -828,7 +824,7 @@
   }
 
   .subMenu-title {
-    font-size: 0.625rem;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 400;
     line-height: 16px;
@@ -888,7 +884,7 @@
   }
 
   .subMenu-body-link-title {
-    font-size: 0.625rem;
+    font-size: 0.875rem;
     font-style: normal;
     font-weight: 400;
     line-height: 16px;
@@ -967,7 +963,7 @@
     background-color: var(--gray-100);
     top: -1px;
     font-size: 0.625rem;
-    padding: 2px !important;
+    padding: 2px;
     color: #237DF7;
     transition: top 0.3s ease, font-size 0.3s ease, color 0.3s ease;
   }
@@ -1192,11 +1188,11 @@
   }
 
   .block-icon {
-    display: block !important;
+    display: block;
   }
 
   .none-icon {
-    display: none !important;
+    display: none;
   }
 
   .btn-slide-bar:active {
@@ -1215,17 +1211,17 @@
 
   .btn-slide-bar:hover .btn-e,
   .btn-slide-bar:active .btn-e {
-    color: var(--text-0) !important;
+    color: var(--text-0);
   }
 
   .w-auto {
-    width: auto !important;
+    width: auto;
     display: flex;
     gap: 0;
   }
 
   .w-268 {
-    width: 268px !important;
+    width: 268px;
   }
 
   .block-text {
@@ -1239,7 +1235,6 @@
 
   .course-submenu {
     width: 193px;
-    max-width: 193px;
     padding-left: 10px 8px;
     display: flex;
     flex-direction: column;
@@ -1253,7 +1248,6 @@
     box-shadow: 0px 0px 1px 0px rgba(40, 41, 61, 0.08), 0px 0.5px 2px 0px rgba(96, 97, 112, 0.16);
     margin-left: 30px;
     opacity: 0;
-    max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-in-out, opacity 0s ease-in-out, transform 1s ease-in-out;
     transform: translateY(-10px);
@@ -1299,21 +1293,20 @@
 
   .btn-slide-bar-mini:hover .btn-e,
   .btn-slide-bar-mini:active .btn-e {
-    color: var(--text-0) !important;
+    color: var(--text-0);
   }
 
   .menu {
     position: absolute;
     top: 55px;
     right: -10px;
-    width: 24px !important;
-    height: 24px !important;
-    min-width: 24px !important;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 !important;
-    padding: 0 !important;
+
     border: 0;
     border-radius: 50%;
     background-color: white;
@@ -1324,7 +1317,7 @@
   .menu:active,
   .menu:focus {
     border: 0;
-    background-color: white !important;
+    background-color: white;
   }
 
   .menu:active {
@@ -1345,7 +1338,7 @@
   }
 
   .p-as {
-    position: absolute !important;
+    position: absolute;
     top: 68px;
     left: 20px;
   }
@@ -1365,7 +1358,7 @@
   /* footer start  */
 
   footer {
-    margin: 0 !important;
+    margin: 0;
     padding: 0;
     display: flex;
     width: 100%;
@@ -1640,7 +1633,7 @@
   .btn-s {
     display: inline-flex;
     flex-direction: column-reverse;
-    height: 40px !important;
+    height: 40px;
     border-radius: 8px;
     padding: 0;
     margin: 0;
@@ -1650,7 +1643,7 @@
 
   .btn-m {
     display: inline-flex;
-    height: 48px !important;
+    height: 48px;
     border-radius: 8px;
     padding: 0;
     margin: 0;
@@ -1665,7 +1658,7 @@
     display: flex;
     flex-direction: row;
     border: 0;
-    background: none !important;
+    background: none;
   }
 
   .btn-secondery .btn-default {
@@ -1688,7 +1681,7 @@
   }
 
   .btn-secondery .btn-default .btn-title {
-    color: var(--text-0) !important;
+    color: var(--text-0);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1716,13 +1709,13 @@
 
   .btn-secondery .btn-hover .left-icon-container .icon-left path,
   .btn-secondery .btn-hover .right-icon-container .icon-right path {
-    stroke: var(--cyan-30) !important;
+    stroke: var(--cyan-30);
     width: 24px;
     height: 24px;
   }
 
   .btn-secondery .btn-hover .btn-title {
-    color: var(--cyan-30) !important;
+    color: var(--cyan-30);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1749,13 +1742,13 @@
 
   .btn-secondery .btn-no-border .left-icon-container .icon-left path,
   .btn-secondery .btn-no-border .right-icon-container .icon-right path {
-    stroke: var(--cyan-30) !important;
+    stroke: var(--cyan-30);
     width: 24px;
     height: 24px;
   }
 
   .btn-secondery .btn-no-border .btn-title {
-    color: var(--cyan-30) !important;
+    color: var(--cyan-30);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1784,19 +1777,19 @@
   }
 
   .btn-secondery .btn-disable .left-icon-container .icon-left path {
-    stroke: var(--text-25) !important;
+    stroke: var(--text-25);
     width: 24px;
     height: 24px;
   }
 
   .btn-secondery .btn-disable .right-icon-container .icon-right path {
-    stroke: var(--cyan-30) !important;
+    stroke: var(--cyan-30);
     width: 24px;
     height: 24px;
   }
 
   .btn-secondery .btn-disable .btn-title {
-    color: var(--text-25) !important;
+    color: var(--text-25);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1814,7 +1807,7 @@
     display: inline-flex;
     flex-direction: row;
     border: 0;
-    background: none !important;
+    background: none;
   }
 
   .btn-premary .btn-default {
@@ -1839,7 +1832,7 @@
   }
 
   .btn-premary .btn-default .btn-title {
-    color: var(--text-0) !important;
+    color: var(--text-0);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1868,13 +1861,13 @@
 
   .btn-premary .btn-hover .left-icon-container .icon-left path,
   .btn-premary .btn-hover .right-icon-container .icon-right path {
-    stroke: var(--blue-50) !important;
+    stroke: var(--blue-50);
     width: 24px;
     height: 24px;
   }
 
   .btn-premary .btn-hover .btn-title {
-    color: var(--blue-50) !important;
+    color: var(--blue-50);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1902,13 +1895,13 @@
 
   .btn-premary .btn-no-border .left-icon-container .icon-left path,
   .btn-premary .btn-no-border .right-icon-container .icon-right path {
-    stroke: var(--blue-50) !important;
+    stroke: var(--blue-50);
     width: 24px;
     height: 24px;
   }
 
   .btn-premary .btn-no-border .btn-title {
-    color: var(--blue-50) !important;
+    color: var(--blue-50);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1937,19 +1930,19 @@
   }
 
   .btn-premary .btn-disable .left-icon-container .icon-left path {
-    stroke: var(--text-0) !important;
+    stroke: var(--text-0);
     width: 24px;
     height: 24px;
   }
 
   .btn-premary .btn-disable .right-icon-container .icon-right path {
-    stroke: var(--text-0) !important;
+    stroke: var(--text-0);
     width: 24px;
     height: 24px;
   }
 
   .btn-premary .btn-disable .btn-title {
-    color: var(--text-0) !important;
+    color: var(--text-0);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -1968,7 +1961,7 @@
     display: inline-flex;
     flex-direction: row;
     border: 0;
-    background: none !important;
+    background: none;
   }
 
 
@@ -1996,7 +1989,7 @@
   }
 
   .btn-dsb .btn-default .btn-title {
-    color: var(--gray-60) !important;
+    color: var(--gray-60);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -2025,20 +2018,20 @@
 
   .btn-dsb .left-icon-container .icon-left path,
   .btn-dsb .right-icon-container .icon-right path {
-    stroke: var(--gray-60) !important;
+    stroke: var(--gray-60);
     width: 24px;
     height: 24px;
   }
 
   .btn-dsb .btn-hover .left-icon-container .icon-left path,
   .btn-dsb .btn-hover .right-icon-container .icon-right path {
-    stroke: var(--gray-60) !important;
+    stroke: var(--gray-60);
     width: 24px;
     height: 24px;
   }
 
   .btn-dsb .btn-hover .btn-title {
-    color: var(--gray-56) !important;
+    color: var(--gray-56);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -2066,13 +2059,13 @@
 
   .btn-dsb .btn-no-border .left-icon-container .icon-left path,
   .btn-dsb .btn-no-border .right-icon-container .icon-right path {
-    stroke: var(--gray-60) !important;
+    stroke: var(--gray-60);
     width: 24px;
     height: 24px;
   }
 
   .btn-dsb .btn-no-border .btn-title {
-    color: var(--gray-60) !important;
+    color: var(--gray-60);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -2101,19 +2094,19 @@
   }
 
   .btn-dsb .btn-disable .left-icon-container .icon-left path {
-    stroke: var(--gray-60) !important;
+    stroke: var(--gray-60);
     width: 24px;
     height: 24px;
   }
 
   .btn-dsb .btn-disable .right-icon-container .icon-right path {
-    stroke: var(--gray-60) !important;
+    stroke: var(--gray-60);
     width: 24px;
     height: 24px;
   }
 
   .btn-dsb .btn-disable .btn-title {
-    color: var(--gray-0) !important;
+    color: var(--gray-0);
     font-size: 0.9875rem;
     font-weight: 500;
     line-height: 24px;
@@ -2164,3 +2157,5 @@
     background: var(--blue-10);
     /* Màu khi hover */
   }
+
+  @media screen and (max-width: 479px) {}

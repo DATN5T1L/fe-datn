@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap"
+import { Container, Row } from "react-bootstrap"
 import styles from '@public/styles/user/Main.module.css'
 
 interface MainProps {
@@ -9,9 +9,9 @@ const Main: React.FC<MainProps> = ({ children }) => {
     return (
         <>
             <Container className={styles.container}>
-                <section className={styles.main}>
+                <Row className={styles.main}>
                     {children}
-                </section>
+                </Row>
             </Container>
         </>
     )

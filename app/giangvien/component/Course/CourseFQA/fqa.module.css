@@ -138,7 +138,7 @@
   height: 32px;
   padding: 8px 12px;
   border: 1px solid var(--text-0);
-  border-radius: 40px !important;
+  border-radius: 40px;
   outline: none;
   transition: border-color 0.2s ease;
   font-size: 0.875rem;
@@ -187,7 +187,7 @@
 
 .table tbody tr td {
   padding: 16px 12px;
-  line-height: 24px !important;
+  line-height: 24px;
   font-size: 0.875rem;
   font-weight: 500px;
   border: none;
@@ -268,8 +268,8 @@
   padding: 8px 12px;
   border-radius: 12px;
   border: 1px solid var(--blue-60);
-  background: #438FF7 !important;
-  font-size: 1rem !important;
+  background: #438FF7;
+  font-size: 1rem;
 }
 
 .btnCTAOutline {

@@ -92,7 +92,7 @@
   height: 32px;
   padding: 8px 12px;
   border: 1px solid var(--text-0);
-  border-radius: 40px !important;
+  border-radius: 40px;
   outline: none;
   transition: border-color 0.2s ease;
   font-size: 0.875rem;
@@ -121,6 +121,7 @@
   border: none;
   border-bottom: 1.5px solid #b3b3b3;
 }
+
 /* .table thead tr td:nth-child(6) {
   text-align: center;
 } */
@@ -176,15 +177,15 @@
 }
 
 .active_text2 {
-  color: #007BFF; 
+  color: #007BFF;
   background-color: #007BFF26;
   padding: 5px 30px;
   border-radius: 5px;
 }
 
 .active_text3 {
-  color: #E83E8C; 
-  background-color: #E83E8C26; 
+  color: #E83E8C;
+  background-color: #E83E8C26;
   padding: 5px 30px;
   border-radius: 5px;
 }
