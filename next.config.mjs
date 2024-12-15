@@ -409,6 +409,11 @@ const nextConfig = {
         source: '/api/uploadImgPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
       },
+      // up chứng chỉ
+      {
+        source: '/api/addCertificate/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/add-certificate/:path*',
+      },
       {
         source: '/api/hiddenPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',

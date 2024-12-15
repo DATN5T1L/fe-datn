@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState, useEffect, useRef } from "react";
 import { Container, Row } from "react-bootstrap";
 import Button from "../globalControl/btnComponent";
@@ -58,8 +58,8 @@ const RegisterSale = () => {
                 </Button>
 
                 {isShow && (
-                    <div className={styles.Form}>
-                        <main ref={formRef}>
+                    <div className={styles.Form} ref={formRef}>
+                        <main>
                             <FormFeedback />
                         </main>
                     </div>

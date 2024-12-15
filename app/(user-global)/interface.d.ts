@@ -327,21 +327,21 @@ interface RouteSearch {
     id: string;
     title: string;
     image: string;
-    slug: string;
+    slug_route: string;
 }
 
 interface CourseSearch {
     id: string;
     title: string;
     image: string;
-    slug: string;
+    slug_course: string;
 }
 
 interface PostSearch {
     id: string;
     title: string;
     image: string;
-    slug: string;
+    slug_post: string;
 }
 
 interface ApiResponseSearch {
