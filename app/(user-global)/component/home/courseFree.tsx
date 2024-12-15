@@ -137,7 +137,7 @@ const CourseFree: React.FC = () => {
                                     leftIcon={false}
                                     rightIcon={false}
                                     width={225}
-                                    onClick={() => handlePathChange("DE")}
+                                    onClick={() => handlePathChange("lo-trinh-designer")}
                                 >
                                     Khóa học  Lộ trình Tester
                                 </Button>
@@ -150,7 +150,7 @@ const CourseFree: React.FC = () => {
                                     leftIcon={false}
                                     rightIcon={false}
                                     width={245}
-                                    onClick={() => handlePathChange("TE")}
+                                    onClick={() => handlePathChange("lo-trinh-tester")}
                                 >
                                     Khóa học Lộ trình Designer
                                 </Button>

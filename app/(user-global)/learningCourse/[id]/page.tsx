@@ -492,15 +492,12 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         const [currentChapterIndex, currentDocIndex] = selectedIndex.split('-').map(Number);
 
         const currentChapter = course[currentChapterIndex];
-
-        // Nếu không phải bài cuối cùng trong chapter
         if (currentDocIndex < currentChapter.documents.length - 1) {
             // Kiểm tra trạng thái bài hiện tại
             if (!currentChapter.documents[currentDocIndex]?.status_document) {
                 alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
                 return;
             }
-
             setSelectedIndex(`${currentChapterIndex}-${currentDocIndex + 1}`);
             handleClickDoc(currentChapter.documents[currentDocIndex + 1]);
         }

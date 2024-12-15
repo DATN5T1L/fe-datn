@@ -80,8 +80,9 @@ const Certificate = () => {
             const pdfWidth = 210;
             const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
             pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            // Gửi hình ảnh lên server và PDF
+            const pdfBlob = pdf.output('blob');
 
-            // Gửi hình ảnh lên server
             try {
                 const response = await fetch('/api/uploadImgPost', {
                     method: 'POST',
@@ -93,17 +94,17 @@ const Certificate = () => {
 
                 const result = await response.json();
 
+                console.log('Server response:', result);
+
                 if (result.success) {
                     alert(result.image);
                 } else {
                     alert('Failed to upload image');
                 }
             } catch (error) {
-                console.error('Error uploading image:', error);
-                alert('An error occurred while uploading the image');
+                console.error('Error uploading image and PDF:', error);
+                alert('An error occurred while uploading the image and PDF');
             }
-
-            pdf.save(`certificate_${course_name}.pdf`);
         }
     };
 
