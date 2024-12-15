@@ -521,3 +521,23 @@
     backdrop-filter: blur(10px);
     height: 100vh;
 }
+
+.Certificate {
+    position: fixed;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 100px 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: visible;
+    background-color: rgba(205, 205, 205, .2);
+    backdrop-filter: blur(4px);
+}
+
+.showNotification {
+    position: fixed;
+    z-index: 1000;
+    border-bottom: 0;
+}

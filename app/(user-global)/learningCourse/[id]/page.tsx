@@ -30,9 +30,12 @@ import DocumentStatus from '../statusDoc';
 // thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 import styles from "@public/styles/Learning/Learning.module.css";
+import FeebackCourse from "../FeebackCourse";
 
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
-
+interface FeedbackProp {
+    feedback: { rating: number; feedbackText: string }
+}
 
 const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const token = useCookie('token');
@@ -49,6 +52,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [messageNoti, setmessageNoti] = useState("");
 
     const [course, setCourse] = useState<Chapter[] | null>(null);
+    const [courseName, setCourseName] = useState<Chapter[] | null>(null);
 
     const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
     const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
@@ -71,9 +75,15 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [css, setCss] = useState<string>('');
     const [js, setJs] = useState<string>('');
 
+    const [type, setType] = useState<NotiType>("complete");
+    const [message, setMessage] = useState<string>("");
+    const [showNotification, setShowNotification] = useState(false);
+
     const [statusVideo, setStatusVideo] = useState<boolean>(false)
 
     const [visible, setVisible] = useState(false);
+    // show footerCTA
+    const [isFooterCta, setIsFooterCTA] = useState(true);
 
     const [isNote, setIsNote] = useState(false);
     const [isActive, setIsActive] = useState(false);
@@ -254,7 +264,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             chapter_name: chapter.chapter_name
                         };
                     }
-                    alert('Bạn đã hoàn thành khóa học')
+                    // alert('Bạn đã hoàn thành khóa học')
                 }
                 return null;
             };
@@ -288,8 +298,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     }, [course]);
 
-
-
     const handleClickDoc = (doc: CombinedDocument) => {
         setnameDocument(doc.name_document);
         settypeDoc(doc.type_document);
@@ -321,6 +329,34 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         }
     };
 
+    const handelFeedback = async (feedback: FeedbackProp) => {
+        const Data = {
+            rating_course: feedback.feedback.rating,
+            feedback_text: feedback.feedback.feedbackText
+        }
+        try {
+            const response = await fetch(`/api/addFeedback/${course_Id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(Data),
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch course");
+            }
+            const responseData = await response.json();
+            console.log(responseData)
+            alert('Cảm ơn bạn đã để lại phản hồi khóa học cho TTO.SH chúc bạn 1 ngày tốt lành')
+            if (!responseData.ok) {
+
+            } else {
+            }
+        } catch (err: any) {
+
+        }
+    }
     const renderContent = () => {
         if (typeDoc === 'video') {
             console.log("Rendering Video Player");
@@ -367,15 +403,41 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 </div>
             );
         } else {
-            console.log("No matching content type, rendering default message");
+            setIsVisible(false)
+            setIsFooterCTA(false)
+            handleIsComplete();
             return (
-                <div className={styles.wapperQuestion}>Không phải video, quiz hoặc code</div>
+                <div className={styles.Certificate}>
+                    {progress && (
+                        <FeebackCourse course_id={idCourse} course_name={progress.name_course} onSubmit={(feedback) => handelFeedback({ feedback })} />
+                    )}
+                </div>
             );
         }
     };
 
     const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
 
+    const handleIsComplete = async () => {
+        if (!course_Id || !token) {
+            console.error("course_Id hoặc token không hợp lệ");
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/changeStatusCourseCompleted/${course_Id}`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+            const responseData = await response.json();
+
+        } catch (err: any) {
+
+        }
+    };
 
     const handlePreviousLesson = ({
         course,
@@ -492,6 +554,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                             <ShowNameElement name={item.chapter_name}>
                                                 <div className={styles.listItem__titleText}>{index + 1}. {item.chapter_name}</div>
                                             </ShowNameElement>
+
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="24"
@@ -524,25 +587,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                                     selectedIndex === `${index}-${subIndex}` ? "rgba(230, 240, 254, 1)" : "transparent",
                                                             }}
                                                             onClick={() => {
-                                                                // const isPreviousDocumentCompleted =
-                                                                //     subIndex > 0 && item.documents[subIndex - 1]?.status_document === true;
-
-                                                                // const isCurrentDocumentBlocked =
-                                                                //     subIndex > 0 && !isPreviousDocumentCompleted;
-
-                                                                // const lastCourse = course[index - 1];
-                                                                // const lastLesson =
-                                                                //     lastCourse?.documents?.[lastCourse.documents.length - 1]?.status_document;
-
-                                                                // // Kiểm tra điều kiện tài liệu bị khóa
-                                                                // if (lastLesson === false) {
-                                                                //     alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                                                                //     return;
-                                                                // } else if (isCurrentDocumentBlocked) {
-                                                                //     alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                                                                //     return;
-                                                                // }
-                                                                // Kiểm tra nếu tất cả tài liệu trong các chương trước đã hoàn thành
                                                                 const isAllPreviousDocumentsCompleted = (currentIndex: number): boolean => {
                                                                     for (let i = 0; i < currentIndex; i++) {
                                                                         const previousCourse = course[i];
@@ -614,7 +658,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 <div className={styles.body}>
                     {!isNote ? (
                         <>
-                            <div className={styles.bodyTop}>
+                            <div className={styles.bodyTop} style={{ display: isFooterCta ? "block" : "none" }}>
                                 <div className={styles.bodyTitle}>
                                     <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
                                     <h4 className={styles.titleCourse}>{nameDocument}</h4>
@@ -653,7 +697,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                             </motion.div>
                         </AnimatePresence>
                     )}
-                </div>
+                </div >
             ) : (
                 null
             )
@@ -678,6 +722,13 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
         )
     }
 
+    const HandleCertificate = () => {
+        return (
+            <main>
+                Chứng chỉ của tôi
+            </main>
+        )
+    }
 
 
     const mappedCourseNew = useMemo(() => {
@@ -775,69 +826,76 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 </div>
             </Navbar >
             {mappedCourseNew}
-            <div className={`${styles.actionBar}`}>
-                <div className={styles.faq} onClick={
-                    () => {
-                        toggleFaq();
-                        handelIsPlaying();
-                    }
-                }>
-                    <ShowNameElement name={"Hỏi đáp"}>
-                        <IconWhat />
-                    </ShowNameElement>
-                </div>
-                <div className={styles.ctaNextPev}>
-                    <button
-                        className={styles.nextPrevCourse}
-                        onClick={() => {
-                            if (course) {
-                                handlePreviousLesson({ course, selectedIndex, setSelectedIndex });
-                            }
-                        }}
-                    >
-                        <Arrow deg="-180" />
-                        <ShowNameElement name={"Về bài trước"}>
-                            <p className={styles.titleNextPrev}>Bài trước</p>
+            {isFooterCta === true && (
+                <div className={`${styles.actionBar}`}>
+                    <div className={styles.faq} onClick={
+                        () => {
+                            toggleFaq();
+                            handelIsPlaying();
+                        }
+                    }>
+                        <ShowNameElement name={"Hỏi đáp"}>
+                            <IconWhat />
                         </ShowNameElement>
-                    </button>
-                    <button
-                        className={styles.nextPrevCourse}
-                        onClick={() => {
-                            if (course) {
-                                handleNextLesson({ course, selectedIndex, setSelectedIndex });
-                            }
-                        }}
-                    >
-                        <ShowNameElement name={"Bài kế tiếp Lưu ý chỉ được chuyển bài 1 lần"}>
-                            <p className={styles.titleNextPrev}>Bài tiếp theo</p>
-                        </ShowNameElement>
-                        <Arrow deg="0" />
-                    </button>
-                </div>
-                <div className={styles.cateSec}>
-                    <ShowNameElement name={`Chương ${chapterName}: ${nameDocument}`}>
-                        <span className={styles.chapterName}>Chương {chapterName}: {nameDocument}</span>
-                    </ShowNameElement>
-                    <div className={styles.iconCatesec} onClick={toggleVisibility}>
-                        <svg className={isVisible ? styles.rotated : ''} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="#234587">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M20.3892 0.803629C21.3558 1.46469 22 2.64499 22 4.0329V17.9671C22 19.355 21.3558 20.5353 20.3892 21.1964C19.4104 21.8658 18.1152 21.9826 16.9723 21.2446L6.18329 14.2775C5.03297 13.5346 4.5 12.2341 4.5 11C4.5 9.76587 5.03297 8.46536 6.18329 7.72253L16.9723 0.755426C18.1152 0.0173917 19.4104 0.134203 20.3892 0.803629Z" />
-                        </svg>
                     </div>
-                </div>
-                {isNoteContent && (
-                    <AnimatePresence>
-                        <motion.div
-                            initial={{ y: '100%' }}
-                            animate={{ y: 0 }}
-                            exit={{ y: '-110%' }}
-                            transition={{ duration: 0.5 }}
-                            className={styles.NoteList}
+                    <div className={styles.ctaNextPev}>
+                        <button
+                            className={styles.nextPrevCourse}
+                            onClick={() => {
+                                if (course) {
+                                    handlePreviousLesson({ course, selectedIndex, setSelectedIndex });
+                                }
+                            }}
                         >
-                            <NoteContent course_Id={course_Id} chapter_Id={chapter_id} doc_id={doc_id} userImage={avatar} onClose={toggleNoteList} />
-                        </motion.div>
-                    </AnimatePresence>
-                )}
-            </div>
+                            <Arrow deg="-180" />
+                            <ShowNameElement name={"Về bài trước"}>
+                                <p className={styles.titleNextPrev}>Bài trước</p>
+                            </ShowNameElement>
+                        </button>
+                        <button
+                            className={styles.nextPrevCourse}
+                            onClick={() => {
+                                if (course) {
+                                    handleNextLesson({ course, selectedIndex, setSelectedIndex });
+                                }
+                            }}
+                        >
+                            <ShowNameElement name={"Bài kế tiếp Lưu ý chỉ được chuyển bài 1 lần"}>
+                                <p className={styles.titleNextPrev}>Bài tiếp theo</p>
+                            </ShowNameElement>
+                            <Arrow deg="0" />
+                        </button>
+                    </div>
+                    <div className={styles.cateSec}>
+                        {
+                            chapterName !== "" && (
+                                <ShowNameElement name={`Chương ${chapterName}: ${nameDocument}`}>
+                                    <span className={styles.chapterName}>Chương {chapterName}: {nameDocument}</span>
+                                </ShowNameElement>
+                            )
+                        }
+                        <div className={styles.iconCatesec} onClick={toggleVisibility}>
+                            <svg className={isVisible ? styles.rotated : ''} xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="#234587">
+                                <path fillRule="evenodd" clipRule="evenodd" d="M20.3892 0.803629C21.3558 1.46469 22 2.64499 22 4.0329V17.9671C22 19.355 21.3558 20.5353 20.3892 21.1964C19.4104 21.8658 18.1152 21.9826 16.9723 21.2446L6.18329 14.2775C5.03297 13.5346 4.5 12.2341 4.5 11C4.5 9.76587 5.03297 8.46536 6.18329 7.72253L16.9723 0.755426C18.1152 0.0173917 19.4104 0.134203 20.3892 0.803629Z" />
+                            </svg>
+                        </div>
+                    </div>
+                    {isNoteContent && (
+                        <AnimatePresence>
+                            <motion.div
+                                initial={{ y: '100%' }}
+                                animate={{ y: 0 }}
+                                exit={{ y: '-110%' }}
+                                transition={{ duration: 0.5 }}
+                                className={styles.NoteList}
+                            >
+                                <NoteContent course_Id={course_Id} chapter_Id={chapter_id} doc_id={doc_id} userImage={avatar} onClose={toggleNoteList} />
+                            </motion.div>
+                        </AnimatePresence>
+                    )}
+                </div>
+            )}
+
         </main>
     );
 }

@@ -1,0 +1,79 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray-100);
+}
+
+.Certificate {
+    padding: 12px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('https://res.cloudinary.com/dnmc89c8b/image/upload/v1734244254/fe_image/certificate.jpg');
+    width: 80%;
+    height: 80vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 32px;
+    background-position-y: 10;
+}
+
+
+.inputCertificate,
+.inputCertificates {
+    border: none;
+    outline: none;
+    font-size: 3rem;
+    color: #695f06;
+    background-color: transparent;
+    text-align: center;
+    padding: 32px;
+}
+
+.nameCoure {
+    font-family: monospace;
+    position: absolute;
+    padding-bottom: 40px;
+    top: 35%;
+}
+
+.date {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.25rem;
+    position: absolute;
+    left: 36%;
+    bottom: 28%;
+}
+
+.nameIntruc {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 1.25rem;
+    position: absolute;
+    right: 36%;
+    bottom: 28%;
+}
+
+.daumoc {
+    position: absolute;
+    bottom: 15%;
+    right: 29%;
+}
+
+.cta {
+    position: absolute;
+}
+
+.inputCertificates {
+    position: absolute;
+}
+
+@media print {
+    .noPrint {
+        display: none !important;
+    }
+}

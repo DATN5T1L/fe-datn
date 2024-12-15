@@ -40,7 +40,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     }, [id]);
 
     const fetchIdCourse = async (id: string) => {
-
         try {
             const response = await fetch(`/api/slugById/${id}/Course`);
 

@@ -1,0 +1,121 @@
+/* FeebackCourse.module.css */
+
+/* Đặt bố cục trung tâm */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+
+}
+
+.Feedback {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px 32px;
+    border-radius: 24px;
+    width: 500px;
+    height: auto;
+    pointer-events: all;
+    background-color: rgba(246, 247, 229, 1);
+    background-image: url("https://res.cloudinary.com/dnmc89c8b/image/upload/v1734235805/fe_image/z6131866029228_9b4ea8ffa483ce29c31c90e2942c4275.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.titleFeedback {
+    font-size: 1.875rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.titleForm {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--blue--60);
+}
+
+/* Vùng hiển thị các sao */
+.rating {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.rating span {
+    font-size: 30px;
+    cursor: pointer;
+    color: var(--blue-20);
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.rating span:hover {
+    transform: scale(1.2);
+    color: #ffa41b;
+}
+
+.rating span.active {
+    color: #ffc107;
+}
+
+/* Tiêu đề hộp phản hồi */
+.feedbackText {
+    width: 100%;
+}
+
+.textArea {
+    height: 200px;
+}
+
+.feedbackText textarea {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    resize: none;
+    transition: border-color 0.3s ease;
+    background-color: rgba(205, 205, 205, .5);
+    color: var(--text-0);
+}
+
+.feedbackText textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    background-color: rgba(205, 205, 205, .5);
+}
+
+/* Nút gửi đánh giá */
+.submitButton {
+    margin-top: 1.5rem;
+    background-color: var(--blue--80);
+
+    border: none;
+    color: var(--blue-50);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submitButton:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.submitButton:active {
+    transform: scale(0.98);
+}

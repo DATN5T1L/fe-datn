@@ -44,7 +44,7 @@ const LeftSlider: React.FC = () => {
         if (typeof window !== 'undefined') {
             const checkElementsAndSetHeight = () => {
                 const header = document.querySelector('.header-over') as HTMLElement;
-                const footer = document.querySelector('.footer') as HTMLElement;
+                const footer = document.querySelector('footer') as HTMLElement;
 
                 if (header && footer) {
                     const setHeight = () => {

@@ -16,28 +16,25 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     const pathname = usePathname();
-    const isNoHeaderPage = /^\/(course|paymentCourse)(\/.*)?$/.test(pathname);
+    const isNoHeaderPage = /^\/(course|paymentCourse|Certificate)(\/.*)?$/.test(pathname);
     const isLearningCoursePage = /^\/learningCourse|test(\/.*)?$/.test(pathname);
+    const isCertificatePage = pathname.startsWith('/Certificate');
     const ScrollToTopButton = dynamic(
         () => import("@app/(user-global)/component/globalControl/SrollTotop"),
         { ssr: false }
     );
+
     return (
         <div className={`${isNoHeaderPage ? 'body-black' : 'body-main'}`}>
             <ReduxRender>
                 <SessionProvider>
-
-                    {!isLearningCoursePage && (
-                        isNoHeaderPage ? <HeaderCourseDetail /> : <Header />
-                    )}
+                    {!isCertificatePage && !isLearningCoursePage && (isLearningCoursePage ? <HeaderCourseDetail /> : <Header />)}
                     <GlobalComponents />
-                    <div className='main-global' style={isNoHeaderPage ? { minHeight: '3000px' } : {}}>
+                    <div className='main-global' style={isNoHeaderPage ? { minHeight: '100vh' } : {}}>
                         {children}
                         <ScrollToTopButton />
                     </div>
-                    {!isLearningCoursePage && (
-                        isNoHeaderPage ? <FooterBlack /> : <Footer />
-                    )}
+                    {!isCertificatePage && !isLearningCoursePage && (isLearningCoursePage ? <FooterBlack /> : <Footer />)}
                 </SessionProvider>
             </ReduxRender>
         </div >

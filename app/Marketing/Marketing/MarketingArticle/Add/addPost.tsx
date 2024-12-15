@@ -81,10 +81,11 @@ const AddMarketingPost: React.FC = () => {
       formData.append("title_post", values.title_post);
       formData.append("content_post", values.content_post);
       formData.append("category_id", values.category_id);
-      if (values.img_post) {
-        formData.append("img_post[]", values.img_post);
-      }
 
+      if (values.img_post) {
+        formData.append("img_post", values.img_post);
+      }
+      console.log(formData)
       try {
         const response = await fetch("/api/allPost", {
           method: "POST",

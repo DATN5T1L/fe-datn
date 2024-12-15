@@ -295,6 +295,16 @@ const nextConfig = {
         source: '/api/deleteComment/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/comment-delete/:path*',
       },
+      // chuyển đổi trạng thái khóa học sang complete
+      {
+        source: '/api/changeStatusCourseCompleted/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/change-status-course-completed/:path*',
+      },
+      // Phản hồi khóa học
+      {
+        source: '/api/addFeedback/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/add-feedback/:path*',
+      },
       // checkmail
       {
         source: '/api/checkTokenNewUser/:path*',
