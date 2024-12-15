@@ -272,6 +272,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             const inactiveDoc = findInactiveDocument(course);
 
             if (inactiveDoc) {
+                setIsFooterCTA(true)
                 const { document_id, chapter_id } = inactiveDoc;
 
                 // Tìm tài liệu không hoạt động dựa trên document_id
