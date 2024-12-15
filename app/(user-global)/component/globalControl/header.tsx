@@ -1,7 +1,4 @@
 'use client'
-// import { auth } from '@/app/auth';
-
-
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -25,6 +22,7 @@ const Header: React.FC = () => {
     const [showHeader, setShowHeader] = useState(true);
     const [lastScroll, setLastScroll] = useState(0);
     const [isOpenSubMenu, setIsOpenSubMenu] = useState(false);
+    const [isOpenSubMenuMobile, setIsOpenSubMenuMobile] = useState(false);
     const [isShowForm, setIsShowForm] = useState<boolean>(false)
 
 
@@ -84,6 +82,10 @@ const Header: React.FC = () => {
         setIsOpenSubMenu(!isOpenSubMenu)
     }
 
+    const tongleMenuMobile = () => {
+        setIsOpenSubMenuMobile(prev => !prev)
+    }
+
     const isLogin = pathname === '/login';
     const isUser = pathname === '/info-user';
     const isUser1 = pathname === '/intro-user';
@@ -93,15 +95,62 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '0' }}>
+            <Nav className={`header-nav ${c.headerHome} ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '0' }}>
                 <section className='header-nav-head'>
                     <ShowNameElement name="Trang chủ">
                         <Link href="/" className='brand-header'>
-                            <Image src="/img/LogoPage.jpg" alt="Hỗ trợ học viên" className='img-brand-header' />
+                            <Image src="/img/LogoPage.jpg" alt="Hỗ trợ học viên" className={`${c.logoMobile} img-brand-header`} />
                         </Link>
                     </ShowNameElement>
-                    <Nav className={`  btn-header`}>
-                        <Row md={12} className='btn-header-container'>
+                    {userState?.user?.avatar ? (
+                        <Image src={`${userState?.user?.avatar}`} alt="Học lập trình cơ bản với TTO.SH" className={c.imageUser} onClick={tongleMenuMobile} />
+                    ) : (
+                        <Image src="/img/avtDefault.jpg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={c.imageUser} onClick={tongleMenuMobile} />
+                    )}
+                    <section className={` ${isOpenSubMenuMobile ? 'subMenu' : 'max-height-subMenu'} ${c.MenuMobile}`} >
+                        <div className={c.ctaContactMobile}>
+                            <h3 className='subMenu-title'>
+                                Liên hệ hỗ trợ
+                            </h3>
+                            <section className='subMenu-body'>
+                                <Link href={'#Feadback'} className={c.subMenuTitle}  >
+                                    Để lại thông tin nhận hỗ trợ
+                                </Link>
+
+                                <Link href={"tel:+0907578881"} className={c.subMenuTitle}>
+
+                                    Gọi ngay
+                                </Link>
+                                <Link href={"href='https://mail.google.com/mail/?view=cm&fs=1&to=ht24430@gmail.com&su=Gặp lỗi&body=Hello,%20I%20need%20help"} className={c.subMenuTitle}>
+                                    Gửi qua email
+                                </Link>
+                            </section>
+                        </div>
+                        <h3 className='subMenu-title'>
+                            Cài đặt thông tin
+                        </h3>
+
+                        <section className='subMenu-body'>
+                            <Link href={'/info-user'} className={`subMenu-body-link ${isUser ? 'subMenu-body-link-blue' : ''}`} autoFocus={false} >
+                                <Image src='/img/infoProfile-black.svg' className={`subMenu-body-img-black ${isUser ? 'subMenu-body-img-black-none' : ''}`} />
+                                <Image src='/img/infoProfile-white.svg' className={`subMenu-body-img-white ${isUser ? 'subMenu-body-img-white-block' : ''}`} />
+                                <div className={`subMenu-body-link-title ${isUser ? 'subMenu-body-link-title-white' : ''}`}>
+                                    Thông tin cá nhân
+                                </div>
+                            </Link>
+
+                            <Link href={`${isUser1 ? '/intro-user?showModal=change-password' : isUser2 ? '/wallet-user?showModal=change-password' : '/info-user?showModal=change-password'}`} className='subMenu-body-link' autoFocus={false}>
+                                <Image src='/img/infoPassWord-black.svg' className='subMenu-body-img-black' />
+                                <Image src='/img/infoPassWord-white.svg' className='subMenu-body-img-white' />
+                                <div className='subMenu-body-link-title'>
+                                    Cài đặt mật khẩu
+                                </div>
+                            </Link>
+                            <GgLogoutHeader />
+                        </section>
+                    </section>
+                    <Nav className={`btn-header ${c.headerCTA}`}>
+                        <Row md={12} className={`btn-header-container`}>
                             <Col md={4} className='btn-header-container-element'>
                                 <ShowNameElement name='Về chúng tôi'>
                                     <Link href='/' className='btn-header-container-element-link'>
@@ -140,10 +189,29 @@ const Header: React.FC = () => {
                                             <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 9L12 15L18 9" stroke="rgba(35, 125, 247, 1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
-                                            <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'}`} >
+                                            <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'} `} >
+                                                <div className={c.ctaContactMobile}>
+                                                    <h3 className='subMenu-title'>
+                                                        Liên hệ hỗ trợ
+                                                    </h3>
+                                                    <section className='subMenu-body'>
+                                                        <Link href={'#Feadback'} className={c.subMenuTitle}  >
+                                                            Để lại thông tin nhận hỗ trợ
+                                                        </Link>
+
+                                                        <Link href={"tel:+0907578881"} className={c.subMenuTitle}>
+
+                                                            Gọi ngay
+                                                        </Link>
+                                                        <Link href={"href='https://mail.google.com/mail/?view=cm&fs=1&to=ht24430@gmail.com&su=Gặp lỗi&body=Hello,%20I%20need%20help"} className={c.subMenuTitle}>
+                                                            Gửi qua email
+                                                        </Link>
+                                                    </section>
+                                                </div>
                                                 <h3 className='subMenu-title'>
                                                     Cài đặt thông tin
                                                 </h3>
+
                                                 <section className='subMenu-body'>
                                                     <Link href={'/info-user'} className={`subMenu-body-link ${isUser ? 'subMenu-body-link-blue' : ''}`} autoFocus={false} >
                                                         <Image src='/img/infoProfile-black.svg' className={`subMenu-body-img-black ${isUser ? 'subMenu-body-img-black-none' : ''}`} />
@@ -160,7 +228,7 @@ const Header: React.FC = () => {
                                                             Cài đặt mật khẩu
                                                         </div>
                                                     </Link>
-                                                    <GgLogoutHeader></GgLogoutHeader>
+                                                    <GgLogoutHeader />
                                                 </section>
                                             </section>
                                         </div>
@@ -221,10 +289,10 @@ const Header: React.FC = () => {
                     </Nav>
                 </section>
 
-                <Nav className={`box-search ${showSearch ? '' : 'box-search-h0'}`}>
+                <div className={`box-search ${showSearch ? '' : 'box-search-h0'}`}>
                     <Search />
-                </Nav>
-            </Navbar >
+                </div>
+            </Nav>
             {/* {isShowForm && (
                 <AnimatePresence>
                     <motion.div
