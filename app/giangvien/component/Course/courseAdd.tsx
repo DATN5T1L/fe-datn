@@ -1,10 +1,11 @@
 "use client";
 
-import { Button } from "react-bootstrap";
+import { Button, Col, Form, Image } from "react-bootstrap";
 import h from "./courseAdd.module.css";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
 import { useEffect, useMemo, useRef, useState } from "react";
+import styles from '@public/styles/learningPath/CreateRouter.module.css';
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import Notification from "@/app/(user-global)/component/globalControl/Notification";
 import { useRouter } from "next/navigation";
@@ -18,11 +19,28 @@ interface ApiRes<T> {
   routes: T[]
 }
 
+interface MyData {
+  id: string;
+  name_route: string;
+}
+
+type MyDataArray = MyData[];
+
+
 const CourseAdd: React.FC = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [dataRoute, setDataRoute] = useState<ApiRes<Route> | null>(null)
+  const [selectedRoutes, setSelectedRoutes] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [open1, SetOpen1] = useState(false)
+  const [routerList, setRouterList] = useState<MyDataArray>([])
   const router = useRouter()
+  const handleOpenMenu1 = () => {
+    SetOpen1(!open1)
+  }
+
+  console.log(selectedRoutes);
+
 
   const [notification, setNotification] = useState<{
     status: 'error' | 'success' | 'fail' | 'complete';
@@ -47,10 +65,19 @@ const CourseAdd: React.FC = () => {
     tax_rate: Yup.number()
       .required("Thuế là bắt buộc")
       .max(10, "Thuế không được vượt quá 10%"),
-    route_id: Yup.string()
-      .required("Lộ trình là bắt buộc")
+    route_id: Yup.array().of(Yup.string().required("Lộ trình là bắt buộc"))
   });
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSelectedRoutes((prevSelectedRoutes) => {
+      const newSelectedRoutes = e.target.checked
+        ? [...prevSelectedRoutes, value]
+        : prevSelectedRoutes.filter((route) => route !== value);
+      formik.setFieldValue('route_id', newSelectedRoutes);
+      return newSelectedRoutes;
+    });
+  };
   const formik = useFormik({
     initialValues: {
       name_course: "",
@@ -59,7 +86,7 @@ const CourseAdd: React.FC = () => {
       price_course: "",
       discount_price_course: "",
       tax_rate: "",
-      route_id: ""
+      route_id: selectedRoutes
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -76,7 +103,7 @@ const CourseAdd: React.FC = () => {
           formData.append("price_course", values.price_course);
           formData.append("discount_price_course", values.discount_price_course);
           formData.append("tax_rate", values.tax_rate);
-          formData.append("route_id", values.route_id);
+          values.route_id.forEach(route => formData.append("route_id[]", route));
           if (values.img_course) {
             formData.append("img_course", values.img_course);
           }
@@ -165,7 +192,7 @@ const CourseAdd: React.FC = () => {
         .then(res => res.json())
         .then(data => {
           if (data) {
-            setDataRoute(data)
+            setRouterList(data.routes)
           }
           console.log(data);
         })
@@ -326,29 +353,45 @@ const CourseAdd: React.FC = () => {
                   {/* </div> */}
                 </div>
                 <div className={h.bentrong}>
-                  <label htmlFor="route_id">Lộ trình</label>
-                  <select
-                    id="route_id"
-                    name="route_id"
-                    className={h.inputne}
-                    value={formik.values.route_id}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  >
-                    <option value="">Chọn lộ trình</option>
-                    {dataRoute && dataRoute?.routes?.map((item, index) => (
-                      <option key={index} value={`${item.id}`}>{item.name_route}</option>
-                    ))}
-                  </select>
-                  {formik.touched.route_id &&
-                    formik.errors.route_id && (
-                      <div className={h.error}>
-                        {formik.errors.route_id}
+                  <Col className={styles.form__container__bottom__left1}>
+                    <h3 className={styles.formGroup__bottom__title}>Chọn lộ trình</h3>
+                    <Button
+                      onClick={handleOpenMenu1}
+                      className={`${styles.btn__bottom} ${open1 ? styles.bd__blue : styles.bd__black}`}
+                    >
+                      <Image src='/img/box-black.svg' alt="" className={`${styles.btn__bottom__left} ${styles.icon1__l} ${open1 ? styles.none : styles.block}`} />
+                      <Image src='/img/box-blue.svg' alt="" className={`${styles.btn__bottom__left} ${styles.icon2__l} ${open1 ? styles.block : styles.none}`} />
+                      <div className={`${styles.btn__bottom__content} ${open1 ? styles.cl__black : styles.cl__gray}`}>
+                        Chọn lộ trình
                       </div>
-                    )}
+                      <Image src="/img/chevron-black.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon1__r} ${open1 ? styles.none : styles.block}`} />
+                      <Image src="/img/chevronBlue-04.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon2__r} ${open1 ? styles.block : styles.none}`} />
+                    </Button>
+                    <div className={`${open1 ? styles.box : styles.h__0}`}>
+                      <article className={`${styles.box__r} ${open1 ? '' : styles.h__hidden}`}>
+                        {Array.isArray(routerList) ? (routerList.map((item, index) => (
+                          <Form.Group className={styles.formGroup__bottom} key={index}>
+                            <Form.Check
+                              type="checkbox"
+                              label={`${item.name_route}`}
+                              value={`${item.id}`}
+                              id={`checkbox${item.id}`}
+                              aria-describedby="inputGroupPrepend"
+                              className={styles.customCheckbox}
+                              onChange={handleCheckboxChange}
+                            />
+                          </Form.Group>
+                        ))) : (
+                          ''
+                        )}
+                      </article>
+                    </div>
+                  </Col>
+                  {formik.errors.route_id && formik.touched.route_id && (
+                    <div className="error">{formik.errors.route_id}</div>
+                  )}
                 </div>
               </div>
-
               <div className={h.chonutragiua}>
                 <Button type="submit" className={h.btnthemvao}>
                   Thêm vào
