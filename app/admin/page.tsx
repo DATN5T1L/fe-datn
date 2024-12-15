@@ -132,7 +132,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Tổng khóa học</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <h3>{data?.totalCourse}</h3>
                 )}
@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Đơn hôm nay</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <h3>{data?.totalCourseNow}</h3>
                 )}
@@ -164,7 +164,7 @@ const Dashboard: React.FC = () => {
               <span>
                 <p>Tổng nhân viên</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <h3>{data?.totalCourseLecturer}</h3>
                 )}
@@ -180,15 +180,31 @@ const Dashboard: React.FC = () => {
               <span id="tippy">
                 <p>Tổng doanh thu</p>
                 {isLoading ? (
-                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'}   />
+                  <ReactLoading type={"spokes"} color={'rgba(153, 153, 153, 1)'} height={'30%'} width={'30%'} />
                 ) : (
                   <Tippy
-                    content={`${parseFloat(typeof data?.totalCourseRevenue === 'string' ? data.totalCourseRevenue.replace(/[^\d]/g, "") : '').toLocaleString('vi-VN')}đ`}
+                    content={
+                      data?.totalCourseRevenue &&
+                      `${parseFloat(
+                        typeof data.totalCourseRevenue === "string"
+                          ? data.totalCourseRevenue.replace(/[^\d]/g, "")
+                          : "0"
+                      ).toLocaleString("vi-VN")}đ`
+                    }
                     animation='scale-extreme'
                     theme="light"
                     placement="bottom"
                   >
-                    <h3>{`${Math.floor(parseFloat(data?.totalCourseRevenue?.replace(/[^\d]/g, "") || "0") / 1_000_000)}tr VND`}</h3>
+                    <h3>
+                      {data?.totalCourseRevenue &&
+                        `${Math.floor(
+                          parseFloat(
+                            typeof data.totalCourseRevenue === "string"
+                              ? data.totalCourseRevenue.replace(/[^\d]/g, "")
+                              : "0"
+                          ) / 1_000_000
+                        )}tr VND`}
+                    </h3>
                   </Tippy>
                 )}
               </span>

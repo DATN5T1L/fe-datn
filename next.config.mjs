@@ -574,7 +574,7 @@ const nextConfig = {
       },
       {
         source: '/api/editQuiz/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-quiz-document/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/update-quiz-document/:path*',
       },
 
       // cmt document

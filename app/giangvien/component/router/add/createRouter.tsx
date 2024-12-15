@@ -25,6 +25,7 @@ const CreateRouter: React.FC = () => {
     const [open2, SetOpen2] = useState(false)
     const token = useCookie('token')
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [routerList, setRouterList] = useState<MyDataArray>([])
     const fileInputRef = useRef<HTMLInputElement>(null);
     const router = useRouter()
 
@@ -42,10 +43,6 @@ const CreateRouter: React.FC = () => {
 
     const handleOpenMenu1 = () => {
         SetOpen1(!open1)
-    }
-
-    const handleOpenMenu2 = () => {
-        SetOpen2(!open2)
     }
 
     const formik = useFormik({
@@ -159,7 +156,7 @@ const CreateRouter: React.FC = () => {
                                             <Form.Control
                                                 type="text"
                                                 placeholder="Nhập tên lộ trình"
-                                                aria-describedby="inputGroupPrepend" 
+                                                aria-describedby="inputGroupPrepend"
                                                 required
                                                 className={styles.form__control__top}
                                                 ref={inputRef1}
@@ -215,6 +212,39 @@ const CreateRouter: React.FC = () => {
                                 </Col>
                             </Row>
                             <Row className={styles.form__container__bottom}>
+                                <Col className={styles.form__container__bottom__left}>
+                                    <h3 className={styles.formGroup__bottom__title}>Chọn khóa học để thêm vào lộ trình</h3>
+                                    <Button
+                                        onClick={handleOpenMenu1}
+                                        className={`${styles.btn__bottom} ${open1 ? styles.bd__blue : styles.bd__black}`}
+                                    >
+                                        <Image src='/img/box-black.svg' alt="" className={`${styles.btn__bottom__left} ${styles.icon1__l} ${open1 ? styles.none : styles.block}`} />
+                                        <Image src='/img/box-blue.svg' alt="" className={`${styles.btn__bottom__left} ${styles.icon2__l} ${open1 ? styles.block : styles.none}`} />
+                                        <div className={`${styles.btn__bottom__content} ${open1 ? styles.cl__black : styles.cl__gray}`}>
+                                            Chọn khóa học muốn thêm vào lộ trình
+                                        </div>
+                                        <Image src="/img/chevron-black.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon1__r} ${open1 ? styles.none : styles.block}`} />
+                                        <Image src="/img/chevronBlue-04.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon2__r} ${open1 ? styles.block : styles.none}`} />
+                                    </Button>
+                                    <div className={`${open1 ? styles.box : styles.h__0}`}>
+                                        <article className={`${styles.box__r} ${open1 ? '' : styles.h__hidden}`}>
+                                            {Array.isArray(routerList) ? (routerList.map((item) => (
+                                                <Form.Group className={styles.formGroup__bottom} key={item.route_id}>
+                                                    <Form.Check
+                                                        type="checkbox"
+                                                        label={`${item.name_route}`}
+                                                        value={`${item.name_route}`}
+                                                        id={`checkbox${item.route_id}`}
+                                                        aria-describedby="inputGroupPrepend"
+                                                        className={styles.customCheckbox}
+                                                    />
+                                                </Form.Group>
+                                            ))) : (
+                                                ''
+                                            )}
+                                        </article>
+                                    </div>
+                                </Col>
                                 <div className={styles.thatep}>
                                     <div className={styles.thatep1}>
                                         <img src="/img_admin/may.svg" alt="" />

@@ -101,7 +101,7 @@
 .formnhap {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .bentrong {
@@ -110,6 +110,7 @@
     max-width: 49%;
     min-width: 49%;
     position: relative;
+    justify-content: start;
 }
 
 .selectne {
@@ -171,10 +172,11 @@
     background: #F2F2F2;
     margin-bottom: 12px;
     outline: none;
-    padding-top: 12px;
-    padding-left: 12px;
+    padding: 12px;
     appearance: none;
     -webkit-appearance: none;
+    display: flex;
+    align-items: center;
 }
 
 .nutheader {
@@ -296,4 +298,42 @@
 .errorText {
     position: relative;
     bottom: 0;
+}
+
+.btnAddQuest {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+}
+
+.addQuest {
+    padding: 8px;
+    border: 0.3px solid var(--gray-70);
+    border-radius: 5px;
+}
+
+.addQuest:hover {
+    background-color: var(--gray-90);
+    border: 0.3px solid var(--gray-50);
+}
+
+.addQuest:active {
+    background-color: var(--gray-70);
+    border: 0.3px solid var(--gray-50);
+}
+
+.btn__addQuest {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+}
+
+.addQuestDisable {
+    border: 0.3px solid var(--gray-70);
+    opacity: 0.5;
+    padding: 8px;
+    pointer-events: none;
+    border-radius: 5px;
 }

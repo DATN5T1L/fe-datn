@@ -316,6 +316,8 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
   const [mutiValue, setMutiValue] = useState('');
   const [answer, setAnswer] = useState<string[]>([])
   const [question, setQuestion] = useState('')
+  const [fillContent, setFillContent] = useState('')
+  const [fillQuestion, setFillQuestion] = useState('')
 
   const handleCheckFill = () => {
     if (dataDoc && dataDoc.data.type_document === 'quiz' && dataDoc.data.quizs[0] && dataDoc.data.quizs[0].type_question === "fill") {
@@ -354,22 +356,29 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
       : selectedMuti.filter((answer) => answer !== value);
 
     setSelectedMuti(updatedAnswers);
-
-    const joinedString = updatedAnswers.join('/');
-    setMutiValue(joinedString);
   };
 
   const handleCheckMuti = () => {
+    console.log('giá trị: ', selectedMuti);
+
     if (dataDoc && dataDoc.data.type_document === 'quiz' && dataDoc.data.quizs[0] && dataDoc.data.quizs[0].type_question === "multiple_choice") {
       if (dataDoc.data.quizs[0].answer_question) {
         const answer = dataDoc?.data.quizs[0].answer_question
-        if (answer === mutiValue) {
+        const answerArr = answer.split('|');
+        console.log(answerArr);
+        const sortArr1 = answerArr.sort()
+        const sortArr2 = selectedMuti.sort()
+        const checkValueBeforeSort = sortArr1.every((value, index) => value === sortArr2[index])
+
+        if (answerArr.length !== selectedMuti.length) {
+          alert('Đáp án sai')
+          setSelectedMuti([])
+        }
+        if (checkValueBeforeSort) {
           alert('Đáp án đúng')
-          setMutiValue('')
           setSelectedMuti([])
         } else {
           alert('Đáp án sai')
-          setMutiValue('')
           setSelectedMuti([])
         }
       }
@@ -446,7 +455,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
   const cutQuestionAndAnswer = (item: string) => {
     const [question, answers] = item.split('?');
     setQuestion(question?.trim() || '');
-    setAnswer(answers?.split('/').map((ans) => ans.trim()) || []);
+    setAnswer(answers?.split('|').map((ans) => ans.trim()) || []);
   };
 
   useEffect(() => {
@@ -454,6 +463,14 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
       cutQuestionAndAnswer(dataDoc.data.quizs[0]?.content_question);
     }
   }, [dataDoc]);
+
+  useEffect(() => {
+    if (dataDoc && dataDoc.data && dataDoc.data.type_document === 'quiz' && dataDoc.data.quizs[0]) {
+      const contentQuestionArr = dataDoc?.data?.quizs[0]?.content_question.split('?')
+      setFillContent(contentQuestionArr[1])
+      setFillQuestion(contentQuestionArr[0])
+    }
+  }, [dataDoc])
 
   console.log(answer);
 
@@ -636,7 +653,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
               </div>
               <div style={{ gap: '4px' }}>
                 <div className={videoMod.documentHedding__content}>
-                  Câu hỏi: {dataDoc.data.name_document}
+                  Câu hỏi: {fillQuestion} ?
                 </div>
                 <div className={videoMod.documentHedding__subtitle}>
                   {dataDoc.data.discription_document}
@@ -644,7 +661,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
               </div>
             </div>
             <div
-              dangerouslySetInnerHTML={{ __html: dataDoc.data.quizs[0].content_question }}
+              dangerouslySetInnerHTML={{ __html: fillContent }}
               className={videoMod.document__code}
             ></div>
             <div className={videoMod.input__group__fill}>

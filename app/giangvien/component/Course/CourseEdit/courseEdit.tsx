@@ -1,8 +1,9 @@
 "use client";
 
-import { Button } from "react-bootstrap";
+import { Button, Col, Form, Image } from "react-bootstrap";
 import h from "./courseEdit.module.css";
 import { useEffect, useRef, useState } from "react";
+import styles from '@public/styles/learningPath/CreateRouter.module.css';
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
@@ -25,6 +26,7 @@ interface Course {
   tax_rate: number;
   updated_at: string;
   views_course: number;
+  route_id: []
 }
 interface ApiResponse<T> {
   status: string;
@@ -39,6 +41,13 @@ interface ApiRes<T> {
   routes: T[]
 }
 
+interface MyData {
+  id: string;
+  name_route: string;
+}
+
+type MyDataArray = MyData[];
+
 const CourseEdit: React.FC = () => {
 
   const [dataRoute, setDataRoute] = useState<ApiRes<Route> | null>(null)
@@ -47,7 +56,16 @@ const CourseEdit: React.FC = () => {
   const token = useCookie('token')
   const searchParams = useSearchParams()
   const id = searchParams.get('id')
+  const [open1, SetOpen1] = useState(false)
+  const [routerList, setRouterList] = useState<MyDataArray>([])
+  const [selectedRoutes, setSelectedRoutes] = useState<string[]>([]);
   const router = useRouter()
+  const handleOpenMenu1 = () => {
+    SetOpen1(!open1)
+  }
+
+  console.log(selectedRoutes);
+
 
   const validationSchema = Yup.object({
     name_course: Yup.string()
@@ -67,9 +85,56 @@ const CourseEdit: React.FC = () => {
       .required("Thuế là bắt buộc")
       .positive("Thuế phải là số dương")
       .max(10, "Thuế không được vượt quá 10%"),
-    route_id: Yup.string()
-      .required("Lộ trình là bắt buộc"),
+    route_id: Yup.array().of(Yup.string().required("Lộ trình là bắt buộc"))
   });
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSelectedRoutes((prevSelectedRoutes) => {
+      const newSelectedRoutes = e.target.checked
+        ? [...prevSelectedRoutes, value]
+        : prevSelectedRoutes.filter((route) => route !== value);
+      formik.setFieldValue('route_id', newSelectedRoutes);
+      return newSelectedRoutes;
+    });
+  };
+
+  useEffect(() => {
+    if (token && id) {
+      fetch(`/api/allCourseAdmin/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+
+          if (data?.data) {
+            formik.setValues({
+              name_course: data.data.name_course || "",
+              discription_course: data.data.discription_course || "",
+              price_course: data.data.price_course.toString() || "",
+              discount_price_course:
+                data.data.discount_price_course.toString() || "",
+              tax_rate: data.data.tax_rate.toString() || "",
+              img_course: null,
+              route_id: []
+            });
+            if (data.data.route_id) {
+              setSelectedRoutes(data.data.route_id)
+            }
+            if (data.data.img_course) {
+              setPreviewImage(data.data.img_course);
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Có lỗi xảy ra: ", error);
+        });
+    }
+  }, [token, id]);
 
   const formik = useFormik({
     initialValues: {
@@ -79,9 +144,8 @@ const CourseEdit: React.FC = () => {
       price_course: "",
       discount_price_course: "",
       tax_rate: "",
-      route_id: ""
+      route_id: selectedRoutes
     },
-    enableReinitialize: true,
     validationSchema,
     onSubmit: async (values) => {
       console.log("Form values:", values);
@@ -111,7 +175,7 @@ const CourseEdit: React.FC = () => {
                 discount_price_course: values.discount_price_course,
                 tax_rate: values.tax_rate,
                 discription_course: values.discription_course,
-                route_id: values.route_id
+                route_id: selectedRoutes
               }),
             });
             const data = await res.json();
@@ -146,40 +210,6 @@ const CourseEdit: React.FC = () => {
       }
     },
   });
-
-  useEffect(() => {
-    if (token && id) {
-      fetch(`/api/allCourseAdmin/${id}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          
-          if (data?.data) {
-            formik.setValues({
-              name_course: data.data.name_course || "",
-              discription_course: data.data.discription_course || "",
-              price_course: data.data.price_course.toString() || "",
-              discount_price_course:
-                data.data.discount_price_course.toString() || "",
-              tax_rate: data.data.tax_rate.toString() || "",
-              img_course: null,
-              route_id: data.data.route_id || ''
-            });
-            if (data.data.img_course) {
-              setPreviewImage(data.data.img_course);
-            }
-          }
-        })
-        .catch((error) => {
-          console.error("Có lỗi xảy ra: ", error);
-        });
-    }
-  }, [token, id]);
 
   useEffect(() => {
     if (token) {
@@ -217,6 +247,24 @@ const CourseEdit: React.FC = () => {
       fileInputRef.current.click();
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/allRouterAdmin/`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data) {
+            setRouterList(data.routes)
+          }
+          console.log(data);
+        })
+    }
+  }, [token])
 
   return (
     <div>
@@ -364,26 +412,44 @@ const CourseEdit: React.FC = () => {
                   {/* </div> */}
                 </div>
                 <div className={h.bentrong}>
-                  <label htmlFor="route_id">Lộ trình</label>
-                  <select
-                    id="route_id"
-                    name="route_id"
-                    className={h.inputne}
-                    value={formik.values.route_id}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  >
-                    <option value="">Chọn lộ trình</option>
-                    {dataRoute && dataRoute?.routes?.map((item, index) => (
-                      <option key={index} value={`${item.id}`}>{item.name_route}</option>
-                    ))}
-                  </select>
-                  {formik.touched.route_id &&
-                    formik.errors.route_id && (
-                      <div className={h.error}>
-                        {formik.errors.route_id}
+                  <Col className={styles.form__container__bottom__left1}>
+                    <h3 className={styles.formGroup__bottom__title}>Chọn lộ trình</h3>
+                    <Button
+                      onClick={handleOpenMenu1}
+                      className={`${styles.btn__bottom} ${open1 ? styles.bd__blue : styles.bd__black}`}
+                    >
+                      <Image src='/img/box-black.svg' alt="" className={`${styles.btn__bottom__left} ${styles.icon1__l} ${open1 ? styles.none : styles.block}`} />
+                      <Image src='/img/box-blue.svg' alt="" className={`${styles.btn__bottom__left} ${styles.icon2__l} ${open1 ? styles.block : styles.none}`} />
+                      <div className={`${styles.btn__bottom__content} ${open1 ? styles.cl__black : styles.cl__gray}`}>
+                        Chọn lộ trình
                       </div>
-                    )}
+                      <Image src="/img/chevron-black.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon1__r} ${open1 ? styles.none : styles.block}`} />
+                      <Image src="/img/chevronBlue-04.svg" alt="" className={`${styles.btn__bottom__right} ${styles.icon2__r} ${open1 ? styles.block : styles.none}`} />
+                    </Button>
+                    <div className={`${open1 ? styles.box : styles.h__0}`}>
+                      <article className={`${styles.box__r} ${open1 ? '' : styles.h__hidden}`}>
+                        {Array.isArray(routerList) ? (routerList.map((item, index) => (
+                          <Form.Group className={styles.formGroup__bottom} key={index}>
+                            <Form.Check
+                              type="checkbox"
+                              label={`${item.name_route}`}
+                              value={`${item.id}`}
+                              id={`checkbox${item.id}`}
+                              aria-describedby="inputGroupPrepend"
+                              className={styles.customCheckbox}
+                              onChange={handleCheckboxChange}
+                              checked={selectedRoutes.includes(item.id)}
+                            />
+                          </Form.Group>
+                        ))) : (
+                          ''
+                        )}
+                      </article>
+                    </div>
+                  </Col>
+                  {formik.errors.route_id && formik.touched.route_id && (
+                    <div className="error">{formik.errors.route_id}</div>
+                  )}
                 </div>
               </div>
 
