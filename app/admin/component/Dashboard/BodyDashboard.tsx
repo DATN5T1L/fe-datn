@@ -5,10 +5,15 @@ import h from "./BodyDashboard.module.css";
 import LineChart from "@/app/accountant/chart/LineChart";
 import { useEffect, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
-import CourseCard from "@/app/(user-global)/component/course/CardCourse";
+
+type DataType = {
+  [key: string]: number;
+};
+
 const BodyDashboard = () => {
   const [peopleComplete, setPeopleComlete] = useState()
   const token = useCookie('token')
+  const [dataStatis, setDataStatis] = useState<DataType | null>(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -41,6 +46,25 @@ const BodyDashboard = () => {
           console.log('data', data);
         })
         .catch(error => console.log(error))
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/accountant/statisticalProfitsByMonths/2024`, {
+        method: "GET",
+        headers: {
+          Authorization: `Barser ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log('data statis', data);
+          setDataStatis(data.profitsByMonth)
+        })
+        .catch(error => {
+          console.error(error);
+        })
     }
   }, [token])
 
@@ -88,7 +112,9 @@ const BodyDashboard = () => {
           <div className={h.card_content}>
             <h6>Doanh thu quý hiện tại</h6>
             <div>
-              {/* <LineChart data={data} labels={labels} /> */}
+              {dataStatis && (
+                <LineChart data={dataStatis} />
+              )}
             </div>
           </div>
         </div>

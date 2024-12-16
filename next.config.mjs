@@ -677,6 +677,10 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/get-comment-post/:path*',
       },
       {
+        source: '/api/allComment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-comment-doc/:path*',
+      },
+      {
         source: '/api/commentPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/comment-post/:path*',
       },
@@ -697,9 +701,18 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
       },
       {
+        source: '/api/changeImgPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-images-post/:path*',
+      },
+      {
         source: '/api/hiddenPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
       },
+      {
+        source: '/api/statisMarrketing/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/marketing/total-post-category-comment-view/:path*',
+      },
+
       // Thống kê
       // Tông người dùng khóa học
       {
