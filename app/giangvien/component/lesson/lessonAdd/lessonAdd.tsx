@@ -199,7 +199,7 @@ const LessonAdd: React.FC = () => {
         'Bạn phải nhập ít nhất một trong ba trường: HTML, CSS, hoặc JS.',
         function () {
           const { html, css, js } = this.parent;
-          return !!(html?.trim() || css?.trim() || js?.trim());
+          return !!(html || css || js);
         }
       ),
     }),

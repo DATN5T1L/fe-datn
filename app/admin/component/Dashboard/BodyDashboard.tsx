@@ -6,15 +6,14 @@ import LineChart from "@/app/accountant/chart/LineChart";
 import { useEffect, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
-type DataItem = {
-  month: number;
-  revenue: number;
+type DataType = {
+  [key: string]: number;
 };
 
 const BodyDashboard = () => {
   const [peopleComplete, setPeopleComlete] = useState()
   const token = useCookie('token')
-  const [dataStatis, setDataStatis] = useState<DataItem[]>([])
+  const [dataStatis, setDataStatis] = useState<DataType | null>(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -60,8 +59,8 @@ const BodyDashboard = () => {
       })
         .then(res => res.json())
         .then(data => {
-          console.log('data statis',data);
-          setDataStatis(data.data)
+          console.log('data statis', data);
+          setDataStatis(data.profitsByMonth)
         })
         .catch(error => {
           console.error(error);
