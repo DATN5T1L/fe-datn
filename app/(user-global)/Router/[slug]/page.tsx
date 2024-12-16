@@ -49,7 +49,6 @@ const Router: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     return (
         <Body>
-
             {router && (<HeaderLearning data={router} />)}
         </Body>
     )

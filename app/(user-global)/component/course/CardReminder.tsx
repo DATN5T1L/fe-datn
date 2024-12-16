@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Card, Col, Image, Row } from 'react-bootstrap';
 import ProgressCircle from './ProgressCircle';
 import styles from '@public/styles/globalControl/CourseCard.module.css';
-import { IconPlus } from "@app/(user-global)/component/icon/icons";
+import { IconPlus, IconStart } from "@app/(user-global)/component/icon/icons";
 import { getInitials, useEscapeKey } from "@app/(user-global)/component/globalControl/commonC";
 
 import Button from "@app/(user-global)/component/globalControl/btnComponent";
@@ -69,7 +69,17 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                                     </div>
                                 </div>
                             </div>
-                            <ProgressCircle progress={data.progress_percentage} />
+                            {data.progress_percentage === 100 ? (
+                                <div className={styles.Completed}>
+                                    <span>Đã hoàn thành</span>
+                                </div>
+                            ) : data.progress_percentage > 0 ? (
+                                <ProgressCircle progress={data.progress_percentage} />
+                            ) : (
+                                <div className={styles.StartLearning}>
+                                    <IconStart />
+                                </div>
+                            )}
                         </section>
                         <section className={styles.bodyContent}>
                             <div className={styles.bodyContent__element}>

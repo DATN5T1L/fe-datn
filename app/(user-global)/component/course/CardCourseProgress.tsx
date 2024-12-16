@@ -74,15 +74,17 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                 </div>
                             </div>
                         </div>
-                        {course.progress_percentage > 0 ? (
-                            <ProgressCircle progress={course.progress_percentage} />)
-                            :
-                            (
-                                <div className={styles.StartLearning}>
-                                    <IconStart />
-                                </div>
-                            )
-                        }
+                        {course.progress_percentage === 100 ? (
+                            <div className={styles.Completed}>
+                                <span>Đã hoàn thành</span>
+                            </div>
+                        ) : course.progress_percentage > 0 ? (
+                            <ProgressCircle progress={course.progress_percentage} />
+                        ) : (
+                            <div className={styles.StartLearning}>
+                                <IconStart />
+                            </div>
+                        )}
 
                     </section>
                     <section className={styles.bodyContent}>
