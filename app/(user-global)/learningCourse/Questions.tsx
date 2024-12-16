@@ -5,7 +5,7 @@ import { useWindowSize } from 'react-use';
 import Confetti from 'react-confetti';
 import { parseQues, parseFill, splitByPattern } from "@/app/(user-global)/component/globalControl/commonC";
 
-const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocument, nameDocument, questions }) => {
+const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocument, nameDocument, questions, reload }) => {
     const token = useCookie('token');
     const [answers, setAnswers] = useState<Record<number, string[]>>({});
     const [result, setResult] = useState<string | null>(null);
@@ -54,6 +54,7 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
             if (data.is_correct) {
                 handleCorrectAnswer();
                 updateStatus();
+                reload()
             }
             setAnswers([])
         } catch (error) {
