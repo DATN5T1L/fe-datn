@@ -43,27 +43,10 @@ const Access: React.FC<{}> = () => {
   const [history, setHistory] = useState(null)
 
   console.log('lịch sử', history);
-
-
-  useEffect(() => {
-    if (token)
-      fetch(`/api/getAllHistory/`, {
-        cache: 'no-cache',
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then(res => res.json())
-        .then(data => {
-          setHistory(data)
-          console.log('lịch sử:', data);
-        })
-        .catch(error => console.error(error))
-  }, [])
-
   useEffect(() => {
     setLoading(true);
     if (token) {
-      fetch(`/api/${getData}/`, {
+      fetch(`/api/getAllFpt/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,

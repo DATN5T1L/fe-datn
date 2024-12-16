@@ -19,7 +19,8 @@ const Sidebar: React.FC = () => {
 
   const dropdownUser = [
     { href: "/admin/UsersPage", label: "Học viên" },
-    { href: "/admin/AccessPage", label: "Quản trị viên" }
+    { href: "/admin/AccessPage", label: "Quản trị viên" },
+    { href: "/admin/History", label: "Lịch sử người dùng" },
   ];
 
   const dropdownPost = [

@@ -441,7 +441,7 @@ const nextConfig = {
       },
       {
         source: '/api/getAllHistory/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-history/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/activities-log/:path*',
       },
 
       // statistical
