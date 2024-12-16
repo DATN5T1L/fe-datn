@@ -124,7 +124,7 @@
 .inputGroup {
     width: 100%;
     max-width: 100%;
-    margin: 0;
+    margin: 0 !important;
     padding: 0;
     display: flex;
     flex-direction: row;
@@ -148,7 +148,7 @@
 .inputGroup__text {
     width: 24px;
     height: 24px;
-    margin: 0;
+    margin: 0 !important;
     padding: 0;
     border: 0;
     display: flex;
@@ -172,23 +172,23 @@
 
 .form__control__top {
     padding: 0;
-    margin: 0;
+    margin: 0 !important;
     border: 0;
     outline: none;
-    box-shadow: none;
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    color: var(--text-50);
+    box-shadow: none !important;
+    font-size: 1rem !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+    color: var(--text-50) !important;
 }
 
 .form__control__top::placeholder {
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px;
-    color: var(--text-50);
+    font-size: 1rem !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 24px !important;
+    color: var(--text-50) !important;
 }
 
 .form__container__bottom {
@@ -223,12 +223,12 @@
 }
 
 .form__container__bottom__left1 {
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
     gap: 12px;
 }
 
@@ -248,15 +248,15 @@
 }
 
 .btn__bottom {
-    width: 100%;
-    height: 48px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 12px 40px;
-    align-items: flex-start;
-    border-radius: 12px;
-    background-color: var(--gray-100);
+    width: 100% !important;
+    height: 48px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    padding: 12px 40px !important;
+    align-items: flex-start !important;
+    border-radius: 12px !important;
+    background-color: var(--gray-100) !important;
 }
 
 .icon1__l {
@@ -305,8 +305,8 @@
 
 .btn__bottom:hover,
 .btn__bottom:active {
-    border: 1px solid var(--blue-50);
-    box-shadow: 0px 0px 6px 0px var(--blue-50) inset;
+    border: 1px solid var(--blue-50) !important;
+    box-shadow: 0px 0px 6px 0px var(--blue-50) inset !important;
 }
 
 .block {
@@ -423,12 +423,12 @@
     gap: 32px;
     margin: 0;
     align-items: center;
-    padding: 0;
+    padding: 0 !important;
 }
 
 .customCheckbox>* {
-    margin: 0;
-    box-shadow: none;
+    margin: 0 !important;
+    box-shadow: none !important;
 }
 
 .customCheckbox input[type="checkbox"] {
@@ -458,7 +458,7 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: var(--blue-50);
+    background: var(--blue-50) !important;
     transform: translate(-50%, -50%);
 } */
 
