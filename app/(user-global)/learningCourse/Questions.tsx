@@ -127,6 +127,11 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
         } catch (error) {
             console.error('Lỗi kiểm tra câu trả lời:', error);
             setResult('Có lỗi xảy ra, vui lòng thử lại.');
+        } finally {
+            setTimeout(() => {
+                setResult('')
+            }, 1000)
+
         }
     };
 
@@ -200,12 +205,11 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
             return (
                 <div key={index} className={styles.fillQuestion}>
                     <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion?.question}</p>
-                    <div className={styles.fillContainer}>
+                    <div className={styles.fillContainerFill}>
                         {parts.map((part, idx) => (
                             <React.Fragment key={idx}>
                                 <div className={styles.labelFill} dangerouslySetInnerHTML={{ __html: part }} />
                                 {idx < parts.length - 1 && (
-
                                     <input
                                         type="text"
                                         placeholder="Nhập câu trả lời"
@@ -220,7 +224,31 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                         ))}
                     </div>
                 </div>
-            );
+            )
+        } else {
+            const parsedQuestion = parseQues(question.content_question);
+            return parsedQuestion ? (
+                <div key={index} className={styles.questionItem}>
+                    <p className={styles.titleQuestion}>Câu hỏi: {parsedQuestion.question}</p>
+                    <ul className={styles.listQuestion}>
+                        {parsedQuestion.answers.map((answer: string, idx: number) => (
+                            <li key={`${index}-${idx}`} className={styles.itemQuestion}>
+                                <label className={styles.itemAnswer}>
+                                    <input
+                                        type="checkbox"
+                                        name={`question_${index}`}
+                                        value={answer}
+                                        checked={answers[index]?.includes(answer) || false}
+                                        onChange={() => handleAnswerChange(index, answer, question.type_question)}
+                                    />
+                                    {answer}
+                                </label>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ) : null;
+
         }
     };
 

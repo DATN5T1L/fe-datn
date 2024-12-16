@@ -216,6 +216,21 @@
     text-overflow: ellipsis;
 }
 
+.btn__prev {
+    width: 50px;
+    height: 50px;
+    background-color: var(--gray-100);
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    position: absolute;
+    left: -100px;
+    top: 50%;
+    border: 0.3px solid var(--gray-80);
+    rotate: 180deg;
+}
+
 .btn__next {
     width: 50px;
     height: 50px;
@@ -226,13 +241,23 @@
     border-radius: 50%;
     position: absolute;
     right: -100px;
-    top: 60%;
+    top: 50%;
+    transform: translate(-0%, -50%);
     border: 0.3px solid var(--gray-80);
 }
 
 .btn__next:hover,
 .btn__next:active,
 .btn__next:focus {
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-60);
+}
+
+
+
+.btn__prev:hover,
+.btn__prev:active,
+.btn__prev:focus {
     background-color: var(--gray-100);
     border: 1px solid var(--gray-60);
 }

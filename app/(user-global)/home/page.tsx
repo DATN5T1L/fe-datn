@@ -27,7 +27,7 @@ const Home: React.FC = () => {
                 <CourseFree />
                 <Why />
                 <About />
-                <ProductStudent />
+                {/* <ProductStudent /> */}
                 <FeedBackToStudent />
                 <Post />
                 <FeedBack />

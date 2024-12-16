@@ -40,7 +40,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
 
     const [isCorrect, setIsCorrect] = useState(false);
     // Hàm chạy mã
-
+    console.log(answer_code)
     const [htmlAnswer = '', cssAnswer = '', jsAnswer = ''] = answerCode?.split('|') || [];
 
     const runCode = () => {
