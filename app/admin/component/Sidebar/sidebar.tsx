@@ -9,8 +9,8 @@ import { IconCourse, IconUser, IconPost, IconOut, IconDasd, IconRoll } from "@ap
 const Sidebar: React.FC = () => {
 
   const dropdownCourse = [
-    { href: "/admin/CoursePage", label: "Khóa học miễn phí" },
-    { href: "/giangvien/CoursePage", label: "Khóa học có phí" }
+    { href: "/admin/CoursePage?value=free", label: "Khóa học miễn phí" },
+    { href: "/admin/CoursePage?value=pro", label: "Khóa học có phí" }
   ];
 
   const dropdownUser = [

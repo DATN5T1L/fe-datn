@@ -334,3 +334,32 @@
 .align {
   margin: 0 auto;
 }
+
+.itemBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  width: 50%;
+  height: auto;
+}
+
+.itemBtn:hover {
+  background-color: var(--gray-80);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  width: 50%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.itemBtn:active {
+  background-color: var(--gray-70);
+}
+
+.itemBtnLine {
+  width: 1px;
+  background-color: var(--gray-80);
+}

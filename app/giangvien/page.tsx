@@ -3,16 +3,64 @@
 import ViewBarCharts from "./component/Dashboard/ViewChart";
 import style from "./component/Dashboard/Chart.module.css";
 import { Card, Image } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OffcanvasComponent from "@/app/giangvien/component/DashboardMenu/overviewmenu";
 import LineChart from "@/app/accountant/chart/LineChart";
 import DoughnutChart from "@/app/accountant/chart/DoughnutChart";
 import h from "./test.module.css";
+import useCookie from "../(user-global)/component/hook/useCookie";
+import { LineChartViewYear } from "../accountant/component/Dashboard/LineChartView";
+import { getMonthlyProfits } from "../(user-global)/component/globalControl/commonC";
+
+interface Statistical {
+  averageRating: string; // tổng đánh giá giảng viên
+  status: string;
+  totalCourse: number; // tổng khóa học
+  totalRevenue: number; // tổng doanh thu
+  totalViews: string; // tổng view
+}
 
 const Dashboard: React.FC = () => {
+  const years = [2024, 2025];
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+  const token = useCookie('token')
+  const [satisticalData, setSatisticalData] = useState<Statistical | null>(null)
+  const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
+  const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
+  const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
+
+  useEffect(() => {
+    const update2024 = getMonthlyProfits(profitsByMonth1);
+    const update2025 = getMonthlyProfits(profitsByMonth2);
+    setCombinedData({
+      [years[0]]: update2024,
+      [years[1]]: update2025,
+    });
+  }, [profitsByMonth1, profitsByMonth2]);
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/statisticalTeacher/`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          if (data) {
+            setSatisticalData(data)
+          }
+        })
+        .catch(error => {
+          console.error('Có lỗi xảy ra: ', error);
+
+        })
+    }
+  }, [token])
   return (
     <>
       <div className={style.mar}>
@@ -21,7 +69,7 @@ const Dashboard: React.FC = () => {
             <div className={style.card_notice}>
               <span>
                 <p>Tổng khóa học</p>
-                <h3>100</h3>
+                <h3>{satisticalData?.totalCourse}</h3>
               </span>
               <Image
                 src={"/img_admin/boxvippro.png"}
@@ -33,7 +81,7 @@ const Dashboard: React.FC = () => {
             <div className={style.card_notice}>
               <span>
                 <p>Tổng doanh thu</p>
-                <h3>40k</h3>
+                <h3>{satisticalData?.totalRevenue}</h3>
               </span>
               <Image
                 src={"/img_admin/monneyvip.svg"}
@@ -45,7 +93,7 @@ const Dashboard: React.FC = () => {
             <div className={style.card_notice}>
               <span>
                 <p>Đánh giá giảng viên</p>
-                <h3>4.5</h3>
+                <h3>{satisticalData?.averageRating}</h3>
               </span>
               <Image
                 src={"/img_admin/comment.svg"}
@@ -57,7 +105,7 @@ const Dashboard: React.FC = () => {
             <div className={style.card_notice}>
               <span>
                 <p>Tổng lượt xem</p>
-                <h3>400</h3>
+                <h3>{satisticalData?.totalViews}</h3>
               </span>
               <Image
                 src={"/img_admin/total_view.svg"}
@@ -67,10 +115,9 @@ const Dashboard: React.FC = () => {
                 onClick={handleShow}
               />
             </div>
-            <OffcanvasComponent show={show} handleClose={handleClose} />
           </div>
           <div className={style.chart}>
-            <ViewBarCharts />
+            <LineChartViewYear years={years} key={"6"} dataByYear={combinedData} />
           </div>
           <div className={h.card_group}>
             <div className={h.card}>

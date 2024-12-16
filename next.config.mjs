@@ -630,6 +630,12 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-route/:path*',
       },
 
+      //instructor/statistical-course
+
+      {
+        source: '/api/statisticalTeacher/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-course',
+      },
 
       //marketing
 

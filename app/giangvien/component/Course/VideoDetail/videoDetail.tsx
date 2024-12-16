@@ -479,7 +479,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
       {dataDoc && dataDoc?.data?.type_document === 'video' ? (
         <div
           className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
-          style={{ minWidth: '60vw' }}
+          style={{ minWidth: '60vw', maxWidth: '60vw' }}
         >
           <ReactPlayer
             url={`${dataDoc.data.url_video}`}
@@ -513,7 +513,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
       ) : dataDoc?.data?.type_document === 'code' ? (
         <div
           className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
-          style={{ minWidth: '60vw' }}
+          style={{ minWidth: '60vw', maxWidth: '60vw' }}
         >
           <div className={videoMod.documentHedding}>
             <div style={{ gap: '4px' }}>
@@ -595,7 +595,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
         <>
           <div
             className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
-            style={{ minWidth: '60vw' }}
+            style={{ minWidth: '60vw', maxWidth: '60vw' }}
           >
             <div className={videoMod.documentHedding}>
               <div style={{ gap: '4px' }}>
@@ -642,7 +642,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
         <>
           <div
             className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
-            style={{ minWidth: '60vw' }}
+            style={{ minWidth: '60vw', maxWidth: '60vw' }}
           >
             <div className={videoMod.documentHedding}>
               <div style={{ gap: '4px' }}>
@@ -688,7 +688,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
         <>
           <div
             className={`${videoMod.videoContainer} flex-shrink-1 align-items-start`}
-            style={{ minWidth: '60vw' }}
+            style={{ minWidth: '60vw', maxWidth: '60vw' }}
           >
             <div className={videoMod.documentHedding}>
               <div style={{ gap: '4px' }}>
@@ -730,11 +730,11 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
             </div>
           </div>
         </>
-      ) : (
+      ) : ( 
         <>
           <div
             className={`${videoMod.videoContainer1}`}
-            style={{ minWidth: '60vw' }}
+            style={{ minWidth: '60vw', maxWidth: '60vw' }}
           >
             <ReactLoading type={"spin"} color={'rgba(153, 153, 153, 1)'} height={'10%'} width={'10%'} className={videoMod.align} />
           </div>

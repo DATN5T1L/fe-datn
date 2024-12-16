@@ -9,6 +9,8 @@ import {
 } from "react-bootstrap";
 import h from "./course.module.css";
 import Course from "./course";
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
+import { useSearchParams } from "next/navigation";
 
 interface Courses {
   id: string;
@@ -27,46 +29,56 @@ interface ApiResponse<T> {
 }
 
 export const HeaderCourse: React.FC = () => {
-  const getCookie = (name: string) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-    return null;
-  };
-
-  const token = getCookie('token');
-
+  const token = useCookie('token');
+  const searchParam = useSearchParams()
   const [courseData, setCourseData] = useState<ApiResponse<Courses> | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string>('');
   const [selectedViews, setSelectedViews] = useState<string>('');
   const [selectedDiscount, setSelectedDiscount] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
+  const value = searchParam.get('value')
 
   useEffect(() => {
     setLoading(true);
-    fetch('/api/allCourse/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        setCourseData(data)
-        setLoading(false)
+    if (token) {
+      fetch('/api/allCourse/', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
       })
-      .catch(err => {
-        console.log(err)
-        setLoading(false);
-      });
+        .then(res => res.json())
+        .then(data => {
+          setCourseData(data)
+          setLoading(false)
+        })
+        .catch(err => {
+          console.log(err)
+          setLoading(false);
+        });
+    }
   }, [token]);
 
   const filteredCourses = courseData?.data?.filter(course => {
-    const matchStatus = selectedStatus ? course.status_course === selectedStatus : true;
-    const matchViews = selectedViews === '1' ? course.views_course <= 100 : selectedViews === '2' ? course.views_course > 1000 : true;
-    const matchDiscount = selectedDiscount === '1' ? course.discount_price_course >= 0 && course.discount_price_course <= 100 : selectedDiscount === '2' ? course.discount_price_course >= 1000 : true;
-
-    return matchStatus && matchViews && matchDiscount;
+    if (value === null) {
+      const matchStatus = selectedStatus === '1' ? course.status_course === 'success' : selectedStatus === '2' ? course.status_course === 'confirming' : selectedStatus === '3' ? course.status_course === 'failed' : true
+      const matchViews = selectedViews === '1' ? course.views_course <= 100 : selectedViews === '2' ? course.views_course > 100 : true;
+      const matchDiscount = selectedDiscount === '1' ? course.discount_price_course >= 0 && course.discount_price_course <= 50 : selectedDiscount === '2' ? course.discount_price_course > 50 : true;
+      return matchStatus && matchViews && matchDiscount;
+    }
+    if (value === 'pro') {
+      const matchStatus = selectedStatus === '1' ? course.status_course === 'success' : selectedStatus === '2' ? course.status_course === 'confirming' : selectedStatus === '3' ? course.status_course === 'failed' : true
+      const matchViews = selectedViews === '1' ? course.views_course <= 100 : selectedViews === '2' ? course.views_course > 100 : true;
+      const matchDiscount = selectedDiscount === '1' ? course.discount_price_course >= 0 && course.discount_price_course <= 50 : selectedDiscount === '2' ? course.discount_price_course > 50 : true;
+      const matchPrice = course.price_course > 0
+      return matchPrice && matchStatus && matchViews && matchDiscount
+    }
+    if (value === 'free') {
+      const matchStatus = selectedStatus === '1' ? course.status_course === 'success' : selectedStatus === '2' ? course.status_course === 'confirming' : selectedStatus === '3' ? course.status_course === 'failed' : true
+      const matchViews = selectedViews === '1' ? course.views_course <= 100 : selectedViews === '2' ? course.views_course > 100 : true;
+      const matchPrice = course.price_course === 0
+      return matchPrice && matchStatus && matchViews
+    }
   }) || [];
 
   const array: ApiResponse<Courses> = {
@@ -96,25 +108,27 @@ export const HeaderCourse: React.FC = () => {
               <Col xs={6} sm={2} md={2} className="justify-content-center align-items-center d-flex mb-4 mb-md-0 mb-sm-0">
                 <select aria-label="Trạng thái" className={`${h.formSelect}`} value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
                   <option value="">Trạng thái</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                  <option value="archived">Archived</option>
+                  <option value="1">Success</option>
+                  <option value="2">Confirming</option>
+                  <option value="3">Failed</option>
                 </select>
               </Col>
               <Col xs={6} sm={2} md={2} className="justify-content-center align-items-center d-flex">
                 <select aria-label="Lượt xem" className={`${h.formSelect}`} value={selectedViews} onChange={(e) => setSelectedViews(e.target.value)}>
                   <option value="">Lượt xem</option>
                   <option value="1">0-100</option>
-                  <option value="2">1000+</option>
+                  <option value="2">100+</option>
                 </select>
               </Col>
-              <Col xs={6} sm={2} md={2} className="justify-content-center align-items-center d-flex">
-                <select aria-label="Giảm giá" className={`${h.formSelect}`} value={selectedDiscount} onChange={(e) => setSelectedDiscount(e.target.value)}>
-                  <option value="">Giảm giá</option>
-                  <option value="1">0-100</option>
-                  <option value="2">1000+</option>
-                </select>
-              </Col>
+              {value === 'free' ? ('') : (
+                <Col xs={6} sm={2} md={2} className="justify-content-center align-items-center d-flex">
+                  <select aria-label="Giảm giá" className={`${h.formSelect}`} value={selectedDiscount} onChange={(e) => setSelectedDiscount(e.target.value)}>
+                    <option value="">Giảm giá</option>
+                    <option value="1">{'> '}50%</option>
+                    <option value="2">50%{' <'}</option>
+                  </select>
+                </Col>
+              )}
               <Col xs={6} sm={2} md={3}>
                 <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0" onClick={handleReset}>
                   <img src="/img_admin/restart.svg" alt="Reset" />
