@@ -20,6 +20,14 @@ interface Statistical {
   totalViews: string; // tổng view
 }
 
+interface StatisticalCourse {
+  completed: number;
+  enroll_user: number;
+  in_progress: number;
+  status: string;
+  total_course: number;
+}
+
 const Dashboard: React.FC = () => {
   const years = [2024, 2025];
   const [show, setShow] = useState(false);
@@ -30,7 +38,8 @@ const Dashboard: React.FC = () => {
   const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
   const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
   const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
-  const [peopleComplete, setPeopleComlete] = useState()
+  const [peopleComplete, setPeopleComplete] = useState<StatisticalCourse | null>(null);
+  const [rating, setRating] = useState(null);
 
   useEffect(() => {
     const update2024 = getMonthlyProfits(profitsByMonth1);
@@ -66,18 +75,38 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     if (token) {
       fetch(`/api/statistical_instructor_complete_course`, {
-        method: 'GET',
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
-        }
-      }).then(res => res.json())
-        .then(data => {
-          setPeopleComlete(data)
-          console.log('data', data);
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setPeopleComplete(data);
+          }
         })
-        .catch(error => console.log(error))
+        .catch((error) => console.error("Có lỗi xảy ra: ", error));
     }
-  }, [token])
+  }, [token]);
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/statistical_instructor_highest_rating_course/`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            setRating(data);
+          }
+        })
+        .catch((error) => console.error("Có lỗi xảy ra: ", error));
+    }
+  }, [token]);
   return (
     <>
       <div className={style.mar}>
@@ -142,18 +171,20 @@ const Dashboard: React.FC = () => {
                 <h6>Người hoàn thành khóa học</h6>
                 <div className={h.chart}>
                   <div>
-                    {/* <DoughnutChart /> */}
+                    {peopleComplete && (
+                      <DoughnutChart dataValue={peopleComplete?.total_course} totalValue={peopleComplete?.enroll_user} />
+                    )}
                   </div>
                 </div>
                 <div className={h.info_course}>
                   <span>
-                    <h4>500</h4>
+                    <h4>{peopleComplete?.completed}</h4>
                     <div>
                       <div className={h.point}></div>Hoàn thành
                     </div>
                   </span>
                   <span>
-                    <h4>900</h4>
+                    <h4>{peopleComplete?.in_progress}</h4>
                     <div>
                       <div className={h.point_light}></div>Chưa hoàn thành
                     </div>
@@ -164,8 +195,8 @@ const Dashboard: React.FC = () => {
             <div className={h.card}>
               <div className={h.card_content}>
                 <h6>Khóa học nổi bật</h6>
-                <div>
-                  <Card className={h.mainBox__content}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                  <Card style={{ width: '100%' }} className={h.mainBox__content}>
                     <Card.Header className={h.headerContent}>
                       <section className={h.headerContent__text}>
                         <Card.Title className={h.text__hedding2}>
