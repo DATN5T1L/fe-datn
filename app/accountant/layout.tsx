@@ -8,6 +8,8 @@ import styles from "./layout.module.css";
 import Header from "./component/Header/header";
 import Sidebar from "./component/Sidebar/sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
+import ReduxRender from "@/redux/provider";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Kế toán- TTO.SH",
@@ -20,26 +22,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi">
-      <body className={styles.container}>
-        <div className={styles.header}>
-          <Header />
-        </div>
-        <Row className={`${styles.mainContent} m-0`}>
-          <Col
-            md={0}
-            xl={2}
-            sm={0}
-            xs={0}
-            className={`d-none d-md-none d-xl-block`}
-          >
-            <Sidebar />
-          </Col>
-          <Col className={styles.article} xs={12} sm={12} md={12} xl={10}>
-            {children}
-          </Col>
-        </Row>
-      </body>
-    </html>
+    <ReduxRender>
+      <SessionProvider>
+        <html lang="vi">
+          <body className={styles.container}>
+            <div className={styles.header}>
+              <Header />
+            </div>
+            <Row className={`${styles.mainContent} m-0`}>
+              <Col
+                md={0}
+                xl={2}
+                sm={0}
+                xs={0}
+                className={`d-none d-md-none d-xl-block`}
+              >
+                <Sidebar />
+              </Col>
+              <Col className={styles.article} xs={12} sm={12} md={12} xl={10}>
+                {children}
+              </Col>
+            </Row>
+          </body>
+        </html>
+      </SessionProvider>
+    </ReduxRender>
   );
 }

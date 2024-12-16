@@ -137,42 +137,43 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
     onSubmit: async (values) => {
       const formData = new FormData();
 
-      formData.append("title_post", values.title_post || "");
-      formData.append("content_post", values.content_post || "");
-      formData.append("category_id", values.category_id || "");
-
-      if (values.img_post instanceof File) {
+      if (values.img_post) {
         formData.append("img_post", values.img_post);
-      } else if (data?.data?.img_post) {
-        formData.append("img_post", data.data.img_post);
-      }
-
-      // Log các giá trị trong FormData
-      for (let pair of formData.entries()) {
-        console.log(`${pair[0]}: ${pair[1]}`);
       }
       console.log('Formik values:', formik.values);
       try {
 
         if (token && formData) {
           if (confirm('Bạn muốn cập nhật bài viết này không')) {
-            console.log("FormData trước khi gửi:");
-            for (let pair of formData.entries()) {
-              console.log(`hello ${pair[0]}: ${pair[1]}`);
-            }
+
             const response = await fetch(`/api/allPost/${id}`, {
               method: "PUT",
               headers: {
                 Authorization: `Bearer ${token}`,
-
+                'Content-type': 'application/json'
               },
-              body: formData,
+              body: JSON.stringify({
+                title_post: values.title_post,
+                content_post: values.content_post,
+                category_id: values.category_id
+              }),
             });
             console.log(formData);
 
             const result = await response.json();
             console.log(result);
 
+            const resImg = await fetch(`/api/changeImgPost/${id}`, {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${token}`
+              },
+              body: formData
+            })
+
+            const dataImg = await resImg.json()
+
+            console.log(dataImg);
             if (response.ok) {
               alert("Cập nhật bài viết thành công!");
               router.replace("/Marketing/MarketingPosts/");

@@ -82,7 +82,7 @@ const AddMarketingPost: React.FC = () => {
       formData.append("content_post", values.content_post);
       formData.append("category_id", values.category_id);
       if (values.img_post) {
-        formData.append("img_post[]", values.img_post);
+        formData.append("img_post", values.img_post);
       }
 
       try {

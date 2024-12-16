@@ -49,9 +49,8 @@ interface CourseRaiting {
   views_course: string;
 }
 
-type DataItem = {
-  month: number;
-  revenue: number;
+type DataType = {
+  [key: string]: number; // Kiểu dữ liệu dạng object với các key là tháng (chuỗi) và giá trị là số
 };
 
 const Dashboard: React.FC = () => {
@@ -62,7 +61,7 @@ const Dashboard: React.FC = () => {
   const token = useCookie('token')
   const [satisticalData, setSatisticalData] = useState<Statistical | null>(null)
   const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
-  const [dataStatis, setDataStatis] = useState<DataItem[]>([])
+  const [dataStatis, setDataStatis] = useState<DataType | null>(null)
   const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
   const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
   const [peopleComplete, setPeopleComplete] = useState<StatisticalCourse | null>(null);

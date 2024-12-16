@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import {
   Button,
   Form,
@@ -15,9 +15,15 @@ import Link from "next/link";
 import "../article.css";
 import header from "@/app/(user-global)/component/globalControl/header";
 import { useRouter } from "next/navigation";
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
 const Comments: React.FC<{}> = () => {
   const router = useRouter();
+  const token = useCookie('token')
+
+  useEffect(()=>{
+    
+  },[token])
 
   return (
     <div

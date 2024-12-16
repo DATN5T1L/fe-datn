@@ -273,7 +273,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
 
   const handleHidden = (id: string) => {
     if (id && token) {
-      if (confirm('bạn có muốn ẩn bình luận hay không?')) {
+      if (confirm('bạn có muốn thay đổi bình luận hay không?')) {
         fetch(`/api/hiddenCmtPost/${params.id}/${id}`, {
           method: 'GET',
           headers: {
@@ -456,13 +456,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
           <div className="mx-3 d-flex gap-5">
             <div style={{ minWidth: "880px" }}>
               <span className="fs-1 fs-md-3 fs-lg-5 fw-bold">
-                {data.data.title_post}
+                {data?.data?.title_post}
               </span>
               <div className="my-4">
-                <span className="fs-5 fs-sm-2 fs-lg-1">{useFormatDate(data.data.created_at)}</span>
+                <span className="fs-5 fs-sm-2 fs-lg-1">{useFormatDate(data?.data?.created_at)}</span>
               </div>
               <div
-                dangerouslySetInnerHTML={{ __html: data.data.content_post }}
+                dangerouslySetInnerHTML={{ __html: data?.data?.content_post }}
                 className="fs-5 fs-sm-2 fs-lg-1">
 
               </div>
@@ -471,8 +471,8 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                 style={{ flexDirection: "column" }}
               >
                 <img
-                  src={`${data.data.img_post}`}
-                  alt={`${data.data.title_post}`}
+                  src={`${data?.data?.img_post}`}
+                  alt={`${data?.data?.title_post}`}
                   style={{
                     width: "auto",
                     height: "auto",
@@ -513,32 +513,34 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                     <span className={`${mod.name}`}>{item.fullname}</span>
                     <small>{item.comment_text}</small>
                     <div className="d-inline-flex gap-3 my-2">
-                      <small
-                        className="text-primary"
-                        onClick={() => {
-                          setActiveReplyId(activeReplyId === item.id ? null : item.id)
-                          setActiveReplyIdR(null)
-                          setActiveReplyIdRR(null)
-                          setEditId(null)
-                          setEditIdR(null)
-                          setEditIdRR(null)
-                        }}
-                      >
-                        Trả lời
-                      </small>
-                      {item.user_id === userId?.id ? (
+                      {item.del_flag === true ? (<>
                         <small
                           className="text-primary"
                           onClick={() => {
-                            setActiveReplyId(null)
+                            setActiveReplyId(activeReplyId === item.id ? null : item.id)
                             setActiveReplyIdR(null)
                             setActiveReplyIdRR(null)
-                            setEditId(editId === item.id ? null : item.id)
+                            setEditId(null)
                             setEditIdR(null)
                             setEditIdRR(null)
                           }}
-                        >Sửa</small>
-                      ) : ('')}
+                        >
+                          Trả lời
+                        </small>
+                        {item.user_id === userId?.id ? (
+                          <small
+                            className="text-primary"
+                            onClick={() => {
+                              setActiveReplyId(null)
+                              setActiveReplyIdR(null)
+                              setActiveReplyIdRR(null)
+                              setEditId(editId === item.id ? null : item.id)
+                              setEditIdR(null)
+                              setEditIdRR(null)
+                            }}
+                          >Sửa</small>
+                        ) : ('')}
+                      </>) : ('')}
                       {(
                         item.del_flag === true ? (
                           <small className="text-primary" onClick={() => handleHidden(item.id)}>Ẩn</small>
@@ -611,37 +613,43 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                             <span className={`${mod.name}`}>{itemR.fullname}</span>
                             <small>{itemR.comment_text}</small>
                             <div className="d-flex flex-row gap-3 mt-2">
-                              <small
-                                className="text-primary"
-                                onClick={() => {
-                                  setActiveReplyIdR(activeReplyIdR === itemR.id ? null : itemR.id)
-                                  setActiveReplyId(null)
-                                  setActiveReplyIdRR(null)
-                                  setEditId(null)
-                                  setEditIdR(null)
-                                  setEditIdRR(null)
-                                }}
-                              >
-                                Trả lời
-                              </small>
-                              {itemR.user_id === userId?.id ? (
+                              {item.del_flag === true ? (<>
                                 <small
                                   className="text-primary"
                                   onClick={() => {
+                                    setActiveReplyIdR(activeReplyIdR === itemR.id ? null : itemR.id)
                                     setActiveReplyId(null)
-                                    setActiveReplyIdR(null)
                                     setActiveReplyIdRR(null)
                                     setEditId(null)
-                                    setEditIdR(editIdR === itemR.id ? null : itemR.id)
+                                    setEditIdR(null)
                                     setEditIdRR(null)
                                   }}
-                                >Sửa</small>
+                                >
+                                  Trả lời
+                                </small>
+                                {itemR.user_id === userId?.id ? (
+                                  <small
+                                    className="text-primary"
+                                    onClick={() => {
+                                      setActiveReplyId(null)
+                                      setActiveReplyIdR(null)
+                                      setActiveReplyIdRR(null)
+                                      setEditId(null)
+                                      setEditIdR(editIdR === itemR.id ? null : itemR.id)
+                                      setEditIdRR(null)
+                                    }}
+                                  >Sửa</small>
+                                ) : ('')}
+                              </>) : ('')}
+                              {item.del_flag === true ? (
+                                <>
+                                  {itemR.del_flag === true ? (
+                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
+                                  ) : (
+                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
+                                  )}
+                                </>
                               ) : ('')}
-                              {itemR.del_flag === true ? (
-                                <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
-                              ) : (
-                                <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
-                              )}
                             </div>
                           </div>
                         </div>
@@ -707,37 +715,41 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                                 <span className={`${mod.name}`}>{itemRR.fullname}</span>
                                 <small>{itemRR.comment_text}</small>
                                 <div className="d-flex flex-row gap-3 mt-2">
-                                  <small
-                                    className="text-primary"
-                                    onClick={() => {
-                                      setActiveReplyIdRR(activeReplyIdRR === itemRR.id ? null : itemRR.id)
-                                      setActiveReplyId(null)
-                                      setActiveReplyIdR(null)
-                                      setEditId(null)
-                                      setEditIdR(null)
-                                      setEditIdRR(null)
-                                    }}
-                                  >
-                                    Trả lời
-                                  </small>
-                                  {itemRR.user_id === userId?.id ? (
-                                    <small
-                                      className="text-primary"
-                                      onClick={() => {
-                                        setActiveReplyId(null)
-                                        setActiveReplyIdR(null)
-                                        setActiveReplyIdRR(null)
-                                        setEditId(null)
-                                        setEditIdR(null)
-                                        setEditIdRR(editIdRR === itemRR.id ? null : itemRR.id)
-                                      }}
-                                    >Sửa</small>
-                                  ) : ('')}
-                                  {itemRR.del_flag === true ? (
-                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
-                                  ) : (
-                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
-                                  )}
+                                  {item.del_flag === true ? (<>
+                                    {itemR.del_flag === true ? (<>
+                                      <small
+                                        className="text-primary"
+                                        onClick={() => {
+                                          setActiveReplyIdRR(activeReplyIdRR === itemRR.id ? null : itemRR.id)
+                                          setActiveReplyId(null)
+                                          setActiveReplyIdR(null)
+                                          setEditId(null)
+                                          setEditIdR(null)
+                                          setEditIdRR(null)
+                                        }}
+                                      >
+                                        Trả lời
+                                      </small>
+                                      {itemRR.user_id === userId?.id ? (
+                                        <small
+                                          className="text-primary"
+                                          onClick={() => {
+                                            setActiveReplyId(null)
+                                            setActiveReplyIdR(null)
+                                            setActiveReplyIdRR(null)
+                                            setEditId(null)
+                                            setEditIdR(null)
+                                            setEditIdRR(editIdRR === itemRR.id ? null : itemRR.id)
+                                          }}
+                                        >Sửa</small>
+                                      ) : ('')}
+                                      {itemRR.del_flag === true ? (
+                                        <small className="text-primary" onClick={() => handleHidden(itemRR.id)}>Ẩn</small>
+                                      ) : (
+                                        <small className="text-primary" onClick={() => handleHidden(itemRR.id)}>hiện</small>
+                                      )}
+                                    </>) : ("")}
+                                  </>) : ('')}
                                 </div>
                                 {activeReplyIdRR === itemRR.id && (
                                   <div className="mt-3">

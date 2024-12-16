@@ -12,20 +12,19 @@ import {
 } from "chart.js/auto";
 import style from "./Chart.module.css";
 
-type DataItem = {
-  month: number;
-  revenue: number;
+type DataType = {
+  [key: string]: number; // Kiểu dữ liệu dạng object với các key là tháng (chuỗi) và giá trị là số
 };
 
 type Props = {
-  data: DataItem[]; // Mảng dữ liệu đầu vào
+  data: DataType; // Dữ liệu đầu vào
 };
 
 const LineChart: React.FC<Props> = ({ data }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
 
-  // Đăng ký các thành phần cần thiết cho biểu đồ bar
+  // Đăng ký các thành phần cần thiết cho biểu đồ line
   Chart.register(
     LineController,
     LineElement,
@@ -47,10 +46,10 @@ const LineChart: React.FC<Props> = ({ data }) => {
 
       if (ctx) {
         // Chuyển đổi dữ liệu nhận từ `props` thành format cần thiết cho biểu đồ
-        const labels = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`);
-        const revenues = Array.from({ length: 12 }, (_, i) => {
-          const found = data.find((item) => item.month === i + 1);
-          return found ? found.revenue : 0;
+        const labels = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`); // Tạo nhãn từ tháng 1 -> tháng 12
+        const revenues = labels.map((_, index) => {
+          const monthKey = (index + 1).toString().padStart(2, "0"); // Tạo key theo định dạng "01", "02", ...
+          return data[monthKey] ?? 0; // Lấy giá trị doanh thu hoặc mặc định là 0
         });
 
         myChartRef.current = new Chart(ctx, {

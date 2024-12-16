@@ -6,9 +6,15 @@ import LineChart from "@/app/accountant/chart/LineChart";
 import { useEffect, useState } from "react";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
+type DataItem = {
+  month: number;
+  revenue: number;
+};
+
 const BodyDashboard = () => {
   const [peopleComplete, setPeopleComlete] = useState()
   const token = useCookie('token')
+  const [dataStatis, setDataStatis] = useState<DataItem[]>([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -20,10 +26,10 @@ const BodyDashboard = () => {
         }
       }).then(res => res.json())
         .then(data => {
-           setPeopleComlete(data)
-          console.log('data nè: ',data);
-          
-          })
+          setPeopleComlete(data)
+          console.log('data nè: ', data);
+
+        })
         .catch(error => console.log(error))
     }
   }, [token])
@@ -41,6 +47,25 @@ const BodyDashboard = () => {
           console.log('data', data);
         })
         .catch(error => console.log(error))
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/accountant/statisticalProfitsByMonths/2024`, {
+        method: "GET",
+        headers: {
+          Authorization: `Barser ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log('data statis',data);
+          setDataStatis(data.data)
+        })
+        .catch(error => {
+          console.error(error);
+        })
     }
   }, [token])
 
@@ -183,7 +208,9 @@ const BodyDashboard = () => {
           <div className={h.card_content}>
             <h6>Doanh thu</h6>
             <div>
-              <LineChart />
+              {dataStatis && (
+                <LineChart data={dataStatis} />
+              )}
             </div>
           </div>
         </div>
