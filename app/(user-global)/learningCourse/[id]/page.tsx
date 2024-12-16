@@ -127,7 +127,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 throw new Error(`API error: ${response.status}`);
             }
             const result = await response.json();
-            console.log(result)
             setIdCourse(result.Course);
 
         } catch (error: any) {
@@ -151,7 +150,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
             if (!response.ok) {
                 if (response.status === 401 && retries > 0) {
 
-                    console.log('Lỗi 401, thử lại lần nữa...');
                     return await fetchDocuments(retries - 1);
                 }
                 throw new Error("Không thể lấy dữ liệu");
@@ -180,7 +178,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
 
             const dataProgress = await response.json();
             const ProgressData = dataProgress[0][0]
-            console.log(ProgressData)
             setprogress(ProgressData)
         } catch (err: any) {
             setError(err.message);
@@ -199,7 +196,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 throw new Error("Failed to fetch course");
             }
             const data = await response.json();
-            // console.log(data, "trạng thái bài học");
         } catch (err: any) {
             setError(err.message);
         }
@@ -248,7 +244,6 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
 
     const handleProgressChange = (playedSeconds: number) => {
-        // console.log("Thời gian đã xem:", playedSeconds, "giây");
         setPlayedSeconds(playedSeconds)
     };
 
@@ -385,7 +380,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 />
             );
         } else if (typeDoc === 'code') {
-            console.log(code)
+
             return (
                 <div className={styles.wapperCode}>
                     {code && (
@@ -658,7 +653,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 <div className={styles.body}>
                     {!isNote ? (
                         <>
-                            <div className={styles.bodyTop} style={{ display: isFooterCta ? "block" : "none" }}>
+                            <div className={styles.bodyTop} style={{ display: isFooterCta ? "flex" : "none" }}>
                                 <div className={styles.bodyTitle}>
                                     <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
                                     <h4 className={styles.titleCourse}>{nameDocument}</h4>

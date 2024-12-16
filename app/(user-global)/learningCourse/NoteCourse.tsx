@@ -79,7 +79,7 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
         };
     }, []);
     const handleGetContent = (data: string) => {
-        console.log('Dữ liệu từ CKEditor:', data);
+        // console.log('Dữ liệu từ CKEditor:', data);
         setNoteContent(data);
     }
 

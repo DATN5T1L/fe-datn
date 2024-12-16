@@ -102,7 +102,6 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
             });
 
             if (!response.ok) throw new Error('Cập nhật trạng thái thất bại.');
-            console.log('Cập nhật trạng thái thành công:', await response.json());
         } catch (error) {
             console.error('Lỗi cập nhật trạng thái:', error);
         }

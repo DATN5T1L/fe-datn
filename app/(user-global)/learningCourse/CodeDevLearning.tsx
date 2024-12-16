@@ -41,16 +41,11 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
     const [isCorrect, setIsCorrect] = useState(false);
     const [showConfetti, setShowConfetti] = useState(false);
     const { width, height } = useWindowSize();
-    // Hàm chạy mã
     const [htmlAnswer = '', cssAnswer = '', jsAnswer = ''] = answer_code?.split('|') || [];
-    console.log(htmlAnswer, cssAnswer, jsAnswer)
-
     const runCode = () => {
         const output = document.getElementById('output') as HTMLIFrameElement;
         const outputDocument = output?.contentDocument || output?.contentWindow?.document;
-
         if (outputDocument) {
-            // Tiêm HTML, CSS, và JS vào iframe
             outputDocument.open();
             outputDocument.write(`
                 <style>${css}</style>
@@ -58,8 +53,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                 <script>${js}<\/script>
             `);
             outputDocument.close();
-
-            // Kiểm tra kết quả thực tế
             const capturedOutputHTML = outputDocument.body.innerHTML.trim();
             const capturedCSS = cleaned(css);
             const htmlContent = capturedOutputHTML;
@@ -70,19 +63,15 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
             const cleanedContents = cleaneds(cleanedContent);
             const [htmlDone, jsDone] = cleanedContents;
             compareOutput(htmlDone, capturedCSS, jsDone);
-            console.log(htmlDone, "|", capturedCSS, "|", jsDone)
         }
     };
-
     const compareOutput = (capturedHTML: string, capturedCSS: string, capturedJS: string) => {
         const correctHTML = cleaned(htmlAnswer);
         const correctCSS = cleaned(cssAnswer);
         const correctJS = cleaned(jsAnswer);
-        console.log(correctHTML, correctCSS, correctJS)
         const htmlMatch = capturedHTML === correctHTML;
         const cssMatch = capturedCSS === correctCSS;
         const jsMatch = capturedJS === correctJS;
-        console.log(htmlMatch, cssMatch, jsMatch)
         if (htmlMatch && cssMatch && jsMatch) {
             setIsCorrect(true);
             updateStatus();
@@ -100,7 +89,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
             return false;
         }
     };
-
     const handAnswer = () => {
         runCode();
         setSubmit((prev) => prev + 1);
@@ -122,7 +110,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
             });
 
             if (!response.ok) throw new Error('Cập nhật trạng thái thất bại.');
-            console.log('Cập nhật trạng thái thành công:', await response.json());
         } catch (error) {
             console.error('Lỗi cập nhật trạng thái:', error);
         }
@@ -133,7 +120,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
             setQuestionCode(parsedResult);
         }
     }, [question_code]);
-
     const customConfettiShape = (ctx: CanvasRenderingContext2D) => {
         const colors = ['#FF0000', '#00FF00', '#0000FF', '#FF00FF', '#FFFF00'];
         const width = Math.random() * 20 + 5;
@@ -141,7 +127,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
         ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
         ctx.fillRect(0, 0, width, height);
     };
-
 
     return (
         <Row className={styles.codeMain}>
@@ -160,7 +145,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                     >
                         Trình duyệt
                     </li>
-
                 </ul>
                 <div className={styles.boxContent} style={{ display: activeContentTab === 'content' ? 'flex' : 'none' }}>
                     <div className={styles.bodyTitle}>
@@ -171,7 +155,11 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                     <div className={styles.contentText}>
                         <p className={styles.contentQues}>Câu hỏi: {question_code}</p>
                         <p className={styles.contentQuess}> {questionCode?.question}</p>
-                        <h6 className={styles.codeResult}>{result}</h6>
+                        <h6 className={styles.codeResult} style={{
+                            color: isCorrect ? "green" : "red",
+                            marginTop: "20px",
+                            fontWeight: "bold",
+                        }}>{result}</h6>
                     </div>
                 </div>
                 <div className={styles.boxContent} style={{ display: activeContentTab === 'Webs' ? 'block' : 'none' }}>
@@ -262,9 +250,12 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                                         Gợi ý
                                     </button>
                                 </Tippy>
-                                <button type='button' className={styles.btnCtaDev} onClick={toggleAnswer} >
-                                    Xem đáp án
-                                </button>
+                                {isSubmit > 0 && (
+                                    <button type='button' className={styles.btnCtaDev} onClick={toggleAnswer} >
+                                        Xem đáp án
+                                    </button>
+                                )}
+
                                 <button type='button' className={styles.btnCtaDev} onClick={() => {
                                     handAnswer();
 
