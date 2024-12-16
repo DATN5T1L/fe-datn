@@ -112,6 +112,7 @@ interface QuestionsProps {
 
 interface CodeDevProps {
     onExport: (data: { html: string, css: string, js: string }) => void;
+    reload: () => void;
     answer_code: string;
     correct_answer: string;
     question_code: string;

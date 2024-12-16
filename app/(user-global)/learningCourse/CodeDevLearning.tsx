@@ -3,11 +3,11 @@ import { Container, Col, Row } from "react-bootstrap";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 import Tippy from '@tippyjs/react/headless';
 import Editor, { OnChange, useMonaco } from '@monaco-editor/react';
-
+import Confetti from 'react-confetti';
 import { UpdateStatusComponent } from '@app/(user-global)/component/Api/apiHoock';
 import { formatDateTime, parseCode, cleaneds, cleaned } from "@/app/(user-global)/component/globalControl/commonC";
 import styles from "@public/styles/Learning/codeDev.module.css";
-
+import { useWindowSize } from 'react-use';
 
 const CodeDevLearning: React.FC<CodeDevProps> = ({
     answer_code,
@@ -18,6 +18,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
     name_document,
     course_id,
     documents_id,
+    reload
 }) => {
     const token = useCookie('token');
     const [html, setHtml] = useState<string>('<h1>Hello, World!</h1>');
@@ -29,7 +30,6 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
     const [iscorrectAnswer, setcorrectAnswer] = useState<boolean>(false);
     const [isSubmit, setSubmit] = useState<number>(0)
     const [showAlert, setShowAlert] = useState<boolean>(true);
-    const [answerCode, setAnswerCode] = useState<string | null>(answer_code ?? null);
     const [correctAnswer, setCorrectAnswer] = useState<string | null>(correct_answer ?? null);
     const [questionCode, setQuestionCode] = useState<codeAnswer | null>(null);
     const [tutorialCode, setTutorialCode] = useState<string | null>(tutorial_code ?? null);
@@ -39,9 +39,11 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
     const toggleAlert = () => setShowAlert((prev) => !prev);
 
     const [isCorrect, setIsCorrect] = useState(false);
+    const [showConfetti, setShowConfetti] = useState(false);
+    const { width, height } = useWindowSize();
     // Hàm chạy mã
-    console.log(answer_code)
-    const [htmlAnswer = '', cssAnswer = '', jsAnswer = ''] = answerCode?.split('|') || [];
+    const [htmlAnswer = '', cssAnswer = '', jsAnswer = ''] = answer_code?.split('|') || [];
+    console.log(htmlAnswer, cssAnswer, jsAnswer)
 
     const runCode = () => {
         const output = document.getElementById('output') as HTMLIFrameElement;
@@ -67,69 +69,83 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
             );
             const cleanedContents = cleaneds(cleanedContent);
             const [htmlDone, jsDone] = cleanedContents;
-
             compareOutput(htmlDone, capturedCSS, jsDone);
+            console.log(htmlDone, "|", capturedCSS, "|", jsDone)
         }
     };
 
     const compareOutput = (capturedHTML: string, capturedCSS: string, capturedJS: string) => {
-        const correctHTML = htmlAnswer;
+        const correctHTML = cleaned(htmlAnswer);
         const correctCSS = cleaned(cssAnswer);
-        const correctJS = jsAnswer;
-
+        const correctJS = cleaned(jsAnswer);
+        console.log(correctHTML, correctCSS, correctJS)
         const htmlMatch = capturedHTML === correctHTML;
         const cssMatch = capturedCSS === correctCSS;
         const jsMatch = capturedJS === correctJS;
+        console.log(htmlMatch, cssMatch, jsMatch)
         if (htmlMatch && cssMatch && jsMatch) {
             setIsCorrect(true);
-            <UpdateStatusComponent
-                course_id={course_id}
-                documents_id={documents_id}
-                token={token}
-                onSuccess={handleSuccess}
-                onError={handleError}
-            />
+            updateStatus();
+            setShowConfetti(true)
+            setResult("Chính xác")
+            setTimeout(() => {
+                setShowConfetti(false);
+                setResult("Bạn đã hoàn thành bài tập")
+                reload()
+            }, 3000)
             return true;
         } else {
             setIsCorrect(false);
+            setResult("Chưa chính xác")
             return false;
         }
     };
-    const handleSuccess = (data: any) => {
-        console.log('Cập nhật thành công:', data);
-    };
 
-    const handleError = (error: Error) => {
-        console.error('Cập nhật thất bại:', error.message);
-    };
-
-    console.log(isCorrect)
-
-    // Hàm xuất mã
     const handAnswer = () => {
         runCode();
         setSubmit((prev) => prev + 1);
     }
+    const updateStatus = async () => {
+        try {
+            const response = await fetch(`/api/upStatusDoc`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    course_id,
+                    status_doc: true,
+                    cache_time_video: null,
+                    document_id: documents_id,
+                }),
+            });
+
+            if (!response.ok) throw new Error('Cập nhật trạng thái thất bại.');
+            console.log('Cập nhật trạng thái thành công:', await response.json());
+        } catch (error) {
+            console.error('Lỗi cập nhật trạng thái:', error);
+        }
+    };
     useEffect(() => {
         if (question_code) {
-            // console.log("Input questionCode:", questionCode);
-
-            // Gọi parseCode để phân tích questionCode
             const parsedResult = parseCode(question_code);
-
-            // Cập nhật lại state hoặc xử lý
             setQuestionCode(parsedResult);
-
-            // Log kết quả để kiểm tra
-            // console.log("Parsed result:", parsedResult);
         }
     }, [question_code]);
 
-
+    const customConfettiShape = (ctx: CanvasRenderingContext2D) => {
+        const colors = ['#FF0000', '#00FF00', '#0000FF', '#FF00FF', '#FFFF00'];
+        const width = Math.random() * 20 + 5;
+        const height = Math.random() * 10 + 5;
+        ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
+        ctx.fillRect(0, 0, width, height);
+    };
 
 
     return (
         <Row className={styles.codeMain}>
+            {showConfetti && <Confetti width={width} height={height} drawShape={customConfettiShape} />}
             <Col md={6}>
                 <ul className={styles.nav}>
                     <li
@@ -153,13 +169,12 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                     </div>
 
                     <div className={styles.contentText}>
-                        <p className={styles.contentQues}>Câu hỏi: {questionCode?.question}</p>
+                        <p className={styles.contentQues}>Câu hỏi: {question_code}</p>
                         <p className={styles.contentQuess}> {questionCode?.question}</p>
-                        {result}
+                        <h6 className={styles.codeResult}>{result}</h6>
                     </div>
                 </div>
                 <div className={styles.boxContent} style={{ display: activeContentTab === 'Webs' ? 'block' : 'none' }}>
-
                     <iframe id="output" style={{ width: '100%', height: '100%', border: '1px solid #ccc' }}></iframe>
                 </div>
             </Col>
@@ -263,7 +278,7 @@ const CodeDevLearning: React.FC<CodeDevProps> = ({
                     ) : (
                         isSubmit > 0 ? (
                             <div className={styles.Answer}>
-                                {answerCode}
+                                {answer_code}
                                 <button onClick={toggleAnswer}>Ẩn</button>
                             </div>
                         ) : (

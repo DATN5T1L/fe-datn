@@ -12,57 +12,7 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
     const [showConfetti, setShowConfetti] = useState(false);
     const { width, height } = useWindowSize();
     const questionId: string | undefined = questions?.find((question) => question.id)?.id;
-    // Xử lý sự kiện chọn câu trả lời
-    // const handleAnswerChange = (questionIndex: number, selectedAnswer: string, type: string) => {
-    //     setAnswers((prevAnswers) => {
-    //         const updatedAnswers = { ...prevAnswers };
-    //         switch (type) {
-    //             case 'true_false':
 
-    //             case 'fill':
-    //                 updatedAnswers[questionIndex] = [selectedAnswer];
-    //                 break;
-    //             case 'multiple_choice':
-    //                 const currentAnswers = updatedAnswers[questionIndex] || [];
-    //                 updatedAnswers[questionIndex] = currentAnswers.includes(selectedAnswer)
-    //                     ? currentAnswers.filter((answer) => answer !== selectedAnswer)
-    //                     : [...currentAnswers, selectedAnswer];
-    //                 break;
-    //         }
-    //         return updatedAnswers;
-    //     });
-    // };
-    // const handleAnswerChange = (
-    //     questionIndex: number,
-    //     selectedAnswer: string,
-    //     type: string,
-    //     fillIndex?: number // Thêm tham số này để xử lý cho câu hỏi "fill"
-    // ) => {
-    //     setAnswers((prevAnswers) => {
-    //         const updatedAnswers = { ...prevAnswers };
-
-    //         switch (type) {
-    //             case 'true_false':
-    //                 updatedAnswers[questionIndex] = [selectedAnswer];
-    //                 break;
-    //             case 'fill':
-    //                 if (typeof fillIndex !== 'undefined') {
-    //                     const currentAnswers = updatedAnswers[questionIndex] || [];
-    //                     currentAnswers[fillIndex] = selectedAnswer; // Cập nhật giá trị ở vị trí cụ thể
-    //                     updatedAnswers[questionIndex] = [...currentAnswers]; // Ghi lại mảng mới
-    //                 }
-    //                 break;
-    //             case 'multiple_choice':
-    //                 const currentAnswers = updatedAnswers[questionIndex] || [];
-    //                 updatedAnswers[questionIndex] = currentAnswers.includes(selectedAnswer)
-    //                     ? currentAnswers.filter((answer) => answer !== selectedAnswer)
-    //                     : [...currentAnswers, selectedAnswer];
-    //                 break;
-    //         }
-
-    //         return updatedAnswers;
-    //     });
-    // };
     const handleAnswerChange = (
         questionIndex: number,
         selectedAnswer: string,
@@ -76,7 +26,6 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                 case 'true_false':
                     updatedAnswers[questionIndex] = [selectedAnswer];
                     break;
-
                 case 'fill':
                     if (typeof fillIndex !== 'undefined') {
                         const currentAnswers = updatedAnswers[questionIndex]

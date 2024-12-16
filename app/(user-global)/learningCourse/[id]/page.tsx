@@ -385,13 +385,14 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                 />
             );
         } else if (typeDoc === 'code') {
-
+            console.log(code)
             return (
                 <div className={styles.wapperCode}>
                     {code && (
                         <CodeDevLearning
                             key={code.id}
                             onExport={handleExport}
+                            reload={handleReload}
                             answer_code={code.answer_code}
                             correct_answer={code.correct_answer}
                             question_code={code.question_code}

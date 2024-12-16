@@ -217,3 +217,8 @@
 .contentQuess {
     font-size: 1rem;
 }
+
+.codeResult {
+    font-size: 1.875rem;
+    color: var(--blue-50);
+}
