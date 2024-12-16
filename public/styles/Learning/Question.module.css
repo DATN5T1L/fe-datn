@@ -120,9 +120,8 @@
 
 /* fill */
 
-
-
 .fiilContainer {
+    margin-top: 32px;
     display: flex;
     min-height: 120px;
     padding: 16px 24px;
@@ -132,4 +131,15 @@
     border-radius: 12px;
     background: var(--Gray-gray-100, #FFF);
     box-shadow: -6px 0px 3px 0px rgba(35, 125, 247, 0.30) inset;
+}
+
+.inputFill {
+    background: var(--gray-100, #FFF);
+    box-shadow: -6px 0px 3px 0px rgba(35, 125, 247, 0.30) inset;
+    border: none;
+    outline: none;
+    padding: 8px 6px;
+    border-radius: 8px;
+    background: var(--blue-90);
+    color: var(--text-0)
 }

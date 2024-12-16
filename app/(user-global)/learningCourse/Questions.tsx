@@ -32,26 +32,61 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
     //         return updatedAnswers;
     //     });
     // };
+    // const handleAnswerChange = (
+    //     questionIndex: number,
+    //     selectedAnswer: string,
+    //     type: string,
+    //     fillIndex?: number // Thêm tham số này để xử lý cho câu hỏi "fill"
+    // ) => {
+    //     setAnswers((prevAnswers) => {
+    //         const updatedAnswers = { ...prevAnswers };
+
+    //         switch (type) {
+    //             case 'true_false':
+    //                 updatedAnswers[questionIndex] = [selectedAnswer];
+    //                 break;
+    //             case 'fill':
+    //                 if (typeof fillIndex !== 'undefined') {
+    //                     const currentAnswers = updatedAnswers[questionIndex] || [];
+    //                     currentAnswers[fillIndex] = selectedAnswer; // Cập nhật giá trị ở vị trí cụ thể
+    //                     updatedAnswers[questionIndex] = [...currentAnswers]; // Ghi lại mảng mới
+    //                 }
+    //                 break;
+    //             case 'multiple_choice':
+    //                 const currentAnswers = updatedAnswers[questionIndex] || [];
+    //                 updatedAnswers[questionIndex] = currentAnswers.includes(selectedAnswer)
+    //                     ? currentAnswers.filter((answer) => answer !== selectedAnswer)
+    //                     : [...currentAnswers, selectedAnswer];
+    //                 break;
+    //         }
+
+    //         return updatedAnswers;
+    //     });
+    // };
     const handleAnswerChange = (
         questionIndex: number,
         selectedAnswer: string,
         type: string,
-        fillIndex?: number // Thêm tham số này để xử lý cho câu hỏi "fill"
+        fillIndex?: number
     ) => {
         setAnswers((prevAnswers) => {
-            const updatedAnswers = { ...prevAnswers };
+            const updatedAnswers = { ...prevAnswers }; // Sao chép object cha
 
             switch (type) {
                 case 'true_false':
                     updatedAnswers[questionIndex] = [selectedAnswer];
                     break;
+
                 case 'fill':
                     if (typeof fillIndex !== 'undefined') {
-                        const currentAnswers = updatedAnswers[questionIndex] || [];
-                        currentAnswers[fillIndex] = selectedAnswer; // Cập nhật giá trị ở vị trí cụ thể
-                        updatedAnswers[questionIndex] = [...currentAnswers]; // Ghi lại mảng mới
+                        const currentAnswers = updatedAnswers[questionIndex]
+                            ? [...updatedAnswers[questionIndex]]
+                            : []; // Sao chép mảng con nếu tồn tại
+                        currentAnswers[fillIndex] = selectedAnswer; // Cập nhật giá trị tại vị trí cụ thể
+                        updatedAnswers[questionIndex] = currentAnswers; // Ghi lại mảng mới
                     }
                     break;
+
                 case 'multiple_choice':
                     const currentAnswers = updatedAnswers[questionIndex] || [];
                     updatedAnswers[questionIndex] = currentAnswers.includes(selectedAnswer)
@@ -170,6 +205,7 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                             <React.Fragment key={idx}>
                                 <div className={styles.labelFill} dangerouslySetInnerHTML={{ __html: part }} />
                                 {idx < parts.length - 1 && (
+
                                     <input
                                         type="text"
                                         placeholder="Nhập câu trả lời"

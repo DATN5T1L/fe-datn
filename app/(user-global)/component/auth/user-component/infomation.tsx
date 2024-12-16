@@ -51,14 +51,14 @@ const Infomation: React.FC = () => {
     const handleChangeAge = () => setShowChangeAge(true);
 
     // hiển thị các roll
-    const roleMapping: Record<'admin' | 'account' | 'marketing' | 'instructor', { label: string; href: string }> = {
+    const roleMapping: Record<'admin' | 'accountant' | 'marketing' | 'instructor', { label: string; href: string }> = {
         admin: { label: 'Quản trị viên', href: '/admin' },
-        account: { label: 'Kế toán', href: '/account' },
+        accountant: { label: 'Kế toán', href: '/accountant' },
         marketing: { label: 'Marketing', href: '/marketing' },
         instructor: { label: 'Giảng viên', href: '/instructor' },
     };
 
-    const userRole = userState?.user?.role as 'admin' | 'account' | 'marketing' | 'instructor' | undefined;
+    const userRole = userState?.user?.role as 'admin' | 'accountant' | 'marketing' | 'instructor' | undefined;
 
     const userRoleElement = userRole && roleMapping[userRole]
         ? (
