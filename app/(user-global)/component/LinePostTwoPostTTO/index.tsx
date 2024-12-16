@@ -11,6 +11,7 @@ interface Post {
     title_post: string;
     content_post: string;
     img_post: string;
+    slug_post: string;
     views_post?: number;
     poster_id?: string;
     del_flag: boolean;
@@ -49,9 +50,9 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                                                 alt={item.title_post}
                                             />
                                         </Col>
-                                        <Col xs={12} className="d-flex flex-column justify-content-between">
+                                        <Col xs={12} className="d-flex flex-column justify-content-between text-truncate">
                                             <Card.Body className="p-0">
-                                              <Link href={`/post/${item.id}`}>  <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
+                                              <Link href={`/post/${item.slug_post}`}>  <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                                 <Card.Text
                                                     className="text-black fs-6 lh-base fw-medium"
                                                     style={{

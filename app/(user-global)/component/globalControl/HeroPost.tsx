@@ -2,9 +2,6 @@
 
 import styles from "@public/styles/post/HeroPost.module.css";
 import { Container, Row, Col, Image } from 'react-bootstrap';
-// import PostTTO from "../LinePostOnePostTTO";
-// import ListPostTTO from "../ListPostTTO";
-// import ListPostLeftTTO from "../LinePostTwoPostTTO"
 import LinePostOnePostTTO from "../LinePostOnePostTTO";
 import LinePostTwoPostTTO from "../LinePostTwoPostTTO";
 import ListSingle from "../ListSingle";
@@ -24,6 +21,7 @@ interface PostCmt {
     content_post: string;
     img_post: string;
     views_post: number;
+    slug_post: string;
     poster_id: string;
     del_flag: boolean;
     category_id: string;
@@ -37,6 +35,7 @@ interface PostView {
     img_post: string;
     views_post: number;
     status_post: string;
+    slug_post: string;
     del_flag: boolean;
     user_id: string;
     category_id: string;
@@ -111,7 +110,7 @@ const HeroPost: React.FC = () => {
                 {dataCatePost && dataCatePost.data.map((item, index) => (
                     <Col key={index} xs={6} md={3}>
                         <figure className={styles.itemList}>
-                            <Image className={styles.image} src="https://images.unsplash.com/photo-1719937206341-38a6392dfdef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxfHx8ZW58MHx8fHx8" alt="Học MongoDB và Node.js tại TTO.SH" />
+                            <Image className={styles.image} src="https://plus.unsplash.com/premium_photo-1720287601920-ee8c503af775?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Y29kZXxlbnwwfHwwfHx8MA%3D%3D" alt="Học MongoDB và Node.js tại TTO.SH" />
                             <figcaption className={styles.descImg}><span className={styles.content}>{item.name_category}</span></figcaption>
                         </figure>
                     </Col>

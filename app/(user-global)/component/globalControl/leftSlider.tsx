@@ -22,7 +22,7 @@ const LeftSlider: React.FC = () => {
         const storedProgress = localStorage.getItem('progress');
 
         if (storedProgress) {
-            try {
+            try {   
                 const data = JSON.parse(storedProgress); // Chuyển JSON thành object
                 console.log(data.course_id); // Kiểm tra course_id
                 setIdCourse(`/learningCourse/${data.course_id}`); // Lưu vào state
@@ -105,15 +105,15 @@ const LeftSlider: React.FC = () => {
             <section className={`slide-bar-categories`}>
                 <ShowNameElement name='Trang chủ'>
                     <Link href="/" className={`btn-slide-bar ${isHome ? 'bg-blu-50' : ''} ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/home-fill.svg' className={`img block ${isHome ? 'none-icon' : ''}`} />
-                        <img src='/img/home.svg' className={`img none ${isHome ? 'block-icon' : ''}`} />
+                        <img src='/img/home-fill.svg' alt="khóa học chi tiết"className={`img block ${isHome ? 'none-icon' : ''}`} />
+                        <img src='/img/home.svg'alt="khóa học công nghệ thông tin" className={`img none ${isHome ? 'block-icon' : ''}`} />
                         <div className={`btn-e ${isHome ? 'text-white-100' : ''} ${isMenu ? 'w-0px' : 'block-text'}`}>Trang chủ</div>
                     </Link>
                 </ShowNameElement>
                 <div className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`} onClick={openCourses}>
 
-                    <img src='/img/box-fill.svg' className='img block' />
-                    <img src='/img/box.svg' className='img none' />
+                    <img src='/img/box-fill.svg' alt="khóa học chi tiết" className='img block' />
+                    <img src='/img/box.svg' alt="khóa học chi tiết" className='img none' />
                     <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Khóa học</div>
 
                 </div>
@@ -144,22 +144,22 @@ const LeftSlider: React.FC = () => {
                 </div>
                 <ShowNameElement name='Học ngay'>
                     <Link href={idCourse ? `${idCourse}` : '#'} className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/bagfill.svg' className='img block' />
-                        <img src='/img/bag.svg' className='img none' />
+                        <img src='/img/bagfill.svg' alt="khóa học lập trình" className='img block' />
+                        <img src='/img/bag.svg' alt="khóa học lập trình" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Học ngay</div>
                     </Link>
                 </ShowNameElement>
                 <ShowNameElement name='Lộ trình học tập'>
                     <Link href="/learningPath-FE" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/roadfill.svg' className='img block' />
-                        <img src='/img/road.svg' className='img none' />
+                        <img src='/img/roadfill.svg' alt="khóa học chi tiết" className='img block' />
+                        <img src='/img/road.svg' alt="khóa học lập trình" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Lộ trình</div>
                     </Link>
                 </ShowNameElement>
                 <ShowNameElement name='Bản tin TTO.SH'>
                     <Link href="/post" className={`btn-slide-bar ${isMenu ? 'w-auto' : 'w-268'}`}>
-                        <img src='/img/textnotefill.svg' className='img block' />
-                        <img src='/img/textnote.svg' className='img none' />
+                        <img src='/img/textnotefill.svg' alt="khóa học lập trình" className='img block' />
+                        <img src='/img/textnote.svg' alt="khóa học lập trình" className='img none' />
                         <div className={`btn-e ${isMenu ? 'w-0px' : 'block-text'}`}>Tin tức</div>
                     </Link>
                 </ShowNameElement>

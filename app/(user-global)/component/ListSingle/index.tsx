@@ -23,6 +23,7 @@ interface PostView {
     status_post: string;
     del_flag: boolean;
     user_id: string;
+    slug_post: string;
     category_id: string;
     created_at: string;
     updated_at: string;
@@ -76,7 +77,7 @@ const ListSingle: React.FC<ApiPostProps> = ({ data }) => {
                                             marginRight: "10px",
                                         }}
                                     ></span>
-                                    <Link href={`/post/${item.id}`}>
+                                    <Link href={`/post/${item.slug_post}`}>
                                     <span
                                         className="fw-bold fs-5 text-black"
                                         style={{ color: "#88e8f4", marginRight: "10px" }}
@@ -100,7 +101,7 @@ const ListSingle: React.FC<ApiPostProps> = ({ data }) => {
                                 <>
                                     {/* Image on the left */}
                                     <Col xs={12} lg={4} className="mb-4 mb-lg-0">
-                                        <Card className="border-0 position-relative w-100">
+                                        <Card className="border-0 position-relative w-100 ">
                                             <Card.Img
                                                 className="w-100"
                                                 style={{
@@ -115,19 +116,19 @@ const ListSingle: React.FC<ApiPostProps> = ({ data }) => {
 
                                     {/* Content on the right */}
                                     <Col xs={12} lg={8}>
-                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0" dangerouslySetInnerHTML={{ __html: item.content_post }} />
+                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0 text-truncate" dangerouslySetInnerHTML={{ __html: item.content_post }} />
                                     </Col>
                                 </>
                             ) : (
                                 <>
                                     {/* Content on the left */}
                                     <Col xs={12} lg={8}>
-                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0" dangerouslySetInnerHTML={{ __html: item.content_post }} />
+                                        <Card.Text className="text-black fs-6 lh-base fw-medium text-start m-0 text-truncate" dangerouslySetInnerHTML={{ __html: item.content_post }} />
                                     </Col>
 
                                     {/* Image on the right */}
-                                    <Col xs={12} lg={4} className="mb-4 mb-lg-0">
-                                        <Card className="border-0 position-relative w-100">
+                                    <Col xs={12} lg={4} className="mb-4 mb-lg-0 ">
+                                        <Card className="border-0 position-relative w-100 ">
                                             <Card.Img
                                                 className="w-100"
                                                 style={{

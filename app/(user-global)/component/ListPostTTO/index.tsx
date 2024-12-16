@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { Col, Card, Row } from 'react-bootstrap';
 import useFormatDate from '../globalControl/useFormatDate';
 import Link from 'next/link';
+
 interface Post {
     id: string;
     title_post: string;
@@ -11,6 +12,7 @@ interface Post {
     img_post: string;
     views_post?: number;
     poster_id?: string;
+    slug_post: string;
     del_flag: boolean;
     category_id: string;
     created_at: string;
@@ -24,8 +26,7 @@ interface ListPostTTOProps {
 }
 
 const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
-    const listCount = step === "1" ? 2 : 3; // Số lượng bài viết hiển thị tùy thuộc vào step
-
+    const listCount = step === "1" ? 2 : 3; 
     return (
         <Col xs={12} lg={6} className="d-flex flex-column">
             {data.slice(0, listCount).map((item, index) => (
@@ -42,7 +43,7 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
                         {/* Right column with text */}
                         <Col xs={6} className="d-flex flex-column justify-content-between">
                             <Card.Body className="p-0" style={{ margin: "0 12px", flex: 1 }}>
-                               <Link href={`post/${item.id}`}> <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
+                               <Link href={`post/${item.slug_post}`}> <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                 <Card.Text
                                     className="text-black fs-6 lh-base fw-medium"
                                     style={{

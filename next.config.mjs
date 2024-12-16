@@ -353,10 +353,12 @@ const nextConfig = {
         source: '/api/post/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/posts/:path*',
       },
-
+      {
+        source: '/api/client/postDetail/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-post-to-engarang/:path*',
+      },
 
       // Admin 
-
       {
         source: '/api/allUser/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/users/:path*',
