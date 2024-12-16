@@ -39,7 +39,7 @@ const Access: React.FC<{}> = () => {
   const token = useCookie('token');
   const [roleData, setRoleData] = useState<ApiResponse<Role> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [getData, setGetData] = useState<string>('allRole')
+  const [getData, setGetData] = useState<string>('getAllFpt')
   const [history, setHistory] = useState(null)
 
   console.log('lịch sử', history);
@@ -221,30 +221,7 @@ const Access: React.FC<{}> = () => {
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
-      <Col xs={12} sm={12} md={8} className="mb-4">
-        <Row className="bg-white d-flex flex-row rounded-lg justify-content-between py-3 rounded-3">
-          <Col xs={6} sm={2} md={1} className={`d-flex flex-row justify-content-center align-items-center mb-4 mb-md-0 mb-sm-0 px-0`}>
-            <img src="/img_admin/action.svg" alt="Làm quen với CI/CD trong dự án từ TTO.sh" />
-          </Col>
-          <Col xs={6} sm={2} md={2} className="justify-content-center align-items-center d-flex mb-4 mb-md-0 mb-sm-0">
-            <select
-              aria-label="Quản lý tài khoản"
-              className={`${h.formSelect}`}
-              onChange={(e) => setGetData(e.target.value)}
-              value={getData}
-            >
-              <option value="allRole">Quản lý tài khoản</option>
-              <option value="getAllFpt">Tài khoản nhân viên</option>
-            </select>
-          </Col>
-          <Col xs={6} sm={2} md={3}>
-            <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0" onClick={handleReset}>
-              <img src="/img_admin/restart.svg" alt="Làm quen với CI/CD trong dự án từ TTO.sh" />
-              <span className="text-danger">Cài lại</span>
-            </div>
-          </Col>
-        </Row>
-      </Col>
+
       <div className="d-flex overflow-auto w-100" style={{ whiteSpace: 'nowrap' }}>
         <Table bordered hover className={`${h.table}`}>
           <thead>

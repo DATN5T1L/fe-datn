@@ -1,57 +1,41 @@
 'use client'
-import { useState, useEffect } from "react";
-import HeaderLearning from "@app/(user-global)/component/router/headerLearning"
+import { useState, useEffect, useCallback } from "react";
+import HeaderLearning from "@app/(user-global)/component/router/headerLearning";
 import Body from "../../component/globalControl/body";
 
-const Router: React.FC<{ params: { id: string } }> = ({ params }) => {
+const Router: React.FC<{ params: { slug: string } }> = ({ params }) => {
+    const { slug } = params;
+    const [routerData, setRouterData] = useState<Route | null>(null);
 
-    const { id } = params
-    const [idRoute, setIdRoute] = useState<string>("");
-    const [router, setRouter] = useState<Route>()
-
-    const fetchIdCourse = async (id: string) => {
+    const fetchData = useCallback(async () => {
         try {
-            const response = await fetch(`/api/slugById/${id}/Route`);
+            // Fetch ID route by slug
+            const routeResponse = await fetch(`/api/slugById/${slug}/Route`);
+            if (!routeResponse.ok) throw new Error(`API error: ${routeResponse.status}`);
+            const routeResult = await routeResponse.json();
 
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
-            }
-            const result = await response.json();
-            console.log(result)
-            setIdRoute(result.Route);
+            const idRoute = routeResult.Route;
+
+            // Fetch router details by ID
+            const routerResponse = await fetch(`/api/routes/${idRoute}`);
+            if (!routerResponse.ok) throw new Error(`API error: ${routerResponse.status}`);
+            const routerResult = await routerResponse.json();
+
+            setRouterData(routerResult.data);
         } catch (error: any) {
             console.error("Error fetching data:", error);
         }
-    };
+    }, [slug]);
 
     useEffect(() => {
-        if (idRoute !== "") fetchIdCourse(idRoute)
-    }, [idRoute])
-
-    useEffect(() => {
-        if (id) fetchRouter(id)
-    }, [id])
-
-    const fetchRouter = async (id: string) => {
-        try {
-            const response = await fetch(`/api/routes/${id}`);
-
-            if (!response.ok) {
-                throw new Error(`API error: ${response.status}`);
-            }
-            const result = await response.json();
-            console.log(result)
-            setRouter(result.data);
-        } catch (error: any) {
-            console.error("Error fetching data:", error);
-        }
-    };
+        if (slug) fetchData();
+    }, [slug, fetchData]);
 
     return (
         <Body>
-            {router && (<HeaderLearning data={router} />)}
+            {routerData && <HeaderLearning data={routerData} />}
         </Body>
-    )
-}
+    );
+};
 
-export default Router
+export default Router;

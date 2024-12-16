@@ -20,6 +20,7 @@ interface Courses {
   price_course: number;
   instructor_name: string;
   status_course: string;
+  img_course: string;
 }
 
 interface ApiResponse<T> {

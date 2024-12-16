@@ -28,6 +28,7 @@ interface Course {
   price_course: number;
   instructor_name: string;
   status_course: string;
+  img_course: string;
 }
 
 interface ApiResponse<T> {
@@ -276,13 +277,13 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                             by {item.instructor_name}
                           </Card.Subtitle>
                           <Card.Img
-                            src="/img/iconReact.svg"
+                            src={item.img_course}
                             alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                             className={h.text__img}
                           />
                         </section>
                         <Card.Img
-                          src="/img/tuan.png"
+                          src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067208/fe_image/Hinhgau.png"
                           alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH"
                           className={h.headerContent__avt}
                         />
