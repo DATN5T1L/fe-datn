@@ -360,10 +360,6 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/users-role/:path*',
       },
       {
-        source: '/api/courseEnrollments/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/enrollments/:path*',
-      },
-      {
         source: '/api/post_categories/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/post_categories/:path*',
       },
@@ -446,6 +442,10 @@ const nextConfig = {
       {
         source: '/api/statistical_complete/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
+      },
+      {
+        source: '/api/statistical_instructor_complete_course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-complete-course/:path*',
       },
 
       //instructor

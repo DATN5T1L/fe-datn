@@ -4,32 +4,45 @@ import DoughnutChart from "@/app/accountant/chart/DoughnutChart";
 import h from "./BodyDashboard.module.css";
 import LineChart from "@/app/accountant/chart/LineChart";
 import { useEffect, useState } from "react";
-
-
-
-const getCookie = (name: string) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
-  return null;
-}
-
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
 const BodyDashboard = () => {
   const [peopleComplete, setPeopleComlete] = useState()
-  const token = getCookie('token')
+  const token = useCookie('token')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    fetch(`/api/statistical_complete`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    }).then(res => res.json())
-      .then(data => setPeopleComlete(data))
-      .catch(error => console.log(error))
-  }, [])
+    if (token) {
+      fetch(`/api/statistical_complete/`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }).then(res => res.json())
+        .then(data => {
+           setPeopleComlete(data)
+          console.log('data nè: ',data);
+          
+          })
+        .catch(error => console.log(error))
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/statistical_instructor_complete_course`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }).then(res => res.json())
+        .then(data => {
+          setPeopleComlete(data)
+          console.log('data', data);
+        })
+        .catch(error => console.log(error))
+    }
+  }, [token])
 
   console.log(peopleComplete);
 
