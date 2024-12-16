@@ -25,7 +25,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const isWarningShown = useRef(false);
     const [statusUpdated, setStatusUpdated] = useState(false);
-
+    console.log(startTime)
     useEffect(() => {
         if (playerRef.current && startTime > 0) {
             playerRef.current.seekTo(startTime, 'seconds');

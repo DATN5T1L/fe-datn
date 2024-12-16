@@ -9,6 +9,7 @@ import Tippy from '@tippyjs/react/headless';
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from 'framer-motion';
+import { useParams } from "next/navigation";
 // thêm component
 import CodeDev from "../codeDev";
 import CodeDevLearning from "../CodeDevLearning";
@@ -19,7 +20,6 @@ import NoteContent from "../NoteContent";
 import NoteCourse from "../NoteCourse";
 import Questions from '../Questions';
 import VideoPlayer from '../VideoPlayer';
-
 import { Arrow, IconWhat, IconDoc, IconVideo, IconSun, IconNote, IconBell, IconSetting, IconLogout, IconCode } from "@/app/(user-global)/component/icon/icons";
 // thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
@@ -37,10 +37,11 @@ interface FeedbackProp {
     feedback: { rating: number; feedbackText: string }
 }
 
-const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
+const Learning = () => {
     const token = useCookie('token');
-    const { id } = params;
-
+    const params = useParams();
+    const [id, time] = params.params;
+    console.log(time)
     const userState = useSelector((state: RootState) => state.user);
     const user = userState?.user;
     const avatar: string = user?.avatar ?? '';
@@ -365,6 +366,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     onProgressChange={handleProgressChange}
                     isPlaying={isPlaying}
                     reload={handleReload}
+                    startTime={parseInt(time)}
                 />
             );
         } else if (typeDoc === 'quiz') {
