@@ -8,8 +8,11 @@ import { useEffect, useMemo, useState } from "react";
 
 import Notification from "@/app/(user-global)/component/globalControl/Notification";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const HeaderVideoDetail: React.FC = () => {
+  const userState = useSelector((state: RootState) => state.user.user)
   const searchParams = useSearchParams()
   const [dataCourse, setDataCourse] = useState('')
   const [notification, setNotification] = useState<{
@@ -124,37 +127,40 @@ const HeaderVideoDetail: React.FC = () => {
     <div className="mx-4 mx-xs-2 mx-sm-3 position-relative">
       <div className={`d-flex justify-content-between align-items-center my-4`}>
         <h2 className={h.heading}>Chi tiết khóa học</h2>
-
-        <div className={`${h.actions} d-flex`}>
-          {dataCourse && dataCourse !== 'failed' ? (
-            <Button
-              variant="outline-primary"
-              className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
-              onClick={() => {
-                handleFail()
-              }}
-            >
-              Từ chối khoá học
-            </Button>
-          ) : (
-            ''
-          )}
-          {dataCourse && dataCourse === 'failed' || dataCourse === 'confirming' ? (
-            <Button
-              className={`${h.btnCTA}`}
-              onClick={() => {
-                handleDone()
-              }}
-            >Đăng khóa học</Button>
-          ) : (
-            <Button
-              className={`${h.btnCTA}`}
-              onClick={() => {
-                handleConfirming()
-              }}
-            >Chuyển về chờ duyệt</Button>
-          )}
-        </div>
+        {userState && userState.role === 'admin' ? (
+          <>
+            <div className={`${h.actions} d-flex`}>
+              {dataCourse && dataCourse !== 'failed' ? (
+                <Button
+                  variant="outline-primary"
+                  className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
+                  onClick={() => {
+                    handleFail()
+                  }}
+                >
+                  Từ chối khoá học
+                </Button>
+              ) : (
+                ''
+              )}
+              {dataCourse && dataCourse === 'failed' || dataCourse === 'confirming' ? (
+                <Button
+                  className={`${h.btnCTA}`}
+                  onClick={() => {
+                    handleDone()
+                  }}
+                >Đăng khóa học</Button>
+              ) : (
+                <Button
+                  className={`${h.btnCTA}`}
+                  onClick={() => {
+                    handleConfirming()
+                  }}
+                >Chuyển về chờ duyệt</Button>
+              )}
+            </div>
+          </>
+        ) : ('')}
       </div>
     </div>
   );

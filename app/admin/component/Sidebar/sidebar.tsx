@@ -13,8 +13,8 @@ const Sidebar: React.FC = () => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
   const dropdownCourse = [
-    { href: "/admin/CoursePage", label: "Khóa học miễn phí" },
-    { href: "/giangvien/CoursePage", label: "Khóa học có phí" }
+    { href: "/admin/CoursePage?value=free", label: "Khóa học miễn phí" },
+    { href: "/admin/CoursePage?value=pro", label: "Khóa học có phí" }
   ];
 
   const dropdownUser = [

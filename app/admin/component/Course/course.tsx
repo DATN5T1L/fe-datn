@@ -17,6 +17,7 @@ import header from "@/app/(user-global)/component/globalControl/header";
 import useSWR from 'swr';
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 import ReactLoading from 'react-loading';
+import useCookie from "@/app/(user-global)/component/hook/useCookie";
 
 
 interface Course {
@@ -47,6 +48,15 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
   const totalPages = Math.ceil((courseData?.data.length || 0) / coursePerPage);
   const [count, setCount] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
+  const token = useCookie('token')
+  const [dataC, setDataC] = useState<ApiResponse<Course> | null>(null)
+  console.log(dataC);
+
+  useEffect(() => {
+    if (courseData) {
+      setDataC(courseData)
+    }
+  }, [courseData])
 
   const handleNextPage = useCallback(() => {
     if (currentPage < totalPages) {
@@ -73,8 +83,8 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
   const indexOfLastUser = currentPage * coursePerPage;
   const indexOfFirstUser = indexOfLastUser - coursePerPage;
   const currentCourse =
-    courseData?.data && Array.isArray(courseData.data)
-      ? courseData.data.slice(indexOfFirstUser, indexOfLastUser)
+    dataC?.data && Array.isArray(dataC.data)
+      ? dataC.data.slice(indexOfFirstUser, indexOfLastUser)
       : [];
 
   const renderPaginationItems = useMemo(() => {
@@ -142,12 +152,89 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
   }, [currentPage, totalPages, setCurrentPage])
 
   useEffect(() => {
-    if (courseData?.data.length === 0) {
+    if (dataC?.data.length === 0) {
       setCount(false)
     } else {
       setCount(true)
     }
-  }, [courseData])
+  }, [dataC])
+
+  console.log(dataC);
+
+  const handleFailed = (id: string) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn gỡ khóa học này không?')) {
+        fetch(`/api/censorCourse/${id}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            status_course: 'failed'
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status === 'success') {
+              setDataC((prev) => {
+                if (!prev) return prev;
+                return {
+                  ...prev,
+                  data: prev.data.map((course) =>
+                    course.id === id ?
+                      { ...course, status_course: 'failed' } :
+                      course
+                  )
+                }
+              })
+            }
+            alert('Thay đổi trạng thái thành công')
+          })
+          .catch(error => {
+            console.error(`Có lỗi xảy ra: `, error);
+          })
+      }
+    }
+  }
+
+  const handleSuccess = (id: string) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn đăng khóa học này không?')) {
+        fetch(`/api/censorCourse/${id}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            status_course: 'success'
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status === 'success') {
+              setDataC((prev) => {
+                if (!prev) return prev;
+                return {
+                  ...prev,
+                  data: prev.data.map((course) =>
+                    course.id === id ?
+                      { ...course, status_course: 'success' } :
+                      course
+                  )
+                }
+              })
+            }
+            alert('Thay đổi trạng thái thành công')
+          })
+          .catch(error => {
+            console.error(`Có lỗi xảy ra: `, error);
+          })
+      }
+    }
+  }
+
   return (
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
@@ -186,7 +273,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                             {item.name_course}
                           </Card.Title>
                           <Card.Subtitle className={h.text__hedding3}>
-                            by My Team
+                            by {item.instructor_name}
                           </Card.Subtitle>
                           <Card.Img
                             src="/img/iconReact.svg"
@@ -211,28 +298,42 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
                     </td>
                     <td className={h.option_button_group}>
                       <div
-                        className={`justify-content-evenly border d-flex py-2 rounded`}
+                        className={`justify-content-evenly border d-flex p-0 rounded`}
                       >
-                        <Link href={`/admin/CoursePage/${item.id}`} className="w-50 border-end">
-                          <img src="/img_admin/action1.svg" alt="Xây dựng RESTful API chuyên nghiệp cùng tto.SH" />
+                        <Link href={`/admin/CoursePage/detailCourse?id=${item.id}&name=${item.name_course}`} className={h.itemBtn}>
+                          <img src="/img_admin/action1.svg" alt="Edit" />
                         </Link>
-                        <Link href="UsersPage/DetailUser/" className="">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            fill="green"
-                            className="bi bi-check-circle"
-                            viewBox="0 0 16 16"
-                          >
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                            <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
-                          </svg>
-                        </Link>
+                        <div className={h.itemBtnLine}></div>
+                        <div onClick={() => {
+                          if (item.status_course === "failed" || item.status_course === "confirming") {
+                            handleSuccess(item.id)
+                          }
+                          if (item.status_course === "success") {
+                            handleFailed(item.id)
+                          }
+                        }} className={h.itemBtn}>
+                          {item.status_course === "confirming" || item.status_course === "failed" ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              fill="green"
+                              className="bi bi-check-circle"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                              <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                            </svg>
+                          ) : (
+                            <img src="/img/xIcon.svg" alt="" />
+                          )}
+                        </div>
                       </div>
                     </td>
                   </tr>
-                )) : (<td colSpan={8} style={{ margin: '0 auto', textAlign: 'center' }}>Không có dữ liệu</td>)}
+                )) : (<tr>
+                  <td colSpan={8} style={{ margin: '0 auto', textAlign: 'center' }}>Không có khóa học</td>
+                </tr>)}
             </tbody>
           )}
         </Table>
@@ -246,7 +347,7 @@ const Course: React.FC<CourseProps> = ({ courseData, loading }) => {
           <Pagination.Next onClick={handleNextPage} />
         </Pagination>
       </div>
-    </div>
+    </div >
   );
 };
 
