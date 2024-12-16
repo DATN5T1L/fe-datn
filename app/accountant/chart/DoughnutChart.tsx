@@ -29,7 +29,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
     }
 
     // Tính toán tỷ lệ giữa dữ liệu và phần còn lại
-    const displayedData = [dataValue, totalValue - dataValue];
+    const displayedData = [dataValue, totalValue];
 
     // Chart data
     const data: ChartData<"doughnut"> = {
@@ -42,6 +42,37 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
       ],
     };
 
+
+    const centerTextPlugin = {
+      id: "centerText",
+      beforeDraw: (chart: Chart) => {
+        // Kiểm tra kiểu chart là 'doughnut'
+        if ((chart.config as any).type !== "doughnut") {
+          return;
+        }
+
+        const { width, height } = chart;
+        const ctx = chart.ctx;
+
+        ctx.save();
+        ctx.font = "bold 14px Arial";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+
+        // Hiển thị các dòng văn bản
+        const dataText = `Tổng khóa học: ${dataValue}`;
+        const totalText = `Người dùng đăng ký: ${totalValue}`;
+        const textX = width / 2;
+        const textY1 = height / 2 - 10;
+        const textY2 = height / 2 + 10;
+
+        ctx.fillText(dataText, textX, textY1);
+        ctx.fillText(totalText, textX, textY2);
+        ctx.restore();
+      },
+    };
+
+
     const options: ChartOptions<"doughnut"> = {
       responsive: true,
       plugins: {
@@ -50,9 +81,10 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
       },
       rotation: -90,
       circumference: 360,
-      cutout: "80%",
-      animation: false,
+      cutout: "90%",
     };
+
+    Chart.register(centerTextPlugin);
 
     // Creating the chart instance
     const config: ChartConfiguration<"doughnut"> = {
@@ -70,7 +102,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
     };
   }, [dataValue, totalValue, dataColor, emptyColor]);
 
-  return <canvas id="spacedDotChart" ref={chartRef} width="150" height="150"></canvas>;
+  return <canvas id="spacedDotChart" ref={chartRef} width="200" height="200"></canvas>;
 };
 
 export default DoughnutChart;

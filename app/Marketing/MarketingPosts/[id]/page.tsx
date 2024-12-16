@@ -249,27 +249,27 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
     console.log(`Nội dung trả lời cho reply ${replyId}:`, replyContentRR)
   }
 
-  const handleDelete = (id: string) => {
-    if (id && token) {
-      if (confirm('bạn có muốn xóa bình luận hay không?')) {
-        fetch(`/api/deleteCmtPost/${params.id}/${id}`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then(res => res.json())
-          .then(data => {
-            console.log(data);
-            alert(data.message)
-            reloadComments()
-          })
-          .catch(error => {
-            console.error(error)
-          })
-      }
-    }
-  }
+  // const handleDelete = (id: string) => {
+  //   if (id && token) {
+  //     if (confirm('bạn có muốn xóa bình luận hay không?')) {
+  //       fetch(`/api/deleteCmtPost/${params.id}/${id}`, {
+  //         method: 'DELETE',
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       })
+  //         .then(res => res.json())
+  //         .then(data => {
+  //           console.log(data);
+  //           alert(data.message)
+  //           reloadComments()
+  //         })
+  //         .catch(error => {
+  //           console.error(error)
+  //         })
+  //     }
+  //   }
+  // }
 
   const handleHidden = (id: string) => {
     if (id && token) {
@@ -539,16 +539,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                           }}
                         >Sửa</small>
                       ) : ('')}
-                      {
-                        item.user_id === userId?.id ? (
-                          <small className="text-primary" onClick={() => handleDelete(item.id)}>Xóa</small>
+                      {(
+                        item.del_flag === true ? (
+                          <small className="text-primary" onClick={() => handleHidden(item.id)}>Ẩn</small>
                         ) : (
-                          item.del_flag === true ? (
-                            <small className="text-primary" onClick={() => handleHidden(item.id)}>Ẩn</small>
-                          ) : (
-                            <small className="text-primary" onClick={() => handleHidden(item.id)}>Hiện</small>
-                          )
+                          <small className="text-primary" onClick={() => handleHidden(item.id)}>Hiện</small>
                         )
+                      )
                       }
                     </div>
                     {activeReplyId === item.id && (
@@ -640,16 +637,10 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                                   }}
                                 >Sửa</small>
                               ) : ('')}
-                              {itemR.id === userId?.id ? (
-                                <small className="text-primary" onClick={() => handleDelete(itemR.id)}>Xóa</small>
+                              {itemR.del_flag === true ? (
+                                <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
                               ) : (
-                                <>
-                                  {itemR.del_flag === true ? (
-                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
-                                  ) : (
-                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
-                                  )}
-                                </>
+                                <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
                               )}
                             </div>
                           </div>
@@ -742,16 +733,10 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                                       }}
                                     >Sửa</small>
                                   ) : ('')}
-                                  {itemRR.user_id === userId?.id ? (
-                                    <small className="text-primary" onClick={() => handleDelete(itemRR.id)}>Xóa</small>
+                                  {itemRR.del_flag === true ? (
+                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
                                   ) : (
-                                    <>
-                                      {itemRR.del_flag === true ? (
-                                        <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
-                                      ) : (
-                                        <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
-                                      )}
-                                    </>
+                                    <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
                                   )}
                                 </div>
                                 {activeReplyIdRR === itemRR.id && (

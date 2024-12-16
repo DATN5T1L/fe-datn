@@ -447,6 +447,10 @@ const nextConfig = {
         source: '/api/statistical_instructor_complete_course/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-complete-course/:path*',
       },
+      {
+        source: '/api/statistical_instructor_highest_rating_course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-course-column-chart/:path*',
+      },
 
       //instructor
 
