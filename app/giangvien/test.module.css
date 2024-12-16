@@ -124,6 +124,9 @@
   color: var(--gray-80) !important;
   padding: 0 !important;
   margin: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text__img {

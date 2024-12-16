@@ -28,6 +28,32 @@ interface StatisticalCourse {
   total_course: number;
 }
 
+interface CourseRaiting {
+  created_at: string;
+  del_flag: boolean;
+  discount_price_course: string;
+  discription_course: string;
+  id: string;
+  img_course: string;
+  instructor_id: string;
+  instructor_name: string;
+  name_course: string;
+  num_chapter: number;
+  num_document: number;
+  price_course: number;
+  rating_course: string;
+  slug_course: string;
+  status_course: string;
+  tax_rate: string;
+  updated_at: string;
+  views_course: string;
+}
+
+type DataItem = {
+  month: number;
+  revenue: number;
+};
+
 const Dashboard: React.FC = () => {
   const years = [2024, 2025];
   const [show, setShow] = useState(false);
@@ -36,19 +62,21 @@ const Dashboard: React.FC = () => {
   const token = useCookie('token')
   const [satisticalData, setSatisticalData] = useState<Statistical | null>(null)
   const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
+  const [dataStatis, setDataStatis] = useState<DataItem[]>([])
   const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
   const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
   const [peopleComplete, setPeopleComplete] = useState<StatisticalCourse | null>(null);
-  const [rating, setRating] = useState(null);
+  const [rating, setRating] = useState<CourseRaiting | null>(null);
+
+  console.log(combinedData);
+
 
   useEffect(() => {
     const update2024 = getMonthlyProfits(profitsByMonth1);
-    const update2025 = getMonthlyProfits(profitsByMonth2);
     setCombinedData({
-      [years[0]]: update2024,
-      [years[1]]: update2025,
+      [years[0]]: update2024
     });
-  }, [profitsByMonth1, profitsByMonth2]);
+  }, [profitsByMonth1]);
 
   useEffect(() => {
     if (token) {
@@ -83,6 +111,8 @@ const Dashboard: React.FC = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
+            console.log(data);
+
             setPeopleComplete(data);
           }
         })
@@ -101,7 +131,30 @@ const Dashboard: React.FC = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data) {
-            setRating(data);
+            console.log('He: ', data);
+            setDataStatis(data.data)
+            setprofitsByMonth1(data.data);
+          }
+        })
+        .catch((error) => console.error("Có lỗi xảy ra: ", error));
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/statistical_complete/`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data) {
+            console.log('Heee: ', data);
+            if (data.status === 'success') {
+              setRating(data.data[0]);
+            }
           }
         })
         .catch((error) => console.error("Có lỗi xảy ra: ", error));
@@ -196,104 +249,106 @@ const Dashboard: React.FC = () => {
               <div className={h.card_content}>
                 <h6>Khóa học nổi bật</h6>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                  <Card style={{ width: '100%' }} className={h.mainBox__content}>
-                    <Card.Header className={h.headerContent}>
-                      <section className={h.headerContent__text}>
-                        <Card.Title className={h.text__hedding2}>
-                          WEBSITE DESIGN UI/UX
-                        </Card.Title>
-                        <Card.Subtitle className={h.text__hedding3}>
-                          by My Team
-                        </Card.Subtitle>
+                  {rating && (
+                    <Card style={{ width: '100%' }} className={h.mainBox__content}>
+                      <Card.Header className={h.headerContent}>
+                        <section className={h.headerContent__text}>
+                          <Card.Title className={h.text__hedding2}>
+                            {rating.name_course}
+                          </Card.Title>
+                          <Card.Subtitle className={h.text__hedding3}>
+                            by {rating.instructor_name}
+                          </Card.Subtitle>
+                          <Card.Img
+                            src="/img/iconReact.svg"
+                            alt=""
+                            className={h.text__img}
+                          />
+                        </section>
                         <Card.Img
-                          src="/img/iconReact.svg"
+                          src="/img/tuan.png"
                           alt=""
-                          className={h.text__img}
+                          className={h.headerContent__avt}
                         />
-                      </section>
-                      <Card.Img
-                        src="/img/tuan.png"
-                        alt=""
-                        className={h.headerContent__avt}
-                      />
-                    </Card.Header>
-                    <section className={h.mainContent__headContent}>
-                      <div className={h.headContent__evaluete}>
-                        <div className={h.evaluete__main}>
-                          <div className={h.starGroup}>
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                            <Image
-                              src="/img/iconStar.svg"
-                              alt=""
-                              className={h.starElement}
-                            />
-                          </div>
+                      </Card.Header>
+                      <section className={h.mainContent__headContent}>
+                        <div className={h.headContent__evaluete}>
+                          <div className={h.evaluete__main}>
+                            <div className={h.starGroup}>
+                              <Image
+                                src="/img/iconStar.svg"
+                                alt=""
+                                className={h.starElement}
+                              />
+                              <Image
+                                src="/img/iconStar.svg"
+                                alt=""
+                                className={h.starElement}
+                              />
+                              <Image
+                                src="/img/iconStar.svg"
+                                alt=""
+                                className={h.starElement}
+                              />
+                              <Image
+                                src="/img/iconStar.svg"
+                                alt=""
+                                className={h.starElement}
+                              />
+                              <Image
+                                src="/img/iconStar.svg"
+                                alt=""
+                                className={h.starElement}
+                              />
+                            </div>
 
-                          <Card.Text className={h.starNumber}>
-                            {"("} 4,5 {")"}
-                          </Card.Text>
+                            <Card.Text className={h.starNumber}>
+                              {"("} 4,5 {")"}
+                            </Card.Text>
+                          </div>
                         </div>
-                      </div>
-                      <div className={h.headContent__percent}>
-                        <Card.Text className={h.evaluete__note}>
-                          {"("} 504 phản hồi {")"}
-                        </Card.Text>
-                      </div>
-                    </section>
-                    <Card.Body className={h.mainContent}>
-                      <section className={h.bodyContent}>
-                        <div className={h.bodyContent__element}>
-                          <Image
-                            src="/img/bookoffgreen.svg"
-                            alt=""
-                            className={h.element__img}
-                          />
-                          <Card.Text className={h.element__text}>
-                            10 Chương
-                          </Card.Text>
-                        </div>
-                        <div className={h.bodyContent__element}>
-                          <Image
-                            src="/img/bookopenblue.svg"
-                            alt=""
-                            className={h.element__img}
-                          />
-                          <Card.Text className={h.element__text}>
-                            10 Bài tập
-                          </Card.Text>
-                        </div>
-                        <div className={h.bodyContent__element}>
-                          <Image
-                            src="/img/bookopenyellow.svg"
-                            alt=""
-                            className={h.element__img}
-                          />
-                          <Card.Text className={h.element__text}>
-                            10 Đã học
+                        <div className={h.headContent__percent}>
+                          <Card.Text className={h.evaluete__note}>
+                            {"("} {rating.rating_course} phản hồi {")"}
                           </Card.Text>
                         </div>
                       </section>
-                    </Card.Body>
-                  </Card>
+                      <Card.Body className={h.mainContent}>
+                        <section className={h.bodyContent}>
+                          <div className={h.bodyContent__element}>
+                            <Image
+                              src="/img/bookoffgreen.svg"
+                              alt=""
+                              className={h.element__img}
+                            />
+                            <Card.Text className={h.element__text}>
+                              {rating.num_chapter} Chương
+                            </Card.Text>
+                          </div>
+                          <div className={h.bodyContent__element}>
+                            <Image
+                              src="/img/bookopenblue.svg"
+                              alt=""
+                              className={h.element__img}
+                            />
+                            <Card.Text className={h.element__text}>
+                              {rating.num_document} Bài tập
+                            </Card.Text>
+                          </div>
+                          <div className={h.bodyContent__element}>
+                            <Image
+                              src="/img/bookopenyellow.svg"
+                              alt=""
+                              className={h.element__img}
+                            />
+                            <Card.Text className={h.element__text}>
+                              {rating.views_course} Lượt xem
+                            </Card.Text>
+                          </div>
+                        </section>
+                      </Card.Body>
+                    </Card>
+                  )}
                 </div>
               </div>
             </div>
@@ -301,7 +356,9 @@ const Dashboard: React.FC = () => {
               <div className={h.card_content}>
                 <h6>Doanh thu</h6>
                 <div>
-                  <LineChart />
+                  {dataStatis && (
+                    <LineChart data={dataStatis} />
+                  )}
                 </div>
               </div>
             </div>

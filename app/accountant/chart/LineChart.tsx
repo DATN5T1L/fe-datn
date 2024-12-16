@@ -12,7 +12,16 @@ import {
 } from "chart.js/auto";
 import style from "./Chart.module.css";
 
-const LineChart = () => {
+type DataItem = {
+  month: number;
+  revenue: number;
+};
+
+type Props = {
+  data: DataItem[]; // Mảng dữ liệu đầu vào
+};
+
+const LineChart: React.FC<Props> = ({ data }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
 
@@ -22,7 +31,7 @@ const LineChart = () => {
     LineElement,
     CategoryScale,
     LinearScale,
-    PointElement, // Add this line
+    PointElement,
     Tooltip,
     Legend
   );
@@ -37,13 +46,20 @@ const LineChart = () => {
       }
 
       if (ctx) {
+        // Chuyển đổi dữ liệu nhận từ `props` thành format cần thiết cho biểu đồ
+        const labels = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`);
+        const revenues = Array.from({ length: 12 }, (_, i) => {
+          const found = data.find((item) => item.month === i + 1);
+          return found ? found.revenue : 0;
+        });
+
         myChartRef.current = new Chart(ctx, {
           type: "line",
           data: {
-            labels: ["2015", "2016", "2017", "2018", "2019"],
+            labels, // Nhãn từ tháng 1 -> tháng 12
             datasets: [
               {
-                data: [10, 20, 50, 30, 70],
+                data: revenues, // Dữ liệu doanh thu theo tháng
                 fill: true,
                 backgroundColor: "rgba(255, 255, 255, 0)",
                 borderColor: "rgb(0, 182, 155)",
@@ -92,7 +108,7 @@ const LineChart = () => {
         myChartRef.current.destroy();
       }
     };
-  }, []);
+  }, [data]); // Lắng nghe sự thay đổi của props `data`
 
   return (
     <div>
