@@ -7,20 +7,50 @@ import { parseQues, parseFill, splitByPattern } from "@/app/(user-global)/compon
 
 const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocument, nameDocument, questions, reload }) => {
     const token = useCookie('token');
-    const [answers, setAnswers] = useState<Record<number, string[]>>({});
+    const [answers, setAnswers] = useState<{ [key: number]: string[] }>({});
     const [result, setResult] = useState<string | null>(null);
     const [showConfetti, setShowConfetti] = useState(false);
     const { width, height } = useWindowSize();
     const questionId: string | undefined = questions?.find((question) => question.id)?.id;
     // Xử lý sự kiện chọn câu trả lời
-    const handleAnswerChange = (questionIndex: number, selectedAnswer: string, type: string) => {
+    // const handleAnswerChange = (questionIndex: number, selectedAnswer: string, type: string) => {
+    //     setAnswers((prevAnswers) => {
+    //         const updatedAnswers = { ...prevAnswers };
+    //         switch (type) {
+    //             case 'true_false':
+
+    //             case 'fill':
+    //                 updatedAnswers[questionIndex] = [selectedAnswer];
+    //                 break;
+    //             case 'multiple_choice':
+    //                 const currentAnswers = updatedAnswers[questionIndex] || [];
+    //                 updatedAnswers[questionIndex] = currentAnswers.includes(selectedAnswer)
+    //                     ? currentAnswers.filter((answer) => answer !== selectedAnswer)
+    //                     : [...currentAnswers, selectedAnswer];
+    //                 break;
+    //         }
+    //         return updatedAnswers;
+    //     });
+    // };
+    const handleAnswerChange = (
+        questionIndex: number,
+        selectedAnswer: string,
+        type: string,
+        fillIndex?: number // Thêm tham số này để xử lý cho câu hỏi "fill"
+    ) => {
         setAnswers((prevAnswers) => {
             const updatedAnswers = { ...prevAnswers };
+
             switch (type) {
                 case 'true_false':
-
-                case 'fill':
                     updatedAnswers[questionIndex] = [selectedAnswer];
+                    break;
+                case 'fill':
+                    if (typeof fillIndex !== 'undefined') {
+                        const currentAnswers = updatedAnswers[questionIndex] || [];
+                        currentAnswers[fillIndex] = selectedAnswer; // Cập nhật giá trị ở vị trí cụ thể
+                        updatedAnswers[questionIndex] = [...currentAnswers]; // Ghi lại mảng mới
+                    }
                     break;
                 case 'multiple_choice':
                     const currentAnswers = updatedAnswers[questionIndex] || [];
@@ -29,9 +59,11 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                         : [...currentAnswers, selectedAnswer];
                     break;
             }
+
             return updatedAnswers;
         });
     };
+
 
     // Kiểm tra câu trả lời
     const checkAnswers = async () => {
@@ -136,7 +168,7 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                     <div className={styles.fillContainer}>
                         {parts.map((part, idx) => (
                             <React.Fragment key={idx}>
-                                <span className={styles.labelFill}>{part}</span>
+                                <div className={styles.labelFill} dangerouslySetInnerHTML={{ __html: part }} />
                                 {idx < parts.length - 1 && (
                                     <input
                                         type="text"
@@ -144,7 +176,7 @@ const Questions: React.FC<QuestionsProps> = ({ course_id, documents_id, timedocu
                                         className={styles.inputFill}
                                         value={answers[index]?.[idx] || ''}
                                         onChange={(e) =>
-                                            handleAnswerChange(index, e.target.value, 'fill')
+                                            handleAnswerChange(index, e.target.value, 'fill', idx)
                                         }
                                     />
                                 )}
