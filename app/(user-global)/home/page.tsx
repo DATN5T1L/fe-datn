@@ -18,21 +18,18 @@ import FeedBack from '../component/globalControl/feedBack';
 
 const Home: React.FC = () => {
     return (
-        <>
-
-            <Body>
-                <SliderShow />
-                <LearningPath />
-                <CoursePro />
-                <CourseFree />
-                <Why />
-                <About />
-                {/* <ProductStudent /> */}
-                <FeedBackToStudent />
-                <Post />
-                <FeedBack />
-            </Body>
-        </>
+        <Body>
+            <SliderShow />
+            <LearningPath />
+            <CoursePro />
+            <CourseFree />
+            <Why />
+            <About />
+            {/* <ProductStudent /> */}
+            <FeedBackToStudent />
+            <Post />
+            <FeedBack />
+        </Body>
     )
 }
 
