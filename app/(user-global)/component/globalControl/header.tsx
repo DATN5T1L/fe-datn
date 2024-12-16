@@ -138,7 +138,7 @@ const Header: React.FC = () => {
                                             <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 9L12 15L18 9" stroke="rgba(35, 125, 247, 1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
-                                            <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'} ${c.MenuMobile}`} >
+                                            <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'} `} >
                                                 <div className={c.ctaContactMobile}>
                                                     <h3 className='subMenu-title'>
                                                         Liên hệ hỗ trợ
