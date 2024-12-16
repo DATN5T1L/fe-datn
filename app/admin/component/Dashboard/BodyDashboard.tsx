@@ -88,7 +88,7 @@ const BodyDashboard = () => {
           <div className={h.card_content}>
             <h6>Doanh thu quý hiện tại</h6>
             <div>
-              <LineChart data={data} labels={labels} />
+              {/* <LineChart data={data} labels={labels} /> */}
             </div>
           </div>
         </div>

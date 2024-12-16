@@ -23,7 +23,7 @@ const Dashboard = () => {
   const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
   const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
   const [dataByWeek, setDataByWeek] = useState<Record<number, number[]>>({});
-
+  console.log(combinedData)
   useEffect(() => {
     const update2024 = getMonthlyProfits(profitsByMonth1);
     const update2025 = getMonthlyProfits(profitsByMonth2);

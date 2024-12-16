@@ -12,16 +12,20 @@ import {
 } from "chart.js/auto";
 import style from "./Chart.module.css";
 
-interface LineChartProps {
-  labels: string[]; // Nhãn trên trục x (ví dụ: các tháng)
-  data: number[]; // Dữ liệu doanh số tương ứng với từng nhãn
-}
+type DataItem = {
+  month: number;
+  revenue: number;
+};
 
-const LineChart: React.FC<LineChartProps> = ({ labels, data }) => {
+type Props = {
+  data: DataItem[]; // Mảng dữ liệu đầu vào
+};
+
+const LineChart: React.FC<Props> = ({ data }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
 
-  // Đăng ký các thành phần cần thiết cho biểu đồ line
+  // Đăng ký các thành phần cần thiết cho biểu đồ bar
   Chart.register(
     LineController,
     LineElement,
@@ -42,22 +46,27 @@ const LineChart: React.FC<LineChartProps> = ({ labels, data }) => {
       }
 
       if (ctx) {
+        // Chuyển đổi dữ liệu nhận từ `props` thành format cần thiết cho biểu đồ
+        const labels = Array.from({ length: 12 }, (_, i) => `Tháng ${i + 1}`);
+        const revenues = Array.from({ length: 12 }, (_, i) => {
+          const found = data.find((item) => item.month === i + 1);
+          return found ? found.revenue : 0;
+        });
+
         myChartRef.current = new Chart(ctx, {
           type: "line",
           data: {
-            labels: labels, // Truyền nhãn từ props
+            labels, // Nhãn từ tháng 1 -> tháng 12
             datasets: [
               {
-                label: "Doanh số",
-                data: data, // Truyền dữ liệu từ props
+                data: revenues, // Dữ liệu doanh thu theo tháng
                 fill: true,
-                backgroundColor: "rgba(0, 182, 155, 0.2)", // Vùng bên dưới đường
+                backgroundColor: "rgba(255, 255, 255, 0)",
                 borderColor: "rgb(0, 182, 155)",
-                tension: 0.4, // Làm mượt đường
-                borderWidth: 3,
-                pointRadius: 5,
+                tension: 0.3,
+                borderWidth: 2,
+                pointRadius: 3,
                 pointBackgroundColor: "rgb(0, 182, 155)",
-                pointHoverRadius: 7, // Tăng kích thước điểm khi hover
                 showLine: true,
               },
             ],
@@ -65,21 +74,9 @@ const LineChart: React.FC<LineChartProps> = ({ labels, data }) => {
           options: {
             plugins: {
               legend: {
-                display: true,
-                position: "top",
+                display: false,
+                position: "right",
                 align: "center",
-                labels: {
-                  font: {
-                    size: 14,
-                  },
-                },
-              },
-              tooltip: {
-                callbacks: {
-                  label: function (tooltipItem) {
-                    return `Doanh số: ${tooltipItem.raw} triệu`;
-                  },
-                },
               },
             },
             scales: {
@@ -87,27 +84,19 @@ const LineChart: React.FC<LineChartProps> = ({ labels, data }) => {
                 grid: {
                   display: false,
                 },
-                ticks: {
-                  font: {
-                    size: 12,
-                  },
-                },
               },
               y: {
                 grid: {
-                  color: "rgba(200, 200, 200, 0.2)",
+                  display: false,
                 },
                 ticks: {
-                  stepSize: 20, // Khoảng cách giữa các giá trị
+                  stepSize: 25, // Đặt khoảng cách giữa các ticks
                   callback: function (value) {
-                    return `${value} triệu`; // Hiển thị giá trị với đơn vị
-                  },
-                  font: {
-                    size: 12,
+                    return value; // Hiển thị tất cả các giá trị
                   },
                 },
                 suggestedMin: 0,
-                suggestedMax: Math.max(...data) + 20, // Tự động điều chỉnh trục y
+                suggestedMax: 100,
               },
             },
           },
@@ -119,7 +108,7 @@ const LineChart: React.FC<LineChartProps> = ({ labels, data }) => {
         myChartRef.current.destroy();
       }
     };
-  }, [labels, data]); // Theo dõi thay đổi của labels và data
+  }, [data]); // Lắng nghe sự thay đổi của props `data`
 
   return (
     <div>
