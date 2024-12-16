@@ -526,3 +526,13 @@
     padding: 0;
     color: var(--red-40);
 }
+
+@media screen and (max-width: 576px) {
+
+    .main,
+    .form {
+        padding: 32px 16px;
+    }
+
+
+}

@@ -49,6 +49,10 @@
 }
 
 @media screen and (max-width: 479px) {
+    .header {
+        padding: 0px 16px !important;
+    }
+
     .imageUser {
         display: block;
         width: 50px;
@@ -56,6 +60,11 @@
         border-radius: 50%;
         object-fit: cover;
         cursor: pointer;
+    }
+
+    .infoUser,
+    .MobileNone {
+        display: none !important;
     }
 
     .headerCTA {

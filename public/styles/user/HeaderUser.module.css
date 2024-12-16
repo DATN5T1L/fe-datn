@@ -81,19 +81,14 @@
     color: var(--blue-20);
 }
 
-@media screen and (max-width: 767px) and (min-width: 375px) {
-    .content {
-        bottom: -45px;
-        gap: 12px;
-    }
-
-    .img {
-        width: 100px;
-        height: 100px;
-    }
-}
 
 @media screen and (max-width: 576px) {
+    .container {
+        padding: 0px 16px !important;
+        margin-top: 50px !important;
+        margin-bottom: 32px !important;
+    }
+
     .content {
         align-items: flex-start;
         flex-direction: row;

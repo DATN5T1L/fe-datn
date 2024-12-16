@@ -7,6 +7,7 @@ import { Button, Image, Nav } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../../redux/store';
 import { ShowNameElement } from '@app/(user-global)/component/globalControl/commonC';
+import c from "@public/styles/globalControl/LeftSlider.module.css"
 const LeftSlider: React.FC = () => {
     const pathName = usePathname();
     const [isMenu, setIsMenu] = useState(true);
@@ -99,7 +100,7 @@ const LeftSlider: React.FC = () => {
 
     return (
         <Nav
-            className={`slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`}
+            className={`${c.MobileNone} slider-bar ${isHidden ? 'hidden' : 'visible-menu'}`}
             style={{ top: `calc(${headerHeight}px + 120px)` }}
         >
             <section className={`slide-bar-categories`}>

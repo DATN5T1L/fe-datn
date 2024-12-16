@@ -133,7 +133,7 @@ const Login: React.FC = () => {
             <Body>
                 <Container className={styles.main}>
                     <div className={styles.main__container}>
-                        <Image src="/img/pandaLogin.svg" alt="Thực hiện dự án clone Facebook tại tto" className={styles.logoLogin} />
+                        <Image src="/img/pandaLogin.svg" alt="Thực hiện dự án clone Facebook tại tto" className={`${styles.logoLogin} mobNone`} />
                         <Card className={styles.cardContainer}>
                             <Card.Header className={styles.headerLogin}>
                                 <section className={styles.titleGroup}>

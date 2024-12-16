@@ -1,0 +1,7 @@
+@media screen and (max-width: 675px) {
+    .MobileNone {
+        display: none !important;
+    }
+
+    /* Dành cho laptop */
+}
