@@ -118,7 +118,7 @@ const CoursePro: React.FC = () => {
                         rightIcon={false}
                         width={225}
                         height={40}
-                        onClick={() => handlePathChange("Tester")}
+                        onClick={() => handlePathChange("lo-trinh-designer")}
                     >
                         Khóa học lộ trình Tester
                     </Button>
@@ -130,7 +130,7 @@ const CoursePro: React.FC = () => {
                         rightIcon={false}
                         width={245}
                         height={40}
-                        onClick={() => handlePathChange("Designer")}
+                        onClick={() => handlePathChange("lo-trinh-tester")}
                     >
                         Khóa học lộ trình Designer
                     </Button>

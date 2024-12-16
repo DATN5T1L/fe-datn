@@ -585,33 +585,33 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                                     selectedIndex === `${index}-${subIndex}` ? "rgba(230, 240, 254, 1)" : "transparent",
                                                             }}
                                                             onClick={() => {
-                                                                const isAllPreviousDocumentsCompleted = (currentIndex: number): boolean => {
-                                                                    for (let i = 0; i < currentIndex; i++) {
-                                                                        const previousCourse = course[i];
-                                                                        if (previousCourse?.documents) {
-                                                                            for (let doc of previousCourse.documents) {
-                                                                                if (!doc.status_document) {
-                                                                                    return false;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    return true;
-                                                                };
-                                                                const isPreviousDocumentCompleted =
-                                                                    subIndex > 0 && item.documents[subIndex - 1]?.status_document === true;
+                                                                // const isAllPreviousDocumentsCompleted = (currentIndex: number): boolean => {
+                                                                //     for (let i = 0; i < currentIndex; i++) {
+                                                                //         const previousCourse = course[i];
+                                                                //         if (previousCourse?.documents) {
+                                                                //             for (let doc of previousCourse.documents) {
+                                                                //                 if (!doc.status_document) {
+                                                                //                     return false;
+                                                                //                 }
+                                                                //             }
+                                                                //         }
+                                                                //     }
+                                                                //     return true;
+                                                                // };
+                                                                // const isPreviousDocumentCompleted =
+                                                                //     subIndex > 0 && item.documents[subIndex - 1]?.status_document === true;
 
-                                                                const isCurrentDocumentBlocked =
-                                                                    subIndex > 0 && !isPreviousDocumentCompleted;
+                                                                // const isCurrentDocumentBlocked =
+                                                                //     subIndex > 0 && !isPreviousDocumentCompleted;
 
-                                                                // Kiểm tra điều kiện tài liệu bị khóa
-                                                                if (!isAllPreviousDocumentsCompleted(index)) {
-                                                                    alert('Bạn cần hoàn thành toàn bộ các tài liệu trong các chương trước để tiếp tục.');
-                                                                    return;
-                                                                } else if (isCurrentDocumentBlocked) {
-                                                                    alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
-                                                                    return;
-                                                                }
+                                                                // // Kiểm tra điều kiện tài liệu bị khóa
+                                                                // if (!isAllPreviousDocumentsCompleted(index)) {
+                                                                //     alert('Bạn cần hoàn thành toàn bộ các tài liệu trong các chương trước để tiếp tục.');
+                                                                //     return;
+                                                                // } else if (isCurrentDocumentBlocked) {
+                                                                //     alert('Bạn cần hoàn thành bài trước đó để tiếp tục.');
+                                                                //     return;
+                                                                // }
 
                                                                 setSelectedIndex(`${index}-${subIndex}`);
                                                                 handleClickDoc(doc);
