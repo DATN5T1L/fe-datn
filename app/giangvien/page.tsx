@@ -30,6 +30,7 @@ const Dashboard: React.FC = () => {
   const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
   const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
   const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
+  const [peopleComplete, setPeopleComlete] = useState()
 
   useEffect(() => {
     const update2024 = getMonthlyProfits(profitsByMonth1);
@@ -59,6 +60,22 @@ const Dashboard: React.FC = () => {
           console.error('Có lỗi xảy ra: ', error);
 
         })
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetch(`/api/statistical_instructor_complete_course`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      }).then(res => res.json())
+        .then(data => {
+          setPeopleComlete(data)
+          console.log('data', data);
+        })
+        .catch(error => console.log(error))
     }
   }, [token])
   return (

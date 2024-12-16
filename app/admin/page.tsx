@@ -21,6 +21,7 @@ import 'tippy.js/dist/tippy.css';
 import ReactLoading from 'react-loading';
 import { LineChartViewYear } from "../accountant/component/Dashboard/LineChartView";
 import { formatToVietnameseCurrencyText, getMonthlyProfits } from "../(user-global)/component/globalControl/commonC";
+import useCookie from "../(user-global)/component/hook/useCookie";
 
 interface Statistical {
   totalCourse: number;
@@ -29,15 +30,6 @@ interface Statistical {
   totalCourseRevenue: string; // doanh thu
 }
 
-const getCookie = (name: string) => {
-  if (typeof window !== 'undefined') {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift();
-  }
-  return null;
-};
-
 const Dashboard: React.FC = () => {
   const router = useRouter()
   const userState = useSelector((state: RootState) => state.user.user)
@@ -45,8 +37,7 @@ const Dashboard: React.FC = () => {
   const alertShown = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
-  const token = getCookie('token');
-  const [countEnrollments, setCountEnrollments] = useState(0)
+  const token = useCookie('token');
 
   useEffect(() => {
     if (token) {
@@ -67,7 +58,6 @@ const Dashboard: React.FC = () => {
         })
         .then(data => {
           setIsLoading(false)
-          console.log(data);
           setData(data)
         })
         .catch(error => {
