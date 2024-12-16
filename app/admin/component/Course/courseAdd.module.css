@@ -77,8 +77,6 @@
   display: flex;
   padding-top: 32px;
   justify-content: space-between;
-  /* Đẩy .left và .right về hai đầu */
-  /* align-items: center; */
 }
 
 .bentrong {

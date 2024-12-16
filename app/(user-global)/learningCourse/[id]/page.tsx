@@ -381,6 +381,7 @@ const Learning: React.FC<{ params: { id: string } }> = ({ params }) => {
                     nameDocument={nameDocument}
                     timedocument={timedocument}
                     questions={question}
+                    reload={handleReload}
                 />
             );
         } else if (typeDoc === 'code') {

@@ -104,6 +104,7 @@ interface QuestionsProps {
     timedocument: string;
     nameDocument: string;
     questions: QuestionsDocument['questions'];
+    reload: () => void;
 
 }
 
