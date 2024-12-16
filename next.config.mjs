@@ -525,8 +525,6 @@ const nextConfig = {
         source: '/api/deleteReminder/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/reminders/:path*',
       },
-
-
       //course
       {
         source: '/api/allCourseAdmin/:path*',

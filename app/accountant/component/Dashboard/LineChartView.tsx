@@ -26,7 +26,10 @@ interface LineChartViewYearProps {
 const LineChartViewYear: React.FC<LineChartViewYearProps> = ({ years, dataByYear }) => {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const myChartRef = useRef<Chart | null>(null);
-  const [selectedYear, setSelectedYear] = useState<number>(years[0]);
+
+  // Kiểm tra nếu có dữ liệu cho năm 2024 thì đặt mặc định là 2024, ngược lại đặt là năm đầu tiên trong danh sách.
+  const defaultYear = dataByYear[2024] ? 2024 : years[0];
+  const [selectedYear, setSelectedYear] = useState<number>(defaultYear);
   const [chartType, setChartType] = useState<"line" | "bar">("line");
 
   Chart.register(
@@ -145,10 +148,12 @@ const LineChartViewYear: React.FC<LineChartViewYearProps> = ({ years, dataByYear
             value={selectedYear}
             onChange={(e) => setSelectedYear(Number(e.target.value))}
           >
-            <option value={2024}>2024</option>
-            <option value={2025}>2025</option>
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
           </select>
-
         </div>
       </div>
       <canvas ref={chartRef}></canvas>

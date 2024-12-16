@@ -313,6 +313,7 @@ interface NotificationProps {
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 interface Route {
+    slug_route: string;
     route_id: string;
     name_route: string;
     img_route: string;

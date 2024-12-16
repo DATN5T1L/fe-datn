@@ -6,8 +6,10 @@ import h from "./Header.module.css";
 import Notifications from "@/app/admin/component/DashboardMenu/notifications";
 import Settings from "@/app/admin/component/DashboardMenu/settings";
 import OffcanvasComponent from "@/app/admin/component/DashboardMenu/overviewmenu";
-
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store';
 const Header: React.FC = () => {
+  const userState = useSelector((state: RootState) => state.user);
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -54,54 +56,26 @@ const Header: React.FC = () => {
   }, [showNotifications, showSettings]);
 
   return (
-    <>
-      <Navbar
-        bg="white"
-        expand="lg"
-        className={`${h.nav} d-flex justify-content-between align-items-center`}
-      >
-        <Navbar.Brand href="#">
-          <img
-            src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734076053/fe_image/Logo.png"
-            className="d-inline-block align-top"
-            alt="HTML5 và CSS3 tto.sh"
-          />
-        </Navbar.Brand>
-        <SearchBar />
-        <ButtonGroup className={`${h.CTA} d-none d-xl-block`}>
-          <Button
-            variant="link"
-            className={h.iconButton1}
-            onClick={toggleNotifications}
-          >
-            <img src="/img/Bell.svg" alt="Notifications" />
-          </Button>
 
-          <Button
-            variant="link"
-            className={h.iconButton2}
-            onClick={toggleSettings}
-          >
-            <img src="/img_admin/admin.png" alt="User d-none d-xl-block " />
-          </Button>
-          <Button variant="link" className={h.iconButton}>
-            <img src="/img/list.svg" alt="Menu" onClick={handleShow} />
-            <OffcanvasComponent show={show} handleClose={handleClose} />
-          </Button>
-        </ButtonGroup>
-      </Navbar>
+    <Navbar
+      bg="white"
+      expand="lg"
+      className={`${h.nav} d-flex justify-content-between align-items-center`}
+    >
+      <Navbar.Brand href="#">
+        <img
+          src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734076053/fe_image/Logo.png"
+          className="d-inline-block align-top"
+          alt="HTML5 và CSS3 tto.sh"
+        />
+      </Navbar.Brand>
 
-      {showNotifications && (
-        <div ref={notificationRef} className={h.notificationWrapper}>
-          <Notifications />
-        </div>
-      )}
-      {showSettings && (
-        <div ref={settingsRef} className={h.settingsWrapper}>
-          <Settings />
-        </div>
-      )}
-    </>
+      <div className={`${h.CTA}`}>
+        <p className={h.userName}>{userState.user?.fullname}</p>
+        <img src={userState.user?.avatar} alt="User" className={h.user} />
+      </div>
+    </Navbar>
+
   );
 };
 
