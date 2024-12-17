@@ -101,14 +101,6 @@ const Header: React.FC = () => {
                     <Nav className={`  btn-header`}>
                         <Row md={12} className='btn-header-container'>
                             <Col md={4} className={`btn-header-container-element ${c.MobileNone}`}>
-                                <ShowNameElement name='Về chúng tôi'>
-                                    <Link href='/' className='btn-header-container-element-link'>
-                                        <div>Về chúng tôi</div>
-                                        <Image src="/img/chervonblue-02.svg" alt="Hỗ trợ học viên" className='btn-header-container-element-img' />
-                                    </Link>
-                                </ShowNameElement>
-                            </Col>
-                            <Col md={4} className={`btn-header-container-element ${c.MobileNone}`}>
                                 <ShowNameElement name='Liên hệ'>
                                     <Link href='/Contact' className='btn-header-container-element-link'>
                                         <div>Liên hệ với TTO.SH</div>

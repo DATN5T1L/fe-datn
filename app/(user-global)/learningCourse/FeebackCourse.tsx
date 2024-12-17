@@ -57,9 +57,7 @@ const FeebackCourse: React.FC<FeedbackProps> = ({ onSubmit, course_id, course_na
             <Button variant="primary" type="submit" className={styles.submitButton}>
                 Gửi đánh giá
             </Button>
-            <Link href={`/Certificate/${course_id}/${course_name}`}>
-                Đi đến trang nhận chứng chỉ
-            </Link>
+
         </Form>
     );
 };

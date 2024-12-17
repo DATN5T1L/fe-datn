@@ -167,7 +167,7 @@ const Form = () => {
         <Container className={c.Container}>
             <Row className={c.content}>
                 <Col md={6} className={c.LeftHero}>
-                    <h6 className={c.subHeading}>/Để lại thông tin</h6>
+                    <h6 className={c.subHeading}>/ Để lại thông tin</h6>
                 </Col>
                 <Col md={6} className={c.RightHero}>
                 </Col>
@@ -189,10 +189,18 @@ const Form = () => {
                     </div>
 
                     <div className={c.socials}>
-                        <IconLinked />
-                        <IconIntagarm />
-                        <IconFb />
-                        <IconTiktok />
+                        <Link href={"www.linkedin.com/in/tto-sh-331520341"}>
+                            <IconLinked />
+                        </Link>
+                        <Link href={"https://www.instagram.com/contactttosh/"}>
+                            <IconIntagarm />
+                        </Link>
+                        <Link href={"www.linkedin.com/in/tto-sh-331520341"}>
+                            <IconFb />
+                        </Link>
+                        <Link href={"https://www.tiktok.com/@ttosht5l1contact?is_from_webapp=1&sender_device=pc"}>
+                            <IconTiktok />
+                        </Link>
                         <div className={c.ElipSocial}><IconElip /></div>
                         <div className={c.ElipSocial1}><IconElip1 /></div>
                         <div className={c.ElipSocial2}><IconElip2 /></div>

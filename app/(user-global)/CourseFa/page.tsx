@@ -32,8 +32,8 @@ const CourseFA: React.FC = () => {
         token ? [`/api/favoriteCourses`, token] : null, // Key là một mảng
         fetcher,
         {
-            revalidateOnFocus: true,
-            revalidateOnReconnect: true,
+            revalidateOnFocus: false,
+            revalidateOnReconnect: false,
             revalidateIfStale: false,
         }
     );

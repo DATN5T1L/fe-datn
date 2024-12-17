@@ -41,12 +41,12 @@ const GgLogin = () => {
                                 avatar: session.user.image,
                                 ...data,
                             }));
-                            router.push("/info-user");
+                            router.push("/home");
                         } else {
                             console.error("Ảnh đại diện chưa sẵn sàng");
                         }
                         document.cookie = `token=${data.access_token}; path=/; SameSite=Strict`;
-                        router.push("/info-user");
+                        router.push("/home");
                         console.log('Đăng nhập thành công:', data);
                     } else {
                         console.log('Đăng nhập thất bại:', data);

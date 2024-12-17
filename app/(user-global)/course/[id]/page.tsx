@@ -190,8 +190,8 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
     //  
     // Handle loading and error states
-    if (courseError || chapterError || faqError || feedbackError || userError) return <div>Failed to load data</div>;
-    if (!courseData || !chapterData || !faqData || !feedbackData || !userData) return <div>Loading...</div>;
+    if (courseError || chapterError || faqError || feedbackError || userError) return;
+    if (!courseData || !chapterData || !faqData || !feedbackData || !userData) return;
 
     const chapters = chapterData.data.name_chapters;
     const course = courseData.data;

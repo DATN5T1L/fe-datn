@@ -10,7 +10,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useParams } from "next/navigation";
-// thêm component
 import CodeDev from "../codeDev";
 import CodeDevLearning from "../CodeDevLearning";
 import ProgressCircle from '@app/(user-global)/component/course/ProgressCircle';
@@ -21,40 +20,26 @@ import NoteCourse from "../NoteCourse";
 import Questions from '../Questions';
 import VideoPlayer from '../VideoPlayer';
 import { Arrow, IconWhat, IconDoc, IconVideo, IconSun, IconNote, IconBell, IconSetting, IconLogout, IconCode } from "@/app/(user-global)/component/icon/icons";
-// thêm Comment thông báo 
 import Notification from "@app/(user-global)/component/globalControl/Notification";
 import { formatDateTime, formatTime, ShowNameElement } from "@/app/(user-global)/component/globalControl/commonC";
-
 import DocumentStatus from '../statusDoc';
-
-// thêm styles
 import stylesNav from "@public/styles/globalControl/Nav.module.css";
 import styles from "@public/styles/Learning/Learning.module.css";
-import FeebackCourse from "../FeebackCourse";
-
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
-interface FeedbackProp {
-    feedback: { rating: number; feedbackText: string }
-}
-
 const Learning = () => {
     const token = useCookie('token');
     const params = useParams();
-    const [id, time] = params.params;
-    console.log(time)
+    const [id, doc_idParam, time] = params.params;
+    const [doc_id, setdoc_id] = useState<string>(doc_idParam || "");
     const userState = useSelector((state: RootState) => state.user);
     const user = userState?.user;
     const avatar: string = user?.avatar ?? '';
     const { handleLogout } = useLogout();
-
     const [isNoti, setNoti] = useState(false);
     const [isContent, setContent] = useState(true);
     const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
     const [messageNoti, setmessageNoti] = useState("");
-
     const [course, setCourse] = useState<Chapter[] | null>(null);
-    const [courseName, setCourseName] = useState<Chapter[] | null>(null);
-
     const [question, setQuestion] = useState<QuestionsDocument['questions'] | null>(null);
     const [code, setCode] = useState<CodesDocument['codes'] | null>(null);
     const [progress, setprogress] = useState<Progress>();
@@ -64,8 +49,7 @@ const Learning = () => {
     const [descdocument, setdescdocument] = useState<string | null>(null);
     const [note, setNote] = useState<Note[] | null>(null);
     const [error, setError] = useState<string | null>(null);
-    const [idCourse, setIdCourse] = useState<string>("")
-    const [doc_id, setdoc_id] = useState<string>("");
+    const [idCourse, setIdCourse] = useState<string>("");
     const [chapter_id, setChapter_id] = useState<string>("");
     const [chapterName, setChapterName] = useState<string>("");
     const course_Id = idCourse;
@@ -75,70 +59,52 @@ const Learning = () => {
     const [html, setHtml] = useState<string>('');
     const [css, setCss] = useState<string>('');
     const [js, setJs] = useState<string>('');
-
-    const [type, setType] = useState<NotiType>("complete");
-    const [message, setMessage] = useState<string>("");
-    const [showNotification, setShowNotification] = useState(false);
-
     const [statusVideo, setStatusVideo] = useState<boolean>(false)
-
     const [visible, setVisible] = useState(false);
-    // show footerCTA
     const [isFooterCta, setIsFooterCTA] = useState(true);
-
     const [isNote, setIsNote] = useState(false);
     const [isActive, setIsActive] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [tippyVisible, setTippyVisible] = useState(false);
     const [isFAQ, setFAQ] = useState(false);
     const [isNoteContent, setIsNoteContent] = useState(false);
-
     const toggleSwitch = () => {
         setIsActive(!isActive);
         setTippyVisible(prev => !prev);
     };
     const show = () => setVisible(true);
     const hide = () => setVisible(false);
-
     const toggleNote = () => {
         setIsNote(prev => !prev);
         setIsPlaying(prev => !prev);
     };
-
     const toggleFaq = () => {
         setFAQ(prev => !prev);
     };
     const toggleNoteList = () => {
         setIsNoteContent(prev => !prev);
     };
-
     const toggleVisibility = () => {
         setIsVisible(!isVisible);
     };
-
     const handelIsPlaying = () => {
         setIsPlaying(!isPlaying);
     }
-    // láy ra khóa học
     const fetchIdCourse = async (id: string) => {
         try {
             const response = await fetch(`/api/slugById/${id}/Course`);
-
             if (!response.ok) {
                 throw new Error(`API error: ${response.status}`);
             }
             const result = await response.json();
             setIdCourse(result.Course);
-
         } catch (error: any) {
             console.error("Error fetching data:", error);
-
         }
     };
     useEffect(() => {
         if (id) fetchIdCourse(id)
     }, [id])
-
     const fetchDocuments = async (retries = 3): Promise<CourseData | null> => {
         try {
             const response = await fetch(`/api/getdocforyou/${course_Id}`, {
@@ -220,12 +186,9 @@ const Learning = () => {
 
     useEffect(() => {
         if (doc_id !== null) {
-
             fetchCreatStatus();
         }
     }, [doc_id]);
-
-
 
     const [openIndexes, setOpenIndexes] = useState<number[]>([]);
 
@@ -259,39 +222,82 @@ const Learning = () => {
                             chapter_id: chapter.chapter_id,
                             chapter_name: chapter.chapter_name
                         };
+                    } else {
+                        handleIsComplete();
                     }
                     // alert('Bạn đã hoàn thành khóa học')
                 }
                 return null;
             };
-
-            const inactiveDoc = findInactiveDocument(course);
-
-            if (inactiveDoc) {
-                setIsFooterCTA(true)
-                const { document_id, chapter_id } = inactiveDoc;
-
-                // Tìm tài liệu không hoạt động dựa trên document_id
-                const initialDoc = course
-                    .find(chapter => chapter.chapter_id === chapter_id)
-                    ?.documents.find(doc => doc.document_id === document_id);
-
-                if (initialDoc) {
-                    // Đặt trạng thái và gọi các hàm cần thiết
-                    setdoc_id(initialDoc.document_id); // Gán document_id
-                    setChapter_id(chapter_id); // Gán chapter_id
-                    handleClickDoc(initialDoc);
-                    setChapterName(inactiveDoc.chapter_name)
-                    // Tìm chỉ số của tài liệu và chương để đặt selectedIndex
-                    const chapterIndex = course.findIndex(chapter => chapter.chapter_id === chapter_id);
-                    const docIndex = course[chapterIndex]?.documents.findIndex(doc => doc.document_id === document_id);
-
-                    if (chapterIndex >= 0 && docIndex >= 0) {
-                        setSelectedIndex(`${chapterIndex}-${docIndex}`);
-                        toggleItem(chapterIndex);
+            const findLessonByDocId = (
+                course: Chapter[],
+                targetDocId: string
+            ): { chapter_id: string; chapter_name: string; document_id: string } | null => {
+                for (const chapter of course) {
+                    // Tìm tài liệu trong danh sách documents của chapter
+                    const targetDoc = chapter.documents.find(doc => doc.document_id === targetDocId);
+                    if (targetDoc) {
+                        return {
+                            chapter_id: chapter.chapter_id,
+                            chapter_name: chapter.chapter_name,
+                            document_id: targetDoc.document_id
+                        };
                     }
                 }
+                return null; // Trả về null nếu không tìm thấy tài liệu
+            };
+            if (doc_idParam) {
+                const inactiveDoc = findLessonByDocId(course, doc_id);
+                if (inactiveDoc) {
+                    const { chapter_id, chapter_name, document_id, } = inactiveDoc;
+                    const initialDocs = course
+                        .find(chapter => chapter.chapter_id === chapter_id)
+                        ?.documents.find(doc => doc.document_id === document_id);
+                    if (initialDocs) {
+                        // Đặt trạng thái và gọi các hàm cần thiết
+                        setdoc_id(initialDocs.document_id); // Gán document_id
+                        setChapter_id(chapter_id); // Gán chapter_id
+                        handleClickDoc(initialDocs);
+                        setChapterName(chapter_name)
+                        // Tìm chỉ số của tài liệu và chương để đặt selectedIndex
+                        const chapterIndex = course.findIndex(chapter => chapter.chapter_id === chapter_id);
+                        const docIndex = course[chapterIndex]?.documents.findIndex(doc => doc.document_id === document_id);
+
+                        if (chapterIndex >= 0 && docIndex >= 0) {
+                            setSelectedIndex(`${chapterIndex}-${docIndex}`);
+                            toggleItem(chapterIndex);
+                        }
+                    }
+                }
+            } else {
+                const inactiveDoc = findInactiveDocument(course);
+                if (inactiveDoc) {
+                    const { document_id, chapter_id, chapter_name } = inactiveDoc;
+
+                    // Tìm tài liệu không hoạt động dựa trên document_id
+                    const initialDocs = course
+                        .find(chapter => chapter.chapter_id === chapter_id)
+                        ?.documents.find(doc => doc.document_id === document_id);
+
+                    if (initialDocs) {
+                        // Đặt trạng thái và gọi các hàm cần thiết
+                        setdoc_id(initialDocs.document_id); // Gán document_id
+                        setChapter_id(chapter_id); // Gán chapter_id
+                        handleClickDoc(initialDocs);
+                        setChapterName(chapter_name)
+                        // Tìm chỉ số của tài liệu và chương để đặt selectedIndex
+                        const chapterIndex = course.findIndex(chapter => chapter.chapter_id === chapter_id);
+                        const docIndex = course[chapterIndex]?.documents.findIndex(doc => doc.document_id === document_id);
+
+                        if (chapterIndex >= 0 && docIndex >= 0) {
+                            setSelectedIndex(`${chapterIndex}-${docIndex}`);
+                            toggleItem(chapterIndex);
+                        }
+                    }
+                }
+
             }
+
         }
     }, [course]);
 
@@ -326,34 +332,7 @@ const Learning = () => {
         }
     };
 
-    const handelFeedback = async (feedback: FeedbackProp) => {
-        const Data = {
-            rating_course: feedback.feedback.rating,
-            feedback_text: feedback.feedback.feedbackText
-        }
-        try {
-            const response = await fetch(`/api/addFeedback/${course_Id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(Data),
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch course");
-            }
-            const responseData = await response.json();
-            console.log(responseData)
-            alert('Cảm ơn bạn đã để lại phản hồi khóa học cho TTO.SH chúc bạn 1 ngày tốt lành')
-            if (!responseData.ok) {
 
-            } else {
-            }
-        } catch (err: any) {
-
-        }
-    }
     const renderContent = () => {
         if (typeDoc === 'video') {
             console.log("Rendering Video Player");
@@ -405,13 +384,15 @@ const Learning = () => {
         } else {
             setIsVisible(false)
             setIsFooterCTA(false)
-            handleIsComplete();
             return (
-                <div className={styles.Certificate}>
+                <div className={styles.Certificate} >
                     {progress && (
-                        <FeebackCourse course_id={idCourse} course_name={progress.name_course} onSubmit={(feedback) => handelFeedback({ feedback })} />
-                    )}
-                </div>
+                        <Link href={`/Certificate/${idCourse}/${progress.name_course}`}>
+                            Đi đến trang nhận chứng chỉ
+                        </Link>
+                    )
+                    }
+                </div >
             );
         }
     };
@@ -537,13 +518,6 @@ const Learning = () => {
                 ) : (
                     isVisible && (
                         <div className={`${styles.fixed} ${styles.listCourse}`}>
-                            <div className={styles.searchContainer}>
-                                <input
-                                    className={styles.inputSearch}
-                                    type="text"
-                                    placeholder="Tìm kiếm bài học"
-                                />
-                            </div>
                             <div className={styles.coursesContent}>
                                 {course?.map((item, index) => (
                                     <div key={index} className={styles.listItem}>
@@ -718,16 +692,6 @@ const Learning = () => {
             )
         )
     }
-
-    const HandleCertificate = () => {
-        return (
-            <main>
-                Chứng chỉ của tôi
-            </main>
-        )
-    }
-
-
     const mappedCourseNew = useMemo(() => {
         if (!course || !Array.isArray(course)) return <>Trờ TTO chút xíu nhé</>; // Trả về null nếu không có course
 
@@ -823,7 +787,7 @@ const Learning = () => {
                 </div>
             </Navbar >
             {mappedCourseNew}
-            {isFooterCta === true && (
+            {!isFooterCta && (
                 <div className={`${styles.actionBar}`}>
                     <div className={styles.faq} onClick={
                         () => {

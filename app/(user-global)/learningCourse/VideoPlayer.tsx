@@ -17,7 +17,7 @@ interface VideoProp {
     startTime?: number;
 }
 
-const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying, reload, status_video, startTime = 0, }) => {
+const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying = true, reload, status_video, startTime = 0, }) => {
     const token = useCookie('token');
     const playerRef = useRef<ReactPlayer | null>(null);
     const lastValidTimeRef = useRef<number>(0);
@@ -25,9 +25,10 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const isWarningShown = useRef(false);
     const [statusUpdated, setStatusUpdated] = useState(false);
-    console.log(startTime)
+
     useEffect(() => {
         if (playerRef.current && startTime > 0) {
+            isPlaying = true
             playerRef.current.seekTo(startTime, 'seconds');
             lastValidTimeRef.current = startTime;
         }

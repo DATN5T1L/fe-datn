@@ -34,9 +34,8 @@ const Login: React.FC = () => {
         if (typeof window !== 'undefined') {
             const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
             const tokenValue = token?.split('=')[1];
-
             if (tokenValue) {
-                router.push(`/info-user`)
+                router.push(`/home`)
             }
         }
     }, []);
@@ -72,7 +71,7 @@ const Login: React.FC = () => {
                     console.error("Error response:", errorData);
                     console.log(errorData);
 
-                    const errorMessage = errorData.error ? errorData.error : 'Đăng nhập thất bại';
+                    const errorMessage = errorData.error ? errorData.error : 'Tài khoản mật khẩu hoặc mật khẩu không đúng';
                     throw new Error(errorMessage);
                 }
 
@@ -101,7 +100,7 @@ const Login: React.FC = () => {
                         router.push(`${url}`);
                         localStorage.removeItem('url')
                     } else {
-                        router.push('/info-user');
+                        router.push('/home');
                     }
                 } else {
                     throw new Error('Token không hợp lệ');

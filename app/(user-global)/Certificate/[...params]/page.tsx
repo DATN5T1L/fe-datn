@@ -10,32 +10,24 @@ import { formatParamString } from "../../component/globalControl/commonC";
 import Button from "../../component/globalControl/btnComponent";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import useCookie from '@app/(user-global)/component/hook/useCookie';
 import Body from "../../component/globalControl/body";
+import FeebackCourse from "../../learningCourse/FeebackCourse";
+
+interface FeedbackProp {
+    feedback: { rating: number; feedbackText: string }
+}
 
 const Certificate = () => {
+    const token = useCookie('token');
     const params = useParams();
     const ref = useRef<HTMLDivElement>(null); // Ref để export PDF
     const userState = useSelector((state: RootState) => state.user);
     const [course_id, course_name] = params.params;
-
+    const [showCertificate, setShowCertificate] = useState<boolean>(false)
     // Lưu tên và font-size
     const [name, setName] = useState(userState.user?.fullname || '');
-    const [fontSize, setFontSize] = useState('4rem');
-
-    // Xử lý thay đổi input
-    const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setName(value);
-
-        // Giảm font-size nếu quá dài
-        if (value.length > 20) {
-            setFontSize('2.5rem'); // Font nhỏ hơn nếu trên 20 ký tự
-        } else {
-            setFontSize('4rem'); // Trả về font mặc định
-        }
-    };
-
-    // Lấy ngày hiện tại
+    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleDateString('vi-VN');
 
@@ -103,13 +95,9 @@ const Certificate = () => {
                 });
 
                 const result = await response.json();
-
                 console.log('Server response:', result);
-
                 if (result.success) {
                     alert('PDF uploaded successfully');
-                } else {
-                    alert('Failed to upload PDF');
                 }
             } catch (error) {
                 console.error('Error uploading PDF:', error);
@@ -118,63 +106,69 @@ const Certificate = () => {
         }
     };
 
+    const handelFeedback = async (feedback: FeedbackProp) => {
+        const Data = {
+            rating_course: feedback.feedback.rating,
+            feedback_text: feedback.feedback.feedbackText
+        }
+        try {
+            if (!isSubmitted) {
+                const response = await fetch(`/api/addFeedback/${course_id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(Data),
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch course");
+                }
+                const responseData = await response.json();
+                if (responseData.status === "success") {
+                    setShowCertificate(true)
+                    setIsSubmitted(true)
+                }
+                if (!responseData.ok) {
+                    setIsSubmitted(false)
+                } else {
+                }
+                alert('Cảm ơn bạn đã để lại phản hồi khóa học cho TTO.SH chúc bạn 1 ngày tốt lành')
+            }
+        } catch (err: any) {
 
-
-
-
-
+        }
+    }
     return (
         <Body>
             <div className={c.body}>
-
                 <Container className={c.headings}>
-                    <h2 className={c.heading}>Chúc mừng bạn đã hoàn thành <br /> {formatParamString(course_name)}</h2>
-                    <p className={c.descTitle}>Tiếp theo bạn có thể nhận chứng chỉ của mình bằng cách bấm vào nút dưới đây</p>
+                    <h2 className={c.heading}>Bạn đã hoàn thành khóa học</h2>
+                    <h1 className={c.headingNameCourse}>{formatParamString(course_name)}</h1>
+                    <p className={c.descTitle}>Tiếp theo bạn có thể đánh giá và nhận chứng chỉ</p>
+                    {showCertificate === false && (
+                        <FeebackCourse course_id={course_id} course_name={course_name} onSubmit={(feedback) => handelFeedback({ feedback })} />
+                    )}
                     <div className={c.cta}>
-                        <Button
-                            onClick={exportPDF} // Nút tải về PDF
-                            rightIcon={false}
-                            leftIcon={false}
-                            status="hover"
-                            hoverType={"other"}
-                            type="premary"
-                        >
-                            Nhận chứng chỉ
-                        </Button>
+                        {showCertificate === true && (
+                            <Button
+                                onClick={exportPDF} // Nút tải về PDF
+                                rightIcon={false}
+                                leftIcon={false}
+                                status="hover"
+                                hoverType={"other"}
+                                type="premary"
+                            >
+                                Nhận chứng chỉ
+                            </Button>
+                        )}
 
                     </div>
                 </Container >
                 <Container className={c.container} >
                     <main className={c.Certificate} ref={ref}>
                         <h4 className={c.nameCoure}>{formatParamString(formatParamString(course_name))}</h4>
-                        <div className={c.inputCertificate} style={{
-                            display: 'block',
-                            margin: '0 auto',
-                            width: '80%',
-                            borderRadius: '5px',
-                            borderColor: '#ccc',
-                            outline: 'none',
-                            fontSize: fontSize, // Cập nhật font-size
-                        }}>{removeVietnameseTones(name)}</div>
-                        <input
-                            id="exclude"
-                            type="text"
-                            placeholder="Nhập tên của bạn"
-                            value={name} // Không chuyển trực tiếp bằng removeVietnameseTones
-                            onChange={handleChangeName}
-                            // Thay đổi tên
-                            className={`${c.inputCertificates} ${c.noPrint}`}
-                            style={{
-                                display: 'block',
-                                margin: '0 auto',
-                                width: '80%',
-                                borderRadius: '5px',
-                                borderColor: '#ccc',
-                                outline: 'none',
-                                fontSize: fontSize, // Cập nhật font-size
-                            }}
-                            autoFocus
-                        />
+                        <div className={c.inputCertificate} >{removeVietnameseTones(name)}</div>
                         <p className={c.date}>{formattedDate}</p>
                         <Image
                             className={c.daumoc}
