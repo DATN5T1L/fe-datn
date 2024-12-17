@@ -1,10 +1,11 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap'
-import ListPostTTO from '../ListPostTTO'
+import React from 'react';
+import { Card, Col, Container, Row } from 'react-bootstrap';
+import ListPostTTO from '../ListPostTTO';
+import Link from 'next/link';
 import { Dispatch, SetStateAction } from 'react';
-import Link from "next/link";
+
 interface PostCmt {
     id: string;
     title_post: string;
@@ -18,6 +19,7 @@ interface PostCmt {
     created_at: string;
     updated_at: string;
 }
+
 interface PostView {
     id: string;
     title_post: string;
@@ -32,51 +34,89 @@ interface PostView {
     updated_at: string;
     slug_post: string;
 }
+
 interface ApiPostProps {
-    data: PostCmt[] | PostView[];
+    data?: (PostCmt | PostView)[];
 }
+
 interface TypeProps {
     step?: string;
     setStep?: Dispatch<SetStateAction<string>>;
+    data?: (PostCmt | PostView)[];
 }
 
-const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
-    const data = props.data
-    const arr = data.slice(1);
+const LinePostOnePostTTO: React.FC<TypeProps> = ({ step, data = [] }) => {
+    const listCount = step === '1' ? 2 : 3; // Dynamic count logic
+    const arr = data?.slice(1); // Exclude first item for ListPostTTO
 
-    console.log(`data nè: `, data);
+    // Static placeholder when no data is provided
+    const defaultImage =
+        'https://images.pexels.com/photos/669578/pexels-photo-669578.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
+    const defaultTitle = 'Xu hướng công nghệ AI và Machine Learning năm 2024';
+    const defaultContent =
+        'Trí tuệ nhân tạo (AI) và học máy (Machine Learning) đang trở thành công nghệ chủ chốt trong nhiều lĩnh vực, từ y tế, tài chính đến thương mại điện tử...';
+
     return (
-        <Container className="m-0 text-truncate"  >
-            <Row style={{ padding: "80px 55px" }}>
-                {/* Left section */}
-                <Col xs={12} lg={6} className="mb-4 mb-lg-0 text-truncate">
-                    <Card className="border-0 position-relative w-100 text-truncate " style={{ height: "480px" }}>
-                        {data && (
+        <Container className="m-0">
+            <Row style={{ padding: '80px 55px' }}>
+                {/* Left Section */}
+                <Col xs={12} lg={6} className="mb-4 mb-lg-0">
+                    <Card className="border-0 position-relative w-100" style={{ height: '480px' }}>
+                        {data && data.length > 0 ? (
                             <>
                                 <Card.Img
                                     variant="top"
                                     src={`${data[0].img_post}`}
                                     alt={`${data[0].title_post}`}
                                     className="w-100 h-100"
-                                    style={{ objectFit: 'cover', width: '632px', height: '480px', borderRadius: "10px" }}
+                                    style={{
+                                        objectFit: 'cover',
+                                        borderRadius: '10px',
+                                    }}
                                 />
-                                <Card.Body className="position-absolute bottom-0 px-3 text-white text-truncate w-500"
-                                 style={{ width: "548px", padding:"32px" }}>
-                                    <Link href={`/post/${data[0].slug_post}`}><Card.Title className="fw-bold fs-2 fs-md-1" dangerouslySetInnerHTML={{ __html: data[0].title_post }} /></Link>
-                                    <Card.Text className="fs-6 lh-base " style={{ height: "100%" }} dangerouslySetInnerHTML={{ __html: data[0].content_post }} />
+                                <Card.Body
+                                    className="position-absolute bottom-0 px-4 text-white"
+                                    style={{ width: '548px', padding: '32px' }}
+                                >
+                                    <Link href={`/post/${data[0].slug_post}`}>
+                                        <Card.Title
+                                            className="fw-bold fs-2 fs-md-1"
+                                            dangerouslySetInnerHTML={{ __html: data[0].title_post }}
+                                        />
+                                    </Link>
+                                    <Card.Text
+                                        className="fs-6 lh-base"
+                                        dangerouslySetInnerHTML={{ __html: data[0].content_post }}
+                                    />
+                                </Card.Body>
+                            </>
+                        ) : (
+                            <>
+                                {/* Default Placeholder */}
+                                <Card.Img
+                                    variant="top"
+                                    src={defaultImage}
+                                    alt="Xu hướng công nghệ"
+                                    className="w-100 h-100"
+                                    style={{
+                                        objectFit: 'cover',
+                                        borderRadius: '10px',
+                                    }}
+                                />
+                                <Card.Body className="position-absolute bottom-0 px-4 text-white">
+                                    <Card.Title className="fw-bold fs-2 fs-md-1">{defaultTitle}</Card.Title>
+                                    <Card.Text className="fs-6 lh-base">{defaultContent}</Card.Text>
                                 </Card.Body>
                             </>
                         )}
                     </Card>
                 </Col>
 
-                {data && (
-                    <ListPostTTO data={arr} />
-                )}
+                {/* ListPostTTO: Dynamic list or placeholder */}
+                {data && data.length > 1 ? <ListPostTTO data={arr} /> : <ListPostTTO data={[]} />}
             </Row>
         </Container>
+    );
+};
 
-    )
-}
-
-export default LinePostOnePostTTO
+export default LinePostOnePostTTO;

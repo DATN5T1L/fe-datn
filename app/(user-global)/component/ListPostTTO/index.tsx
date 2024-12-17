@@ -25,7 +25,7 @@ interface ListPostTTOProps {
     setStep?: Dispatch<SetStateAction<string>>;
 }
 
-const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
+const ListPostTTO: React.FC <ListPostTTOProps> = ({ data, step, setStep }) => {
     const listCount = step === "1" ? 2 : 3; 
     return (
         <Col xs={12} lg={6} className="d-flex flex-column">
@@ -43,7 +43,8 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
                         {/* Right column with text */}
                         <Col xs={6} className="d-flex flex-column justify-content-between">
                             <Card.Body className="p-0" style={{ margin: "0 12px", flex: 1 }}>
-                               <Link href={`post/${item.slug_post}`}> <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
+                               <Link href={`post/${item.slug_post}`}> 
+                               <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                 <Card.Text
                                     className="text-black fs-6 lh-base fw-medium"
                                     style={{
