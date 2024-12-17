@@ -691,6 +691,10 @@ const nextConfig = {
         source: '/api/statisMarrketing/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/marketing/total-post-category-comment-view/:path*',
       },
+      {
+        source: '/api/feedBackMarketing/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-sort-data/:path*',
+      },
 
       // Thống kê
       // Tông người dùng khóa học

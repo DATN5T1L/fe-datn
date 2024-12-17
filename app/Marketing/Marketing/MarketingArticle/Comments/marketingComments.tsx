@@ -28,6 +28,7 @@ interface Comment {
   comment_to: string | null;
   created_at: string;
   updated_at: string;
+  fullname: string;
 }
 
 const Comments: React.FC<{}> = () => {
@@ -206,7 +207,7 @@ const Comments: React.FC<{}> = () => {
                 <td>{idx + 1}</td>
                 <td>{item.comment_text}</td>
                 <td>
-
+                  {item.fullname}
                 </td>
                 <td>{useFormatDate(item.created_at)}</td>
                 <td className="text-center">

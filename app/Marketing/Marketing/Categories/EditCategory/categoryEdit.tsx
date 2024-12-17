@@ -69,6 +69,7 @@ const CategoryEdit: React.FC = () => {
 
     }),
     onSubmit: async (values: category) => {
+
       if (!dataCate) return;
       const changes: Partial<category> = {};
       if (values.name_category !== dataCate.name_category) {
@@ -81,26 +82,28 @@ const CategoryEdit: React.FC = () => {
         alert("Không có thay đổi nào cần cập nhật.");
         return;
       }
-      try {
-        const res = await fetch(`/api/post_categories/${id}`, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(changes),
-        });
+      if (token) {
+        try {
+          const res = await fetch(`/api/post_categories/${id}`, {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(changes),
+          });
 
-        const data = await res.json();
-        if (data.status === "success") {
-          alert("Sửa danh mục thành công!!!");
-          router.replace(`/Marketing/MarketingCategories/`);
-        } else {
-          alert("Sửa danh mục thất bại");
-          console.error(data.message);
+          const data = await res.json();
+          if (data.status === "success") {
+            alert("Sửa danh mục thành công!!!");
+            router.replace(`/Marketing/MarketingCategories/`);
+          } else {
+            alert("Sửa danh mục thất bại");
+            console.error(data.message);
+          }
+        } catch (error) {
+          console.error("Lỗi khi gửi dữ liệu:", error);
         }
-      } catch (error) {
-        console.error("Lỗi khi gửi dữ liệu:", error);
       }
     }
   })
