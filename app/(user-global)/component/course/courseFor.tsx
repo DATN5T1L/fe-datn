@@ -10,6 +10,7 @@ import useSWR from 'swr';
 interface CourseCardProps extends Course {
     progress_percentage: number;
     watchedVideos: number;
+    status_course_enrollment: string;
 }
 interface ApiResponseCourse<T> {
     data: T[];
@@ -39,6 +40,7 @@ const CourseFor: React.FC<CourseForProps> = ({ onCoursesLoad }) => {
             }
             const data = await response.json();
             setCourses(data.data);
+            console.log(data.data)
             setError(null);
         } catch (err: any) {
             setError(err.message || "Unknown error occurred");
