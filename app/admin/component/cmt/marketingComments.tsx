@@ -10,9 +10,9 @@ import {
   Card,
 } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import h from "../article.module.css";
+import h from "./article.module.css";
 import Link from "next/link";
-import "../article.css";
+import "./article.css";
 import header from "@/app/(user-global)/component/globalControl/header";
 import { useRouter } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";

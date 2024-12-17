@@ -206,7 +206,7 @@ const Dashboard = () => {
             <div className={h.card}>
               <div className={h.card_content}>
                 <h6>Doanh thu</h6>
-                {/* <LineChart  data={}/> */}
+                {/* <LineChart /> */}
               </div>
             </div>
           </div>

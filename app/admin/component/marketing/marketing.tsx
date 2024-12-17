@@ -22,7 +22,7 @@ import ReactLoading from 'react-loading';
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 
 interface Post {
-  id: number | string;
+  id: string;
   title_post: string;
   content_post: string;
   img_post: string;
@@ -31,6 +31,7 @@ interface Post {
   created_at: string;
   updated_at: string;
   del_flag: boolean;
+  status_post: string;
 }
 
 interface ApiResponse<T> {
@@ -211,6 +212,78 @@ const Marketing: React.FC<{}> = () => {
     }
   }
 
+  const handleStatusSuccess = (id: string) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn duyệt bài viết này không này không?'))
+        fetch(`/api/censorPost/${id}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            status_post: 'success'
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status == 'success') {
+              alert('Đã duyệt bài viết thành công')
+              setPostData((prev) => {
+                if (!prev || !prev.data) return prev;
+                const updatedData = prev.data.map(post => {
+                  if (post.id === id) {
+                    return { ...post, status_post: 'success' };
+                  }
+                  return post;
+                });
+                return { ...prev, data: updatedData };
+              });
+            }
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Có lỗi xảy ra: ', error);
+
+          })
+    }
+  }
+
+  const handleStatusFailed = (id: string) => {
+    if (token && id) {
+      if (confirm('Bạn có muốn gỡ bài viết này không?'))
+        fetch(`/api/censorPost/${id}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            status_post: 'failed'
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            alert('Đã gỡ bài viết thành công')
+            setPostData((prev) => {
+              if (!prev || !prev.data) return prev;
+              const updatedData = prev.data.map(post => {
+                if (post.id === id) {
+                  return { ...post, status_post: 'failed' };
+                }
+                return post;
+              });
+              return { ...prev, data: updatedData };
+            });
+          })
+          .catch(error => {
+            console.error('Có lỗi xảy ra: ', error);
+
+          })
+    }
+  }
+
   return (
     <>
       <div className="mx-4 mx-xs-2 mx-sm-3">
@@ -218,7 +291,7 @@ const Marketing: React.FC<{}> = () => {
           <h2 className={h.heading}>Bài viết</h2>
 
           <div className={`${h.actions} d-flex`}>
-            <Button
+            {/* <Button
               variant="outline-primary"
               className={`${h.btnCTA} ${h.btnCTAOutline} me-2`}
             >
@@ -230,7 +303,7 @@ const Marketing: React.FC<{}> = () => {
               >
                 Thêm bài viết
               </Button>
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -245,7 +318,7 @@ const Marketing: React.FC<{}> = () => {
                 md={1}
                 className={`d-flex flex-row justify-content-center align-items-center  mb-4 mb-md-0 mb-sm-0 px-0`}
               >
-                <img src="/img_admin/action.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
+                <img src="/img_admin/action.svg" alt="Action" />
               </Col>
               <Col
                 xs={6}
@@ -283,7 +356,7 @@ const Marketing: React.FC<{}> = () => {
               </Col>
               <Col xs={6} sm={2} md={3}>
                 <div className="d-flex flex-row justify-content-center align-items-center mt-4 mt-md-0 mt-sm-0" onClick={() => handleReset()}>
-                  <img src="/img_admin/restart.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
+                  <img src="/img_admin/restart.svg" alt="Reset" />
                   <span className="text-danger">  Cài lại</span>
                 </div>
               </Col>
@@ -295,7 +368,7 @@ const Marketing: React.FC<{}> = () => {
             md={4}
             className="align-items-end d-flex justify-content-end mb-4 mb-md-0 mb-sm-0"
           >
-            <div className={`${h.searchInputGroup} `}>
+            {/* <div className={`${h.searchInputGroup} `}>
               <Form.Control
                 type="text"
                 placeholder="Tìm kiếm bài viết"
@@ -305,12 +378,12 @@ const Marketing: React.FC<{}> = () => {
               <div className={h.searchIconWrapper}>
                 <img
                   src="/img_admin/search.svg"
-                  alt="Làm thế nào để học tốt ReactJS với TTO.SH?"
+                  alt="Search"
                   width={"24px"}
                   height={"24px"}
                 />
               </div>
-            </div>
+            </div> */}
           </Col>
         </Row>
       </div>
@@ -361,15 +434,32 @@ const Marketing: React.FC<{}> = () => {
                     <td>{useFormatDate(item.created_at)}</td>
                     <td>{useFormatDate(item.updated_at)}</td>
                     <td className="text-center">
-                      <span className={`${h.active_text}`}>{item.del_flag === true ? 'active' : 'anactive'}</span>
+                      <span className={`${h.active_text}`}>{item.status_post}</span>
                     </td>
                     <td className={h.option_button_group}>
                       <div className="d-flex justify-content-evenly border py-2 rounded">
-                        <Link href={`/Marketing/MarketingPosts/${item.id}`} className="">
-                          <img src="/img_admin/action1.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
-                        </Link>
+                        {item.status_post === 'failed' || item.status_post === 'confirming' ? (
+                          <div className="" onClick={() => handleStatusSuccess(item.id)}>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              fill="green"
+                              className="bi bi-check-circle"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                              <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                            </svg>
+                          </div>
+
+                        ) : (
+                          <div className="" onClick={() => handleStatusFailed(item.id)}>
+                            <img src="/img/xIcon.svg" alt="failed" />
+                          </div>
+                        )}
                         <div className="border-end" />
-                        <Link href={`/Marketing/MarketingPosts/editPost?id=${item.id}`} className="">
+                        {/* <Link href={`/Marketing/MarketingPosts/editPost?id=${item.id}`} className="">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -386,13 +476,13 @@ const Marketing: React.FC<{}> = () => {
                               fill="#4D4D4D"
                             />
                           </svg>
-                        </Link>
-                        <div className="border-end" />
+                        </Link> */}
+                        {/* <div className="border-end" /> */}
                         <Link href="" onClick={() => handleDelete(item.id)} className="">
                           {item.del_flag ? (
-                            <img src="/img/action.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
+                            <img src="/img/action.svg" alt="Delete" />
                           ) : (
-                            <img src="/img/hiddenEye.svg" alt="Làm thế nào để học tốt ReactJS với TTO.SH?" />
+                            <img src="/img/hiddenEye.svg" alt="Delete" />
                           )}
                         </Link>
                       </div>

@@ -414,6 +414,10 @@ const nextConfig = {
         source: '/api/hiddenPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
       },
+      {
+        source: '/api/censorPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/censor-post/:path*',
+      },
       // search
       {
         source: '/api/courseForUser/:path*',
@@ -711,6 +715,10 @@ const nextConfig = {
       {
         source: '/api/statisMarrketing/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/marketing/total-post-category-comment-view/:path*',
+      },
+      {
+        source: '/api/feedBackMarketing/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-sort-data/:path*',
       },
 
       // Thống kê
