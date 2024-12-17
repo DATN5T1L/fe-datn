@@ -9,7 +9,7 @@ export const HeaderMarketingArticleComments = () => {
         className={`d-flex justify-content-between align-items-center my-4 flex-wrap`}
       >
         <div className="col-12 col-md-6">
-          <h2 className={h.heading}>Bài Viết</h2> 
+          <h2 className={h.heading}>Bình luận</h2>
         </div>
 
         <CommentsSearchBar />

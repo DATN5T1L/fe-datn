@@ -29,6 +29,7 @@ interface PostCmt {
     category_id: string;
     created_at: string;
     updated_at: string;
+    fullname: string;
 }
 interface PostView {
     id: string;
@@ -42,6 +43,7 @@ interface PostView {
     category_id: string;
     created_at: string;
     updated_at: string;
+    fullname: string;
 }
 interface ApiCate<T> {
     success: string;
@@ -86,7 +88,7 @@ const HeroPost: React.FC = () => {
             .catch(error => {
                 console.error('Có lỗi xảy ra: ', error);
             })
-    }, [])     
+    }, [])
 
     useEffect(() => {
         fetch(`/api/postByView/4`)

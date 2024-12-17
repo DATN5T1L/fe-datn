@@ -1,8 +1,5 @@
 "use client";
-import React from "react";
-import styles from "../layout.module.css";
-import { HeaderArticle } from "../component/Article/headerArrticle";
-import Marketing from "../component/marketing/marketing";
+import React from "react"; 
 import Comments from "../component/cmt/marketingComments";
 
 const Admin = () => {

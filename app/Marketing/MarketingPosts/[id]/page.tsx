@@ -290,7 +290,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
 
   const handleHidden = (id: string) => {
     if (id && token) {
-      if (confirm('bạn có muốn thay đổi bình luận hay không?')) {
+      if (confirm('bạn có muốn thay đổi trạng thái bình luận hay không?')) {
         fetch(`/api/hiddenCmtPost/${params.id}/${id}`, {
           method: 'GET',
           headers: {
