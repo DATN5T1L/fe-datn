@@ -90,6 +90,11 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
   const [editIdRR, setEditIdRR] = useState<string | null>(null);
   const [loadCmt, setLoadCmt] = useState(false)
   const [reloadCmt, setReloadCmt] = useState(false)
+  const [loadCmtP, setLoadCmtP] = useState(false)
+  const [loadCmt1, setLoadCmt1] = useState(false)
+  const [loadCmt2, setLoadCmt2] = useState(false)
+  const [loadCmt3, setLoadCmt3] = useState(false)
+
 
   useEffect(() => {
     if (params.id && token) {
@@ -149,6 +154,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
 
   const handleCmtSubmit = (commentId: string | number) => {
     console.log(`Nội dung cho comment ${commentId}:`, cmt)
+    setLoadCmtP(true)
     if (commentId && token && userId?.id) {
       fetch(`/api/commentPost/${params.id}`, {
         method: 'POST',
@@ -161,11 +167,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
         .then(res => res.json())
         .then(data => {
           console.log(data);
+          setLoadCmtP(false)
           setCmt("")
           reloadComments()
         })
         .catch(error => {
           setCmt("")
+          setLoadCmtP(false)
           console.error(error)
         })
     }
@@ -173,6 +181,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
 
   const handleReplySubmit = (commentId: string) => {
     console.log(`Nội dung trả lời cho comment ${commentId}:`, replyContent)
+    setLoadCmt1(true)
     if (commentId && token) {
       fetch(`/api/commentPost/${params.id}/${commentId}`, {
         method: 'POST',
@@ -187,17 +196,20 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
           console.log(data);
           setReplyContent("")
           setActiveReplyId(null)
+          setLoadCmt1(false)
           reloadComments()
         })
         .catch(error => {
           setReplyContent("")
           setActiveReplyId(null)
+          setLoadCmt1(false)
           console.error(error)
         })
     }
   }
 
   const handleReplySubmitR = (replyId: string) => {
+    setLoadCmt2(true)
     if (replyId && token) {
       fetch(`/api/commentPost/${params.id}/${replyId}`, {
         method: 'POST',
@@ -212,11 +224,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
           console.log(data);
           setReplyContentR("")
           setActiveReplyIdR(null)
+          setLoadCmt2(false)
           reloadComments()
         })
         .catch(error => {
           setReplyContentR("")
           setActiveReplyIdR(null)
+          setLoadCmt2(false)
           console.error(error)
         })
     }
@@ -224,6 +238,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
   }
 
   const handleReplySubmitRR = (replyId: string) => {
+    setLoadCmt3(true)
     if (replyId && token) {
       fetch(`/api/commentPost/${params.id}/${replyId}`, {
         method: 'POST',
@@ -238,11 +253,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
           console.log(data);
           setReplyContentRR("")
           setActiveReplyIdRR(null)
+          setLoadCmt3(false)
           reloadComments()
         })
         .catch(error => {
           setReplyContentRR("")
           setActiveReplyIdRR(null)
+          setLoadCmt3(false)
           console.error(error)
         })
     }
@@ -302,7 +319,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
       comment_text: Yup.string().required('bắt buộc').max(255, 'Tối đa 255 ký tự'),
     }),
     onSubmit: async (values) => {
-
+      setLoadCmt1(true)
       setEditId(null);
       try {
         if (token && values.id) {
@@ -323,8 +340,10 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
               alert(data.message)
               reloadComments()
               setReloadCmt(true)
+              setLoadCmt1(false)
             } else {
               alert('Thay đổi thấy bại. Hãy thử lại')
+              setLoadCmt1(false)
             }
           }
         }
@@ -343,6 +362,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
     }),
     onSubmit: async (values) => {
       setEditIdR(null)
+      setLoadCmt2(true)
       try {
         if (token && values.id) {
           if (confirm('Bạn có muốn thay đổi bình luận này không!!')) {
@@ -361,8 +381,10 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
             if (res.ok) {
               alert(data.message)
               setReloadCmt(true)
+              setLoadCmt2(false)
             } else {
               alert('Thay đổi thấy bại. Hãy thử lại')
+              setLoadCmt2(false)
             }
           }
         }
@@ -382,6 +404,7 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
     }),
     onSubmit: async (values) => {
       setEditIdRR(null)
+      setLoadCmt3(true)
       try {
         if (token && values.id) {
           if (confirm('Bạn có muốn thay đổi bình luận này không!!')) {
@@ -399,8 +422,10 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
             if (res.ok) {
               alert(data.message)
               setReloadCmt(true)
+              setLoadCmt3(false)
             } else {
               alert('Thay đổi thấy bại. Hãy thử lại')
+              setLoadCmt3(false)
             }
           }
         }
@@ -492,12 +517,13 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                   className={mod.comment_input}
                 />
                 <button
-                  className={`btn btn-primary mt-2 ${cmt === '' ? mod.btn_disabled : ''}`}
+                  className={`btn btn-primary mt-2 ${cmt === '' ? mod.btn_disabled : ''} ${loadCmtP ? mod.btn_disabled : ''}`}
                   onClick={() => {
                     if (params.id) {
                       handleCmtSubmit(params.id)
                     }
                   }}
+                  disabled={loadCmtP}
                 >
                   Gửi bình luận
                 </button>
@@ -560,8 +586,9 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                           className={mod.comment_input}
                         />
                         <button
-                          className={`btn btn-primary mt-2 ${replyContent === '' ? mod.btn_disabled : ''}`}
+                          className={`btn btn-primary mt-2 ${replyContent === '' ? mod.btn_disabled : ''}  ${loadCmt1 ? mod.btn_disabled : ''}`}
                           onClick={() => handleReplySubmit(item.id)}
+                          disabled={loadCmt1}
                         >
                           Gửi trả lời
                         </button>
@@ -663,8 +690,9 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                               className={mod.comment_input}
                             />
                             <button
-                              className={`btn btn-primary mt-2 ${replyContentR === '' ? mod.btn_disabled : ''}`}
+                              className={`btn btn-primary mt-2 ${replyContentR === '' ? mod.btn_disabled : ''}  ${loadCmt2 ? mod.btn_disabled : ''}`}
                               onClick={() => handleReplySubmitR(itemR.id)}
+                              disabled={loadCmt2}
                             >
                               Gửi trả lời
                             </button>
@@ -761,8 +789,9 @@ const MarketingPost: React.FC<MarketingPostProps> = ({ params }) => {
                                       className={mod.comment_input}
                                     />
                                     <button
-                                      className={`btn btn-primary mt-2 ${replyContentRR === '' ? mod.btn_disabled : ''}`}
+                                      className={`btn btn-primary mt-2 ${replyContentRR === '' ? mod.btn_disabled : ''}  ${loadCmt3 ? mod.btn_disabled : ''}`}
                                       onClick={() => handleReplySubmitRR(itemRR.id)}
+                                      disabled={loadCmt3}
                                     >
                                       Gửi trả lời
                                     </button>

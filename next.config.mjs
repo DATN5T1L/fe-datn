@@ -678,7 +678,7 @@ const nextConfig = {
       },
       {
         source: '/api/allComment/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-comment-doc/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-comment-post/:path*',
       },
       {
         source: '/api/commentPost/:path*',
