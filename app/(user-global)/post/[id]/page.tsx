@@ -617,7 +617,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                     </>) : ('')}
                                                     {(
                                                         item.del_flag === true ? (
-                                                            <small className="text-primary" onClick={() => handleHidden(item.id)}>Ẩn</small>
+                                                            <small className="text-primary" onClick={() => handleHidden(item.id)}></small>
                                                         ) : (
                                                             <small className="text-primary" onClick={() => handleHidden(item.id)}>Hiện</small>
                                                         )
@@ -719,7 +719,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                                                     {item.del_flag === true ? (
                                                                         <>
                                                                             {itemR.del_flag === true ? (
-                                                                                <small className="text-primary" onClick={() => handleHidden(itemR.id)}>Ẩn</small>
+                                                                                <small className="text-primary" onClick={() => handleHidden(itemR.id)}></small>
                                                                             ) : (
                                                                                 <small className="text-primary" onClick={() => handleHidden(itemR.id)}>hiện</small>
                                                                             )}

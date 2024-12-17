@@ -136,7 +136,7 @@ const SliderShow: React.FC = () => {
                         <Col className={styles.main}>
                             <section className={styles.main__container}>
                                 <div className={styles.main__container__header}>
-                                    <Image src='/img/main_hero_mos.svg' alt="Xây dựng ứng dụng chat real-time trên TTO.SH" className={styles.main__container__header__img} />
+                                    <Image src='https://res.cloudinary.com/dnmc89c8b/image/upload/v1734420224/fe_image/z6135317956263_c7a3df00b8b326a670792fdad5aeb68a.jpg' alt="Xây dựng ứng dụng chat real-time trên TTO.SH" className={styles.main__container__header__img} />
                                     <div className={styles.main__container__header__bg}></div>
                                 </div>
                                 <div className={styles.main__container__footer}>

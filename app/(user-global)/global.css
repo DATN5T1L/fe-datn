@@ -1247,10 +1247,10 @@
     z-index: 1000;
     position: absolute;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0px 0px 1px 0px rgba(40, 41, 61, 0.08), 0px 0.5px 2px 0px rgba(96, 97, 112, 0.16);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    box-shadow: 0px 0px 1px 0px rgba(40, 41, 61, 0.08), 0px 0.5px 2px 0px rgba(96, 97, 112, 0.6);
     margin-left: 30px;
     opacity: 0;
     max-height: 0;
@@ -1276,6 +1276,7 @@
   }
 
   .btn-slide-bar-mini {
+    color: var(--text-75);
     width: 173px;
     height: 40px;
     padding: 10px 8px;
