@@ -41,7 +41,13 @@ const Access: React.FC<{}> = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [getData, setGetData] = useState<string>('getAllFpt')
   const [history, setHistory] = useState(null)
-
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const filteredHistory = roleData?.data.filter((entry) =>
+    Object.values(entry)
+      .some((value) =>
+        String(value).toLowerCase().includes(searchKeyword.toLowerCase())
+      )
+  );
   console.log('lịch sử', history);
   useEffect(() => {
     setLoading(true);

@@ -20,7 +20,6 @@ const Router: React.FC<{ params: { slug: string } }> = ({ params }) => {
             const routerResponse = await fetch(`/api/routes/${idRoute}`);
             if (!routerResponse.ok) throw new Error(`API error: ${routerResponse.status}`);
             const routerResult = await routerResponse.json();
-
             setRouterData(routerResult.data);
         } catch (error: any) {
             console.error("Error fetching data:", error);
