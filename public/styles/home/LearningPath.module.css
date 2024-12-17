@@ -133,6 +133,9 @@
     white-space: nowrap;
 }
 
+.container__main>* {
+    min-width: 374px;
+}
 
 .box {
     margin: 0;
