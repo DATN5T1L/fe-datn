@@ -8,6 +8,7 @@ import Link from "next/link";
 interface Route {
     route_id: string;
     name_route: string;
+    slug_route: string;
     img_route: string;
     discription_route: string;
     status: 'default' | 'customize';
@@ -60,15 +61,27 @@ const LearningPath: React.FC = () => {
             rightBodyRef.current.scrollLeft += 300; // Scroll by 300 pixels to the right
         }
     };
+    const scrollLeftHandler = () => {
+        if (rightBodyRef.current) {
+            rightBodyRef.current.scrollLeft -= 300; // Scroll by 300 pixels to the right
+        }
+    };
 
     if (error) return <div>Error loading routes</div>; // Display error message
     if (!data) return <div>Loading...</div>; // Display loading state
 
     // Extract routes from the API response
     const routes = data?.data
+
+
     return (
         <Container className={styles.container}>
             <Row className={styles.body__container}>
+                <Button className={styles.btn__prev} onClick={scrollLeftHandler}>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18L15 12L9 6" stroke="#15C8E0" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </Button>
                 <Col className={styles.container__header}>
                     <section className={styles.header__title}>
                         <div className={styles.header__box__blue}>
@@ -93,19 +106,13 @@ const LearningPath: React.FC = () => {
                     {Array.isArray(routes) && routes.length > 0 ? (
                         routes.map((route) => (
                             <Card className={styles.box} key={route.route_id || route.name_route}>
-                                <Card.Img
-                                    src={route.img_route || "/placeholder.jpg"}
-                                    className={styles.box__img}
-                                    alt="Lộ trình Fullstack Development với TTO.SH"
-                                />
-                                <Card.Body className={styles.box__body}>
-                                    <Card.Title className={styles.box__body__title}>
-                                        {route.name_route}
-                                    </Card.Title>
-                                    <Button className={styles.box__body__btn}>
-                                        Xem chi tiết lộ trình
-                                    </Button>
-                                </Card.Body>
+                                <Link href={`/Router/${route.slug_route}`}>
+                                    <Card.Img
+                                        src={route.img_route || "/placeholder.jpg"}
+                                        className={styles.box__img}
+                                        alt="Lộ trình Fullstack Development với TTO.SH"
+                                    />
+                                </Link>
                             </Card>
                         ))
                     ) : (

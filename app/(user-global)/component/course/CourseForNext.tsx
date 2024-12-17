@@ -7,6 +7,7 @@ import { Course } from "@app/(user-global)/model/course";
 import Link from "next/link";
 import useCookie from '@app/(user-global)/component/hook/useCookie';
 import CardCourse from "@app/(user-global)/component/course/CardCourse";
+
 interface CourseForProps {
     id: string[];
 }
@@ -14,25 +15,27 @@ interface CourseForProps {
 const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
     const token = useCookie("token");
     const [courses, setCourse] = useState<Course[]>([]);
-    const handleSaveRepplayComment = async () => {
+    const [type, setType] = useState<string>("all");
+
+    const fetchCourses = async () => {
         const noteData = {
-            course_id: id// Sử dụng noteContent ở đây
+            course_id: id
         };
-        console.log(noteData); // In ra console để kiểm tra
         try {
-            const response = await fetch(`/api/courseNext/`, {
+            const response = await fetch(`/api/courseNext/${type}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Thêm token vào header nếu cần
                 },
                 body: JSON.stringify(noteData),
-            })
+            });
 
             const responseData = await response.json();
 
-            setCourse(responseData.data)
+            setCourse(responseData.data);
             if (!response.ok) {
-
+                console.error('Failed to fetch courses:', responseData.message);
             }
         } catch (error) {
             console.error('Failed to save note:', error);
@@ -40,8 +43,12 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
     };
 
     useEffect(() => {
-        handleSaveRepplayComment()
-    }, [id])
+        fetchCourses();
+    }, [type]);
+
+    const handlePathChange = (path: string) => {
+        setType(path);
+    };
 
     return (
         <Container className={styleFor.containerNext}>
@@ -83,8 +90,8 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
             <section className={styleFor.cta}>
 
                 <div className={styleFor.ctaLeft}>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học có phí</Button>
-                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40}>Khóa học miễn phí</Button>
+                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("pro")}>Khóa học có phí</Button>
+                    <Button type="premary" status="hover" size="S" leftIcon={false} rightIcon={false} height={40} onClick={() => handlePathChange("free")}>Khóa học miễn phí</Button>
                 </div>
                 <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={true} chevron={4} width={145} height={40}>Xem thêm</Button>
             </section>
@@ -94,10 +101,8 @@ const CourseForNext: React.FC<CourseForProps> = ({ id }) => {
                     <CardCourse course={course} key={index} showProgress={false} titleAction={1} />
                 ))}
             </Row>
-
         </Container>
-
-    )
+    );
 }
 
 export default CourseForNext;

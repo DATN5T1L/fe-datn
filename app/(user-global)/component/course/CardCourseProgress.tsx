@@ -18,6 +18,7 @@ interface CourseCardProps {
         num_chapter: number;
         num_document: number;
         slug_course: string;
+        img_course: string;
     };
     onCourseClick?: (course: any) => void;
     showProgress?: boolean; // Prop để quyết định hiển thị ProgressCircle
@@ -41,7 +42,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                             </Card.Title>
 
                             <Card.Subtitle className={styles.text__hedding3}>by {getInitials(course.instructor_name)}</Card.Subtitle>
-                            <Card.Img src="/img/iconReact.svg" alt="" className={styles.text__img} />
+                            <Card.Img src={course.img_course} alt="" className={styles.text__img} />
                         </section>
                         <Card.Img src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067691/fe_image/hinhgau2.png" alt="" className={styles.headerContent__avt} />
                     </Card.Header>
@@ -73,15 +74,17 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                 </div>
                             </div>
                         </div>
-                        {course.progress_percentage > 0 ? (
-                            <ProgressCircle progress={course.progress_percentage} />)
-                            :
-                            (
-                                <div className={styles.StartLearning}>
-                                    <IconStart />
-                                </div>
-                            )
-                        }
+                        {course.progress_percentage === 100 ? (
+                            <div className={styles.Completed}>
+                                <span>Đã hoàn thành</span>
+                            </div>
+                        ) : course.progress_percentage > 0 ? (
+                            <ProgressCircle progress={course.progress_percentage} />
+                        ) : (
+                            <div className={styles.StartLearning}>
+                                <IconStart />
+                            </div>
+                        )}
 
                     </section>
                     <section className={styles.bodyContent}>

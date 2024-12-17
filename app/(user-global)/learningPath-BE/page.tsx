@@ -13,7 +13,7 @@ const LearningPath__BE: React.FC = () => {
             <title>TTO - Lộ trình Back-End</title>
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
-                <HeaderLearning></HeaderLearning>
+                {/* <HeaderLearning></HeaderLearning> */}
                 <CategoriesLearningPath></CategoriesLearningPath>
                 <ForWhom
                     title1="Sinh viên công nghệ thông tin mới bắt đầu:"

@@ -358,8 +358,6 @@
 }
 
 .headerContent {
-    background: linear-gradient(107.66deg, #063B42 2.8%, #0F96A8 98%),
-        linear-gradient(252.45deg, rgba(0, 0, 0, 0) 2.14%, rgba(6, 59, 66, 0.2) 100%) !important;
     width: 150px !important;
     height: 72px !important;
     box-sizing: border-box !important;
@@ -406,9 +404,8 @@
 }
 
 .headerContent__avt {
-    position: absolute !important;
-    bottom: 0 !important;
-    right: 0 !important;
-    width: 66px !important;
-    height: 62px !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+    border-radius: 8px;
 }

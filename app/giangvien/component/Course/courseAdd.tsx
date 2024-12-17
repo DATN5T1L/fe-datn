@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Col, Form, Image } from "react-bootstrap";
+import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import h from "./courseAdd.module.css";
 import { useFormik } from "formik";
 import * as Yup from 'yup'
@@ -260,8 +260,8 @@ const CourseAdd: React.FC = () => {
                   <div className={h.error}>{formik.errors.img_course}</div>
                 )}
               </div>
-              <div className={h.formnhap}>
-                <div className={h.bentrong}>
+              <Row className={h.formnhap}>
+                <Col md={6} sm={12} className={h.bentrong}>
                   <label htmlFor="name_course">Tên</label>
                   <input
                     id="name_course"
@@ -275,9 +275,9 @@ const CourseAdd: React.FC = () => {
                   {formik.touched.name_course && formik.errors.name_course && (
                     <div className={h.error}>{formik.errors.name_course}</div>
                   )}
-                </div>
+                </Col>
 
-                <div className={h.bentrong}>
+                <Col md={6} sm={12} className={h.bentrong}>
                   <label htmlFor="price_course">Giá</label>
                   <input
                     id="price_course"
@@ -291,11 +291,11 @@ const CourseAdd: React.FC = () => {
                   {formik.touched.price_course && formik.errors.price_course && (
                     <div className={h.error}>{formik.errors.price_course}</div>
                   )}
-                </div>
-              </div>
+                </Col>
+              </Row>
 
-              <div className={h.formnhap}>
-                <div className={h.bentrong}>
+              <Row className={h.formnhap}>
+                <Col md={6} sm={12} className={h.bentrong}>
                   <label htmlFor="discount_price_course">Giá giảm (%)</label>
                   <input
                     id="discount_price_course"
@@ -312,9 +312,9 @@ const CourseAdd: React.FC = () => {
                         {formik.errors.discount_price_course}
                       </div>
                     )}
-                </div>
+                </Col>
 
-                <div className={h.bentrong}>
+                <Col md={6} sm={12} className={h.bentrong}>
                   <label htmlFor="discription_course">Mô tả</label>
                   <textarea
                     id="discription_course"
@@ -331,11 +331,11 @@ const CourseAdd: React.FC = () => {
                         {formik.errors.discription_course}
                       </div>
                     )}
-                </div>
-              </div>
+                </Col>
+              </Row>
 
-              <div className={h.formnhap}>
-                <div className={h.bentrong}>
+              <Row className={h.formnhap}>
+                <Col md={6} sm={12} className={h.bentrong}>
                   {/* <div className={h.bentrong__room}> */}
                   <label htmlFor="tax_rate">Thuế (%)</label>
                   <input
@@ -351,8 +351,8 @@ const CourseAdd: React.FC = () => {
                     <div className={h.error}>{formik.errors.tax_rate}</div>
                   )}
                   {/* </div> */}
-                </div>
-                <div className={h.bentrong}>
+                </Col>
+                <Col md={6} sm={12} className={h.bentrong}>
                   <Col className={styles.form__container__bottom__left1}>
                     <h3 className={styles.formGroup__bottom__title}>Chọn lộ trình</h3>
                     <Button
@@ -390,8 +390,8 @@ const CourseAdd: React.FC = () => {
                   {formik.errors.route_id && formik.touched.route_id && (
                     <div className="error">{formik.errors.route_id}</div>
                   )}
-                </div>
-              </div>
+                </Col>
+              </Row>
               <div className={h.chonutragiua}>
                 <Button type="submit" className={h.btnthemvao}>
                   Thêm vào

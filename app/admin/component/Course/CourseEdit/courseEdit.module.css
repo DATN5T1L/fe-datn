@@ -1,82 +1,92 @@
-.header_add{
-padding: 25px 32px;
-font-size: 2.125rem;
-font-weight: 500;
-line-height: 42px;
-left: -2%;
+.containerFull {
+    position: relative;
 }
-.body_add{
+
+.header_add {
     padding: 25px 32px;
-   
-    
-    
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 42px;
+    left: -2%;
 }
-.wapper{
-background-color: var(--gray-100);
-width: 1137px;
-height: 812px;
-display: flex;
-justify-content: center;
-padding: 32px;
+
+.body_add {
+    padding: 25px 32px;
 }
-.wapper_body{
+
+.wapper {
+    background-color: var(--gray-100);
+    width: 1137px;
+    height: 812px;
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+}
+
+.wapper_body {
     width: 752px;
     height: 748px;
-   
-   
 }
-.thatep{
+
+.thatep {
     width: 752px;
     height: 304px;
     border: 1px dashed black;
     border-radius: 10px;
     justify-content: center;
     align-items: center;
-   
     display: flex;
 }
 
-.thatep1{
+.thatep1 {
     display: block;
     text-align: center;
-   
 }
-.thatep1 img{
-   
+
+.thatep1 img {
     width: 48px;
     height: 48px;
 }
-.phangiua{
+
+.phangiua {
     margin: 24px;
 }
-.chon1tep{
+
+.chon1tep {
     font-size: 0.875rem;
     font-weight: 500;
 }
-.ghichuhinh{
+
+.ghichuhinh {
     font-size: 0.625rem;
     font-weight: 400;
     color: #999999;
 }
-.bnthem{
+
+.bnthem {
     height: 48px;
     width: 76px;
     background-color: var(--gray-100);
     color: #1958AD;
 }
 
-.formnhap{
+.formnhap {
     display: flex;
     padding-top: 32px;
-    justify-content: space-between; /* Đẩy .left và .right về hai đầu */
-    align-items: center;
+    justify-content: space-between;
 }
-.bentrong{
+
+.bentrong {
     display: block;
-    
-   
 }
-.inputne{
+
+.bentrong__room {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.inputne {
     margin-top: 10px;
     width: 360px;
     height: 48px;
@@ -85,24 +95,19 @@ padding: 32px;
     background: #F2F2F2;
     margin-bottom: 12px;
     padding: 12PX;
-    
-   
-
 }
-.btnthemvao{
+
+.btnthemvao {
     width: 274px;
     height: 64px;
     border-radius: 12px;
     background-color: var(--blue-50);
     border: none;
     margin-top: 12px;
-   
-    
-    
 }
-  
+
 .chonutragiua {
-  display: flex;
-  justify-content: center; /* Căn giữa theo chiều ngang */
-  align-items: center; /* Căn giữa theo chiều dọc */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

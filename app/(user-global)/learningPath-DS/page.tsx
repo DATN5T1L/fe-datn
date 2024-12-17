@@ -14,7 +14,7 @@ const LearningPath__DS: React.FC = () => {
             <meta name="description" content="Được tạo bởi Taem TTO" />
             <Body>
 
-                <HeaderLearning></HeaderLearning>
+                {/* <HeaderLearning></HeaderLearning> */}
                 <CategoriesLearningPath></CategoriesLearningPath>
                 <ForWhom
                     title1="Sinh viên mới bắt đầu trong lĩnh vực UI/UX:"

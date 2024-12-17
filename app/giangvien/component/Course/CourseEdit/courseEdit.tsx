@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Col, Form, Image } from "react-bootstrap";
+import { Button, Col, Form, Image, Row } from "react-bootstrap";
 import h from "./courseEdit.module.css";
 import { useEffect, useRef, useState } from "react";
 import styles from '@public/styles/learningPath/CreateRouter.module.css';
@@ -73,7 +73,8 @@ const CourseEdit: React.FC = () => {
       .min(3, "Tên khóa học phải có ít nhất 3 ký tự"),
     price_course: Yup.number()
       .required("Giá khóa học là bắt buộc")
-      .positive("Giá phải là số dương"),
+      .min(0, "Không được là số âm"),
+    // .positive("Giá phải là số dương"),
     discount_price_course: Yup.number()
       .required("Giảm giá là bắt buộc")
       .min(0, "Giảm giá phải từ 0% trở lên")
@@ -82,8 +83,8 @@ const CourseEdit: React.FC = () => {
       .required("Mô tả là bắt buộc")
       .max(500, "Mô tả không được vượt quá 500 ký tự"),
     tax_rate: Yup.number()
-      .required("Thuế là bắt buộc")
-      .positive("Thuế phải là số dương")
+      // .required("Thuế là bắt buộc")
+      // .positive("Thuế phải là số dương")
       .max(10, "Thuế không được vượt quá 10%"),
     route_id: Yup.array().of(Yup.string().required("Lộ trình là bắt buộc"))
   });
@@ -319,99 +320,8 @@ const CourseEdit: React.FC = () => {
               <form >
 
               </form>
-              <div className={h.formnhap}>
-                <div className={h.bentrong}>
-                  <label htmlFor="name_course">Tên</label>
-                  <input
-                    id="name_course"
-                    name="name_course"
-                    className={h.inputne}
-                    placeholder="Nhập tên khóa học"
-                    value={formik.values.name_course}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.name_course && formik.errors.name_course && (
-                    <div className={h.error}>{formik.errors.name_course}</div>
-                  )}
-                </div>
-
-                <div className={h.bentrong}>
-                  <label htmlFor="price_course">Giá</label>
-                  <input
-                    id="price_course"
-                    name="price_course"
-                    className={h.inputne}
-                    placeholder="Nhập giá khóa học"
-                    value={formik.values.price_course}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.price_course && formik.errors.price_course && (
-                    <div className={h.error}>{formik.errors.price_course}</div>
-                  )}
-                </div>
-              </div>
-
-              <div className={h.formnhap}>
-                <div className={h.bentrong}>
-                  <label htmlFor="discount_price_course">Giá giảm (%)</label>
-                  <input
-                    id="discount_price_course"
-                    name="discount_price_course"
-                    className={h.inputne}
-                    placeholder="Nhập giá giảm"
-                    value={formik.values.discount_price_course}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.discount_price_course &&
-                    formik.errors.discount_price_course && (
-                      <div className={h.error}>
-                        {formik.errors.discount_price_course}
-                      </div>
-                    )}
-                </div>
-
-                <div className={h.bentrong}>
-                  <label htmlFor="discription_course">Mô tả</label>
-                  <textarea
-                    id="discription_course"
-                    name="discription_course"
-                    className={h.inputne}
-                    placeholder="Nhập mô tả khóa học"
-                    value={formik.values.discription_course}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.discription_course &&
-                    formik.errors.discription_course && (
-                      <div className={h.error}>
-                        {formik.errors.discription_course}
-                      </div>
-                    )}
-                </div>
-              </div>
-
-              <div className={h.formnhap}>
-                <div className={h.bentrong}>
-                  {/* <div className={h.bentrong__room}> */}
-                  <label htmlFor="tax_rate">Thuế (%)</label>
-                  <input
-                    id="tax_rate"
-                    name="tax_rate"
-                    className={h.inputne}
-                    placeholder="Nhập thuế của khóa học"
-                    value={formik.values.tax_rate}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                  />
-                  {formik.touched.tax_rate && formik.errors.tax_rate && (
-                    <div className={h.error}>{formik.errors.tax_rate}</div>
-                  )}
-                  {/* </div> */}
-                </div>
-                <div className={h.bentrong}>
+              <Row className={h.formnhap}>
+                <Col className={h.bentrong}>
                   <Col className={styles.form__container__bottom__left1}>
                     <h3 className={styles.formGroup__bottom__title}>Chọn lộ trình</h3>
                     <Button
@@ -446,12 +356,108 @@ const CourseEdit: React.FC = () => {
                         )}
                       </article>
                     </div>
+                    {formik.errors.route_id && formik.touched.route_id && (
+                      <div className="error">{formik.errors.route_id}</div>
+                    )}
                   </Col>
                   {formik.errors.route_id && formik.touched.route_id && (
                     <div className="error">{formik.errors.route_id}</div>
                   )}
-                </div>
-              </div>
+                </Col>
+                <Col className={h.bentrong}>
+                  <label htmlFor="name_course">Tên</label>
+                  <input
+                    id="name_course"
+                    name="name_course"
+                    className={h.inputne}
+                    placeholder="Nhập tên khóa học"
+                    value={formik.values.name_course}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.name_course && formik.errors.name_course && (
+                    <div className={h.error}>{formik.errors.name_course}</div>
+                  )}
+                </Col>
+
+
+              </Row>
+
+              <Row className={h.formnhap}>
+                <Col className={h.bentrong}>
+                  <label htmlFor="price_course">Giá</label>
+                  <input
+                    id="price_course"
+                    name="price_course"
+                    className={h.inputne}
+                    placeholder="Nhập giá khóa học"
+                    value={formik.values.price_course}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.price_course && formik.errors.price_course && (
+                    <div className={h.error}>{formik.errors.price_course}</div>
+                  )}
+                </Col>
+                <Col className={h.bentrong}>
+                  <label htmlFor="discount_price_course">Giá giảm (%)</label>
+                  <input
+                    id="discount_price_course"
+                    name="discount_price_course"
+                    className={h.inputne}
+                    placeholder="Nhập giá giảm"
+                    value={formik.values.discount_price_course}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.discount_price_course &&
+                    formik.errors.discount_price_course && (
+                      <div className={h.error}>
+                        {formik.errors.discount_price_course}
+                      </div>
+                    )}
+                </Col>
+
+
+              </Row>
+
+              <Row className={h.formnhap}>
+                <Col className={h.bentrong}>
+                  {/* <div className={h.bentrong__room}> */}
+                  <label htmlFor="tax_rate">Thuế (%)</label>
+                  <input
+                    id="tax_rate"
+                    name="tax_rate"
+                    className={h.inputne}
+                    placeholder="Nhập thuế của khóa học"
+                    value={formik.values.tax_rate}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.tax_rate && formik.errors.tax_rate && (
+                    <div className={h.error}>{formik.errors.tax_rate}</div>
+                  )}
+                  {/* </div> */}
+                </Col>
+                <Col className={h.bentrong}>
+                  <label htmlFor="discription_course">Mô tả</label>
+                  <textarea
+                    id="discription_course"
+                    name="discription_course"
+                    className={h.inputne}
+                    placeholder="Nhập mô tả khóa học"
+                    value={formik.values.discription_course}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.discription_course &&
+                    formik.errors.discription_course && (
+                      <div className={h.error}>
+                        {formik.errors.discription_course}
+                      </div>
+                    )}
+                </Col>
+              </Row>
 
               <div className={h.chonutragiua}>
                 <Button type="submit" className={h.btnthemvao}>

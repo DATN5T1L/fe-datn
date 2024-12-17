@@ -38,6 +38,7 @@
 }
 
 .listQuestion {
+    margin-top: 32px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -120,15 +121,41 @@
 
 /* fill */
 
-
-
 .fiilContainer {
+    margin-top: 32px;
     display: flex;
     min-height: 120px;
     padding: 16px 24px;
     align-items: flex-start;
     gap: 28px;
     align-self: stretch;
+    border-radius: 12px;
+    background: var(--Gray-gray-100, #FFF);
+    box-shadow: -6px 0px 3px 0px rgba(35, 125, 247, 0.30) inset;
+}
+
+.inputFill {
+    background: var(--gray-100, #FFF);
+    box-shadow: -6px 0px 3px 0px rgba(35, 125, 247, 0.30) inset;
+    border: none;
+    outline: none;
+    padding: 8px 6px;
+    border-radius: 8px;
+    background: var(--blue-90);
+    color: var(--text-0);
+    display: inline-block;
+    margin: 6px;
+}
+
+.result {
+    color: var(--blue-50);
+    font-weight: 600;
+    font-size: 1.875rem;
+}
+
+.fillContainerFill {
+    margin-top: 32px;
+    padding: 16px 24px;
     border-radius: 12px;
     background: var(--Gray-gray-100, #FFF);
     box-shadow: -6px 0px 3px 0px rgba(35, 125, 247, 0.30) inset;

@@ -1,6 +1,6 @@
 .main {
     margin: 0;
-    margin-top: 75px !important;
+    margin-top: 75px;
     width: 100%;
     max-width: 1440px;
     height: 698px;
@@ -108,7 +108,7 @@
 }
 
 .titleGroup__link:hover>.titleGroup__link__bdi {
-    color: var(--gray-70) !important;
+    color: var(--gray-70);
 }
 
 .loginMedia {
@@ -156,7 +156,7 @@
 }
 
 .loginMedia__btn:active {
-    background-color: rgb(224, 224, 224) !important;
+    background-color: rgb(224, 224, 224);
 }
 
 .bodyLogin {
@@ -261,12 +261,12 @@
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
-    color: var(--text-50) !important;
+    color: var(--text-50);
     background-color: transparent;
 }
 
 .userNameLogin__input::placeholder {
-    color: var(--text-50) !important;
+    color: var(--text-50);
 }
 
 .userNameLogin__input:focus {
@@ -350,12 +350,12 @@
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
-    color: var(--text-50) !important;
+    color: var(--text-50);
     background: transparent;
 }
 
 .passLogin__input::placeholder {
-    color: var(--text-50) !important;
+    color: var(--text-50);
 }
 
 .passLogin__input:focus {
@@ -388,7 +388,7 @@
 .rememberLogin:hover,
 .rememberLogin:active,
 .rememberLogin:focus {
-    background-color: white !important;
+    background-color: white;
 }
 
 .rememberLogin__img {
@@ -443,7 +443,7 @@
 }
 
 .btnSubmit:hover {
-    background-color:var(--blue-60);
+    background-color: var(--blue-60);
     box-shadow: 0 0 5px rgba(102, 102, 102, 0.35);
 }
 
@@ -455,4 +455,14 @@
 .feedBack {
     margin: 6px;
     color: var(--red-40);
+}
+
+@media screen and (max-width: 576px) {
+
+    .main,
+    .cardContainer {
+        padding: 32px 16px;
+    }
+
+
 }

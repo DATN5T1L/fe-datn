@@ -148,7 +148,7 @@ const NoteContent: React.FC<NoteContentProps> = ({ course_Id, doc_id, chapter_Id
 
 
     const handleEditReply = (replyData: { document_id: string; note_id: string; cache_time: number; title_note: string; content_note: string; }) => {
-        console.log(replyData)
+        // console.log(replyData)
         handleEdit(replyData);
     };
 

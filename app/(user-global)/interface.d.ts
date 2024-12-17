@@ -104,6 +104,7 @@ interface QuestionsProps {
     timedocument: string;
     nameDocument: string;
     questions: QuestionsDocument['questions'];
+    reload: () => void;
 
 }
 
@@ -111,6 +112,7 @@ interface QuestionsProps {
 
 interface CodeDevProps {
     onExport: (data: { html: string, css: string, js: string }) => void;
+    reload: () => void;
     answer_code: string;
     correct_answer: string;
     question_code: string;
@@ -312,6 +314,7 @@ interface NotificationProps {
 type NotiType = 'success' | 'error' | 'fail' | 'complete';
 
 interface Route {
+    slug_route: string;
     route_id: string;
     name_route: string;
     img_route: string;
@@ -327,21 +330,21 @@ interface RouteSearch {
     id: string;
     title: string;
     image: string;
-    slug: string;
+    slug_route: string;
 }
 
 interface CourseSearch {
     id: string;
     title: string;
     image: string;
-    slug: string;
+    slug_course: string;
 }
 
 interface PostSearch {
     id: string;
     title: string;
     image: string;
-    slug: string;
+    slug_post: string;
 }
 
 interface ApiResponseSearch {

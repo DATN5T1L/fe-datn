@@ -118,9 +118,9 @@ const CoursePro: React.FC = () => {
                         rightIcon={false}
                         width={225}
                         height={40}
-                        onClick={() => handlePathChange("Tester")}
+                        onClick={() => handlePathChange("lo-trinh-designer")}
                     >
-                        Khóa học lộ trình Tester
+                        Khóa học lộ trình  Desiger
                     </Button>
                     <Button
                         type={"premary"}
@@ -130,9 +130,9 @@ const CoursePro: React.FC = () => {
                         rightIcon={false}
                         width={245}
                         height={40}
-                        onClick={() => handlePathChange("Designer")}
+                        onClick={() => handlePathChange("lo-trinh-tester")}
                     >
-                        Khóa học lộ trình Designer
+                        Khóa học lộ trình Tester
                     </Button>
                 </Col>
                 <Col className={styles.nav__btn__single}>

@@ -34,9 +34,8 @@ const Login: React.FC = () => {
         if (typeof window !== 'undefined') {
             const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
             const tokenValue = token?.split('=')[1];
-
             if (tokenValue) {
-                router.push(`/info-user`)
+                router.push(`/home`)
             }
         }
     }, []);
@@ -66,23 +65,17 @@ const Login: React.FC = () => {
                     },
                     body: JSON.stringify({ email_or_phone: values.email_or_phone, password: values.password }),
                 });
-
-                if (!res.ok) {
-                    const errorData = await res.json();
-                    console.error("Error response:", errorData);
-                    console.log(errorData);
-
-                    const errorMessage = errorData.error ? errorData.error : 'Đăng nhập thất bại';
-                    throw new Error(errorMessage);
-                }
-
                 const data = await res.json();
                 console.log(data);
+                if (!res.ok) {
+                    console.log(data.error);
+                }
+
+
 
                 const token = data.access_token;
                 const expiresIn = data.expires_in;
                 const expirationDate = new Date(Date.now() + expiresIn * 1000).toUTCString();
-                // && token.split('.').length === 3
                 if (token) {
                     console.log("Token:", token);
                     if (typeof window !== 'undefined') {
@@ -101,10 +94,10 @@ const Login: React.FC = () => {
                         router.push(`${url}`);
                         localStorage.removeItem('url')
                     } else {
-                        router.push('/info-user');
+                        router.push('/home');
                     }
                 } else {
-                    throw new Error('Token không hợp lệ');
+                    throw new Error(data.error);
                 }
             } catch (error) {
                 if (error instanceof Error) {
@@ -133,7 +126,7 @@ const Login: React.FC = () => {
             <Body>
                 <Container className={styles.main}>
                     <div className={styles.main__container}>
-                        <Image src="/img/pandaLogin.svg" alt="Thực hiện dự án clone Facebook tại tto" className={styles.logoLogin} />
+                        <Image src="/img/pandaLogin.svg" alt="Thực hiện dự án clone Facebook tại tto" className={`${styles.logoLogin} mobNone`} />
                         <Card className={styles.cardContainer}>
                             <Card.Header className={styles.headerLogin}>
                                 <section className={styles.titleGroup}>

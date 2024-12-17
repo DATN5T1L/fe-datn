@@ -293,7 +293,7 @@
 
 .listItem__docName {
     display: inline-block;
-    width: 90%;
+    width: 100%;
     display: -webkit-box;
     -webkit-line-clamp: var(--line-clamp, 1);
     -webkit-box-orient: vertical;
@@ -498,10 +498,10 @@
 
 .tippyNoteList {
     min-width: 720px;
-    position: absolute !important;
+    position: absolute;
     right: 0;
     top: auto;
-    margin-right: 0 !important;
+    margin-right: 0;
     z-index: 9999;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(4px);

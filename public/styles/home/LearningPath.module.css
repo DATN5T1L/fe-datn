@@ -5,7 +5,7 @@
     flex-direction: column;
     padding: 80px 40px;
     /* background-color: var(--gray-100); */
-    margin: 0 !important;
+    margin: 0;
     justify-content: center;
     align-items: center;
 }
@@ -20,7 +20,7 @@
     justify-content: center;
     align-items: center;
     gap: 32px;
-    margin: 0 !important;
+    margin: 0;
 }
 
 .body__container::before {
@@ -38,8 +38,8 @@
 }
 
 .container__header {
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0;
+    padding: 0;
     display: flex;
     width: 450px;
     height: auto;
@@ -145,8 +145,8 @@
 }
 
 .box {
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -173,12 +173,12 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    margin: 0 !important;
+    margin: 0;
 }
 
 .box__body__title {
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0;
+    padding: 0;
     width: auto;
     max-width: 100%;
     font-size: 0.875rem;
@@ -216,23 +216,48 @@
     text-overflow: ellipsis;
 }
 
-.btn__next {
-    width: 50px !important;
+.btn__prev {
+    width: 50px;
     height: 50px;
     background-color: var(--gray-100);
-    padding: 0 !important;
-    margin: 0 !important;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    position: absolute;
+    left: -100px;
+    top: 50%;
+    border: 0.3px solid var(--gray-80);
+    rotate: 180deg;
+}
+
+.btn__next {
+    width: 50px;
+    height: 50px;
+    background-color: var(--gray-100);
+    padding: 0;
+    margin: 0;
     border: 0;
     border-radius: 50%;
     position: absolute;
     right: -100px;
-    top: 60%;
+    top: 50%;
+    transform: translate(-0%, -50%);
     border: 0.3px solid var(--gray-80);
 }
 
 .btn__next:hover,
 .btn__next:active,
 .btn__next:focus {
+    background-color: var(--gray-100);
+    border: 1px solid var(--gray-60);
+}
+
+
+
+.btn__prev:hover,
+.btn__prev:active,
+.btn__prev:focus {
     background-color: var(--gray-100);
     border: 1px solid var(--gray-60);
 }

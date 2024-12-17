@@ -176,18 +176,9 @@ const RouterIndex: React.FC<RouterProps> = ({ data }) => {
                             <tr key={index}>
                                 <td>
                                     <Card.Header className={h.headerContent}>
-                                        <section className={h.headerContent__text}>
-                                            <Card.Title className={h.text__hedding2}>
-                                                {item.name_route}
-                                            </Card.Title>
-                                            <Card.Img
-                                                src="/img/iconReact.svg"
-                                                alt="Khóa học Node.js cơ bản tại TTO.sh"
-                                                className={h.text__img}
-                                            />
-                                        </section>
+
                                         <Card.Img
-                                            src="/img/tuan.png"
+                                            src={item.img_route}
                                             alt="Khóa học Node.js cơ bản tại TTO.sh"
                                             className={h.headerContent__avt}
                                         />

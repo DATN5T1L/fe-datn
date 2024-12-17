@@ -12,6 +12,7 @@ interface CourseCardProps {
         instructor_name: string;
         slug_course: string;
         discription_course: string;
+        img_course: string;
     };
     onCourseClick?: (course: any) => void;
 }
@@ -32,7 +33,7 @@ const CourseCardInfo: React.FC<CourseCardProps> = ({ course, onCourseClick }) =>
                     <h6 className={styles.text__hedding3}>
                         by {getInitials(course.instructor_name)}
                     </h6>
-                    <Image src="/img/iconReact.svg" alt="Học phí ưu đãi TTO.SH" className={styles.text__img} />
+                    <Image src={course.img_course} alt="Học phí ưu đãi TTO.SH" className={styles.text__img} />
                     <Image src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067691/fe_image/hinhgau2.png" alt="Học với chuyên gia tto.sh" className={styles.headerContent__avt} />
                 </Link>
                 <div className={styles.card__body}>

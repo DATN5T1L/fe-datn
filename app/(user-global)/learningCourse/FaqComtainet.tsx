@@ -58,7 +58,7 @@ const CommentItem: React.FC<CommentItemProps> = ({
     const handleDeleteComment = (id: string) => {
         // Gọi API xóa bình luận
         onDelete(id)
-        console.log(`Đang xóa bình luận với ID: ${id}`);
+        // console.log(`Đang xóa bình luận với ID: ${id}`);
         setVisibleTippyId(null); // Ẩn Tippy sau khi nhấn xóa
         // onClose(); // Gọi hàm từ cha để cập nhật giao diện
     };

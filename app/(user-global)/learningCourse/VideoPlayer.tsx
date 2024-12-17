@@ -14,9 +14,10 @@ interface VideoProp {
     onProgressChange: (playedSeconds: number) => void;
     reload: () => void;
     isPlaying: boolean;
+    startTime?: number;
 }
 
-const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying, reload, status_video }) => {
+const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, onProgressChange, isPlaying = true, reload, status_video, startTime = 0, }) => {
     const token = useCookie('token');
     const playerRef = useRef<ReactPlayer | null>(null);
     const lastValidTimeRef = useRef<number>(0);
@@ -24,13 +25,15 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
     const [playedSeconds, setPlayedSeconds] = useState(0);
     const isWarningShown = useRef(false);
     const [statusUpdated, setStatusUpdated] = useState(false);
-    const [type, setType] = useState<string | null>(null);
-    const [isNoti, setNoti] = useState(false);
-    const [isContent, setContent] = useState(true);
-    const [typeNoti, setTypeNoti] = useState<NotiType | null>(null);
-    const [messageNoti, setmessageNoti] = useState("");
 
-    console.log(status_video)
+    useEffect(() => {
+        if (playerRef.current && startTime > 0) {
+            isPlaying = true
+            playerRef.current.seekTo(startTime, 'seconds');
+            lastValidTimeRef.current = startTime;
+        }
+    }, [startTime]);
+
     const handleProgress = (progress: { playedSeconds: number }) => {
         const { playedSeconds } = progress;
         setPlayedSeconds(playedSeconds);
@@ -63,7 +66,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
         setVideoDuration(duration); // Save the video duration
         const minutes = Math.floor(duration / 60); // Calculate minutes
         const seconds = Math.floor(duration % 60); // Calculate remaining seconds
-        console.log(`Thời gian kết thúc video: ${minutes} phút ${seconds} giây`);
+        // console.log(`Thời gian kết thúc video: ${minutes} phút ${seconds} giây`);
         isWarningShown.current = false;
     };
 
@@ -81,7 +84,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
                 document_id: document_id,
             });
             localStorage.setItem(`Video`, data);
-            console.log(data); // Gửi dữ liệu khi trang được tải lại
+            // console.log(data); // Gửi dữ liệu khi trang được tải lại
             navigator.sendBeacon(url, data); // Gửi dữ liệu mà không ảnh hưởng đến việc thoát trang
         };
         // Thêm sự kiện `beforeunload` khi component mount
@@ -116,7 +119,7 @@ const VideoPlayer: React.FC<VideoProp> = ({ course_id, document_id, urlVideo, on
     };
 
     useEffect(() => {
-        console.log(`playedSeconds: ${playedSeconds}, videoDuration: ${videoDuration}, statusUpdated: ${statusUpdated}`);
+        // console.log(`playedSeconds: ${playedSeconds}, videoDuration: ${videoDuration}, statusUpdated: ${statusUpdated}`);
         if (!statusUpdated && playedSeconds >= videoDuration - 120 && playedSeconds < videoDuration) {
             handleUpdateStatus(); // Gọi hàm cập nhật
             setStatusUpdated(true); // Đánh dấu đã cập nhật

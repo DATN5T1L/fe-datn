@@ -189,11 +189,11 @@ const RetrievePassword: React.FC = () => {
                                         </FormikForm>
                                     )}
                                 </Formik>
-                                <Image src="/img/pandaRetrieve.svg" alt="khoa hoc tto" className={styles.logoRetrieve} />
+                                <Image src="/img/pandaRetrieve.svg" alt="khoa hoc tto" className={`${styles.logoRetrieve} mobNone`} />
                             </div>
                         </Container>
                     </>) : (<>
-                        <NewPasswordPage user_id={userId}></NewPasswordPage>
+                        <NewPasswordPage user_id={userId} />
                     </>)
                 }
             </Body>

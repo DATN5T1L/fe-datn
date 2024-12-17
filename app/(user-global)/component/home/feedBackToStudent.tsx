@@ -7,7 +7,7 @@ import useSWR from 'swr';
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const FeedBackToStudent: React.FC = () => {
-    const { data: dataFeedback, error: Feedbackerror } = useSWR<FeedbackResponse>('/api/feedbackhome/4/10', fetcher, {
+    const { data: dataFeedback, error: Feedbackerror } = useSWR<FeedbackResponse>('/api/feedbackhome/5/10', fetcher, {
         revalidateOnFocus: true,
         revalidateOnReconnect: true,
     });

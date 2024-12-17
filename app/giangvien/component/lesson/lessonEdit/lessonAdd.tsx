@@ -95,6 +95,9 @@ const LessonEdit: React.FC = () => {
   const [errorsTf, setErrorsTf] = useState<boolean[]>([false, false]);
   const [errorsAnswerTf, setErrorsAnswerTf] = useState<boolean[]>([false]);
   const [isQues, setIsQues] = useState(false)
+  //fill 
+  const [fillDataQues, setFillDataQues] = useState('')
+  const [fillDateAnswer, setFillDataAnswer] = useState('')
 
   useEffect(() => {
     if (token && id) {
@@ -301,6 +304,8 @@ const LessonEdit: React.FC = () => {
         .required("Số thứ tự bài học là bắt buộc")
         .positive("Số thứ tự phải là số dương"),
       question_code: Yup.string()
+        .required('Câu hỏi là bắt buộc'),
+      answer_code__true: Yup.string()
         .required("Câu hỏi là bắt buộc")
         .max(500, "Câu hỏi không được vượt quá 500 ký tự")
         .test(
@@ -327,6 +332,7 @@ const LessonEdit: React.FC = () => {
       if (token && typeCourseValue) {
         const userConfirmed = confirm('Bạn có muốn sửa bài học này không?');
         console.log("User confirmed:", userConfirmed);
+        const fillArr = [values.question_code, values.answer_code__true].join('?')
 
         if (userConfirmed) {
           console.log('Form data is being submitted');
@@ -343,7 +349,7 @@ const LessonEdit: React.FC = () => {
                 serial_document: values.serial_document,
                 type_document: 'quiz',
                 type_question: 'fill',
-                content_question: values.question_code,
+                content_question: fillArr,
                 answer_question: values.answer_code,
                 chapter_id: values.chapter_id
               }),
@@ -449,13 +455,13 @@ const LessonEdit: React.FC = () => {
       name_document: "",
       discription_document: "",
       serial_document: "",
-      answer_code: "",
+      answer_code: finalAnswer,
       question_code: "",
       type_document: "",
       type_question: "",
       chapter_id: id ? id : "",
-      answer_code__false: '',
-      answer_code__true: ''
+      answer_code__false: finalQuestTf,
+      answer_code__true: finalAnswerTf
     },
     validationSchema: Yup.object({
       name_document: Yup.string()
@@ -468,63 +474,15 @@ const LessonEdit: React.FC = () => {
         .required("Số thứ tự bài học là bắt buộc")
         .positive("Số thứ tự phải là số dương"),
       question_code: Yup.string()
-        .transform((value) =>
-          value
-            ?.replace(/\s*\/\s*/g, '/')
-            .trim()
-        )
-        .test(
-          "has-question-part",
-          "Câu hỏi phải có phần câu hỏi trước dấu '?' và phải có ít nhất 5 ký tự",
-          (value) => {
-            if (!value) return false;
-            const questionPart = value.split('?')[0];
-            return questionPart?.length >= 5;
-          }
-        )
-        .test(
-          "valid-question-format",
-          "Dấu '?' phải nằm trước các dấu '/' và sau mỗi dấu '/' phải có ít nhất một ký tự",
-          (value) => {
-            if (!value) return false;
-            const [questionPart, answersPart] = value.split('?');
-            if (!answersPart) return false;
-            if (!questionPart || questionPart.includes('/')) return false;
-            if (value.includes('?/')) return false;
-            const isValidSlashContent = answersPart.split('/').every((part) => part.trim().length > 0);
-            return isValidSlashContent && !questionPart.includes('/');
-          }
-        )
-        .required("Câu hỏi là bắt buộc")
-        .max(500, "Câu hỏi không được vượt quá 500 ký tự"),
-      answer_code: Yup.string()
-        .transform((value) =>
-          value
-            ?.replace(/\s*,\s*/g, ", ")
-            .replace(/,(\S)/g, ", $1")
-            .replace(/(\S),/g, "$1, ")
-            .trim()
-        )
-        .required("Câu trả lời là bắt buộc")
-        .max(500, "Câu trả lời không được vượt quá 500 ký tự")
-        .test(
-          "answer_code",
-          "Câu trả lời chỉ có một đáp án có trong danh sách câu hỏi",
-          function (value) {
-            const { question_code } = this.parent as quiz;
-            if (!question_code) return false;
-            const questions = question_code
-              .split("/")
-              .map((q: string) => q.trim().toLowerCase());
-            const answer = value?.trim().toLowerCase();
-            return questions.includes(answer || "");
-          }
-        ),
+        .required("Câu hỏi là bắt buộc"),
+      answer_code__false: Yup.string()
+        .required("Đáp án xảy ra lỗi"),
+      answer_code__true: Yup.string()
+        .required("Đáp án đúng xảy ra lỗi"),
     }),
     onSubmit: async (values) => {
-      console.log("Form values:", values);
-
       if (token && typeCourseValue) {
+        const questArr = [values.question_code, finalQuestTf].join('?')
         const userConfirmed = confirm('Bạn có muốn sửa bài học này không?');
         console.log("User confirmed:", userConfirmed);
 
@@ -543,8 +501,8 @@ const LessonEdit: React.FC = () => {
                 serial_document: values.serial_document,
                 type_document: 'quiz',
                 type_question: 'true_false',
-                content_question: values.question_code,
-                answer_question: values.answer_code,
+                content_question: questArr,
+                answer_question: answersTf.join('|'),
                 chapter_id: values.chapter_id
               }),
             });
@@ -679,9 +637,6 @@ const LessonEdit: React.FC = () => {
       return updatedErrors;
     });
   };
-
-  console.log('ques:', questions);
-
 
   const handleChange_answer = (index: number, value: string) => {
     setAnswers((prev) => {
@@ -823,12 +778,21 @@ const LessonEdit: React.FC = () => {
 
   const handleReduceTf = () => {
     if (questionsTf.length > 1) {
+      const questionToRemove = questionsTf[questionsTf.length - 1];
+      const isQuestionAnswer = answersTf.some(
+        (answer) => answer.trim() === questionToRemove.trim()
+      );
+
+      if (isQuestionAnswer) {
+        alert('không thể xóa câu hỏi mẫu trùng với câu hỏi đúng')
+        return;
+      }
       setQuestionsTf((prev) => {
         const updatedQuestions = prev.slice(0, -1);
         const updatedFinalQuestTf = updatedQuestions
           .filter((q) => q.trim() !== "")
           .join("|");
-        setFinalQuest(updatedFinalQuestTf);
+        setFinalQuestTf(updatedFinalQuestTf);
         setErrorsTf((prevErrors) => prevErrors.slice(0, -1));
         formikQuizTf.setFieldValue("answer_code__false", updatedFinalQuestTf);
         return updatedQuestions;
@@ -839,22 +803,43 @@ const LessonEdit: React.FC = () => {
   };
 
   const handleChangeTf = (index: number, value: string) => {
+    const trimmedValue = value.trim();
     setQuestionsTf((prev) => {
       const updatedQuestions = [...prev];
       updatedQuestions[index] = value;
-      const filteredQuestions = updatedQuestions.filter((question) => question.trim() !== "");
-      setFinalQuestTf(filteredQuestions.join("|"));
-      formikQuizTf.setFieldValue("answer_code__false", finalQuestTf);
-      const isEmpty = value.trim() === "";
+      const filteredQuestions = updatedQuestions.filter((q) => q !== "");
+      const newFinalQuest = filteredQuestions.join("|");
+      const isEmpty = trimmedValue === "";
       const isDuplicate = updatedQuestions.some(
-        (q, idx) => idx !== index && q.trim() === value.trim()
+        (q, idx) => idx !== index && q === trimmedValue
       );
+      const updatedErrorsAnswer = answersTf.map((answer) => {
+        const isValidQuestion = updatedQuestions.some(
+          (question) => question.trim() === answer.trim()
+        );
+        if (!isValidQuestion && answer.trim()) {
+          formikQuizTf.setFieldError(
+            "answer_code__true",
+            "Câu trả lời đúng phải giống với nội dung câu hỏi mẫu"
+          );
+        }
+        return !isValidQuestion;
+      });
+      setErrorsAnswerTf(updatedErrorsAnswer);
+      setFinalQuestTf(newFinalQuest);
       if (isEmpty) {
-        formikQuizTf.setFieldValue("answer_code__false", '');
+        formikQuizTf.setFieldError(
+          "answer_code__false",
+          "Câu hỏi không được để trống!"
+        );
       } else if (isDuplicate) {
-        formikQuizTf.setFieldValue("answer_code__false", '');
+        formikQuizTf.setFieldError(
+          "answer_code__false",
+          "Câu hỏi không được trùng nhau!"
+        );
       } else {
-        formikQuizTf.setFieldError(`answer_code__false`, "");
+        formikQuizTf.setFieldError("answer_code__false", "");
+        formikQuizTf.setFieldValue("answer_code__false", newFinalQuest);
       }
       return updatedQuestions;
     });
@@ -932,10 +917,6 @@ const LessonEdit: React.FC = () => {
   });
 
   const renderAnswerTf = Array.from({ length: countAnswerTf }, (_, index) => {
-    const isValidQuestion = questionsTf.some(
-      (question) => question.trim() === answersTf[index]?.trim()
-    );
-    const currentAnswer = answersTf[index] || "";
     return (
       <div key={index} style={{ marginBottom: "8px" }}>
         <input
@@ -947,6 +928,25 @@ const LessonEdit: React.FC = () => {
       </div>
     );
   });
+
+  useEffect(() => {
+    if (isQues) {
+      answersTf.forEach((answer, index) => {
+        const trimmedAnswer = answer?.trim() || "";
+        const isValidQuestion = questionsTf.some(
+          (question) => question.trim() === trimmedAnswer
+        );
+
+        if (!isValidQuestion && trimmedAnswer) {
+          formikQuizFill.setFieldError(
+            "answer_code__true",
+            "Câu trả lời đúng phải giống với nội dung câu hỏi mẫu!"
+          );
+          setIsQues(false)
+        }
+      });
+    }
+  }, [questionsTf, answersTf, finalQuestTf, finalAnswerTf, countQuestionTf, countAnswerTf, isQues]);
 
   useEffect(() => {
     if (token && idDoc) {
@@ -999,17 +999,21 @@ const LessonEdit: React.FC = () => {
                 }
               } else if (dataDoc.quizs && dataDoc.quizs[0].type_question === 'fill') {
                 setTypeCourseValue('dientu')
+                const fillArr = dataDoc.quizs && dataDoc?.quizs[0]?.content_question?.split('?')
+                console.log(fillArr[0]);
+                console.log(fillArr[1]);
+
                 formikQuizFill.setValues({
                   name_document: dataDoc.name_document || "",
                   discription_document: dataDoc.discription_document || "",
                   serial_document: dataDoc.serial_document || "",
                   answer_code: dataDoc.quizs[0].answer_question || "",
-                  question_code: dataDoc.quizs[0].content_question || "",
+                  question_code: fillArr[0] || "",
                   type_document: dataDoc.type_document || "",
                   type_question: dataDoc.quizs[0].type_question || "",
                   chapter_id: id ? id : "",
                   answer_code__false: '',
-                  answer_code__true: ''
+                  answer_code__true: fillArr[1] || ""
                 })
               } else if (dataDoc.quizs && dataDoc.quizs[0].type_question === 'multiple_choice') {
                 setTypeCourseValue('tracnghiem')
@@ -1442,29 +1446,44 @@ const LessonEdit: React.FC = () => {
                     )}
                   </div>
                   <div className={h.bentrong}>
-                    <div className={h.bentrong_container}>
-                      <div className={h.quest}>Câu hỏi</div>
-                      <div className={h.input__100}>
-                      </div>
-                      <div className={h.ckeditor}>
-                        <CkediterCustomFill
-                          initialData={formikQuizFill.values.question_code}
-                          onChange={(data) => {
-                            const cleanedData = data.replace(/\_\_\_+/g, '____');
-                            formikQuizFill.setFieldValue("question_code", cleanedData);
-                            formikQuizFill.setTouched({ ...formikQuizFill.touched, question_code: true });
-                            formikQuizFill.validateField("question_code");
-                          }}
-                        ></CkediterCustomFill>
-                        {formikQuizFill.errors.question_code && formikQuizFill.touched.question_code && (
-                          <div className={h.errorText}>{formikQuizFill.errors.question_code} </div>
-                        )}
-                      </div>
-
-                    </div>
+                    <div>Câu hỏi</div>
+                    <textarea
+                      rows={3}
+                      className={h.inputne1}
+                      placeholder="Nhập câu hỏi vào đây"
+                      id="question_code"
+                      name="question_code"
+                      value={formikQuizFill.values.question_code}
+                      onChange={formikQuizFill.handleChange}
+                      onBlur={formikQuizFill.handleBlur}
+                    />
+                    {formikQuizFill.touched.question_code && formikQuizFill.errors.question_code && (
+                      <div className={h.error}>{formikQuizFill.errors.question_code}</div>
+                    )}
                   </div>
                 </div>
                 <div className={h.formnhap}>
+                  <div className={h.bentrong}>
+                    <div className={h.bentrong_container}>
+                      <div className={h.input__100}>
+                        <div className={h.quest}>Nội dung câu hỏi</div>
+                      </div>
+                      <div className={h.ckeditor}>
+                        <CkediterCustomFill
+                          initialData={formikQuizFill.values.answer_code__true}
+                          onChange={(data) => {
+                            const cleanedData = data.replace(/\_\_\_+/g, '____');
+                            formikQuizFill.setFieldValue("answer_code__true", cleanedData);
+                            formikQuizFill.setTouched({ ...formikQuizFill.touched, answer_code__true: true });
+                            formikQuizFill.validateField("answer_code__true");
+                          }}
+                        ></CkediterCustomFill>
+                        {formikQuizFill.errors.answer_code__true && formikQuizFill.touched.answer_code__true && (
+                          <div className={h.errorText}>{formikQuizFill.errors.answer_code__true} </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                   <div className={h.bentrong}>
                     <div>Câu trả lời</div>
                     <textarea
@@ -1674,19 +1693,25 @@ const LessonEdit: React.FC = () => {
                 </div>
                 <div className={h.formnhap}>
                   <div className={h.bentrong}>
-                    <div>Câu trả lời</div>
-                    <textarea
-                      rows={4}
-                      className={h.inputne1}
-                      placeholder="Nhập trả lời vào đây"
-                      id="answer_code"
-                      name="answer_code"
-                      value={formikQuizTf.values.answer_code}
-                      onChange={formikQuizTf.handleChange}
-                      onBlur={formikQuizTf.handleBlur}
-                    />
-                    {formikQuizTf.touched.answer_code && formikQuizTf.errors.answer_code && (
-                      <div className={h.error}>{formikQuizTf.errors.answer_code}</div>
+                    <div>Câu trả lời cho câu hỏi</div>
+                    {renderQuestTf}
+                    <div className={h.btnAddQuest}>
+                      <div className={`${countQuestionTf === 2 ? h.addQuestDisable : h.addQuest}`} onClick={() => handleReduceTf()}>
+                        <img src="/img/deleteQuest.svg" alt="" className={h.btn__addQuest} />
+                      </div>
+                      <div className={`${countQuestionTf === 4 ? h.addQuestDisable : h.addQuest}`} onClick={() => handleIncreaseTf()}>
+                        <img src="/img/addQuest.svg" alt="" className={h.btn__addQuest} />
+                      </div>
+                    </div>
+                    {formikQuizTf.errors.answer_code__false && (
+                      <div className={h.error}>{formikQuizTf.errors.answer_code__false}</div>
+                    )}
+                  </div>
+                  <div className={h.bentrong}>
+                    <div>Câu trả lời đúng</div>
+                    {renderAnswerTf}
+                    {formikQuizTf.errors.answer_code__true && (
+                      <div className={h.error}>{formikQuizTf.errors.answer_code__true}</div>
                     )}
                   </div>
                 </div>

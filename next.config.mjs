@@ -380,10 +380,6 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/users-role/:path*',
       },
       {
-        source: '/api/courseEnrollments/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/enrollments/:path*',
-      },
-      {
         source: '/api/post_categories/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/post_categories/:path*',
       },
@@ -410,6 +406,11 @@ const nextConfig = {
       {
         source: '/api/uploadImgPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
+      },
+      // up chứng chỉ
+      {
+        source: '/api/addCertificate/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/add-certificate/:path*',
       },
       {
         source: '/api/hiddenPost/:path*',
@@ -442,7 +443,7 @@ const nextConfig = {
       },
       {
         source: '/api/getAllHistory/:path*',
-        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-history/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/activities-log/:path*',
       },
 
       // statistical
@@ -466,6 +467,14 @@ const nextConfig = {
       {
         source: '/api/statistical_complete/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-highest-rating-course/:path*',
+      },
+      {
+        source: '/api/statistical_instructor_complete_course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-complete-course/:path*',
+      },
+      {
+        source: '/api/statistical_instructor_highest_rating_course/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-course-column-chart/:path*',
       },
 
       //instructor
@@ -518,8 +527,6 @@ const nextConfig = {
         source: '/api/deleteReminder/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/reminders/:path*',
       },
-
-
       //course
       {
         source: '/api/allCourseAdmin/:path*',
@@ -650,6 +657,12 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-route/:path*',
       },
 
+      //instructor/statistical-course
+
+      {
+        source: '/api/statisticalTeacher/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/instructor/statistical-course',
+      },
 
       //marketing
 
@@ -664,6 +677,10 @@ const nextConfig = {
       {
         source: '/api/comment/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/get-comment-post/:path*',
+      },
+      {
+        source: '/api/allComment/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/get-all-comment-post/:path*',
       },
       {
         source: '/api/commentPost/:path*',
@@ -686,9 +703,18 @@ const nextConfig = {
         destination: 'https://tto-production-db77.up.railway.app/api/client/upload/:path*',
       },
       {
+        source: '/api/changeImgPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/update-images-post/:path*',
+      },
+      {
         source: '/api/hiddenPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
       },
+      {
+        source: '/api/statisMarrketing/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/marketing/total-post-category-comment-view/:path*',
+      },
+
       // Thống kê
       // Tông người dùng khóa học
       {

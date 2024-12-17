@@ -185,11 +185,9 @@ const LessonAdd: React.FC = () => {
         .required("Số thứ tự bài học là bắt buộc")
         .positive("Số thứ tự phải là số dương"),
       question_code: Yup.string()
-        .required("Câu hỏi là bắt buộc")
-        .max(500, "Câu hỏi không được vượt quá 500 ký tự"),
+        .required("Câu hỏi là bắt buộc"),
       tutorial_code: Yup.string()
-        .required("Gợi ý code là bắt buộc")
-        .max(500, "Gợi ý code không được vượt quá 500 ký tự"),
+        .required("Gợi ý code là bắt buộc"),
       html: Yup.string()
         .transform((value) => value.replace(/\s+/g, '')),
       css: Yup.string()
@@ -201,7 +199,7 @@ const LessonAdd: React.FC = () => {
         'Bạn phải nhập ít nhất một trong ba trường: HTML, CSS, hoặc JS.',
         function () {
           const { html, css, js } = this.parent;
-          return !!(html?.trim() || css?.trim() || js?.trim());
+          return !!(html || css || js);
         }
       ),
     }),
@@ -209,6 +207,8 @@ const LessonAdd: React.FC = () => {
       console.log("Form values:", values);
       const codeValues = `${values.html || ''}|${values.css || ''}|${values.js || ''}`;
       console.log(codeValues);
+      console.log(values.answer_code);
+
 
       if (token && typeCourseValue && id) {
         const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
@@ -273,8 +273,7 @@ const LessonAdd: React.FC = () => {
         .required("Tên bài học là bắt buộc")
         .min(3, "Tên bài học phải có ít nhất 3 ký tự"),
       discription_document: Yup.string()
-        .required("Mô tả là bắt buộc")
-        .max(500, "Mô tả không được vượt quá 500 ký tự"),
+        .required("Mô tả là bắt buộc"),
       serial_document: Yup.number()
         .required("Số thứ tự bài học là bắt buộc")
         .positive("Số thứ tự phải là số dương"),
@@ -282,7 +281,6 @@ const LessonAdd: React.FC = () => {
         .required('Câu hỏi là bắt buộc'),
       answer_code__true: Yup.string()
         .required("Câu hỏi là bắt buộc")
-        .max(500, "Câu hỏi không được vượt quá 500 ký tự")
         .test(
           "contains-ellipsis",
           "Câu hỏi phải chứa 3 dấu _ (____)",
@@ -298,8 +296,7 @@ const LessonAdd: React.FC = () => {
             .replace(/,(\S)/g, ', $1')
             .replace(/(\S),/g, '$1, ')
         )
-        .required("Câu hỏi là bắt buộc")
-        .max(500, "Câu hỏi không được vượt quá 500 ký tự"),
+        .required("Câu hỏi là bắt buộc"),
     }),
     onSubmit: async (values) => {
       console.log("Form values:", values);
@@ -370,8 +367,7 @@ const LessonAdd: React.FC = () => {
         .required("Tên bài học là bắt buộc")
         .min(3, "Tên bài học phải có ít nhất 3 ký tự"),
       discription_document: Yup.string()
-        .required("Mô tả là bắt buộc")
-        .max(500, "Mô tả không được vượt quá 500 ký tự"),
+        .required("Mô tả là bắt buộc"),
       serial_document: Yup.number()
         .required("Số thứ tự bài học là bắt buộc")
         .positive("Số thứ tự phải là số dương"),
@@ -448,14 +444,12 @@ const LessonAdd: React.FC = () => {
         .required("Tên bài học là bắt buộc")
         .min(3, "Tên bài học phải có ít nhất 3 ký tự"),
       discription_document: Yup.string()
-        .required("Mô tả là bắt buộc")
-        .max(500, "Mô tả không được vượt quá 500 ký tự"),
+        .required("Mô tả là bắt buộc"),
       serial_document: Yup.number()
         .required("Số thứ tự bài học là bắt buộc")
         .positive("Số thứ tự phải là số dương"),
       question_code: Yup.string()
-        .required("Câu hỏi là bắt buộc")
-        .max(500, "Câu hỏi không được vượt quá 500 ký tự"),
+        .required("Câu hỏi là bắt buộc"),
       answer_code__false: Yup.string()
         .required("Đáp án xảy ra lỗi"),
       answer_code__true: Yup.string()

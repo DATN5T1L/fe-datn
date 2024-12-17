@@ -32,7 +32,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
     const [comments, setCommentsDoc] = useState<CommentTitleData | null>(null);
     const [commentsDetail, setcommentsDetail] = useState<CommentData | null>(null);
     const [course, setCourse] = useState<ChapterFaq[] | null>(null);
-    console.log(idCommentActive, idDocActive)
+    // console.log(idCommentActive, idDocActive)
     // các hàm state ẩn hiện
     const [type, setType] = useState<NotiType>("complete");
     const [message, setMessage] = useState<string>("");
@@ -79,7 +79,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
 
     const fetchCourseComentDoc = async () => {
         if (!course_Id || !token) {
-            console.log("Missing course_Id or token");
+            // console.log("Missing course_Id or token");
             return;
         }
         try {
@@ -100,7 +100,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
             // Cập nhật state với dữ liệu trả về
             setCourse(data?.data ?? null);
         } catch (err: any) {
-            console.log(err.message);
+            // console.log(err.message);
         }
     };
     const fetchDoc = async () => {
@@ -117,7 +117,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
             const data = await response.json() as CommentTitleData;
             setCommentsDoc(data);
         } catch (err: any) {
-            console.log(err.message);
+            // console.log(err.message);
         }
     };
 
@@ -138,7 +138,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
             setTitleContentFaq(data.comment.comment_title);
 
         } catch (err: any) {
-            console.log(err.message);
+            // console.log(err.message);
         }
     };
 
@@ -213,7 +213,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
                 setMessage(responseData.message);
             }
 
-            console.log(responseData, "dữ liệu được cập nhật")
+            // console.log(responseData, "dữ liệu được cập nhật")
             setType("success")
             setMessage(responseData.message);
             setShowNotification(true);
@@ -249,7 +249,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
                 setMessage(responseData.message);
             }
 
-            console.log(responseData, "dữ liệu được cập nhật")
+            // console.log(responseData, "dữ liệu được cập nhật")
             setType("success")
             setMessage(responseData.message);
             setShowNotification(true);
@@ -285,7 +285,7 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
                 setMessage(responseData.message);
             }
 
-            console.log(responseData, "dữ liệu được cập nhật")
+            // console.log(responseData, "dữ liệu được cập nhật")
             setType("complete");
             setMessage(responseData.message);
             setShowNotification(true);
@@ -342,13 +342,13 @@ const Faq: React.FC<FaqProps> = ({ course_Id, userImage, onClose }) => {
     const handleDeleteComment = (id: string) => {
         // Gọi API xóa bình luận
         handleDeleteCommentUser(id);
-        console.log(`Đang xóa bình luận với ID: ${id}`);
+        // console.log(`Đang xóa bình luận với ID: ${id}`);
         setVisibleTippyId(null); // Ẩn Tippy sau khi nhấn xóa        // Gọi hàm từ cha để cập nhật giao diện
     };
 
     const handleGetData = (data: string) => {
         // Xử lý dữ liệu tại đây
-        console.log(data, 'dữ liệu lấy về')
+        // console.log(data, 'dữ liệu lấy về')
         setNoteContent(data);
     };
     const handleSaveReply = (replyData: { id: string; replyText: string }) => {

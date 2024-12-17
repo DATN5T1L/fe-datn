@@ -165,7 +165,7 @@ const Course: React.FC<CourseProps> = ({ data }) => {
                       />
                     </section>
                     <Card.Img
-                      src="/img/tuan.png"
+                      src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067208/fe_image/Hinhgau.png"
                       alt="Học HTML5 và CSS3 cùng TTO.sh"
                       className={h.headerContent__avt}
                     />

@@ -2,11 +2,11 @@ import { Col, Container, Row } from "react-bootstrap"
 import ButtonCpn from "../globalControl/btnComponent"
 import styles from '@public/styles/learningPath/HeaderLearning.module.css'
 
+interface RouterRepon {
+    data: Route
+}
 
-
-const HeaderLearning: React.FC = () => {
-
-
+const HeaderLearning: React.FC<RouterRepon> = ({ data }) => {
     return (
         <>
             <Container className={styles.container}>
@@ -16,7 +16,7 @@ const HeaderLearning: React.FC = () => {
                             <div className={styles.header__box_pink}></div>
                         </div>
                         <h2 className={styles.header__title__content}>
-                            Lộ trình học
+                            {data.name_route}
                         </h2>
                         <div className={styles.header__border__blue}>
                             <div className={styles.header__box__grayBlue}></div>
@@ -24,12 +24,7 @@ const HeaderLearning: React.FC = () => {
                     </Col>
                     <Col className={styles.body}>
                         <h3 className={styles.body__content}>
-                            Lộ trình học cho Dev là kế hoạch hướng dẫn từ cơ bản đến chuyên sâu,
-                            giúp xây dựng kỹ năng lập trình chuyên nghiệp.
-                            Nó bao gồm học ngôn ngữ lập trình, thuật toán,
-                            phát triển web {'('}Frontend, Backend{')'},
-                            làm việc với cơ sở dữ liệu và nâng cao kiến thức về API,
-                            kiến trúc microservices, và DevOps để sẵn sàng cho môi trường làm việc thực tế.
+                            {data.discription_route}
                         </h3>
                     </Col>
 

@@ -4,10 +4,13 @@ import styles from "@public/styles/Learning/NoteContent.module.css";
 import Button from "../component/globalControl/btnComponent";
 import { IconPush, IconPen, IconVideo } from "@/app/(user-global)/component/icon/icons";
 import CkediterCustom from "@app/custom-editor";
-
+import { useParams } from "next/navigation";
+import Link from "next/link";
 
 
 const NoteItem: React.FC<NoteItemProps> = ({ note, onEdit, onDelete }) => {
+    const params = useParams();
+    const [id] = params.params;
     const [showCkEdit, setShowCkEdit] = useState<boolean>(false);
     const [noteContent, setNoteContent] = useState<string>(note.content_note);
 
@@ -17,7 +20,7 @@ const NoteItem: React.FC<NoteItemProps> = ({ note, onEdit, onDelete }) => {
 
     const handleEdit = () => {
         onEdit({
-            document_id: note.document_id, // Cập nhật đúng document_id nếu cần
+            document_id: note.document_id,
             note_id: note.note_id,
             cache_time: note.cache_time_note,
             content_note: noteContent,
@@ -89,7 +92,9 @@ const NoteItem: React.FC<NoteItemProps> = ({ note, onEdit, onDelete }) => {
                                 Lưu
                             </Button>
                         </div>
-                    ) : (<p className={styles.noteTime}> <IconVideo />Xem lại video</p>)}
+                    ) : (<p className={styles.noteTime}>
+                        <Link href={`/learningCourse/${id}/${note.document_id}/${note.cache_time_note}`}><IconVideo />Xem lại video</Link> </p>
+                    )}
 
 
                 </div>

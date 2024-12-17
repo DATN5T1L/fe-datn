@@ -1,6 +1,6 @@
 .main {
     margin: 0;
-    margin-top: 75px !important;
+    margin-top: 75px;
     width: 100%;
     max-width: 1440px;
     height: auto;
@@ -98,6 +98,7 @@
 .link__bdi1 {
     padding: 0;
     margin: 0;
+    margin-left: 8px;
     color: var(--text-75);
     font-size: 1rem;
     font-weight: 400;
@@ -234,11 +235,11 @@
     font-weight: 500;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    color: var(--text-50) !important;
+    color: var(--text-50);
 }
 
 .formControlRegister__input::placeholder {
-    color: var(--text-50) !important;
+    color: var(--text-50);
 }
 
 .formControlRegister__input:focus {
@@ -271,7 +272,7 @@
 .checkPass__btn:hover,
 .checkPass__btn:active,
 .checkPass__btn:focus {
-    background-color: white !important;
+    background-color: white;
 }
 
 .checkPass__img {
@@ -317,7 +318,7 @@
 .rememberRegister:hover,
 .rememberRegister:active,
 .rememberRegister:focus {
-    background-color: white !important;
+    background-color: white;
 }
 
 .rememberRegister__img {
@@ -376,7 +377,7 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    gap: 16px !important;
+    gap: 16px;
     align-items: center;
     justify-content: center;
     border: 0;
@@ -441,7 +442,7 @@
 .RegisterMedia__btn:active,
 .RegisterMedia__btn:hover,
 .RegisterMedia__btn:focus {
-    background-color: white !important;
+    background-color: white;
 }
 
 .userNameRetrieve {
@@ -490,12 +491,12 @@
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
-    color: var(--text-75) !important;
+    color: var(--text-75);
 
 }
 
 .userNameRetrieve__input::placeholder {
-    color: var(--text-75) !important;
+    color: var(--text-75);
 }
 
 .userNameRetrieve__input:focus {
@@ -525,4 +526,14 @@
     margin: 0;
     padding: 0;
     color: var(--red-40);
+}
+
+@media screen and (max-width: 576px) {
+
+    .main,
+    .form {
+        padding: 32px 16px;
+    }
+
+
 }

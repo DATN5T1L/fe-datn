@@ -202,3 +202,10 @@
     font-weight: 500;
     line-height: 24px;
 }
+
+
+@media screen and (max-width: 479px) {
+    .container {
+        margin-top: 12px;
+    }
+}

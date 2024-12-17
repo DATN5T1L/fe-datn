@@ -11,9 +11,6 @@ import { RootState } from "@/redux/store";
 import { usePathname } from "next/navigation";
 
 const Header: React.FC = () => {
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const userState = useSelector((state: RootState) => state.user.user)
@@ -23,15 +20,6 @@ const Header: React.FC = () => {
   const notificationRef = useRef<HTMLDivElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
 
-  const toggleNotifications = () => {
-    setShowNotifications(!showNotifications);
-    setShowSettings(false);
-  };
-
-  const toggleSettings = () => {
-    setShowSettings(!showSettings);
-    setShowNotifications(false);
-  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -82,20 +70,13 @@ const Header: React.FC = () => {
             alt="Học lập trình cơ bản với TTO.SH"
           />
         </Navbar.Brand>
-        <SearchBar />
         <ButtonGroup className={`${h.CTA} d-none d-xl-block`}>
-          <Button
-            variant="link"
-            className={h.iconButton1}
-            onClick={toggleNotifications}
-          >
-            <img src="/img/Bell.svg" alt="Học lập trình cơ bản với TTO.SH" />
-          </Button>
+
 
           <Button
             variant="link"
             className={h.iconButton2}
-            onClick={toggleSettings}
+
           >
             {loadingAvatar ? (
               <Spinner animation="border" size="sm" />
@@ -107,23 +88,10 @@ const Header: React.FC = () => {
               />
             )}
           </Button>
-          <Button variant="link" className={h.iconButton}>
-            <img src="/img/list.svg" alt="Học lập trình cơ bản với TTO.SH" onClick={handleShow} />
-            <OffcanvasComponent show={show} handleClose={handleClose} />
-          </Button>
         </ButtonGroup>
       </Navbar>
 
-      {showNotifications && (
-        <div ref={notificationRef} className={h.notificationWrapper}>
-          <Notifications />
-        </div>
-      )}
-      {showSettings && (
-        <div ref={settingsRef} className={h.settingsWrapper}>
-          <Settings />
-        </div>
-      )}
+
     </>
   );
 };

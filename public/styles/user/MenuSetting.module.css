@@ -95,12 +95,12 @@
 }
 
 .btn-close {
-    display: flex !important;
-    padding: 8px !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 4px !important;
-    margin: 0 !important;
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
 }
 
 .black,
@@ -131,4 +131,11 @@
 
 .blue {
     background: var(--blue-50);
+}
+
+@media screen and (max-width: 767px) and (min-width: 375px) {
+    .container {
+        max-width: none !important;
+        min-width: 100%;
+    }
 }

@@ -11,7 +11,7 @@ const FooterBlack: React.FC = () => {
                     <Row className={styles.footerContent}>
                         <Col md={3} >
                             <section className={styles.logo}  >
-                                <Image src="/img/logoambantto.png" alt="Các khóa học xu hướng hiện nay tto.shsh" className={styles.logoFooter} />
+                                <Image src="https://www.tto.sh/img/Logoambantto.png" alt="Các khóa học xu hướng hiện nay tto.shsh" className={styles.logoFooter} />
                                 <span>"Khám phá, học hỏi, vươn xa"</span>
                             </section>
                             <section className={styles.contact}>

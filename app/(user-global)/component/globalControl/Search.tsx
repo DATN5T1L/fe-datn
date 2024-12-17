@@ -118,9 +118,9 @@ const Search = () => {
                                     <p className={styles.listTitleSearch}>Khóa học</p>
                                     <div className={styles.listItem}>
                                         {dataSearch.courses.map(course => (
-                                            <Link href={`/course/${course.slug}`} >
+                                            <Link href={`/course/${course.slug_course}`} >
                                                 <Itemsearch
-                                                    slug={course.slug}
+                                                    slug_course={course.slug_course}
                                                     key={course.id}
                                                     id={course.id}
                                                     title={course.title}
@@ -138,9 +138,9 @@ const Search = () => {
                                     <p className={styles.listTitleSearch}>Bài viết</p>
                                     <div className={styles.listItem}>
                                         {dataSearch.posts.map(post => (
-                                            <Link href={`/course/${post.slug}`} >
+                                            <Link href={`/course/${post.slug_post}`} >
                                                 <Itemsearch
-                                                    slug={post.slug}
+                                                    slug_post={post.slug_post}
                                                     key={post.id}
                                                     id={post.id}
                                                     title={post.title}
@@ -160,13 +160,13 @@ const Search = () => {
                                     <div className={styles.listItem}>
 
                                         {dataSearch.routes.map(route => (
-                                            <Link href={`/course/${route.slug}`} >
+                                            <Link href={`/course/${route.slug_route}`} >
                                                 <Itemsearch
                                                     key={route.id}
                                                     id={route.id}
                                                     title={route.title}
                                                     image={route.image}
-                                                    slug={route.slug}
+                                                    slug_route={route.slug_route}
                                                 />
                                             </Link>
                                         ))}

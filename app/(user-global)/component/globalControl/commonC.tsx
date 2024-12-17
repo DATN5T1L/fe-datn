@@ -38,9 +38,10 @@ const formatDateTime = (datetimeStr: string): string => {
 const parseQues = (input: string): QuestionAnswer | null => {
     const [questionPart, answerPart] = input.split('?');
     if (!questionPart || !answerPart) return null;
-    const answers = answerPart.split('/').map((str) => str.trim());
+    const answers = answerPart.split('|').map((str) => str.trim());
     return { question: questionPart.trim(), answers };
 };
+
 const parseFill = (input: string): QuestionAnswer | null => {
     const [questionPart, rest] = input.split('?');
     if (!questionPart || !rest) return null;
@@ -54,6 +55,11 @@ const parseFill = (input: string): QuestionAnswer | null => {
         answers: [answerPart || '', remainingPart || '']
     };
 };
+const splitByPattern = (input: string, pat: string): string[] => {
+    const regex = new RegExp(pat, 'g');
+    return input.split(regex);
+};
+
 const parseCode = (input: string): codeAnswer | null => {
     if (!input.includes('?') || input.trim() === '') return null;
     const [question, ...contentParts] = input.split('?');
@@ -193,5 +199,5 @@ export {
     formatCurrency, parseCode, parseFill, cleaneds, cleaned,
     calculateTimeAgo, scrollToElementBottom, useEscapeKey, ShowNameElement,
     formatParamString, decodeAndFormatDateTime, calculateBirthYear, formatToVietnameseCurrencyText,
-    getInitials
+    getInitials, splitByPattern
 };

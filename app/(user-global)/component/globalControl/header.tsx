@@ -1,8 +1,6 @@
 'use client'
 // import { auth } from '@/app/auth';
 
-
-
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
@@ -93,24 +91,16 @@ const Header: React.FC = () => {
 
     return (
         <>
-            <Navbar className={`header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '0' }}>
+            <Navbar className={`${c.header} header-nav ${showHeader ? 'visible' : 'hidden'} header-over`} style={{ gap: showSearch ? '12px' : '0' }}>
                 <section className='header-nav-head'>
                     <ShowNameElement name="Trang chủ">
-                        <Link href="/" className='brand-header'>
+                        <Link href="/" className={`brand-header `}>
                             <Image src="/img/LogoPage.jpg" alt="Hỗ trợ học viên" className='img-brand-header' />
                         </Link>
                     </ShowNameElement>
                     <Nav className={`  btn-header`}>
                         <Row md={12} className='btn-header-container'>
-                            <Col md={4} className='btn-header-container-element'>
-                                <ShowNameElement name='Về chúng tôi'>
-                                    <Link href='/' className='btn-header-container-element-link'>
-                                        <div>Về chúng tôi</div>
-                                        <Image src="/img/chervonblue-02.svg" alt="Hỗ trợ học viên" className='btn-header-container-element-img' />
-                                    </Link>
-                                </ShowNameElement>
-                            </Col>
-                            <Col md={4} className='btn-header-container-element'>
+                            <Col md={4} className={`btn-header-container-element ${c.MobileNone}`}>
                                 <ShowNameElement name='Liên hệ'>
                                     <Link href='/Contact' className='btn-header-container-element-link'>
                                         <div>Liên hệ với TTO.SH</div>
@@ -122,7 +112,7 @@ const Header: React.FC = () => {
                                 <Col md={4} className='btn-header-container-element'>
                                     <section className='user-group'>
                                         <ShowNameElement name='Thông báo'>
-                                            <div className='user-notification'>
+                                            <div className={`user-notification `}>
                                                 <Image src="/img/Bell.svg" alt="Tăng cường kỹ năng nhanh chóng  " className='icon-notification' />
                                             </div>
                                         </ShowNameElement>
@@ -133,14 +123,32 @@ const Header: React.FC = () => {
                                                 <Image src="/img/avtDefault.jpg" alt="Khóa học Node.js cơ bản tại TTO.sh" className='avt' />
                                             )}
 
-                                            <section className='title-group'>
+                                            <section className={`title-group ${c.infoUser}`}>
                                                 <h4 className='title-1'>Xin chào</h4>
                                                 <h4 className='title-name'>{userState?.user?.fullname}</h4>
                                             </section>
                                             <svg className={`${isOpenSubMenu ? 'right-icon-user-open' : 'right-icon-user'}`} width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6 9L12 15L18 9" stroke="rgba(35, 125, 247, 1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
-                                            <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'}`} >
+                                            <section className={` ${isOpenSubMenu ? 'subMenu' : 'max-height-subMenu'} `} >
+                                                <div className={c.ctaContactMobile}>
+                                                    <h3 className='subMenu-title'>
+                                                        Liên hệ hỗ trợ
+                                                    </h3>
+                                                    <section className='subMenu-body'>
+                                                        <Link href={'#Feadback'} className={c.subMenuTitle}  >
+                                                            Để lại thông tin nhận hỗ trợ
+                                                        </Link>
+
+                                                        <Link href={"tel:+0907578881"} className={c.subMenuTitle}>
+
+                                                            Gọi ngay
+                                                        </Link>
+                                                        <Link href={"href='https://mail.google.com/mail/?view=cm&fs=1&to=ht24430@gmail.com&su=Gặp lỗi&body=Hello,%20I%20need%20help"} className={c.subMenuTitle}>
+                                                            Gửi qua email
+                                                        </Link>
+                                                    </section>
+                                                </div>
                                                 <h3 className='subMenu-title'>
                                                     Cài đặt thông tin
                                                 </h3>
@@ -225,23 +233,6 @@ const Header: React.FC = () => {
                     <Search />
                 </Nav>
             </Navbar >
-            {/* {isShowForm && (
-                <AnimatePresence>
-                    <motion.div
-                        initial={{ y: '100%' }}
-                        animate={{ y: 0 }}
-                        exit={{ y: '-110%' }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <Container>
-                            <Feaback />
-                        </Container>
-
-                    </motion.div>
-                </AnimatePresence>
-
-            )
-            } */}
         </>
     );
 };
