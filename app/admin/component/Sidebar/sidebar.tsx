@@ -76,7 +76,7 @@ const Sidebar: React.FC = () => {
       </div>
       <Nav.Item className={`${h.navbottom} mb-3`}>
         <IconOut />
-        <span className={h.itemTitle}>Thoát</span>
+        <Link href={"/home"} className={h.itemTitle}>Thoát</Link>
       </Nav.Item>
     </Nav>
   );
