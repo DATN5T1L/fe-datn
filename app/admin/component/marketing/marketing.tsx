@@ -77,7 +77,7 @@ const Marketing: React.FC<{}> = () => {
 
   const filteredPost = useMemo(() => {
     return postData?.data?.filter((post) => {
-      const matchStatus = statusCate === '1' ? post.del_flag : statusCate === '2' ? !post.del_flag : true;
+      const matchStatus = statusCate === '1' ? post.status_post === 'success' : statusCate === '2' ? post.status_post === 'confirming' : statusCate === '3' ? post.status_post === 'failed' : true;
 
       let matchViews = true;
       if (selectedViews === '1') {
@@ -333,8 +333,9 @@ const Marketing: React.FC<{}> = () => {
                   className={`${h.formSelect} `}
                 >
                   <option>Trạng thái  </option>
-                  <option value="1">Active</option>
-                  <option value="2">Inactive</option>
+                  <option value="1">Success</option>
+                  <option value="2">Confirming</option>
+                  <option value="3">Failed</option>
                 </select>
               </Col>
               <Col

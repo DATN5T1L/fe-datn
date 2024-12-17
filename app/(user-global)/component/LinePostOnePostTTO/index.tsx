@@ -4,6 +4,7 @@ import React from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
 import ListPostTTO from '../ListPostTTO'
 import { Dispatch, SetStateAction } from 'react';
+import styles from '@public/styles/post/LoadPostOnePost.module.css'
 import Link from "next/link"
 interface PostCmt {
     id: string;
@@ -16,6 +17,7 @@ interface PostCmt {
     category_id: string;
     created_at: string;
     updated_at: string;
+    fullname: string;
 }
 interface PostView {
     id: string;
@@ -29,6 +31,7 @@ interface PostView {
     category_id: string;
     created_at: string;
     updated_at: string;
+    fullname: string;
 }
 interface ApiPostProps {
     // step: string;
@@ -47,23 +50,22 @@ const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
     // const listCount = props.step === "1" ? 2 : 3;
 
     return (
-        <Container className="m-0"  >
-            <Row style={{ padding: "80px 55px" }}>
+        <Container className={styles.container}  >
+            <Row className={styles.row}>
                 {/* Left section */}
-                <Col xs={12} lg={6} className="mb-4 mb-lg-0">
-                    <Card className="border-0 position-relative w-100" style={{ height: "480px" }}>
+                <Col xs={12} lg={6} className={styles.col}>
+                    <Card className={styles.card}>
                         {data && (
                             <>
                                 <Card.Img
                                     variant="top"
                                     src={`${data[0].img_post}`}
                                     alt={`${data[0].title_post}`}
-                                    className="w-100 h-100"
-                                    style={{ objectFit: 'cover', width: '632px', height: '480px', borderRadius: "10px" }}
+                                    className={styles.imgCard}
                                 />
-                                <Card.Body className="position-absolute bottom-0 px-4 text-white">
-                                    <Link href={`/post/${data[0].id}`}><Card.Title className="fw-bold fs-2 fs-md-1" dangerouslySetInnerHTML={{ __html: data[0].title_post }} /></Link>
-                                    <Card.Text className="fs-6 lh-base" dangerouslySetInnerHTML={{ __html: data[0].content_post }} />
+                                <Card.Body className={styles.cardBody}>
+                                    <Link href={`/post/${data[0].id}`}><Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: data[0].title_post }} /></Link>
+                                    <Card.Text className={styles.cardText} dangerouslySetInnerHTML={{ __html: data[0].content_post }} />
                                 </Card.Body>
                             </>
                         )}

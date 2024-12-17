@@ -2,14 +2,14 @@ import React from "react";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import h from "./article.module.css";
 
-export const HeaderFeedBack= () => {
+export const HeaderFeedBack = () => {
   return (
     <div className="mx-4 mx-xs-2 mx-sm-3">
       <div
         className={`d-flex justify-content-between align-items-center my-4 flex-wrap`}
       >
         <div className="col-12 col-md-6">
-          <h2 className={h.heading}>Bài Viết</h2> 
+          <h2 className={h.heading}>Phản hồi</h2>
         </div>
 
         <CommentsSearchBar />

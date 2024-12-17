@@ -179,6 +179,12 @@ const Comments: React.FC<{}> = () => {
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
+      <div className={`d-flex justify-content-between align-items-center my-4`}>
+        <h2 className={h.heading}>Phản hồi</h2>
+
+        <div className={`${h.actions} d-flex`}>
+        </div>
+      </div>
       <div
         className="d-flex overflow-auto w-100"
         style={{ whiteSpace: "nowrap" }}
