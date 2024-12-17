@@ -6,7 +6,17 @@ interface Progress {
 }
 
 // Khởi tạo trạng thái với kiểu dữ liệu
-
+interface Route {
+    id: string;
+    name_route: string;
+    slug_route: string;
+    img_route: string;
+    discription_route: string;
+    status: 'default' | 'customize';
+    del_flag: boolean;
+    created_at: string;
+    updated_at: string;
+}
 
 interface Document {
     document_id: string;

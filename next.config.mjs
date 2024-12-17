@@ -796,6 +796,10 @@ const nextConfig = {
         source: '/api/accountant/userByTranstion/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/accountant/user-by-transtion/:path*',
       },
+      {
+        source: '/api/routeDetail/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/route-detail/:path*',
+      },
 
     ];
   },

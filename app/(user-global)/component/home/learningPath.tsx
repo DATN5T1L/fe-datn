@@ -5,17 +5,7 @@ import { useRef, useState } from "react";
 import useSWR from "swr";
 import Link from "next/link";
 
-interface Route {
-    route_id: string;
-    name_route: string;
-    slug_route: string;
-    img_route: string;
-    discription_route: string;
-    status: 'default' | 'customize';
-    del_flag: boolean;
-    created_at: string;
-    updated_at: string;
-}
+
 
 interface RouteResponse {
     status: string;
@@ -105,8 +95,8 @@ const LearningPath: React.FC = () => {
                 >
                     {Array.isArray(routes) && routes.length > 0 ? (
                         routes.map((route) => (
-                            <Card className={styles.box} key={route.route_id || route.name_route}>
-                                <Link href={`/Router/${route.slug_route}`}>
+                            <Card className={styles.box} key={route.id || route.name_route}>
+                                <Link href={`/Router/${route.slug_route}/${route.name_route}/${route.id}/${route.discription_route}}`}>
                                     <Card.Img
                                         src={route.img_route || "/placeholder.jpg"}
                                         className={styles.box__img}
