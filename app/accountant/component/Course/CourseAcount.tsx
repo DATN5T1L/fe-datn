@@ -38,13 +38,13 @@ const CourseAcount: React.FC<Data<CourseAcount>> = ({ data
                             by {data.instructor_name}
                         </Card.Subtitle>
                         <Card.Img
-                            src="/img/iconReact.svg"
+                            src={data.img_course}
                             alt="Hoàn thiện dự án e-commerce cùng TTo"
                             className={h.text__img}
                         />
                     </section>
                     <Card.Img
-                        src="/img/tuan.png"
+                        src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734067208/fe_image/Hinhgau.png"
                         alt="Hoàn thiện dự án e-commerce cùng TTo"
                         className={h.headerContent__avt}
                     />

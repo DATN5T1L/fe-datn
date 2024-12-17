@@ -112,7 +112,7 @@ const CKEditorComponent: React.FC<FaqProps> = ({ course_Id, onClose, onSubmit })
             Underline,
             Undo
         ],
-        initialData: 'Mời bạn nhập câu hỏi',
+        initialData: 'Nhập nội dung',
         language: 'vi',
         translations: [translations]
     };

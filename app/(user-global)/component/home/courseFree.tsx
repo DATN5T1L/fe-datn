@@ -114,7 +114,7 @@ const CourseFree: React.FC = () => {
                                     height={40}
                                     onClick={() => handlePathChange("lo-trinh-front-end")}
                                 >
-                                    Khóa học  Lộ trình FE
+                                    Lộ trình Front-end
                                 </Button>
                             </Col>
                             <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
@@ -126,7 +126,7 @@ const CourseFree: React.FC = () => {
                                     rightIcon={false}
                                     height={40}
                                     onClick={() => handlePathChange("lo-trinh-hoc-back-end")}
-                                > Khóa học Lộ trình BE
+                                > Lộ trình Back-end
                                 </Button>
                             </Col>
                             <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
@@ -139,7 +139,7 @@ const CourseFree: React.FC = () => {
                                     width={225}
                                     onClick={() => handlePathChange("lo-trinh-designer")}
                                 >
-                                    Khóa học  Lộ trình Designer
+                                    Lộ trình Designer
                                 </Button>
                             </Col>
                             <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
@@ -152,7 +152,7 @@ const CourseFree: React.FC = () => {
                                     width={245}
                                     onClick={() => handlePathChange("lo-trinh-tester")}
                                 >
-                                    Khóa học Lộ trình Tester
+                                    Lộ trình Tester
                                 </Button>
                             </Col>
                         </Row>

@@ -52,7 +52,6 @@ const LearningPathSection: React.FC<LearningPathSectionProps> = ({
                                     {contentTitle}
                                 </h4>
                             </section>
-                            <Image src={`${imgLearningPath}`} alt='Tự học lập trình Fullstack tại TTo' className={styles.imgHeader} />
                         </section>
                         <section className={styles.skill__body}>
                             <section className={styles.skill__body__header}>

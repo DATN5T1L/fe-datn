@@ -97,7 +97,7 @@ const CoursePro: React.FC = () => {
                         height={40}
                         onClick={() => handlePathChange("lo-trinh-front-end")}
                     >
-                        Khóa học lộ trình FE
+                        Lộ trình Front-end
                     </Button>
                     <Button
                         type={"premary"}
@@ -108,7 +108,7 @@ const CoursePro: React.FC = () => {
                         height={40}
                         onClick={() => handlePathChange("lo-trinh-hoc-back-end")}
                     >
-                        Khóa học lộ trình BE
+                        Lộ trình Back-end
                     </Button>
                     <Button
                         type={"premary"}
@@ -120,7 +120,7 @@ const CoursePro: React.FC = () => {
                         height={40}
                         onClick={() => handlePathChange("lo-trinh-designer")}
                     >
-                        Khóa học lộ trình  Desiger
+                        Lộ trình Desiger
                     </Button>
                     <Button
                         type={"premary"}
@@ -132,7 +132,7 @@ const CoursePro: React.FC = () => {
                         height={40}
                         onClick={() => handlePathChange("lo-trinh-tester")}
                     >
-                        Khóa học lộ trình Tester
+                        Lộ trình Tester
                     </Button>
                 </Col>
                 <Col className={styles.nav__btn__single}>

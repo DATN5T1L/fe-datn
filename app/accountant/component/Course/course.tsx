@@ -12,16 +12,51 @@ import Link from "next/link";
 import "./course.css";
 import toPdf from "react-to-pdf";
 import { IconPrint } from "@app/(user-global)/component/icon/icons";
-import CourseAcount from "./CourseAcount"
+import CourseAcount from "./CourseAcount";
+
 const Course: React.FC<{}> = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const totalPages = 4;
-  const currentPage = 1;
   const [courseRevenue, setCourseRevenue] = useState<CourseAcount[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [itemsPerPage] = useState<number>(10);
+
+  const totalPages = Math.ceil(courseRevenue.length / itemsPerPage);
+
   const onPageChange = (page: number) => {
-    console.log("Chuyển tới trang:", page);
+    setCurrentPage(page);
   };
-  console.log(courseRevenue)
+
+  const handleDownloadPdf = () => {
+    if (ref.current) {
+      toPdf(() => ref.current, {
+        filename: 'courses.pdf',
+      });
+    }
+  };
+
+  const fetchWeeklyStatistics = async () => {
+    try {
+      const response = await fetch(`/api/accountant/courseEnrollmentRevenue`);
+      const result = await response.json();
+      setCourseRevenue(result.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchWeeklyStatistics();
+  }, []);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredCourses = courseRevenue.filter(course =>
+    course.name_course.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const renderPaginationItems = () => {
     if (totalPages <= 7) {
       return Array.from({ length: totalPages }, (_, idx) => (
@@ -35,45 +70,30 @@ const Course: React.FC<{}> = () => {
       ));
     }
 
-    return (
-      <>
-        {Array.from({ length: 7 }, (_, idx) => (
-          <Pagination.Item
-            key={idx}
-            active={currentPage === idx + 1}
-            onClick={() => onPageChange(idx + 1)}
-          >
-            {idx + 1}
-          </Pagination.Item>
-        ))}
-        <Pagination.Ellipsis disabled />
-      </>
-    );
+    const items = [
+      ...Array.from({ length: 3 }, (_, idx) => (
+        <Pagination.Item
+          key={idx}
+          active={currentPage === idx + 1}
+          onClick={() => onPageChange(idx + 1)}
+        >
+          {idx + 1}
+        </Pagination.Item>
+      )),
+      <Pagination.Ellipsis disabled key="ellipsis" />,
+      ...Array.from({ length: 3 }, (_, idx) => (
+        <Pagination.Item
+          key={totalPages - 3 + idx}
+          active={currentPage === totalPages - 3 + idx + 1}
+          onClick={() => onPageChange(totalPages - 3 + idx + 1)}
+        >
+          {totalPages - 3 + idx + 1}
+        </Pagination.Item>
+      ))
+    ];
+
+    return items;
   };
-
-  const handleDownloadPdf = () => {
-    if (ref.current) {
-      toPdf(() => ref.current, {
-        filename: 'courses.pdf',
-      });
-    }
-  };
-
-
-  const fetchWeeklyStatistics = async () => {
-    try {
-      const response = await fetch(`/api/accountant/courseEnrollmentRevenue`);
-      const result = await response.json();
-      setCourseRevenue(result.data)
-      console.log(result)
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchWeeklyStatistics();
-  }, [])
 
   return (
     <div
@@ -85,6 +105,13 @@ const Course: React.FC<{}> = () => {
       >
         <IconPrint />
       </span>
+      <input
+        type="text"
+        placeholder="Search by course name..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="form-control mb-3"
+      />
       <div
         className="d-flex overflow-auto w-100"
         style={{ whiteSpace: "nowrap" }}
@@ -107,10 +134,17 @@ const Course: React.FC<{}> = () => {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(courseRevenue) && courseRevenue.length > 0 ?
-              (courseRevenue.map((item, index) => (<CourseAcount key={index} data={item} />)))
-              : (<p>No course revenue data available.</p>)}
-
+            {filteredCourses.length > 0 ? (
+              filteredCourses
+                .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                .map((item, index) => (
+                  <CourseAcount key={index} data={item} />
+                ))
+            ) : (
+              <tr>
+                <td colSpan={10}>No course revenue data available.</td>
+              </tr>
+            )}
           </tbody>
         </Table>
       </div>
@@ -126,8 +160,6 @@ const Course: React.FC<{}> = () => {
           />
         </Pagination>
       </div>
-
-
     </div>
   );
 };

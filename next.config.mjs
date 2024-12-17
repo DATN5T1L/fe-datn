@@ -808,6 +808,10 @@ const nextConfig = {
         source: '/api/routeDetail/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/route-detail/:path*',
       },
+      {
+        source: '/api/routeClients/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/courses-by-route-client/:path*',
+      },
 
     ];
   },

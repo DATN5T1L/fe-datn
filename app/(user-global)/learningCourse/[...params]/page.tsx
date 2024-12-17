@@ -30,7 +30,6 @@ const Learning = () => {
     const token = useCookie('token');
     const params = useParams();
     const [id, statusEnool, doc_idParam, time] = params.params;
-    console.log(statusEnool);
     const [doc_id, setdoc_id] = useState<string>(doc_idParam || "");
     const userState = useSelector((state: RootState) => state.user);
     const user = userState?.user;
@@ -63,7 +62,7 @@ const Learning = () => {
     const [statusVideo, setStatusVideo] = useState<boolean>(false)
     const [visible, setVisible] = useState(false);
     const [isFooterCta, setIsFooterCTA] = useState(true);
-    const [isNote, setIsNote] = useState(false);
+    const [isNote, setIsNote] = useState(true);
     const [isActive, setIsActive] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [tippyVisible, setTippyVisible] = useState(false);
@@ -630,7 +629,7 @@ const Learning = () => {
                 <div className={styles.body}>
                     {!isNote ? (
                         <>
-                            <div className={styles.bodyTop} style={{ display: isFooterCta ? "flex" : "none" }}>
+                            <div className={styles.bodyTop} style={{ display: !isFooterCta ? "flex" : "none" }}>
                                 <div className={styles.bodyTitle}>
                                     <span className={styles.timeUpdate}>Cập nhật ngày {timedocument}</span>
                                     <h4 className={styles.titleCourse}>{nameDocument}</h4>

@@ -25,7 +25,7 @@ const History = () => {
 
     useEffect(() => {
         if (token) {
-            fetch(`/api/getAllHistory/`, {
+            fetch(`/api/getAllHistory/desc`, {
                 cache: "no-cache",
                 headers: {
                     Authorization: `Bearer ${token}`,

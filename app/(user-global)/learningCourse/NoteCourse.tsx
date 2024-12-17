@@ -87,7 +87,7 @@ const NoteCourse: React.FC<NoteCourseProps> = ({ id, title, time, onClose }) => 
         <div className={styles.popupNoteCourse} ref={popupRef}>
             <div className={styles.container}>
                 <div className={styles.heading}>
-                    <h4 className={styles.title}>Thêm ghi chú 2</h4>
+                    <h4 className={styles.title}>Thêm ghi chú</h4>
                     <p className={styles.time}>{formatTime(time)}</p>
                 </div>
 

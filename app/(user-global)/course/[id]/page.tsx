@@ -213,7 +213,6 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                         <strong className={styles.headingStrong}> {user.fullname}</strong>.
                     </p>
                     <div className={`${styles.CTA}`}>
-                        <Button type="secondery" status="default" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={handleButtonClickFree}>Học thử miễn phí</Button>
                         <Button type="secondery" status="hover" size="S" leftIcon={false} rightIcon={false} chevron={4} width={145} height={40} onClick={isGetCourse ? handleStudy : handleButtonClick}>{isGetCourse ? 'Bắt đầu học' : 'Sở hữu khóa học'}</Button>
                         <Button type="secondery" status="hover" size="S" leftIcon={true} rightIcon={false} width={145} height={40} onClick={() => {
                             handelAddFavoriteCourses(course.id)

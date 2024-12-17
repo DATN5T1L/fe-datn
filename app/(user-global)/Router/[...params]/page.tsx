@@ -7,14 +7,20 @@ import LearningPathSection from "../../component/router/learningPathSection";
 import ForWhom from "../../component/router/forWhom";
 import TimeLine from "../../component/router/timeLine";
 import { formatParamString } from "@app/(user-global)/component/globalControl/commonC";
+import CourseForRoute from "../../component/course/courseForRoute";
 const Router = () => {
     const params = useParams();
+    const [courseIds, setCourseIds] = useState<string[]>([]);
+
+    const handleCoursesLoad = (ids: string[]) => {
+        setCourseIds(ids);
+    };
     const [slug, name_route, id, discription_route] = params.params;
     const routerData = { name_route, discription_route };
     const [course, setcourse] = useState<Course[]>([]);
     const fetchDataRoute = async (id: string) => {
         try {
-            const response = await fetch(`/api/routes/${id}`);
+            const response = await fetch(`/api/routeClients/${id}`);
             if (!response.ok) {
                 throw new Error(`API error: ${response.status}`);
             }
@@ -28,7 +34,7 @@ const Router = () => {
     useEffect(() => {
         if (id)
             fetchDataRoute(id)
-    }, [id])
+    }, [id]);
 
     const nameCourses = course && course.map(course => course.name_course);
     const imageCourse = course && course.map(course => course.img_course);
@@ -36,6 +42,7 @@ const Router = () => {
     return (
         <Body>
             {routerData && <HeaderLearning data={routerData} />}
+            <CourseForRoute onCoursesLoad={handleCoursesLoad} id={id} nameRoute={formatParamString(name_route)} />
             <ForWhom
                 title1="Sinh viên công nghệ thông tin mới bắt đầu:"
                 title2={`Người chuyển ngành sang lập trình  ${formatParamString(name_route)}`}
@@ -53,7 +60,7 @@ const Router = () => {
                 name2={nameCourses[1] || ""}
                 name3={nameCourses[2] || ""}
                 name4={nameCourses[3] || ""}
-                name5={nameCourses[4] || ""}
+                name5={nameCourses[4] || "Kiểm thử cơ bản"}
             >
             </TimeLine>
             <LearningPathSection
@@ -69,12 +76,12 @@ const Router = () => {
             từ việc quản lý cơ sở dữ liệu đến phát triển các API phức tạp,
             cùng với khả năng tối ưu hóa hiệu suất và bảo mật cho ứng dụng.'
                 imgLearningPath='/img/learningPathBE.svg'
-                webImg="/img/webBE.svg"
-                icon1="/img/phpIcon.svg"
-                icon2="/img/nodejsIcon.svg"
-                icon3="/img/jsIcon.svg"
-                icon4="/img/reactIcon.svg"
-                icon5="/img/adobeIcon.svg"
+                webImg="/img/webDS.svg"
+                icon1={imageCourse[0] || ""}
+                icon2={imageCourse[1] || ""}
+                icon3={imageCourse[2] || ""}
+                icon4={imageCourse[3] || ""}
+                icon5={imageCourse[4] || ""}
                 content1="Thiết kế và quản lý cơ sở dữ liệu"
                 content2="Tạo và xây dựng các API Restful với PHP"
                 content3="Quản lý tương tác dữ liệu giữa server và client"

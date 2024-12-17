@@ -14,16 +14,16 @@ const Dashboard = () => {
   const ref = useRef<HTMLDivElement>(null);
   const years = [2024, 2025];
 
-  const [courseHighest, setcourseHighest] = useState<Course | null>(null);
-  const [courseFavorite, setcourseFavorite] = useState<Course | null>(null);
-  const [courseFiveStar, setcourseFiveStar] = useState<Course | null>(null);
-  const [courseLowest, setcourseLowest] = useState<Course | null>(null);
+  const [courseHighest, setcourseHighest] = useState<Course>();
+  const [courseFavorite, setcourseFavorite] = useState<Course>();
+  const [courseFiveStar, setcourseFiveStar] = useState<Course>();
+  const [courseLowest, setcourseLowest] = useState<Course>();
   const [selectedWeek, setSelectedWeek] = useState<number>(0);
   const [profitsByMonth1, setprofitsByMonth1] = useState<number[]>([]);
   const [profitsByMonth2, setprofitsByMonth2] = useState<number[]>([]);
   const [combinedData, setCombinedData] = useState<Record<number, number[]>>({});
   const [dataByWeek, setDataByWeek] = useState<Record<number, number[]>>({});
-  console.log(combinedData)
+  console.log(courseHighest, courseFavorite, courseFiveStar, courseLowest)
   useEffect(() => {
     const update2024 = getMonthlyProfits(profitsByMonth1);
     const update2025 = getMonthlyProfits(profitsByMonth2);
@@ -65,28 +65,34 @@ const Dashboard = () => {
 
         // Parse tất cả phản hồi thành JSON
         const data = await Promise.all(responses.map((res) => res.json()));
-        console.log(data)
-        // Lấy dữ liệu từ các endpoint
-        const courses = data[0].data.high_revenue_course.data;
-        const CourseFavorite = data[0].data.most_favorites_by_course[0];
-        const CourseFiveStar = data[0].data.most_rater_five_star_course[0];
-        const CourseLowest = data[0].data.low_revenue_course.data;
-        const statisticalYear2024 = data[1]
-        const statisticalYear2025 = data[2]
+        console.log(data);
 
-        setprofitsByMonth1(statisticalYear2024.profitsByMonth)
-        setprofitsByMonth2(statisticalYear2025.profitsByMonth)
-        // Khóa học
-        setcourseHighest(courses);
-        setcourseFavorite(CourseFavorite);
-        setcourseLowest(CourseLowest)
-        setcourseFiveStar(CourseFiveStar)
+        // Kiểm tra dữ liệu đã tải từ API
+        if (data[0] && data[0].data) {
+          const highRevenueCourse = data[0].data.high_revenue_course?.data;
+          const CourseFavorite = data[0].data.most_favorite_course;
+          const CourseFiveStar = data[0].data.most_rated_five_star_course;
+          const CourseLowest = data[0].data.low_revenue_course?.data;
+          setcourseHighest(highRevenueCourse);
+          setcourseFavorite(CourseFavorite);
+          setcourseLowest(CourseLowest);
+          setcourseFiveStar(CourseFiveStar);
+        }
 
+        if (data[1] && data[1].profitsByMonth) {
+          setprofitsByMonth1(data[1].profitsByMonth);
+        }
+
+        if (data[2] && data[2].profitsByMonth) {
+          setprofitsByMonth2(data[2].profitsByMonth);
+        }
       }
     } catch (err: any) {
       console.error("Error:", err.message);
     }
   };
+
+
 
   const fetchWeeklyStatistics = async () => {
     try {
@@ -145,29 +151,6 @@ const Dashboard = () => {
           </Col>
         </Row>
         <Row>
-          {/* KHÓA HỌC DOANH THU CAO NHẤT */}
-          {courseHighest && (<Card key={"1"} course={courseHighest} titleAction={2} />)}
-          {courseFavorite && (<Card key={"2"} course={courseFavorite} titleAction={2} />)}
-          {courseFiveStar && (<Card key={"4"} course={courseFiveStar} titleAction={2} />)}
-          {courseLowest && (<Card key={"3"} course={courseLowest} titleAction={2} />)}
-        </Row>
-        <h2 className={style.coursesTotal_Heading}>Các bài viết nổi bật</h2>
-        <Row>
-          <Col xs={3}>
-            <h4 className={style.titleCourseTotal}>Bài viết có nhiều lượt tương tác nhất</h4>
-          </Col>
-          <Col xs={3}>
-            <h4 className={style.titleCourseTotal}>Bài viết có lượt xem nhiều nhất</h4>
-          </Col>
-          <Col xs={3}>
-            <h4 className={style.titleCourseTotal}>Bài viết mới</h4>
-          </Col>
-          <Col xs={3}>
-            <h4 className={style.titleCourseTotal}>Bài viết ít lượt quan tâm</h4>
-          </Col>
-        </Row>
-        <Row>
-          {/* KHÓA HỌC DOANH THU CAO NHẤT */}
           {courseHighest && (<Card key={"1"} course={courseHighest} titleAction={2} />)}
           {courseFavorite && (<Card key={"2"} course={courseFavorite} titleAction={2} />)}
           {courseFiveStar && (<Card key={"4"} course={courseFiveStar} titleAction={2} />)}
