@@ -1,4 +1,5 @@
 'use client';
+import Router from "next/router";
 import { useState, useRef } from "react";
 import { useParams } from "next/navigation";
 import { Container } from "react-bootstrap";
@@ -19,6 +20,7 @@ interface FeedbackProp {
 }
 
 const Certificate = () => {
+
     const token = useCookie('token');
     const params = useParams();
     const ref = useRef<HTMLDivElement>(null); // Ref để export PDF
@@ -96,8 +98,9 @@ const Certificate = () => {
 
                 const result = await response.json();
                 console.log('Server response:', result);
-                if (result.success) {
-                    alert('PDF uploaded successfully');
+                if (result.status === "success") {
+                    alert('TTo.sh đẫ gửi chứng chỉ qua Email đăng ký tài khoản của bạn');
+                    Router.push('/home');
                 }
             } catch (error) {
                 console.error('Error uploading PDF:', error);

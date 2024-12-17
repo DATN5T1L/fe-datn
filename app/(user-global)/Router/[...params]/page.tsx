@@ -13,14 +13,11 @@ const Router: React.FC<{ params: { slug: string } }> = ({ params }) => {
             const routeResponse = await fetch(`/api/slugById/${slug}/Route`);
             if (!routeResponse.ok) throw new Error(`API error: ${routeResponse.status}`);
             const routeResult = await routeResponse.json();
-
             const idRoute = routeResult.Route;
-
             // Fetch router details by ID
             const routerResponse = await fetch(`/api/routes/${idRoute}`);
             if (!routerResponse.ok) throw new Error(`API error: ${routerResponse.status}`);
             const routerResult = await routerResponse.json();
-
             setRouterData(routerResult.data);
         } catch (error: any) {
             console.error("Error fetching data:", error);

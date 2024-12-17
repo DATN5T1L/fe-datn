@@ -93,7 +93,7 @@ const NoteItem: React.FC<NoteItemProps> = ({ note, onEdit, onDelete }) => {
                             </Button>
                         </div>
                     ) : (<p className={styles.noteTime}>
-                        <Link href={`/learningCourse/${id}/${note.document_id}/${note.cache_time_note}`}><IconVideo />Xem lại video</Link> </p>
+                        <Link href={`/learningCourse/${id}/in_progress/${note.document_id}/${note.cache_time_note}`}><IconVideo />Xem lại video</Link> </p>
                     )}
 
 

@@ -29,7 +29,8 @@ type NotiType = 'success' | 'error' | 'fail' | 'complete';
 const Learning = () => {
     const token = useCookie('token');
     const params = useParams();
-    const [id, doc_idParam, time] = params.params;
+    const [id, statusEnool, doc_idParam, time] = params.params;
+    console.log(statusEnool);
     const [doc_id, setdoc_id] = useState<string>(doc_idParam || "");
     const userState = useSelector((state: RootState) => state.user);
     const user = userState?.user;
@@ -210,7 +211,26 @@ const Learning = () => {
     const handleProgressChange = (playedSeconds: number) => {
         setPlayedSeconds(playedSeconds)
     };
+    const handleIsComplete = async () => {
+        if (!course_Id || !token) {
+            console.error("course_Id hoặc token không hợp lệ");
+            return;
+        }
 
+        try {
+            const response = await fetch(`/api/changeStatusCourseCompleted/${course_Id}`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+            });
+            const responseData = await response.json();
+
+        } catch (err: any) {
+
+        }
+    };
     useEffect(() => {
         if (course && Array.isArray(course)) {
             const findInactiveDocument = (course: Chapter[]): { document_id: string; chapter_id: string; chapter_name: string } | null => {
@@ -222,10 +242,7 @@ const Learning = () => {
                             chapter_id: chapter.chapter_id,
                             chapter_name: chapter.chapter_name
                         };
-                    } else {
-                        handleIsComplete();
                     }
-                    // alert('Bạn đã hoàn thành khóa học')
                 }
                 return null;
             };
@@ -382,12 +399,15 @@ const Learning = () => {
                 </div>
             );
         } else {
+            if (statusEnool === "completed") {
+                return;
+            }
             setIsVisible(false)
             setIsFooterCTA(false)
             return (
                 <div className={styles.Certificate} >
                     {progress && (
-                        <Link href={`/Certificate/${idCourse}/${progress.name_course}`}>
+                        <Link href={`/Certificate/${idCourse}/${progress.name_course}`} onClick={handleIsComplete}>
                             Đi đến trang nhận chứng chỉ
                         </Link>
                     )
@@ -399,26 +419,7 @@ const Learning = () => {
 
     const [selectedIndex, setSelectedIndex] = useState<string | null>(null);
 
-    const handleIsComplete = async () => {
-        if (!course_Id || !token) {
-            console.error("course_Id hoặc token không hợp lệ");
-            return;
-        }
 
-        try {
-            const response = await fetch(`/api/changeStatusCourseCompleted/${course_Id}`, {
-                method: "PATCH",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            });
-            const responseData = await response.json();
-
-        } catch (err: any) {
-
-        }
-    };
 
     const handlePreviousLesson = ({
         course,
