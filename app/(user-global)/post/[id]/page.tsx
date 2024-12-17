@@ -57,7 +57,7 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step }) => {
                         {/* Right column with text */}
                         <Col xs={6} className="d-flex flex-column justify-content-between text-truncate">
                             <Card.Body className="p-0" style={{ margin: '0 12px', flex: 1 }}>
-                                <Link href={`post/${item.slug_post}`}>
+                                <Link href={`posts/${item.slug_post}`}>
                                     <Card.Title
                                         className="h6 fw-semibold"
                                         dangerouslySetInnerHTML={{ __html: item.title_post }}
