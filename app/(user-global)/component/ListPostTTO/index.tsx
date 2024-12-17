@@ -43,9 +43,9 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
                         </Col>
                         <Col className={styles.col2}>
                             <Card.Body className={styles.cardBody}>
-                                <Link href={`post/${item.id}`}> <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
+                                <Link href={`post/${item.id}`}> <Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                 <Card.Text
-                                    className="text-black fs-6 lh-base fw-medium"
+                                    className={styles.cardText}
                                     style={{
                                         display: "-webkit-box",
                                         WebkitBoxOrient: "vertical",
@@ -59,11 +59,10 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
 
                             </Card.Body>
                             <Row
-                                className="text-muted align-items-center"
-                                style={{ fontSize: '0.8rem', padding: "0px 12px" }}
+                                className={styles.rowCard}
                             >
-                                <Col xs="auto">{useFormatDate(item.updated_at)}</Col>
-                                <Col className="text-end">{item.fullname}</Col>
+                                <Col className={styles.textSubtitle}>{useFormatDate(item.updated_at)}</Col>
+                                <Col className={styles.textSubtitle2}>{item.fullname}</Col>
                             </Row>
                         </Col>
                     </Row>
