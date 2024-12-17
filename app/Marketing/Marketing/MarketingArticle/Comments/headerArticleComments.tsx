@@ -15,7 +15,7 @@ export const HeaderMarketingArticleComments = () => {
         <CommentsSearchBar />
       </div>
       <div className="mb-4">
-        <svg
+        {/* <svg
           width="242"
           height="48"
           viewBox="0 0 242 48"
@@ -49,7 +49,7 @@ export const HeaderMarketingArticleComments = () => {
             strokeLinecap="round"
             strokeLinejoin="round"
           />
-        </svg>
+        </svg> */}
         {/* <Button className={`${h.btnCTA} ${h.btnApprove}`}>
           Đồng ý
         </Button> */}

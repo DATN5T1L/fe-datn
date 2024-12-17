@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import {
   Button,
   Form,
@@ -16,28 +16,29 @@ import "../article.css";
 import header from "@/app/(user-global)/component/globalControl/header";
 import { useRouter } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
+import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 
 interface Comment {
   id: string;
   comment_title: string;
   comment_text: string;
   del_flag: boolean;
-  document_id: string;
+  post_id: string;
   user_id: string;
   comment_to: string | null;
   created_at: string;
   updated_at: string;
 }
 
-interface ApiRes<T> {
-  data: T[]
-}
-
-
 const Comments: React.FC<{}> = () => {
   const router = useRouter();
-  const [dataCmt, SetDataCmt] = useState<ApiRes<Comment> | null>(null)
+  const [dataCmt, SetDataCmt] = useState<Comment[]>([])
   const token = useCookie('token')
+  const [currentPage, setCurrentPage] = useState(1)
+  const catePerPage = 5;
+
+  console.log(dataCmt);
+
 
   useEffect(() => {
     if (token) {
@@ -50,6 +51,8 @@ const Comments: React.FC<{}> = () => {
         .then(res => res.json())
         .then(data => {
           if (data) {
+            console.log(data);
+
             SetDataCmt(data.data)
           }
         })
@@ -60,11 +63,121 @@ const Comments: React.FC<{}> = () => {
     }
   }, [token])
 
+  const totalPages = Math.ceil((dataCmt?.length || 0) / catePerPage)
+  const indexOfLastCate = currentPage * catePerPage;
+  const indexOfFirstCate = indexOfLastCate - catePerPage;
+  const currentData =
+    dataCmt && Array.isArray(dataCmt)
+      ? dataCmt?.slice(indexOfFirstCate, indexOfLastCate)
+      : [];
+
+
+  const handleNextPage = useCallback(() => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  }, [currentPage, totalPages]);
+
+  const handlePrevPage = useCallback(() => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  }, [currentPage]);
+
+  useLayoutEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage, setCurrentPage]);
+
+  const renderPaginationItems = useMemo(() => {
+    const pageNumbers = [];
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(
+          <Pagination.Item
+            key={i}
+            active={i === currentPage}
+            onClick={() => setCurrentPage(i)}
+          >
+            {i}
+          </Pagination.Item>
+        );
+      }
+    } else {
+      pageNumbers.push(
+        <Pagination.Item
+          key={1}
+          active={1 === currentPage}
+          onClick={() => setCurrentPage(1)}
+        >
+          1
+        </Pagination.Item>
+      );
+
+      if (currentPage > 3) {
+        pageNumbers.push(<Pagination.Ellipsis key="start-ellipsis" />);
+      }
+
+      for (let i = Math.max(2, currentPage - 1); i <= Math.min(totalPages - 1, currentPage + 1); i++) {
+        pageNumbers.push(
+          <Pagination.Item
+            key={i}
+            active={i === currentPage}
+            onClick={() => setCurrentPage(i)}
+          >
+            {i}
+          </Pagination.Item>
+        );
+      }
+
+      if (currentPage < totalPages - 2) {
+        pageNumbers.push(<Pagination.Ellipsis key="end-ellipsis" />);
+      }
+
+      pageNumbers.push(
+        <Pagination.Item
+          key={totalPages}
+          active={totalPages === currentPage}
+          onClick={() => setCurrentPage(totalPages)}
+        >
+          {totalPages}
+        </Pagination.Item>
+      );
+    }
+    return pageNumbers;
+  }, [totalPages, currentPage]);
+
+  const handleHidden = (id: string, idPost: string) => {
+    if (id && idPost && token) {
+      if (confirm('Bạn có muốn thay đổi trạng thái bình luận hay không?')) {
+        fetch(`/api/hiddenCmtPost/${idPost}/${id}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            SetDataCmt((prev) =>
+              prev.map((cmt) =>
+                cmt.id === id
+                  ? { ...cmt, del_flag: !cmt.del_flag }
+                  : cmt
+              )
+            );
+            alert(data.message);
+          })
+          .catch(error => {
+            console.error('Có lỗi xảy ra khi ẩn bình luận:', error);
+          });
+      }
+    }
+  };
+
+
+
   return (
     <div
       className={`d-flex flex-column flex-grow-1 align-items-start mx-4 mx-xs-2 mx-sm-3`}
     >
-      {/* Post List */}
       <div
         className="d-flex overflow-auto w-100"
         style={{ whiteSpace: "nowrap" }}
@@ -77,62 +190,44 @@ const Comments: React.FC<{}> = () => {
         >
           <thead>
             <tr>
-              <td>Chọn</td>
               <td>ID</td>
-              <td>Nội dung</td>
-              <td>Trả lời</td>
+              <td>Bình luận</td>
+              <td>Người bình luận</td>
               <td>Ngày đăng</td>
               <td className="text-center">Trạng thái</td>
               <td>Hành động</td>
             </tr>
           </thead>
           <tbody>
-            {dataCmt && dataCmt?.data?.map((item, idx) => (
+            {currentData && currentData?.map((item, idx) => (
               <tr
                 key={idx}
-                onClick={() => {
-                  router.push(`MarketingPosts/${idx}`);
-                }}
               >
-                <td>
-                  <input type="checkbox" />
-                </td>
                 <td>{idx + 1}</td>
-                <td>Bài viết này hay quá đi cảm ơn TTO</td>
-                <td>Cảm ơn</td>
-                <td>01/02/2024</td>
+                <td>{item.comment_text}</td>
+                <td>
+
+                </td>
+                <td>{useFormatDate(item.created_at)}</td>
                 <td className="text-center">
-                  {idx % 2 == 0 ? (
-                    <span className={h.active_text}>Active</span>
+                  {item.del_flag ? (
+                    <span className={h.active_text}>Bình thường</span>
                   ) : (
-                    <span className={h.rejected_text}>Rejected</span>
+                    <span className={h.rejected_text}>Đã ẩn</span>
                   )}
                 </td>
                 <td className={h.option_button_group}>
                   <div
                     className={`d-flex justify-content-evenly border py-2 rounded`}
+                    onClick={() => handleHidden(item.id, item.post_id)}
                   >
-                    <svg
-                      width="25"
-                      height="24"
-                      viewBox="0 0 25 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M12.5 8.25C10.4289 8.25 8.75 9.92893 8.75 12C8.75 14.0711 10.4289 15.75 12.5 15.75C14.5711 15.75 16.25 14.0711 16.25 12C16.25 9.92893 14.5711 8.25 12.5 8.25ZM10.25 12C10.25 10.7574 11.2574 9.75 12.5 9.75C13.7426 9.75 14.75 10.7574 14.75 12C14.75 13.2426 13.7426 14.25 12.5 14.25C11.2574 14.25 10.25 13.2426 10.25 12Z"
-                        fill="#4D4D4D"
-                      />
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M12.5 3.25C7.98587 3.25 4.94529 5.9542 3.18057 8.24686L3.14874 8.2882C2.74964 8.80653 2.38206 9.28392 2.13269 9.8484C1.86564 10.4529 1.75 11.1117 1.75 12C1.75 12.8883 1.86564 13.5471 2.13269 14.1516C2.38206 14.7161 2.74964 15.1935 3.14875 15.7118L3.18057 15.7531C4.94529 18.0458 7.98587 20.75 12.5 20.75C17.0141 20.75 20.0547 18.0458 21.8194 15.7531L21.8512 15.7118C22.2504 15.1935 22.6179 14.7161 22.8673 14.1516C23.1344 13.5471 23.25 12.8883 23.25 12C23.25 11.1117 23.1344 10.4529 22.8673 9.8484C22.6179 9.28391 22.2504 8.80652 21.8512 8.28818L21.8194 8.24686C20.0547 5.9542 17.0141 3.25 12.5 3.25ZM4.36922 9.1618C5.99864 7.04492 8.65036 4.75 12.5 4.75C16.3496 4.75 19.0014 7.04492 20.6308 9.1618C21.0694 9.73159 21.3263 10.0721 21.4952 10.4545C21.6532 10.812 21.75 11.2489 21.75 12C21.75 12.7511 21.6532 13.188 21.4952 13.5455C21.3263 13.9279 21.0694 14.2684 20.6308 14.8382C19.0014 16.9551 16.3496 19.25 12.5 19.25C8.65036 19.25 5.99864 16.9551 4.36922 14.8382C3.93064 14.2684 3.67374 13.9279 3.50476 13.5455C3.34684 13.188 3.25 12.7511 3.25 12C3.25 11.2489 3.34684 10.812 3.50476 10.4545C3.67374 10.0721 3.93063 9.73159 4.36922 9.1618Z"
-                        fill="#4D4D4D"
-                      />
-                    </svg>
-                    <div className="border border-start" />
+                    {item.del_flag ? (
+                      <img src="/img/action.svg" alt="Ẩn" />
+                    ) : (
+                      <img src="/img/hiddenEye.svg" alt="hiện" />
+                    )}
+
+                    {/* <div className="border border-start" />
                     <svg
                       width="25"
                       height="24"
@@ -152,7 +247,7 @@ const Comments: React.FC<{}> = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
-                    </svg>
+                    </svg> */}
                   </div>
                 </td>
               </tr>
@@ -163,25 +258,10 @@ const Comments: React.FC<{}> = () => {
 
       {/* Pagination */}
       <div className="paginationWrapper">
-        <Pagination className="pagination">
-          <Pagination.Prev>
-            <img
-              src="/img_admin/prep.svg"
-              alt="Previous"
-              width="8"
-              height="16"
-            />
-          </Pagination.Prev>
-          {Array(2)
-            .fill(null)
-            .map((_, idx) => (
-              <Pagination.Item key={idx} active={idx === 0}>
-                {idx + 1}
-              </Pagination.Item>
-            ))}
-          <Pagination.Next>
-            <img src="/img_admin/prep2.svg" alt="Next" width="8" height="16" />
-          </Pagination.Next>
+        <Pagination>
+          <Pagination.Prev onClick={handlePrevPage} />
+          {renderPaginationItems}
+          <Pagination.Next onClick={handleNextPage} />
         </Pagination>
       </div>
     </div>

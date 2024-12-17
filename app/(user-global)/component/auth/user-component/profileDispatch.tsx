@@ -45,9 +45,14 @@ const ProfileDispatch = () => {
     const isRetrievePassword = pathName === '/retrievePassword'
     const isInfo = pathName === '/info-user'
     const isIntro = pathName === '/intro-user'
-    const isWallet = pathName === '/wallet-user'
     const isAdmin = /^\/(admin)(\/.*)?$/.test(pathName);
     const isInstructor = /^\/(giangvien)(\/.*)?$/.test(pathName);
+    const isLearningCourse = /^\/(learningCourse)(\/.*)?$/.test(pathName);
+    const isCertificate = /^\/(Certificate)(\/.*)?$/.test(pathName);
+    const isCoursefor = /^\/(coursefor)(\/.*)?$/.test(pathName);
+    const isCourseFa = /^\/(CourseFa)(\/.*)?$/.test(pathName);
+    const isReminder = /^\/(Reminder)(\/.*)?$/.test(pathName);
+    const isPaymentCourse = /^\/(paymentCourse)(\/.*)?$/.test(pathName);
     const isMarketing = /^\/(Marketing)(\/.*)?$/.test(pathName);
     const isPage = /^\/(home|)(\/.*)?$/.test(pathName);
     const [dataUser, setDataUser] = useState<User | null>(null)
@@ -107,9 +112,12 @@ const ProfileDispatch = () => {
     const fetchUserInfo = async (tokenValue: string) => {
         if (!tokenValue) return;  // Nếu không có token, không cần thực hiện gì
 
-        if (!tokenValue && (isInfo || isIntro || isWallet)) {
+        if (!tokenValue && (isInfo || isIntro)) {
             console.error("Token không hợp lệ hoặc không tồn tại");
             if (isAdmin || isInstructor || isMarketing) router.push('/home');
+            if (isLearningCourse || isCertificate || isCoursefor || isCourseFa || isReminder || isPaymentCourse) {
+                router.push('/home');
+            }
             return;
         }
 
@@ -119,9 +127,12 @@ const ProfileDispatch = () => {
             signOut(
                 { redirect: false, }
             );
-            if (isInfo || isIntro || isWallet) {
+            if (isInfo || isIntro) {
                 router.push('/login');
             } else if (isAdmin || isInstructor || isMarketing) {
+                router.push('/home');
+            }
+            if (isLearningCourse || isCertificate || isCoursefor || isCourseFa || isReminder || isPaymentCourse) {
                 router.push('/home');
             }
             return;
@@ -214,6 +225,9 @@ const ProfileDispatch = () => {
                 if (isAdmin || isInstructor || isMarketing) {
                     router.push('/home');
                 }
+                if (isLearningCourse || isCertificate || isCoursefor || isCourseFa || isReminder || isPaymentCourse || isInfo || isIntro) {
+                    router.push('/home');
+                }
                 return;
             }
             console.log('check');
@@ -245,7 +259,7 @@ const ProfileDispatch = () => {
             fetchUserInfo(tokenCookie);
         } else {
             // console.error('Không tìm thấy token');
-            if (isInfo || isWallet || isIntro) {
+            if (isInfo || isIntro) {
                 handleLogout()
                 signOut(
                     { redirect: false, }
@@ -271,6 +285,9 @@ const ProfileDispatch = () => {
                     signOut(
                         { redirect: false, }
                     );
+                    if (isLearningCourse || isCertificate || isCoursefor || isCourseFa || isReminder || isPaymentCourse || isInfo || isIntro) {
+                        router.push('/home');
+                    }
                     if (isAdmin || isInstructor || isMarketing) {
                         router.push('/home');
                     }
@@ -304,11 +321,14 @@ const ProfileDispatch = () => {
                 signOut(
                     { redirect: false, }
                 );
-                if (isInfo || isIntro || isWallet) {
+                if (isInfo || isIntro) {
                     localStorage.setItem('returnPath', '');
-                    router.push('login')
+                    router.push('/login')
                 }
                 else if (isAdmin || isInstructor || isMarketing) { router.push('/home') }
+                if (isLearningCourse || isCertificate || isCoursefor || isCourseFa || isReminder || isPaymentCourse) {
+                    router.push('/home');
+                }
             }
         };
 

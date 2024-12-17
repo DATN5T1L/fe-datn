@@ -66,23 +66,17 @@ const Login: React.FC = () => {
                     },
                     body: JSON.stringify({ email_or_phone: values.email_or_phone, password: values.password }),
                 });
-
-                if (!res.ok) {
-                    const errorData = await res.json();
-                    console.error("Error response:", errorData);
-                    console.log(errorData);
-
-                    const errorMessage = errorData.error ? errorData.error : 'Đăng nhập thất bại';
-                    throw new Error(errorMessage);
-                }
-
                 const data = await res.json();
                 console.log(data);
+                if (!res.ok) {
+                    console.log(data.error);
+                }
+
+
 
                 const token = data.access_token;
                 const expiresIn = data.expires_in;
                 const expirationDate = new Date(Date.now() + expiresIn * 1000).toUTCString();
-                // && token.split('.').length === 3
                 if (token) {
                     console.log("Token:", token);
                     if (typeof window !== 'undefined') {
@@ -104,7 +98,7 @@ const Login: React.FC = () => {
                         router.push('/info-user');
                     }
                 } else {
-                    throw new Error('Token không hợp lệ');
+                    throw new Error(data.error);
                 }
             } catch (error) {
                 if (error instanceof Error) {

@@ -207,6 +207,8 @@ const LessonAdd: React.FC = () => {
       console.log("Form values:", values);
       const codeValues = `${values.html || ''}|${values.css || ''}|${values.js || ''}`;
       console.log(codeValues);
+      console.log(values.answer_code);
+
 
       if (token && typeCourseValue && id) {
         const userConfirmed = confirm('Bạn có muốn thêm bài học mới không?');
