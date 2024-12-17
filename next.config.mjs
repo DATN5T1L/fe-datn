@@ -812,6 +812,10 @@ const nextConfig = {
         source: '/api/routeClients/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/courses-by-route-client/:path*',
       },
+      {
+        source: '/api/postGoogleSheets/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/post-google-sheets/:path*',
+      },
 
     ];
   },

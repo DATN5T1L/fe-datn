@@ -25,12 +25,10 @@ const About: React.FC = () => {
                         <br />
                         Với tầm nhìn chung, họ hướng đến việc giúp người học nâng cao kỹ năng và thăng tiến trong sự nghiệp.
                     </h4>
-                    <div className={styles.left__container__btnGroup}>
-                        <ButtonCpn leftIcon={false} width={143} chevron={2}>Xem thêm</ButtonCpn>
-                    </div>
+
                 </section>
                 <section className={styles.right__container}>
-                    <Image src="/img/aboutImg.svg" alt="Lộ trình học Backend từ cơ bản đến nâng cao tại tto.sh" className={styles.right__container__img} />
+                    <Image src="https://res.cloudinary.com/dnmc89c8b/image/upload/v1734420224/fe_image/z6135317956263_c7a3df00b8b326a670792fdad5aeb68a.jpg" alt="Lộ trình học Backend từ cơ bản đến nâng cao tại tto.sh" className={styles.right__container__img} />
                     <div className={styles.right__container__bg}></div>
                 </section>
             </div>

@@ -78,9 +78,6 @@ const CourseCard: React.FC<CourseCardProps> = ({ course, onCourseClick, showProg
                                                             <IconStar key={index} />
                                                         ))}
                                                     </div>
-                                                    <Card.Text className={styles.starNumber}>
-                                                        <span>{course.rating_course}</span>
-                                                    </Card.Text>
                                                 </div>
                                             ) : (
                                                 <span className={styles.ratingCourse}>Chưa có đánh giá</span>

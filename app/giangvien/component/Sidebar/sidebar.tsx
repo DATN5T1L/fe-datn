@@ -93,7 +93,7 @@ const Sidebar: React.FC = () => {
             strokeLinejoin="round"
           />
         </svg>
-        <span className={h.itemTitle}>Thoát</span>
+        <Link href={'/home'} className={h.itemTitle}>Thoát</Link>
       </Nav.Item>
 
     </Nav>

@@ -18,15 +18,6 @@ import { useRouter } from "next/navigation";
 import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import useFormatDate from "@/app/(user-global)/component/globalControl/useFormatDate";
 
-// interface DataFeedBack {
-//     ID: string;
-//     Name: string;
-//     Email: string;
-//     Content: string;
-//     Course: string | null;
-//     Date: string;
-//     Reply: string;
-// }
 
 type FeedBackArr = (string | null)[][];
 
@@ -197,9 +188,8 @@ const MainFeedBack: React.FC<{}> = () => {
                                     <td className="text-center">{item[5]?.split(' ')[1]}</td>
                                 )}
                                 <td className={h.option_button_group}>
-                                    <div
+                                    <Link href={`/Marketing/feedBack/${item[0]}`}
                                         className={`d-flex justify-content-evenly border py-2 rounded`}
-                                    // onClick={() => handleHidden(item.id, item.post_id)}
                                     >
                                         <svg
                                             width="25"
@@ -221,7 +211,7 @@ const MainFeedBack: React.FC<{}> = () => {
                                                 strokeLinejoin="round"
                                             />
                                         </svg>
-                                    </div>
+                                    </Link>
                                 </td>
                             </tr>
                         ))}

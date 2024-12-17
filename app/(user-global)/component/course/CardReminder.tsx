@@ -58,9 +58,7 @@ const CourseCardReminder: React.FC<DataReminderItem> = ({ data, token }) => {
                                             ))}
 
                                         </div>
-                                        <Card.Text className={styles.starNumber}>
-                                            {'('} {data.rating_course} {')'}
-                                        </Card.Text>
+
                                     </div>
                                     <div className={styles.headContent__percent}>
                                         <Card.Text className={styles.evaluete__note}>
