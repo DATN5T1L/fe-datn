@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
 
   const dropdownPost = [
     { href: "/admin/ArticlePage", label: "Bài viết" },
-    { href: "/admin/ArticlePage", label: "Bình luận" },
+    { href: "/admin/CmtPage", label: "Bình luận" },
   ];
 
   const dropdownRoll = [

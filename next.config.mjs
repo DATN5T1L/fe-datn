@@ -391,6 +391,10 @@ const nextConfig = {
         source: '/api/hiddenPost/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/admin/status-post/:path*',
       },
+      {
+        source: '/api/censorPost/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/admin/censor-post/:path*',
+      },
       // search
       {
         source: '/api/courseForUser/:path*',
