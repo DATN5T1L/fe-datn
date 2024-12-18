@@ -17,6 +17,7 @@ interface Post {
     category_id: string;
     created_at: string;
     updated_at: string;
+    fullname:string;
 }
 
 interface ApiPostProps {
