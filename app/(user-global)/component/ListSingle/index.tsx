@@ -26,6 +26,8 @@ interface PostView {
     category_id: string;
     created_at: string;
     updated_at: string;
+    slug_post: string;
+    fullname: string;
 }
 
 interface ApiPostProps {
@@ -76,12 +78,12 @@ const ListSingle: React.FC<ApiPostProps> = ({ data }) => {
                                             marginRight: "10px",
                                         }}
                                     ></span>
-                                    <Link href={`/post/${item.id}`}>
-                                    <span
-                                        className="fw-bold fs-5 text-black"
-                                        style={{ color: "#88e8f4", marginRight: "10px" }}
-                                        dangerouslySetInnerHTML={{ __html: item.title_post }}
-                                    /></Link>
+                                    <Link href={`/post/${item.slug_post}`}>
+                                        <span
+                                            className="fw-bold fs-5 text-black"
+                                            style={{ color: "#88e8f4", marginRight: "10px" }}
+                                            dangerouslySetInnerHTML={{ __html: item.title_post }}
+                                        /></Link>
 
                                     <span style={{ color: "#88e8f4", marginRight: "10px" }}>
                                         {useFormatDate(item.updated_at)}

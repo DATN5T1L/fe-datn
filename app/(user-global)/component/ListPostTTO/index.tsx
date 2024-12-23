@@ -18,6 +18,7 @@ interface Post {
     created_at: string;
     updated_at: string;
     fullname: string;
+    slug_post: string;
 }
 
 interface ListPostTTOProps {
@@ -43,7 +44,7 @@ const ListPostTTO: React.FC<ListPostTTOProps> = ({ data, step, setStep }) => {
                         </Col>
                         <Col className={styles.col2}>
                             <Card.Body className={styles.cardBody}>
-                                <Link href={`post/${item.id}`}> <Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
+                                <Link href={`post/${item.id}&title=${item.slug_post}`}> <Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                 <Card.Text
                                     className={styles.cardText}
                                     style={{

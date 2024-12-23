@@ -18,6 +18,7 @@ interface PostCmt {
     created_at: string;
     updated_at: string;
     fullname: string;
+    slug_post:string;
 }
 interface PostView {
     id: string;
@@ -32,6 +33,7 @@ interface PostView {
     created_at: string;
     updated_at: string;
     fullname: string;
+    slug_post:string
 }
 interface ApiPostProps {
     // step: string;
@@ -64,7 +66,7 @@ const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
                                     className={styles.imgCard}
                                 />
                                 <Card.Body className={styles.cardBody}>
-                                    <Link href={`/post/${data[0].id}`}><Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: data[0].title_post }} /></Link>
+                                    <Link href={`/post/${data[0].slug_post}`}><Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: data[0].title_post }} /></Link>
                                     <Card.Text className={styles.cardText} dangerouslySetInnerHTML={{ __html: data[0].content_post }} />
                                 </Card.Body>
                             </>

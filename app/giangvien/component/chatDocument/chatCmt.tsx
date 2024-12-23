@@ -11,8 +11,7 @@ import { useFormik } from "formik";
 import dynamic from 'next/dynamic';
 import Notification from "@/app/(user-global)/component/globalControl/Notification";
 import { type } from "os";
-
-const CkediterCustom = dynamic(() => import('../globalControll/custom-editor'), { ssr: false });
+import CustomJoditEditor from "@/app/componentGlobal/ckeditor/customEditor";
 
 interface IdCourse {
     id: string;
@@ -76,6 +75,8 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
         type: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
     } | null>(null);
 
+    const [loadingCmt, setIsLoadingCmt] = useState<boolean>(false)
+
     const [isCmt, setIsCmt] = useState(false)
 
     const countTotalComments = (comments: Comment[] | undefined): number => {
@@ -104,6 +105,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
     };
 
     const reloadDataCmt = () => {
+        setIsLoadingCmt(true)
         if (id && token) {
             fetch(`/api/cmtByDocument/${id}`, {
                 method: 'GET',
@@ -118,6 +120,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                         setDataCmt(data)
                         const total = countTotalComments(Object.values(data.comments));
                         onUpdateTotalComments(total);
+                        setIsLoadingCmt(false)
                     }
                 })
                 .catch(error => {
@@ -462,6 +465,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
     }
 
     const handleChangeCmt = (id: string) => {
+        handleGetTime()
         if (token && id && dataCmt && dataCmt.comments && editCmt) {
             const cmtEdit = Object.values(dataCmt.comments).find(item => item.id === id)
             if (cmtEdit) {
@@ -513,6 +517,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
     }
 
     const handleFetchChangeCmt = (idCmt: string) => {
+        handleGetTime()
         if (id && token && idCmt) {
             if (editCmt || editCmt__c1 || editCmt__c2) {
                 if (confirm('Bạn có muốn thay đổi bình luận này không'))
@@ -588,55 +593,88 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
         <>
             {renderNotification}
             <div className={videoMod.box__chat__container}>
-                {dataCmt && dataCmt.comments && Object.values(dataCmt.comments).map((item, index) => (
-                    <div key={index} className={videoMod.left__line}>
-                        <div className={videoMod.cmt__container}>
+                {loadingCmt ? (<>
+                    <div className={videoMod.left__line}>
+                        <div className={videoMod.cmt__container__loading}>
+                            <div className={videoMod.loading__light}></div>
                             <div className={videoMod.cmt__container__header}>
-                                <img src={`${item.avatar}`} alt="Lộ trình học Backend từ cơ bản đến nâng cao tại tto.sh" className={videoMod.cmt__container__avt} />
+                                <div className={videoMod.cmt__container__avt__loading} />
                                 <div className={videoMod.cmt__container__header__groupTitle}>
-                                    <div className={videoMod.cmt__container__header__title}>
-                                        {item.fullname}
+                                    <div className={videoMod.cmt__container__header__title__loading}>
                                     </div>
-                                    <div className={videoMod.cmt__container__header__subtitle}>
-                                        {item.comment_title}
+                                    <div className={videoMod.cmt__container__header__subtitle__loading}>
                                     </div>
                                 </div>
                             </div>
-                            <div className={videoMod.cmt__container__content}>
-                                <div
-                                    dangerouslySetInnerHTML={{ __html: item.comment_text }}
-                                ></div>
+                            <div className={videoMod.cmt__container__content__loading}>
+                                <p className={videoMod.contentLoading}></p>
                             </div>
-                            <div className={`${item.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
-                                {item.user_id === userState?.id ? (
-                                    <div
-                                        className={videoMod.cmt__container__sevice}
-                                        onClick={() => {
-                                            setEditCmt(true)
-                                            if (editCmt__c1) {
-                                                setEditCmt__c1(false)
-                                            }
-                                            if (editCmt__c2) {
-                                                setEditCmt__c2(false)
-                                            }
-                                            setIdCmtChange(item.id)
-                                        }}>
-                                        <img src="/img_admin/action2.svg" alt="Tự học lập trình Fullstack tại TTo" className={videoMod.cmt__container__sevice__icon} />
-                                    </div>
-                                ) : (<></>)}
+                            <div className={`${videoMod.cmt__container__setting}`}>
                                 <div
-                                    onClick={() => {
-                                        if (item.user_id === userState?.id) {
-                                            handleDeleteCmt(id, item.id)
-                                        } else {
-                                            handleHiddenCmt(id, item.id)
-                                        }
-                                    }}
+                                    className={videoMod.cmt__container__sevice}>
+                                    <div className={videoMod.cmt__container__sevice__icon__loading} />
+                                </div>
+                                <div
                                     className={videoMod.cmt__container__sevice}
                                 >
+                                    <div className={videoMod.cmt__container__sevice__icon__loading} />
+                                </div>
+                                <div className={videoMod.cmt__container__sevice}>
+                                    <div className={videoMod.cmt__container__sevice__icon__loading} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>) : (<>
+                    {dataCmt && dataCmt.comments && Object.values(dataCmt.comments).map((item, index) => (
+                        <div key={index} className={videoMod.left__line}>
+                            <div className={videoMod.cmt__container}>
+                                <div className={videoMod.cmt__container__header}>
+                                    <img src={`${item.avatar}`} alt="icon-user" className={videoMod.cmt__container__avt} />
+                                    <div className={videoMod.cmt__container__header__groupTitle}>
+                                        <div className={videoMod.cmt__container__header__title}>
+                                            {item.fullname}
+                                        </div>
+                                        <div className={videoMod.cmt__container__header__subtitle}>
+                                            {item.comment_title}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={videoMod.cmt__container__content}>
+                                    <div
+                                        dangerouslySetInnerHTML={{ __html: item.comment_text }}
+                                    ></div>
+                                </div>
+                                <div className={`${item.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
                                     {item.user_id === userState?.id ? (
-                                        <img src="/img/deleteMessage.svg" alt="Học lập trình bài bản với TTO.sh" className={videoMod.cmt__container__sevice__icon} />
-                                    ) : (
+                                        <div
+                                            className={videoMod.cmt__container__sevice}
+                                            onClick={() => {
+                                                setEditCmt(true)
+                                                if (editCmt__c1) {
+                                                    setEditCmt__c1(false)
+                                                }
+                                                if (editCmt__c2) {
+                                                    setEditCmt__c2(false)
+                                                }
+                                                setIdCmtChange(item.id)
+                                            }}>
+                                            <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                        </div>
+                                    ) : (<></>)}
+                                    <div
+                                        onClick={() => {
+                                            // if (item.user_id === userState?.id) {
+                                            //     handleDeleteCmt(id, item.id)
+                                            // } else {
+                                            handleHiddenCmt(id, item.id)
+                                            // }
+                                        }}
+                                        className={videoMod.cmt__container__sevice}
+                                    >
+                                        {/* {item.user_id === userState?.id ? (
+                                        <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                    ) : ( */}
                                         <>
                                             {item.del_flag ? (
                                                 <img src="/img/action.svg" alt="Học lập trình bài bản với TTO.sh" className={videoMod.cmt__container__sevice__icon} />
@@ -644,84 +682,91 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                 <img src="/img/hiddenEye.svg" alt="Học lập trình bài bản với TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                             )}
                                         </>
-                                    )}
-                                </div>
-                                <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt(item.id)}>
-                                    <img src="/img/replyCmt.svg" alt="Chọn lộ trình học Frontend tại tto.SH" className={videoMod.cmt__container__sevice__icon} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={`${activeReplyId === item.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
-                            <div className={videoMod.repCmt__avt__ctn}>
-                                <img src={`${userState?.avatar}`} alt="Chọn lộ trình học Frontend tại tto.SH" className={videoMod.repCmt__avt} />
-                            </div>
-                            <div className={videoMod.repCmt__form}>
-                                <CkediterCustom
-                                    initialData={valueCmt}
-                                    onChange={(e) => setValueCmt(e)}
-                                ></CkediterCustom>
-                                <div className={videoMod.repCmt__form__sevice}>
-                                    <button className={videoMod.repCmt__form__sevice__active}>Hủy</button>
-                                    <button
-                                        className={videoMod.repCmt__form__sevice__active}
-                                        onClick={() => {
-                                            if (editCmt) {
-                                                handleFetchChangeCmt(item.id)
-                                            } else {
-                                                handleFetchCmt(item.id)
-                                            }
-                                        }}>Trả lời</button>
+                                        {/* )} */}
+                                    </div>
+                                    <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt(item.id)}>
+                                        <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div className={`${activeReplyId === item.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
+                                <div className={videoMod.repCmt__avt__ctn}>
+                                    <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                                </div>
+                                <div className={videoMod.repCmt__form}>
+                                    <CustomJoditEditor
+                                        name="valueCmt"
+                                        value={valueCmt}
+                                        onChange={(name, data) => setValueCmt(data)}
+                                    />
+                                    <div className={videoMod.repCmt__form__sevice}>
+                                        <button className={videoMod.repCmt__form__sevice__active}
+                                            onClick={() => {
+                                                setValueCmt('')
+                                                setActiveReplyId(null)
+                                            }}
+                                        >Hủy</button>
+                                        <button
+                                            disabled={valueCmt === '' ? true : false}
+                                            className={videoMod.repCmt__form__sevice__active}
+                                            onClick={() => {
+                                                if (editCmt) {
+                                                    handleFetchChangeCmt(item.id)
+                                                } else {
+                                                    handleFetchCmt(item.id)
+                                                }
+                                            }}>Trả lời</button>
+                                    </div>
+                                </div>
+                            </div>
 
-                        {item.replies?.map((rep, indexRep) => (
-                            <div key={indexRep} className={videoMod.left__line__c1}>
-                                <div className={videoMod.cmt__container__c1}>
-                                    <div className={videoMod.cmt__container__header}>
-                                        <img src={`${rep.avatar}`} alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__avt} />
-                                        <div className={videoMod.cmt__container__header__groupTitle}>
-                                            <div className={videoMod.cmt__container__header__title}>
-                                                {rep.fullname}
-                                            </div>
-                                            <div className={videoMod.cmt__container__header__subtitle}>
-                                                {rep.comment_title}
+                            {item.replies?.map((rep, indexRep) => (
+                                <div key={indexRep} className={videoMod.left__line__c1}>
+                                    <div className={videoMod.cmt__container__c1}>
+                                        <div className={videoMod.cmt__container__header}>
+                                            <img src={`${rep.avatar}`} alt="icon-user" className={videoMod.cmt__container__avt} />
+                                            <div className={videoMod.cmt__container__header__groupTitle}>
+                                                <div className={videoMod.cmt__container__header__title}>
+                                                    {rep.fullname}
+                                                </div>
+                                                <div className={videoMod.cmt__container__header__subtitle}>
+                                                    {rep.comment_title}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className={videoMod.cmt__container__content}>
-                                        <div
-                                            dangerouslySetInnerHTML={{ __html: rep.comment_text }}
-                                        ></div>
-                                    </div>
-                                    <div className={`${rep.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
-                                        {rep.user_id === userState?.id ? (
-                                            <div className={videoMod.cmt__container__sevice} onClick={() => {
-                                                setIdCmtChange(rep.id)
-                                                setEditCmt__c1(true)
-                                                if (editCmt) {
-                                                    setEditCmt(false)
-                                                }
-                                                if (editCmt__c2) {
-                                                    setEditCmt__c2(false)
-                                                }
-                                            }}>
-                                                <img src="/img_admin/action2.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
-                                            </div>
-                                        ) : (<></>)}
-                                        <div
-                                            onClick={() => {
-                                                if (rep.user_id === userState?.id) {
-                                                    handleDeleteCmt(id, rep.id)
-                                                } else {
-                                                    handleHiddenCmt(id, rep.id)
-                                                }
-                                            }}
-                                            className={videoMod.cmt__container__sevice}
-                                        >
+                                        <div className={videoMod.cmt__container__content}>
+                                            <div
+                                                dangerouslySetInnerHTML={{ __html: rep.comment_text }}
+                                            ></div>
+                                        </div>
+                                        <div className={`${rep.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
                                             {rep.user_id === userState?.id ? (
-                                                <img src="/img/deleteMessage.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
-                                            ) : (
+                                                <div className={videoMod.cmt__container__sevice} onClick={() => {
+                                                    setIdCmtChange(rep.id)
+                                                    setEditCmt__c1(true)
+                                                    if (editCmt) {
+                                                        setEditCmt(false)
+                                                    }
+                                                    if (editCmt__c2) {
+                                                        setEditCmt__c2(false)
+                                                    }
+                                                }}>
+                                                    <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                </div>
+                                            ) : (<></>)}
+                                            <div
+                                                onClick={() => {
+                                                    // if (rep.user_id === userState?.id) {
+                                                    //     handleDeleteCmt(id, rep.id)
+                                                    // } else {
+                                                    handleHiddenCmt(id, rep.id)
+                                                    // }
+                                                }}
+                                                className={videoMod.cmt__container__sevice}
+                                            >
+                                                {/* {rep.user_id === userState?.id ? (
+                                                <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                            ) : ( */}
                                                 <>
                                                     {rep.del_flag ? (
                                                         <img src="/img/action.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
@@ -729,91 +774,98 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                         <img src="/img/hiddenEye.svg" alt="Khóa học Node.js cơ bản tại TTO.sh" className={videoMod.cmt__container__sevice__icon} />
                                                     )}
                                                 </>
-                                            )}
-                                        </div>
-                                        <div
-                                            className={videoMod.cmt__container__sevice}
-                                            onClick={() => {
-                                                handleRepCmt__c1(rep.id)
-                                            }}>
-                                            <img src="/img/replyCmt.svg" alt="Lập trình backend với ExpressJS từ TTO" className={videoMod.cmt__container__sevice__icon} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={`${activeReplyId__c1 === rep.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
-                                    <div className={videoMod.repCmt__avt__ctn}>
-                                        <img src={`${userState?.avatar}`} alt="Lập trình backend với ExpressJS từ TTO" className={videoMod.repCmt__avt} />
-                                    </div>
-                                    <div className={videoMod.repCmt__form}>
-                                        <CkediterCustom
-                                            initialData={valueCmt__c1}
-                                            onChange={(e) => setValueCmt__c1(e)}
-                                        ></CkediterCustom>
-                                        <div className={videoMod.repCmt__form__sevice}>
-                                            <button className={videoMod.repCmt__form__sevice__active}>Hủy</button>
-                                            <button
-                                                className={videoMod.repCmt__form__sevice__active}
+                                                {/* )} */}
+                                            </div>
+                                            <div
+                                                className={videoMod.cmt__container__sevice}
                                                 onClick={() => {
-                                                    if (editCmt__c1) {
-                                                        handleFetchChangeCmt(rep.id)
-                                                    } else {
-                                                        handleFetchCmt__c1(rep.id)
-                                                    }
-                                                }}>Trả lời</button>
+                                                    handleRepCmt__c1(rep.id)
+                                                }}>
+                                                <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                {rep?.replies?.map((rely, indexRely) => (
-                                    <div key={indexRely} className={videoMod.left__line__c2}>
-                                        <div className={videoMod.cmt__container__c2}>
-                                            <div className={videoMod.cmt__container__header}>
-                                                <img src={`${rely.avatar}`} alt="Lập trình backend với ExpressJS từ TTO" className={videoMod.cmt__container__avt} />
-                                                <div className={videoMod.cmt__container__header__groupTitle}>
-                                                    <div className={videoMod.cmt__container__header__title}>
-                                                        {rely.fullname}
-                                                    </div>
-                                                    <div className={videoMod.cmt__container__header__subtitle}>
-                                                        {rely.comment_title}
+                                    <div className={`${activeReplyId__c1 === rep.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
+                                        <div className={videoMod.repCmt__avt__ctn}>
+                                            <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                                        </div>
+                                        <div className={videoMod.repCmt__form}>
+                                            <CustomJoditEditor
+                                                name="valueCmt__c1"
+                                                value={valueCmt__c1}
+                                                onChange={(name, data) => setValueCmt__c1(data)}
+                                            />
+                                            <div className={videoMod.repCmt__form__sevice}>
+                                                <button className={videoMod.repCmt__form__sevice__active}
+                                                    onClick={() => {
+                                                        setValueCmt__c1('')
+                                                        setActiveReplyId__c1(null)
+                                                    }}
+                                                >Hủy</button>
+                                                <button
+                                                    disabled={valueCmt__c1 === '' ? true : false}
+                                                    className={videoMod.repCmt__form__sevice__active}
+                                                    onClick={() => {
+                                                        if (editCmt__c1) {
+                                                            handleFetchChangeCmt(rep.id)
+                                                        } else {
+                                                            handleFetchCmt__c1(rep.id)
+                                                        }
+                                                    }}>Trả lời</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {rep?.replies?.map((rely, indexRely) => (
+                                        <div key={indexRely} className={videoMod.left__line__c2}>
+                                            <div className={videoMod.cmt__container__c2}>
+                                                <div className={videoMod.cmt__container__header}>
+                                                    <img src={`${rely.avatar}`} alt="icon-user" className={videoMod.cmt__container__avt} />
+                                                    <div className={videoMod.cmt__container__header__groupTitle}>
+                                                        <div className={videoMod.cmt__container__header__title}>
+                                                            {rely.fullname}
+                                                        </div>
+                                                        <div className={videoMod.cmt__container__header__subtitle}>
+                                                            {rely.comment_title}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className={videoMod.cmt__container__content}>
-                                                <div
-                                                    dangerouslySetInnerHTML={{ __html: rely.comment_text }}
-                                                ></div>
-                                            </div>
-                                            <div className={`${rely.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
-                                                {rely.user_id === userState?.id ? (
+                                                <div className={videoMod.cmt__container__content}>
                                                     <div
-                                                        className={videoMod.cmt__container__sevice}
-                                                        onClick={() => {
-                                                            setIdCmtChange(rely.id)
-                                                            setEditCmt__c2(true)
-                                                            if (editCmt) {
-                                                                setEditCmt(false)
-                                                            }
-                                                            if (editCmt__c1) {
-                                                                setEditCmt__c1(false)
-                                                            }
-                                                        }}>
-                                                        <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
-                                                    </div>
-                                                ) : (
-                                                    <></>
-                                                )}
-                                                <div
-                                                    onClick={() => {
-                                                        if (rely.user_id === userState?.id) {
-                                                            handleDeleteCmt(id, rely.id)
-                                                        } else {
-                                                            handleHiddenCmt(id, rely.id)
-                                                        }
-                                                    }}
-                                                    className={videoMod.cmt__container__sevice}
-                                                >
+                                                        dangerouslySetInnerHTML={{ __html: rely.comment_text }}
+                                                    ></div>
+                                                </div>
+                                                <div className={`${rely.user_id === userState?.id ? videoMod.cmt__container__setting : videoMod.cmt__container__setting1}`}>
                                                     {rely.user_id === userState?.id ? (
-                                                        <img src="/img/deleteMessage.svg" alt="Học tập từ xa" className={videoMod.cmt__container__sevice__icon} />
+                                                        <div
+                                                            className={videoMod.cmt__container__sevice}
+                                                            onClick={() => {
+                                                                setIdCmtChange(rely.id)
+                                                                setEditCmt__c2(true)
+                                                                if (editCmt) {
+                                                                    setEditCmt(false)
+                                                                }
+                                                                if (editCmt__c1) {
+                                                                    setEditCmt__c1(false)
+                                                                }
+                                                            }}>
+                                                            <img src="/img_admin/action2.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                        </div>
                                                     ) : (
+                                                        <></>
+                                                    )}
+                                                    <div
+                                                        onClick={() => {
+                                                            // if (rely.user_id === userState?.id) {
+                                                            //     handleDeleteCmt(id, rely.id)
+                                                            // } else {
+                                                            handleHiddenCmt(id, rely.id)
+                                                            // }
+                                                        }}
+                                                        className={videoMod.cmt__container__sevice}
+                                                    >
+                                                        {/* {rely.user_id === userState?.id ? (
+                                                        <img src="/img/deleteMessage.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                    ) : ( */}
                                                         <>
                                                             {rely.del_flag ? (
                                                                 <img src="/img/action.svg" alt="Đào tạo tương tác" className={videoMod.cmt__container__sevice__icon} />
@@ -821,51 +873,62 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                                                 <img src="/img/hiddenEye.svg" alt="Đào tạo tương tác" className={videoMod.cmt__container__sevice__icon} />
                                                             )}
                                                         </>
-                                                    )}
+                                                        {/* )} */}
+                                                    </div>
+                                                    <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt__c2(rely.id)}>
+                                                        <img src="/img/replyCmt.svg" alt="" className={videoMod.cmt__container__sevice__icon} />
+                                                    </div>
                                                 </div>
-                                                <div className={videoMod.cmt__container__sevice} onClick={() => handleRepCmt__c2(rely.id)}>
-                                                    <img src="/img/replyCmt.svg" alt="Học với chuyên gia" className={videoMod.cmt__container__sevice__icon} />
+                                            </div>
+                                            <div className={`${activeReplyId__c2 === rely.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
+                                                <div className={videoMod.repCmt__avt__ctn}>
+                                                    <img src={`${userState?.avatar}`} alt="icon-user" className={videoMod.repCmt__avt} />
+                                                </div>
+                                                <div className={videoMod.repCmt__form}>
+                                                    <CustomJoditEditor
+                                                        name="valueCmt__c2"
+                                                        value={valueCmt__c2}
+                                                        onChange={(name, data) => setValueCmt__c2(data)}
+                                                    />
+                                                    <div className={videoMod.repCmt__form__sevice}>
+                                                        <button className={videoMod.repCmt__form__sevice__active}
+                                                            onClick={() => {
+                                                                setValueCmt__c2('')
+                                                                setActiveReplyId__c2(null)
+                                                            }}
+                                                        >Hủy</button>
+                                                        <button
+                                                            className={videoMod.repCmt__form__sevice__active}
+                                                            disabled={valueCmt__c2 === '' ? true : false}
+                                                            onClick={() => {
+                                                                if (editCmt__c2) {
+                                                                    handleFetchChangeCmt(rely.id)
+                                                                } else {
+                                                                    handleFetchCmt__c2(rely.id)
+                                                                }
+                                                            }}>Trả lời</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={`${activeReplyId__c2 === rely.id ? videoMod.repCmt__container : videoMod.repCmt__container__hidden}`}>
-                                            <div className={videoMod.repCmt__avt__ctn}>
-                                                <img src={`${userState?.avatar}`} alt="Học với chuyên gia" className={videoMod.repCmt__avt} />
-                                            </div>
-                                            <div className={videoMod.repCmt__form}>
-                                                <CkediterCustom
-                                                    initialData={valueCmt__c2}
-                                                    onChange={(e) => setValueCmt__c2(e)}
-                                                ></CkediterCustom>
-                                                <div className={videoMod.repCmt__form__sevice}>
-                                                    <button className={videoMod.repCmt__form__sevice__active}>Hủy</button>
-                                                    <button className={videoMod.repCmt__form__sevice__active} onClick={() => {
-                                                        if (editCmt__c2) {
-                                                            handleFetchChangeCmt(rely.id)
-                                                        } else {
-                                                            handleFetchCmt__c2(rely.id)
-                                                        }
-                                                    }}>Trả lời</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                ))}
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </>)}
             </div >
             <div className={`${videoMod.repCmt__container__boss}`}>
                 <div className={`${activeReplyIdBoss ? videoMod.repCmt__container__boss__1 : videoMod.repCmt__container__boss__1__hidden}`}>
                     <div className={videoMod.repCmt__avt__ctn}>
-                        <img src={`${userState?.avatar}`} alt="Lập trình JavaScript cơ bản tại TTO" className={videoMod.repCmt__avt} /> 
+                        <img src={`${userState?.avatar}`} alt="Lập trình JavaScript cơ bản tại TTO" className={videoMod.repCmt__avt} />
                     </div>
                     <div className={videoMod.repCmt__form}>
-                        <CkediterCustom
-                            initialData={valueCmtBoss}
-                            onChange={(e) => setValueCmtBoss(e)}
-                        ></CkediterCustom>
+                        <CustomJoditEditor
+                            name="valueCmtBoss"
+                            value={valueCmtBoss}
+                            onChange={(name, data) => setValueCmtBoss(data)}
+                        />
                         <div className={videoMod.repCmt__form__sevice}>
                             <button
                                 className={videoMod.repCmt__form__sevice__active}
@@ -876,7 +939,7 @@ const ChatCmt: React.FC<IdCourse> = ({ id, onUpdateTotalComments }) => {
                                     setValueCmtBoss('')
                                 }}
                             >Hủy</button>
-                            <button className={videoMod.repCmt__form__sevice__active} onClick={() => handleFetchCmtBoss()}>Trả lời</button>
+                            <button className={videoMod.repCmt__form__sevice__active} disabled={valueCmtBoss === '' ? true : false} onClick={() => handleFetchCmtBoss()}>Trả lời</button>
                         </div>
                     </div>
                 </div>

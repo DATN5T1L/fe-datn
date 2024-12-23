@@ -12,6 +12,10 @@ import CkediterCustom from "../../../component/globalControl/custom-editor";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
+import dynamic from 'next/dynamic';
+import JoditEditor from "jodit-react";
+import CustomJoditEditor from "@/app/componentGlobal/ckeditor/customEditor";
+
 
 interface Category {
   id: string;
@@ -34,6 +38,7 @@ const AddMarketingPost: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [loadingBtn, setLoadingBtn] = useState<boolean>(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -77,6 +82,7 @@ const AddMarketingPost: React.FC = () => {
       img_post: Yup.mixed().required("Hình ảnh không được để trống"),
     }),
     onSubmit: async (values) => {
+      setLoadingBtn(true)
       const formData = new FormData();
       formData.append("title_post", values.title_post);
       formData.append("content_post", values.content_post);
@@ -105,6 +111,7 @@ const AddMarketingPost: React.FC = () => {
           router.replace('/Marketing/MarketingPosts/')
         }
       } catch (error) {
+        setLoadingBtn(false)
         console.error("Error submitting form:", error);
       }
     },
@@ -224,9 +231,10 @@ const AddMarketingPost: React.FC = () => {
             <p className="text-danger">{formik.errors.title_post}</p>
           )}
         </Form.Group>
-        <CkediterCustom
-          initialData={formik.values.content_post}
-          onChange={(data) => formik.setFieldValue("content_post", data)}
+        <CustomJoditEditor
+          name="content_post"
+          value={formik.values.content_post}
+          onChange={formik.setFieldValue}
         />
         {formik.errors.content_post && formik.touched.content_post && (
           <p className="text-danger">{formik.errors.content_post}</p>
@@ -251,7 +259,13 @@ const AddMarketingPost: React.FC = () => {
             <p className="text-danger">{formik.errors.category_id}</p>
           )}
         </Form.Group>
-        <Button type="submit" className={`${postMod.addBtn} ${mod.btnCTA}`}>Thêm vào</Button>
+        <Button
+          type="submit"
+          className={`${postMod.addBtn} ${mod.btnCTA}`}
+          disabled={loadingBtn}
+        >
+          {loadingBtn ? 'Đang xử lý...' : 'Thêm vào'}
+        </Button>
       </Form>
     </div>
   );

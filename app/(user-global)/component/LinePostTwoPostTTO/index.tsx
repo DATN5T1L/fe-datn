@@ -18,6 +18,8 @@ interface Post {
     fullname: string;
     created_at: string;
     updated_at: string;
+
+    slug_post: string;
 }
 
 interface ApiPostProps {
@@ -52,7 +54,7 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                                         </Col>
                                         <Col xs={12} className="d-flex flex-column justify-content-between">
                                             <Card.Body className="p-0">
-                                                <Link href={`/post/${item.id}`}>  <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
+                                                <Link href={`/post/${item.slug_post}`}>  <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                                 <Card.Text
                                                     className="text-black fs-6 lh-base fw-medium"
                                                     style={{
@@ -65,25 +67,27 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                                                     }}
                                                     dangerouslySetInnerHTML={{ __html: item.content_post }}
                                                 />
-                                            </Card.Body>
+                                            </Card.Body >
                                             <Row className="text-muted align-items-center" style={{ fontSize: '0.8rem' }}>
                                                 <Col xs="auto">{useFormatDate(item.updated_at)}</Col>
                                                 <Col className="text-end">Tuấn Huỳnh</Col>
                                             </Row>
-                                        </Col>
-                                    </Row>
-                                </Card>
-                            </Col>
+                                        </Col >
+                                    </Row >
+                                </Card >
+                            </Col >
                         ))}
-                    </Row>
-                </Col>
+                    </Row >
+                </Col >
 
                 {/* Right section: Hiển thị các bài viết còn lại */}
-                {remainingPosts.length > 0 && (
-                    <ListPostTTO data={remainingPosts} step={step} setStep={setStep} />
-                )}
-            </Row>
-        </Container>
+                {
+                    remainingPosts.length > 0 && (
+                        <ListPostTTO data={remainingPosts} step={step} setStep={setStep} />
+                    )
+                }
+            </Row >
+        </Container >
     );
 };
 

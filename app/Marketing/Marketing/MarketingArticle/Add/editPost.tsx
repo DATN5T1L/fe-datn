@@ -11,6 +11,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import dynamic from 'next/dynamic';
+import CustomJoditEditor from "@/app/componentGlobal/ckeditor/customEditor";
 
 const CkediterCustom = dynamic(() => import('../../../component/globalControl/custom-editor'), { ssr: false });
 
@@ -61,6 +62,7 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [loadingBtn, setLoadingBtn] = useState<boolean>(false)
   const [initialValues, setInitialValues] = useState({
     title_post: "",
     content_post: "",
@@ -136,6 +138,7 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
     }),
     onSubmit: async (values) => {
       const formData = new FormData();
+      setLoadingBtn(true)
 
       if (values.img_post) {
         formData.append("img_post", values.img_post);
@@ -178,11 +181,13 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
               alert("Cập nhật bài viết thành công!");
               router.replace("/Marketing/MarketingPosts/");
             } else {
+              setLoadingBtn(false)
               console.error(result.message || "Đã xảy ra lỗi!");
             }
           }
         }
       } catch (error) {
+        setLoadingBtn(false)
         console.error("Error submitting form:", error);
       }
     },
@@ -299,9 +304,10 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
             <p className="text-danger">{formik.errors.title_post}</p>
           )}
         </Form.Group>
-        <CkediterCustom
-          initialData={formik.values.content_post}
-          onChange={(data) => formik.setFieldValue("content_post", data)}
+        <CustomJoditEditor
+          name="content_post"
+          value={formik.values.content_post}
+          onChange={formik.setFieldValue}
         />
         {formik.errors.content_post && formik.touched.content_post && (
           <p className="text-danger">{formik.errors.content_post}</p>
@@ -326,8 +332,12 @@ const EditMarketingPost: React.FC<EditProps> = ({ id }) => {
             <p className="text-danger">{formik.errors.category_id}</p>
           )}
         </Form.Group>
-        <Button type="submit" className={`${postMod.addBtn} ${mod.btnCTA}`}>
-          Cập nhật bài viết
+        <Button
+          type="submit"
+          className={`${postMod.addBtn} ${mod.btnCTA}`}
+          disabled={loadingBtn}
+        >
+          {loadingBtn ? 'Đang xử lý' : ' Cập nhật bài viết'}
         </Button>
       </Form>
     </div>

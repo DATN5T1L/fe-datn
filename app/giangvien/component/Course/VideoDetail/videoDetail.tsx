@@ -730,7 +730,7 @@ const DocumentDetail: React.FC<DocumentDetailProps> = ({ idDoc }) => {
             </div>
           </div>
         </>
-      ) : ( 
+      ) : (
         <>
           <div
             className={`${videoMod.videoContainer1}`}
@@ -794,7 +794,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data,
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
 
   // Tìm chapter chứa bài học hiện tại
-  const activeChapterIndex = data.data.findIndex(chapter =>
+  const activeChapterIndex = data?.data?.findIndex(chapter =>
     chapter.documents.some(doc => doc.document_id === activeDocumentId)
   );
 
@@ -815,7 +815,7 @@ const ChapterAccordion: React.FC<ChapterAccordionProps> = ({ onChangeType, data,
   return (
     <>
       <Accordion activeKey={activeKeys} alwaysOpen>
-        {data.data.map((item, index) => {
+        {data?.data?.map((item, index) => {
           const chapterKey = `${index}`;
           return (
             <Accordion.Item key={index} eventKey={chapterKey}>
