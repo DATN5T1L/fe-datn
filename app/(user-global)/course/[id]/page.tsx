@@ -292,8 +292,8 @@ const CourseDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
             <section className={`${styles.whyTTO}`} data-aos="fade-up">
                 <Container className={`${styles.container} ${styles.containerWhytto}`}>
                     <Row className={`${styles.row} ${styles.rowHeading}  `}>
-                        <h3 className={styles.titleWhy}>TẠI SAO BẠN NÊN HỌC MOS TẠI TTO?</h3>
-                        <p className={styles.descWhy}>Cách học này sẽ giúp bạn thành công trong MOS.</p>
+                        <h3 className={styles.titleWhy}>Tại sao nên học {`${course.name_course}`} tại TTO.SH?</h3>
+                        <p className={styles.descWhy}>Cách học này sẽ giúp bạn thành công trong {`${course.name_course}`}.</p>
                     </Row>
                     <Row className={`${styles.row} ${styles.rowWhy}`}>
                         <Col md={6} className={styles.contenItem}>

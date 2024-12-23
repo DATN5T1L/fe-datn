@@ -1,19 +1,19 @@
 .content {
   background-color: var(--gray-100);
 }
+
 .generalInfo {
   padding: 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .headerContent {
   background: linear-gradient(107.66deg, #063b42 2.8%, #0f96a8 98%),
-    linear-gradient(
-      252.45deg,
+    linear-gradient(252.45deg,
       rgba(0, 0, 0, 0) 2.14%,
-      rgba(6, 59, 66, 0.2) 100%
-    );
+      rgba(6, 59, 66, 0.2) 100%);
   width: 150px;
   height: 72px;
   box-sizing: border-box;
@@ -55,8 +55,8 @@
 }
 
 .text__img {
-  width: 13px;
-  height: 13px;
+  width: 24px;
+  height: auto;
 }
 
 .headerContent__avt {

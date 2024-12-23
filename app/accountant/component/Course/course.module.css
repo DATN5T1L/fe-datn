@@ -383,8 +383,8 @@
 }
 
 .text__img {
-  width: 13px;
-  height: 13px;
+  width: 24px;
+  height: auto;
 }
 
 .headerContent__avt {

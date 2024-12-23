@@ -131,7 +131,7 @@
 
 .text__img {
   width: 24px !important;
-  height: 24px !important;
+  height: auto !important;
 }
 
 .headerContent__avt {

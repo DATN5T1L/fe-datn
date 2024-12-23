@@ -72,8 +72,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const [dataP, setDataP] = useState<Post>()
 
     useEffect(() => {
-        let isMounted = true; // Để kiểm tra nếu component vẫn được mount
-
+        let isMounted = true;
         fetch(`/api/post/${id}`)
             .then((res) => res.json())
             .then((data) => {

@@ -310,7 +310,7 @@
 
 .text__img {
   width: 24px;
-  height: 24px;
+  height: auto;
 }
 
 .headerContent__avt {
