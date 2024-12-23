@@ -17,7 +17,8 @@ interface Post {
     category_id: string;
     created_at: string;
     updated_at: string;
-    fullname:string;
+    fullname: string;
+    slug_post: string;
 }
 
 interface ApiPostProps {
@@ -52,7 +53,7 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                                         </Col>
                                         <Col xs={12} className="d-flex flex-column justify-content-between">
                                             <Card.Body className="p-0">
-                                              <Link href={`/post/${item.id}`}>  <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
+                                                <Link href={`/post/${item.slug_post}`}>  <Card.Title className="h6 fw-semibold" dangerouslySetInnerHTML={{ __html: item.title_post }} /></Link>
                                                 <Card.Text
                                                     className="text-black fs-6 lh-base fw-medium"
                                                     style={{
@@ -63,7 +64,7 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                                                         textOverflow: "ellipsis",
                                                         maxHeight: "6rem",
                                                     }}
-                                                    dangerouslySetInnerHTML={{ __html: item.content_post }}                                             
+                                                    dangerouslySetInnerHTML={{ __html: item.content_post }}
                                                 />
                                             </Card.Body>
                                             <Row className="text-muted align-items-center" style={{ fontSize: '0.8rem' }}>

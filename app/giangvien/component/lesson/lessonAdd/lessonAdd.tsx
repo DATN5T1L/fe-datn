@@ -9,6 +9,7 @@ import useCookie from "@/app/(user-global)/component/hook/useCookie";
 import { ErrorMessage, useFormik } from "formik";
 import * as Yup from 'yup'
 import dynamic from "next/dynamic";
+import CustomJoditEditorNotToolBar from "@/app/componentGlobal/ckeditor/customEditorNotToolBar";
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 const CkediterCustomFill = dynamic(() => import("../../globalControll/custom-editor-fill"), { ssr: false });
 
@@ -1275,25 +1276,20 @@ const LessonAdd: React.FC = () => {
                 </div>
                 <div className={h.formnhap}>
                   <div className={h.bentrong}>
-                    <div className={h.bentrong_container}>
-                      <div className={h.input__100}>
-                        <div className={h.quest}>Nội dung câu hỏi</div>
-                      </div>
-                      <div className={h.ckeditor}>
-                        <CkediterCustomFill
-                          initialData={formikQuizFill.values.answer_code__true}
-                          onChange={(data) => {
-                            const cleanedData = data.replace(/\_\_\_+/g, '____');
-                            formikQuizFill.setFieldValue("answer_code__true", cleanedData);
-                            formikQuizFill.setTouched({ ...formikQuizFill.touched, answer_code__true: true });
-                            formikQuizFill.validateField("answer_code__true");
-                          }}
-                        ></CkediterCustomFill>
-                        {formikQuizFill.errors.answer_code__true && formikQuizFill.touched.answer_code__true && (
-                          <div className={h.errorText}>{formikQuizFill.errors.answer_code__true} </div>
-                        )}
-                      </div>
-                    </div>
+                      <div className={h.quest}>Nội dung câu hỏi</div>
+                      <CustomJoditEditorNotToolBar
+                        name="answer_code__true"
+                        value={formikQuizFill.values.answer_code__true}
+                        onChange={(field, data) => {
+                          const cleanedData = data.replace(/\_\_\_+/g, '____');
+                          formikQuizFill.setFieldValue(field, cleanedData);
+                          formikQuizFill.setTouched({ ...formikQuizFill.touched, [field]: true });
+                          formikQuizFill.validateField(field);
+                        }}
+                      />
+                      {formikQuizFill.errors.answer_code__true && formikQuizFill.touched.answer_code__true && (
+                        <div className={h.errorText}>{formikQuizFill.errors.answer_code__true} </div>
+                      )}
                   </div>
                   <div className={h.bentrong}>
                     <div>Câu trả lời</div>

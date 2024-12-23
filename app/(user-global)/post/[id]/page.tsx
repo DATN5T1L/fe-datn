@@ -68,31 +68,9 @@ interface PostWithComments<T> {
     comments: T[];
 }
 const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
-    const { id } = params;
+    const slug = params.id;
+    const [id, setId] = useState('')
     const [dataP, setDataP] = useState<Post>()
-
-    useEffect(() => {
-        let isMounted = true; // Để kiểm tra nếu component vẫn được mount
-
-        fetch(`/api/post/${id}`)
-            .then((res) => res.json())
-            .then((data) => {
-                if (isMounted && data) {
-                    console.log("cate:", data);
-                    setDataP(data.data)
-                }
-            })
-            .catch((error) => {
-                if (isMounted) {
-                    console.error("Có lỗi xảy ra: ", error);
-                }
-            });
-
-        return () => {
-            isMounted = false; // Cleanup khi component bị unmount
-        };
-    }, [id]); // Đảm bảo useEffect chạy lại nếu `id` thay đổi
-
     const userId = useSelector((state: RootState) => state.user.user)
     const [data, setData] = useState<Data<Post> | null>(null)
     const [dataWithCmt, setDataWithCmt] = useState<PostWithComments<Comment> | null>(null)
@@ -117,8 +95,41 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
 
 
     useEffect(() => {
-        if (params.id && token) {
-            fetch(`/api/allPost/${params.id}`, {
+        if (slug) {
+            fetch(`/api/slugById/${slug}/Post`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log('data: ', data);
+                    setId(data.Post)
+                })
+        }
+    }, [slug])
+
+    useEffect(() => {
+        let isMounted = true;
+
+        fetch(`/api/post/${id}`)
+            .then((res) => res.json())
+            .then((data) => {
+                if (isMounted && data) {
+                    console.log("cate:", data);
+                    setDataP(data.data)
+                }
+            })
+            .catch((error) => {
+                if (isMounted) {
+                    console.error("Có lỗi xảy ra: ", error);
+                }
+            });
+
+        return () => {
+            isMounted = false;
+        };
+    }, [id, slug]);
+
+    useEffect(() => {
+        if (id && token) {
+            fetch(`/api/allPost/${id}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -132,17 +143,17 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                 .catch(error => console.error(error))
 
         }
-    }, [token])
+    }, [token, id])
 
     useEffect(() => {
-        if (params.id && token) {
+        if (id && token) {
             fetchComments();
         }
-    }, [params.id, token]);
+    }, [id, token]);
 
     const fetchComments = () => {
         setLoadCmt(true);
-        fetch(`/api/comment/${params.id}`, {
+        fetch(`/api/comment/${id}`, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -167,16 +178,16 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     };
 
     useEffect(() => {
-        if (params.id && token && reloadCmt) {
+        if (id && token && reloadCmt) {
             fetchComments();
         }
-    }, [params.id, token, reloadCmt]);
+    }, [id, token, reloadCmt]);
 
     const handleCmtSubmit = (commentId: string | number) => {
         console.log(`Nội dung cho comment ${commentId}:`, cmt)
         setLoadCmtP(true)
         if (commentId && token && userId?.id) {
-            fetch(`/api/commentPost/${params.id}`, {
+            fetch(`/api/commentPost/${id}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -203,7 +214,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
         console.log(`Nội dung trả lời cho comment ${commentId}:`, replyContent)
         setLoadCmt1(true)
         if (commentId && token) {
-            fetch(`/api/commentPost/${params.id}/${commentId}`, {
+            fetch(`/api/commentPost/${id}/${commentId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -231,7 +242,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handleReplySubmitR = (replyId: string) => {
         setLoadCmt2(true)
         if (replyId && token) {
-            fetch(`/api/commentPost/${params.id}/${replyId}`, {
+            fetch(`/api/commentPost/${id}/${replyId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -260,7 +271,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handleReplySubmitRR = (replyId: string) => {
         setLoadCmt3(true)
         if (replyId && token) {
-            fetch(`/api/commentPost/${params.id}/${replyId}`, {
+            fetch(`/api/commentPost/${id}/${replyId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -289,7 +300,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     // const handleDelete = (id: string) => {
     //   if (id && token) {
     //     if (confirm('bạn có muốn xóa bình luận hay không?')) {
-    //       fetch(`/api/deleteCmtPost/${params.id}/${id}`, {
+    //       fetch(`/api/deleteCmtPost/${id}/${id}`, {
     //         method: 'DELETE',
     //         headers: {
     //           Authorization: `Bearer ${token}`,
@@ -311,7 +322,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     const handleHidden = (id: string) => {
         if (id && token) {
             if (confirm('bạn có muốn thay đổi trạng thái bình luận hay không?')) {
-                fetch(`/api/hiddenCmtPost/${params.id}/${id}`, {
+                fetch(`/api/hiddenCmtPost/${id}/${id}`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -344,7 +355,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
             try {
                 if (token && values.id) {
                     if (confirm('Bạn có muốn thay đổi bình luận này không!!')) {
-                        const res = await fetch(`/api/changeCmtPost/${params.id}/${values.id}`, {
+                        const res = await fetch(`/api/changeCmtPost/${id}/${values.id}`, {
                             method: 'PUT',
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -386,7 +397,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
             try {
                 if (token && values.id) {
                     if (confirm('Bạn có muốn thay đổi bình luận này không!!')) {
-                        const res = await fetch(`/api/changeCmtPost/${params.id}/${values.id}`, {
+                        const res = await fetch(`/api/changeCmtPost/${id}/${values.id}`, {
                             method: 'PUT',
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -428,7 +439,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
             try {
                 if (token && values.id) {
                     if (confirm('Bạn có muốn thay đổi bình luận này không!!')) {
-                        const res = await fetch(`/api/changeCmtPost/${params.id}/${values.id}`, {
+                        const res = await fetch(`/api/changeCmtPost/${id}/${values.id}`, {
                             method: 'PUT',
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -494,7 +505,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
     return (
         <>
             <Body>
-                <Container style={{display:'flex'}}>
+                <Container style={{ display: 'flex' }}>
                     {/* <Card style={{ width: '100%' }}>
                         <Card.Header>
                             <Card.Title>{dataP?.title_post}</Card.Title>
@@ -536,7 +547,7 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                     </div>
                                     <div
                                         dangerouslySetInnerHTML={{ __html: data?.data?.content_post }}
-                                        className="fs-5 fs-sm-2 fs-lg-1" style={{width: "100%"}}>
+                                        className="fs-5 fs-sm-2 fs-lg-1" style={{ width: "100%" }}>
 
                                     </div>
                                     <div
@@ -567,8 +578,8 @@ const PostDetail: React.FC<{ params: { id: string } }> = ({ params }) => {
                                         <button
                                             className={`btn btn-primary mt-2 ${cmt === '' ? mod.btn_disabled : ''} ${loadCmtP ? mod.btn_disabled : ''}`}
                                             onClick={() => {
-                                                if (params.id) {
-                                                    handleCmtSubmit(params.id)
+                                                if (id) {
+                                                    handleCmtSubmit(id)
                                                 }
                                             }}
                                             disabled={loadCmtP}

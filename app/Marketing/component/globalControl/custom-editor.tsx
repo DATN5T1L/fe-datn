@@ -121,9 +121,9 @@ const CkediterCustom: React.FC<CkEditorCustomProps> = ({ initialData = '', onCha
             config={{
                 licenseKey: tokenImg,
                 cloudServices: {
-                    tokenUrl: 'https://123319.cke-cs.com/token/dev/35d1d27f0e9e385c53edf0d6b267c2f4b82c737a333c23aec4e4bebc4f8e?limit=10',
+                    tokenUrl: 'https://b_fyh85p50bm.cke-cs.com/token/dev/00646bfdb56ba79f184dd625e62e0e4f1315ca7d22549124ccdc7768cd97?limit=10',
                     uploadUrl: 'https://123319.cke-cs.com/easyimage/upload/',
-                    webSocketUrl: 'wss://123319.cke-cs.com/ws'
+                    webSocketUrl: 'wss://b_fyh85p50bm.cke-cs.com/ws'
                 },
                 plugins: [
                     AccessibilityHelp, Autoformat, AutoImage, Autosave, BlockQuote, Bold, CKBox, CKBoxImageEdit,

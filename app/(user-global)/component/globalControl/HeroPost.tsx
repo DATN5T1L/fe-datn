@@ -30,6 +30,7 @@ interface PostCmt {
     created_at: string;
     updated_at: string;
     fullname: string;
+    slug_post:string;
 }
 interface PostView {
     id: string;
@@ -44,6 +45,7 @@ interface PostView {
     created_at: string;
     updated_at: string;
     fullname: string;
+    slug_post:string;
 }
 interface ApiCate<T> {
     success: string;
