@@ -61,7 +61,7 @@ const ListSingle: React.FC<ApiPostProps> = ({ data }) => {
     return (
         <Container className="m-0">
             <Row style={{ padding: "64px 55px" }}>
-                {data.map((item, index) => {
+                {data?.map((item, index) => {
                     const category = dataCatePost?.data?.find(
                         (cate) => cate.id === item.category_id
                     );
