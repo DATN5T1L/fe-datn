@@ -343,11 +343,15 @@ const nextConfig = {
         source: '/api/postByCmt/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/get-posts-highest-comment/:path*',
       },
-
       {
         source: '/api/postByView/:path*',
         destination: 'https://tto-production-db77.up.railway.app/api/client/post-highest-view/:path*',
       },
+      {
+        source: '/api/postBySlug/:path*',
+        destination: 'https://tto-production-db77.up.railway.app/api/client/get-post-to-engarang/:path*',
+      },
+
       // Lấy ra chi tiết bài viết
       {
         source: '/api/post/:path*',

@@ -30,7 +30,7 @@ const CustomJoditEditor: React.FC<CustomJoditEditorProps> = ({ name, value, onCh
                 value={value}
                 config={config}
                 onChange={(content: string) => onChange(name, content)}
-                onBlur={(newContent: string) => onChange(name, newContent)} 
+                onBlur={(newContent: string) => onChange(name, newContent)}
                 className="w-full h-[70%] mt-10 bg-white"
             />
         </div>

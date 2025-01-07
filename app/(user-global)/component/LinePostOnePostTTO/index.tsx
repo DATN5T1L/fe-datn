@@ -6,6 +6,7 @@ import ListPostTTO from '../ListPostTTO'
 import { Dispatch, SetStateAction } from 'react';
 import styles from '@public/styles/post/LoadPostOnePost.module.css'
 import Link from "next/link"
+import { useRouter } from 'next/navigation';
 interface PostCmt {
     id: string;
     title_post: string;
@@ -18,7 +19,7 @@ interface PostCmt {
     created_at: string;
     updated_at: string;
     fullname: string;
-    slug_post:string;
+    slug_post: string;
 }
 interface PostView {
     id: string;
@@ -33,7 +34,7 @@ interface PostView {
     created_at: string;
     updated_at: string;
     fullname: string;
-    slug_post:string
+    slug_post: string
 }
 interface ApiPostProps {
     // step: string;
@@ -46,9 +47,14 @@ interface TypeProps {
 
 const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
     const data = props.data
-    const arr = data.slice(1);
+    const arr = data?.slice(1);
+    const router = useRouter()
 
-    console.log(`data nè: `, data);
+    const handlePushPost = () => {
+        if (data) {
+            router.replace(`/post/${data[0].slug_post}`)
+        }
+    }
     // const listCount = props.step === "1" ? 2 : 3;
 
     return (
@@ -56,7 +62,7 @@ const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
             <Row className={styles.row}>
                 {/* Left section */}
                 <Col xs={12} lg={6} className={styles.col}>
-                    <Card className={styles.card}>
+                    <Card className={styles.card} onClick={() => handlePushPost()}>
                         {data && (
                             <>
                                 <Card.Img
@@ -66,7 +72,7 @@ const LinePostOnePostTTO: React.FC<ApiPostProps> = (props) => {
                                     className={styles.imgCard}
                                 />
                                 <Card.Body className={styles.cardBody}>
-                                    <Link href={`/post/${data[0].slug_post}`}><Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: data[0].title_post }} /></Link>
+                                    <Card.Title className={styles.cardTitle} dangerouslySetInnerHTML={{ __html: data[0].title_post }} />
                                     <Card.Text className={styles.cardText} dangerouslySetInnerHTML={{ __html: data[0].content_post }} />
                                 </Card.Body>
                             </>

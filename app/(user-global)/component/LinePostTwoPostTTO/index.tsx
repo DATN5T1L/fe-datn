@@ -27,8 +27,8 @@ interface ApiPostProps {
 }
 
 const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
-    const topPosts = data.slice(0, 2); // Lấy 2 bài viết đầu tiên
-    const remainingPosts = data.slice(2); // Các bài viết còn lại
+    const topPosts = data?.slice(0, 2); // Lấy 2 bài viết đầu tiên
+    const remainingPosts = data?.slice(2); // Các bài viết còn lại
     const [step, setStep] = useState("1");
 
     return (
@@ -37,7 +37,7 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                 {/* Left section: Hiển thị 2 bài viết đầu tiên */}
                 <Col xs={12} lg={6}>
                     <Row className="g-4">
-                        {topPosts.map((item, index) => (
+                        {topPosts?.map((item, index) => (
                             <Col xs={6} key={index}>
                                 <Card className="mb-3 border-0">
                                     <Row className="g-3 d-flex flex-column">
@@ -81,13 +81,11 @@ const LinePostTwoPostTTO: React.FC<ApiPostProps> = ({ data }) => {
                 </Col >
 
                 {/* Right section: Hiển thị các bài viết còn lại */}
-                {
-                    remainingPosts.length > 0 && (
-                        <ListPostTTO data={remainingPosts} step={step} setStep={setStep} />
-                    )
-                }
-            </Row >
-        </Container >
+                {remainingPosts?.length > 0 && (
+                    <ListPostTTO data={remainingPosts} step={step} setStep={setStep} />
+                )}
+            </Row>
+        </Container>
     );
 };
 
